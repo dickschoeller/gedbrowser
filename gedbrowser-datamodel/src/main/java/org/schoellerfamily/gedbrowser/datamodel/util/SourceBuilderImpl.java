@@ -26,25 +26,16 @@ public final class SourceBuilderImpl implements SourceBuilder {
         this.gedObjectBuilder = gedObjectBuilder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Root getRoot() {
         return gedObjectBuilder.getRoot();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Source createSource() {
         return new Source();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Source createSource(final String string) {
         final Source source = new Source(getRoot(), new ObjectId(string));
@@ -52,17 +43,11 @@ public final class SourceBuilderImpl implements SourceBuilder {
         return source;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public SourceLink createSourceLink() {
         return new SourceLink();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public SourceLink createSourceLink(final GedObject ged,
             final Source source) {
@@ -75,17 +60,11 @@ public final class SourceBuilderImpl implements SourceBuilder {
         return sourceLink;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Submitter createSubmitter() {
         return new Submitter(getRoot(), null);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Submitter createSubmitter(final String idString) {
         if (idString == null) {
@@ -97,9 +76,6 @@ public final class SourceBuilderImpl implements SourceBuilder {
         return submitter;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Submitter createSubmitter(final String idString, final String name) {
         if (idString == null || name == null) {
@@ -112,9 +88,6 @@ public final class SourceBuilderImpl implements SourceBuilder {
         return submitter;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public SubmitterLink createSubmitterLink(final GedObject ged,
             final Submitter submitter) {

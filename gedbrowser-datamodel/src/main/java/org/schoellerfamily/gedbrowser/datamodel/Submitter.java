@@ -35,9 +35,6 @@ public final class Submitter extends AbstractSource implements Nameable {
         return xref.getIdString();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Name getName() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -45,9 +42,6 @@ public final class Submitter extends AbstractSource implements Nameable {
         return visitor.getNameAttribute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getSurname() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -55,9 +49,6 @@ public final class Submitter extends AbstractSource implements Nameable {
         return visitor.getSurname();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getIndexName() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -65,9 +56,6 @@ public final class Submitter extends AbstractSource implements Nameable {
         return visitor.getIndexName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

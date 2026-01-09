@@ -21,9 +21,6 @@ public final class Source extends AbstractSource {
         super(parent, xref.getIdString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

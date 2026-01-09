@@ -23,25 +23,16 @@ public class AttributeBuilderImpl implements AttributeBuilder {
         this.gedObjectBuilder = gedObjectBuilder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Root getRoot() {
         return gedObjectBuilder.getRoot();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Attribute createAttribute() {
         return new Attribute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Attribute createAttribute(final GedObject ged, final String string) {
         if (ged == null || string == null) {
@@ -52,9 +43,6 @@ public class AttributeBuilderImpl implements AttributeBuilder {
         return attribute;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Attribute createAttribute(final GedObject ged, final String string,
             final String tail) {
@@ -66,9 +54,6 @@ public class AttributeBuilderImpl implements AttributeBuilder {
         return attribute;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Place addPlaceToEvent(final Attribute event,
             final String placeName) {
@@ -77,9 +62,6 @@ public class AttributeBuilderImpl implements AttributeBuilder {
         return place;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Date addDateToGedObject(final GedObject gob, final String string) {
         final Date date = new Date(gob, string);

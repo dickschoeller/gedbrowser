@@ -23,9 +23,6 @@ public class Submission extends GedObject {
         super(parent, objectId.getIdString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

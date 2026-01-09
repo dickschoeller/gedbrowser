@@ -13,9 +13,6 @@ public class HasRoles {
     /** */
     private final Set<UserRoleName> roles = new HashSet<>();
 
-    /**
-     * {@inheritDoc}
-     */
     @SuppressWarnings({ "PMD.OptimizableToArrayCall" })
     public UserRoleName[] getRoles() {
         return roles.toArray(new UserRoleName[0]);
@@ -28,9 +25,6 @@ public class HasRoles {
         roles.add(role);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void addRole(final String role) {
         try {
             roles.add(UserRoleName.valueOf(role));
@@ -56,9 +50,6 @@ public class HasRoles {
         return roles.contains(UserRoleName.valueOf(role));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public boolean hasRole(final UserRoleName role) {
         return roles.contains(role);
     }

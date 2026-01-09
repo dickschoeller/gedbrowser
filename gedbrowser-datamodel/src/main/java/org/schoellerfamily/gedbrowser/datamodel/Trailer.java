@@ -21,9 +21,6 @@ public final class Trailer extends AbstractSpecialObject {
         super(parent, string);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

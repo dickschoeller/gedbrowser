@@ -16,9 +16,6 @@ public interface NoteDocument extends GedDocument<Note> {
      */
     void setTail(String tail);
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);

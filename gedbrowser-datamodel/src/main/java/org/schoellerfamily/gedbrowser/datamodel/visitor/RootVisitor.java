@@ -34,9 +34,6 @@ public final class RootVisitor implements GedObjectVisitor {
 //        return families;
 //    }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final Family family) {
 // Currently commented out.

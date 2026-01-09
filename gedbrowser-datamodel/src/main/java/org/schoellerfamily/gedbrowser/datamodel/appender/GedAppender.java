@@ -20,9 +20,6 @@ public final class GedAppender implements AppenderStrategy {
         this.owner = owner;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void appendString(final String appendage) {
         owner.setString(owner.getString().concat(appendage));

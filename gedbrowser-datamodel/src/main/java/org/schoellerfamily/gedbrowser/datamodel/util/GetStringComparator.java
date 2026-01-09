@@ -16,9 +16,6 @@ public class GetStringComparator
     /** */
     private static final long serialVersionUID = 2L;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     @SuppressWarnings("PMD.NPathComplexity")
     public int compare(final GetString arg0, final GetString arg1) {

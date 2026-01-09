@@ -6,9 +6,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
  * @author Dick Schoeller
  */
 public interface FamilyDocument extends GedDocument<Family> {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);

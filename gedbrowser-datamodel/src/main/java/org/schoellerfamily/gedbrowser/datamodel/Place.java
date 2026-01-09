@@ -22,17 +22,11 @@ public final class Place extends AbstractAttribute
         super(parent, string);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int compareTo(final Place other) {
         return getString().compareTo(other.getString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

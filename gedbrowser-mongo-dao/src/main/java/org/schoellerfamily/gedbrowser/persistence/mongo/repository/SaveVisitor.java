@@ -27,65 +27,41 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
         this.repositoryManager = repositoryManager;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final PersonDocumentMongo document) {
         repositoryManager.getPersonDocumentRepository().save(document);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final FamilyDocumentMongo document) {
         repositoryManager.getFamilyDocumentRepository().save(document);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final SourceDocumentMongo document) {
         repositoryManager.getSourceDocumentRepository().save(document);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final HeadDocumentMongo document) {
         repositoryManager.getHeadDocumentRepository().save(document);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final SubmissionDocumentMongo document) {
         repositoryManager.getSubmissionDocumentRepository().save(document);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final SubmitterDocumentMongo document) {
         repositoryManager.getSubmitterDocumentRepository().save(document);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final TrailerDocumentMongo document) {
         repositoryManager.getTrailerDocumentRepository().save(document);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final NoteDocumentMongo document) {
         final NoteDocumentRepositoryMongo noteDocumentRepository =
@@ -93,9 +69,6 @@ public class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
         noteDocumentRepository.save(document);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final GedDocumentMongo<? extends GedObject> document) {
         // Intentionally empty.

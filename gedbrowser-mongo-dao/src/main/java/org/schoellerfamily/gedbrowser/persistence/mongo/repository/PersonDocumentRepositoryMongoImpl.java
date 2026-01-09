@@ -37,9 +37,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
     private final MongoTemplate mongoTemplate;
     /** */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public PersonDocument findByFileAndString(final String filename,
             final String string) {
@@ -56,9 +53,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return personDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public PersonDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -72,9 +66,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return personDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Collection<PersonDocument> findByFileAndSurname(
             final String filename, final String surname) {
@@ -90,9 +81,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return copy(personDocuments);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Collection<PersonDocument> findByRootAndSurname(
             final RootDocument rootDocument, final String surname) {
@@ -108,9 +96,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return personDocuments;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Collection<PersonDocument> findByFileAndSurnameBeginsWith(
             final String filename, final String beginsWith) {
@@ -154,9 +139,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Collection<PersonDocument> findByRootAndSurnameBeginsWith(
             final RootDocument rootDocument, final String beginsWith) {
@@ -223,9 +205,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Iterable<PersonDocument> findAll(final String filename) {
         final Query searchQuery = new Query(
@@ -236,9 +215,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return copy(personDocuments);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Iterable<PersonDocument> findAll(final RootDocument rootDocument) {
         if (rootDocument == null) {
@@ -253,9 +229,6 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return personDocuments;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public long count(final String filename) {
         final Query searchQuery =
@@ -263,26 +236,17 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, PersonDocumentMongo.class);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, PersonDocumentMongo.class,
                 rootDocument.getFilename(), "I");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, PersonDocumentMongo.class,

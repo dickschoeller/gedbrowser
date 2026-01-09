@@ -29,9 +29,6 @@ public class RootDocumentRepositoryMongoImpl implements
     /** */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final RootDocument findByFileAndString(
             final String filename, final String string) {
@@ -48,9 +45,6 @@ public class RootDocumentRepositoryMongoImpl implements
         return rootDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final RootDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -58,9 +52,6 @@ public class RootDocumentRepositoryMongoImpl implements
                 "Not implementable for this document type");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Iterable<RootDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -76,9 +67,6 @@ public class RootDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Iterable<RootDocument> findAll(
             final RootDocument rootDocument) {
@@ -94,9 +82,6 @@ public class RootDocumentRepositoryMongoImpl implements
         return rootDocuments;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -104,25 +89,16 @@ public class RootDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, RootDocumentMongo.class);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String lastId(final RootDocument rootDocument) {
         return "";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String newId(final RootDocument rootDocument) {
         return "";

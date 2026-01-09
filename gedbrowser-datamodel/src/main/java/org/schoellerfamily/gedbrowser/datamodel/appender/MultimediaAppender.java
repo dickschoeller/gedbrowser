@@ -21,9 +21,6 @@ public final class MultimediaAppender implements AppenderStrategy {
         this.owner = owner;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void appendString(final String appendage) {
         owner.setTail(owner.getTail().concat(appendage));

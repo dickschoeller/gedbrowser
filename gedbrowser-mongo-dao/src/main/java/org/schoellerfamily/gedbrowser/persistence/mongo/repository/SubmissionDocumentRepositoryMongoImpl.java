@@ -27,9 +27,6 @@ public class SubmissionDocumentRepositoryMongoImpl implements
     private final MongoTemplate mongoTemplate;
     /** */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final SubmissionDocument findByFileAndString(
             final String filename, final String string) {
@@ -46,9 +43,6 @@ public class SubmissionDocumentRepositoryMongoImpl implements
         return submDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final SubmissionDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -62,9 +56,6 @@ public class SubmissionDocumentRepositoryMongoImpl implements
         return submissionDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Iterable<SubmissionDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -80,9 +71,6 @@ public class SubmissionDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Iterable<SubmissionDocument> findAll(
             final RootDocument rootDocument) {
@@ -98,9 +86,6 @@ public class SubmissionDocumentRepositoryMongoImpl implements
         return submissionDocuments;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -108,26 +93,17 @@ public class SubmissionDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, SubmissionDocumentMongo.class);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, SubmissionDocumentMongo.class,
                 rootDocument.getFilename(), "SUBN");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, SubmissionDocumentMongo.class,

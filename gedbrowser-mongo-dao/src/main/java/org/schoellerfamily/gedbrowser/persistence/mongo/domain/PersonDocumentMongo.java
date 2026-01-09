@@ -27,17 +27,11 @@ public class PersonDocumentMongo extends GedDocumentMongo<Person>
     /** */
     private String surname;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getType() {
         return "person";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -53,33 +47,21 @@ public class PersonDocumentMongo extends GedDocumentMongo<Person>
         surname = gedObject.getSurname();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getSurname() {
         return surname;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getIndexName() {
         return indexName;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

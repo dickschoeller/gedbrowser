@@ -62,9 +62,6 @@ public final class Root extends AbstractSpecialObject {
         this(string, new RootFinder());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void extraInsert(final FinderObject gob) {
         objects.put(gob.getString(), (GedObject) gob);
@@ -122,9 +119,6 @@ public final class Root extends AbstractSpecialObject {
         this.dbname = dbName;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

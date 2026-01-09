@@ -22,17 +22,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 })
 public class TrailerDocumentMongo extends GedDocumentMongo<Trailer>
         implements TrailerDocument {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getType() {
         return "trailer";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -46,17 +40,11 @@ public class TrailerDocumentMongo extends GedDocumentMongo<Trailer>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

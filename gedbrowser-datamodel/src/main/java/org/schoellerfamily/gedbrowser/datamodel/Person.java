@@ -22,9 +22,6 @@ public final class Person extends GedObject implements Nameable {
         super(parent, xref.getIdString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getSurname() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -32,9 +29,6 @@ public final class Person extends GedObject implements Nameable {
         return visitor.getSurname();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getIndexName() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -42,9 +36,6 @@ public final class Person extends GedObject implements Nameable {
         return visitor.getIndexName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Name getName() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -59,9 +50,6 @@ public final class Person extends GedObject implements Nameable {
         return getSurname().substring(0, 1);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

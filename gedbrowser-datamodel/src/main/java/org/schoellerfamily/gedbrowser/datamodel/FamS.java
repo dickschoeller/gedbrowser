@@ -23,9 +23,6 @@ public final class FamS extends AbstractLink {
         super(parent, string, xref);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

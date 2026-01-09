@@ -18,17 +18,11 @@ public abstract class HasAttributes<G extends GedObject>
     private List<GedDocument<? extends GedObject>> attributes =
         new ArrayList<>();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final List<GedDocument<? extends GedObject>> getAttributes() {
         return attributes;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void setAttributes(
             final List<GedDocument<? extends GedObject>> attributes) {
@@ -36,17 +30,11 @@ public abstract class HasAttributes<G extends GedObject>
         this.attributes.addAll(attributes);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void addAttribute(final GedDocument<?> attribute) {
         attributes.add(attribute);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void clearAttributes() {
         attributes.clear();

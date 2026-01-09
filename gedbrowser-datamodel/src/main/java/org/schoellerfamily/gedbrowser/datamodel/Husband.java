@@ -41,17 +41,11 @@ public final class Husband extends AbstractLink implements Spouse {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Person getSpouse() {
         return (Person) find(getToString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

@@ -49,9 +49,6 @@ public final class Attribute extends AbstractAttribute implements Tail {
         this.setAppender(new TailAppender(this));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getTail() {
         if (tail == null) {
@@ -61,9 +58,6 @@ public final class Attribute extends AbstractAttribute implements Tail {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setTail(final String tail) {
         if (tail == null) {
@@ -73,9 +67,6 @@ public final class Attribute extends AbstractAttribute implements Tail {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

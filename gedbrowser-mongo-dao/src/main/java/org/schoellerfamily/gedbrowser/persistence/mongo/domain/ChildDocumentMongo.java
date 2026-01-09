@@ -13,17 +13,11 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
  */
 public class ChildDocumentMongo extends GedDocumentMongo<Child>
         implements ChildDocument {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getType() {
         return "child";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -37,17 +31,11 @@ public class ChildDocumentMongo extends GedDocumentMongo<Child>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

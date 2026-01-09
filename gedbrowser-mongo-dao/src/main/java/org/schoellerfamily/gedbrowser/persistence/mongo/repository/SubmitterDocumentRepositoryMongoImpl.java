@@ -28,9 +28,6 @@ public class SubmitterDocumentRepositoryMongoImpl implements
     private final MongoTemplate mongoTemplate;
     /** */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final SubmitterDocument findByFileAndString(
             final String filename, final String string) {
@@ -48,9 +45,6 @@ public class SubmitterDocumentRepositoryMongoImpl implements
         return submitterDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final SubmitterDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -64,9 +58,6 @@ public class SubmitterDocumentRepositoryMongoImpl implements
         return submitterDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Iterable<SubmitterDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -82,9 +73,6 @@ public class SubmitterDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Iterable<SubmitterDocument> findAll(
             final RootDocument rootDocument) {
@@ -100,9 +88,6 @@ public class SubmitterDocumentRepositoryMongoImpl implements
         return submitterDocuments;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -110,26 +95,17 @@ public class SubmitterDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, SubmitterDocumentMongo.class);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, SubmitterDocumentMongo.class,
                 rootDocument.getFilename(), "SUB");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, SubmitterDocumentMongo.class,

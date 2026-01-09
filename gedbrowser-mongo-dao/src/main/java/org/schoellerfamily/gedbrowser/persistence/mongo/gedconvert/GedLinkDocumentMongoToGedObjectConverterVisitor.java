@@ -36,9 +36,6 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         super(parent);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final ChildDocumentMongo document) {
         final Child child = new Child(getParent(), "Child",
@@ -47,9 +44,6 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         setGedObject(child);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final FamCDocumentMongo document) {
         final FamC famc = new FamC(getParent(), "Child of Family",
@@ -58,9 +52,6 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         setGedObject(famc);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final FamSDocumentMongo document) {
         final FamS fams = new FamS(getParent(), "Spouse of Family",
@@ -68,9 +59,6 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         fams.setFromString(getParent().getString());
         setGedObject(fams);
     }
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final HusbandDocumentMongo document) {
         final Husband husband = new Husband(getParent(), "Husband",
@@ -79,45 +67,30 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         setGedObject(husband);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final NoteLinkDocumentMongo document) {
         setGedObject(new NoteLink(getParent(), "Note",
                 new ObjectId(document.getString())));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final SourceLinkDocumentMongo document) {
         setGedObject(new SourceLink(getParent(), "Source",
                 new ObjectId(document.getString())));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final SubmissionLinkDocumentMongo document) {
         setGedObject(new SubmissionLink(getParent(), "Submission",
                 new ObjectId(document.getString())));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final SubmitterLinkDocumentMongo document) {
         setGedObject(new SubmitterLink(getParent(), "Submitter",
                 new ObjectId(document.getString())));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final WifeDocumentMongo document) {
         final WifeDocumentMongo wifeDocument = (WifeDocumentMongo) document;

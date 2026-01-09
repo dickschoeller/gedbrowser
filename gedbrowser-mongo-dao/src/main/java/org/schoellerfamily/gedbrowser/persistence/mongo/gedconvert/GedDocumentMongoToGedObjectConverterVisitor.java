@@ -26,9 +26,6 @@ public final class GedDocumentMongoToGedObjectConverterVisitor
         super(parent);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final AttributeDocumentMongo document) {
         final Attribute attribute = new Attribute(getParent());
@@ -37,17 +34,11 @@ public final class GedDocumentMongoToGedObjectConverterVisitor
         setGedObject(attribute);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final DateDocumentMongo document) {
         setGedObject(new Date(getParent(), document.getString()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final MultimediaDocumentMongo document) {
         final Multimedia attribute = new Multimedia(getParent(),
@@ -56,25 +47,16 @@ public final class GedDocumentMongoToGedObjectConverterVisitor
         setGedObject(attribute);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final NameDocumentMongo document) {
         setGedObject(new Name(getParent(), document.getString()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final PlaceDocumentMongo document) {
         setGedObject(new Place(getParent(), document.getString()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void visit(final RootDocumentMongo document) {
         final Root root = new Root("Root");

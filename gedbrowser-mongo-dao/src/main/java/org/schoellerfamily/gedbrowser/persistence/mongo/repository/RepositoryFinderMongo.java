@@ -53,9 +53,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         Family.class, Source.class, Head.class, Note.class, Submission.class, Submitter.class,
         Trailer.class);
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GedObject find(final FinderObject owner, final String str) {
         for (final Class<? extends GedObject> clazz : CLASSES) {
@@ -67,9 +64,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <T extends GedObject> T find(final FinderObject owner, final String str,
         final Class<T> clazz) {
@@ -91,9 +85,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return clazz.cast(document.getGedObject());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getFilename(final FinderObject owner) {
         if (owner instanceof Root) {
@@ -102,9 +93,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return owner.getFilename();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getDbName(final FinderObject owner) {
         if (owner instanceof Root) {
@@ -113,9 +101,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return owner.getDbName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void insert(final FinderObject owner, final FinderObject fob) {
         final GedObject gob = (GedObject) fob;
@@ -130,9 +115,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         log.debug("Ending insert: {}", gob.getString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Collection<Person> findBySurname(final FinderObject owner, final String surname) {
         log.info("Starting findBySurname");
@@ -153,9 +135,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return persons;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Collection<String> findBySurnamesBeginWith(final FinderObject owner,
         final String beginsWith) {
@@ -176,9 +155,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return surnames;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Collection<String> findSurnameInitialLetters(final FinderObject owner) {
         log.info("Starting findSurnameInitialLetters");
@@ -199,9 +175,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return matches;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @SuppressWarnings("unchecked")
     @Override
     public <T extends GedObject> Collection<T> find(final FinderObject owner,

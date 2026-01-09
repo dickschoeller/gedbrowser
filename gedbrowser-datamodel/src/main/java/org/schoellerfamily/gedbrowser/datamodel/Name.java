@@ -63,17 +63,11 @@ public final class Name extends GedObject implements Nameable {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Name getName() {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getSurname() {
         if (surname.isEmpty()) {
@@ -99,9 +93,6 @@ public final class Name extends GedObject implements Nameable {
         return suffix;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getIndexName() {
         final boolean hasPrefix = !prefix.isEmpty();
@@ -141,9 +132,6 @@ public final class Name extends GedObject implements Nameable {
         return buffer.toString();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

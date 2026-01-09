@@ -28,9 +28,6 @@ public class FamilyBuilderImpl implements FamilyBuilder {
         this.gedObjectBuilder = gedObjectBuilder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Root getRoot() {
         return gedObjectBuilder.getRoot();

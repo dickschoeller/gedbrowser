@@ -24,25 +24,16 @@ public final class PersonBuilderImpl implements PersonBuilder {
         this.gedObjectBuilder = gedObjectBuilder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Root getRoot() {
         return gedObjectBuilder.getRoot();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Person createPerson() {
         return new Person();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Person createPerson(final String idString) {
         if (idString == null) {
@@ -53,9 +44,6 @@ public final class PersonBuilderImpl implements PersonBuilder {
         return person;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Person createPerson(final String idString, final String name) {
         if (idString == null || name == null) {
@@ -67,9 +55,6 @@ public final class PersonBuilderImpl implements PersonBuilder {
         return person;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Name addNameToPerson(final Person person, final String string) {
         if (person == null || string == null) {
@@ -81,9 +66,6 @@ public final class PersonBuilderImpl implements PersonBuilder {
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Attribute createPersonEvent(final Person person, final String type,
             final String dateString) {
@@ -92,17 +74,11 @@ public final class PersonBuilderImpl implements PersonBuilder {
         return event;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Attribute createPersonEvent(final Person person, final String type) {
         return gedObjectBuilder.createAttribute(person, type);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Multimedia addMultimediaToPerson(final Person person,
             final String string) {

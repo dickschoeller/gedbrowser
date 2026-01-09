@@ -38,9 +38,6 @@ public final class Child extends AbstractLink {
         return toPerson;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

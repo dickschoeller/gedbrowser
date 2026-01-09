@@ -40,9 +40,6 @@ public class Note extends GedObject implements Tail {
         this.setAppender(new TailAppender(this));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getTail() {
         if (tail == null) {
@@ -52,9 +49,6 @@ public class Note extends GedObject implements Tail {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setTail(final String tail) {
         if (tail == null) {
@@ -64,9 +58,6 @@ public class Note extends GedObject implements Tail {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

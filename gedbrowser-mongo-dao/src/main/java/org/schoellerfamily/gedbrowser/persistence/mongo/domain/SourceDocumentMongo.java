@@ -22,17 +22,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 })
 public class SourceDocumentMongo extends GedDocumentMongo<Source>
         implements SourceDocument {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getType() {
         return "source";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -46,17 +40,11 @@ public class SourceDocumentMongo extends GedDocumentMongo<Source>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

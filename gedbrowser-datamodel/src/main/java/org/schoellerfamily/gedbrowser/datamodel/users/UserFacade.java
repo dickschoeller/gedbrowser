@@ -11,9 +11,6 @@ public interface UserFacade extends User {
      */
     User getUser();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default String getUsername() {
         if (getUser() == null) {
@@ -22,9 +19,6 @@ public interface UserFacade extends User {
         return getUser().getUsername();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void setUsername(final String username) {
         if (getUser() == null) {
@@ -33,9 +27,6 @@ public interface UserFacade extends User {
         getUser().setUsername(username);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default String getFirstname() {
         if (getUser() == null) {
@@ -44,9 +35,6 @@ public interface UserFacade extends User {
         return getUser().getFirstname();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void setFirstname(final String firstname) {
         if (getUser() == null) {
@@ -55,9 +43,6 @@ public interface UserFacade extends User {
         getUser().setFirstname(firstname);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default String getLastname() {
         if (getUser() == null) {
@@ -66,9 +51,6 @@ public interface UserFacade extends User {
         return getUser().getLastname();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void setLastname(final String lastname) {
         if (getUser() == null) {
@@ -77,9 +59,6 @@ public interface UserFacade extends User {
         getUser().setLastname(lastname);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default String getEmail() {
         if (getUser() == null) {
@@ -88,9 +67,6 @@ public interface UserFacade extends User {
         return getUser().getEmail();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void setEmail(final String email) {
         if (getUser() == null) {
@@ -99,9 +75,6 @@ public interface UserFacade extends User {
         getUser().setEmail(email);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default String getPassword() {
         if (getUser() == null) {
@@ -110,9 +83,6 @@ public interface UserFacade extends User {
         return getUser().getPassword();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void setPassword(final String password) {
         if (getUser() == null) {
@@ -121,9 +91,6 @@ public interface UserFacade extends User {
         getUser().setPassword(password);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default UserRoleName[] getRoles() {
         if (getUser() == null) {
@@ -132,9 +99,6 @@ public interface UserFacade extends User {
         return getUser().getRoles();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void addRole(final String role) {
         if (getUser() == null) {
@@ -143,9 +107,6 @@ public interface UserFacade extends User {
         getUser().addRole(role);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default boolean hasRole(final UserRoleName role) {
         if (getUser() == null) {

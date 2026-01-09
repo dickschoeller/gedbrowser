@@ -66,74 +66,47 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final PersonDocumentMongo document) {
         gedObject = new Person(parent, new ObjectId(document.getString()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final FamilyDocumentMongo document) {
         gedObject = new Family(parent, new ObjectId(document.getString()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final SourceDocumentMongo document) {
         gedObject = new Source(parent, new ObjectId(document.getString()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final HeadDocumentMongo document) {
         gedObject = new Head(parent, "Header");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final SubmissionDocumentMongo document) {
         gedObject = new Submission(parent, new ObjectId(document.getString()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final SubmitterDocumentMongo document) {
         gedObject = new Submitter(parent, new ObjectId(document.getString()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final TrailerDocumentMongo document) {
         gedObject = new Trailer(parent, document.getString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(final NoteDocumentMongo document) {
         gedObject = new Note(parent, new ObjectId(document.getString()),
                 document.getTail());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void visit(
         final GedDocumentMongo<? extends GedObject> document) {

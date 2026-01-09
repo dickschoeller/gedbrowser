@@ -28,9 +28,6 @@ public class HeadDocumentRepositoryMongoImpl implements
     /** */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final HeadDocument findByFileAndString(
             final String filename, final String string) {
@@ -47,9 +44,6 @@ public class HeadDocumentRepositoryMongoImpl implements
         return headDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final HeadDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -63,9 +57,6 @@ public class HeadDocumentRepositoryMongoImpl implements
         return headDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Iterable<HeadDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -81,9 +72,6 @@ public class HeadDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Iterable<HeadDocument> findAll(
             final RootDocument rootDocument) {
@@ -99,9 +87,6 @@ public class HeadDocumentRepositoryMongoImpl implements
         return headDocuments;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -109,25 +94,16 @@ public class HeadDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, HeadDocumentMongo.class);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String lastId(final RootDocument rootDocument) {
         return "";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String newId(final RootDocument rootDocument) {
         return "";

@@ -47,9 +47,6 @@ public final class Head extends AbstractSpecialObject {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

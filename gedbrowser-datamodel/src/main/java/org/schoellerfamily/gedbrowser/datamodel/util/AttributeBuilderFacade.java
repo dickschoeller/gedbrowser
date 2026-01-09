@@ -15,50 +15,32 @@ public interface AttributeBuilderFacade extends AttributeBuilder {
      */
     AttributeBuilder getAttributeBuilder();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default Root getRoot() {
         return getAttributeBuilder().getRoot();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default Attribute createAttribute() {
         return getAttributeBuilder().createAttribute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default Attribute createAttribute(final GedObject ged, final String string) {
         return getAttributeBuilder().createAttribute(ged, string);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default Attribute createAttribute(final GedObject ged, final String string,
             final String tail) {
         return getAttributeBuilder().createAttribute(ged, string, tail);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default Place addPlaceToEvent(final Attribute event, final String placeName) {
         return getAttributeBuilder().addPlaceToEvent(event, placeName);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default Date addDateToGedObject(final GedObject gob, final String string) {
         return getAttributeBuilder().addDateToGedObject(gob, string);

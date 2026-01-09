@@ -107,9 +107,6 @@ public final class Date extends AbstractAttribute {
         return formatter.format(c.getTime());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

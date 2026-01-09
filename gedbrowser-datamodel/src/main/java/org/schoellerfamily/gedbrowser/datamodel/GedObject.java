@@ -85,9 +85,6 @@ public abstract class GedObject extends AbstractFinderObject
         return this.set;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getString() {
         return string;
@@ -112,9 +109,6 @@ public abstract class GedObject extends AbstractFinderObject
         appender.appendString(appendage);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final GedObject getParent() {
         return parent;
@@ -153,9 +147,6 @@ public abstract class GedObject extends AbstractFinderObject
         return attributes.contains(attribute);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final int hashCode() {
         int result = 1;
@@ -168,9 +159,6 @@ public abstract class GedObject extends AbstractFinderObject
         return result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     @SuppressWarnings({ "PMD.CyclomaticComplexity",
             "PMD.ModifiedCyclomaticComplexity",
@@ -210,9 +198,6 @@ public abstract class GedObject extends AbstractFinderObject
         return !attributes.isEmpty();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String toString() {
         return string;

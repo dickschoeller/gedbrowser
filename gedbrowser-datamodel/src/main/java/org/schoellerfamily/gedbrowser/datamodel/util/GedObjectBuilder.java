@@ -132,41 +132,26 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
         this.attributeBuilder = new AttributeBuilderImpl(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Root getRoot() {
         return root;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public PersonBuilder getPersonBuilder() {
         return personBuilder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public FamilyBuilder getFamilyBuilder() {
         return familyBuilder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public SourceBuilder getSourceBuilder() {
         return sourceBuilder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public AttributeBuilder getAttributeBuilder() {
         return attributeBuilder;

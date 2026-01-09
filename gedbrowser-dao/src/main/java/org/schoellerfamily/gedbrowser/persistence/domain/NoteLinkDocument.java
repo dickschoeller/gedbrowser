@@ -6,9 +6,6 @@ import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
  * @author Dick Schoeller
  */
 public interface NoteLinkDocument extends GedDocument<NoteLink> {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);

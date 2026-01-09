@@ -27,9 +27,6 @@ public class SourceDocumentRepositoryMongoImpl implements
     private final MongoTemplate mongoTemplate;
     /** */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final SourceDocument findByFileAndString(
             final String filename, final String string) {
@@ -46,9 +43,6 @@ public class SourceDocumentRepositoryMongoImpl implements
         return sourceDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final SourceDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -62,9 +56,6 @@ public class SourceDocumentRepositoryMongoImpl implements
         return sourceDocument;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Iterable<SourceDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -80,9 +71,6 @@ public class SourceDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Iterable<SourceDocument> findAll(
             final RootDocument rootDocument) {
@@ -98,9 +86,6 @@ public class SourceDocumentRepositoryMongoImpl implements
         return sourceDocuments;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -108,26 +93,17 @@ public class SourceDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, SourceDocumentMongo.class);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, SourceDocumentMongo.class,
                 rootDocument.getFilename(), "S");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, SourceDocumentMongo.class,

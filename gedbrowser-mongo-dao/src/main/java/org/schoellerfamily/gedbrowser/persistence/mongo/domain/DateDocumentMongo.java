@@ -13,17 +13,11 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
  */
 public class DateDocumentMongo extends GedDocumentMongo<Date>
         implements DateDocument {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getType() {
         return "date";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -37,17 +31,11 @@ public class DateDocumentMongo extends GedDocumentMongo<Date>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);
