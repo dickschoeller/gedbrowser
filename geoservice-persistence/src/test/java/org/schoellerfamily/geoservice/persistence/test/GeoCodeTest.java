@@ -33,6 +33,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -40,8 +41,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.ExcessivePublicCount", "PMD.GodClass",
-    "PMD.TooManyStaticImports" })
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.ExcessivePublicCount", "PMD.TooManyMethods" })
 @Slf4j
 public final class GeoCodeTest {
 
@@ -71,7 +71,17 @@ public final class GeoCodeTest {
      * @author Dick Schoeller
      */
     @Configuration
-    static class ContextConfiguration {
+    @RequiredArgsConstructor
+    public static class ContextConfiguration {
+        /** */
+        private transient GeoCode gcc;
+
+        /** */
+        private transient GeoCoder geoCoder;
+
+        /** */
+        private transient GeoCodeTestFixture testFixture;
+
         /**
          * Get the fixture that helps setup tests.
          *
@@ -79,7 +89,10 @@ public final class GeoCodeTest {
          */
         @Bean
         public GeoCodeTestFixture testFixture() {
-            return new GeoCodeTestFixture();
+            if (testFixture == null) {
+                testFixture = new GeoCodeTestFixture();
+            }
+            return testFixture;
         }
 
         /**
@@ -87,7 +100,10 @@ public final class GeoCodeTest {
          */
         @Bean
         public GeoCode geoCode() {
-            return new GeoCodeStub();
+            if (gcc == null) {
+                gcc = new GeoCodeStub(geoCoder());
+            }
+            return gcc;
         }
 
         /**
@@ -95,7 +111,10 @@ public final class GeoCodeTest {
          */
         @Bean
         public GeoCoder geoCoder() {
-            return new StubGeoCoder(testFixture().expectedNotFound());
+            if (geoCoder == null) {
+                geoCoder = new StubGeoCoder(testFixture().expectedNotFound());
+            }
+            return geoCoder;
         }
 
         /**
@@ -103,7 +122,7 @@ public final class GeoCodeTest {
          */
         @Bean
         public GeoCodeLoader loader() {
-            return new GeoCodeLoader();
+            return new GeoCodeLoader(geoCode());
         }
     }
 
@@ -358,7 +377,7 @@ public final class GeoCodeTest {
     void testNotFounds() {
         log.info("Entering testNotFounds");
         gcc.clear();
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         final List<String> expectList = Arrays.asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
@@ -416,7 +435,7 @@ public final class GeoCodeTest {
     void testCountNotFoundsLowBound() {
         log.info("Entering testCountNotFounds");
         gcc.clear();
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
         assertTrue(count >= testFixture.expectedLowBound(), "Count too low at: " + count);
@@ -427,7 +446,7 @@ public final class GeoCodeTest {
     void testCountNotFoundsHighBound() {
         log.info("Entering testCountNotFounds");
         gcc.clear();
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
         assertTrue(count <= testFixture.expectedHighBound(), "Count too high at: " + count);
@@ -482,7 +501,7 @@ public final class GeoCodeTest {
     void testSize() {
         log.info("Entering testSize");
         gcc.clear();
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         final int expected = 19;
         assertEquals(expected, gcc.size(), "Should match known table size of 19");
     }
@@ -534,7 +553,7 @@ public final class GeoCodeTest {
     void testDump() {
         log.info("Entering testDump");
         gcc.clear();
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         gcc.dump();
         final int expected = 19;
         assertEquals(expected, gcc.size(), "Should match known table size of 19");

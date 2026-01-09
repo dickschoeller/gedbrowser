@@ -3,26 +3,22 @@ package org.schoellerfamily.geoservice.persistence.fixture;
 import java.util.Arrays;
 
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Dick Schoeller
  */
 public class GeoCodeTestFixture {
-    /** */
-    @Autowired
-    private GeoCode gcc;
 
 
     /**
-     * High bound for not founds.
+     * High bound for not founds.final
      * Googles responses are sufficiently inconsistent that we can't
      * rely on an exact count.
      */
     private static final int HIGH_BOUND = 20;
 
     /**
-     * Low bound for not founds.
+     * Low bound for not founds.null
      * Googles responses are sufficiently inconsistent that we can't
      * rely on an exact count.
      */
@@ -149,10 +145,11 @@ public class GeoCodeTestFixture {
 
     /**
      * Load the standard test addresses into the provided geocode.
+     * @param gcc the geocode to load
      */
-    public final void loadTestAddresses() {
+    public final void loadTestAddresses(final GeoCode gcc) {
         gcc.clear();
-        load(addressTable());
+        load(addressTable(), gcc);
     }
 
     /**
@@ -161,9 +158,9 @@ public class GeoCodeTestFixture {
      * be empty.
      *
      * @param strings the array of strings
+     * @param gcc the geocode to load
      */
-    @SuppressWarnings("PMD.UseVarargs")
-    private void load(final String[][] strings) {
+    private void load(final String[][] strings, final GeoCode gcc) {
         for (final String[] line : strings) {
             if (line.length < 2 || line[1] == null || line[1].isEmpty()) {
                 gcc.find(line[0]);

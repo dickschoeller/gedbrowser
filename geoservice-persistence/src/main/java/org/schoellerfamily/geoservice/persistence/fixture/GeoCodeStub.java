@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.persistence.GeoCodeBasic;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
@@ -18,43 +19,35 @@ import lombok.extern.slf4j.Slf4j;
 public final class GeoCodeStub extends GeoCodeBasic {
 
     /** The in-memory version of the cache. */
-    private final Map<String, GeoDocumentStub> map = new HashMap<>();
+    private final Map<String, GeoDocument> map = new HashMap<>();
 
     /**
      * Public constructor. Using Spring to manage as a singleton.
+     *
+     * @param geoCoder the geoCoder to use here.
      */
-    public GeoCodeStub() {
+    public GeoCodeStub(final GeoCoder geoCoder) {
+        super(geoCoder);
         log.debug("Initializing GeoCodeCache");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void clear() {
         map.clear();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public long size() {
-        log.debug("Geocode cache contains {} entries", map.size());
-        return map.size();
+        final long size = map.size();
+        log.debug("Geocode cache contains {} entries", size);
+        return size;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GeoDocument create(final GeoCodeItem item) {
         return new GeoDocumentStub(item);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Iterable<? extends GeoDocument> findAllDocuments() {
         final SortedSet<String> names = new TreeSet<>();
@@ -64,26 +57,17 @@ public final class GeoCodeStub extends GeoCodeBasic {
             .toList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GeoDocument addDocument(final GeoDocument document) {
-        map.put(document.getName(), (GeoDocumentStub) document);
+        map.put(document.getName(), document);
         return document;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GeoDocument getDocument(final String placeName) {
         return map.get(placeName);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public GeoDocument deleteDocument(final String placeName) {
         return map.remove(placeName);

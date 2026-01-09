@@ -6,10 +6,10 @@ import java.util.TreeSet;
 
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.maps.model.GeocodingResult;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -17,15 +17,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @SuppressWarnings("PMD.CommentSize")
 @Slf4j
+@RequiredArgsConstructor
 public abstract class GeoCodeBasic implements GeoCode {
 
     /** The key string to use for talking to Google's map APIs. */
-    @Autowired
-    private transient GeoCoder geoCoder;
+    private final GeoCoder geoCoder;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final GeoCodeItem find(final String placeName) {
         log.debug("find(\"{}\")", placeName);

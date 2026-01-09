@@ -20,7 +20,6 @@ import org.schoellerfamily.geoservice.model.builder.test.GeocodeChecker;
  */
 public class GeoServiceItemComparatorTest extends GeocodeChecker {
     /** */
-    @SuppressWarnings("null")
     private GeoServiceGeocodingResult bgr;
 
     /** */

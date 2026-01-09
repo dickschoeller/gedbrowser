@@ -7,8 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,11 +18,11 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @Slf4j
+@RequiredArgsConstructor
 public class GeoCodeLoader {
 
     /** */
-    @Autowired
-    private GeoCode gcc;
+    private final GeoCode gcc;
 
     /**
      * Read places from a data file. The file is | separated. It may contain
