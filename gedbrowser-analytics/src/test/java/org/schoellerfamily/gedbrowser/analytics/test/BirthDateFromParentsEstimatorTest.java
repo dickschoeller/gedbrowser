@@ -37,17 +37,11 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
     /** */
     private transient BirthDateFromParentsEstimator estimator;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;

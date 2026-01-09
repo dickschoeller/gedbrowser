@@ -32,17 +32,11 @@ public class RemotePageWaiter implements PageWaiter {
         this.timeout = timeout;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void waitForPageLoaded(final WebDriver driver) {
         waitForPageLoaded(driver, 1);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void waitForPageLoaded(final WebDriver driver, final int multiplier) {
         log.debug("Waiting for readyState");
@@ -75,17 +69,11 @@ public class RemotePageWaiter implements PageWaiter {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void waitForPageLoaded(final WebDriver driver, final String newUrl) {
         waitForPageLoaded(driver, newUrl, 1);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void waitForPageLoaded(final WebDriver driver, final String newUrl,
         final int multiplier) {

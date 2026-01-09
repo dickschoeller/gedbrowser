@@ -28,17 +28,11 @@ public final class AgeEstimatorTest implements AnalyzerTest {
     @Autowired
     private GedObjectBuilder builder;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;

@@ -24,9 +24,6 @@ public class RefererInterceptor implements ClientHttpRequestInterceptor {
         this.refererUrl = refererUrl;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public ClientHttpResponse intercept(
             final HttpRequest request,

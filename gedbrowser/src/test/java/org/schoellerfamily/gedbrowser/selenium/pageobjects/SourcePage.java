@@ -53,9 +53,6 @@ public final class SourcePage extends PageBase implements MenuPageFacade {
         waitForPageLoaded(newUrl);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;

@@ -22,9 +22,6 @@ public class SubmittersPage extends PageBase implements MenuPageFacade {
         super(factory, previous, baseUrl, "submitters?db=gl120368");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;

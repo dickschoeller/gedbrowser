@@ -12,49 +12,31 @@ public interface MenuPageFacade extends MenuPage {
      */
     MenuPage getMenuPage();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default IndexPage clickIndex() {
         return getMenuPage().clickIndex();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default SourcesPage clickSources() {
         return getMenuPage().clickSources();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default SubmittersPage clickSubmitters() {
         return getMenuPage().clickSubmitters();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default LoginPage clickLogin() {
         return getMenuPage().clickLogin();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default PageBase clickLogout() {
         return getMenuPage().clickLogout();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default boolean isMenuPresent(final String name) {
         return getMenuPage().isMenuPresent(name);

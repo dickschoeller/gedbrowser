@@ -22,9 +22,6 @@ public class SourcesPage extends PageBase implements MenuPageFacade {
         super(factory, previous, baseUrl, "sources?db=schoeller");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;

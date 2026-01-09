@@ -23,9 +23,6 @@ public final class MenuPageImpl implements MenuPage {
         this.page = page;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public IndexPage clickIndex() {
         final WebElement element = getMenu("index");
@@ -37,9 +34,6 @@ public final class MenuPageImpl implements MenuPage {
                 page.getIndexLetter());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public SourcesPage clickSources() {
         final WebElement element = getMenu("sources");
@@ -48,9 +42,6 @@ public final class MenuPageImpl implements MenuPage {
         return page.getFactory().createSourcesPage(page, page.getBaseUrl());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public SubmittersPage clickSubmitters() {
         final WebElement element = getMenu("submitters");
@@ -59,9 +50,6 @@ public final class MenuPageImpl implements MenuPage {
         return page.getFactory().createSubmittersPage(page, page.getBaseUrl());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public LoginPage clickLogin() {
         final WebElement element = page.getWebElement("a[href='login']");
@@ -70,9 +58,6 @@ public final class MenuPageImpl implements MenuPage {
         return page.getFactory().createLoginPage(page, page.getBaseUrl());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public PageBase clickLogout() {
         final WebElement element = page.getWebElement("input[class='menubar']");
@@ -80,9 +65,6 @@ public final class MenuPageImpl implements MenuPage {
         return page;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isMenuPresent(final String name) {
         try {

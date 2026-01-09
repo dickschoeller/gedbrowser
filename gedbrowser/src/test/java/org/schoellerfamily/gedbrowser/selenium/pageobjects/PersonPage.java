@@ -38,9 +38,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         this.id = id;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected String getIndexLetter() {
         final String title = getExpectedTitleString();
@@ -49,9 +46,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         return surname.substring(0, 1);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;

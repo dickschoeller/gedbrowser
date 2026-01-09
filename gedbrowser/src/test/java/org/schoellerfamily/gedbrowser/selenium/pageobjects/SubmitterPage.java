@@ -22,9 +22,6 @@ public class SubmitterPage extends PageBase implements MenuPageFacade {
         this.id = id;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;

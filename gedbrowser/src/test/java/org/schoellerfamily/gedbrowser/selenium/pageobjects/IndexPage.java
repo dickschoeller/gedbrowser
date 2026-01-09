@@ -41,17 +41,11 @@ public final class IndexPage extends PageBase implements MenuPageFacade {
         this.letter = letter;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected String getIndexLetter() {
         return letter;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;

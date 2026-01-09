@@ -45,17 +45,11 @@ public final class OrderAnalyzerTest implements AnalyzerTest {
     @Autowired
     private transient GedLineToGedObjectTransformer g2g;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;
