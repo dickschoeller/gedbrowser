@@ -16,9 +16,6 @@ public interface PersonDocument extends GedDocument<Person> {
      */
     String getIndexName();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);

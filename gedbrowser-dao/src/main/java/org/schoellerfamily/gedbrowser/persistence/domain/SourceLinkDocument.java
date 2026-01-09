@@ -6,9 +6,6 @@ import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
  * @author Dick Schoeller
  */
 public interface SourceLinkDocument extends GedDocument<SourceLink> {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);

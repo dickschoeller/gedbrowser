@@ -6,9 +6,6 @@ import org.schoellerfamily.gedbrowser.datamodel.FamC;
  * @author Dick Schoeller
  */
 public interface FamCDocument extends GedDocument<FamC> {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);

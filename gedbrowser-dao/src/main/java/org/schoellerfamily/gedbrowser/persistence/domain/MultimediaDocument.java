@@ -16,9 +16,6 @@ public interface MultimediaDocument extends GedDocument<Multimedia> {
      */
     void setTail(String tail);
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     default void accept(final GedDocumentVisitor visitor) {
         visitor.visit(this);

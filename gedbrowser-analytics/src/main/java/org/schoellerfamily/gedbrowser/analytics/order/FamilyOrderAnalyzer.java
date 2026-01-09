@@ -31,9 +31,6 @@ public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
         this.person = person;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public OrderAnalyzerResult analyze() {
         seenFamily = null;
