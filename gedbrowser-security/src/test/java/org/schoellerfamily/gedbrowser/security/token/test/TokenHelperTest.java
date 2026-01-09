@@ -6,7 +6,6 @@ import org.joda.time.DateTimeUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -24,11 +23,9 @@ public class TokenHelperTest {
      */
     @BeforeEach
     public void setUp() {
-        tokenHelper = new TokenHelper();
+        tokenHelper = new TokenHelper("none", KEY, 1, "Authorization", "AUTH-TOKEN");
         final long twentyMillis = 20L;
         DateTimeUtils.setCurrentMillisFixed(twentyMillis);
-        ReflectionTestUtils.setField(tokenHelper, "expiresIn", 1);
-        ReflectionTestUtils.setField(tokenHelper, "secret", KEY);
     }
 
     /**

@@ -8,10 +8,7 @@ import java.util.Date;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -19,31 +16,32 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Dick Schoeller
  */
 @Component
+@RequiredArgsConstructor
 public final class TokenHelper {
     /** */
     @Value("${app.name:none}")
-    private String appName;
+    private final String appName;
 
     /** */
     @Value("${jwt.secret:queenvictoria}")
-    private String secret;
-
+    private final String secret;
     /** */
     @Value("${jwt.expires_in:600}")
-    private int expiresIn;
+    private final int expiresIn;
 
     /** */
     @Value("${jwt.header:Authorization}")
-    private String authHeaderName;
+    private final String authHeaderName;
 
     /** */
     @Value("${jwt.cookie:AUTH-TOKEN}")
-    private String authCookieName;
+    private final String authCookieName;
 
     /**
      * Create a signing Key from the configured secret. Use
@@ -90,14 +88,13 @@ public final class TokenHelper {
      * @return the token
      */
     public String generateToken(final String username) {
-        final String token = Jwts.builder()
+        return Jwts.builder()
             .issuer(appName)
             .subject(username)
             .issuedAt(generateCurrentDate())
             .expiration(generateExpirationDate())
             .signWith(getSigningKey())
             .compact();
-        return token;
     }
 
     /**
