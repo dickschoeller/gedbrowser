@@ -10,6 +10,8 @@ import org.schoellerfamily.geoservice.keys.KeyManagerStub;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
+import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -27,7 +29,17 @@ import org.springframework.context.annotation.ComponentScan;
 public class Application {
     /** */
     @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
-    private transient String keyfile;
+    private String keyfile;
+
+    /** */
+    private GeoCode gcc;
+
+    /** */
+    private GeoCoder geoCoder;
+
+    /** */
+    @Autowired
+    private GeoDocumentRepositoryMongo repositoryMongo;
 
     /**
      * @param args usual command line arguments are handled by Spring Boot.
@@ -41,7 +53,10 @@ public class Application {
      */
     @Bean
     public GeoCode persistenceManager() {
-        return new GeoCodeMongo();
+        if (gcc == null) {
+            gcc = new GeoCodeMongo(geoCoder(), repositoryMongo);
+        }
+        return gcc;
     }
 
     /**
@@ -57,7 +72,7 @@ public class Application {
      */
     @Bean
     public GeoCodeLoader loader() {
-        return new GeoCodeLoader();
+        return new GeoCodeLoader(persistenceManager());
     }
 
     /**
@@ -76,10 +91,15 @@ public class Application {
      */
     @Bean
     public GeoCoder geoCoder() {
+        if (geoCoder != null) {
+            return geoCoder;
+        }
         if ("stub".equals(keyfile)) {
-            return new StubGeoCoder(new String[0]);
+            geoCoder = new StubGeoCoder(new String[0]);
+            return geoCoder;
         }
         final String key = keyManager().getGeocodingKey();
-        return new GoogleGeoCoder(key);
+        geoCoder = new GoogleGeoCoder(key);
+        return geoCoder;
     }
 }

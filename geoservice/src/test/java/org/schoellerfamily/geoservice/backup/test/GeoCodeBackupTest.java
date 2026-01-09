@@ -22,6 +22,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Tests for backup manager for cached geocode lookups.
  *
@@ -45,13 +47,17 @@ public final class GeoCodeBackupTest {
      * @author Dick Schoeller
      */
     @Configuration
+    @RequiredArgsConstructor
     static class ContextConfiguration {
+        /** */
+        private transient GeoCoder geoCoder = null;
+
         /**
          * @return the persistence manager
          */
         @Bean
         public GeoCode persistenceManager() {
-            return new GeoCodeStub();
+            return new GeoCodeStub(geoCoder());
         }
 
         /**
@@ -59,8 +65,10 @@ public final class GeoCodeBackupTest {
          */
         @Bean
         public GeoCoder geoCoder() {
-            final GeoCodeTestFixture fixture = new GeoCodeTestFixture();
-            return new StubGeoCoder(fixture.expectedNotFound());
+            if (geoCoder == null) {
+                geoCoder = new StubGeoCoder(new GeoCodeTestFixture().expectedNotFound());
+            }
+            return geoCoder;
         }
     }
 
