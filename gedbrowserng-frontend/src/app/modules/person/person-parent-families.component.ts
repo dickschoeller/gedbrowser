@@ -67,7 +67,7 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.person.famc, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.person.famcs, event.previousIndex, event.currentIndex);
     this.parent.save();
   }
 

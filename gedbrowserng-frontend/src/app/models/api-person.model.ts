@@ -6,9 +6,9 @@ export class ApiPerson extends ApiObject {
   indexName = '';
   surname = '';
   lifespan: ApiLifespan;
-  fams: Array<ApiAttribute> = [];
-  famc: Array<ApiAttribute> = [];
-  refn: Array<ApiAttribute> = [];
-  changed: Array<ApiAttribute> = [];
+  famss: Array<ApiAttribute> = [];
+  famcs: Array<ApiAttribute> = [];
+  refns: Array<ApiAttribute> = [];
+  changes: Array<ApiAttribute> = [];
   images: Array<ApiAttribute> = [];
 }

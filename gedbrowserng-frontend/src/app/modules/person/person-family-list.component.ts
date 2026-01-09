@@ -87,10 +87,10 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
 
     private linkRemainingChildren(data: LinkPersonDialogData, mainPerson: ApiPerson): void {
         this.updatePerson(mainPerson);
-        const fams = mainPerson.fams[mainPerson.fams.length - 1];
+        const famss = mainPerson.famss[mainPerson.famss.length - 1];
         const ub = new UrlBuilder(this.dataset, 'families', 'children');
         for (const selected of data.selected) {
-            this.personService.putLink(ub, fams.string, selected.person)
+            this.personService.putLink(ub, famss.string, selected.person)
                 .subscribe((p: ApiPerson) => { this.refreshPerson(); });
         }
     }
@@ -111,7 +111,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
     }
 
     drop(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.person.fams, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.person.famss, event.previousIndex, event.currentIndex);
         this.parent.save();
     }
 
