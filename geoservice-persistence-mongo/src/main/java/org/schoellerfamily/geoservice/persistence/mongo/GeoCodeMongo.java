@@ -1,12 +1,12 @@
 package org.schoellerfamily.geoservice.persistence.mongo;
 
+import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.persistence.GeoCodeBasic;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongo;
 import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongoFactory;
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,15 +21,18 @@ import lombok.extern.slf4j.Slf4j;
 public final class GeoCodeMongo extends GeoCodeBasic {
 
     /** */
-    @Autowired
-    private transient GeoDocumentRepositoryMongo geoDocumentRepository;
+    private final GeoDocumentRepositoryMongo repository;
 
     /**
      * Public constructor. Using Spring to manage as a singleton.
+     *
+     * @param geoCoder the GeoCoder
+     * @param repository the GeoDocumentRepository
      */
-    public GeoCodeMongo() {
-        super();
+    public GeoCodeMongo(final GeoCoder geoCoder, final GeoDocumentRepositoryMongo repository) {
+        super(geoCoder);
         log.debug("Initializing GeoCodeCache");
+        this.repository = repository;
     }
 
     /**
@@ -37,7 +40,7 @@ public final class GeoCodeMongo extends GeoCodeBasic {
      */
     @Override
     public void clear() {
-        geoDocumentRepository.deleteAll();
+        repository.deleteAll();
     }
 
     /**
@@ -45,7 +48,7 @@ public final class GeoCodeMongo extends GeoCodeBasic {
      */
     @Override
     public Iterable<? extends GeoDocument> findAllDocuments() {
-        return geoDocumentRepository.findAll();
+        return repository.findAll();
     }
 
     /**
@@ -53,7 +56,7 @@ public final class GeoCodeMongo extends GeoCodeBasic {
      */
     @Override
     public long size() {
-        final long count = geoDocumentRepository.count();
+        final long count = repository.count();
         log.debug("Geocode cache contains {} entries", count);
         return count;
     }
@@ -75,7 +78,7 @@ public final class GeoCodeMongo extends GeoCodeBasic {
         if (document == null || document.getName() == null) {
             return document;
         }
-        geoDocumentRepository.save((GeoDocumentMongo) document);
+        repository.save((GeoDocumentMongo) document);
         return document;
     }
 
@@ -91,7 +94,7 @@ public final class GeoCodeMongo extends GeoCodeBasic {
         if (placeName == null) {
             return null;
         }
-        return (GeoDocumentMongo) geoDocumentRepository.find(placeName);
+        return (GeoDocumentMongo) repository.find(placeName);
     }
 
     /**
@@ -101,7 +104,7 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     public GeoDocument deleteDocument(final String placeName) {
         final GeoDocumentMongo document = getDocumentMongo(placeName);
         if (document != null) {
-            geoDocumentRepository.delete(document);
+            repository.delete(document);
         }
         return document;
     }

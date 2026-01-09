@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 /**
@@ -14,18 +13,22 @@ import org.springframework.data.mongodb.core.MongoTemplate;
  */
 public final class GeoRepositoryFixture extends GeoCodeTestFixture {
     /** */
-    @Autowired
-    private transient GeoDocumentRepositoryMongo geoDocumentRepository;
+    private final GeoDocumentRepositoryMongo geoDocumentRepository;
 
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
     /**
-     * This is private because this is a singleton.
+     * Constructor.
+     *
+     * @param geoDocumentRepository a MongoDB repository for geo documents
+     * @param mongoTemplate a MongoDB template
      */
-    public GeoRepositoryFixture() {
-        // Empty constructor.
+    public GeoRepositoryFixture(final GeoDocumentRepositoryMongo geoDocumentRepository,
+        final MongoTemplate mongoTemplate) {
+        super();
+        this.geoDocumentRepository = geoDocumentRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     /**

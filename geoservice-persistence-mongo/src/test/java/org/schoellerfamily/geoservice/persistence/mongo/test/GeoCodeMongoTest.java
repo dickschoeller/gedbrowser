@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +29,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Tests of the geocoder using MongoDB persistence for the cache.
@@ -278,7 +279,7 @@ public final class GeoCodeMongoTest {
     @Test
     void testNotFounds() {
         log.info("Entering testNotFounds");
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         final List<String> expectList = Arrays
                 .asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
@@ -305,7 +306,7 @@ public final class GeoCodeMongoTest {
     @Test
     void testCountNotFoundsLowBound() {
         log.info("Entering testCountNotFounds");
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
         assertTrue(count >= testFixture.expectedLowBound(), "Count too low at: " + count);
@@ -316,7 +317,7 @@ public final class GeoCodeMongoTest {
     @Test
     void testCountNotFoundsHighBound() {
         log.info("Entering testCountNotFounds");
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
         assertTrue(count <= testFixture.expectedHighBound(), "Count too high at: " + count);
@@ -372,7 +373,7 @@ public final class GeoCodeMongoTest {
     @Test
     void testSize() {
         log.info("Entering testSize");
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         final int expected = 19;
         assertEquals(expected, gcc.size(), "Should match known table size of 19");
     }
@@ -404,7 +405,7 @@ public final class GeoCodeMongoTest {
     @Test
     void testDump() {
         log.info("Entering testDump");
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         gcc.dump();
         final int expected = 19;
         assertEquals(expected, gcc.size(), "Should match known table size of 19");
@@ -427,7 +428,7 @@ public final class GeoCodeMongoTest {
     @Test
     void testAllKeysSize() {
         log.info("Entering testAllKeysSize");
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         final int expected = 19;
         assertEquals(expected, gcc.allKeys().size(), "Should match known table size of 19");
     }
@@ -437,7 +438,7 @@ public final class GeoCodeMongoTest {
     @Test
     void testAllKeys() {
         log.info("Entering testAllKeys");
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         assertTrue(gcc.allKeys().contains("America"), "Should contain search string");
     }
 
@@ -446,7 +447,7 @@ public final class GeoCodeMongoTest {
     @Test
     void testDelete() {
         log.info("Entering testDelete");
-        testFixture.loadTestAddresses();
+        testFixture.loadTestAddresses(gcc);
         final GeoCodeItem gci = gcc.find("America");
         gcc.delete(gci);
         assertFalse(gcc.allKeys().contains("America"), "Should not contain search string");

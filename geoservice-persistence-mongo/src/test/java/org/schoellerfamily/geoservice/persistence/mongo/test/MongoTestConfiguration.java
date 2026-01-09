@@ -10,6 +10,8 @@ import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
+import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -39,7 +41,6 @@ import lombok.RequiredArgsConstructor;
                 value = { GeoDocumentRepositoryMongo.class },
                 type = FilterType.ASSIGNABLE_TYPE))
 @RequiredArgsConstructor
-@SuppressWarnings("null")
 public class MongoTestConfiguration {
     /** */
     @Value("${spring.data.mongodb.host:localhost}")
@@ -49,12 +50,28 @@ public class MongoTestConfiguration {
     @Value("${spring.data.mongodb.port:27017}")
     private final int port;
 
+    /** */
+    private transient GeoCode gcc = null;
+
+    /** */
+    @Autowired
+    private transient GeoDocumentRepositoryMongo repository;
+
+    /** */
+    private transient MongoTemplate mongoTemplate = null;
+
+    /** Lazy initialization. */
+    private transient GeoCoder geoCoder = null;
+
     /**
      * @return the persistence manager
      */
     @Bean
     public GeoCode persistenceManager() {
-        return new GeoCodeMongo();
+        if (gcc == null) {
+            gcc = new GeoCodeMongo(geoCoder(), repository);
+        }
+        return gcc;
     }
 
     /**
@@ -62,8 +79,10 @@ public class MongoTestConfiguration {
      */
     @Bean
     public GeoCoder geoCoder() {
-        final GeoCodeTestFixture tempFixture = new GeoCodeTestFixture();
-        return new StubGeoCoder(tempFixture.expectedNotFound());
+        if (geoCoder == null) {
+            geoCoder = new StubGeoCoder(new GeoCodeTestFixture().expectedNotFound());
+        }
+        return geoCoder;
     }
 
     /**
@@ -88,7 +107,10 @@ public class MongoTestConfiguration {
      */
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
-        return new MongoTemplate(mongoDbFactory());
+        if (mongoTemplate == null) {
+            mongoTemplate = new MongoTemplate(mongoDbFactory());
+        }
+        return mongoTemplate;
     }
 
     /**
@@ -96,10 +118,11 @@ public class MongoTestConfiguration {
      * testing.
      *
      * @return the fixture
+     * @throws UnknownHostException because it must
      */
     @Bean
-    public GeoRepositoryFixture repositoryFixture() {
-        return new GeoRepositoryFixture();
+    public GeoRepositoryFixture repositoryFixture() throws UnknownHostException {
+        return new GeoRepositoryFixture(repository, mongoTemplate());
     }
 
     /**
@@ -107,6 +130,15 @@ public class MongoTestConfiguration {
      */
     @Bean
     public GeoCodeLoader loader() {
-        return new GeoCodeLoader();
+        return new GeoCodeLoader(persistenceManager());
+    }
+
+    /**
+     * @return the repository implementation
+     * @throws UnknownHostException because it must
+     */
+    @Bean
+    public GeoDocumentRepositoryMongoImpl geoDocumentRepositoryMongo() throws UnknownHostException {
+        return new GeoDocumentRepositoryMongoImpl(mongoTemplate());
     }
 }

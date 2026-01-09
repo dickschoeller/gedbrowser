@@ -5,25 +5,25 @@ import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongo;
 import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongoFactory;
 import org.schoellerfamily.geoservice.persistence.repository.GeocodableDocument;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * This does the work of reading getting geocode items from MongoDB.
  *
  * @author Dick Schoeller
  */
+@Component
+@RequiredArgsConstructor
 public class GeoDocumentRepositoryMongoImpl
         implements GeocodableDocument {
     /** */
-    @Autowired
-    private transient MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final GeoDocument find(final String placeName) {
         final Query searchQuery =
