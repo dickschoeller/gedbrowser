@@ -23,7 +23,7 @@ public abstract class DatedDataController extends AbstractController {
      * @param provider enable calendar processing
      * @param repositoryManager enable data storage
      */
-    DatedDataController(final ApplicationInfo appInfo,
+    public DatedDataController(final ApplicationInfo appInfo,
             final Users<? extends User> users,
             final GedObjectFileLoader loader,
             final CalendarProvider provider,

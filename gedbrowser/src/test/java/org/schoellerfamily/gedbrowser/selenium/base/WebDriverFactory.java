@@ -10,33 +10,35 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
 @Slf4j
+@Component
+@RequiredArgsConstructor
 public class WebDriverFactory {
 
     /** */
-    @Autowired
-    private Environment env;
+    private final Environment env;
 
     /** */
     @Value("${selenium.browser.name:chrome}")
-    private String browserName;
+    private final String browserName;
 
     /** */
     @Value("${selenium.browser.version:}")
-    private String browserVersion;
+    private final String browserVersion;
 
     /** */
     @Value("${selenium.platform:}")
-    private String platform;
+    private final String platform;
 
     /**
      * @param testName pass the test name in for building the saucelabs info

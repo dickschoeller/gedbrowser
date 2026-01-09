@@ -36,7 +36,7 @@ import com.saucelabs.saucebindings.junit5.SauceBindingsExtension;
  * @author Dick Schoeller
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = SeleniumConfig.class)
+@ContextConfiguration(classes = { SeleniumConfig.class, WebDriverFactory.class })
 @SuppressWarnings("PMD.ExcessiveImports")
 @Slf4j
 public class LoginIT {
