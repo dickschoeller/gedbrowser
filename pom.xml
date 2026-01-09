@@ -446,11 +446,6 @@
       </dependency>
       <dependency>
         <groupId>org.schoellerfamily.gedbrowser</groupId>
-        <artifactId>gedbrowser-backend</artifactId>
-        <version>${gedbrowser.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.schoellerfamily.gedbrowser</groupId>
         <artifactId>gedbrowser-datamodel</artifactId>
         <version>${gedbrowser.version}</version>
       </dependency>
