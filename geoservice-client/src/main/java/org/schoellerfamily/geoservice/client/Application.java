@@ -1,7 +1,6 @@
 package org.schoellerfamily.geoservice.client;
 
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +9,7 @@ import org.springframework.web.client.RestClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,15 +19,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 @SpringBootApplication
 @Slf4j
+@RequiredArgsConstructor
 public class Application {
 
     /** */
-    @Autowired
-    private transient ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
     /** */
-    @Autowired
-    private transient GeoServiceClient client;
+    private final GeoServiceClient client;
 
     /**
      * @param args standard main program argument handling
@@ -54,10 +53,11 @@ public class Application {
         return args -> {
             for (final String arg : args) {
                 log.info("Get geocode for: {}", arg);
-                final GeoServiceItem item =
-                        client.get(arg);
-                log.info("found item:{}", mapper.writerWithDefaultPrettyPrinter()
-                                .writeValueAsString(item));
+                final GeoServiceItem item = client.get(arg);
+                if (log.isInfoEnabled()) {
+                    log.info("found item:{}",
+                        mapper.writerWithDefaultPrettyPrinter().writeValueAsString(item));
+                }
             }
         };
     }
