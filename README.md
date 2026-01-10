@@ -1,6 +1,6 @@
 # gedbrowser
 
-[![Build Status](https://api.travis-ci.org/dickschoeller/gedbrowser.svg?branch=development)](https://travis-ci.org/dickschoeller/gedbrowser)
+[![Build Status](https://app.travis-ci.com/dickschoeller/gedbrowser.svg?token=zU9CtfQ6wyASHsJrBJDB&branch=development&status=unknown)](https://travis-ci.org/dickschoeller/gedbrowser)
 [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=development)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=development)
 [![Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser/badges/gpa.svg)](https://codeclimate.com/github/dickschoeller/gedbrowser)
 [![codebeat badge](https://codebeat.co/badges/0a10c645-cc88-4f2f-9058-df89e8dc408f)](https://codebeat.co/projects/github-com-dickschoeller-gedbrowser-development)
