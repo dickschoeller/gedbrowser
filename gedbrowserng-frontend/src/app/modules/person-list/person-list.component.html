@@ -1,11 +1,11 @@
 <app-main-layout [dataset]="dataset">
   <mat-card>
-    <mat-card-title><mat-icon matListIcon>people</mat-icon> Persons</mat-card-title>
+    <mat-card-title><div class="with-icon"><mat-icon matListIcon>people</mat-icon> Persons</div></mat-card-title>
     <mat-card-content>
       <div class="ui-g">
         <div class="ui-g-12">
           <mat-card class="inner-card">
-            <mat-card-title>
+            <mat-card-header>
               <mat-toolbar>
                 <mat-form-field>
                   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -16,8 +16,9 @@
                       matTooltip="Add person"><mat-icon>person_add</mat-icon></button>
                 </span>
               </mat-toolbar>
-            </mat-card-title>
-                <mat-table #table [dataSource]="datasource" matSort>
+            </mat-card-header> 
+            <mat-card-content>
+               <mat-table #table [dataSource]="datasource" matSort>
                   <ng-container matColumnDef="indexName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
                     <mat-cell *matCellDef="let person" (click)="navigate(person.string)" style="cursor: pointer;">{{ person.indexName }}</mat-cell>
@@ -50,6 +51,7 @@
                 <mat-paginator #paginator [pageSize]="15" [pageSizeOptions]="pagesizeoptions()"
                     [showFirstLastButtons]="true">
                 </mat-paginator>
+            </mat-card-content>
           </mat-card>
         </div>
       </div>
