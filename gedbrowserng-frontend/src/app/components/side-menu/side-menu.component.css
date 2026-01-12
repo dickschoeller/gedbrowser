@@ -30,3 +30,12 @@ file-upload.ng-touched.ng-invalid.has-files {
   outline-color: #ff0000 !important;
   background-color: #fdf4f4 !important;
 }
+
+.with-icon {
+    display: flex;
+    align-items: center;
+}
+
+mat-icon {
+    margin-right: 10px;
+}
