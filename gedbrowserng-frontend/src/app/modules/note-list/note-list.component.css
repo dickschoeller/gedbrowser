@@ -1,3 +1,42 @@
 .inner-card {
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card-title {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+mat-card-title mat-icon {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.inner-card mat-card-header {
+  flex-shrink: 0;
+  background-color: transparent;
+}
+
+.inner-card mat-card-header mat-toolbar {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  margin: 0;
+}
+
+.inner-card mat-card-content {
+  flex: 1;
+  overflow: auto;
+}
+
+mat-form-field {
+  margin-top: 20px;
+}
+
+.with-icon {
+    display: flex;
+    align-items: center;
 }
