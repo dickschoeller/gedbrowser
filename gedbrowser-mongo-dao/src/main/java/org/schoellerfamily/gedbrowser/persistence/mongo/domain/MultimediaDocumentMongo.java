@@ -11,18 +11,18 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 /**
  * @author Dick Schoeller
  */
-public class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
+public final class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
         implements MultimediaDocument {
     /** */
     private String tail;
 
     @Override
-    public final String getType() {
+    public String getType() {
         return "multimedia";
     }
 
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof Multimedia)) {
             throw new PersistenceException("Wrong type");
@@ -36,12 +36,12 @@ public class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
     }
 
     @Override
-    public final String getTail() {
+    public String getTail() {
         return this.tail;
     }
 
     @Override
-    public final void setTail(final String tail) {
+    public void setTail(final String tail) {
         this.tail = tail;
     }
 

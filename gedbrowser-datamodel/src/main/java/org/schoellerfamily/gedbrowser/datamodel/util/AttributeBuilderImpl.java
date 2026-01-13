@@ -10,7 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  * @author Dick Schoeller
  *
  */
-public class AttributeBuilderImpl implements AttributeBuilder {
+public final class AttributeBuilderImpl implements AttributeBuilder {
     /** */
     private final GedObjectBuilder gedObjectBuilder;
 

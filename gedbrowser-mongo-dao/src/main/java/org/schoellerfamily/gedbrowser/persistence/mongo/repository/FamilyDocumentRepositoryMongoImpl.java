@@ -99,13 +99,13 @@ public class FamilyDocumentRepositoryMongoImpl implements
     }
 
     @Override
-    public String lastId(final RootDocument rootDocument) {
+    public final String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, FamilyDocumentMongo.class,
                 rootDocument.getFilename(), "F");
     }
 
     @Override
-    public String newId(final RootDocument rootDocument) {
+    public final String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, FamilyDocumentMongo.class,
                 rootDocument.getFilename(), "F");
     }

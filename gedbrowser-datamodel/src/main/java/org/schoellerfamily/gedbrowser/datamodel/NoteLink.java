@@ -5,7 +5,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 /**
  * @author Dick Schoeller
  */
-public class NoteLink extends AbstractLink {
+public final class NoteLink extends AbstractLink {
     /**
      * Default constructor.
      */

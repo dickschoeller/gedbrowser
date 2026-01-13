@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
-public class SubmittersPage extends PageBase implements MenuPageFacade {
+public final class SubmittersPage extends PageBase implements MenuPageFacade {
     /** */
     private final MenuPage menuPage = new MenuPageImpl(this);
 

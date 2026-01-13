@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 /**
  * @author Dick Schoeller
  */
-public class PersonComparator implements Comparator<Person>, Serializable {
+public final class PersonComparator implements Comparator<Person>, Serializable {
     /** */
     private static final long serialVersionUID = 1L;
 

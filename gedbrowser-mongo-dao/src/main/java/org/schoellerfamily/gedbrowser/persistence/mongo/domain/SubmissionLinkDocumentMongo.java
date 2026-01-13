@@ -11,16 +11,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 /**
  * @author Dick Schoeller
  */
-public class SubmissionLinkDocumentMongo
-    extends GedDocumentMongo<SubmissionLink>
+public final class SubmissionLinkDocumentMongo extends GedDocumentMongo<SubmissionLink>
     implements SubmissionLinkDocument {
     @Override
-    public final String getType() {
+    public String getType() {
         return "submissionlink";
     }
 
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof SubmissionLink)) {
             throw new PersistenceException("Wrong type");

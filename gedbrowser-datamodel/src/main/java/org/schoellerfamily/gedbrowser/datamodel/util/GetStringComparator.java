@@ -11,7 +11,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GetString;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.CyclomaticComplexity")
-public class GetStringComparator
+public final class GetStringComparator
         implements Comparator<GetString>, Serializable {
     /** */
     private static final long serialVersionUID = 2L;

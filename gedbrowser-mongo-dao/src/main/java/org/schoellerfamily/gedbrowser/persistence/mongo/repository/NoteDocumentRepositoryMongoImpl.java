@@ -99,13 +99,13 @@ public class NoteDocumentRepositoryMongoImpl implements
     }
 
     @Override
-    public String lastId(final RootDocument rootDocument) {
+    public final String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, NoteDocumentMongo.class,
                 rootDocument.getFilename(), "N");
     }
 
     @Override
-    public String newId(final RootDocument rootDocument) {
+    public final String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, NoteDocumentMongo.class,
                 rootDocument.getFilename(), "N");
     }

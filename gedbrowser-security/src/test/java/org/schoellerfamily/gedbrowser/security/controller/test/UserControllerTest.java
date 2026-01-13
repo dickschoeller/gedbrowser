@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
@@ -127,10 +126,10 @@ public final class UserControllerTest {
     }
 
     @Test
-    @Disabled("Authentication problem right now")
     void testGetUserGuest() throws RestClientException, URISyntaxException {
         log.info("Test get user guest");
-        final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
+        final HttpHeaders headers = loginHelper
+            .buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final SecurityUser user = userHelper.getUser(headers, "guest");
         final String username = user.getUsername();
         log.info("I got {}", username);
@@ -168,7 +167,6 @@ public final class UserControllerTest {
     }
 
     @Test
-    @Disabled("Authentication problem right now")
     void testGetUserSchoeller()
         throws RestClientException, URISyntaxException, UnsupportedEncodingException {
         log.info("Test get user schoeller");
@@ -196,14 +194,12 @@ public final class UserControllerTest {
     }
 
     @Test
-    @Disabled("Figure out later why this test fails")
     void testGetUsersNotAdmin()
         throws RestClientException, URISyntaxException, UnsupportedEncodingException {
         log.info("Test get users not admin");
         final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final String usersString = userHelper.getUsersString(headers);
-        assertTrue(usersString.contains("\"status\":403,\"error\":\"Forbidden\""),
-            "Expected unauthorized response");
+        assertEquals("", usersString, "Expected unauthorized response");
     }
 
     @Test

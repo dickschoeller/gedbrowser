@@ -11,15 +11,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 /**
  * @author Dick Schoeller
  */
-public class PlaceDocumentMongo extends GedDocumentMongo<Place>
+public final class PlaceDocumentMongo extends GedDocumentMongo<Place>
         implements PlaceDocument {
     @Override
-    public final String getType() {
+    public String getType() {
         return "place";
     }
 
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof Place)) {
             throw new PersistenceException("Wrong type");

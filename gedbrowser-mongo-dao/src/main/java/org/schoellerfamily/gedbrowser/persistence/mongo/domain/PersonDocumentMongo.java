@@ -20,7 +20,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
             def = "{'string': 1, 'filename': 1}",
             unique = true)
 })
-public class PersonDocumentMongo extends GedDocumentMongo<Person>
+public final class PersonDocumentMongo extends GedDocumentMongo<Person>
         implements PersonDocument {
     /** */
     private String indexName;
@@ -28,12 +28,12 @@ public class PersonDocumentMongo extends GedDocumentMongo<Person>
     private String surname;
 
     @Override
-    public final String getType() {
+    public String getType() {
         return "person";
     }
 
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof Person)) {
             throw new PersistenceException("Wrong type");
@@ -48,12 +48,12 @@ public class PersonDocumentMongo extends GedDocumentMongo<Person>
     }
 
     @Override
-    public final String getSurname() {
+    public String getSurname() {
         return surname;
     }
 
     @Override
-    public final String getIndexName() {
+    public String getIndexName() {
         return indexName;
     }
 

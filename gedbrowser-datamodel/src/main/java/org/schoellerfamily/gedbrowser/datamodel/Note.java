@@ -7,7 +7,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  * @author Dick Schoeller
  *
  */
-public class Note extends GedObject implements Tail {
+public final class Note extends GedObject implements Tail {
     /** */
     private String tail;
 

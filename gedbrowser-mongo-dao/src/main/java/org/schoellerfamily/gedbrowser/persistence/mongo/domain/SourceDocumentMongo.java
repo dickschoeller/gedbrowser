@@ -20,15 +20,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
             def = "{'string': 1, 'filename': 1}",
             unique = true)
 })
-public class SourceDocumentMongo extends GedDocumentMongo<Source>
+public final class SourceDocumentMongo extends GedDocumentMongo<Source>
         implements SourceDocument {
     @Override
-    public final String getType() {
+    public String getType() {
         return "source";
     }
 
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof Source)) {
             throw new PersistenceException("Wrong type");

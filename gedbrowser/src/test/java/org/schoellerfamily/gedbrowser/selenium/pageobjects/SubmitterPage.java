@@ -3,7 +3,7 @@ package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 /**
  * @author Dick Schoeller
  */
-public class SubmitterPage extends PageBase implements MenuPageFacade {
+public final class SubmitterPage extends PageBase implements MenuPageFacade {
     /** */
     private final String id;
 

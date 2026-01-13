@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 /**
  * @author Dick Schoeller
  */
-public class SourcesPage extends PageBase implements MenuPageFacade {
+public final class SourcesPage extends PageBase implements MenuPageFacade {
     /** */
     private final MenuPage menuPage = new MenuPageImpl(this);
 
