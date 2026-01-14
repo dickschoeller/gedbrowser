@@ -20,24 +20,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
             def = "{'string': 1, 'filename': 1}",
             unique = true)
 })
-public class NoteDocumentMongo extends GedDocumentMongo<Note>
+public final class NoteDocumentMongo extends GedDocumentMongo<Note>
         implements NoteDocument {
     /** */
     private String tail;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public final String getType() {
+    public String getType() {
         return "note";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof Note)) {
             throw new PersistenceException("Wrong type");
@@ -50,33 +44,21 @@ public class NoteDocumentMongo extends GedDocumentMongo<Note>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getTail() {
         return tail;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setTail(final String tail) {
         this.tail = tail;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

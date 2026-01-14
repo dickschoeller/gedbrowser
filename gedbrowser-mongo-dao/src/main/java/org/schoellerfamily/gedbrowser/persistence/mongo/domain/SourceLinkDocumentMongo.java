@@ -11,21 +11,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 /**
  * @author Dick Schoeller
  */
-public class SourceLinkDocumentMongo extends GedDocumentMongo<SourceLink>
+public final class SourceLinkDocumentMongo extends GedDocumentMongo<SourceLink>
         implements SourceLinkDocument {
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public final String getType() {
+    public String getType() {
         return "sourcelink";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof SourceLink)) {
             throw new PersistenceException("Wrong type");
@@ -37,9 +31,6 @@ public class SourceLinkDocumentMongo extends GedDocumentMongo<SourceLink>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
