@@ -25,6 +25,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -198,8 +199,9 @@ public final class UserControllerTest {
         throws RestClientException, URISyntaxException, UnsupportedEncodingException {
         log.info("Test get users not admin");
         final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
-        final String usersString = userHelper.getUsersString(headers);
-        assertEquals("", usersString, "Expected unauthorized response");
+        final EntityExchangeResult<List<UserImpl>> response = userHelper.getUsersResponse(headers);
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatus(),
+            "Expected unauthorized response");
     }
 
     @Test

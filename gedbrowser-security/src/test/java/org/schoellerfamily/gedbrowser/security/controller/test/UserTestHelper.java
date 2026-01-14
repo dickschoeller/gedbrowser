@@ -97,6 +97,23 @@ public class UserTestHelper {
     }
 
     /**
+     * @param headers     the necessary headers
+     * @return the response
+     * @throws URISyntaxException if the URI is bogus
+     */
+    public EntityExchangeResult<List<UserImpl>> getUsersResponse(final HttpHeaders headers)
+        throws URISyntaxException {
+        final String url = baseUrl() + "users";
+        return client.get()
+            .uri(new URI(url))
+            .headers(h -> h.addAll(headers))
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .returnResult(new ParameterizedTypeReference<List<UserImpl>>() {
+            });
+    }
+
+    /**
      * @param headers the necessary headers
      * @return the User list
      * @throws URISyntaxException if the URI is bogus
