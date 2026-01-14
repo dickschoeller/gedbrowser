@@ -7306,9 +7306,9 @@ primeicons@^7.0.0:
   integrity sha512-jK3Et9UzwzTsd6tzl2RmwrVY/b8raJ3QZLzoDACj+oTJ0oX7L9Hy+XnVwgo4QVKlKpnP/Ur13SXV/pVh4LzaDw==
 
 primeng@^21.0.0:
-  version "21.0.2"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-21.0.2.tgz#157080b92e3ee690c588548ddca7ab49e007e08f"
-  integrity sha512-suf+xK3V3z2aG9OmQMAriqhMt79JM3jBSoRDu4XQKCiTiWDRnOvoVdCZCjByT32sE5tYqhrLBsCH0lT7RLcosg==
+  version "21.0.3"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-21.0.3.tgz#ac3212d6d208b55c4592f97468fae2e7c7408ab1"
+  integrity sha512-B5jrDU2vXZ5+ZNtOIxH2pLuLr8C/pwTsvEkppdq9ehgzwRj0eGbh2eoy8EbH8mWkcSXUuH7xneWi9veIrnwZ+Q==
   dependencies:
     "@primeuix/motion" "^0.0.10"
     "@primeuix/styled" "^0.7.4"
