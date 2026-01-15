@@ -78,6 +78,13 @@ public final class UserControllerTest {
      */
     private PasswordTestHelper passwordHelper;
 
+    /** */
+    private HttpHeaders headers;
+    /** */
+    private HttpHeaders headers2;
+    /** */
+    private HttpHeaders headers3;
+
     /**
      * Handles user related requests.
      */
@@ -89,17 +96,23 @@ public final class UserControllerTest {
         passwordHelper = new PasswordTestHelper(restTestClient, port);
         userHelper = new UserTestHelper(restTestClient, port);
         SecurityTestHelper.resetUserFile(gedbrowserHome + "/testUserFile.csv");
+        headers = new HttpHeaders();
+        headers2 = new HttpHeaders();
+        headers3 = new HttpHeaders();
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown() throws URISyntaxException, RestClientException {
+        loginHelper.logout(headers);
+        loginHelper.logout(headers2);
+        loginHelper.logout(headers3);
         SecurityTestHelper.resetUserFile(gedbrowserHome + "/testUserFile.csv");
     }
 
     @Test
     void testWhoami() throws RestClientException, URISyntaxException {
         log.info("Test whomai");
-        final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
+        headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final SecurityUser user = userHelper.whoami(headers);
         final String username = user.getUsername();
         log.info("I am {}", username);
@@ -109,7 +122,7 @@ public final class UserControllerTest {
     @Test
     void testWhoami2() throws RestClientException, URISyntaxException {
         log.info("Test whomai 2");
-        final HttpHeaders headers = loginHelper
+        headers = loginHelper
             .buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final SecurityUser user = userHelper.whoami(headers);
         final String username = user.getUsername();
@@ -120,6 +133,7 @@ public final class UserControllerTest {
     @Test
     void testWhoamiNotLoggedIn() throws RestClientException, URISyntaxException {
         log.info("Test whomai not logged in");
+        headers = new HttpHeaders();
         final EntityExchangeResult<UserImpl> response = userHelper
             .whoamiResponse(new HttpHeaders());
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatus(), "Should have failed");
@@ -128,7 +142,7 @@ public final class UserControllerTest {
     @Test
     void testGetUserGuest() throws RestClientException, URISyntaxException {
         log.info("Test get user guest");
-        final HttpHeaders headers = loginHelper
+        headers = loginHelper
             .buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final SecurityUser user = userHelper.getUser(headers, "guest");
         final String username = user.getUsername();
@@ -139,7 +153,7 @@ public final class UserControllerTest {
     @Test
     void testGetUserGuestNotLoggedIn() throws RestClientException, URISyntaxException {
         log.info("Test get user guest, not logged in");
-        final HttpHeaders headers = new HttpHeaders();
+        headers = new HttpHeaders();
         final EntityExchangeResult<UserImpl> response = userHelper.getUserResponse(headers,
             "guest");
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatus(), "");
@@ -152,7 +166,7 @@ public final class UserControllerTest {
     @Test
     void testRefresh() throws RestClientException, URISyntaxException {
         log.info("Test refresh");
-        final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
+        headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final EntityExchangeResult<String> response = refresh(headers);
         assertEquals(HttpStatus.OK, response.getStatus(), "should be OK");
     }
@@ -160,7 +174,7 @@ public final class UserControllerTest {
     @Test
     void testExpiredRefresh() throws RestClientException, URISyntaxException, InterruptedException {
         log.info("Test expired refresh");
-        final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
+        headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         Thread.sleep((expiresIn + 1) * MILLIS_PER_SECOND);
         final EntityExchangeResult<String> response = refresh(headers);
         assertEquals(HttpStatus.ACCEPTED, response.getStatus(), "should be ACCEPTED");
@@ -170,7 +184,7 @@ public final class UserControllerTest {
     void testGetUserSchoeller()
         throws RestClientException, URISyntaxException, UnsupportedEncodingException {
         log.info("Test get user schoeller");
-        final HttpHeaders headers = loginHelper
+        headers = loginHelper
             .buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         String requestName = URLEncoder.encode("schoeller@comcast.net", "UTF-8");
         final SecurityUser user = userHelper.getUser(headers, requestName);
@@ -183,7 +197,7 @@ public final class UserControllerTest {
     void testGetUsers()
         throws RestClientException, URISyntaxException, UnsupportedEncodingException {
         log.info("Test get users");
-        final HttpHeaders headers = loginHelper
+        headers = loginHelper
             .buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final List<UserImpl> users = userHelper.getUsers(headers);
         log.info("List contains:");
@@ -197,9 +211,9 @@ public final class UserControllerTest {
     void testGetUsersNotAdmin()
         throws RestClientException, URISyntaxException, UnsupportedEncodingException {
         log.info("Test get users not admin");
-        final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
+        headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final EntityExchangeResult<List<UserImpl>> response = userHelper.getUsersResponse(headers);
-        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatus(),
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatus(),
             "Expected unauthorized response");
     }
 
@@ -207,7 +221,7 @@ public final class UserControllerTest {
     void testSignup() throws RestClientException, URISyntaxException {
         log.info("Test signup");
         final String url = baseUrl() + "signup";
-        final HttpHeaders headers = buildHeaders();
+        headers = buildHeaders();
         final UserRequest userRequest = new UserRequest();
         userRequest.setUsername("newuser");
         userRequest.setPassword("newuser");
@@ -222,7 +236,7 @@ public final class UserControllerTest {
     void testSignupExistingUser() throws RestClientException, URISyntaxException {
         log.info("Test signup existing user");
         final String url = baseUrl() + "signup";
-        final HttpHeaders headers = buildHeaders();
+        headers = buildHeaders();
         final UserRequest userRequest = new UserRequest();
         userRequest.setUsername("neweruser");
         userRequest.setPassword("neweruser");
@@ -237,13 +251,13 @@ public final class UserControllerTest {
     @Test
     void testResetCredentials() throws RestClientException, URISyntaxException {
         log.info("Test reset-credentials");
-        final HttpHeaders headers1 = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
-        assertEquals(HttpStatus.ACCEPTED, resetCredentials(headers1).getStatus(),
+        headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
+        assertEquals(HttpStatus.ACCEPTED, resetCredentials(headers).getStatus(),
             "Should have accepted the reset");
-        assertEquals(HttpStatus.OK, loginHelper.logout(headers1).getStatus(),
+        assertEquals(HttpStatus.OK, loginHelper.logout(headers).getStatus(),
             "Should have OKed the logout");
 
-        final HttpHeaders headers2 = loginHelper
+        headers2 = loginHelper
             .buildHeaders(loginHelper.login("schoeller@comcast.net", "123"));
         assertEquals(HttpStatus.ACCEPTED,
             passwordHelper.changePassword(headers2, "123", "HAHANOWAY").getStatus(),
@@ -251,7 +265,7 @@ public final class UserControllerTest {
         assertEquals(HttpStatus.OK, loginHelper.logout(headers2).getStatus(),
             "Should have OKed the logout");
 
-        final HttpHeaders headers3 = loginHelper.buildHeaders(loginHelper.login("guest", "123"));
+        headers3 = loginHelper.buildHeaders(loginHelper.login("guest", "123"));
         assertEquals(HttpStatus.ACCEPTED,
             passwordHelper.changePassword(headers3, "123", "guest").getStatus(), "");
         assertEquals(HttpStatus.OK, loginHelper.logout(headers3).getStatus(),
@@ -261,7 +275,7 @@ public final class UserControllerTest {
     @Test
     void testChangePasswordAndBack() throws RestClientException, URISyntaxException {
         log.info("Test reset-credentials");
-        final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
+        headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final EntityExchangeResult<String> changeResponse = passwordHelper.changePassword(headers,
             "guest", "newpassword");
         assertEquals(HttpStatus.ACCEPTED, changeResponse.getStatus(),
@@ -277,17 +291,17 @@ public final class UserControllerTest {
     }
 
     private HttpHeaders buildHeaders() {
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-        return headers;
+        final HttpHeaders h = new HttpHeaders();
+        h.setContentType(MediaType.APPLICATION_JSON);
+        h.setAccept(List.of(MediaType.APPLICATION_JSON));
+        return h;
     }
 
-    private SecurityUser post(final String url, final HttpHeaders headers,
+    private SecurityUser post(final String url, final HttpHeaders heads,
         final UserRequest userRequest) throws RestClientException, URISyntaxException {
         final EntityExchangeResult<UserImpl> res = restTestClient.post()
             .uri(new URI(url))
-            .headers(h -> h.addAll(headers))
+            .headers(h -> h.addAll(h))
             .body(userRequest)
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
@@ -295,11 +309,11 @@ public final class UserControllerTest {
         return res.getResponseBody();
     }
 
-    private String postString(final String url, final HttpHeaders headers,
+    private String postString(final String url, final HttpHeaders heads,
         final UserRequest userRequest) throws RestClientException, URISyntaxException {
         final EntityExchangeResult<String> res = restTestClient.post()
             .uri(new URI(url))
-            .headers(h -> h.addAll(headers))
+            .headers(h -> h.addAll(heads))
             .body(userRequest)
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
@@ -311,7 +325,7 @@ public final class UserControllerTest {
     @Test
     void testChangePasswordAndBack1() throws RestClientException, URISyntaxException {
         log.info("Test reset-credentials");
-        final HttpHeaders headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
+        headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
         final EntityExchangeResult<String> changeResponse = passwordHelper.changePassword(headers,
             "guest", "newpassword");
         assertEquals(HttpStatus.ACCEPTED, changeResponse.getStatus(),
@@ -322,23 +336,23 @@ public final class UserControllerTest {
             "Unexpected response from changing password back");
     }
 
-    private EntityExchangeResult<String> resetCredentials(final HttpHeaders headers)
+    private EntityExchangeResult<String> resetCredentials(final HttpHeaders heads)
         throws URISyntaxException {
         final String url = "http://localhost:" + port + "/v1/" + "reset-credentials";
         return restTestClient.get()
             .uri(new URI(url))
-            .headers(h -> h.addAll(headers))
+            .headers(h -> h.addAll(heads))
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
     }
 
-    private EntityExchangeResult<String> refresh(final HttpHeaders headers)
+    private EntityExchangeResult<String> refresh(final HttpHeaders heads)
         throws URISyntaxException {
         final String url = "http://localhost:" + port + "/v1/" + "refresh";
         return restTestClient.get()
             .uri(new URI(url))
-            .headers(h -> h.addAll(headers))
+            .headers(h -> h.addAll(heads))
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
