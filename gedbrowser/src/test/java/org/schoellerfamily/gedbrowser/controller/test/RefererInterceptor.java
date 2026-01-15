@@ -24,6 +24,9 @@ public class RefererInterceptor implements ClientHttpRequestInterceptor {
         this.refererUrl = refererUrl;
     }
 
+    /**
+     * Intercept request and add a referer header.
+     */
     @Override
     public ClientHttpResponse intercept(
             final HttpRequest request,

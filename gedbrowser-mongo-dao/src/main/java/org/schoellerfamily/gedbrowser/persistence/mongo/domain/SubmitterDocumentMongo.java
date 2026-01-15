@@ -20,15 +20,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
             def = "{'string': 1, 'filename': 1}",
             unique = true)
 })
-public class SubmitterDocumentMongo extends GedDocumentMongo<Submitter>
+public final class SubmitterDocumentMongo extends GedDocumentMongo<Submitter>
         implements SubmitterDocument {
     @Override
-    public final String getType() {
+    public String getType() {
         return "submitter";
     }
 
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof Submitter)) {
             throw new PersistenceException("Wrong type");

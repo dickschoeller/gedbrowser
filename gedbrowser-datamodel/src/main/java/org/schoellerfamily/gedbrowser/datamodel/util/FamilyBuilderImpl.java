@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 /**
  * @author Dick Schoeller
  */
-public class FamilyBuilderImpl implements FamilyBuilder {
+public final class FamilyBuilderImpl implements FamilyBuilder {
     /** */
     private final GedObjectBuilder gedObjectBuilder;
 

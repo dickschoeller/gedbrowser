@@ -13,7 +13,9 @@ public class HasRoles {
     /** */
     private final Set<UserRoleName> roles = new HashSet<>();
 
-    @SuppressWarnings({ "PMD.OptimizableToArrayCall" })
+    /**
+     * @return the array of roles
+     */
     public UserRoleName[] getRoles() {
         return roles.toArray(new UserRoleName[0]);
     }
@@ -25,6 +27,11 @@ public class HasRoles {
         roles.add(role);
     }
 
+    /**
+     * Add a role to the collection.
+     *
+     * @param role the role
+     */
     public void addRole(final String role) {
         try {
             roles.add(UserRoleName.valueOf(role));
@@ -50,6 +57,12 @@ public class HasRoles {
         return roles.contains(UserRoleName.valueOf(role));
     }
 
+    /**
+     * Check if the user has a particular role.
+     *
+     * @param role role that we are looking for
+     * @return true if the user has the role
+     */
     public boolean hasRole(final UserRoleName role) {
         return roles.contains(role);
     }

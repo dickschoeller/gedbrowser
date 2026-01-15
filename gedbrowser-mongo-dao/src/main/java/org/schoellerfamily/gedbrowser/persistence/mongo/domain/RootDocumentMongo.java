@@ -20,21 +20,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
             def = "{'string': 1, 'filename': 1}",
             unique = true)
 })
-public class RootDocumentMongo extends GedDocumentMongo<Root>
+public final class RootDocumentMongo extends GedDocumentMongo<Root>
         implements RootDocument {
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public final String getType() {
+    public String getType() {
         return "root";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof Root)) {
             throw new PersistenceException("Wrong type");
@@ -47,9 +41,6 @@ public class RootDocumentMongo extends GedDocumentMongo<Root>
         // Note that we don't load attributes on purpose here.
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);

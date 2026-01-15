@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @Slf4j
-public class RemotePageWaiter implements PageWaiter {
+public final class RemotePageWaiter implements PageWaiter {
 
     /** */
     private final long timeout;

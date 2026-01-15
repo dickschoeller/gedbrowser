@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
@@ -111,7 +110,6 @@ public final class IndexByPlaceRendererTest {
      * @throws IOException because the reader can
      */
     @Test
-    @Disabled
     void testIndexAsAdminSchoeller() throws IOException {
         // Test can only be run with my data.
         // Takes about .4 seconds
@@ -127,7 +125,7 @@ public final class IndexByPlaceRendererTest {
             }
         }
         log.info("done testIndexAsAdminSchoeller");
-        final int expected = 950;
+        final int expected = 1233;
         assertEquals(expected, map.size(), "maps size wrong");
     }
 

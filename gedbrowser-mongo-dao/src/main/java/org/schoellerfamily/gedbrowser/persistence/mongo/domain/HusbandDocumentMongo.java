@@ -11,21 +11,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 /**
  * @author Dick Schoeller
  */
-public class HusbandDocumentMongo extends GedDocumentMongo<Husband>
+public final class HusbandDocumentMongo extends GedDocumentMongo<Husband>
         implements HusbandDocument {
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public final String getType() {
+    public String getType() {
         return "husband";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof Husband)) {
             throw new PersistenceException("Wrong type");
@@ -37,17 +31,11 @@ public class HusbandDocumentMongo extends GedDocumentMongo<Husband>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);
