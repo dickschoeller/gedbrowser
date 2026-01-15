@@ -99,13 +99,13 @@ public class SubmissionDocumentRepositoryMongoImpl implements
     }
 
     @Override
-    public String lastId(final RootDocument rootDocument) {
+    public final String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, SubmissionDocumentMongo.class,
                 rootDocument.getFilename(), "SUBN");
     }
 
     @Override
-    public String newId(final RootDocument rootDocument) {
+    public final String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, SubmissionDocumentMongo.class,
                 rootDocument.getFilename(), "SUBN");
     }

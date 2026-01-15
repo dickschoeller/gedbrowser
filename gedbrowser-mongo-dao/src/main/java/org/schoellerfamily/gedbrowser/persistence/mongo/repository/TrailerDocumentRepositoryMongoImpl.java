@@ -100,12 +100,12 @@ public class TrailerDocumentRepositoryMongoImpl implements
     }
 
     @Override
-    public String lastId(final RootDocument rootDocument) {
+    public final String lastId(final RootDocument rootDocument) {
         return "";
     }
 
     @Override
-    public String newId(final RootDocument rootDocument) {
+    public final String newId(final RootDocument rootDocument) {
         return "";
     }
 }

@@ -21,6 +21,11 @@ public class ApplicationInfoContributor implements InfoContributor {
     /** */
     private final ApplicationInfo appInfo;
 
+    /**
+     * Contribute to the application information.
+     *
+     * @param builder the builder to add information to
+     */
     @Override
     public void contribute(final Builder builder) {
         log.info("Contribute to info");

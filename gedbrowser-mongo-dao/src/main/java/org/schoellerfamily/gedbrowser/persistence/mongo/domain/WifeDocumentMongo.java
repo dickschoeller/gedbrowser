@@ -11,15 +11,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 /**
  * @author Dick Schoeller
  */
-public class WifeDocumentMongo extends GedDocumentMongo<Wife>
+public final class WifeDocumentMongo extends GedDocumentMongo<Wife>
         implements WifeDocument {
     @Override
-    public final String getType() {
+    public String getType() {
         return "wife";
     }
 
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof Wife)) {
             throw new PersistenceException("Wrong type");

@@ -5,7 +5,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 /**
  * @author Dick Schoeller
  */
-public class Submission extends GedObject {
+public final class Submission extends GedObject {
     /**
      * Constructor.
      */

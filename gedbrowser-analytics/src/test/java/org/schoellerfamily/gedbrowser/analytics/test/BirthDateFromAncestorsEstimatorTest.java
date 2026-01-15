@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
+class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
     /** */
     @Autowired
     private GedObjectBuilder builder;

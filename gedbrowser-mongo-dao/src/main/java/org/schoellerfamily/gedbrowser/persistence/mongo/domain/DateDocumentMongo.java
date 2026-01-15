@@ -11,15 +11,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 /**
  * @author Dick Schoeller
  */
-public class DateDocumentMongo extends GedDocumentMongo<Date>
+public final class DateDocumentMongo extends GedDocumentMongo<Date>
         implements DateDocument {
     @Override
-    public final String getType() {
+    public String getType() {
         return "date";
     }
 
     @Override
-    public final void loadGedObject(final GedDocumentLoader loader,
+    public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
         if (!(ged instanceof Date)) {
             throw new PersistenceException("Wrong type");

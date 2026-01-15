@@ -22,7 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
+class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
     /** */
     @Autowired
     private GedObjectBuilder builder;
