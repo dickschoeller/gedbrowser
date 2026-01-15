@@ -330,7 +330,7 @@ public final class PersonControllerTest {
             .exchange()
             .returnResult(String.class);
         then(deleteEntity.getStatus())
-            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.UNAUTHORIZED.value()));
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.FORBIDDEN.value()));
     }
 
     /**
