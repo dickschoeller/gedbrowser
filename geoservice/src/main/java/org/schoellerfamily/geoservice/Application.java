@@ -17,6 +17,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Main module of a Spring Boot application to provide cached geocode lookups
@@ -26,6 +27,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @ComponentScan(basePackages = { "org.schoellerfamily.geoservice" })
 @EnableAutoConfiguration
+@Configuration
 public class Application {
     /** */
     @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
