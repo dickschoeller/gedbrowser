@@ -53,7 +53,6 @@ public class FileSystemStorageService implements StorageService {
         if (ObjectUtils.isEmpty(originalFilename)) {
             throw new StorageException("Failed to store file with empty name");
         }
-        @SuppressWarnings("null")
         final String filename = StringUtils.cleanPath(originalFilename);
         if (file.isEmpty()) {
             throw new StorageException("Failed to store empty file %s".formatted(filename));

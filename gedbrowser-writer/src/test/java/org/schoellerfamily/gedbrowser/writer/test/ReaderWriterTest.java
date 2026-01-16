@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @Slf4j
-@SuppressWarnings("null")
 public class ReaderWriterTest {
     /**
      * The file name to use in the test.

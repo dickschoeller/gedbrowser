@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
  */
 @Configuration
 @RequiredArgsConstructor
-@SuppressWarnings("null")
 public class MockMvcConfig {
     /** */
     private final WebApplicationContext wac;
@@ -27,12 +26,8 @@ public class MockMvcConfig {
     /** */
     private final TokenAuthenticationFilter filter;
 
-//    /** */
-//    @Autowired
-//    private Environment env;
-
     /** */
-    private final int port = 8080;
+    private static final int PORT = 8080;
 
     /**
      * @return the request builder
@@ -45,7 +40,7 @@ public class MockMvcConfig {
      * @return the mock MVC
      */
     private MockMvc mockMvc() {
-        DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(wac);
+        final DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(wac);
         return builder.addFilter(filter, "", "")
                 .build();
     }
@@ -56,6 +51,6 @@ public class MockMvcConfig {
     @PostConstruct
     protected void restAssured() {
         RestAssuredMockMvc.mockMvc(mockMvc());
-        RestAssured.port = this.port;
+        RestAssured.port = PORT;
     }
 }
