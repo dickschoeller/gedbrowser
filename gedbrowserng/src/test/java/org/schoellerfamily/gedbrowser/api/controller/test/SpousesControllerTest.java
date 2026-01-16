@@ -4,7 +4,6 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -139,7 +138,7 @@ public class SpousesControllerTest {
     /**
      * @param parent the parent
      * @return the child
-     * @throws URISyntaxException if there is a problem with the URL
+     * @throws RestClientException if we can't talk to rest server
      */
     private ApiPerson createChildOfParent(final ApiPerson parent) throws RestClientException {
         final String childUrl = helper.getPersonsUrl() + "/" + parent.getString() + "/children";
