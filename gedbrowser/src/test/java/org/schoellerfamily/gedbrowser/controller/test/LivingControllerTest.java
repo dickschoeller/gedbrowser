@@ -5,7 +5,6 @@ import static org.assertj.core.api.BDDAssertions.then;
 import java.net.URI;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.Application;
 import org.schoellerfamily.gedbrowser.test.TestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +14,17 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @AutoConfigureRestTestClient
-@SuppressWarnings({"PMD.JUnitTestsShouldIncludeAssert", "null"})
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 public class LivingControllerTest implements MenuTestHelper {
 
     /**
@@ -55,7 +52,7 @@ public class LivingControllerTest implements MenuTestHelper {
         final HttpStatusCode status = entity.getStatus();
         then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         then(entity.getResponseBody()).contains("<title>Living - gl120368</title>")
-        .contains(getMenu("A"));
+            .contains(getMenu("A"));
     }
 
     /** */
