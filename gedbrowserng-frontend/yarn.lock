@@ -3526,9 +3526,9 @@ base64id@2.0.0, base64id@~2.0.0:
   integrity sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==
 
 baseline-browser-mapping@^2.9.0:
-  version "2.9.14"
-  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.9.14.tgz#3b6af0bc032445bca04de58caa9a87cfe921cbb3"
-  integrity sha512-B0xUquLkiGLgHhpPBqvl7GWegWBUNuujQ6kXd/r1U38ElPT6Ok8KZ8e+FpUGEc2ZoRQUzq/aUnaKFc/svWUGSg==
+  version "2.9.15"
+  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.9.15.tgz#6baaa0069883f50a99cdb31b56646491f47c05d7"
+  integrity sha512-kX8h7K2srmDyYnXRIppo4AH/wYgzWVCs+eKr3RusRSQ5PvRYoEFmR/I0PbdTjKFAoKqp5+kbxnNTFO9jOfSVJg==
 
 basic-ftp@^5.0.2:
   version "5.1.0"
@@ -6177,9 +6177,9 @@ media-typer@^1.1.0:
   integrity sha512-aisnrDP4GNe06UcKFnV5bfMNPBUw4jsLGaWwWfnH3v02GnBuXX2MCVn5RbrWo0j3pczUilYblq7fQ7Nw2t5XKw==
 
 memfs@^4.43.1:
-  version "4.52.0"
-  resolved "https://registry.yarnpkg.com/memfs/-/memfs-4.52.0.tgz#6f9be8a82d39f112f577dcf8b088ef9119f3a917"
-  integrity sha512-dG5ZY1wUCPWhtl4M2mlc7Wx4OrMGtiI79axnScxwDoPR/25biQYrYm21OpKyZcnKv8pvWaX95SRtZgecZ84gFg==
+  version "4.53.0"
+  resolved "https://registry.yarnpkg.com/memfs/-/memfs-4.53.0.tgz#93eb74dd4f748a9140756bf270a24d2e622f31f2"
+  integrity sha512-TKFRsKjJA30iAc9ZeGH/77v5nLcNUD0GBOL/tAj4O63RPIKNxGDZ54ZyuQM4KjEKEj7gfer/Ta1xAzB+HrEnrA==
   dependencies:
     "@jsonjoy.com/json-pack" "^1.11.0"
     "@jsonjoy.com/util" "^1.9.0"
@@ -8162,9 +8162,9 @@ terser@5.44.1:
     source-map-support "~0.5.20"
 
 terser@^5.31.1:
-  version "5.45.0"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-5.45.0.tgz#5d2f1e6f1ae4ebbcf589823303e5b7311b45945f"
-  integrity sha512-hQ9c+JZEnMug8eqzuU48sCeq95f00lLDAaJ5gWhRkFXsfy3+SUkZXiF/Z66ZO6EomSmgqXnkhVrWXKaQ8K41Ug==
+  version "5.46.0"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-5.46.0.tgz#1b81e560d584bbdd74a8ede87b4d9477b0ff9695"
+  integrity sha512-jTwoImyr/QbOWFFso3YoU3ik0jBBDJ6JTOQiy/J2YxVJdZCc+5u7skhNwiOR3FQIygFqVUPHl7qbbxtjW2K3Qg==
   dependencies:
     "@jridgewell/source-map" "^0.3.3"
     acorn "^8.15.0"
