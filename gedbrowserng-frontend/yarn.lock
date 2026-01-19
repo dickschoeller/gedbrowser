@@ -2365,9 +2365,9 @@
     "@primeuix/styled" "^0.7.4"
 
 "@primeuix/utils@^0.6.1", "@primeuix/utils@^0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.6.3.tgz#0d31e41c530fb64dd487ce768f8c244ca1d0872e"
-  integrity sha512-/SLNQSKQ73WbBIsflKVqbpVjCfFYvQO3Sf1LMheXyxh8JqxO4M63dzP56wwm9OPGuCQ6MYOd2AHgZXz+g7PZcg==
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.6.4.tgz#f436eae1be166662d424b8550a97ba0c150819e6"
+  integrity sha512-pZ5f+vj7wSzRhC7KoEQRU5fvYAe+RP9+m39CTscZ3UywCD1Y2o6Fe1rRgklMPSkzUcty2jzkA0zMYkiJBD1hgg==
 
 "@puppeteer/browsers@2.11.1":
   version "2.11.1"
@@ -7089,9 +7089,9 @@ primeicons@^7.0.0:
   integrity sha512-jK3Et9UzwzTsd6tzl2RmwrVY/b8raJ3QZLzoDACj+oTJ0oX7L9Hy+XnVwgo4QVKlKpnP/Ur13SXV/pVh4LzaDw==
 
 primeng@^21.0.0:
-  version "21.0.3"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-21.0.3.tgz#ac3212d6d208b55c4592f97468fae2e7c7408ab1"
-  integrity sha512-B5jrDU2vXZ5+ZNtOIxH2pLuLr8C/pwTsvEkppdq9ehgzwRj0eGbh2eoy8EbH8mWkcSXUuH7xneWi9veIrnwZ+Q==
+  version "21.0.4"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-21.0.4.tgz#30bd941c6ca2a940c7577e1339ec772f2d730962"
+  integrity sha512-3egRt7p7sERALFVOVnNQ+JsW+GYgHHcqAYeFBxj3wvKN+tgGo1rtkHxBbMQjYGuO9S/V18LPhk8LJwfdE3DNoQ==
   dependencies:
     "@primeuix/motion" "^0.0.10"
     "@primeuix/styled" "^0.7.4"
