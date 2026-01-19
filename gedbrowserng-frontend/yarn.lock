@@ -2329,9 +2329,9 @@
     "@parcel/watcher-win32-x64" "2.5.4"
 
 "@primeng/themes@^21.0.0":
-  version "21.0.3"
-  resolved "https://registry.yarnpkg.com/@primeng/themes/-/themes-21.0.3.tgz#a53bf42e3b34d91b2d4c83f5fe5eee1dbc5fcce8"
-  integrity sha512-IjeONnGb1jhVyujWAdWUzVQUsSRVnpH1GWIXzNmIJMtv6BEUCc7Zk0TbIuvPS9T6eq6aiHrZgaJZ9Uu7KptDwg==
+  version "21.0.4"
+  resolved "https://registry.yarnpkg.com/@primeng/themes/-/themes-21.0.4.tgz#1802a67eb3cfce1c1cfaa41f787afda5e5d93bfd"
+  integrity sha512-WDF8pj91K3ItGmUJB91T1mRj6ut3dCMz4/5rb1sZR6sjxP7jX06PT/uXkKF8sz60ewEEBbh3yK98Js/mKxev3A==
   dependencies:
     "@primeuix/styled" "^0.7.4"
     "@primeuix/themes" "^2.0.2"
@@ -2364,7 +2364,12 @@
   dependencies:
     "@primeuix/styled" "^0.7.4"
 
-"@primeuix/utils@^0.6.1", "@primeuix/utils@^0.6.3":
+"@primeuix/utils@^0.6.1":
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.6.4.tgz#f436eae1be166662d424b8550a97ba0c150819e6"
+  integrity sha512-pZ5f+vj7wSzRhC7KoEQRU5fvYAe+RP9+m39CTscZ3UywCD1Y2o6Fe1rRgklMPSkzUcty2jzkA0zMYkiJBD1hgg==
+
+"@primeuix/utils@^0.6.3":
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.6.3.tgz#0d31e41c530fb64dd487ce768f8c244ca1d0872e"
   integrity sha512-/SLNQSKQ73WbBIsflKVqbpVjCfFYvQO3Sf1LMheXyxh8JqxO4M63dzP56wwm9OPGuCQ6MYOd2AHgZXz+g7PZcg==
