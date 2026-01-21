@@ -579,47 +579,61 @@
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-support</artifactId>
         <version>${selenium.version}</version>
+	<scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
         <version>${selenium.version}</version>
+	<scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-api</artifactId>
         <version>${selenium.version}</version>
+	<scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-remote-driver</artifactId>
         <version>${selenium.version}</version>
+	<scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-chrome-driver</artifactId>
         <version>${selenium.version}</version>
+	<scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-firefox-driver</artifactId>
         <version>${selenium.version}</version>
+	<scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <!-- htmlunit-driver works, selenium-htmlunit-driver does not -->
         <artifactId>htmlunit-driver</artifactId>
         <version>${htmlunit-driver.version}</version>
+	<scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-safari-driver</artifactId>
         <version>${selenium.version}</version>
+	<scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-ie-driver</artifactId>
         <version>${selenium.version}</version>
+	<scope>test</scope>
+      </dependency>
+      <dependency>
+	<groupId>com.google.guava</groupId>
+	<artifactId>guava</artifactId>
+	<version>33.5.0-jre</version>
       </dependency>
       <dependency>
         <groupId>com.google.maps</groupId>
@@ -655,6 +669,13 @@
         <groupId>com.saucelabs</groupId>
         <artifactId>saucebindings-junit5</artifactId>
         <version>${saucebindings-junit5.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+          </exclusion>
+        </exclusions>
+	<scope>test</scope>
       </dependency>
       <dependency>
         <groupId>de.grundid.opendatalab</groupId>
