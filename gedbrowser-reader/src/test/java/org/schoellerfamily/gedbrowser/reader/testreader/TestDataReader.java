@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
  */
 @Component
 @RequiredArgsConstructor
-@SuppressWarnings("null")
 public final class TestDataReader {
     /** */
     private final GedLineToGedObjectTransformer g2g;

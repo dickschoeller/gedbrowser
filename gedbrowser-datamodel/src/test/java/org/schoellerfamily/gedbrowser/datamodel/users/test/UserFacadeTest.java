@@ -14,7 +14,6 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("null")
 public class UserFacadeTest {
     /**
      * @author Dick Schoeller
@@ -24,15 +23,14 @@ public class UserFacadeTest {
         private final User user;
 
         /**
+         * Constructor.
+         *
          * @param user the user object that we are wrapping
          */
         UserFacadeImpl(final User user) {
             this.user = user;
         }
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public User getUser() {
             return user;

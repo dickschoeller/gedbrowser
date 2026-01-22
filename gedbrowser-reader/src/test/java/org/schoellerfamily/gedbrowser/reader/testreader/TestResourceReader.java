@@ -17,7 +17,6 @@ import org.schoellerfamily.gedbrowser.reader.StreamManager;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings("null")
 public final class TestResourceReader {
     /**
      * Constructor.
@@ -35,7 +34,7 @@ public final class TestResourceReader {
      */
     public static AbstractGedLine readFileTestSource(final Object caller, final String filename)
         throws IOException {
-        String shortname;
+        final String shortname;
         if (filename.charAt(0) == '/') {
             shortname = filename.substring(filename.lastIndexOf("/") + 1);
         } else {

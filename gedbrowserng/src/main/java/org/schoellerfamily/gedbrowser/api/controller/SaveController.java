@@ -48,7 +48,6 @@ public class SaveController {
      */
     @GetMapping(value = "/v1/dbs/{db}/save", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    @SuppressWarnings("null")
     public final ResponseEntity<String> save(@PathVariable final String db,
         final HttpServletResponse response) {
         log.info("Starting save");

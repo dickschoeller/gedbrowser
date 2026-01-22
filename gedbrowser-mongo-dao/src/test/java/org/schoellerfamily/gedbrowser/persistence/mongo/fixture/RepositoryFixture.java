@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("null")
 @RequiredArgsConstructor
 public final class RepositoryFixture {
     /** */
@@ -73,7 +72,7 @@ public final class RepositoryFixture {
     public void clearRepository() {
         rootDocumentRepository.deleteAll();
         repositoryManager.reset();
-        MongoDatabase db = mongoTemplate.getDb();
+        final MongoDatabase db = mongoTemplate.getDb();
         db.drop();
     }
 }
