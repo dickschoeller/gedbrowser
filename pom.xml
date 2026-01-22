@@ -54,7 +54,7 @@
 
     <!-- These all step forward together -->
     <spring.version>7.0.2</spring.version>
-    <spring-boot.version>4.0.1</spring-boot.version>
+    <spring-boot.version>4.0.2</spring-boot.version>
     <spring-boot-maven.version>4.0.1</spring-boot-maven.version>
     <spring-data-mongodb.version>5.0.1</spring-data-mongodb.version>
     <spring-data-commons.version>4.0.1</spring-data-commons.version>
