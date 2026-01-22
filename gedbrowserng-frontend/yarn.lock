@@ -2799,9 +2799,9 @@
     "@sigstore/protobuf-specs" "^0.5.0"
 
 "@snyk/protect@^1.1300.2":
-  version "1.1302.0"
-  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.1302.0.tgz#84c410e8388509185fb39d705631a10537f97507"
-  integrity sha512-pVtE94es/3iIx4Iuf5MG/eHzt82/Ms/pqbf3R1o5E6BCjKTpiApfMwI9wtUE550FE286huINHdy4f9KgiaC4DQ==
+  version "1.1302.1"
+  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.1302.1.tgz#bec36dde4e9cdf1ce58d9932dda9b62191cc0f10"
+  integrity sha512-M0mOugMFx8d89hHRjz38X0sPXhLFAN9WlD3FK0jUfMU8m3CWQ168gPfC8mMZtETlkEjRU1Y2XRJ5vZBXJccIoA==
 
 "@socket.io/component-emitter@~3.1.0":
   version "3.1.2"
@@ -2972,15 +2972,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jasmine@*":
+"@types/jasmine@*", "@types/jasmine@~6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-6.0.0.tgz#85dc83ea9bcb1d047486da447a6a0ebe241f589c"
   integrity sha512-18lgGsLmEh3VJk9eZ5wAjTISxdqzl6YOwu8UdMpolajN57QOCNbl+AbHUd+Yu9ItrsFdB+c8LSZSGNg8nHaguw==
-
-"@types/jasmine@~5.1.0":
-  version "5.1.15"
-  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-5.1.15.tgz#5a9a8d7c45590089a862fc3e1c0c70d3af811274"
-  integrity sha512-ZAC8KjmV2MJxbNTrwXFN+HKeajpXQZp6KpPiR6Aa4XvaEnjP6qh23lL/Rqb7AYzlp3h/rcwDrQ7Gg7q28cQTQg==
 
 "@types/jasminewd2@^2.0.8":
   version "2.0.13"
