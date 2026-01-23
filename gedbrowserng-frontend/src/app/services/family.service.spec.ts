@@ -1,5 +1,5 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {TestBed, inject} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import {FamilyService} from './family.service';
 
@@ -11,7 +11,8 @@ describe('FamilyService', () => {
     });
   });
 
-  it('should be created', inject([FamilyService], (service: FamilyService) => {
+  it('should be created', () => {
+    const service: FamilyService = TestBed.inject(FamilyService);
     expect(service).toBeTruthy();
-  }));
+  });
 });

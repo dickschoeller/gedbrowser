@@ -1,24 +1,24 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 import {SourceService} from '../../services';
 import {SourceListComponent} from './source-list.component';
-import {SourceListItemComponent} from './source-list-item.component';
 
 describe('SourceListComponent', () => {
   let component: SourceListComponent;
   let fixture: ComponentFixture<SourceListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SourceListComponent,
-        SourceListItemComponent
+        SourceListComponent
       ],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
+        NoopAnimationsModule,
       ],
       providers: [
         SourceService,

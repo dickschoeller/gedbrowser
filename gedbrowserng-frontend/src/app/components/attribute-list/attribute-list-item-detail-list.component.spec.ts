@@ -1,4 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AttributeListItemDetailListComponent } from './attribute-list-item-detail-list.component';
 
@@ -6,9 +8,11 @@ describe('AttributeListItemDetailListComponent', () => {
   let component: AttributeListItemDetailListComponent;
   let fixture: ComponentFixture<AttributeListItemDetailListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AttributeListItemDetailListComponent ]
+      declarations: [ AttributeListItemDetailListComponent ],
+      imports: [ MatButtonModule, NoopAnimationsModule ],
+      providers: []
     })
     .compileComponents();
   }));

@@ -1,25 +1,25 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 import {PersonService} from '../../services';
 import {PersonListComponent} from './person-list.component';
-import {PersonListItemComponent} from './person-list-item.component';
 import {PersonListResolverService} from './person-list-resolver.service';
 
 describe('PersonListComponent', () => {
   let component: PersonListComponent;
   let fixture: ComponentFixture<PersonListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
-        PersonListComponent,
-        PersonListItemComponent,
+        PersonListComponent
       ],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
+        NoopAnimationsModule,
       ],
       providers: [
         PersonService,

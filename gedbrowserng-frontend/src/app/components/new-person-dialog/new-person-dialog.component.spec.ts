@@ -1,20 +1,27 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import {NewPersonDialog2Component} from './new-person-dialog.component';
+import { NewPersonDialogComponent } from './new-person-dialog.component';
 
-describe('NewPersonDialog2Component', () => {
-  let component: NewPersonDialog2Component;
-  let fixture: ComponentFixture<NewPersonDialog2Component>;
+describe('NewPersonDialogComponent', () => {
+  let component: NewPersonDialogComponent;
+  let fixture: ComponentFixture<NewPersonDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewPersonDialog2Component ]
+      declarations: [ NewPersonDialogComponent ],
+      imports: [ MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, NoopAnimationsModule ],
+      providers: [ { provide: MAT_DIALOG_DATA, useValue: {} } ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewPersonDialog2Component);
+    fixture = TestBed.createComponent(NewPersonDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

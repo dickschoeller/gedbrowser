@@ -1,20 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MultimediaButtonComponent } from './multimedia-add-button.component';
+import { MultimediaAddButtonComponent } from './multimedia-add-button.component';
 
-describe('MultimediaButtonComponent', () => {
-  let component: MultimediaButtonComponent;
-  let fixture: ComponentFixture<MultimediaButtonComponent>;
+describe('MultimediaAddButtonComponent', () => {
+  let component: MultimediaAddButtonComponent;
+  let fixture: ComponentFixture<MultimediaAddButtonComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MultimediaButtonComponent ]
+      declarations: [ MultimediaAddButtonComponent ],
+      imports: [ MatDialogModule, NoopAnimationsModule ],
+      providers: [],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MultimediaButtonComponent);
+    fixture = TestBed.createComponent(MultimediaAddButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

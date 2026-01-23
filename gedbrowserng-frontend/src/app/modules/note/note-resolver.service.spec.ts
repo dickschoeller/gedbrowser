@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { NoteResolverService } from './note-resolver.service';
 
@@ -9,7 +9,8 @@ describe('NoteResolverService', () => {
     });
   });
 
-  it('should be created', inject([NoteResolverService], (service: NoteResolverService) => {
+  it('should be created', () => {
+    const service: NoteResolverService = TestBed.inject(NoteResolverService);
     expect(service).toBeTruthy();
-  }));
+  });
 });

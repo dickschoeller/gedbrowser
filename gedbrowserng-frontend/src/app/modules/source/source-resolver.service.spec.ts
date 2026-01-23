@@ -1,4 +1,4 @@
-import {TestBed, inject} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import {SourceResolverService} from './source-resolver.service';
 
@@ -9,7 +9,8 @@ describe('SourceResolverService', () => {
     });
   });
 
-  it('should be created', inject([SourceResolverService], (service: SourceResolverService) => {
+  it('should be created', () => {
+    const service: SourceResolverService = TestBed.inject(SourceResolverService);
     expect(service).toBeTruthy();
-  }));
+  });
 });

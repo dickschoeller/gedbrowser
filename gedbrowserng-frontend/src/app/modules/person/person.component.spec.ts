@@ -1,14 +1,20 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import {PersonComponent} from './person.component';
+import { PersonComponent } from './person.component';
+import { PersonService } from '../../services';
 
 describe('PersonComponent', () => {
   let component: PersonComponent;
   let fixture: ComponentFixture<PersonComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PersonComponent ]
+      declarations: [ PersonComponent ],
+      imports: [ RouterTestingModule, HttpClientTestingModule, NoopAnimationsModule ],
+      providers: [ PersonService ]
     })
     .compileComponents();
   }));

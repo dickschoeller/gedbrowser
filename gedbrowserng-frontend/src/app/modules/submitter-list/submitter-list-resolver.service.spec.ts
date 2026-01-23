@@ -1,4 +1,4 @@
-import {TestBed, inject} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 
@@ -19,7 +19,8 @@ describe('SubmitterListResolverService', () => {
     });
   });
 
-  it('should be created', inject([SubmitterListResolverService], (service: SubmitterListResolverService) => {
+  it('should be created', () => {
+    const service: SubmitterListResolverService = TestBed.inject(SubmitterListResolverService);
     expect(service).toBeTruthy();
-  }));
+  });
 });

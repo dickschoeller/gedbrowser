@@ -1,14 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NoteButtonComponent } from './note-button.component';
+import { NoteService } from '../../services';
 
 describe('NoteButtonComponent', () => {
   let component: NoteButtonComponent;
   let fixture: ComponentFixture<NoteButtonComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoteButtonComponent ]
+      declarations: [ NoteButtonComponent ],
+      imports: [ MatDialogModule, NoopAnimationsModule ],
+      providers: [ NoteService ]
     })
     .compileComponents();
   }));

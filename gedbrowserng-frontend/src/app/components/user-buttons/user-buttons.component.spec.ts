@@ -1,14 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { UserButtonsComponent } from './user-buttons.component';
+import { AuthService, UserService } from '../../services';
 
 describe('UserButtonsComponent', () => {
   let component: UserButtonsComponent;
   let fixture: ComponentFixture<UserButtonsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserButtonsComponent ]
+      declarations: [ UserButtonsComponent ],
+      imports: [ RouterTestingModule, HttpClientTestingModule ],
+      providers: [ AuthService, UserService ]
     })
     .compileComponents();
   }));

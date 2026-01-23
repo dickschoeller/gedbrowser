@@ -1,15 +1,16 @@
-import {TestBed, inject} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import {PersonResolverService} from './person-resolver.service';
 
 describe('PersonResolverService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PersonResolver]
+      providers: [PersonResolverService]
     });
   });
 
-  it('should be created', inject([PersonResolverService], (service: PersonResolverService) => {
+  it('should be created', () => {
+    const service: PersonResolverService = TestBed.inject(PersonResolverService);
     expect(service).toBeTruthy();
-  }));
+  });
 });

@@ -1,14 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgxGalleryModule } from 'ngx-gallery-15';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MultimediaGalleryComponent } from './multimedia-gallery.component';
+import { UserService } from '../../services';
 
 describe('MultimediaGalleryComponent', () => {
   let component: MultimediaGalleryComponent;
   let fixture: ComponentFixture<MultimediaGalleryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MultimediaGalleryComponent ]
+      declarations: [ MultimediaGalleryComponent ],
+      imports: [ MatDialogModule, NgxGalleryModule, NoopAnimationsModule ],
+      providers: [ UserService ]
     })
     .compileComponents();
   }));

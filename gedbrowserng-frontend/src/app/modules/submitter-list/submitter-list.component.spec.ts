@@ -1,23 +1,23 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 import {SubmitterService} from '../../services';
 import {SubmitterListComponent} from './submitter-list.component';
-import {SubmitterListItemComponent} from './submitter-list-item.component';
 
 describe('SubmitterListComponent', () => {
   let component: SubmitterListComponent;
   let fixture: ComponentFixture<SubmitterListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SubmitterListComponent,
-        SubmitterListItemComponent,
+        SubmitterListComponent
       ],
       imports: [
         RouterTestingModule,
+        NoopAnimationsModule,
         HttpClientTestingModule,
       ],
       providers: [

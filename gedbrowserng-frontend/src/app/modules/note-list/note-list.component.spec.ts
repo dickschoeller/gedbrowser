@@ -1,24 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NoteService } from '../../services';
 import { NoteListComponent } from './note-list.component';
-import { NoteListItemComponent } from './note-list-item.component';
 
 describe('NoteListComponent', () => {
   let component: NoteListComponent;
   let fixture: ComponentFixture<NoteListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
-        NoteListComponent,
-        NoteListItemComponent
+        NoteListComponent
       ],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
+        NoopAnimationsModule,
       ],
       providers: [
         NoteService,

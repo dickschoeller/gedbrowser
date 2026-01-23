@@ -1,14 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SubmitterButtonComponent } from './submitter-button.component';
+import { SubmitterService } from '../../services';
 
 describe('SubmitterButtonComponent', () => {
   let component: SubmitterButtonComponent;
   let fixture: ComponentFixture<SubmitterButtonComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubmitterButtonComponent ]
+      declarations: [ SubmitterButtonComponent ],
+      imports: [ MatDialogModule, NoopAnimationsModule ],
+      providers: [ SubmitterService ]
     })
     .compileComponents();
   }));

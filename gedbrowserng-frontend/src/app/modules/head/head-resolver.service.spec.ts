@@ -1,4 +1,4 @@
-import {TestBed, inject} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import {HeadResolverService} from './head-resolver.service';
 
@@ -9,7 +9,8 @@ describe('HeadResolverService', () => {
     });
   });
 
-  it('should be created', inject([HeadResolverService], (service: HeadResolverService) => {
+  it('should be created', () => {
+    const service: HeadResolverService = TestBed.inject(HeadResolverService);
     expect(service).toBeTruthy();
-  }));
+  });
 });
