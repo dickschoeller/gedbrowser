@@ -15,9 +15,9 @@ export class PersonListPageComponent implements OnInit, OnChanges {
   dataset: string;
   persons: ApiPerson[];
 
-  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) private personService: PersonService,
-    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router) { }
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(PersonService) private personService: PersonService,
+    @Inject(Router) private router: Router) { }
 
   ngOnInit(): void {
     this.init();
