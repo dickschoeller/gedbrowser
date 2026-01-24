@@ -22,7 +22,7 @@ import { UserService } from '../../services';
   <div>
     <div cdkDropList class="file-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
-      <div cdkDrag class="{{ hasSignedIn() ? 'file-box' : ''"
+      <div cdkDrag class="{{ hasSignedIn() ? 'file-box' : '' }}"
           *ngFor="let file of data.files; let i=index">
         <br/>
         <mat-form-field>
