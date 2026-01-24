@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
 
 import { ApiAttribute, ApiPerson } from '../../models';
 import { PersonService, UserService } from '../../services';
@@ -39,7 +39,7 @@ export class PersonFamilyChildComponent extends PersonGetter
     @Input() index: number;
 
     constructor(personService: PersonService,
-        private userService: UserService) {
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
         super(personService);
         this.famMemberType = 'children';
     }

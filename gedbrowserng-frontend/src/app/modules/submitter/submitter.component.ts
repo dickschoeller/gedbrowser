@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AttributeListComponent } from '../../components';
@@ -39,9 +39,9 @@ export class SubmitterComponent implements OnInit, HasAttributeList {
       {value: 'Web', label: 'Web'},
     ];
 
-  constructor(private route: ActivatedRoute,
-    private service: SubmitterService,
-    private router: Router
+  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) private service: SubmitterService,
+    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
   ) { }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject } from '@angular/core';
 import { AuthService, UserService, User } from '../../services';
 import { Router } from '@angular/router';
 
@@ -14,9 +14,9 @@ export class AccountMenuComponent implements OnInit {
     user: User;
 
     constructor(
-        private authService: AuthService,
-        private userService: UserService,
-        private router: Router,
+        @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) private authService: AuthService,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService,
+        @Inject(Router) @Inject(Router) @Inject(Router) private router: Router,
     ) { }
 
     ngOnInit() {

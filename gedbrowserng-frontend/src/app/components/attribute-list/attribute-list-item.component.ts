@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
@@ -48,8 +48,8 @@ export class AttributeListItemComponent extends HasAttributeDialog {
         return this.attribute.attributes;
     }
 
-    constructor(public dialog: MatDialog,
-        private userService: UserService) {
+    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
         super(dialog);
     }
 

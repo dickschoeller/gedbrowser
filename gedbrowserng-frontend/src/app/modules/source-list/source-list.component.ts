@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -82,9 +82,9 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
   datasource: MatTableDataSource<ApiSource> = new MatTableDataSource<ApiSource>([]);
 
   constructor(
-    private router: Router,
-    public sourceService: SourceService,
-    public dialog: MatDialog,
+    @Inject(Router) @Inject(Router) @Inject(Router) @Inject(Router) private router: Router,
+    @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) public sourceService: SourceService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
   ) { super(sourceService, dialog); }
 
   ngAfterViewInit() {

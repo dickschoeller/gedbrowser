@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AttributeListComponent } from '../../components';
@@ -157,9 +157,9 @@ export class SourceComponent implements OnInit, HasAttributeList {
       {value: 'Will', label: 'Will'},
     ];
 
-  constructor(private route: ActivatedRoute,
-    private sourceService: SourceService,
-    private router: Router
+  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) private sourceService: SourceService,
+    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
   ) {}
 
   ngOnInit() {

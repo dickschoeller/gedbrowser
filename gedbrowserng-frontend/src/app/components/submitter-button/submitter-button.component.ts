@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
@@ -27,8 +27,8 @@ export class SubmitterButtonComponent extends SubmitterCreator {
   @Input() dataset: string;
 
   constructor(
-    public service: SubmitterService,
-    public dialog: MatDialog,
+    @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) public service: SubmitterService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
   ) {
     super(service, dialog);
   }

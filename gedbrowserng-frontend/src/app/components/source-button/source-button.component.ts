@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
@@ -27,8 +27,8 @@ export class SourceButtonComponent extends SourceCreator {
   @Input() dataset: string;
 
   constructor(
-    public service: SourceService,
-    public dialog: MatDialog,
+    @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) public service: SourceService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
   ) {
     super(service, dialog);
   }

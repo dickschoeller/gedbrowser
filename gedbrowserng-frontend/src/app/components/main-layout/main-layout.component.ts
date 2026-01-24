@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 
 @Component({
   standalone: false,

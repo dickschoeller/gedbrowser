@@ -1,5 +1,5 @@
 import { RefreshNote } from '../../interfaces';
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiNote } from '../../models';
@@ -16,9 +16,9 @@ export class NoteListPageComponent implements OnInit, OnChanges, RefreshNote {
   dataset: string;
   notes: Array<ApiNote>;
 
-  constructor(private route: ActivatedRoute,
-    private noteService: NoteService,
-    private router: Router) { }
+  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(NoteService) @Inject(NoteService) @Inject(NoteService) private noteService: NoteService,
+    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router) { }
 
   ngOnInit(): void {
     this.init();

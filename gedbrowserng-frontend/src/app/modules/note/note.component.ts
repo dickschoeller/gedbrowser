@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AttributeListComponent } from '../../components';
@@ -30,9 +30,9 @@ export class NoteComponent implements OnInit, HasAttributeList {
       {value: 'sourcelink', label: 'Source Link'},
     ];
 
-  constructor(private route: ActivatedRoute,
-    private service: NoteService,
-    private router: Router
+  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(NoteService) @Inject(NoteService) @Inject(NoteService) private service: NoteService,
+    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
   ) { }
 
   ngOnInit() {

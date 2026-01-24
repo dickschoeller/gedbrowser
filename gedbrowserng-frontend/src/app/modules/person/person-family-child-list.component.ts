@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasFamily, HasPerson, RefreshPerson, Saveable, LinkCheck } from '../../interfaces';
@@ -63,9 +63,9 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
     sex = 'M';
     surname: string;
 
-    constructor(public personService: PersonService,
-        public familyService: FamilyService,
-        private userService: UserService) {
+    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public personService: PersonService,
+        @Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) public familyService: FamilyService,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
         super(personService);
     }
 

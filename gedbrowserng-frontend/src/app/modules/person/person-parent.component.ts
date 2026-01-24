@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
 
 import { ApiAttribute, ApiPerson } from '../../models';
 import { PersonService } from '../../services';

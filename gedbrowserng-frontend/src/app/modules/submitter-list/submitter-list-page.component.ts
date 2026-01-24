@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiSubmitter } from '../../models';
@@ -15,9 +15,9 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
   dataset: string;
   submitters: Array<ApiSubmitter>;
 
-  constructor(private route: ActivatedRoute,
-    private submitterService: SubmitterService,
-    private router: Router
+  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) private submitterService: SubmitterService,
+    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
   ) { }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 
 import { ApiAttribute, ApiFamily, ApiPerson, AttributeDialogData, SelectItem } from '../../models';
 import { FamilyService, PersonService, UserService } from '../../services';
@@ -102,9 +102,9 @@ export class PersonFamilyComponent extends InitablePersonCreator
     sex: string;
     surname: string;
 
-    constructor(private familyService: FamilyService,
-        public personService: PersonService,
-        private userService: UserService) {
+    constructor(@Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) private familyService: FamilyService,
+        @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public personService: PersonService,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
         super(personService);
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiPerson } from '../../models';
@@ -15,9 +15,9 @@ export class PersonListPageComponent implements OnInit, OnChanges {
   dataset: string;
   persons: ApiPerson[];
 
-  constructor(private route: ActivatedRoute,
-    private personService: PersonService,
-    private router: Router) { }
+  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) private personService: PersonService,
+    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router) { }
 
   ngOnInit(): void {
     this.init();

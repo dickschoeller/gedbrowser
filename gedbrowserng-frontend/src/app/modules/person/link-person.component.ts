@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, } from '@angular/core';
+import { Component, Input, EventEmitter, Output, , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { LinkPersonDialogComponent } from '../../components';
@@ -30,8 +30,8 @@ export class LinkPersonComponent {
 
   lph: LinkPersonHelper;
 
-  constructor(private personService: PersonService,
-    public dialog: MatDialog) {
+  constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) private personService: PersonService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) {
         this.lph = new LinkPersonHelper(this.personService);
     }
 

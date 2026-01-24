@@ -46,8 +46,8 @@ import { NewAttributeDialogData } from '../../models';
     styles: []
 })
 export class NewAttributeDialogComponent {
-  constructor(public dialogRef: MatDialogRef<NewAttributeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: NewAttributeDialogData) {
+  constructor(@Inject(MatDialogRef<NewAttributeDialogComponent>) @Inject(MatDialogRef<NewAttributeDialogComponent>) @Inject(MatDialogRef<NewAttributeDialogComponent>) public dialogRef: MatDialogRef<NewAttributeDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) @Inject(NewAttributeDialogData) @Inject(NewAttributeDialogData) @Inject(NewAttributeDialogData) public data: NewAttributeDialogData) {
   }
 
   onNoClick(): void {

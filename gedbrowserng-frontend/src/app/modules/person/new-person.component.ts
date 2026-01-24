@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { NewPersonDialogComponent } from '../../components';
@@ -21,7 +21,7 @@ export class NewPersonComponent {
 
   nph = new NewPersonHelper();
 
-  constructor(public dialog: MatDialog) {
+  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) {
   }
 
   openDialog(): void {

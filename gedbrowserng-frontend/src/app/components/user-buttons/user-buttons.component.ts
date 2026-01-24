@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, UserService } from '../../services';
 
@@ -30,9 +30,9 @@ import { AuthService, UserService } from '../../services';
 export class UserButtonsComponent implements OnInit {
 
     constructor(
-        private authService: AuthService,
-        private userService: UserService,
-        private router: Router
+        @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) private authService: AuthService,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService,
+        @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
     ) { }
 
     ngOnInit() {

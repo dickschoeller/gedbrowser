@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -55,8 +55,8 @@ export class AttributeListComponent extends HasAttributeDialog implements OnInit
     attributeDialogHelper = new AttributeDialogHelper(this);
     attributeUtil = new AttributeAnalyzer(this);
 
-    constructor(public dialog: MatDialog,
-        private userService: UserService) {
+    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
         super(dialog);
     }
 

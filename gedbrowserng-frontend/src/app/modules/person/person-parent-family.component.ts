@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
@@ -77,9 +77,9 @@ export class PersonParentFamilyComponent extends InitablePersonCreator
         return this.parent.person.surname;
     }
 
-    constructor(public personService: PersonService,
-        private service: FamilyService,
-        private userService: UserService) {
+    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public personService: PersonService,
+        @Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) private service: FamilyService,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
         super(personService);
     }
 

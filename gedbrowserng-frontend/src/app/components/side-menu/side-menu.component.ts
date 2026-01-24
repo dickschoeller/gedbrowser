@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input , Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { saveAs } from 'file-saver';
 import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
@@ -50,10 +50,10 @@ export class SideMenuComponent implements OnInit, OnChanges {
   public readonly uploadForm = new FormGroup({ files: this.filesControl });
 
   constructor(
-    private datasetService: DatasetsService,
-    private saveService: SaveService,
-    private uploadService: UploadService,
-    private userService: UserService,
+    @Inject(DatasetsService) @Inject(DatasetsService) @Inject(DatasetsService) @Inject(DatasetsService) private datasetService: DatasetsService,
+    @Inject(SaveService) @Inject(SaveService) @Inject(SaveService) private saveService: SaveService,
+    @Inject(UploadService) @Inject(UploadService) @Inject(UploadService) private uploadService: UploadService,
+    @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService,
   ) { }
 
   ngOnInit() {

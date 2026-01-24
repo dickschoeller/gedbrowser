@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input , Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAction } from 'ngx-gallery-15';
 
@@ -36,8 +36,8 @@ export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
     galleryOptions: NgxGalleryOptions[];
     dialogIndex = -1;
 
-    constructor(public dialog: MatDialog,
-        private userService: UserService) { }
+    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) { }
 
     ngOnInit() {
         this.galleryOptions = this.buildGalleryOptions();

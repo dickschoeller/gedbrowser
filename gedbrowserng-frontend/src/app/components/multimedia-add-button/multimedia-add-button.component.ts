@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
 
 import { HasMultimedia } from '../../interfaces';
@@ -23,7 +23,7 @@ export class MultimediaAddButtonComponent {
   @Input() parent: HasMultimedia;
   @Input() dataset: string;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) { }
 
   create(data: MultimediaDialogData) {
     const attribute: ApiAttribute = MultimediaDialogHelper.buildMultimediaAttribute(data);

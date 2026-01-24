@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { HasAttributeList, HasPerson, Saveable } from '../../interfaces';
@@ -122,9 +122,9 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
       { value: 'Text', label: 'Text' },
     ];
 
-  constructor(private route: ActivatedRoute,
-    private service: PersonService,
-    private router: Router
+  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) private service: PersonService,
+    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
   ) {}
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit , Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -75,11 +75,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     private ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(
-        private authService: AuthService,
-        private userService: UserService,
-        private route: ActivatedRoute,
-        private router: Router,
-        private formBuilder: FormBuilder
+        @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) private authService: AuthService,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService,
+        @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
+        @Inject(Router) @Inject(Router) @Inject(Router) private router: Router,
+        @Inject(FormBuilder) @Inject(FormBuilder) @Inject(FormBuilder) private formBuilder: FormBuilder
     ) {
 
     }

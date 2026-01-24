@@ -23,8 +23,8 @@ import { NewNoteDialogData } from '../../models';
     styles: []
 })
 export class NewNoteDialogComponent {
-  constructor(public dialogRef: MatDialogRef<NewNoteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: NewNoteDialogData) {
+  constructor(@Inject(MatDialogRef<NewNoteDialogComponent>) @Inject(MatDialogRef<NewNoteDialogComponent>) @Inject(MatDialogRef<NewNoteDialogComponent>) public dialogRef: MatDialogRef<NewNoteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) @Inject(NewNoteDialogData) @Inject(NewNoteDialogData) @Inject(NewNoteDialogData) public data: NewNoteDialogData) {
   }
 
   onNoClick(): void {

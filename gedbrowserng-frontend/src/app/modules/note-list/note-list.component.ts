@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -84,9 +84,9 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   datasource: MatTableDataSource<ApiNote> = new MatTableDataSource<ApiNote>([]);
 
   constructor(
-    private router: Router,
-    public noteService: NoteService,
-    public dialog: MatDialog,
+    @Inject(Router) @Inject(Router) @Inject(Router) @Inject(Router) private router: Router,
+    @Inject(NoteService) @Inject(NoteService) @Inject(NoteService) public noteService: NoteService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
   ) {
     super(noteService, dialog);
   }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
 
 import { Saveable } from '../../interfaces';
@@ -19,7 +19,7 @@ export class MultimediaEditButtonComponent {
   @Input() attributes: Array<ApiAttribute>;
   @Input() index;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) { }
 
   edit(): void {
     const dialogRef = this.dialog.open(

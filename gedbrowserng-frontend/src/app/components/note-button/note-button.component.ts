@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
@@ -26,7 +26,7 @@ export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  constructor(public service: NoteService, public dialog: MatDialog) {
+  constructor(@Inject(NoteService) @Inject(NoteService) @Inject(NoteService) @Inject(NoteService) public service: NoteService, @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) {
     super(service, dialog);
   }
 

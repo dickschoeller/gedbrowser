@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -83,9 +83,9 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
   datasource: MatTableDataSource<ApiSubmitter> = new MatTableDataSource<ApiSubmitter>([]);
 
   constructor(
-    private router: Router,
-    public submitterService: SubmitterService,
-    public dialog: MatDialog,
+    @Inject(Router) @Inject(Router) @Inject(Router) @Inject(Router) private router: Router,
+    @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) public submitterService: SubmitterService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
   ) {
     super(submitterService, dialog);
   }

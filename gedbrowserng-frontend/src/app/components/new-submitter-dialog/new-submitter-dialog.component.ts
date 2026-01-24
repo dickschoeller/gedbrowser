@@ -22,8 +22,8 @@ import { NewSubmitterDialogData } from '../../models';
     styles: []
 })
 export class NewSubmitterDialogComponent {
-  constructor(public dialogRef: MatDialogRef<NewSubmitterDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: NewSubmitterDialogData) {
+  constructor(@Inject(MatDialogRef<NewSubmitterDialogComponent>) @Inject(MatDialogRef<NewSubmitterDialogComponent>) @Inject(MatDialogRef<NewSubmitterDialogComponent>) public dialogRef: MatDialogRef<NewSubmitterDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) @Inject(NewSubmitterDialogData) @Inject(NewSubmitterDialogData) @Inject(NewSubmitterDialogData) public data: NewSubmitterDialogData) {
   }
 
   onNoClick(): void {
