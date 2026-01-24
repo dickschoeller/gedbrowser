@@ -4,6 +4,12 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.apache.commons.io.FilenameUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +43,29 @@ public final class SecurityTestHelper {
         } catch (IOException e) {
             log.error("Problem writing user file", e);
         }
+
+        // Get the filename
+        final String fileNameStr = FilenameUtils.getName(userFile);
+        final String basePathStr = FilenameUtils.getFullPath(userFile);
+
+	deleteNumberedFiles(basePathStr, fileNameStr);
     }
 
+    public static void deleteNumberedFiles(String directoryPath, String baseFileName) {
+        final String globPattern = baseFileName + ".[0-9]*"; 
+        final Path dir = Paths.get(directoryPath);
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, globPattern)) {
+            for (Path file : stream) {
+                try {
+                    Files.delete(file);
+                    log.info("Deleted file: " + file.getFileName());
+                } catch (IOException e) {
+                    log.error("Failed to delete " + file.getFileName() + ": " + e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            log.error("Error accessing directory: " + e.getMessage());
+        }
+    }
 }
