@@ -11,7 +11,7 @@ describe('SourceListComponent', () => {
   let component: SourceListComponent;
   let fixture: ComponentFixture<SourceListComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [
@@ -27,7 +27,7 @@ describe('SourceListComponent', () => {
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SourceListComponent);

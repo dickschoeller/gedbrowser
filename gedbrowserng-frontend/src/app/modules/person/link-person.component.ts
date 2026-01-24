@@ -9,8 +9,16 @@ import { LinkPersonHelper, PersonService } from '../../services';
 @Component({
   standalone: false,
   selector: 'app-link-person',
-  templateUrl: './link-person.component.html',
-  styleUrls: ['./link-person.component.css']
+  template: `<button (click)="openDialog()" mat-icon-button [color]="color" matTooltip="{{ label }}"><mat-icon>link</mat-icon></button>
+<!-- app-link-person-dialog
+    [p]="this" [dataset]="dataset"
+    [titleString]="label" [multi]="multi"
+    (emitClose)="onDialogClose()"
+    (emitOpen)="onDialogOpen($event)"
+    (emitOK)="onDialogOK($event)"
+    [(display)]="displayDialog">
+</app-link-person-dialog -->`,
+    styles: []
 })
 export class LinkPersonComponent {
   @Input() dataset: string;

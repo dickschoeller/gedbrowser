@@ -9,8 +9,17 @@ import { RefreshPerson } from '../../interfaces';
 @Component({
   standalone: false,
   selector: 'app-person-parent',
-  templateUrl: './person-parent.component.html',
-  styleUrls: ['./person-parent.component.css']
+  template: `{{ label() }}:&nbsp;
+<span *ngIf="person"><a class="name"
+  [routerLink]="['/' + dataset + '/persons', person.string]">
+  {{ person.indexName }} {{ lifespanYearString() }} [{{ person.string }}]</a>
+<span class="example-fill-remaining-space"></span>
+<span class="hidden">
+  <button mat-icon-button matTooltip="Unlink parent" color="warn" (click)="unlink()">
+    <mat-icon matListIcon>link_off</mat-icon></button>
+</span>
+</span>`,
+    styles: []
 })
 export class PersonParentComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;

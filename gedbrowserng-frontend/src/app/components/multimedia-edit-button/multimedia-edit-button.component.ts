@@ -9,8 +9,9 @@ import { MultimediaDialogComponent } from '../multimedia-dialog';
 @Component({
   standalone: false,
   selector: 'app-multimedia-edit-button',
-  templateUrl: './multimedia-edit-button.component.html',
-  styleUrls: ['./multimedia-edit-button.component.css']
+  template: `<button mat-icon-button matTooltip="Edit multimedia attribute" color="primary" (click)="edit()">
+  <mat-icon matListIcon>edit</mat-icon></button>`,
+    styles: []
 })
 export class MultimediaEditButtonComponent {
   @Input() dataset: string;

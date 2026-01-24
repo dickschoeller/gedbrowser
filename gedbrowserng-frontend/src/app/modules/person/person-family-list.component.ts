@@ -16,8 +16,39 @@ import { PersonService, UserService } from '../../services';
 @Component({
     standalone: false,
     selector: 'app-person-family-list',
-    templateUrl: './person-family-list.component.html',
-    styleUrls: ['./person-family-list.component.css']
+    template: `<mat-card>
+  <mat-card-title>
+    <mat-toolbar>Spouses and Children</mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
+    <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
+        [cdkDropListDisabled]="!hasSignedIn()">
+      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : ''"
+          *ngFor="let attribute of person.famss; let i=index">
+        <app-person-family
+            [dataset]="dataset" [person]="person" [parent]="this" [string]="attribute.string"
+            [index]="i"></app-person-family>
+      </div>
+    </div>
+    <app-new-person *ngIf="hasSignedIn()"
+        [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
+        color="primary"
+        (emitOK)="createSpouse($event)"></app-new-person>
+    <app-link-person *ngIf="hasSignedIn()"
+        [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link spouse'"
+        color="primary"
+        (emitOK)="linkSpouse($event)"></app-link-person>
+    <app-new-person *ngIf="hasSignedIn()"
+        [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
+        color="primary"
+        (emitOK)="createChild($event)"></app-new-person>
+    <app-link-person *ngIf="hasSignedIn()"
+        [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link children'"
+        color="primary"
+        (emitOK)="linkChildren($event)"></app-link-person>
+  </mat-card-content>
+</mat-card>`,
+    styles: []
 })
 export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {
     @Input() dataset: string;

@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -9,7 +9,7 @@ describe('AttributeListItemDetailListItemComponent', () => {
   let component: AttributeListItemDetailListItemComponent;
   let fixture: ComponentFixture<AttributeListItemDetailListItemComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ AttributeListItemDetailListItemComponent ],
@@ -17,7 +17,7 @@ describe('AttributeListItemDetailListItemComponent', () => {
       providers: []
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AttributeListItemDetailListItemComponent);

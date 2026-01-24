@@ -12,7 +12,7 @@ describe('NewPersonDialogComponent', () => {
   let component: NewPersonDialogComponent;
   let fixture: ComponentFixture<NewPersonDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ NewPersonDialogComponent ],
@@ -20,7 +20,7 @@ describe('NewPersonDialogComponent', () => {
       providers: [ { provide: MAT_DIALOG_DATA, useValue: {} } ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NewPersonDialogComponent);

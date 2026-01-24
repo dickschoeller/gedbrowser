@@ -13,8 +13,46 @@ import {
 @Component({
   standalone: false,
   selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  template: `<div class="content">
+  <div>
+    <mat-card elevation="5">
+      <mat-card-title>{{ title }}</mat-card-title>
+      <mat-card-subtitle>gedbrowserng</mat-card-subtitle>
+
+      <mat-card-content>
+        <p [class]="notification.msgType" *ngIf="notification">{{ notification.msgBody }}</p>
+
+        <form *ngIf="!submitted" [formGroup]="form" (ngSubmit)="onSubmit()" #signupForm="ngForm">
+          <mat-form-field>
+            <label>Username: </label>
+            <input matInput formControlName="username" required>
+          </mat-form-field>
+          <mat-form-field>
+            <label>Password: </label>
+            <input matInput formControlName="password" required type="password">
+          </mat-form-field>
+          <mat-form-field>
+            <label>First Name: </label>
+            <input matInput formControlName="firstname">
+          </mat-form-field>
+          <mat-form-field>
+            <label>Last Name: </label>
+            <input matInput formControlName="lastname">
+          </mat-form-field>
+          <mat-form-field>
+            <label>Email: </label>
+            <input matInput formControlName="email">
+          </mat-form-field>
+          <button type="submit" [disabled]="!signupForm.form.valid" mat-raised-button color="primary">Sign up</button>
+        </form>
+        <br>
+
+        <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>`,
+    styles: []
 })
 export class SignupComponent implements OnInit, OnDestroy {
     title = 'Login';

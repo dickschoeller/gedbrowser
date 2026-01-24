@@ -12,7 +12,7 @@ describe('PersonListComponent', () => {
   let component: PersonListComponent;
   let fixture: ComponentFixture<PersonListComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [
@@ -29,7 +29,7 @@ describe('PersonListComponent', () => {
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PersonListComponent);

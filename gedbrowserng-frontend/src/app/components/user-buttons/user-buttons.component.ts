@@ -5,8 +5,27 @@ import { AuthService, UserService } from '../../services';
 @Component({
     standalone: false,
     selector: 'app-user-buttons',
-    templateUrl: './user-buttons.component.html',
-    styleUrls: ['./user-buttons.component.css']
+    template: `<!-- div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-end center" -->
+<div>
+  <button *ngIf="!hasSignedIn()" [routerLink]="['/signup', { returnUrl: currentUrl() } ]"
+          routerLinkActive="router-link-active" mat-button mat-ripple>
+    <span>Sign up</span>
+  </button>
+  <button *ngIf="!hasSignedIn()" [routerLink]="['/login', { returnUrl: currentUrl() } ]"
+          routerLinkActive="router-link-active" mat-button mat-ripple>
+    <span>Login</span>
+  </button>
+  <button class="greeting-button" *ngIf="hasSignedIn()" mat-button mat-ripple [matMenuTriggerFor]="accountMenu">
+    <span>{{ userName() }}</span>
+  </button>
+  <button class="greeting-hamburger" *ngIf="hasSignedIn()" mat-icon-button mat-ripple [matMenuTriggerFor]="accountMenu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #accountMenu class="app-header-accountMenu" yposition="below" [overlapTrigger]="false">
+    <app-account-menu></app-account-menu>
+  </mat-menu>
+</div>`,
+    styles: []
 })
 export class UserButtonsComponent implements OnInit {
 

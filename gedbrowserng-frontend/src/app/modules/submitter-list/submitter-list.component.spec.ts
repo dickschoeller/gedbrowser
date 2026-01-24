@@ -11,7 +11,7 @@ describe('SubmitterListComponent', () => {
   let component: SubmitterListComponent;
   let fixture: ComponentFixture<SubmitterListComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [
@@ -27,7 +27,7 @@ describe('SubmitterListComponent', () => {
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SubmitterListComponent);

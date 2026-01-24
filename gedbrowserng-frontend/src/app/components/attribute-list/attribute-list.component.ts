@@ -12,8 +12,33 @@ import { UserService } from '../../services';
 @Component({
     standalone: false,
     selector: 'app-attribute-list',
-    templateUrl: './attribute-list.component.html',
-    styleUrls: ['./attribute-list.component.css']
+    template: `<mat-card>
+  <mat-card-title>
+    <mat-toolbar>
+      Attributes
+      <span class="example-fill-remaining-space"></span>
+      <span *ngIf="hasSignedIn()">
+        <button (click)="openCreateAttributeDialog()" mat-icon-button color="primary"
+            matTooltip="Add attribute"><mat-icon>add_box</mat-icon></button>
+        <app-note-button *ngIf="showNotes" [parent]="this" [dataset]="dataset"></app-note-button>
+        <app-source-button *ngIf="showSources" [parent]="this" [dataset]="dataset"></app-source-button>
+        <app-submitter-button *ngIf="showSubmitters" [parent]="this" [dataset]="dataset"></app-submitter-button>
+      </span>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
+    <div cdkDropList class="attribute-list" (cdkDropListDropped)="drop($event)"
+        [cdkDropListDisabled]="!hasSignedIn()">
+      <div cdkDrag class="{{ hasSignedIn() ? 'attribute-box' : '' }}"
+          *ngFor="let attribute of attributes; let i=index">
+        <app-attribute-list-item
+            [parent]="parent" [dataset]="dataset" [attribute]="attribute"
+            [attributeList]="attributes" [index]="i"></app-attribute-list-item>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>`,
+    styles: []
 })
 export class AttributeListComponent extends HasAttributeDialog implements OnInit, OnChanges, HasAttributeList {
     @Input() attributes: Array<ApiAttribute>;

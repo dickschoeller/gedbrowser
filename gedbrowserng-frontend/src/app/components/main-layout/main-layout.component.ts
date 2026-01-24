@@ -3,8 +3,16 @@ import { Component, Input } from '@angular/core';
 @Component({
   standalone: false,
   selector: 'app-main-layout',
-  templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.css']
+  template: `<app-main-menu [dataset]="dataset" (emitToggle)="drawer.toggle()"></app-main-menu>
+<mat-drawer-container>
+  <mat-drawer mode="side" opened="true" #drawer>
+    <app-side-menu [dataset]="dataset"></app-side-menu>
+  </mat-drawer>
+  <mat-drawer-content>
+    <ng-content></ng-content>
+  </mat-drawer-content>
+</mat-drawer-container>`,
+    styles: []
 })
 export class MainLayoutComponent {
   @Input() dataset: string;

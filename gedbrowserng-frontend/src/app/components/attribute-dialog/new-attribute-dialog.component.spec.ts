@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,7 +12,7 @@ describe('NewAttributeDialogComponent', () => {
   let component: NewAttributeDialogComponent;
   let fixture: ComponentFixture<NewAttributeDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ NewAttributeDialogComponent ],
@@ -20,7 +20,7 @@ describe('NewAttributeDialogComponent', () => {
       providers: [ { provide: MAT_DIALOG_DATA, useValue: {} } ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NewAttributeDialogComponent);

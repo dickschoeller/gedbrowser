@@ -10,8 +10,35 @@ import { UrlBuilder } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-person-parent-families',
-  templateUrl: './person-parent-families.component.html',
-  styleUrls: ['./person-parent-families.component.css']
+  template: `<mat-card>
+  <mat-card-title>
+    <mat-toolbar>
+    Parents and Siblings
+    <span class="example-fill-remaining-space"></span>
+    <span *ngIf="!person.famcs.length && hasSignedIn()">
+      <app-new-person
+          [sex]="sex" [surname]="surname" [label]="'Create parent'"
+          color="primary"
+          (emitOK)="createPerson($event)"></app-new-person>
+      <app-link-person
+          [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+          color="primary"
+          (emitOK)="linkPerson($event)"></app-link-person>
+    </span>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
+    <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
+        [cdkDropListDisabled]="!hasSignedIn()">
+      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : ''"
+          *ngFor="let attribute of person?.famcs let i=index">
+        <app-person-parent-family
+            [dataset]="dataset" [parent]="this" [attribute]="attribute"></app-person-parent-family>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>`,
+    styles: []
 })
 export class PersonParentFamiliesComponent extends InitablePersonCreator
   implements HasLifespan, HasPerson, RefreshPerson, Saveable {

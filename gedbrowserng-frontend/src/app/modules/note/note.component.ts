@@ -10,8 +10,17 @@ import { StringUtil, AttributeDialogHelper } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-note',
-  templateUrl: './note.component.html',
-  styleUrls: ['./note.component.css']
+  template: `<app-main-layout [dataset]="dataset">
+  <mat-card>
+    <mat-card-title><mat-icon>comment</mat-icon> {{ truncateNote(70) }}</mat-card-title>
+    <mat-card-subtitle>{{ note?.string }}</mat-card-subtitle>
+    <mat-card-content>
+      <p class="multi_lines_text" [innerHTML]="note.tail"  ></p>
+      <app-attribute-list [dataset]="dataset" [attributes]="note?.attributes" [parent]="this" [showAdd]=false [showNotes]=false [showSubmitters]=false></app-attribute-list>
+    </mat-card-content>
+  </mat-card>
+</app-main-layout>`,
+    styles: []
 })
 export class NoteComponent implements OnInit, HasAttributeList {
   dataset: string;

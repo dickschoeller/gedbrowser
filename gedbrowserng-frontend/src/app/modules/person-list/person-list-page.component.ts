@@ -8,8 +8,8 @@ import { ApiComparators, NewPersonHelper } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-person-list-page',
-  templateUrl: './person-list-page.component.html',
-  styleUrls: ['./person-list-page.component.css']
+  template: `<app-person-list [p]="this" [dataset]="dataset" [persons]="persons"></app-person-list>`,
+    styles: []
 })
 export class PersonListPageComponent implements OnInit, OnChanges {
   dataset: string;

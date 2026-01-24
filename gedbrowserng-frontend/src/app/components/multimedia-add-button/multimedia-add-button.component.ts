@@ -9,8 +9,15 @@ import { MultimediaDialogComponent } from '../multimedia-dialog';
 @Component({
   standalone: false,
   selector: 'app-multimedia-add-button',
-  templateUrl: './multimedia-add-button.component.html',
-  styleUrls: ['./multimedia-add-button.component.css']
+  template: `<span>
+  <button mat-icon-button matTooltip="Multimedia" [matMenuTriggerFor]="multimediaMenu" color="primary">
+    <mat-icon matListIcon>image</mat-icon></button>
+</span>
+
+<mat-menu #multimediaMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item (click)="openMultimediaDialog()"><mat-icon>add_photo_alternate</mat-icon> Add multimedia</button>
+</mat-menu>`,
+    styles: []
 })
 export class MultimediaAddButtonComponent {
   @Input() parent: HasMultimedia;

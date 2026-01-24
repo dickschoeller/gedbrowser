@@ -5,8 +5,9 @@ import { Router } from '@angular/router';
 @Component({
     standalone: false,
     selector: 'app-account-menu',
-    templateUrl: './account-menu.component.html',
-    styleUrls: ['./account-menu.component.css']
+    template: `<!-- button mat-menu-item [routerLink]="['/change-password']">CHANGE PASSWORD</button -->
+<button mat-menu-item (click)="logout()">Sign out</button>`,
+    styles: []
 })
 export class AccountMenuComponent implements OnInit {
 

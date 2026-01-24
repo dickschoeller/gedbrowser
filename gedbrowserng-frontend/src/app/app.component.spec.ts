@@ -7,7 +7,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppComponent', () => {
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
@@ -21,15 +21,12 @@ describe('AppComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: []
     });
-  }));
   it('should create the app', waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  }));
   it(`should have as title 'gedbrowserng - schoeller'`, waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('gedbrowserng - schoeller');
-  }));
 });

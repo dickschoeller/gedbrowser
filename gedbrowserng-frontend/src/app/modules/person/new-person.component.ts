@@ -8,8 +8,9 @@ import { NewPersonHelper } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-new-person',
-  templateUrl: './new-person.component.html',
-  styleUrls: ['./new-person.component.css']
+  template: `<button (click)="openDialog()" mat-icon-button [color]="color"
+    matTooltip="{{ label }}"><mat-icon>person_add</mat-icon></button>`,
+    styles: []
 })
 export class NewPersonComponent {
   @Input() sex: string;

@@ -10,8 +10,55 @@ import { UserService } from '../../services';
 @Component({
     standalone: false,
     selector: 'app-multimedia-dialog',
-    templateUrl: './multimedia-dialog.component.html',
-    styleUrls: ['./multimedia-dialog.component.css']
+    template: `<div mat-dialog-title>
+  <mat-toolbar color="primary"><mat-icon matListIcon>image</mat-icon> &nbsp; Multimedia item</mat-toolbar>
+</div>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="data.title">
+  </mat-form-field>
+  <br/>
+  <div>
+    <div cdkDropList class="file-list" (cdkDropListDropped)="drop($event)"
+        [cdkDropListDisabled]="!hasSignedIn()">
+      <div cdkDrag class="{{ hasSignedIn() ? 'file-box' : ''"
+          *ngFor="let file of data.files; let i=index">
+        <br/>
+        <mat-form-field>
+          <mat-label>File URL</mat-label>
+          <input matInput [(ngModel)]="file.fileUrl">
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+          <mat-label>Format</mat-label>
+          <mat-select [(ngModel)]="file.format">
+            <mat-option *ngFor="let format of formats" [value]="format.value">{{ format.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+          <mat-label>Format</mat-label>
+          <mat-select [(ngModel)]="file.sourceType">
+            <mat-option *ngFor="let type of sourceTypes" [value]="type.value">{{ type.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <mat-form-field>
+    <mat-label>Note</mat-label>
+    <textarea matInput [rows]="8" [cols]="100" [(ngModel)]="data.note"
+        autoresize="autoResize"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+</div>`,
+    styles: []
 })
 export class MultimediaDialogComponent implements OnInit {
     formats: Array<SelectItem>;

@@ -9,8 +9,8 @@ import { ApiComparators } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-note-list-page',
-  templateUrl: './note-list-page.component.html',
-  styleUrls: ['./note-list-page.component.css']
+  template: `<app-note-list [parent]="this" [dataset]="dataset" [notes]="notes"></app-note-list>`,
+    styles: []
 })
 export class NoteListPageComponent implements OnInit, OnChanges, RefreshNote {
   dataset: string;

@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,7 +11,7 @@ describe('LinkDialogComponent', () => {
   let component: LinkDialogComponent;
   let fixture: ComponentFixture<LinkDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ LinkDialogComponent ],
@@ -19,7 +19,7 @@ describe('LinkDialogComponent', () => {
       providers: [ { provide: MAT_DIALOG_DATA, useValue: {} } ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LinkDialogComponent);

@@ -16,8 +16,59 @@ import { SubmitterListPageComponent } from './submitter-list-page.component';
 @Component({
   standalone: false,
   selector: 'app-submitter-list',
-  templateUrl: './submitter-list.component.html',
-  styleUrls: ['./submitter-list.component.css']
+  template: `<app-main-layout [dataset]="dataset">
+  <mat-card>
+    <mat-card-title><div class="with-icon"><mat-icon matListIcon>contacts</mat-icon> Submitters</div></mat-card-title>
+    <mat-card-content>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <mat-card class="inner-card">
+            <mat-card-header>
+              <mat-toolbar>
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+                <span class="example-fill-remaining-space"></span>
+                <span>
+                  <button (click)="openCreateSubmitterDialog()" mat-icon-button color="primary"
+                      matTooltip="Add submitter"><mat-icon>add_box</mat-icon></button>
+                </span>
+              </mat-toolbar>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-table #table [dataSource]="datasource" matSort>
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Submitter </mat-header-cell>
+                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" style="cursor: pointer;">{{ submitter.name }}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="string">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" style="cursor: pointer;">[{{ submitter.string }}]</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                    <mat-cell *matCellDef="let submitter">
+                      <span class="hidden">
+                        <button mat-icon-button matTooltip="Delete submitter" color="warn" (click)="delete(submitter)">
+                        <mat-icon matListIcon>delete</mat-icon></button>
+                      </span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row class="parent" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginator [pageSize]="15" [pageSizeOptions]="pagesizeoptions()"
+                    [showFirstLastButtons]="true">
+                </mat-paginator>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</app-main-layout>`,
+    styles: []
 })
 export class SubmitterListComponent extends SubmitterCreator implements AfterViewInit, OnChanges, OnInit, ListPage<ApiSubmitter> {
   @Input() parent: SubmitterListPageComponent;

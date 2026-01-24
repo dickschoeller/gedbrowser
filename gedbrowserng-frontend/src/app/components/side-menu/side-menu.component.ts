@@ -8,8 +8,32 @@ import { SaveService, DatasetsService, UploadService, UserService } from '../../
 @Component({
   standalone: false,
   selector: 'app-side-menu',
-  templateUrl: './side-menu.component.html',
-  styleUrls: ['./side-menu.component.css']
+  template: `<mat-nav-list>
+  <a mat-list-item [routerLink]="['/' + dataset + '/header']"><div class="with-icon"><mat-icon matListIcon>home</mat-icon> Home</div></a>
+  <a mat-list-item [routerLink]="['/' + dataset + '/persons']"><div class="with-icon"><mat-icon matListIcon>people</mat-icon> Persons</div></a>
+  <a mat-list-item [routerLink]="['/' + dataset + '/notes']"><div class="with-icon"><mat-icon matListIcon>comment</mat-icon> Notes</div></a>
+  <a mat-list-item [routerLink]="['/' + dataset + '/sources']"><div class="with-icon"><mat-icon matListIcon>collections_bookmark</mat-icon> Sources</div></a>
+  <a mat-list-item [routerLink]="['/' + dataset + '/submitters']"><div class="with-icon"><mat-icon matListIcon>contacts</mat-icon> Submitters</div></a>
+  <a mat-list-item (click)="saveFile()" *ngIf="hasSignedIn()"><div class="with-icon"><mat-icon matListIcon>cloud_download</mat-icon> Save</div></a>
+  <a mat-list-item [matMenuTriggerFor]="dbPickerMenu"><div class="with-icon"><mat-icon matListIcon>folder_open</mat-icon> Pick dataset</div></a>
+  <!-- mat-list-item>
+    <wa-mat-file-upload #fileUpload="waMatFileUpload" placeholder="File"
+        [multiple]="false" [preview]="true" [selectedText]="selectedText"
+        (change)="onFileChange(fileUpload)">Upload GEDCOM file</wa-mat-file-upload>
+  </mat-list-item -->
+</mat-nav-list>
+<form [formGroup]="uploadForm" *ngIf="hasSignedIn()">
+  <file-upload formControlName="files">
+    <ng-template #placeholder>
+      <mat-icon matListIcon class="placeholder">cloud_upload</mat-icon>
+      <div class="placeholder">Upload GEDCOM file</div>
+    </ng-template>
+  </file-upload>
+</form>
+<mat-menu #dbPickerMenu="matMenu" [overlapTrigger]="false">
+  <button *ngFor="let db of dbs" mat-menu-item [routerLink]="['/' + db + '/persons']">{{ db }}</button>
+</mat-menu>`,
+    styles: []
 })
 export class SideMenuComponent implements OnInit, OnChanges {
   @Input() dataset: string;

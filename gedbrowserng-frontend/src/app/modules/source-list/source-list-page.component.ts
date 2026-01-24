@@ -9,8 +9,8 @@ import { ApiComparators } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-source-list-page',
-  templateUrl: './source-list-page.component.html',
-  styleUrls: ['./source-list-page.component.css']
+  template: `<app-source-list [parent]="this" [dataset]="dataset" [sources]="sources"></app-source-list>`,
+    styles: []
 })
 export class SourceListPageComponent implements OnInit, OnChanges, RefreshSource {
   dataset: string;

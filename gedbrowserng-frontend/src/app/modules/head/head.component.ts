@@ -10,8 +10,10 @@ import { HasAttributeList } from '../../interfaces';
 @Component({
   standalone: false,
   selector: 'app-head',
-  templateUrl: './head.component.html',
-  styleUrls: ['./head.component.css']
+  template: `<app-main-layout [dataset]="dataset">
+  <app-attribute-list [dataset]="dataset" [attributes]="head?.attributes" [parent]="this"></app-attribute-list>
+</app-main-layout>`,
+    styles: []
 })
 export class HeadComponent implements OnInit, HasAttributeList {
   dataset: string;

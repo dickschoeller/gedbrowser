@@ -19,8 +19,17 @@ import { RefreshPerson } from '../../interfaces';
 @Component({
     standalone: false,
     selector: 'app-person-family-child',
-    templateUrl: './person-family-child.component.html',
-    styleUrls: ['./person-family-child.component.css']
+    template: `<div class="parent">
+  <span *ngIf="person">
+    <a [routerLink]="['/' + dataset + '/persons', person.string]" class="name">{{ person.indexName }} {{ lifespanYearString() }} [{{ person.string }}]</a>
+  </span>
+  <span class="example-fill-remaining-space"></span>
+  <span class="hidden" *ngIf="hasSignedIn()">
+    <button mat-icon-button matTooltip="Unlink" color="warn" (click)="unlink()">
+      <mat-icon matListIcon>link_off</mat-icon></button>
+  </span>
+</div>`,
+    styles: []
 })
 export class PersonFamilyChildComponent extends PersonGetter
     implements OnInit, OnChanges, HasPerson {

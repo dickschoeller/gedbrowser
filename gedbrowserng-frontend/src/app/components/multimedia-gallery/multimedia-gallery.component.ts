@@ -11,8 +11,22 @@ import { UserService } from '../../services';
 @Component({
     standalone: false,
     selector: 'app-multimedia-gallery',
-    templateUrl: './multimedia-gallery.component.html',
-    styleUrls: ['./multimedia-gallery.component.css']
+    template: `<mat-card>
+  <mat-card-title>
+    <mat-toolbar>
+      Multimedia
+      <span class="example-fill-remaining-space"></span>
+      <span *ngIf="hasSignedIn()">
+        <app-multimedia-add-button [parent]="this" [dataset]="dataset"></app-multimedia-add-button>
+      </span>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content *ngIf="galleryImages().length">
+    <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
+  </mat-card-content>
+  <mat-card-content *ngIf="!galleryImages().length"></mat-card-content>
+</mat-card>`,
+    styles: []
 })
 export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
     @Input() dataset: string;

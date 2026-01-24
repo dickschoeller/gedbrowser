@@ -8,8 +8,8 @@ import { ApiComparators } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-submitter-list-page',
-  templateUrl: './submitter-list-page.component.html',
-  styleUrls: ['./submitter-list-page.component.css']
+  template: `<app-submitter-list [parent]="this" [dataset]="dataset" [submitters]="submitters"></app-submitter-list>`,
+    styles: []
 })
 export class SubmitterListPageComponent implements OnInit, OnChanges {
   dataset: string;

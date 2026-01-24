@@ -15,8 +15,59 @@ import { SourceListPageComponent } from './source-list-page.component';
 @Component({
   standalone: false,
   selector: 'app-source-list',
-  templateUrl: './source-list.component.html',
-  styleUrls: ['./source-list.component.css']
+  template: `<app-main-layout [dataset]="dataset">
+  <mat-card>
+    <mat-card-title><div class="with-icon"><mat-icon matListIcon>collections_bookmark</mat-icon> Sources</div></mat-card-title>
+    <mat-card-content>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <mat-card class="inner-card">
+            <mat-card-header>
+              <mat-toolbar>
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+                <span class="example-fill-remaining-space"></span>
+                <span>
+                  <button (click)="openCreateSourceDialog()" mat-icon-button color="primary"
+                      matTooltip="Add source"><mat-icon>add_comment</mat-icon></button>
+                </span>
+              </mat-toolbar>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-table #table [dataSource]="datasource" matSort>
+                  <ng-container matColumnDef="title">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Source </mat-header-cell>
+                    <mat-cell *matCellDef="let source" (click)="navigate(source.string)" style="cursor: pointer;">{{ source.title }}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="string">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                    <mat-cell *matCellDef="let source" (click)="navigate(source.string)" style="cursor: pointer;">[{{ source.string }}]</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                    <mat-cell *matCellDef="let source">
+                      <span class="hidden">
+                        <button mat-icon-button matTooltip="Delete source" color="warn" (click)="delete(source)">
+                        <mat-icon matListIcon>delete</mat-icon></button>
+                      </span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row class="parent" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginator [pageSize]="15" [pageSizeOptions]="pagesizeoptions()"
+                    [showFirstLastButtons]="true">
+                </mat-paginator>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</app-main-layout>`,
+    styles: []
 })
 export class SourceListComponent extends SourceCreator implements AfterViewInit, OnChanges, OnInit, ListPage<ApiSource> {
   @Input() parent: SourceListPageComponent;

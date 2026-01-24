@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -10,7 +10,7 @@ describe('SubmitterButtonComponent', () => {
   let component: SubmitterButtonComponent;
   let fixture: ComponentFixture<SubmitterButtonComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ SubmitterButtonComponent ],
@@ -18,7 +18,7 @@ describe('SubmitterButtonComponent', () => {
       providers: [ SubmitterService ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SubmitterButtonComponent);

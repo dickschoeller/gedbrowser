@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,7 +12,7 @@ describe('NewSubmitterDialogComponent', () => {
   let component: NewSubmitterDialogComponent;
   let fixture: ComponentFixture<NewSubmitterDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ NewSubmitterDialogComponent ],
@@ -20,7 +20,7 @@ describe('NewSubmitterDialogComponent', () => {
       providers: [ { provide: MAT_DIALOG_DATA, useValue: {} } ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NewSubmitterDialogComponent);

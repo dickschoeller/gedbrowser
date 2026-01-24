@@ -10,8 +10,17 @@ import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, 
 @Component({
   standalone: false,
   selector: 'app-submitter-button',
-  templateUrl: './submitter-button.component.html',
-  styleUrls: ['./submitter-button.component.css']
+  template: `<span>
+  <button mat-icon-button matTooltip="Submitter" [matMenuTriggerFor]="submitterMenu" color="primary">
+    <mat-icon matListIcon>mail</mat-icon></button>
+</span>
+
+<mat-menu #submitterMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item (click)="openCreateSubmitterDialog()"><mat-icon>add_circle</mat-icon> Add submitter</button>
+  <button mat-menu-item (click)="openLinkSubmitterDialog()"><mat-icon>link</mat-icon> Link submitter</button>
+  <button mat-menu-item (click)="openUnlinkSubmitterDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink submitter</button>
+</mat-menu>`,
+    styles: []
 })
 export class SubmitterButtonComponent extends SubmitterCreator {
   @Input() parent: HasAttributeList;

@@ -15,8 +15,67 @@ import { PersonListPageComponent } from './person-list-page.component';
 @Component({
   standalone: false,
   selector: 'app-person-list',
-  templateUrl: './person-list.component.html',
-  styleUrls: ['./person-list.component.css']
+  template: `<app-main-layout [dataset]="dataset">
+  <mat-card>
+    <mat-card-title><div class="with-icon"><mat-icon matListIcon>people</mat-icon> Persons</div></mat-card-title>
+    <mat-card-content>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <mat-card class="inner-card">
+            <mat-card-header>
+              <mat-toolbar>
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+                <span class="example-fill-remaining-space"></span>
+                <span>
+                  <button (click)="openCreatePersonDialog()" mat-icon-button color="primary"
+                      matTooltip="Add person"><mat-icon>person_add</mat-icon></button>
+                </span>
+              </mat-toolbar>
+            </mat-card-header> 
+            <mat-card-content>
+               <mat-table #table [dataSource]="datasource" matSort>
+                  <ng-container matColumnDef="indexName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" style="cursor: pointer;">{{ person.indexName }}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="string">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" style="cursor: pointer;">[{{ person.string }}]</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="birthdate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Born </mat-header-cell>
+                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" style="cursor: pointer;">{{ person.lifespan?.birthDate }}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="deathdate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Died </mat-header-cell>
+                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" style="cursor: pointer;">{{ person.lifespan?.deathDate }}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+                    <mat-cell *matCellDef="let person">
+                      <span class="hidden">
+                        <button mat-icon-button matTooltip="Delete person" color="warn" (click)="delete(person)">
+                        <mat-icon matListIcon>delete</mat-icon></button>
+                      </span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row class="parent" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginator [pageSize]="15" [pageSizeOptions]="pagesizeoptions()"
+                    [showFirstLastButtons]="true">
+                </mat-paginator>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</app-main-layout>`,
+    styles: []
 })
 export class PersonListComponent extends PersonCreator implements AfterViewInit, OnChanges, OnInit, ListPage<ApiPerson> {
   @Input() p: PersonListPageComponent;
