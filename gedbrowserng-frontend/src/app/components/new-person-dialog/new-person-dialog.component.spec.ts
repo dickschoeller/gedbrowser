@@ -1,20 +1,40 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
+import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import {NewPersonDialog2Component} from './new-person-dialog.component';
+import { NewPersonDialogComponent } from './new-person-dialog.component';
 
-describe('NewPersonDialog2Component', () => {
-  let component: NewPersonDialog2Component;
-  let fixture: ComponentFixture<NewPersonDialog2Component>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NewPersonDialog2Component ]
-    })
-    .compileComponents();
-  }));
+describe('NewPersonDialogComponent', () => {
+  let component: NewPersonDialogComponent;
+  let fixture: ComponentFixture<NewPersonDialogComponent>;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewPersonDialog2Component);
+    TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [ NewPersonDialogComponent ],
+      imports: [ MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, NoopAnimationsModule ],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {
+            name: '',
+            sex: ''
+          }
+        }
+      ]
+    })
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(NewPersonDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

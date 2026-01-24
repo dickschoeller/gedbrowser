@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AttributeListComponent } from '../../components';
@@ -10,8 +10,17 @@ import { AttributeDialogHelper } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-submitter',
-  templateUrl: './submitter.component.html',
-  styleUrls: ['./submitter.component.css']
+  template: `<app-main-layout [dataset]="dataset">
+  <mat-card>
+    <mat-card-title><mat-icon>contact_mail</mat-icon> {{ submitter?.name }}
+    </mat-card-title>
+    <mat-card-subtitle>{{ submitter?.string }}</mat-card-subtitle>
+    <mat-card-content>
+      <app-attribute-list [dataset]="dataset" [attributes]="submitter?.attributes" [parent]="this" [showSources]="false" [showSubmitters]="false"></app-attribute-list>
+    </mat-card-content>
+  </mat-card>
+</app-main-layout>`,
+    styles: []
 })
 export class SubmitterComponent implements OnInit, HasAttributeList {
   dataset: string;
@@ -30,9 +39,9 @@ export class SubmitterComponent implements OnInit, HasAttributeList {
       {value: 'Web', label: 'Web'},
     ];
 
-  constructor(private route: ActivatedRoute,
-    private service: SubmitterService,
-    private router: Router
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(SubmitterService) private service: SubmitterService,
+    @Inject(Router) private router: Router
   ) { }
 
   ngOnInit() {

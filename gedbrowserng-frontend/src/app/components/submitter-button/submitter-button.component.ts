@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
@@ -10,16 +10,25 @@ import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, 
 @Component({
   standalone: false,
   selector: 'app-submitter-button',
-  templateUrl: './submitter-button.component.html',
-  styleUrls: ['./submitter-button.component.css']
+  template: `<span>
+  <button mat-icon-button matTooltip="Submitter" [matMenuTriggerFor]="submitterMenu" color="primary">
+    <mat-icon matListIcon>mail</mat-icon></button>
+</span>
+
+<mat-menu #submitterMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item (click)="openCreateSubmitterDialog()"><mat-icon>add_circle</mat-icon> Add submitter</button>
+  <button mat-menu-item (click)="openLinkSubmitterDialog()"><mat-icon>link</mat-icon> Link submitter</button>
+  <button mat-menu-item (click)="openUnlinkSubmitterDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink submitter</button>
+</mat-menu>`,
+    styles: []
 })
 export class SubmitterButtonComponent extends SubmitterCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
   constructor(
-    public service: SubmitterService,
-    public dialog: MatDialog,
+    @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) public service: SubmitterService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
   ) {
     super(service, dialog);
   }

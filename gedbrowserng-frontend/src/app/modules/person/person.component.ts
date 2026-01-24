@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { HasAttributeList, HasPerson, Saveable } from '../../interfaces';
@@ -15,8 +15,35 @@ import { AttributeDialogHelper, LifespanUtil } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-person',
-  templateUrl: './person.component.html',
-  styleUrls: ['./person.component.css']
+  template: `<app-main-layout [dataset]="dataset">
+  <mat-card>
+    <mat-card-title><mat-icon>person</mat-icon> {{ person?.indexName }}</mat-card-title>
+    <mat-card-subtitle>{{ lifespanDateString() }} : {{ person?.string }}</mat-card-subtitle>
+    <mat-card-content>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="person?.attributes"
+                  [toggleable]="true"></app-attribute-list>
+        </div>
+        <div class="ui-g-12">
+          <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="person?.images"></app-multimedia-gallery>
+        </div>
+        <div class="ui-g-6">
+          <app-person-family-list [dataset]="dataset" [person]="person" [parent]="this"></app-person-family-list>
+        </div>
+        <div class="ui-g-6">
+          <app-person-parent-families [dataset]="dataset" [person]="person" [parent]="this"></app-person-parent-families>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-footer>
+      <div><b>{{ person?.refns[0].string }}:&nbsp;</b> {{ person?.refns[0].tail }}</div>
+      <div *ngIf="person?.changes[0]"><b>{{ person?.changes[0]?.string }}:&nbsp;</b> {{ person?.changes[0]?.attributes[0].string }}</div>
+    </mat-card-footer>
+  </mat-card>
+  <br/>
+</app-main-layout>`,
+    styles: []
 })
 export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Saveable {
   dataset: string;
@@ -95,9 +122,9 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
       { value: 'Text', label: 'Text' },
     ];
 
-  constructor(private route: ActivatedRoute,
-    private service: PersonService,
-    private router: Router
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(PersonService) private service: PersonService,
+    @Inject(Router) private router: Router
   ) {}
 
   ngOnInit() {
@@ -107,7 +134,7 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
     this.route.data.subscribe(
       (data: {dataset: string, person: ApiPerson}) => {
         this.person = data.person;
-        this.attributes = this.person.attributes;
+        this.attributes = this.person?.attributes || [];
       }
     );
   }

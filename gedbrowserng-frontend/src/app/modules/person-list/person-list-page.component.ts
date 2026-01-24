@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiPerson } from '../../models';
@@ -8,16 +8,16 @@ import { ApiComparators, NewPersonHelper } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-person-list-page',
-  templateUrl: './person-list-page.component.html',
-  styleUrls: ['./person-list-page.component.css']
+  template: `<app-person-list [p]="this" [dataset]="dataset" [persons]="persons"></app-person-list>`,
+    styles: []
 })
 export class PersonListPageComponent implements OnInit, OnChanges {
   dataset: string;
   persons: ApiPerson[];
 
-  constructor(private route: ActivatedRoute,
-    private personService: PersonService,
-    private router: Router) { }
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(PersonService) private personService: PersonService,
+    @Inject(Router) private router: Router) { }
 
   ngOnInit(): void {
     this.init();

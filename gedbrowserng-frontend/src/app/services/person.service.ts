@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -10,6 +10,10 @@ import { ServiceBase } from './service-base';
  */
 @Injectable()
 export class PersonService extends ServiceBase<ApiPerson> {
+  constructor(@Inject(HttpClient) http: HttpClient) {
+    super(http);
+  }
+
   url(db): string {
     return this.baseUrl(db) + '/persons';
   }

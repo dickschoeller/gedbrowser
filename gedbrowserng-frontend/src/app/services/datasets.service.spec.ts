@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { DatasetsService } from './datasets.service';
 
@@ -9,7 +9,8 @@ describe('DatasetsService', () => {
     });
   });
 
-  it('should be created', inject([DatasetsService], (service: DatasetsService) => {
+  it('should be created', () => {
+    const service: DatasetsService = TestBed.inject(DatasetsService);
     expect(service).toBeTruthy();
-  }));
+  });
 });

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { ResolverHelper } from '../../utils';
 export class PersonResolverService implements Resolve<ApiPerson> {
   rh: ResolverHelper<ApiPerson> = new ResolverHelper<ApiPerson>();
 
-  constructor(private personService: PersonService, private router: Router) {}
+  constructor(@Inject(PersonService) private personService: PersonService, @Inject(Router) private router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ApiPerson> {
     return this.rh.resolve(route, state, this.personService);

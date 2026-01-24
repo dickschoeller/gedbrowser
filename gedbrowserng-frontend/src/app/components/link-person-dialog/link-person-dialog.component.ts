@@ -9,8 +9,20 @@ import { SelectionModel } from '@angular/cdk/collections';
 @Component({
   standalone: false,
   selector: 'app-link-person-dialog',
-  templateUrl: './link-person-dialog.component.html',
-  styleUrls: ['./link-person-dialog.component.css']
+  template: `<div mat-dialog-title>
+  <mat-toolbar color="primary"><mat-icon matListIcon>person</mat-icon>&nbsp; {{ data.titleString }}</mat-toolbar>
+</div>
+<div mat-dialog-content>
+  <mat-selection-list #items (selectionChange)="onSelection($event, items.selectedOptions.selected)">
+    <mat-list-option *ngFor="let item of data.items" [value]="item">{{ item.label }}</mat-list-option>
+  </mat-selection-list>
+</div>
+<div mat-dialog-actions>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+</div>`,
+    styles: []
 })
 export class LinkPersonDialogComponent
   implements OnInit, OnChanges {
@@ -18,9 +30,9 @@ export class LinkPersonDialogComponent
   persons: Array<ApiPerson>;
   @ViewChild(MatSelectionList, {static: true}) selectionList: MatSelectionList;
 
-  constructor(private route: ActivatedRoute,
-    public dialogRef: MatDialogRef<LinkPersonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: LinkPersonDialogData) {
+  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(MatDialogRef<LinkPersonDialogComponent>) @Inject(MatDialogRef<LinkPersonDialogComponent>) @Inject(MatDialogRef<LinkPersonDialogComponent>) public dialogRef: MatDialogRef<LinkPersonDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) @Inject(LinkPersonDialogData) @Inject(LinkPersonDialogData) @Inject(LinkPersonDialogData) public data: LinkPersonDialogData) {
   }
 
   ngOnInit() {

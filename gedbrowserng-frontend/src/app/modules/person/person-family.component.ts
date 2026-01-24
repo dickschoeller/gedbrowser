@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 
 import { ApiAttribute, ApiFamily, ApiPerson, AttributeDialogData, SelectItem } from '../../models';
 import { FamilyService, PersonService, UserService } from '../../services';
@@ -20,8 +20,52 @@ import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from 
 @Component({
     standalone: false,
     selector: 'app-person-family',
-    templateUrl: './person-family.component.html',
-    styleUrls: ['./person-family.component.css']
+    template: `<mat-card>
+  <mat-card-title>
+    <mat-toolbar color="primary">Family {{ index + 1 }}<span *ngIf="spouse()">&nbsp;-&nbsp;</span>
+      <app-person-family-spouse *ngIf="spouse()"
+          [dataset]="dataset" [parent]="this" [attribute]="spouse()"></app-person-family-spouse>
+      <span *ngIf="spouse() && hasSignedIn()">
+        <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
+          <mat-icon matListIcon>link_off</mat-icon></button>
+      </span>
+      <span *ngIf="!spouse()" class="example-fill-remaining-space"></span>
+      <span *ngIf="!spouse() && hasSignedIn()">
+        <app-new-person
+            [sex]="sex" [surname]="surname" [label]="'Create spouse'"
+            (emitOK)="createPerson($event)"></app-new-person>
+        <app-link-person
+            [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+            (emitOK)="linkPerson($event)"></app-link-person>
+        <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
+          <mat-icon matListIcon>link_off</mat-icon></button>
+      </span>
+    </mat-toolbar>
+  </mat-card-title>
+  <mat-card-content>
+  <div class="ui-g">
+    <div class="ui-g-1"></div>
+    <div class="ui-g-10">
+      <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="family?.attributes"
+          [styleClass]="'ui-panel-titlebar-success'"></app-attribute-list>
+    </div>
+    <div class="ui-g-1"></div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-1"></div>
+    <div class="ui-g-10">
+      <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="family?.images"
+          [styleClass]="'ui-panel-titlebar-success'"></app-multimedia-gallery>
+    </div>
+    <div class="ui-g-1"></div>
+  </div>
+  <app-person-family-child-list *ngIf="family?.children"
+      [children]="family?.children" [family]="family" [parent]="this"
+      [dataset]="dataset"></app-person-family-child-list>
+  </mat-card-content>
+</mat-card>
+<br/>`,
+    styles: []
 })
 export class PersonFamilyComponent extends InitablePersonCreator
     implements HasAttributeList, LinkCheck, Saveable {
@@ -58,9 +102,9 @@ export class PersonFamilyComponent extends InitablePersonCreator
     sex: string;
     surname: string;
 
-    constructor(private familyService: FamilyService,
-        public personService: PersonService,
-        private userService: UserService) {
+    constructor(@Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) private familyService: FamilyService,
+        @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public personService: PersonService,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
         super(personService);
     }
 

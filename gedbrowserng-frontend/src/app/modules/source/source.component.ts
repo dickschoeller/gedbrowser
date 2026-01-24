@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AttributeListComponent } from '../../components';
@@ -10,8 +10,23 @@ import { HasAttributeList } from '../../interfaces';
 @Component({
   standalone: false,
   selector: 'app-source',
-  templateUrl: './source.component.html',
-  styleUrls: ['./source.component.css']
+  template: `<app-main-layout [dataset]="dataset">
+  <mat-card>
+    <mat-card-title><mat-icon>book</mat-icon> {{ source?.title }}</mat-card-title>
+    <mat-card-subtitle>{{ source?.string }}</mat-card-subtitle>
+    <mat-card-content>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <app-attribute-list [dataset]="dataset" [attributes]="source?.attributes" [parent]="this" [showSources]="false" [showSubmitters]="false"></app-attribute-list>
+        </div>
+        <div class="ui-g-12">
+          <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="source.images"></app-multimedia-gallery>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</app-main-layout>`,
+    styles: []
 })
 export class SourceComponent implements OnInit, HasAttributeList {
   dataset: string;
@@ -142,9 +157,9 @@ export class SourceComponent implements OnInit, HasAttributeList {
       {value: 'Will', label: 'Will'},
     ];
 
-  constructor(private route: ActivatedRoute,
-    private sourceService: SourceService,
-    private router: Router
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(SourceService) private sourceService: SourceService,
+    @Inject(Router) private router: Router
   ) {}
 
   ngOnInit() {

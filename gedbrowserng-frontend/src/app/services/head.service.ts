@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ApiHead } from '../models';
@@ -9,7 +9,7 @@ import { UrlBuilder } from '../utils/urlbuilder';
 @Injectable()
 export class HeadService {
 
-  constructor(private http: HttpClient) {}
+  constructor(@Inject(HttpClient) private http: HttpClient) {}
 
   getOne(db: string): Observable<ApiHead> {
     return this.http.get<ApiHead>(this.url(db));

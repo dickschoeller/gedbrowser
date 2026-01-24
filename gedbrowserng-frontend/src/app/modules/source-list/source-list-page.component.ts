@@ -1,5 +1,5 @@
 import { RefreshSource } from '../../interfaces';
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiSource } from '../../models';
@@ -9,16 +9,16 @@ import { ApiComparators } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-source-list-page',
-  templateUrl: './source-list-page.component.html',
-  styleUrls: ['./source-list-page.component.css']
+  template: `<app-source-list [parent]="this" [dataset]="dataset" [sources]="sources"></app-source-list>`,
+    styles: []
 })
 export class SourceListPageComponent implements OnInit, OnChanges, RefreshSource {
   dataset: string;
   sources: Array<ApiSource>;
 
-  constructor(private route: ActivatedRoute,
-    private sourceService: SourceService,
-    private router: Router) { }
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(SourceService) private sourceService: SourceService,
+    @Inject(Router) private router: Router) { }
 
   ngOnInit(): void {
     this.init();

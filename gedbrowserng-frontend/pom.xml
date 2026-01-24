@@ -35,7 +35,7 @@
   <properties>
     <main.basedir>${project.parent.basedir}</main.basedir>
     <checkstyle.skip>true</checkstyle.skip>
-    <skip.angular.tests>true</skip.angular.tests>
+    <skip.angular.tests>false</skip.angular.tests>
   </properties>
 
   <build>
@@ -70,7 +70,7 @@
               <arguments>install</arguments>
             </configuration>
           </execution>
-          <!-- execution>
+          <execution>
             <id>yarn lint</id>
             <goals>
               <goal>yarn</goal>
@@ -78,7 +78,7 @@
             <configuration>
               <arguments>lint</arguments>
             </configuration>
-          </execution -->
+          </execution>
           <execution>
             <id>yarn build</id>
             <goals>
@@ -97,11 +97,11 @@
             <phase>integration-test</phase>
             <configuration>
               <skip>${skip.angular.tests}</skip>
-              <arguments>test -sm=false</arguments>
+              <arguments>test --coverage</arguments>
               <failOnError>true</failOnError>
             </configuration>
           </execution>
-          <execution>
+          <!-- execution>
             <id>yarn headless-e2e</id>
             <goals>
               <goal>yarn</goal>
@@ -112,15 +112,15 @@
               <arguments>headless-test</arguments>
               <failOnError>true</failOnError>
             </configuration>
-          </execution>
+          </execution -->
         </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-	<configuration>
-	  <skip>true</skip>
-	</configuration>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

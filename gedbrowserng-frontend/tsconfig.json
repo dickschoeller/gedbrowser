@@ -16,7 +16,7 @@
       "es2022",
       "dom"
     ],
-    "module": "es2022",
+    "module": "preserve",
     "baseUrl": "./"
   },
   "angularCompilerOptions": {
