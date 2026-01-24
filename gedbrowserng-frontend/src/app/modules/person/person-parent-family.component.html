@@ -14,7 +14,7 @@
               (emitOK)="linkPerson($event)"></app-link-person>
         </span>
       </mat-toolbar-row>
-      <mat-toolbar-row *ngIf="family?.spouses.length == 0">
+      <mat-toolbar-row *ngIf="family?.spouses.length === 0">
           <app-new-person
               [sex]="sex" [surname]="surname" [label]="'Create parent'"
               (emitOK)="createPerson($event)"></app-new-person>
