@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { AuthApiService } from './auth-api.service';
 import { ConfigService } from './config.service';
 
@@ -6,8 +6,8 @@ import { ConfigService } from './config.service';
 export class FooService {
 
   constructor(
-    private apiService: AuthApiService,
-    private config: ConfigService
+    @Inject(AuthApiService) private apiService: AuthApiService,
+    @Inject(ConfigService) private config: ConfigService
   ) { }
 
   getFoo() {

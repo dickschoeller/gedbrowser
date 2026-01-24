@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpResponse, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, filter, map } from 'rxjs/operators';
 
@@ -23,7 +23,7 @@ export class AuthApiService {
         'Content-Type': 'application/json'
     });
 
-    constructor(private http: HttpClient) { }
+    constructor(@Inject(HttpClient) private http: HttpClient) { }
 
     get(path: string, args?: any): Observable<any> {
         const options = {
