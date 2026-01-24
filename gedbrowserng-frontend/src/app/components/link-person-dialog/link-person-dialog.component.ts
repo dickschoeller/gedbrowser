@@ -30,9 +30,9 @@ export class LinkPersonDialogComponent
   persons: Array<ApiPerson>;
   @ViewChild(MatSelectionList, {static: true}) selectionList: MatSelectionList;
 
-  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(MatDialogRef<LinkPersonDialogComponent>) @Inject(MatDialogRef<LinkPersonDialogComponent>) @Inject(MatDialogRef<LinkPersonDialogComponent>) public dialogRef: MatDialogRef<LinkPersonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) @Inject(LinkPersonDialogData) @Inject(LinkPersonDialogData) @Inject(LinkPersonDialogData) public data: LinkPersonDialogData) {
+  constructor(private route: ActivatedRoute,
+    public dialogRef: MatDialogRef<LinkPersonDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: LinkPersonDialogData) {
   }
 
   ngOnInit() {

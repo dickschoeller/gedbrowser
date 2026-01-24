@@ -40,7 +40,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
       <mat-card-content>
         <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)"
             [cdkDropListDisabled]="!hasSignedIn()">
-          <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : ''"
+          <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : '' }}"
               *ngFor="let child of children; let i=index">
             <app-person-family-child [child]="child" [index]="i"
                 [parent]="this" [dataset]="dataset"></app-person-family-child>
@@ -63,9 +63,9 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
     sex = 'M';
     surname: string;
 
-    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public personService: PersonService,
-        @Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) public familyService: FamilyService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
+    constructor(@Inject(PersonService) public personService: PersonService,
+        @Inject(FamilyService) public familyService: FamilyService,
+        @Inject(UserService) private userService: UserService) {
         super(personService);
     }
 

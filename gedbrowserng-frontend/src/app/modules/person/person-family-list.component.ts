@@ -23,7 +23,7 @@ import { PersonService, UserService } from '../../services';
   <mat-card-content>
     <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
-      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : ''"
+      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : '' }}"
           *ngFor="let attribute of person.famss; let i=index">
         <app-person-family
             [dataset]="dataset" [person]="person" [parent]="this" [string]="attribute.string"
@@ -60,8 +60,8 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
     childSex = 'M';
     _ub: UrlBuilder;
 
-    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public personService: PersonService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
+    constructor(@Inject(PersonService) public personService: PersonService,
+        @Inject(UserService) private userService: UserService) {
         super(personService);
     }
 
