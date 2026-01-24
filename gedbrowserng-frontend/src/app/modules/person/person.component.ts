@@ -22,11 +22,11 @@ import { AttributeDialogHelper, LifespanUtil } from '../../utils';
     <mat-card-content>
       <div class="ui-g">
         <div class="ui-g-12">
-          <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="person.attributes"
+          <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="person?.attributes"
                   [toggleable]="true"></app-attribute-list>
         </div>
         <div class="ui-g-12">
-          <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="person.images"></app-multimedia-gallery>
+          <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="person?.images"></app-multimedia-gallery>
         </div>
         <div class="ui-g-6">
           <app-person-family-list [dataset]="dataset" [person]="person" [parent]="this"></app-person-family-list>
