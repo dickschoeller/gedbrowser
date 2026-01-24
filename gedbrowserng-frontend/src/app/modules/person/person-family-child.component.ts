@@ -38,8 +38,8 @@ export class PersonFamilyChildComponent extends PersonGetter
     @Input() child: ApiAttribute;
     @Input() index: number;
 
-    constructor(personService: PersonService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
+    constructor(@Inject(PersonService) personService: PersonService,
+        @Inject(UserService) private userService: UserService) {
         super(personService);
         this.famMemberType = 'children';
     }

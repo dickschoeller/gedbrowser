@@ -26,7 +26,7 @@ export class PersonParentComponent extends PersonGetter implements OnInit, OnCha
   @Input() parent: HasFamily & RefreshPerson;
   @Input() attribute: ApiAttribute;
 
-  constructor(personService: PersonService) {
+  constructor(@Inject(PersonService) personService: PersonService) {
     super(personService);
     this.famMemberType = 'spouses';
   }

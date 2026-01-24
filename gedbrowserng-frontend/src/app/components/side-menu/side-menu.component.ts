@@ -50,10 +50,10 @@ export class SideMenuComponent implements OnInit, OnChanges {
   public readonly uploadForm = new FormGroup({ files: this.filesControl });
 
   constructor(
-    @Inject(DatasetsService) @Inject(DatasetsService) @Inject(DatasetsService) @Inject(DatasetsService) private datasetService: DatasetsService,
-    @Inject(SaveService) @Inject(SaveService) @Inject(SaveService) private saveService: SaveService,
-    @Inject(UploadService) @Inject(UploadService) @Inject(UploadService) private uploadService: UploadService,
-    @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService,
+    @Inject(DatasetsService) private datasetService: DatasetsService,
+    @Inject(SaveService) private saveService: SaveService,
+    @Inject(UploadService) private uploadService: UploadService,
+    @Inject(UserService) private userService: UserService,
   ) { }
 
   ngOnInit() {
