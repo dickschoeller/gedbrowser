@@ -65,9 +65,9 @@ export class MultimediaDialogComponent implements OnInit {
     sourceTypes: Array<SelectItem>;
 
     constructor(
-        @Inject(MatDialogRef<MultimediaDialogComponent>) @Inject(MatDialogRef<MultimediaDialogComponent>) @Inject(MatDialogRef<MultimediaDialogComponent>) public dialogRef: MatDialogRef<MultimediaDialogComponent>,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService,
-        @Inject(MAT_DIALOG_DATA) @Inject(MultimediaDialogData) @Inject(MultimediaDialogData) @Inject(MultimediaDialogData) public data: MultimediaDialogData) {
+        public dialogRef: MatDialogRef<MultimediaDialogComponent>,
+        private userService: UserService,
+        @Inject(MAT_DIALOG_DATA) public data: MultimediaDialogData) {
     }
 
     ngOnInit() {

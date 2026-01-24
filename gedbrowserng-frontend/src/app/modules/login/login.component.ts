@@ -61,11 +61,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     private ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService,
-        @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) private authService: AuthService,
-        @Inject(Router) @Inject(Router) @Inject(Router) private router: Router,
-        @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(FormBuilder) @Inject(FormBuilder) @Inject(FormBuilder) private formBuilder: FormBuilder
+        private userService: UserService,
+        private authService: AuthService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private formBuilder: FormBuilder
     ) {
 
     }

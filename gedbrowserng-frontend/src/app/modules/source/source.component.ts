@@ -17,7 +17,7 @@ import { HasAttributeList } from '../../interfaces';
     <mat-card-content>
       <div class="ui-g">
         <div class="ui-g-12">
-          <app-attribute-list [dataset]="dataset" [attributes]="source?.attributes" [parent]="this" [showSources]=false [showSubmitters]=false></app-attribute-list>
+          <app-attribute-list [dataset]="dataset" [attributes]="source?.attributes" [parent]="this" [showSources]="false" [showSubmitters]="false"></app-attribute-list>
         </div>
         <div class="ui-g-12">
           <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="source.images"></app-multimedia-gallery>

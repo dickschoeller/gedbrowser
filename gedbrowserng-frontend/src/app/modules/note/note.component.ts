@@ -15,8 +15,8 @@ import { StringUtil, AttributeDialogHelper } from '../../utils';
     <mat-card-title><mat-icon>comment</mat-icon> {{ truncateNote(70) }}</mat-card-title>
     <mat-card-subtitle>{{ note?.string }}</mat-card-subtitle>
     <mat-card-content>
-      <p class="multi_lines_text" [innerHTML]="note.tail"  ></p>
-      <app-attribute-list [dataset]="dataset" [attributes]="note?.attributes" [parent]="this" [showAdd]=false [showNotes]=false [showSubmitters]=false></app-attribute-list>
+      <p class="multi_lines_text">{{ note?.tail }}</p>
+      <app-attribute-list [dataset]="dataset" [attributes]="note?.attributes" [parent]="this" [showAdd]="false" [showNotes]="false" [showSubmitters]="false"></app-attribute-list>
     </mat-card-content>
   </mat-card>
 </app-main-layout>`,
@@ -30,9 +30,9 @@ export class NoteComponent implements OnInit, HasAttributeList {
       {value: 'sourcelink', label: 'Source Link'},
     ];
 
-  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(NoteService) @Inject(NoteService) @Inject(NoteService) private service: NoteService,
-    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
+  constructor(private route: ActivatedRoute,
+    private service: NoteService,
+    private router: Router
   ) { }
 
   ngOnInit() {
