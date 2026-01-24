@@ -6,12 +6,57 @@ import { NewPersonDialogData } from '../../models';
 @Component({
   standalone: false,
   selector: 'app-new-person-dialog',
-  templateUrl: './new-person-dialog.component.html',
-  styleUrls: ['./new-person-dialog.component.css']
+  template: `<div mat-dialog-title>
+  <mat-toolbar color="primary"><mat-icon matListIcon>person</mat-icon> &nbsp; New person</mat-toolbar>
+</div>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="data.name">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <mat-label>Sex</mat-label>
+    <mat-select [(ngModel)]="data.sex">
+      <mat-option value="">-- Unknown --</mat-option>
+      <mat-option value="M">Male</mat-option>
+      <mat-option value="F">Female</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <mat-label>Birth date</mat-label>
+    <input matInput [(ngModel)]="data.birthDate">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <mat-label>Birth place</mat-label>
+    <input matInput [(ngModel)]="data.birthPlace">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <mat-label>Death date</mat-label>
+    <input matInput [(ngModel)]="data.deathDate">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <mat-label>Death place</mat-label>
+    <input matInput [(ngModel)]="data.deathPlace">
+  </mat-form-field>
+  <br/>
+</div>
+<div mat-dialog-actions>
+  <span class="example-fill-remaining-space"></span>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+</div>`,
+    styles: []
 })
 export class NewPersonDialogComponent {
-  constructor(public dialogRef: MatDialogRef<NewPersonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: NewPersonDialogData) {
+  constructor(
+    @Inject(MatDialogRef) public dialogRef: MatDialogRef<NewPersonDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: NewPersonDialogData
+  ) {
   }
 
   onNoClick(): void {

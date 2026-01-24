@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthApiService } from './auth-api.service';
 import { UserService } from './user.service';
@@ -9,9 +9,9 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
     constructor(
-        private apiService: AuthApiService,
-        private userService: UserService,
-        private config: ConfigService,
+        @Inject(AuthApiService) private apiService: AuthApiService,
+        @Inject(UserService) private userService: UserService,
+        @Inject(ConfigService) private config: ConfigService,
     ) { }
 
     login(user) {

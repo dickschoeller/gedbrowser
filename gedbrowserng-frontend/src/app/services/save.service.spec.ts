@@ -1,5 +1,5 @@
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {TestBed, inject} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import {PersonService} from './person.service';
 
@@ -11,7 +11,8 @@ describe('PersonService', () => {
     });
   });
 
-  it('should be created', inject([PersonService], (service: PersonService) => {
+  it('should be created', () => {
+    const service: PersonService = TestBed.inject(PersonService);
     expect(service).toBeTruthy();
-  }));
+  });
 });

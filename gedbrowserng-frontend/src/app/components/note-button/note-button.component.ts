@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
@@ -10,14 +10,23 @@ import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher, LinkD
 @Component({
   standalone: false,
   selector: 'app-note-button',
-  templateUrl: './note-button.component.html',
-  styleUrls: ['./note-button.component.css']
+  template: `<span>
+  <button mat-icon-button matTooltip="Note" [matMenuTriggerFor]="noteMenu" color="primary">
+    <mat-icon matListIcon>comment</mat-icon></button>
+</span>
+
+<mat-menu #noteMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item (click)="openCreateNoteDialog()"><mat-icon>add_comment</mat-icon> Add note</button>
+  <button mat-menu-item (click)="openLinkNoteDialog()"><mat-icon>link</mat-icon> Link note</button>
+  <button mat-menu-item (click)="openUnlinkNoteDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink note</button>
+</mat-menu>`,
+    styles: []
 })
 export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  constructor(public service: NoteService, public dialog: MatDialog) {
+  constructor(@Inject(NoteService) @Inject(NoteService) @Inject(NoteService) @Inject(NoteService) public service: NoteService, @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) {
     super(service, dialog);
   }
 

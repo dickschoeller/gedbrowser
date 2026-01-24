@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
 
 import { Saveable } from '../../interfaces';
@@ -9,8 +9,9 @@ import { MultimediaDialogComponent } from '../multimedia-dialog';
 @Component({
   standalone: false,
   selector: 'app-multimedia-edit-button',
-  templateUrl: './multimedia-edit-button.component.html',
-  styleUrls: ['./multimedia-edit-button.component.css']
+  template: `<button mat-icon-button matTooltip="Edit multimedia attribute" color="primary" (click)="edit()">
+  <mat-icon matListIcon>edit</mat-icon></button>`,
+    styles: []
 })
 export class MultimediaEditButtonComponent {
   @Input() dataset: string;
@@ -18,7 +19,7 @@ export class MultimediaEditButtonComponent {
   @Input() attributes: Array<ApiAttribute>;
   @Input() index;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) { }
 
   edit(): void {
     const dialogRef = this.dialog.open(

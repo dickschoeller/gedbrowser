@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { AuthApiService } from './auth-api.service';
@@ -10,8 +10,8 @@ export class UserService {
   currentUser: User;
 
   constructor(
-    private apiService: AuthApiService,
-    private config: ConfigService
+    @Inject(AuthApiService) private apiService: AuthApiService,
+    @Inject(ConfigService) private config: ConfigService
   ) { }
 
   initUser(): Promise<any> {

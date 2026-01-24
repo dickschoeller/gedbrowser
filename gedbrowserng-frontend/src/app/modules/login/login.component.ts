@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy , Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -13,8 +13,32 @@ import {
 @Component({
     standalone: false,
     selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    template: `<div class="content">
+  <div>
+    <mat-card elevation="5">
+      <mat-card-title>{{ title }}</mat-card-title>
+      <mat-card-subtitle>gedbrowserng</mat-card-subtitle>
+
+      <mat-card-content>
+        <p [class]="notification.msgType" *ngIf="notification">{{ notification.msgBody }}</p>
+
+        <form *ngIf="!submitted" [formGroup]="form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <mat-form-field>
+            <input matInput formControlName="username" required placeholder="username">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="password" required type="password" placeholder="password">
+          </mat-form-field>
+          <button type="submit" [disabled]="!loginForm.form.valid" mat-raised-button color="primary">Login</button>
+        </form>
+        <br/>
+
+        <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>`,
+    styles: []
 })
 export class LoginComponent implements OnInit, OnDestroy {
     title = 'Login';
@@ -37,11 +61,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     private ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(
-        private userService: UserService,
-        private authService: AuthService,
-        private router: Router,
-        private route: ActivatedRoute,
-        private formBuilder: FormBuilder
+        @Inject(UserService) private userService: UserService,
+        @Inject(AuthService) private authService: AuthService,
+        @Inject(Router) private router: Router,
+        @Inject(ActivatedRoute) private route: ActivatedRoute,
+        @Inject(FormBuilder) private formBuilder: FormBuilder
     ) {
 
     }

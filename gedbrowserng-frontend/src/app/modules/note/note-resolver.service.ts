@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { ResolverHelper } from '../../utils';
 export class NoteResolverService implements Resolve<ApiNote> {
   rh: ResolverHelper<ApiNote> = new ResolverHelper<ApiNote>();
 
-  constructor(private noteService: NoteService, private route: Router) {}
+  constructor(@Inject(NoteService) private noteService: NoteService, @Inject(Router) private route: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ApiNote> {
     return this.rh.resolve(route, state, this.noteService);

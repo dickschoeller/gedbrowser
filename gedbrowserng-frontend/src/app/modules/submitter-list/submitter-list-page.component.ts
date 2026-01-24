@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiSubmitter } from '../../models';
@@ -8,16 +8,16 @@ import { ApiComparators } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-submitter-list-page',
-  templateUrl: './submitter-list-page.component.html',
-  styleUrls: ['./submitter-list-page.component.css']
+  template: `<app-submitter-list [parent]="this" [dataset]="dataset" [submitters]="submitters"></app-submitter-list>`,
+    styles: []
 })
 export class SubmitterListPageComponent implements OnInit, OnChanges {
   dataset: string;
   submitters: Array<ApiSubmitter>;
 
-  constructor(private route: ActivatedRoute,
-    private submitterService: SubmitterService,
-    private router: Router
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(SubmitterService) private submitterService: SubmitterService,
+    @Inject(Router) private router: Router
   ) { }
 
   ngOnInit(): void {

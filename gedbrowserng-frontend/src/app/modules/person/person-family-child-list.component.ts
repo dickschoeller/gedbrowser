@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasFamily, HasPerson, RefreshPerson, Saveable, LinkCheck } from '../../interfaces';
@@ -17,8 +17,41 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
     standalone: false,
     selector: 'app-person-family-child-list',
-    templateUrl: './person-family-child-list.component.html',
-    styleUrls: ['./person-family-child-list.component.css']
+    template: `<div class="ui-g">
+  <div class="ui-g-1"></div>
+  <div class="ui-g-10">
+    <mat-card>
+      <mat-card-title>
+        <mat-toolbar>
+          Children
+          <span class="example-fill-remaining-space"></span>
+          <span *ngIf="hasSignedIn()">
+            <app-new-person
+                [sex]="sex" [surname]="surname" [label]="'Create child'"
+                color="primary"
+                (emitOK)="createPerson($event)"></app-new-person>
+            <app-link-person
+                [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link child'"
+                color="primary"
+                (emitOK)="linkChild($event)"></app-link-person>
+          </span>
+        </mat-toolbar>
+      </mat-card-title>
+      <mat-card-content>
+        <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)"
+            [cdkDropListDisabled]="!hasSignedIn()">
+          <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : '' }}"
+              *ngFor="let child of children; let i=index">
+            <app-person-family-child [child]="child" [index]="i"
+                [parent]="this" [dataset]="dataset"></app-person-family-child>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="ui-g-1"></div>
+</div>`,
+    styles: []
 })
 export class PersonFamilyChildListComponent extends InitablePersonCreator
     implements HasFamily, Saveable, LinkCheck {
@@ -30,9 +63,9 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
     sex = 'M';
     surname: string;
 
-    constructor(public personService: PersonService,
-        public familyService: FamilyService,
-        private userService: UserService) {
+    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public personService: PersonService,
+        @Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) public familyService: FamilyService,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
         super(personService);
     }
 

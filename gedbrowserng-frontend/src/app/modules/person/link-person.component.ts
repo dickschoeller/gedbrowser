@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, } from '@angular/core';
+import { Component, Input, EventEmitter, Output, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { LinkPersonDialogComponent } from '../../components';
@@ -9,8 +9,16 @@ import { LinkPersonHelper, PersonService } from '../../services';
 @Component({
   standalone: false,
   selector: 'app-link-person',
-  templateUrl: './link-person.component.html',
-  styleUrls: ['./link-person.component.css']
+  template: `<button (click)="openDialog()" mat-icon-button [color]="color" matTooltip="{{ label }}"><mat-icon>link</mat-icon></button>
+<!-- app-link-person-dialog
+    [p]="this" [dataset]="dataset"
+    [titleString]="label" [multi]="multi"
+    (emitClose)="onDialogClose()"
+    (emitOpen)="onDialogOpen($event)"
+    (emitOK)="onDialogOK($event)"
+    [(display)]="displayDialog">
+</app-link-person-dialog -->`,
+    styles: []
 })
 export class LinkPersonComponent {
   @Input() dataset: string;
@@ -22,8 +30,8 @@ export class LinkPersonComponent {
 
   lph: LinkPersonHelper;
 
-  constructor(private personService: PersonService,
-    public dialog: MatDialog) {
+  constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) private personService: PersonService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) {
         this.lph = new LinkPersonHelper(this.personService);
     }
 

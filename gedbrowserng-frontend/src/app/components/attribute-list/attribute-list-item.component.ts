@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
@@ -11,8 +11,28 @@ import { HasAttributeDialog } from './has-attribute-dialog';
 @Component({
     standalone: false,
     selector: 'app-attribute-list-item',
-    templateUrl: './attribute-list-item.component.html',
-    styleUrls: ['./attribute-list-item.component.css']
+    template: `<div class="parent">
+  <b>{{ attributeUtil.label() }}:&nbsp;</b><span *ngIf="attributeUtil.contents()">
+    <span *ngIf="href(); else elseLinkBlock"><a
+        href="{{ href() }}">[{{ attributeUtil.contents() }}]</a></span><ng-template
+        #elseLinkBlock><span>{{ attributeUtil.contents() }}</span></ng-template><span
+        *ngIf="attribute?.attributes.length">,</span>
+   </span>
+  <app-attribute-list-item-detail-list [dataset]="dataset" [attributes]="attribute?.attributes">
+    </app-attribute-list-item-detail-list>
+  <span class="example-fill-remaining-space"></span>
+  <span *ngIf="attributeUtil.editable() && hasSignedIn()" class="hidden">
+    <button mat-icon-button matTooltip="Edit" color="primary" (click)="edit()">
+      <mat-icon matListIcon>edit</mat-icon></button>
+    <app-multimedia-edit-button *ngIf="attributeUtil.multimedia()"
+        [parent]="this" [dataset]="dataset" [attributes]="attributeList" [index]="index">
+      </app-multimedia-edit-button>
+    <button mat-icon-button matTooltip="Delete" color="warn" (click)="delete()">
+      <mat-icon matListIcon>delete</mat-icon></button>
+    <app-source-button *ngIf="!href()" [parent]="this" [dataset]="dataset"></app-source-button>
+  </span>
+</div>`,
+    styles: []
 })
 export class AttributeListItemComponent extends HasAttributeDialog {
     @Input() attribute: ApiAttribute;
@@ -28,8 +48,8 @@ export class AttributeListItemComponent extends HasAttributeDialog {
         return this.attribute.attributes;
     }
 
-    constructor(public dialog: MatDialog,
-        private userService: UserService) {
+    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
         super(dialog);
     }
 

@@ -1,4 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LinkPersonDialogComponent } from './link-person-dialog.component';
 
@@ -6,12 +11,15 @@ describe('LinkPersonDialogComponent', () => {
   let component: LinkPersonDialogComponent;
   let fixture: ComponentFixture<LinkPersonDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ LinkPersonDialogComponent ]
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [ LinkPersonDialogComponent ],
+      imports: [ MatDialogModule, MatListModule, RouterTestingModule, NoopAnimationsModule ],
+      providers: [ { provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DATA, useValue: {} } ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LinkPersonDialogComponent);

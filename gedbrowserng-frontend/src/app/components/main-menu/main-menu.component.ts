@@ -1,10 +1,17 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter , Inject } from '@angular/core';
 
 @Component({
   standalone: false,
   selector: 'app-main-menu',
-  templateUrl: './main-menu.component.html',
-  styleUrls: ['./main-menu.component.css']
+  template: `<mat-toolbar color="primary">
+  <div class="ui-toolbar-group-left with-icon">
+    <button mat-icon-button (click)="toggle()"><mat-icon>menu</mat-icon></button>
+    <span class="title"> &nbsp; {{ title }}</span>
+  </div>
+  <span class="example-fill-remaining-space"></span>
+  <app-user-buttons></app-user-buttons>
+</mat-toolbar>`,
+    styles: []
 })
 export class MainMenuComponent implements OnInit, OnChanges {
   @Input() dataset: string;

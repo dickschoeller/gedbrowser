@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { NewPersonDialogComponent } from '../../components';
@@ -8,8 +8,9 @@ import { NewPersonHelper } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-new-person',
-  templateUrl: './new-person.component.html',
-  styleUrls: ['./new-person.component.css']
+  template: `<button (click)="openDialog()" mat-icon-button [color]="color"
+    matTooltip="{{ label }}"><mat-icon>person_add</mat-icon></button>`,
+    styles: []
 })
 export class NewPersonComponent {
   @Input() sex: string;
@@ -20,7 +21,7 @@ export class NewPersonComponent {
 
   nph = new NewPersonHelper();
 
-  constructor(public dialog: MatDialog) {
+  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) {
   }
 
   openDialog(): void {

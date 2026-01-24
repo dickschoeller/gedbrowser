@@ -1,5 +1,5 @@
 import { RefreshNote } from '../../interfaces';
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiNote } from '../../models';
@@ -9,16 +9,16 @@ import { ApiComparators } from '../../utils';
 @Component({
   standalone: false,
   selector: 'app-note-list-page',
-  templateUrl: './note-list-page.component.html',
-  styleUrls: ['./note-list-page.component.css']
+  template: `<app-note-list [parent]="this" [dataset]="dataset" [notes]="notes"></app-note-list>`,
+    styles: []
 })
 export class NoteListPageComponent implements OnInit, OnChanges, RefreshNote {
   dataset: string;
   notes: Array<ApiNote>;
 
-  constructor(private route: ActivatedRoute,
-    private noteService: NoteService,
-    private router: Router) { }
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(NoteService) private noteService: NoteService,
+    @Inject(Router) private router: Router) { }
 
   ngOnInit(): void {
     this.init();

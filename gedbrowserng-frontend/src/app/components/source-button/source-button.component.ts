@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
@@ -10,16 +10,25 @@ import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher, Lin
 @Component({
   standalone: false,
   selector: 'app-source-button',
-  templateUrl: './source-button.component.html',
-  styleUrls: ['./source-button.component.css']
+  template: `<span>
+  <button mat-icon-button matTooltip="Source" [matMenuTriggerFor]="sourceMenu" color="primary">
+    <mat-icon matListIcon>book</mat-icon></button>
+</span>
+
+<mat-menu #sourceMenu="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item (click)="openCreateSourceDialog()"><mat-icon>library_add</mat-icon> Add source</button>
+  <button mat-menu-item (click)="openLinkSourceDialog()"><mat-icon>link</mat-icon> Link source</button>
+  <button mat-menu-item (click)="openUnlinkSourceDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink source</button>
+</mat-menu>`,
+    styles: []
 })
 export class SourceButtonComponent extends SourceCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
   constructor(
-    public service: SourceService,
-    public dialog: MatDialog,
+    @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) public service: SourceService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
   ) {
     super(service, dialog);
   }
