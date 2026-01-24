@@ -7,8 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { LinkPersonComponent } from './link-person.component';
+import { PersonService } from '../../services';
 
 describe('LinkPersonComponent', () => {
   let component: LinkPersonComponent;
@@ -18,8 +20,8 @@ describe('LinkPersonComponent', () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ LinkPersonComponent ],
-      imports: [ MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, NoopAnimationsModule ],
-      providers: []
+      imports: [ MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, NoopAnimationsModule, HttpClientTestingModule ],
+      providers: [ PersonService ]
     })
     .compileComponents();
   });

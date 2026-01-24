@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 
 import { PersonFamilySpouseComponent } from './person-family-spouse.component';
 import { ConfigService } from '../../services/config.service';
@@ -23,12 +25,30 @@ import { PersonService } from '../../services/person.service';
 describe('PersonFamilySpouseComponent', () => {
   let component: PersonFamilySpouseComponent;
   let fixture: ComponentFixture<PersonFamilySpouseComponent>;
+  let mockPersonService: any;
 
   beforeEach(() => {
+    mockPersonService = {
+      getOne: () => of({
+        string: 'test',
+        indexName: 'Test',
+        lifespan: {
+          birthYear: undefined,
+          deathYear: undefined,
+          birthDate: undefined,
+          deathDate: undefined
+        }
+      })
+    };
+
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ PersonFamilySpouseComponent ],
-      providers: [ PersonService, UserService, AuthApiService, ConfigService ]
+      imports: [ MatButtonModule, RouterTestingModule ],
+      providers: [ 
+        { provide: PersonService, useValue: mockPersonService },
+        UserService, AuthApiService, ConfigService 
+      ]
     })
     .compileComponents();
   });
@@ -37,8 +57,8 @@ describe('PersonFamilySpouseComponent', () => {
     fixture = TestBed.createComponent(PersonFamilySpouseComponent);
     component = fixture.componentInstance;
     component.dataset = 'testDataset';
-    component.parent = { families: [], refresh: () => {} };
-    component.person = { string: 'test', name: 'Test Person' };
+    component.parent = { families: [], refresh: () => {} } as any;
+    component.attribute = { string: 'test', type: 'test' } as any;
     component.index = 0;
     fixture.detectChanges();
   });

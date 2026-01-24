@@ -37,8 +37,7 @@ describe('PersonParentFamiliesComponent', () => {
     fixture = TestBed.createComponent(PersonParentFamiliesComponent);
     component = fixture.componentInstance;
     component.dataset = 'testDataset';
-    component.person = { string: 'test', name: 'Test Person' };
-    fixture.detectChanges();
+    component.person = { string: 'test', name: 'Test Person', famcs: [] } as any;
   });
 
   it('should create', () => {

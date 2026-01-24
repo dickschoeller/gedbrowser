@@ -6,9 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AttributeListComponent } from './attribute-list.component';
-import { UserService } from '../../services';
+import { UserService, AuthApiService, ConfigService } from '../../services';
 
 describe('AttributeListComponent', () => {
   let component: AttributeListComponent;
@@ -18,8 +19,8 @@ describe('AttributeListComponent', () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ AttributeListComponent ],
-      imports: [ MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule ],
-      providers: [ UserService ]
+      imports: [ MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule, HttpClientTestingModule ],
+      providers: [ UserService, AuthApiService, ConfigService ]
     })
     .compileComponents();
   });
@@ -27,6 +28,8 @@ describe('AttributeListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AttributeListComponent);
     component = fixture.componentInstance;
+    component.attributes = [];
+    component.parent = { attributes: [], deleteAttribute: () => {}, addAttribute: () => {} } as any;
     fixture.detectChanges();
   });
 

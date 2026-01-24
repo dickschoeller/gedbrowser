@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { UserButtonsComponent } from './user-buttons.component';
-import { AuthService, UserService } from '../../services';
+import { AuthService, UserService, AuthApiService, ConfigService } from '../../services';
 
 describe('UserButtonsComponent', () => {
   let component: UserButtonsComponent;
@@ -15,7 +15,7 @@ describe('UserButtonsComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ UserButtonsComponent ],
       imports: [ RouterTestingModule, HttpClientTestingModule ],
-      providers: [ AuthService, UserService ]
+      providers: [ AuthService, UserService, AuthApiService, ConfigService ]
     })
     .compileComponents();
   });

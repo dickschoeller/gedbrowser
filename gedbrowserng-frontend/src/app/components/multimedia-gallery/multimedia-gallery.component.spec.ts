@@ -3,9 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxGalleryModule } from 'ngx-gallery-15';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { MultimediaGalleryComponent } from './multimedia-gallery.component';
-import { UserService } from '../../services';
+import { UserService, AuthApiService, ConfigService } from '../../services';
 
 describe('MultimediaGalleryComponent', () => {
   let component: MultimediaGalleryComponent;
@@ -15,8 +16,8 @@ describe('MultimediaGalleryComponent', () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ MultimediaGalleryComponent ],
-      imports: [ MatDialogModule, NgxGalleryModule, NoopAnimationsModule ],
-      providers: [ UserService ]
+      imports: [ MatDialogModule, NgxGalleryModule, NoopAnimationsModule, HttpClientTestingModule ],
+      providers: [ UserService, AuthApiService, ConfigService ]
     })
     .compileComponents();
   });

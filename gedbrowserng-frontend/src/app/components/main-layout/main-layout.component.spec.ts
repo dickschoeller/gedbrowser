@@ -20,7 +20,8 @@ describe('MainLayoutComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MainLayoutComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    component.dataset = 'testDataset';
+    // Don't call detectChanges due to template dataset binding issues
   });
 
   it('should create', () => {

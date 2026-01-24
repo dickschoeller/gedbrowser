@@ -6,7 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LoginComponent } from './login.component';
-import { AuthService, UserService } from '../../services';
+import { AuthService, UserService, AuthApiService, ConfigService } from '../../services';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -17,7 +17,7 @@ describe('LoginComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ LoginComponent ],
       imports: [ ReactiveFormsModule, FormsModule, RouterTestingModule, HttpClientTestingModule, NoopAnimationsModule ],
-      providers: [ AuthService, UserService ]
+      providers: [ AuthService, UserService, AuthApiService, ConfigService ]
     })
     .compileComponents();
   });
