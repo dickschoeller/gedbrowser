@@ -33,11 +33,6 @@ export default defineConfig({
         'tools/**'
       ]
     }
-  },
-  resolve: {
-    alias: {
-      // Fix for Angular's import resolution
-    }
   }
 });
 

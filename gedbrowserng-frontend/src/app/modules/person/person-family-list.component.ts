@@ -23,7 +23,7 @@ import { PersonService, UserService } from '../../services';
   <mat-card-content>
     <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
-      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : ''"
+      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : '' }}"
           *ngFor="let attribute of person.famss; let i=index">
         <app-person-family
             [dataset]="dataset" [person]="person" [parent]="this" [string]="attribute.string"
