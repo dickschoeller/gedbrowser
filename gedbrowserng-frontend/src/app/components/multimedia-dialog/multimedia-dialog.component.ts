@@ -22,7 +22,7 @@ import { UserService } from '../../services';
   <div>
     <div cdkDropList class="file-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
-      <div cdkDrag class="{{ hasSignedIn() ? 'file-box' : '' }}"
+      <div cdkDrag class="{{ hasSignedIn() ? 'file-box' : ''"
           *ngFor="let file of data.files; let i=index">
         <br/>
         <mat-form-field>
@@ -65,8 +65,8 @@ export class MultimediaDialogComponent implements OnInit {
     sourceTypes: Array<SelectItem>;
 
     constructor(
-        public dialogRef: MatDialogRef<MultimediaDialogComponent>,
-        private userService: UserService,
+        @Inject(MatDialogRef) public dialogRef: MatDialogRef<MultimediaDialogComponent>,
+        @Inject(UserService) private userService: UserService,
         @Inject(MAT_DIALOG_DATA) public data: MultimediaDialogData) {
     }
 
