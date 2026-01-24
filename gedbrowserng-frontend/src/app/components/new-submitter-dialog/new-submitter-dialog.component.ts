@@ -11,7 +11,7 @@ import { NewSubmitterDialogData } from '../../models';
 </div>
 <div mat-dialog-content>
   <mat-form-field>
-    <input matInput placeHolder="Name" [(ngModel)]="data.name">
+    <input matInput placeholder="Name" [(ngModel)]="data.name">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
@@ -22,8 +22,10 @@ import { NewSubmitterDialogData } from '../../models';
     styles: []
 })
 export class NewSubmitterDialogComponent {
-  constructor(@Inject(MatDialogRef<NewSubmitterDialogComponent>) @Inject(MatDialogRef<NewSubmitterDialogComponent>) @Inject(MatDialogRef<NewSubmitterDialogComponent>) public dialogRef: MatDialogRef<NewSubmitterDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) @Inject(NewSubmitterDialogData) @Inject(NewSubmitterDialogData) @Inject(NewSubmitterDialogData) public data: NewSubmitterDialogData) {
+  constructor(
+    @Inject(MatDialogRef) public dialogRef: MatDialogRef<NewSubmitterDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: NewSubmitterDialogData
+  ) {
   }
 
   onNoClick(): void {

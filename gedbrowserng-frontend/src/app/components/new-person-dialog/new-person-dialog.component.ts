@@ -53,8 +53,10 @@ import { NewPersonDialogData } from '../../models';
     styles: []
 })
 export class NewPersonDialogComponent {
-  constructor(@Inject(MatDialogRef<NewPersonDialogComponent>) @Inject(MatDialogRef<NewPersonDialogComponent>) @Inject(MatDialogRef<NewPersonDialogComponent>) public dialogRef: MatDialogRef<NewPersonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) @Inject(NewPersonDialogData) @Inject(NewPersonDialogData) @Inject(NewPersonDialogData) public data: NewPersonDialogData) {
+  constructor(
+    @Inject(MatDialogRef) public dialogRef: MatDialogRef<NewPersonDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: NewPersonDialogData
+  ) {
   }
 
   onNoClick(): void {
