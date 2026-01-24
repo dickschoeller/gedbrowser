@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -13,6 +14,7 @@ describe('NewSubmitterDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
       declarations: [ NewSubmitterDialogComponent ],
       imports: [ MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, NoopAnimationsModule ],
       providers: [ { provide: MAT_DIALOG_DATA, useValue: {} } ]

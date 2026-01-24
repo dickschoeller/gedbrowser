@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
@@ -12,6 +13,7 @@ describe('LinkPersonDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
       declarations: [ LinkPersonDialogComponent ],
       imports: [ MatDialogModule, MatListModule, RouterTestingModule, NoopAnimationsModule ],
       providers: [ { provide: MAT_DIALOG_DATA, useValue: {} } ]

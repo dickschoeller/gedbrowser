@@ -1,0 +1,38 @@
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['src/test.ts'],
+    include: ['src/**/*.spec.ts'],
+    exclude: ['node_modules', 'dist', '.idea', '.git', '.cache'],
+    // Run tests serially to avoid zone.js conflicts
+    pool: {
+      threads: {
+        singleThread: true,
+      },
+    },
+    environmentOptions: {
+      jsdom: {
+        resources: 'usable',
+      },
+    },
+    testTimeout: 10000,
+    hookTimeout: 10000,
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'lcov'],
+      exclude: [
+        'node_modules/',
+        'src/test.ts',
+      ]
+    }
+  },
+  resolve: {
+    alias: {
+      // Fix for Angular's import resolution
+    }
+  }
+});
+

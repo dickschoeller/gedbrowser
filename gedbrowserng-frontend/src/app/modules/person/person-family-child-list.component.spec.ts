@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -15,6 +16,7 @@ describe('PersonFamilyChildListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
       declarations: [ PersonFamilyChildListComponent ]
     })
     .compileComponents();

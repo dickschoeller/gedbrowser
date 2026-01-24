@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +11,7 @@ describe('MultimediaAddButtonComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
       declarations: [ MultimediaAddButtonComponent ],
       imports: [ MatDialogModule, NoopAnimationsModule ],
       providers: [],

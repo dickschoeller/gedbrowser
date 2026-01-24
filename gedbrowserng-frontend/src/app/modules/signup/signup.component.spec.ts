@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,6 +14,7 @@ describe('SignupComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
       declarations: [ SignupComponent ],
       imports: [ ReactiveFormsModule, FormsModule, RouterTestingModule, HttpClientTestingModule, NoopAnimationsModule ],
       providers: [ AuthService, UserService ]

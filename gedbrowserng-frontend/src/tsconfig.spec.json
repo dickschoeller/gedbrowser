@@ -6,7 +6,7 @@
     "module": "preserve",
     "target": "es2022",
     "types": [
-      "jasmine",
+      "vitest/globals",
       "node"
     ]
   },

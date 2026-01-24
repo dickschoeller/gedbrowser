@@ -1,21 +1,15 @@
-import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {RouterTestingModule} from '@angular/router/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import {PersonService} from '../../services';
-import {PersonListResolverService} from './person-list-resolver.service';
+import { PersonListResolverService } from './person-list-resolver.service';
+import { PersonService } from '../../services';
 
 describe('PersonListResolverService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        PersonListResolverService,
-        PersonService
-      ],
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
-      ]
+      imports: [ HttpClientTestingModule, RouterTestingModule ],
+      providers: [ PersonListResolverService, PersonService ]
     });
   });
 

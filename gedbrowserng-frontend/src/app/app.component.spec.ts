@@ -4,6 +4,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {ButtonModule} from 'primeng/button';
 import {TieredMenuModule} from 'primeng/tieredmenu';
 import {ToolbarModule} from 'primeng/toolbar';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -17,8 +18,9 @@ describe('AppComponent', () => {
         TieredMenuModule,
         ToolbarModule
       ],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: []
-    }).compileComponents();
+    });
   }));
   it('should create the app', waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);

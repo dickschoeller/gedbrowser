@@ -1,11 +1,15 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { NoteResolverService } from './note-resolver.service';
+import { NoteService } from '../../services';
 
 describe('NoteResolverService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NoteResolverService]
+      imports: [ HttpClientTestingModule, RouterTestingModule ],
+      providers: [NoteResolverService, NoteService]
     });
   });
 

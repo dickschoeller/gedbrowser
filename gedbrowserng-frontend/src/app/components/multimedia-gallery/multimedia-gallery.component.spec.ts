@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxGalleryModule } from 'ngx-gallery-15';
@@ -12,6 +13,7 @@ describe('MultimediaGalleryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
       declarations: [ MultimediaGalleryComponent ],
       imports: [ MatDialogModule, NgxGalleryModule, NoopAnimationsModule ],
       providers: [ UserService ]

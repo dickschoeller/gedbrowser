@@ -1,30 +1,21 @@
-// This file is required by karma.conf.js and loads recursively all the .spec and framework files
+// This file is the main entry point for Vitest setup
+// It initializes the Angular testing environment
 
+// CRITICAL: Import zone.js first, before anything else
 import 'zone.js';
 import 'zone.js/testing';
+
+// Ensure zone.js is available in the global scope for Angular testing
+import { NgZone } from '@angular/core';
+
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
-// Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
-declare const __karma__: any;
-declare const require: any;
-
-// Prevent Karma from running prematurely.
-__karma__.loaded = function () {};
-
-// First, initialize the Angular testing environment.
-// NOTE: Not using BrowserAnimationsModule as it can cause issues in test environment
+// Initialize the Angular testing environment
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting()
 );
-
-// Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().map(context);
-// Finally, start Karma to run the tests.
-__karma__.start();

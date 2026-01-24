@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { ResolverHelper } from '../../utils';
 export class SubmitterResolverService implements Resolve<ApiSubmitter> {
   rh: ResolverHelper<ApiSubmitter> = new ResolverHelper<ApiSubmitter>();
 
-  constructor(private submitterService: SubmitterService, private route: Router) {}
+  constructor(@Inject(SubmitterService) private submitterService: SubmitterService, @Inject(Router) private route: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ApiSubmitter> {
     return this.rh.resolve(route, state, this.submitterService);
