@@ -30,9 +30,9 @@ export class NoteComponent implements OnInit, HasAttributeList {
       {value: 'sourcelink', label: 'Source Link'},
     ];
 
-  constructor(private route: ActivatedRoute,
-    private service: NoteService,
-    private router: Router
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(NoteService) private service: NoteService,
+    @Inject(Router) private router: Router
   ) { }
 
   ngOnInit() {
