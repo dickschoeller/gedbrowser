@@ -16,9 +16,9 @@ export class SourceListPageComponent implements OnInit, OnChanges, RefreshSource
   dataset: string;
   sources: Array<ApiSource>;
 
-  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) private sourceService: SourceService,
-    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router) { }
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(SourceService) private sourceService: SourceService,
+    @Inject(Router) private router: Router) { }
 
   ngOnInit(): void {
     this.init();
