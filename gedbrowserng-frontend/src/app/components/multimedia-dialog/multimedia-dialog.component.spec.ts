@@ -1,11 +1,17 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MultimediaDialogComponent } from './multimedia-dialog.component';
-import { UserService } from '../../services';
+import { UserService, AuthApiService, ConfigService } from '../../services';
 
 describe('MultimediaDialogComponent', () => {
   let component: MultimediaDialogComponent;
@@ -15,8 +21,22 @@ describe('MultimediaDialogComponent', () => {
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [ MultimediaDialogComponent ],
-      imports: [ MatDialogModule, DragDropModule, NoopAnimationsModule ],
-      providers: [ { provide: MAT_DIALOG_DATA, useValue: {} }, UserService ]
+      imports: [ MatDialogModule, DragDropModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, HttpClientTestingModule, NoopAnimationsModule ],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {
+            title: '',
+            description: '',
+            citations: [],
+            files: []
+          }
+        },
+        UserService,
+        AuthApiService,
+        ConfigService
+      ]
     })
     .compileComponents();
   });
