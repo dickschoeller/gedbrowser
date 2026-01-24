@@ -122,9 +122,9 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
       { value: 'Text', label: 'Text' },
     ];
 
-  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) private service: PersonService,
-    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(PersonService) private service: PersonService,
+    @Inject(Router) private router: Router
   ) {}
 
   ngOnInit() {
@@ -134,7 +134,7 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
     this.route.data.subscribe(
       (data: {dataset: string, person: ApiPerson}) => {
         this.person = data.person;
-        this.attributes = this.person.attributes;
+        this.attributes = this.person?.attributes || [];
       }
     );
   }

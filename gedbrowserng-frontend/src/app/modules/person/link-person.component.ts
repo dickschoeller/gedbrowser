@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, , Inject } from '@angular/core';
+import { Component, Input, EventEmitter, Output, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { LinkPersonDialogComponent } from '../../components';

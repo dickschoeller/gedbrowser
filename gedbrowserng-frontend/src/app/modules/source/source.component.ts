@@ -157,9 +157,9 @@ export class SourceComponent implements OnInit, HasAttributeList {
       {value: 'Will', label: 'Will'},
     ];
 
-  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) private sourceService: SourceService,
-    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(SourceService) private sourceService: SourceService,
+    @Inject(Router) private router: Router
   ) {}
 
   ngOnInit() {

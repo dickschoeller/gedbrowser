@@ -39,9 +39,9 @@ export class SubmitterComponent implements OnInit, HasAttributeList {
       {value: 'Web', label: 'Web'},
     ];
 
-  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) private service: SubmitterService,
-    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
+  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(SubmitterService) private service: SubmitterService,
+    @Inject(Router) private router: Router
   ) { }
 
   ngOnInit() {
