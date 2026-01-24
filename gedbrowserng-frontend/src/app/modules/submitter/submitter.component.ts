@@ -16,7 +16,7 @@ import { AttributeDialogHelper } from '../../utils';
     </mat-card-title>
     <mat-card-subtitle>{{ submitter?.string }}</mat-card-subtitle>
     <mat-card-content>
-      <app-attribute-list [dataset]="dataset" [attributes]="submitter?.attributes" [parent]="this" [showSources]=false [showSubmitters]=false></app-attribute-list>
+      <app-attribute-list [dataset]="dataset" [attributes]="submitter?.attributes" [parent]="this" [showSources]="false" [showSubmitters]="false"></app-attribute-list>
     </mat-card-content>
   </mat-card>
 </app-main-layout>`,

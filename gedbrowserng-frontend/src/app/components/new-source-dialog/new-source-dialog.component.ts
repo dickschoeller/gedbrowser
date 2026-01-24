@@ -34,8 +34,9 @@ import { NewSourceDialogData } from '../../models';
     styles: []
 })
 export class NewSourceDialogComponent {
-  constructor(@Inject(MatDialogRef<NewSourceDialogComponent>) @Inject(MatDialogRef<NewSourceDialogComponent>) @Inject(MatDialogRef<NewSourceDialogComponent>) public dialogRef: MatDialogRef<NewSourceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) @Inject(NewSourceDialogData) @Inject(NewSourceDialogData) @Inject(NewSourceDialogData) public data: NewSourceDialogData) {
+  constructor(
+    @Inject(MatDialogRef) public dialogRef: MatDialogRef<NewSourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: NewSourceDialogData) {
   }
 
   onNoClick(): void {

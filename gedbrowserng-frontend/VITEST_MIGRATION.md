@@ -78,8 +78,8 @@ npm test -- --grep "should create"
 ## Test Status
 
 **Current:** ✅ Tests are now executing with Vitest
-- 1 test passing
-- 71 tests failing (most failures are resolver service/dependency injection issues to fix)
+- Most tests are now passing under Vitest
+- Some tests are still failing (most failures are resolver service/dependency injection issues to fix)
 
 **Next Steps:**
 1. Fix missing provider configurations in failing tests
