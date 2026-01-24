@@ -82,9 +82,9 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
   datasource: MatTableDataSource<ApiSource> = new MatTableDataSource<ApiSource>([]);
 
   constructor(
-    @Inject(Router) @Inject(Router) @Inject(Router) @Inject(Router) private router: Router,
-    @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) public sourceService: SourceService,
-    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
+    @Inject(Router) private router: Router,
+    @Inject(SourceService) public sourceService: SourceService,
+    @Inject(MatDialog) public dialog: MatDialog,
   ) { super(sourceService, dialog); }
 
   ngAfterViewInit() {

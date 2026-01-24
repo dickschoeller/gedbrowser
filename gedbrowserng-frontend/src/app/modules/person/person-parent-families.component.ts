@@ -30,8 +30,8 @@ import { UrlBuilder } from '../../utils';
   <mat-card-content>
     <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
-      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : ''"
-          *ngFor="let attribute of person?.famcs let i=index">
+      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : '' }}"
+          *ngFor="let attribute of person?.famcs; let i=index">
         <app-person-parent-family
             [dataset]="dataset" [parent]="this" [attribute]="attribute"></app-person-parent-family>
       </div>
@@ -50,8 +50,8 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
     return this.person.surname;
   }
 
-  constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public personService: PersonService,
-    @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
+  constructor(@Inject(PersonService) public personService: PersonService,
+    @Inject(UserService) private userService: UserService) {
     super(personService);
   }
 
