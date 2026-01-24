@@ -39,8 +39,7 @@ import { NoteListPageComponent } from './note-list-page.component';
                 <mat-table #table [dataSource]="datasource" matSort>
                   <ng-container matColumnDef="tail">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Note </mat-header-cell>
-                    <mat-cell *matCellDef="let note" (click)="navigate(note.string)" style="cursor: pointer;">{{ note.tail.substr(0,80).replace('
-',' ') }}</mat-cell>
+                    <mat-cell *matCellDef="let note" (click)="navigate(note.string)" style="cursor: pointer;">{{ formatNoteTail(note.tail) }}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="string">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
@@ -84,9 +83,9 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   datasource: MatTableDataSource<ApiNote> = new MatTableDataSource<ApiNote>([]);
 
   constructor(
-    @Inject(Router) @Inject(Router) @Inject(Router) @Inject(Router) private router: Router,
-    @Inject(NoteService) @Inject(NoteService) @Inject(NoteService) public noteService: NoteService,
-    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
+    @Inject(Router) private router: Router,
+    @Inject(NoteService) public noteService: NoteService,
+    @Inject(MatDialog) public dialog: MatDialog,
   ) {
     super(noteService, dialog);
   }
@@ -132,5 +131,9 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
     this.noteService.delete(this.dataset, note).subscribe((n: ApiNote) => {
       this.refreshNote(n);
     });
+  }
+
+  formatNoteTail(tail: string): string {
+    return tail.substr(0, 80).replace(/\n/g, ' ');
   }
 }

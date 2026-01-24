@@ -5,9 +5,6 @@
 import 'zone.js';
 import 'zone.js/testing';
 
-// Ensure zone.js is available in the global scope for Angular testing
-import { NgZone } from '@angular/core';
-
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
@@ -23,26 +20,37 @@ const originalSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
 const requestHeaders: { [key: number]: { [header: string]: string } } = {};
 let requestId = 0;
 
+// WeakMap to store metadata for XMLHttpRequest instances
+interface XHRMetadata {
+  xhrId: number;
+  originalUrl: string;
+  originalMethod: string;
+}
+const xhrMetadata = new WeakMap<XMLHttpRequest, XHRMetadata>();
+
 XMLHttpRequest.prototype.open = function(method: string, url: string, ...args: any[]) {
   const id = requestId++;
-  this._xhrId = id;
-  this._originalUrl = url;
-  this._originalMethod = method;
+  xhrMetadata.set(this, {
+    xhrId: id,
+    originalUrl: url,
+    originalMethod: method
+  });
   requestHeaders[id] = {};
   return originalOpen.apply(this, [method, url, ...args]);
 };
 
 XMLHttpRequest.prototype.setRequestHeader = function(header: string, value: string) {
-  const id = (this as any)._xhrId;
-  if (id !== undefined && requestHeaders[id]) {
-    requestHeaders[id][header] = value;
+  const metadata = xhrMetadata.get(this);
+  if (metadata && requestHeaders[metadata.xhrId]) {
+    requestHeaders[metadata.xhrId][header] = value;
   }
   return originalSetRequestHeader.apply(this, [header, value]);
 };
 
 XMLHttpRequest.prototype.send = function(body?: any) {
-  const url = this._originalUrl as string;
-  const method = this._originalMethod as string;
+  const metadata = xhrMetadata.get(this);
+  const url = metadata?.originalUrl || '';
+  const method = metadata?.originalMethod || '';
   const self = this as any;
   
   // For template/stylesheet requests in tests, return empty content
