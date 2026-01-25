@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -34,7 +34,6 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
@@ -77,11 +76,14 @@ public class PersonCrudTest {
         log.info("Beginning testReadSourcesGl120368");
         final List<ApiPerson> list = crud.readAll(helper.getDb());
         final ApiPerson firstPerson = list.get(0);
-        then(firstPerson.getString()).isEqualTo("I1");
         final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
-        then(firstAttribute.getType()).isEqualTo("name");
-        then(firstAttribute.getString()).isEqualTo("Living /Williams/");
-        then(firstAttribute.getTail()).isEmpty();
+
+        assertThat(firstPerson)
+            .returns("I1", p -> p.getString());
+        assertThat(firstAttribute)
+            .returns("name", a -> a.getType())
+            .returns("Living /Williams/", a -> a.getString())
+            .returns(true, a -> a.getTail().isEmpty());
     }
 
     /** */
@@ -90,11 +92,14 @@ public class PersonCrudTest {
         log.info("Beginning testGetPersonsMiniSchoeller");
         final List<ApiPerson> list = crud.readAll("mini-schoeller");
         final ApiPerson firstPerson = list.get(0);
-        then(firstPerson.getString()).isEqualTo("I1");
         final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
-        then(firstAttribute.getType()).isEqualTo("name");
-        then(firstAttribute.getString()).isEqualTo("Melissa Robinson/Schoeller/");
-        then(firstAttribute.getTail()).isEmpty();
+
+        assertThat(firstPerson)
+            .returns("I1", p -> p.getString());
+        assertThat(firstAttribute)
+            .returns("name", a -> a.getType())
+            .returns("Melissa Robinson/Schoeller/", a -> a.getString())
+            .returns(true, a -> a.getTail().isEmpty());
     }
 
     /** */
@@ -102,11 +107,14 @@ public class PersonCrudTest {
     void testGetPersonsMiniSchoellerI2() {
         log.info("Beginning testGetPersonsMiniSchoellerI2");
         final ApiPerson firstPerson = crud.readOne("mini-schoeller", "I2");
-        then(firstPerson.getString()).isEqualTo("I2");
         final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
-        then(firstAttribute.getType()).isEqualTo("name");
-        then(firstAttribute.getString()).isEqualTo("Richard John/Schoeller/");
-        then(firstAttribute.getTail()).isEmpty();
+
+        assertThat(firstPerson)
+            .returns("I2", p -> p.getString());
+        assertThat(firstAttribute)
+            .returns("name", a -> a.getType())
+            .returns("Richard John/Schoeller/", a -> a.getString())
+            .returns(true, a -> a.getTail().isEmpty());
     }
 
     /** */
@@ -129,10 +137,12 @@ public class PersonCrudTest {
             .indexName("")
             .build();
         final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
-        then(resPerson.getType()).isEqualTo(reqPerson.getType());
-        then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
-        then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
-        then(resPerson.getString()).isNotEmpty();
+
+        assertThat(resPerson)
+            .returns(reqPerson.getType(), p -> p.getType())
+            .returns(reqPerson.getSurname(), p -> p.getSurname())
+            .returns(reqPerson.getIndexName(), p -> p.getIndexName())
+            .returns(true, p -> !p.getString().isEmpty());
     }
 
     /** */
@@ -141,10 +151,12 @@ public class PersonCrudTest {
         log.info("Beginning testCreatePersonsWithName");
         final ApiPerson reqPerson = createRJS();
         final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
-        then(resPerson.getType()).isEqualTo(reqPerson.getType());
-        then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
-        then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
-        then(resPerson.getString()).isNotEmpty();
+
+        assertThat(resPerson)
+            .returns(reqPerson.getType(), p -> p.getType())
+            .returns(reqPerson.getSurname(), p -> p.getSurname())
+            .returns(reqPerson.getIndexName(), p -> p.getIndexName())
+            .returns(true, p -> !p.getString().isEmpty());
     }
 
     /**
@@ -158,17 +170,17 @@ public class PersonCrudTest {
                 .type("name")
                 .string("Richard/Schoeller/")
                 .tail("")
-                .attributes(java.util.List.of())
+                .attributes(List.of())
                 .build())
             .attribute(ApiAttribute.builder()
                 .type("attribute")
                 .string("Sex")
                 .tail("M")
-                .attributes(java.util.List.of())
+                .attributes(List.of())
                 .build())
             .surname("Schoeller")
             .indexName("Schoeller, Richard")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
     }
 
@@ -181,7 +193,9 @@ public class PersonCrudTest {
         final String id = resPerson.getString();
         crud.readOne(helper.getDb(), id);
         final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), id);
-        then(deletedPerson.getString()).isEqualTo(id);
+
+        assertThat(deletedPerson)
+            .returns(id, p -> p.getString());
         assertThatExceptionOfType(ObjectNotFoundException.class)
             .isThrownBy(() -> crud.readOne(helper.getDb(), id))
             .withMessage("Object " + id + " of type person not found");
@@ -201,18 +215,26 @@ public class PersonCrudTest {
         final ApiPerson p2 = helper.createAlexandra();
         final SpouseCrud spouseCrud = new SpouseCrud(loader, toDocConverter, repositoryManager);
         final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
-        then(fam).isEqualTo(gotP2.getFamss().get(0).getString());
 
-        ApiPerson readPerson = crud.readOne(helper.getDb(), id);
-        then(readPerson.getString()).isEqualTo(id);
-        ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), id);
-        then(deletedPerson.getString()).isEqualTo(id);
+        assertThat(gotP2)
+            .returns(fam, p -> p.getFamss().get(0).getString());
+
+        final ApiPerson readPerson = crud.readOne(helper.getDb(), id);
+        assertThat(readPerson)
+            .returns(id, p -> p.getString());
+
+        final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), id);
+        assertThat(deletedPerson)
+            .returns(id, p -> p.getString());
+
         assertThatExceptionOfType(ObjectNotFoundException.class)
             .isThrownBy(() -> crud.readOne(helper.getDb(), id))
             .withMessage("Object " + id + " of type person not found");
+
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
-        then(readFamily.getSpouses().size()).isEqualTo(1);
-        then(readFamily.getSpouses().get(0).getString()).isEqualTo(gotP2.getString());
+        assertThat(readFamily)
+            .returns(1, f -> f.getSpouses().size())
+            .returns(gotP2.getString(), f -> f.getSpouses().get(0).getString());
     }
 
     /** */
@@ -230,14 +252,21 @@ public class PersonCrudTest {
         final ApiPerson p2 = helper.createAlexandra();
         final SpouseCrud spouseCrud = new SpouseCrud(loader, toDocConverter, repositoryManager);
         final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
-        then(gotP2.getFamss().get(0).getString()).isEqualTo(fam);
+        
+        assertThat(gotP2)
+            .returns(fam, p -> p.getFamss().get(0).getString());
+        
         final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), childId);
-        then(deletedPerson.getString()).isEqualTo(childId);
+        assertThat(deletedPerson)
+            .returns(childId, p -> p.getString());
+        
         assertThatExceptionOfType(ObjectNotFoundException.class)
             .isThrownBy(() -> crud.readOne(helper.getDb(), childId))
             .withMessage("Object " + childId + " of type person not found");
+        
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
-        then(readFamily.getChildren().size()).isEqualTo(0);
+        assertThat(readFamily)
+            .returns(0, f -> f.getChildren().size());
     }
 
     /** */
@@ -266,7 +295,8 @@ public class PersonCrudTest {
         final ApiPerson reqPerson = createRJS();
         final ApiPersonBuilder<?, ?> resPerson = crud.createOne(helper.getDb(), reqPerson)
             .toBuilder();
-        then(resPerson.getType()).isEqualTo(reqPerson.getType());
+        
+        assertThat(resPerson.getType()).isEqualTo(reqPerson.getType());
 
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")

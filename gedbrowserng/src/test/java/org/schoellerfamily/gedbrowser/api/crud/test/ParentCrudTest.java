@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -71,8 +71,7 @@ public class ParentCrudTest {
         final ApiPerson gotChild = helper.getPerson(child);
         log.info("famc: {}", gotChild.getFamcs().get(0).getString());
 
-        assertEquals(gotChild.getFamcs().get(0).getString(), parent.getFamss().get(0).getString(),
-            "Child should be in family");
+        assertThat(parent.getFamss().get(0).getString()).isEqualTo(gotChild.getFamcs().get(0).getString());
     }
 
     /** */
@@ -81,10 +80,11 @@ public class ParentCrudTest {
         final ApiPerson inParent = helper.createPerson();
         final ApiPerson child = helper.createPerson();
         final ApiPerson outParent = crud.linkParent(helper.getDb(), child.getString(), inParent);
-        then(outParent.getString()).isEqualTo(inParent.getString());
-        then(outParent.getFamss().size()).isEqualTo(1);
+        assertThat(outParent)
+            .returns(inParent.getString(), o -> o.getString())
+            .returns(1, o -> o.getFamss().size());
         final ApiPerson gotChild = helper.getPerson(child);
-        then(outParent.getFamss().size()).isEqualTo(1);
+        assertThat(outParent).returns(1, o -> o.getFamss().size());
         assertEquals(outParent.getFamss().get(0).getString(),
             gotChild.getFamcs().get(0).getString(), "check ids");
     }
@@ -95,9 +95,10 @@ public class ParentCrudTest {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddParent");
         final ApiPerson reqParent = helper.createAlexander();
         final ApiPerson resParent = crud.createParent("mini-schoeller", "I1", reqParent);
-        then(resParent.getType()).isEqualTo(reqParent.getType());
-        then(resParent.getSurname()).isEqualTo(reqParent.getSurname());
-        then(resParent.getIndexName()).isEqualTo(reqParent.getIndexName());
+        assertThat(resParent)
+            .returns(reqParent.getType(), o -> o.getType())
+            .returns(reqParent.getSurname(), o -> o.getSurname())
+            .returns(reqParent.getIndexName(), o -> o.getIndexName());
     }
 
     /** */
@@ -106,8 +107,9 @@ public class ParentCrudTest {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddParent2");
         final ApiPerson reqParent = helper.createAlexandra();
         final ApiPerson resParent = crud.createParent("mini-schoeller", "I2", reqParent);
-        then(resParent.getType()).isEqualTo(reqParent.getType());
-        then(resParent.getSurname()).isEqualTo(reqParent.getSurname());
-        then(resParent.getIndexName()).isEqualTo(reqParent.getIndexName());
+        assertThat(resParent)
+            .returns(reqParent.getType(), o -> o.getType())
+            .returns(reqParent.getSurname(), o -> o.getSurname())
+            .returns(reqParent.getIndexName(), o -> o.getIndexName());
     }
 }

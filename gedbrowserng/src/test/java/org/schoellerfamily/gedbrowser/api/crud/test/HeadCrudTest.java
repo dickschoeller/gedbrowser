@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.BDDAssertions.then;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,8 +59,9 @@ public class HeadCrudTest {
     void testGetHeadGl120368() {
         log.info("beginning testGetHeadGl120368");
         final ApiHead head = crud.readOne("gl120368");
-        then(head.getType()).isEqualTo("head");
-        then(head.getString()).isEqualTo("Header");
+        assertThat(head)
+            .returns("head", o -> o.getType())
+            .returns("Header", o -> o.getString());
     }
 
     /** */
@@ -68,8 +69,9 @@ public class HeadCrudTest {
     void testGetHeadMiniSchoeller() {
         log.info("beginning testGetHeadMiniSchoeller");
         final ApiHead head = crud.readOne("mini-schoeller");
-        then(head.getType()).isEqualTo("head");
-        then(head.getString()).isEqualTo("Header");
+        assertThat(head)
+            .returns("head", o -> o.getType())
+            .returns("Header", o -> o.getString());
     }
 
     /** */

@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -97,10 +97,15 @@ public class ChildCrudTest {
         final ApiPerson child = helper.createPerson();
         final ApiPerson gotChild = crud.linkChild(helper.getDb(),
                 parent.getString(), child);
-        then(gotChild.getString()).isEqualTo(child.getString());
-        then(gotChild.getFamcs().size()).isEqualTo(1);
+        
+        assertThat(gotChild)
+            .returns(child.getString(), c -> c.getString())
+            .returns(1, c -> c.getFamcs().size());
+        
         final ApiPerson gotParent = helper.getPerson(parent);
-        then(gotParent.getFamss().size()).isEqualTo(1);
+        assertThat(gotParent)
+            .returns(1, p -> p.getFamss().size());
+        
         assertEquals(gotParent.getFamss().get(0).getString(),
                 gotChild.getFamcs().get(0).getString(), "check ids");
     }
@@ -135,10 +140,11 @@ public class ChildCrudTest {
         final ApiPerson resPerson =
                 crud.createChildInFamily(helper.getDb(), "F1", reqPerson);
 
-        then(resPerson.getType()).isEqualTo(reqPerson.getType());
-        then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
-        then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
-        then(resPerson.getFamcs().get(0).getString()).isEqualTo("F1");
+        assertThat(resPerson)
+            .returns(reqPerson.getType(), p -> p.getType())
+            .returns(reqPerson.getSurname(), p -> p.getSurname())
+            .returns(reqPerson.getIndexName(), p -> p.getIndexName())
+            .returns("F1", p -> p.getFamcs().get(0).getString());
     }
 
     /** */
@@ -148,10 +154,12 @@ public class ChildCrudTest {
         final ApiPerson reqPerson = helper.createAlexander();
         final ApiPerson resPerson =
                 crud.createChildInFamily(helper.getDb(), "F4", reqPerson);
-        then(resPerson.getType()).isEqualTo(reqPerson.getType());
-        then(resPerson.getSurname()).isEqualTo(reqPerson.getSurname());
-        then(resPerson.getIndexName()).isEqualTo(reqPerson.getIndexName());
-        then(resPerson.getFamcs().get(0).getString()).isEqualTo("F4");
+        
+        assertThat(resPerson)
+            .returns(reqPerson.getType(), p -> p.getType())
+            .returns(reqPerson.getSurname(), p -> p.getSurname())
+            .returns(reqPerson.getIndexName(), p -> p.getIndexName())
+            .returns("F4", p -> p.getFamcs().get(0).getString());
     }
 
     /** */
@@ -161,9 +169,11 @@ public class ChildCrudTest {
         final ApiPerson reqChild = helper.createAlexander();
         final ApiPerson resChild = crud.createChild("mini-schoeller", "I9",
                 reqChild);
-        then(resChild.getType()).isEqualTo(reqChild.getType());
-        then(resChild.getSurname()).isEqualTo(reqChild.getSurname());
-        then(resChild.getIndexName()).isEqualTo(reqChild.getIndexName());
+        
+        assertThat(resChild)
+            .returns(reqChild.getType(), c -> c.getType())
+            .returns(reqChild.getSurname(), c -> c.getSurname())
+            .returns(reqChild.getIndexName(), c -> c.getIndexName());
     }
 
     /** */
@@ -173,8 +183,10 @@ public class ChildCrudTest {
         final ApiPerson reqChild = helper.createAlexandra();
         final ApiPerson resChild = crud.createChild("mini-schoeller", "I10",
                 reqChild);
-        then(resChild.getType()).isEqualTo(reqChild.getType());
-        then(resChild.getSurname()).isEqualTo(reqChild.getSurname());
-        then(resChild.getIndexName()).isEqualTo(reqChild.getIndexName());
+        
+        assertThat(resChild)
+            .returns(reqChild.getType(), c -> c.getType())
+            .returns(reqChild.getSurname(), c -> c.getSurname())
+            .returns(reqChild.getIndexName(), c -> c.getIndexName());
     }
 }

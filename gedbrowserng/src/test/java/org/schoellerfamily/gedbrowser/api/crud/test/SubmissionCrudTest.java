@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -72,11 +72,12 @@ public class SubmissionCrudTest {
         log.info("Beginning testGetSubmissionsGl120368");
         final List<ApiSubmission> list = crud.readAll(helper.getDb());
         final ApiSubmission firstSubmission = list.get(0);
-        then(firstSubmission.getString()).isEqualTo("B1");
+        assertThat(firstSubmission).returns("B1", o -> o.getString());
         final ApiAttribute firstAttribute = firstSubmission.getAttributes().get(0);
-        then(firstAttribute.getType()).isEqualTo("attribute");
-        then(firstAttribute.getString()).isEqualTo("Generations of descendants");
-        then(firstAttribute.getTail()).isEqualTo("2");
+        assertThat(firstAttribute)
+            .returns("attribute", o -> o.getType())
+            .returns("Generations of descendants", o -> o.getString())
+            .returns("2", o -> o.getTail());
     }
 
     /** */
@@ -93,9 +94,10 @@ public class SubmissionCrudTest {
         log.info("Beginning testGetSubmissionsGl120368B1");
         final ApiSubmission submission = crud.readOne(helper.getDb(), "B1");
         final ApiAttribute firstAttribute = submission.getAttributes().get(0);
-        then(firstAttribute.getType()).isEqualTo("attribute");
-        then(firstAttribute.getString()).isEqualTo("Generations of descendants");
-        then(firstAttribute.getTail()).isEqualTo("2");
+        assertThat(firstAttribute)
+            .returns("attribute", o -> o.getType())
+            .returns("Generations of descendants", o -> o.getString())
+            .returns("2", o -> o.getTail());
     }
 
     /** */
@@ -117,7 +119,7 @@ public class SubmissionCrudTest {
             .attributes(List.of())
             .build();
         final ApiSubmission outSubmission = crud.createOne(helper.getDb(), inSubmission);
-        then(outSubmission.getType()).isEqualTo(inSubmission.getType());
+        assertThat(outSubmission).returns(inSubmission.getType(), o -> o.getType());
     }
 
     /** */
@@ -133,7 +135,7 @@ public class SubmissionCrudTest {
         final String id = outSubmission.getString();
 
         final ApiSubmission deletedSubmission = crud.deleteOne(helper.getDb(), id);
-        then(deletedSubmission.getString()).isEqualTo(id);
+        assertThat(deletedSubmission).returns(id, o -> o.getString());
     }
 
     /** */
@@ -167,7 +169,7 @@ public class SubmissionCrudTest {
         final ApiSubmissionBuilder<?, ?> outSubmission = crud
             .createOne(helper.getDb(), inSubmission)
             .toBuilder();
-        then(outSubmission.getType()).isEqualTo(inSubmission.getType());
+        assertThat(outSubmission).returns(inSubmission.getType(), o -> o.getType());
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")
             .string("Note")
