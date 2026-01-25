@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -149,13 +149,9 @@ public class NoteCrudTest {
     @Test
     void testReadNotesGl120368Xyzzy() {
         log.info("Beginning testReadNotesGl120368N1932");
-        try {
-            final ApiNote resNote = crud.readOne(helper.getDb(), "Xyzzy");
-            fail("The note should not be found: " + resNote.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object Xyzzy of type note not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne(helper.getDb(), "Xyzzy"))
+            .withMessage("Object Xyzzy of type note not found");
     }
 
     /** */
@@ -185,38 +181,27 @@ public class NoteCrudTest {
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         final String id = resNote.getString();
         final ApiNote deletedNote = crud.deleteOne(helper.getDb(), id);
-        try {
-            final ApiNote foundNote = crud.readOne(helper.getDb(), deletedNote.getString());
-            fail("should not have found note " + foundNote.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object " + id + " of type note not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne(helper.getDb(), deletedNote.getString()))
+            .withMessage("Object " + id + " of type note not found");
     }
 
     /** */
     @Test
     void testDeleteNoteNotFound() {
         log.info("Beginning testDeleteNoteNotFound");
-        try {
-            final ApiNote foundNote = crud.readOne(helper.getDb(), "XXXXXXX");
-            fail("should not have found note " + foundNote.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object XXXXXXX of type note not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne(helper.getDb(), "XXXXXXX"))
+            .withMessage("Object XXXXXXX of type note not found");
     }
 
     /** */
     @Test
     void testDeleteNoteDatabaseNotFound() {
         log.info("Beginning testDeleteNoteDatabaseNotFound");
-        try {
-            final ApiNote foundNote = crud.readOne("XYZZY", "N1");
-            fail("should not have found note " + foundNote.getString());
-        } catch (DataSetNotFoundException e) {
-            assertEquals("Data set XYZZY not found", e.getMessage(), "Mismatched message");
-        }
+        assertThatExceptionOfType(DataSetNotFoundException.class)
+            .isThrownBy(() -> crud.readOne("XYZZY", "N1"))
+            .withMessage("Data set XYZZY not found");
     }
 
     /** */

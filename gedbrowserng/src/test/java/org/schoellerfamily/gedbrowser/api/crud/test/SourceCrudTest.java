@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -135,13 +135,9 @@ public class SourceCrudTest {
     @Test
     void testReadSourcesMiniSchoellerXyzzy() {
         log.info("Beginning testReadSourcesMiniSchoellerXyzzy");
-        try {
-            final ApiSource source = crud.readOne("mini-schoeller", "Xyzzy");
-            fail("The source should not be found: " + source.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object Xyzzy of type source not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne("mini-schoeller", "Xyzzy"))
+            .withMessage("Object Xyzzy of type source not found");
     }
 
     /** */
@@ -172,39 +168,27 @@ public class SourceCrudTest {
         final String id = resSource.getString();
         final ApiSource deletedSource = crud.deleteOne(helper.getDb(), id);
 
-        try {
-            final ApiSource foundSource = crud.readOne("mini-schoeller", deletedSource.getString());
-            fail("The source should not be found: " + foundSource.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object " + deletedSource.getString() + " of type source not found",
-                e.getMessage(), "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne("mini-schoeller", deletedSource.getString()))
+            .withMessage("Object " + deletedSource.getString() + " of type source not found");
     }
 
     /** */
     @Test
     void testDeleteSourceNotFound() {
         log.info("Beginning testDeleteSourceNotFound");
-        try {
-            final ApiSource deletedSource = crud.deleteOne(helper.getDb(), "XXXXXXX");
-            fail("The source should not be found: " + deletedSource.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object XXXXXXX of type source not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.deleteOne(helper.getDb(), "XXXXXXX"))
+            .withMessage("Object XXXXXXX of type source not found");
     }
 
     /** */
     @Test
     void testDeleteSubmitterDatabaseNotFound() {
         log.info("Beginning testDeleteSubmitterDatabaseNotFound");
-        try {
-            final ApiSource deletedSource = crud.deleteOne("XYZZY", "S1");
-            fail("The dataset XYZZY should not be found," + " while looking for source "
-                + deletedSource.getString());
-        } catch (DataSetNotFoundException e) {
-            assertEquals("Data set XYZZY not found", e.getMessage(), "Mismatched message");
-        }
+        assertThatExceptionOfType(DataSetNotFoundException.class)
+            .isThrownBy(() -> crud.deleteOne("XYZZY", "S1"))
+            .withMessage("Data set XYZZY not found");
     }
 
     /** */

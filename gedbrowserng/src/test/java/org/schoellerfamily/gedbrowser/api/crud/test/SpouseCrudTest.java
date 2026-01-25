@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -156,13 +156,9 @@ public final class SpouseCrudTest {
         final ApiPerson gotP1 = helper.getPerson(p1);
         then(gotP1.getFamss().size()).isEqualTo(1);
 
-        try {
-            crud.unlinkSpouseInFamily(helper.getDb(), fam, "XXXXX");
-            fail("Should have thrown");
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object XXXXX of type person not found", e.getMessage(),
-                "exception message mismatch");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.unlinkSpouseInFamily(helper.getDb(), fam, "XXXXX"))
+            .withMessage("Object XXXXX of type person not found");
     }
 
     /**

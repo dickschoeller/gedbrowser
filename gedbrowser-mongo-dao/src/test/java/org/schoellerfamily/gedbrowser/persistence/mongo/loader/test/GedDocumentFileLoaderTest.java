@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.loader.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -145,9 +145,9 @@ public class GedDocumentFileLoaderTest {
      * Check that the repository is empty.
      */
     private void assertRepositoryEmpty() {
-        for (final RootDocument doc : findAll()) {
-            fail("should not have found document " + doc.getDbName());
-        }
+        final Iterable<RootDocumentMongo> allDocs = findAll();
+        assertThatExceptionOfType(java.util.NoSuchElementException.class)
+            .isThrownBy(() -> allDocs.iterator().next());
     }
 
     /**
