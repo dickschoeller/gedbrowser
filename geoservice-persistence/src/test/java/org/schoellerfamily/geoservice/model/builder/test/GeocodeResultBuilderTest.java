@@ -1,9 +1,9 @@
 package org.schoellerfamily.geoservice.model.builder.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 
@@ -203,8 +203,8 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
         final double lat = 10.00;
         final double lng = 20.00;
         final LngLatAlt northeast = new LngLatAlt(lng, lat);
-        assertThrows(IllegalArgumentException.class,
-            () -> GeoServiceBounds.createBounds("bounds", null, northeast));
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> GeoServiceBounds.createBounds("bounds", null, northeast));
     }
 
     /** */
@@ -213,8 +213,8 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
         final double lat = 10.00;
         final double lng = 20.00;
         final LngLatAlt southwest = new LngLatAlt(lng, lat);
-        assertThrows(IllegalArgumentException.class,
-            () -> GeoServiceBounds.createBounds("bounds", southwest, null));
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> GeoServiceBounds.createBounds("bounds", southwest, null));
     }
 
     /** */
@@ -267,8 +267,8 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
         final double lat = 10.00;
         final double lng = 20.00;
         final LngLatAlt northeast = new LngLatAlt(lng, lat);
-        assertThrows(IllegalArgumentException.class,
-            () -> GeoServiceBounds.createBounds("viewport", null, northeast));
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> GeoServiceBounds.createBounds("viewport", null, northeast));
     }
 
     /** */
@@ -277,8 +277,8 @@ public final class GeocodeResultBuilderTest extends GeocodeChecker {
         final double lat = 5.00;
         final double lng = 25.00;
         final LngLatAlt southwest = new LngLatAlt(lng, lat);
-        assertThrows(IllegalArgumentException.class,
-            () -> GeoServiceBounds.createBounds("viewport", southwest, null));
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> GeoServiceBounds.createBounds("viewport", southwest, null));
     }
 
     /** */

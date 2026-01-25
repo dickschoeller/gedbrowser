@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -327,11 +327,12 @@ public final class RepositoryFinderTest {
 
     @Test
     void testWithWrongGedObjectForRoot() {
-        final IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-            final GedObjectBuilder builder = new GedObjectBuilder();
-            finder.find(builder.createPerson(), "foo");
-        });
-        assertEquals("Owner must be root", e.getMessage(), "Message mismatch");
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> {
+                final GedObjectBuilder builder = new GedObjectBuilder();
+                finder.find(builder.createPerson(), "foo");
+            })
+            .withMessage("Owner must be root");
     }
 
     @Test
@@ -349,11 +350,12 @@ public final class RepositoryFinderTest {
 
     @Test
     void testFinderFindAllPersonsNotRoot() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            final GedObjectBuilder builder = new GedObjectBuilder(root);
-            final Person person = builder.createPerson();
-            finder.find(person, Person.class);
-        });
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> {
+                final GedObjectBuilder builder = new GedObjectBuilder(root);
+                final Person person = builder.createPerson();
+                finder.find(person, Person.class);
+            });
     }
 
     @Test

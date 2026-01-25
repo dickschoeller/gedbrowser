@@ -1,8 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,11 +76,8 @@ public class HeadCrudTest {
     @Test
     void testGetHeadBadDataSet() {
         log.info("beginning testGetHeadBadDataSet");
-        final DataSetNotFoundException e = assertThrows(
-                DataSetNotFoundException.class,
-                () -> crud.readOne("XYZZY")
-        );
-        assertEquals("Data set XYZZY not found", e.getMessage(),
-                "bad exception message");
+        assertThatExceptionOfType(DataSetNotFoundException.class)
+            .isThrownBy(() -> crud.readOne("XYZZY"))
+            .withMessage("Data set XYZZY not found");
     }
 }
