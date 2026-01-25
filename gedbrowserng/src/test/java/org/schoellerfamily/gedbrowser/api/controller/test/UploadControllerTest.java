@@ -60,7 +60,7 @@ public class UploadControllerTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         is = controller.getClass().getClassLoader().getResourceAsStream("mini-schoeller.ged");
     }

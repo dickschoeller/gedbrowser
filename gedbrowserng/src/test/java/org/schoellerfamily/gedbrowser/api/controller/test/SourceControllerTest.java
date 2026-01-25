@@ -32,7 +32,7 @@ import org.springframework.web.client.RestClientException;
 @TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 @AutoConfigureRestTestClient
-public class SourceControllerTest {
+class SourceControllerTest {
     /**
      * RestTestClient injected by Spring's test support.
      */

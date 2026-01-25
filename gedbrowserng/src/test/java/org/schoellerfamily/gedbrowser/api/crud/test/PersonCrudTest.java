@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -27,7 +26,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
 public class PersonCrudTest {
 
@@ -73,7 +70,7 @@ public class PersonCrudTest {
     /** */
     @Test
     void testGetPersonsGl120368() {
-        log.info("Beginning testReadSourcesGl120368");
+        log.info("Beginning testGetPersonsGl120368");
         final List<ApiPerson> list = crud.readAll(helper.getDb());
         final ApiPerson firstPerson = list.get(0);
 
@@ -180,6 +177,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
+    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
     void testDeletePerson() {
         log.info("Beginning testDeletePerson");
         final ApiPerson reqPerson = createRJS();
@@ -233,6 +231,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
+    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
     void testDeleteChildLinkedPerson() {
         log.info("Beginning testDeleteChildLinkedPerson");
         final ApiPerson reqPerson = createRJS();
@@ -246,18 +245,18 @@ public class PersonCrudTest {
         final ApiPerson p2 = helper.createAlexandra();
         final SpouseCrud spouseCrud = new SpouseCrud(loader, toDocConverter, repositoryManager);
         final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
-        
+
         assertThat(gotP2)
             .returns(fam, p -> p.getFamss().get(0).getString());
-        
+
         final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), childId);
         assertThat(deletedPerson)
             .returns(childId, p -> p.getString());
-        
+
         assertThatExceptionOfType(ObjectNotFoundException.class)
             .isThrownBy(() -> crud.readOne(helper.getDb(), childId))
             .withMessage("Object " + childId + " of type person not found");
-        
+
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         assertThat(readFamily)
             .returns(0, f -> f.getChildren().size());
@@ -265,6 +264,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
+    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
     void testDeletePersonNotFound() {
         log.info("Beginning testDeletePersonNotFound");
         assertThatExceptionOfType(ObjectNotFoundException.class)
@@ -276,7 +276,6 @@ public class PersonCrudTest {
     @Test
     void testDeletePersonDatabaseNotFound() {
         log.info("Beginning testDeletePersonDatabaseNotFound");
-        log.info("Beginning testDeletePersonNotFound");
         assertThatExceptionOfType(DataSetNotFoundException.class)
             .isThrownBy(() -> crud.deleteOne("XYZZY", "XXXXXXX"))
             .withMessage("Data set XYZZY not found");
@@ -284,12 +283,13 @@ public class PersonCrudTest {
 
     /** */
     @Test
+    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
     void testUpdatePersonWithNote() {
         log.info("Beginning testUpdatePersonWithNote");
         final ApiPerson reqPerson = createRJS();
         final ApiPersonBuilder<?, ?> resPerson = crud.createOne(helper.getDb(), reqPerson)
             .toBuilder();
-        
+
         assertThat(resPerson)
             .returns(reqPerson.getType(), o -> o.getType());
 

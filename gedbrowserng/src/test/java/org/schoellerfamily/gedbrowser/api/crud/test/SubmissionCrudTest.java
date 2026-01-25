@@ -36,7 +36,6 @@ import lombok.extern.slf4j.Slf4j;
     classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 @Slf4j
 public class SubmissionCrudTest {
 
@@ -158,6 +157,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
+    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
     void testUpdateSubmissionWithNote() {
         log.info("Beginning testUpdateSubmissionWithNote");
         final ApiSubmission inSubmission = ApiSubmission.builder()

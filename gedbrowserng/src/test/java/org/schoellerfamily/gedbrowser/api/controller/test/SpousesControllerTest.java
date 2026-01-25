@@ -32,8 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
-public class SpousesControllerTest {
+class SpousesControllerTest {
     /**
      * RestTestClient injected by Spring's test support.
      */
@@ -151,7 +150,6 @@ public class SpousesControllerTest {
             .exchange()
             .returnResult(ApiPerson.class);
         assertThat(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        final ApiPerson child = childEntity.getResponseBody();
-        return child;
+        return childEntity.getResponseBody();
     }
 }

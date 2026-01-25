@@ -27,7 +27,6 @@ import org.springframework.util.MultiValueMap;
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 @AutoConfigureRestTestClient
 public class UploadServiceTest {
     /**

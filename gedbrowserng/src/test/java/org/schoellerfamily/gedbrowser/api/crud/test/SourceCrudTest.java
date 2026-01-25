@@ -2,13 +2,11 @@ package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -25,14 +23,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
@@ -157,7 +153,7 @@ public class SourceCrudTest {
             .type("source")
             .string("")
             .title("Unknown")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
         assertThat(newSource).returns(inSource.getType(), o -> o.getType());
@@ -171,7 +167,7 @@ public class SourceCrudTest {
             .type("source")
             .string("")
             .title("Unknown")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         final ApiSource resSource = crud.createOne(helper.getDb(), reqSource);
         final String id = resSource.getString();
@@ -208,7 +204,7 @@ public class SourceCrudTest {
             .type("attribute")
             .string("Note")
             .tail("first note")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build());
         final ApiSource inSource = ApiSource.builder()
             .type("source")

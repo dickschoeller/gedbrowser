@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.crud.ChildCrud;
@@ -23,18 +22,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
 public final class SpouseCrudTest {
 
@@ -68,7 +64,7 @@ public final class SpouseCrudTest {
         log.info("Beginning testLinkSpouse");
         final ApiPerson p1 = helper.createPerson();
         final ApiPerson p2 = helper.createPerson();
-        ApiPerson gotP1 = crud.linkSpouse(helper.getDb(), p2.getString(), p1);
+        final ApiPerson gotP1 = crud.linkSpouse(helper.getDb(), p2.getString(), p1);
         assertThat(gotP1)
             .returns(p1.getString(), o -> o.getString())
             .returns(1, o -> o.getFamss().size());

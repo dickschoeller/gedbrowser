@@ -30,7 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
 class FamilyCrudTest {
 
@@ -79,7 +78,8 @@ class FamilyCrudTest {
             .returns("F1", f -> f.getString())
             .returns("Marriage", f -> f.getAttributes().get(0).getString())
             .returns("date", f -> f.getAttributes().get(0).getAttributes().get(0).getType())
-            .returns("27 MAY 1984", f -> f.getAttributes().get(0).getAttributes().get(0).getString());
+            .returns("27 MAY 1984",
+                f -> f.getAttributes().get(0).getAttributes().get(0).getString());
     }
 
     /** */
@@ -105,7 +105,8 @@ class FamilyCrudTest {
             .returns("attribute", f -> f.getAttributes().get(0).getType())
             .returns("Marriage", f -> f.getAttributes().get(0).getString())
             .returns("date", f -> f.getAttributes().get(0).getAttributes().get(0).getType())
-            .returns("27 MAY 1984", f -> f.getAttributes().get(0).getAttributes().get(0).getString())
+            .returns("27 MAY 1984",
+                f -> f.getAttributes().get(0).getAttributes().get(0).getString())
             .returns("place", f -> f.getAttributes().get(0).getAttributes().get(1).getType())
             .returns(true, f -> f.getAttributes().get(0).getAttributes().get(1).getString()
                 .startsWith("Temple Emanu-el"))
@@ -164,6 +165,7 @@ class FamilyCrudTest {
 
     /** */
     @Test
+    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
     void testDeleteFamily() {
         log.info("Beginning testDeleteFamily");
         final ApiFamily inFamily = ApiFamily.builder().type("family").string("").build();
@@ -198,6 +200,7 @@ class FamilyCrudTest {
 
     /** */
     @Test
+    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
     void testUpdateFamilyWithNote() {
         log.info("Beginning testUpdateFamilyWithNote");
         final List<ApiAttribute> attributes = List

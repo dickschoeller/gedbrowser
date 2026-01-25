@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.crud.ChildCrud;
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
@@ -19,20 +18,18 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
-public class ChildCrudTest {
+class ChildCrudTest {
 
     /** */
     @Autowired
@@ -54,7 +51,7 @@ public class ChildCrudTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         helper = new CrudTestHelper(
                 new PersonCrud(loader, toDocConverter, repositoryManager),
                 new FamilyCrud(loader, toDocConverter, repositoryManager));

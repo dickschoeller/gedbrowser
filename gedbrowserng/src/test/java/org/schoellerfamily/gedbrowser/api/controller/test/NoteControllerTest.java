@@ -31,9 +31,8 @@ import org.springframework.web.client.RestClientException;
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 @AutoConfigureRestTestClient
-public class NoteControllerTest {
+class NoteControllerTest {
     /**
      * RestTestClient injected by Spring's test support.
      */
@@ -166,7 +165,8 @@ public class NoteControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
