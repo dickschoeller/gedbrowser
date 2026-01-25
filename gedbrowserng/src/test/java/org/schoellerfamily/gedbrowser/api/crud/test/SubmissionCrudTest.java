@@ -72,12 +72,12 @@ public class SubmissionCrudTest {
         log.info("Beginning testGetSubmissionsGl120368");
         final List<ApiSubmission> list = crud.readAll(helper.getDb());
         final ApiSubmission firstSubmission = list.get(0);
-        assertThat(firstSubmission).returns("B1", o -> o.getString());
-        final ApiAttribute firstAttribute = firstSubmission.getAttributes().get(0);
-        assertThat(firstAttribute)
-            .returns("attribute", o -> o.getType())
-            .returns("Generations of descendants", o -> o.getString())
-            .returns("2", o -> o.getTail());
+
+        assertThat(firstSubmission)
+            .returns("B1", o -> o.getString())
+            .returns("attribute", o -> o.getAttributes().get(0).getType())
+            .returns("Generations of descendants", o -> o.getAttributes().get(0).getString())
+            .returns("2", o -> o.getAttributes().get(0).getTail());
     }
 
     /** */
@@ -93,8 +93,8 @@ public class SubmissionCrudTest {
     void testGetSubmissionsGl120368B1() {
         log.info("Beginning testGetSubmissionsGl120368B1");
         final ApiSubmission submission = crud.readOne(helper.getDb(), "B1");
-        final ApiAttribute firstAttribute = submission.getAttributes().get(0);
-        assertThat(firstAttribute)
+
+        assertThat(submission.getAttributes().get(0))
             .returns("attribute", o -> o.getType())
             .returns("Generations of descendants", o -> o.getString())
             .returns("2", o -> o.getTail());

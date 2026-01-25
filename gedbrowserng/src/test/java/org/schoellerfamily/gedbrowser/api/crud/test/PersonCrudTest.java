@@ -76,14 +76,12 @@ public class PersonCrudTest {
         log.info("Beginning testReadSourcesGl120368");
         final List<ApiPerson> list = crud.readAll(helper.getDb());
         final ApiPerson firstPerson = list.get(0);
-        final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
 
         assertThat(firstPerson)
-            .returns("I1", p -> p.getString());
-        assertThat(firstAttribute)
-            .returns("name", a -> a.getType())
-            .returns("Living /Williams/", a -> a.getString())
-            .returns(true, a -> a.getTail().isEmpty());
+            .returns("I1", p -> p.getString())
+            .returns("name", p -> p.getAttributes().get(0).getType())
+            .returns("Living /Williams/", p -> p.getAttributes().get(0).getString())
+            .returns(true, p -> p.getAttributes().get(0).getTail().isEmpty());
     }
 
     /** */
@@ -92,14 +90,12 @@ public class PersonCrudTest {
         log.info("Beginning testGetPersonsMiniSchoeller");
         final List<ApiPerson> list = crud.readAll("mini-schoeller");
         final ApiPerson firstPerson = list.get(0);
-        final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
 
         assertThat(firstPerson)
-            .returns("I1", p -> p.getString());
-        assertThat(firstAttribute)
-            .returns("name", a -> a.getType())
-            .returns("Melissa Robinson/Schoeller/", a -> a.getString())
-            .returns(true, a -> a.getTail().isEmpty());
+            .returns("I1", p -> p.getString())
+            .returns("name", p -> p.getAttributes().get(0).getType())
+            .returns("Melissa Robinson/Schoeller/", p -> p.getAttributes().get(0).getString())
+            .returns(true, p -> p.getAttributes().get(0).getTail().isEmpty());
     }
 
     /** */
@@ -107,14 +103,12 @@ public class PersonCrudTest {
     void testGetPersonsMiniSchoellerI2() {
         log.info("Beginning testGetPersonsMiniSchoellerI2");
         final ApiPerson firstPerson = crud.readOne("mini-schoeller", "I2");
-        final ApiAttribute firstAttribute = firstPerson.getAttributes().get(0);
 
         assertThat(firstPerson)
-            .returns("I2", p -> p.getString());
-        assertThat(firstAttribute)
-            .returns("name", a -> a.getType())
-            .returns("Richard John/Schoeller/", a -> a.getString())
-            .returns(true, a -> a.getTail().isEmpty());
+            .returns("I2", p -> p.getString())
+            .returns("name", p -> p.getAttributes().get(0).getType())
+            .returns("Richard John/Schoeller/", p -> p.getAttributes().get(0).getString())
+            .returns(true, p -> p.getAttributes().get(0).getTail().isEmpty());
     }
 
     /** */
@@ -296,7 +290,8 @@ public class PersonCrudTest {
         final ApiPersonBuilder<?, ?> resPerson = crud.createOne(helper.getDb(), reqPerson)
             .toBuilder();
         
-        assertThat(resPerson.getType()).isEqualTo(reqPerson.getType());
+        assertThat(resPerson)
+            .returns(reqPerson.getType(), o -> o.getType());
 
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")
