@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 
@@ -51,8 +51,8 @@ public class SourceControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>File (merged):"
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>File (merged):"
             + " C:\\Users\\Phil\\Downloads\\butcher\\butcher.GED" + " - S33750 - gl120368")
             .contains(getMenu("A"));
     }
@@ -66,8 +66,8 @@ public class SourceControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Data set not found");
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("Data set not found");
     }
 
     /** */
@@ -79,8 +79,8 @@ public class SourceControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final String responseBody = entity.getResponseBody();
-        then(responseBody).contains("Source not found").contains(getMenu("A"));
+        assertThat(responseBody).contains("Source not found").contains(getMenu("A"));
     }
 }

@@ -1,6 +1,6 @@
 package org.schoellerfamily.geoservice.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -48,8 +48,8 @@ public class LoadEndpointTest {
                 .exchange()
                 .returnResult(String.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        then(entity.getResponseBody()).contains("Load complete")
+        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getResponseBody()).contains("Load complete")
                 .contains("0 locations in the cache");
     }
 
@@ -61,8 +61,8 @@ public class LoadEndpointTest {
                 .exchange()
                 .returnResult(String.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        then(entity.getResponseBody()).contains("Load complete")
+        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getResponseBody()).contains("Load complete")
                 .contains("917 locations in the cache");
     }
 
@@ -74,8 +74,8 @@ public class LoadEndpointTest {
                 .exchange()
                 .returnResult(String.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        then(entity.getResponseBody()).contains("Load complete")
+        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getResponseBody()).contains("Load complete")
                 .contains("0 locations in the cache");
     }
 
@@ -87,8 +87,8 @@ public class LoadEndpointTest {
                 .exchange()
                 .returnResult(String.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        then(entity.getResponseBody()).contains("Load complete")
+        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getResponseBody()).contains("Load complete")
                 .contains("917 locations in the cache");
     }
 }

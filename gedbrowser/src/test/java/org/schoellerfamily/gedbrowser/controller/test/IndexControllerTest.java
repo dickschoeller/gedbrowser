@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 
@@ -57,8 +57,8 @@ public class IndexControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>Index - C - gl120368</title>")
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>Index - C - gl120368</title>")
             .contains("<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
                 + " class=\"name\">[?]</a>   </span>")
             .contains("<li id=\"I2508\"><a href=\"person?db=gl120368&amp;id=")
@@ -75,8 +75,8 @@ public class IndexControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>Index - B - gl120368</title>")
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>Index - B - gl120368</title>")
             .contains("<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
                 + " class=\"name\">[?]</a>   </span>")
             .contains("<li id=\"I2561\"><a href=\"person?db=gl120368&amp;id=")
@@ -93,8 +93,8 @@ public class IndexControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Data set not found");
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("Data set not found");
     }
 
     /** */
@@ -107,8 +107,8 @@ public class IndexControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>Index - q - gl120368</title>")
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>Index - q - gl120368</title>")
             .contains("<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
                 + " class=\"name\">[?]</a>   </span>")
             .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=")

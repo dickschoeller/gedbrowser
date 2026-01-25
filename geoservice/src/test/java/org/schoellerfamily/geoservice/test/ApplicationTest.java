@@ -1,6 +1,6 @@
 package org.schoellerfamily.geoservice.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 import java.util.Map;
@@ -60,7 +60,7 @@ public class ApplicationTest {
                 .exchange()
                 .returnResult(Map.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
     }
 
     /** */
@@ -73,7 +73,7 @@ public class ApplicationTest {
                 .exchange()
                 .returnResult(Map.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
     }
 
     /** */
@@ -84,7 +84,7 @@ public class ApplicationTest {
                 .uri(URI.create("http://localhost:" + port + "/geocode?name=Bethlehem,%20PA"))
                 .exchange()
                 .returnResult(Map.class);
-        then(Optional.ofNullable(entity.getResponseBody())
+        assertThat(Optional.ofNullable(entity.getResponseBody())
             .map(b -> b.get("placeName")).orElse(null))
             .isEqualTo("Bethlehem, PA");
     }
@@ -99,7 +99,7 @@ public class ApplicationTest {
                         + "&modernName=Bethlehem,%20PA"))
                 .exchange()
                 .returnResult(Map.class);
-        then(Optional.ofNullable(entity.getResponseBody())
+        assertThat(Optional.ofNullable(entity.getResponseBody())
             .map(b -> b.get("placeName")).orElse(null))
             .isEqualTo("Bethlehem, PA");
     }
@@ -112,7 +112,7 @@ public class ApplicationTest {
                 .uri(URI.create("http://localhost:" + port + "/geocode?name=Allentown,%20PA"))
                 .exchange()
                 .returnResult(Map.class);
-        then(Optional.ofNullable(entity.getResponseBody())
+        assertThat(Optional.ofNullable(entity.getResponseBody())
             .map(b -> b.get("modernPlaceName")).orElse(null))
             .isEqualTo("Allentown, PA");
     }
@@ -127,7 +127,7 @@ public class ApplicationTest {
                         + "&modernName=Bethlehem,%20PA"))
                 .exchange()
                 .returnResult(Map.class);
-        then(Optional.ofNullable(entity.getResponseBody())
+        assertThat(Optional.ofNullable(entity.getResponseBody())
             .map(b -> b.get("modernPlaceName")).orElse(null))
             .isEqualTo("Bethlehem, PA");
     }
@@ -141,7 +141,7 @@ public class ApplicationTest {
                 .exchange()
                 .returnResult(Map.class);
 
-        then(Optional.ofNullable(entity.getResponseBody())
+        assertThat(Optional.ofNullable(entity.getResponseBody())
             .map(b -> b.get("result")).orElse(null)).isNotNull();
     }
 
@@ -154,7 +154,7 @@ public class ApplicationTest {
                 .exchange()
                 .returnResult(Map.class);
 
-        then(Optional.ofNullable(entity.getResponseBody())
+        assertThat(Optional.ofNullable(entity.getResponseBody())
             .map(b -> b.get("result")).orElse(null)).isNull();
     }
 
@@ -167,7 +167,7 @@ public class ApplicationTest {
                 .exchange()
                 .returnResult(Map.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
     }
 
     /** */
@@ -179,6 +179,6 @@ public class ApplicationTest {
                 .exchange()
                 .returnResult(Map.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
     }
 }

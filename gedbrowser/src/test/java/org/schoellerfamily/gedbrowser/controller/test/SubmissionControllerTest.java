@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 
@@ -51,8 +51,8 @@ public class SubmissionControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>B1 - gl120368").contains(getMenu("A"));
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>B1 - gl120368").contains(getMenu("A"));
     }
 
     /** */
@@ -65,8 +65,8 @@ public class SubmissionControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Data set not found");
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("Data set not found");
     }
 
     /** */
@@ -79,7 +79,7 @@ public class SubmissionControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Submission not found").contains(getMenu("A"));
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("Submission not found").contains(getMenu("A"));
     }
 }

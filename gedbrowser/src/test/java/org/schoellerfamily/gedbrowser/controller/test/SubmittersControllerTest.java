@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 
@@ -52,8 +52,8 @@ public class SubmittersControllerTest implements MenuTestHelper {
                 .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>Submitters - gl120368</title>")
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>Submitters - gl120368</title>")
             .contains("Submitters for dataset: gl120368</h2>")
             .contains("href=\"submitter?db=gl120368&amp;id=U1\">Phil Williams")
             .contains("href=\"submitter?db=gl120368&amp;id=U3\"> ")
@@ -82,7 +82,7 @@ public class SubmittersControllerTest implements MenuTestHelper {
                 .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Data set not found");
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("Data set not found");
     }
 }

@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 
@@ -52,8 +52,8 @@ public class PersonControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>Living  - I4 - gl120368</title>")
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>Living  - I4 - gl120368</title>")
             .contains(getMenu("?#?"));
     }
 
@@ -67,8 +67,8 @@ public class PersonControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody())
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody())
             .contains("<title>Edwin Elijah A  Williams (13 DEC 1883-ABT AUG "
                 + "1951) - I9 - gl120368</title>")
             .contains(getMenu("W#Williams"));
@@ -83,8 +83,8 @@ public class PersonControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Data set not found");
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("Data set not found");
     }
 
     /** */
@@ -96,7 +96,7 @@ public class PersonControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Person not found").contains(getMenu("A"));
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("Person not found").contains(getMenu("A"));
     }
 }

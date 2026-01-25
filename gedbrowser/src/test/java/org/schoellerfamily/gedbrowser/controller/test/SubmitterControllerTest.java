@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 
@@ -51,8 +51,8 @@ public class SubmitterControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>Phil Williams - U1 - gl120368</title>")
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>Phil Williams - U1 - gl120368</title>")
             .contains("Name:</span> Phil Williams")
             .contains(getMenu("A"));
     }
@@ -67,8 +67,8 @@ public class SubmitterControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>Arthur PUNCHARD - U2 - gl120368</title>")
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>Arthur PUNCHARD - U2 - gl120368</title>")
             .contains("Name:</span> Arthur PUNCHARD")
             .contains("Changed:</span> 24 MAR 2007")
             .contains(getMenu("A"));
@@ -84,8 +84,8 @@ public class SubmitterControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody())
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody())
             .contains("<title>Created by FamilySearch (TM) Internet"
                 + " Genealogy Service - U4 - gl120368</title>")
             .contains("Name:</span> Created by FamilySearch")
@@ -103,8 +103,8 @@ public class SubmitterControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Data set not found");
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("Data set not found");
     }
 
     /** */
@@ -117,7 +117,7 @@ public class SubmitterControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Submitter not found").contains(getMenu("A"));
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("Submitter not found").contains(getMenu("A"));
     }
 }
