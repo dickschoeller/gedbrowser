@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
@@ -113,13 +113,9 @@ public class PersonCrudTest {
     @Test
     void testGetPersonsMiniSchoellerXyzzy() {
         log.info("Beginning testGetPersonsMiniSchoellerXyzzy");
-        try {
-            crud.readOne("mini-schoeller", "Xyzzy");
-            fail("should not have found person " + "Xyzzy in data set mini-schoeller");
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object Xyzzy of type person not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne("mini-schoeller", "Xyzzy"))
+            .withMessage("Object Xyzzy of type person not found");
     }
 
     /** */
@@ -186,13 +182,9 @@ public class PersonCrudTest {
         crud.readOne(helper.getDb(), id);
         final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), id);
         then(deletedPerson.getString()).isEqualTo(id);
-        try {
-            crud.readOne(helper.getDb(), id);
-            fail("should not have found person " + id + " in data set " + helper.getDb());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object " + id + " of type person not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne(helper.getDb(), id))
+            .withMessage("Object " + id + " of type person not found");
     }
 
     /** */
@@ -215,13 +207,9 @@ public class PersonCrudTest {
         then(readPerson.getString()).isEqualTo(id);
         ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), id);
         then(deletedPerson.getString()).isEqualTo(id);
-        try {
-            crud.readOne(helper.getDb(), id);
-            fail("should not have found person " + id + " in data set " + helper.getDb());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object " + id + " of type person not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne(helper.getDb(), id))
+            .withMessage("Object " + id + " of type person not found");
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         then(readFamily.getSpouses().size()).isEqualTo(1);
         then(readFamily.getSpouses().get(0).getString()).isEqualTo(gotP2.getString());
@@ -245,13 +233,9 @@ public class PersonCrudTest {
         then(gotP2.getFamss().get(0).getString()).isEqualTo(fam);
         final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), childId);
         then(deletedPerson.getString()).isEqualTo(childId);
-        try {
-            crud.readOne(helper.getDb(), childId);
-            fail("should not have found person " + childId + " in data set " + helper.getDb());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object " + childId + " of type person not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne(helper.getDb(), childId))
+            .withMessage("Object " + childId + " of type person not found");
         final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
         then(readFamily.getChildren().size()).isEqualTo(0);
     }
@@ -260,13 +244,9 @@ public class PersonCrudTest {
     @Test
     void testDeletePersonNotFound() {
         log.info("Beginning testDeletePersonNotFound");
-        try {
-            crud.deleteOne(helper.getDb(), "XXXXXXX");
-            fail("should not have found person XXXXXXX in data set " + helper.getDb());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object XXXXXXX of type person not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.deleteOne(helper.getDb(), "XXXXXXX"))
+            .withMessage("Object XXXXXXX of type person not found");
     }
 
     /** */
@@ -274,12 +254,9 @@ public class PersonCrudTest {
     void testDeletePersonDatabaseNotFound() {
         log.info("Beginning testDeletePersonDatabaseNotFound");
         log.info("Beginning testDeletePersonNotFound");
-        try {
-            crud.deleteOne("XYZZY", "XXXXXXX");
-            fail("should not have found data set " + "XYZZY while looking for person XXXXXXX");
-        } catch (DataSetNotFoundException e) {
-            assertEquals("Data set XYZZY not found", e.getMessage(), "Mismatched message");
-        }
+        assertThatExceptionOfType(DataSetNotFoundException.class)
+            .isThrownBy(() -> crud.deleteOne("XYZZY", "XXXXXXX"))
+            .withMessage("Data set XYZZY not found");
     }
 
     /** */

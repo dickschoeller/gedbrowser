@@ -1,9 +1,9 @@
 package org.schoellerfamily.geoservice.model.builder.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
@@ -166,12 +166,8 @@ public class GeocodeResultBuilderToBackupTest extends GeocodeChecker {
         gr.geometry = new Geometry();
         gr.geometry.bounds = new Bounds();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        try {
-            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-            fail("should have thrown an illegal argument exception: " + bgci);
-        } catch (IllegalArgumentException e) {
-            // Expect to throw.
-        }
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
     /** */
@@ -184,13 +180,8 @@ public class GeocodeResultBuilderToBackupTest extends GeocodeChecker {
         final double lng = 20.00;
         gr.geometry.bounds.northeast = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        try {
-            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-            fail("Should have thrown illegal argument exception: " + bgci);
-        } catch (IllegalArgumentException e) {
-            // Should have thrown
-        }
-
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
     /** */
@@ -203,12 +194,8 @@ public class GeocodeResultBuilderToBackupTest extends GeocodeChecker {
         final double lng = 20.00;
         gr.geometry.bounds.southwest = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        try {
-            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-            fail("Should have thrown illegal argument exception: " + bgci);
-        } catch (IllegalArgumentException e) {
-            // Should have thrown
-        }
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
     /** */
@@ -246,12 +233,8 @@ public class GeocodeResultBuilderToBackupTest extends GeocodeChecker {
         gr.geometry = new Geometry();
         gr.geometry.viewport = new Bounds();
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        try {
-            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-            fail("should have thrown an illegal argument exception" + bgci);
-        } catch (IllegalArgumentException e) {
-            // Expect to throw.
-        }
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
     /** */
@@ -264,13 +247,8 @@ public class GeocodeResultBuilderToBackupTest extends GeocodeChecker {
         final double lng = 20.00;
         gr.geometry.viewport.northeast = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        try {
-            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-            fail("should have thrown an illegal argument exception" + bgci);
-        } catch (IllegalArgumentException e) {
-            // Expect to throw.
-        }
-
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
     /** */
@@ -283,12 +261,8 @@ public class GeocodeResultBuilderToBackupTest extends GeocodeChecker {
         final double lng = 25.00;
         gr.geometry.viewport.southwest = new LatLng(lat, lng);
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", gr);
-        try {
-            final GeoServiceItem bgci = builder.toGeoServiceItem(gci);
-            fail("should have thrown an illegal argument exception" + bgci);
-        } catch (IllegalArgumentException e) {
-            // Expect to throw.
-        }
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
     /** */

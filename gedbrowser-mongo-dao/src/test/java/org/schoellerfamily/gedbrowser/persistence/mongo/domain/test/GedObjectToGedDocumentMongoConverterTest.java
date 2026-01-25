@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -297,26 +297,16 @@ public class GedObjectToGedDocumentMongoConverterTest {
     /** */
     @Test
     void testNullCreateDocument() {
-        GedDocument<?> gmd = null;
-        try {
-            gmd = toDocConverter.createGedDocument(null);
-            fail("Should not get here");
-        } catch (PersistenceException e) {
-            assertNull(gmd, "Should be null"); // Expected
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> toDocConverter.createGedDocument(null));
     }
 
     /** */
     @Test
     void testUnexpectedCreateDocument() {
         final GedObject ged = createGedObject();
-        GedDocument<?> gmd = null;
-        try {
-            gmd = toDocConverter.createGedDocument(ged);
-            fail("Should not get here");
-        } catch (PersistenceException e) {
-            assertNull(gmd, "Should be null"); // Expected
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> toDocConverter.createGedDocument(ged));
     }
 
     /**

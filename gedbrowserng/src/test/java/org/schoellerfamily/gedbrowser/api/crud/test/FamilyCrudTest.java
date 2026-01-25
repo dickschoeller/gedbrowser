@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -22,20 +21,18 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
-public class FamilyCrudTest {
+class FamilyCrudTest {
 
     /** */
     @Autowired
@@ -54,7 +51,7 @@ public class FamilyCrudTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         crud = new FamilyCrud(loader, toDocConverter, repositoryManager);
     }
 
@@ -116,13 +113,9 @@ public class FamilyCrudTest {
     @Test
     void testGetFamiliesMiniSchoellerXyzzy() {
         log.info("Beginning testGetFamiliesMiniSchoellerXyzzy");
-        try {
-            final ApiFamily family = crud.readOne("mini-schoeller", "Xyzzy");
-            fail("The family should not be found: " + family.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object Xyzzy of type family not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne("mini-schoeller", "Xyzzy"))
+            .withMessage("Object Xyzzy of type family not found");
     }
 
     /** */
@@ -161,38 +154,27 @@ public class FamilyCrudTest {
         final String id = outFamily.getString();
         final ApiFamily deletedFamily = crud.deleteOne("gl120368", id);
         then(deletedFamily.getString()).isEqualTo(id);
-        try {
-            final ApiFamily family = crud.readOne("gl120368", id);
-            fail("The family should not be found: " + family.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object " + id + " of type family not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne("gl120368", id))
+            .withMessage("Object " + id + " of type family not found");
     }
 
     /** */
     @Test
     void testDeleteFamilyNotFound() {
         log.info("Beginning testDeleteFamilyNotFound");
-        try {
-            final ApiFamily family = crud.deleteOne("gl120368", "XXXXXXX");
-            fail("The family should not be found: " + family.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object XXXXXXX of type family not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.deleteOne("gl120368", "XXXXXXX"))
+            .withMessage("Object XXXXXXX of type family not found");
     }
 
     /** */
     @Test
     void testDeleteFamilyDatabaseNotFound() {
         log.info("Beginning testDeleteFamilyDatabaseNotFound");
-        try {
-            final ApiFamily family = crud.deleteOne("XYZZY", "SUBM1");
-            fail("The family should not be found: " + family.getString());
-        } catch (DataSetNotFoundException e) {
-            assertEquals("Data set XYZZY not found", e.getMessage(), "Mismatched message");
-        }
+        assertThatExceptionOfType(DataSetNotFoundException.class)
+            .isThrownBy(() -> crud.deleteOne("XYZZY", "SUBM1"))
+            .withMessage("Data set XYZZY not found");
     }
 
     /** */

@@ -2,7 +2,7 @@ package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.Set;
 
@@ -17,11 +17,6 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  * @author Dick Schoeller
  */
 public final class IndexTest {
-
-    /**
-     * Message if we didn't throw when we should.
-     */
-    private static final String SHOULD_THROW = "We shouldn't have gotten here";
 
     /**
      * Dummy input line.
@@ -119,12 +114,8 @@ public final class IndexTest {
     @Test
     void testGetNamesPerSurname6() {
         final Set<String> schoellerIndex = root.getIndex().getNamesPerSurname(SCHOELLER_SURNAME);
-        try {
-            schoellerIndex.add(FOO);
-            fail(SHOULD_THROW);
-        } catch (UnsupportedOperationException e) {
-            // Expected to get here
-        }
+        assertThatExceptionOfType(UnsupportedOperationException.class)
+            .isThrownBy(() -> schoellerIndex.add(FOO));
     }
 
     @Test
@@ -145,12 +136,8 @@ public final class IndexTest {
     @Test
     void testGetSurnamesImmutable() {
         final Set<String> set = root.getIndex().getSurnames();
-        try {
-            set.add(FOO);
-            fail(SHOULD_THROW);
-        } catch (UnsupportedOperationException e) {
-            // Expected to get here.
-        }
+        assertThatExceptionOfType(UnsupportedOperationException.class)
+            .isThrownBy(() -> set.add(FOO));
     }
 
     @Test
@@ -165,12 +152,8 @@ public final class IndexTest {
         Set<String> emptySet;
         emptySet = root.getIndex().getIdsPerName(SCHOELLER_SURNAME, null);
         assertEquals(0, emptySet.size(), "Expected empty result set");
-        try {
-            emptySet.add(FOO);
-            fail(SHOULD_THROW);
-        } catch (UnsupportedOperationException e) {
-            // Expected to get here
-        }
+        assertThatExceptionOfType(UnsupportedOperationException.class)
+            .isThrownBy(() -> emptySet.add(FOO));
     }
 
     @Test

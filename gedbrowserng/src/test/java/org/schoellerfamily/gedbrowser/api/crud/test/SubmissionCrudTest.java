@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -102,13 +102,9 @@ public class SubmissionCrudTest {
     @Test
     void testGetSubmissionsGl120368Xyzzy() {
         log.info("Beginning testGetSubmissionsGl120368Xyzzy");
-        try {
-            final ApiSubmission submission = crud.readOne(helper.getDb(), "Xyzzy");
-            fail("The submission should not be found: " + submission.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object Xyzzy of type submission not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.readOne(helper.getDb(), "Xyzzy"))
+            .withMessage("Object Xyzzy of type submission not found");
     }
 
     /** */
@@ -144,25 +140,18 @@ public class SubmissionCrudTest {
     @Test
     void testDeleteSubmissionNotFound() {
         log.info("Beginning testDeleteSubmissionNotFound");
-        try {
-            final ApiSubmission submission = crud.deleteOne(helper.getDb(), "XXXXXXX");
-            fail("The submission should not be found: " + submission.getString());
-        } catch (ObjectNotFoundException e) {
-            assertEquals("Object XXXXXXX of type submission not found", e.getMessage(),
-                "Mismatched message");
-        }
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.deleteOne(helper.getDb(), "XXXXXXX"))
+            .withMessage("Object XXXXXXX of type submission not found");
     }
 
     /** */
     @Test
     void testDeleteSubmissionDatabaseNotFound() {
         log.info("Beginning testDeleteSubmissionDatabaseNotFound");
-        try {
-            crud.deleteOne("XYZZY", "SUBM1");
-            fail("The dataset should not be found: XYZZY, when getting SUBM1");
-        } catch (DataSetNotFoundException e) {
-            assertEquals("Data set XYZZY not found", e.getMessage(), "Mismatched message");
-        }
+        assertThatExceptionOfType(DataSetNotFoundException.class)
+            .isThrownBy(() -> crud.deleteOne("XYZZY", "SUBM1"))
+            .withMessage("Data set XYZZY not found");
     }
 
     /** */

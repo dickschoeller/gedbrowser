@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -319,12 +319,7 @@ public final class GedDocumentMongoToGedObjectConverterTest {
             }
         };
         gmd.setString("Foo");
-        GedObject ged = null;
-        try {
-            ged = toObjConverter.createGedObject(new Root(), gmd);
-            fail("Should not get here");
-        } catch (PersistenceException e) {
-            assertNull(ged, "Result should be null");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> toObjConverter.createGedObject(new Root(), gmd));
     }
 }

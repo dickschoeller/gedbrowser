@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,227 +54,170 @@ public final class BadLoadTest {
     @Test
     void testBadAttributeLoad() {
         final AttributeDocumentMongo ad = new AttributeDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadChildLoad() {
         final ChildDocumentMongo ad = new ChildDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadDateLoad() {
         final DateDocumentMongo ad = new DateDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadFamCLoad() {
         final FamCDocumentMongo ad = new FamCDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadFamilyLoad() {
         final FamilyDocumentMongo ad = new FamilyDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadFamSLoad() {
         final FamSDocumentMongo ad = new FamSDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadHeadLoad() {
         final HeadDocumentMongo ad = new HeadDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadHusbandLoad() {
         final HusbandDocumentMongo ad = new HusbandDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadMultimediaLoad() {
         final MultimediaDocumentMongo ad = new MultimediaDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadNameLoad() {
         final NameDocumentMongo ad = new NameDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadPersonLoad() {
         final PersonDocumentMongo ad = new PersonDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadPlaceLoad() {
         final PlaceDocumentMongo ad = new PlaceDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadRootLoad() {
         final RootDocumentMongo ad = new RootDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, attr);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, attr))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadSourceLoad() {
         final SourceDocumentMongo ad = new SourceDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadSourceLinkLoad() {
         final SourceLinkDocumentMongo ad = new SourceLinkDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadSubmitterLoad() {
         final SubmitterDocumentMongo ad = new SubmitterDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadSubmitterLinkLoad() {
         final SubmitterLinkDocumentMongo ad = new SubmitterLinkDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadTrailerLoad() {
         final TrailerDocumentMongo ad = new TrailerDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 
     /** */
     @Test
     void testBadWifeLoad() {
         final WifeDocumentMongo ad = new WifeDocumentMongo();
-        try {
-            ad.loadGedObject(toDocConverter, root);
-            fail("Expected to throw persistence exception");
-        } catch (PersistenceException e) {
-            assertEquals("Wrong type", e.getMessage(), "Expected a wrong type exception");
-        }
+        assertThatExceptionOfType(PersistenceException.class)
+            .isThrownBy(() -> ad.loadGedObject(toDocConverter, root))
+            .withMessage("Wrong type");
     }
 }
