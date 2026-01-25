@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,8 +49,8 @@ public class HeadControllerTest {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("\"type\" : \"head\"", "\"string\" : \"Header\"",
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"head\"", "\"string\" : \"Header\"",
             "3C8079D5-1C5A-4473-8939-6631E48D01BB");
     }
 
@@ -63,8 +63,8 @@ public class HeadControllerTest {
             .exchange()
             .returnResult(String.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("\"type\" : \"head\"", "\"string\" : \"Header\"",
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"head\"", "\"string\" : \"Header\"",
             "\"tail\" : \"TMG\"");
     }
 
@@ -76,8 +76,8 @@ public class HeadControllerTest {
             .exchange()
             .returnResult(String.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("  \"cause\" : null", "  \"stackTrace\" : [ ]",
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("  \"cause\" : null", "  \"stackTrace\" : [ ]",
             "  \"datasetName\" : \"XYZZY\"", "  \"message\" : \"Data set XYZZY not found\"",
             "  \"suppressed\" : [ ]", "  \"localizedMessage\" : \"Data set XYZZY not found\"");
     }

@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
@@ -56,8 +56,8 @@ public class SubmitterControllerTest {
             .exchange()
             .returnResult(String.class);
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("\"type\" : \"submitter\"", "\"string\" : \"U1\"",
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"submitter\"", "\"string\" : \"U1\"",
             "\"string\" : \"Phil Williams\"", "\"name\" : \"Phil Williams\"");
     }
 
@@ -77,8 +77,8 @@ public class SubmitterControllerTest {
             + "    \"tail\" : \"\"\n" + "  } ],\n" + "  \"name\" : \"Phil Williams\"\n" + "}";
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).isEqualTo(bodyFragment);
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).isEqualTo(bodyFragment);
     }
 
     /** */
@@ -93,7 +93,7 @@ public class SubmitterControllerTest {
             .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
@@ -114,8 +114,8 @@ public class SubmitterControllerTest {
         final ApiSubmitter resBody = entity.getResponseBody();
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
     }
 
     /**
@@ -139,7 +139,7 @@ public class SubmitterControllerTest {
             .returnResult(ApiSubmitter.class);
 
         final HttpStatusCode status1 = submitterEntity.getStatus();
-        then(status1).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(status1).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new submitter.
         final ApiSubmitter resBody = submitterEntity.getResponseBody();
         final String id = resBody.getString();
@@ -152,21 +152,21 @@ public class SubmitterControllerTest {
             .returnResult(ApiSubmitter.class);
 
         final HttpStatusCode status2 = preDeleteEntity.getStatus();
-        then(status2).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(status2).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .exchange()
             .returnResult(String.class);
 
         final HttpStatusCode status3 = deleteEntity.getStatus();
-        then(status3).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(status3).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<ApiSubmitter> postDeleteEntity = restTestClient.get()
             .uri(URI.create(deleteUrl))
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSubmitter.class);
         final HttpStatusCode status4 = postDeleteEntity.getStatus();
-        then(status4).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(status4).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
@@ -184,13 +184,13 @@ public class SubmitterControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSubmitter.class);
-        then(preDeleteEntity.getStatus())
+        assertThat(preDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus())
+        assertThat(deleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -209,13 +209,13 @@ public class SubmitterControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSubmitter.class);
-        then(preDeleteEntity.getStatus())
+        assertThat(preDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus())
+        assertThat(deleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -241,8 +241,8 @@ public class SubmitterControllerTest {
             .exchange()
             .returnResult(ApiSubmitter.class);
         final ApiSubmitter resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
 
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")

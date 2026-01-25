@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
@@ -73,8 +73,8 @@ public class SourceControllerTest {
             + "      } ],\n" + "      \"tail\" : \"\"\n" + "    } ],\n" + "    \"tail\" : \"\"\n"
             + "  } ],\n" + "  \"images\" : [ ],\n" + "  \"title\" : \"1841 England Census\"\n"
             + "}, {";
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).startsWith(bodyFragment);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -99,8 +99,8 @@ public class SourceControllerTest {
             + "    \"tail\" : \"We have the original of this document\"\n" + "  } ],\n"
             + "  \"images\" : [ ],\n" + "  \"title\" : \"Schoeller, Melissa Robinson,"
             + " birth certificate\"\n" + "}, {";
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).startsWith(bodyFragment);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -125,8 +125,8 @@ public class SourceControllerTest {
             + "    \"tail\" : \"We have the original of this document\"\n" + "  } ],\n"
             + "  \"images\" : [ ],\n" + "  \"title\" : \"Schoeller, Melissa Robinson, birth"
             + " certificate\"\n" + "}";
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).isEqualTo(bodyFragment);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).isEqualTo(bodyFragment);
     }
 
     /** */
@@ -139,7 +139,7 @@ public class SourceControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
@@ -162,8 +162,8 @@ public class SourceControllerTest {
             .exchange()
             .returnResult(ApiSource.class);
         final ApiSource resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
     }
 
     /**
@@ -189,7 +189,7 @@ public class SourceControllerTest {
             .body(reqBody)
             .exchange()
             .returnResult(ApiSource.class);
-        then(sourceEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(sourceEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new source.
         final ApiSource resBody = sourceEntity.getResponseBody();
         final String id = resBody.getString();
@@ -200,18 +200,18 @@ public class SourceControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSource.class);
-        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<ApiSource> postDeleteEntity = restTestClient.get()
             .uri(URI.create(deleteUrl))
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSource.class);
-        then(postDeleteEntity.getStatus())
+        assertThat(postDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -230,13 +230,13 @@ public class SourceControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSource.class);
-        then(preDeleteEntity.getStatus())
+        assertThat(preDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus())
+        assertThat(deleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -254,13 +254,13 @@ public class SourceControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSource.class);
-        then(preDeleteEntity.getStatus())
+        assertThat(preDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus())
+        assertThat(deleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -287,8 +287,8 @@ public class SourceControllerTest {
             .exchange()
             .returnResult(ApiSource.class);
         final ApiSource resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
 
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")

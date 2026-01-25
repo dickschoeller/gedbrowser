@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
@@ -125,10 +125,10 @@ public class ChildrenControllerTest {
             .exchange()
             .returnResult(ApiPerson.class);
         final ApiPerson gotChild = childEntity.getResponseBody();
-        then(gotChild.getString()).isEqualTo(child.getString());
-        then(gotChild.getFamcs().size()).isEqualTo(1);
+        assertThat(gotChild.getString()).isEqualTo(child.getString());
+        assertThat(gotChild.getFamcs().size()).isEqualTo(1);
         final ApiPerson gotParent = helper.getPerson(parent);
-        then(gotParent.getFamss().size()).isEqualTo(1);
+        assertThat(gotParent.getFamss().size()).isEqualTo(1);
         assertEquals(gotParent.getFamss().get(0).getString(),
             gotChild.getFamcs().get(0).getString(), "check ids");
     }
@@ -167,7 +167,7 @@ public class ChildrenControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final ApiPerson child = childEntity.getResponseBody();
         return child;
     }
