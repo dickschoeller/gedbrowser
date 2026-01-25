@@ -19,11 +19,6 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 public final class IndexTest {
 
     /**
-     * Message if we didn't throw when we should.
-     */
-    private static final String SHOULD_THROW = "We shouldn't have gotten here";
-
-    /**
      * Dummy input line.
      */
     private static final String FOO = "FOO";
