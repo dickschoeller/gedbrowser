@@ -2,7 +2,7 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.io.IOException;
 import java.util.Map;
@@ -298,8 +298,8 @@ public final class RootRepositoryTest {
     /** */
     @Test
     void testFindByRoot() {
-        assertThrows(IllegalArgumentException.class,
-            () -> rootDocumentRepository.findByRootAndString(rootDocument, root.getString()));
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> rootDocumentRepository.findByRootAndString(rootDocument, root.getString()));
     }
 
     /** */
