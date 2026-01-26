@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { NgxGalleryModule, NgxGalleryImage } from 'ngx-gallery-15';
+import { NgxGalleryModule } from 'ngx-gallery-15';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -209,7 +209,6 @@ describe('MultimediaGalleryComponent', () => {
 
   it('should properly bind edit button clicked method', () => {
     mockUserService.currentUser = { id: 'user123' };
-    const originalMethod = component.editButtonClicked;
     
     const actions = component.galleryImageActions();
     

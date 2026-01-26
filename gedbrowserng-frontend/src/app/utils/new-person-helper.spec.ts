@@ -243,7 +243,7 @@ describe('NewPersonHelper', () => {
       expect(result).toBe('M');
     });
 
-    it('returns M for any sex other than F', () => {
+    it('returns F for unknown or unspecified sex', () => {
       const person = new ApiPerson();
       person.attributes = [
         { string: 'Sex', tail: 'U' } as ApiAttribute

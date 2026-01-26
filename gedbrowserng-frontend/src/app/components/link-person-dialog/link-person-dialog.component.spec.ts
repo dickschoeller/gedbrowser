@@ -1,14 +1,13 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatListModule, MatListOption, MatSelectionList } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SelectionModel } from '@angular/cdk/collections';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import { LinkPersonDialogComponent } from './link-person-dialog.component';
-import { LinkPersonDialogData, LinkPersonItem } from '../../models';
+import { LinkPersonDialogData } from '../../models';
 
 describe('LinkPersonDialogComponent', () => {
   let component: LinkPersonDialogComponent;

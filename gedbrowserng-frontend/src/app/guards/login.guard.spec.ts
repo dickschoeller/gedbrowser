@@ -1,6 +1,4 @@
-import { Router } from '@angular/router';
 import { LoginGuard } from './login.guard';
-import { UserService } from '../services';
 import { vi } from 'vitest';
 
 describe('LoginGuard', () => {

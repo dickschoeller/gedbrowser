@@ -84,7 +84,6 @@ describe('AttributeListComponent', () => {
 
   it('should update index on ngOnChanges', () => {
     component.attributes = [{ type: 'test' } as ApiAttribute];
-    const oldIndex = component.index;
     component.ngOnChanges();
     expect(component.index).toBeDefined();
   });

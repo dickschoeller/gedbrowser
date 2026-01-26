@@ -116,6 +116,7 @@ describe('LoginComponent', () => {
   });
 
   it('onSubmit sets submitted flag and calls login', async () => {
+    vi.useFakeTimers();
     const loginSpy = vi.spyOn(authService, 'login').mockReturnValue(of({}));
     const getMyInfoSpy = vi.spyOn(userService, 'getMyInfo').mockReturnValue(of({}));
     const navigateSpy = vi.spyOn(router, 'navigate');
@@ -126,14 +127,17 @@ describe('LoginComponent', () => {
     expect(component.submitted).toBeTruthy();
     expect(component.notification).toBeUndefined();
     
-    await new Promise(resolve => setTimeout(resolve, 1100));
+    await vi.advanceTimersByTimeAsync(1000);
     
     expect(loginSpy).toHaveBeenCalledWith({ username: 'testuser', password: 'testpass' });
     expect(getMyInfoSpy).toHaveBeenCalled();
     expect(navigateSpy).toHaveBeenCalledWith(['/']);
+    
+    vi.useRealTimers();
   });
 
   it('onSubmit navigates to returnUrl on success', async () => {
+    vi.useFakeTimers();
     component.returnUrl = '/dashboard';
     vi.spyOn(authService, 'login').mockReturnValue(of({}));
     vi.spyOn(userService, 'getMyInfo').mockReturnValue(of({}));
@@ -142,12 +146,15 @@ describe('LoginComponent', () => {
     component.form.setValue({ username: 'testuser', password: 'testpass' });
     component.onSubmit();
     
-    await new Promise(resolve => setTimeout(resolve, 1100));
+    await vi.advanceTimersByTimeAsync(1000);
     
     expect(navigateSpy).toHaveBeenCalledWith(['/dashboard']);
+    
+    vi.useRealTimers();
   });
 
   it('onSubmit handles login failure', async () => {
+    vi.useFakeTimers();
     vi.spyOn(authService, 'login').mockReturnValue(throwError(() => new Error('Login failed')));
     
     component.form.setValue({ username: 'baduser', password: 'badpass' });
@@ -156,13 +163,15 @@ describe('LoginComponent', () => {
     component.onSubmit();
     
     // Wait for the delay and error callback to execute
-    await new Promise(resolve => setTimeout(resolve, 1100));
+    await vi.advanceTimersByTimeAsync(1000);
     
     expect(component.submitted).toBeFalsy();
     expect(component.notification).toEqual({
       msgType: 'error',
       msgBody: 'Incorrect username or password.'
     });
+    
+    vi.useRealTimers();
   });
 
   it('onResetCredentials calls resetCredentials and shows success alert', () => {
