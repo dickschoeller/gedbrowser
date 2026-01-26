@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
@@ -32,8 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
-public class SpousesControllerTest {
+class SpousesControllerTest {
     /**
      * RestTestClient injected by Spring's test support.
      */
@@ -71,10 +70,10 @@ public class SpousesControllerTest {
             .exchange()
             .returnResult(ApiPerson.class);
         final ApiPerson gotP1 = parentEntity.getResponseBody();
-        then(gotP1.getString()).isEqualTo(p1.getString());
-        then(gotP1.getFamss().size()).isEqualTo(1);
+        assertThat(gotP1.getString()).isEqualTo(p1.getString());
+        assertThat(gotP1.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP2 = helper.getPerson(p2);
-        then(gotP2.getFamss().size()).isEqualTo(1);
+        assertThat(gotP2.getFamss().size()).isEqualTo(1);
         assertEquals(gotP1.getFamss().get(0).getString(), gotP2.getFamss().get(0).getString(),
             "check ids");
     }
@@ -96,10 +95,10 @@ public class SpousesControllerTest {
             .exchange()
             .returnResult(ApiPerson.class);
         final ApiPerson gotP2 = personEntity.getResponseBody();
-        then(gotP2.getString()).isEqualTo(p2.getString());
-        then(gotP2.getFamss().size()).isEqualTo(1);
+        assertThat(gotP2.getString()).isEqualTo(p2.getString());
+        assertThat(gotP2.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
-        then(gotP1.getFamss().size()).isEqualTo(1);
+        assertThat(gotP1.getFamss().size()).isEqualTo(1);
         assertEquals(gotP1.getFamss().get(0).getString(), gotP2.getFamss().get(0).getString(),
             "check ids");
     }
@@ -121,17 +120,17 @@ public class SpousesControllerTest {
             .exchange()
             .returnResult(ApiPerson.class);
         final ApiPerson gotP2 = personEntity.getResponseBody();
-        then(gotP2.getString()).isEqualTo(p2.getString());
-        then(gotP2.getFamss().size()).isEqualTo(1);
+        assertThat(gotP2.getString()).isEqualTo(p2.getString());
+        assertThat(gotP2.getFamss().size()).isEqualTo(1);
         final ApiPerson gotP1 = helper.getPerson(p1);
-        then(gotP1.getFamss().size()).isEqualTo(1);
+        assertThat(gotP1.getFamss().size()).isEqualTo(1);
 
         restTestClient.delete()
             .uri(URI.create(helper.getFamiliesUrl() + "/" + fam + "/spouses/" + gotP1.getString()))
             .exchange();
         final ApiPerson gotP1again = helper.getPerson(gotP1);
         final ApiPerson gotP2again = helper.getPerson(gotP2);
-        then(gotP1again.getFamss().size()).isEqualTo(0);
+        assertThat(gotP1again.getFamss().size()).isEqualTo(0);
         assertEquals(gotP2again.getFamss().get(0).getString(), fam, "check ids");
     }
 
@@ -150,8 +149,8 @@ public class SpousesControllerTest {
             .body(childReqBody)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        final ApiPerson child = childEntity.getResponseBody();
-        return child;
+        assertThat(childEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        return childEntity.getResponseBody();
     }
 }

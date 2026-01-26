@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
@@ -31,9 +31,8 @@ import org.springframework.web.client.RestClientException;
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 @AutoConfigureRestTestClient
-public class NoteControllerTest {
+class NoteControllerTest {
     /**
      * RestTestClient injected by Spring's test support.
      */
@@ -61,8 +60,8 @@ public class NoteControllerTest {
             + "  \"string\" : \"N2\",\n" + "  \"attributes\" : [ ],\n"
             + "  \"tail\" : \"_P_CCINFO 1-1319\"\n" + "}, {\n";
 
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).startsWith(bodyFragment);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -82,8 +81,8 @@ public class NoteControllerTest {
             + " Thurston alias Amass of Debenham Butcher was\\n"
             + "baptised by George Smalley vicar on 23/3/1828.\"\n" + "}";
 
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).startsWith(bodyFragment);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -105,8 +104,8 @@ public class NoteControllerTest {
             + "    } ],\n" + "    \"tail\" : \"\"\n" + "  } ],\n"
             + "  \"tail\" : \"_P_CCINFO 1-1319\"\n" + "}";
 
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).startsWith(bodyFragment);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -152,8 +151,8 @@ public class NoteControllerTest {
             + " April 1926), and has issue (see GREAT BRITAIN - Almanach"
             + " de Gotha 1998; 1999; 2000).\"\n" + "}";
 
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).startsWith(bodyFragment);
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
     /** */
@@ -166,7 +165,8 @@ public class NoteControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
@@ -185,8 +185,8 @@ public class NoteControllerTest {
             .exchange()
             .returnResult(ApiNote.class);
         final ApiNote resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getTail()).isEqualTo(reqBody.getTail());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getTail()).isEqualTo(reqBody.getTail());
     }
 
     /**
@@ -212,7 +212,7 @@ public class NoteControllerTest {
             .body(reqBody)
             .exchange()
             .returnResult(ApiNote.class);
-        then(noteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(noteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final ApiNote resBody = noteEntity.getResponseBody();
         final String id = resBody.getString();
 
@@ -222,18 +222,20 @@ public class NoteControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiNote.class);
-        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(preDeleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(deleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<ApiNote> postDeleteEntity = restTestClient.get()
             .uri(URI.create(deleteUrl))
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiNote.class);
-        then(postDeleteEntity.getStatus())
+        assertThat(postDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -252,13 +254,13 @@ public class NoteControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiNote.class);
-        then(preDeleteEntity.getStatus())
+        assertThat(preDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus())
+        assertThat(deleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -276,13 +278,13 @@ public class NoteControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiNote.class);
-        then(preDeleteEntity.getStatus())
+        assertThat(preDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus())
+        assertThat(deleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -310,8 +312,8 @@ public class NoteControllerTest {
             .exchange()
             .returnResult(ApiNote.class);
         final ApiNote resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
 
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")

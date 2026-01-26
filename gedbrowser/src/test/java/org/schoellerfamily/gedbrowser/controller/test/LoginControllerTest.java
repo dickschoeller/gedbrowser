@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 import java.util.List;
@@ -29,7 +29,7 @@ import org.springframework.web.client.RestTemplate;
 @TestPropertySource(properties = {"management.port=0"})
 @AutoConfigureRestTestClient
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
-public class LoginControllerTest {
+class LoginControllerTest {
 
     /**
      * Not sure what this is good for.
@@ -54,8 +54,8 @@ public class LoginControllerTest {
         final ResponseEntity<String> entity =
                 restTemplate.getForEntity(url, String.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
+        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
                     + refererUrl + "\"/>");
     }
@@ -71,8 +71,8 @@ public class LoginControllerTest {
         final ResponseEntity<String> entity =
                 restTemplate.getForEntity(url, String.class);
 
-        then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        then(entity.getBody()).contains("<title>Login to GedBrowser</title>")
+        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
                     + refererUrl + "\"/>");
     }
@@ -88,8 +88,8 @@ public class LoginControllerTest {
                 .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>Login to GedBrowser</title>")
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
                     + refererUrl + "\"/>");
     }
@@ -105,8 +105,8 @@ public class LoginControllerTest {
                 .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>Login to GedBrowser</title>")
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>Login to GedBrowser</title>")
             .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
                     + refererUrl + "\"/>");
     }

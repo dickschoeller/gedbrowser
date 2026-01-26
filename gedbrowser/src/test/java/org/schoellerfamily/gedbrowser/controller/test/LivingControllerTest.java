@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
 
@@ -25,7 +25,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 @TestPropertySource(properties = {"management.port=0"})
 @AutoConfigureRestTestClient
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
-public class LivingControllerTest implements MenuTestHelper {
+class LivingControllerTest implements MenuTestHelper {
 
     /**
      * Not sure what this is good for.
@@ -50,8 +50,8 @@ public class LivingControllerTest implements MenuTestHelper {
                 .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("<title>Living - gl120368</title>")
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("<title>Living - gl120368</title>")
             .contains(getMenu("A"));
     }
 
@@ -64,7 +64,7 @@ public class LivingControllerTest implements MenuTestHelper {
                 .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
-        then(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        then(entity.getResponseBody()).contains("Data set not found");
+        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getResponseBody()).contains("Data set not found");
     }
 }

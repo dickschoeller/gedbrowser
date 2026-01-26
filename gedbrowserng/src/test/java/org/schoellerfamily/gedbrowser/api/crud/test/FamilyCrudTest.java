@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -30,7 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
 class FamilyCrudTest {
 
@@ -61,9 +60,11 @@ class FamilyCrudTest {
         log.info("Beginning testGetFamiliesGl120368");
         final List<ApiFamily> list = crud.readAll("gl120368");
         final ApiFamily firstFamily = list.get(0);
-        then(firstFamily.getString()).isEqualTo("F1");
-        then(firstFamily.getAttributes()).isEmpty();
-        then(firstFamily.getImages()).isEmpty();
+
+        assertThat(firstFamily)
+            .returns("F1", f -> f.getString())
+            .returns(true, f -> f.getAttributes().isEmpty())
+            .returns(true, f -> f.getImages().isEmpty());
     }
 
     /** */
@@ -72,11 +73,13 @@ class FamilyCrudTest {
         log.info("Beginning testGetFamiliesMiniSchoeller");
         final List<ApiFamily> list = crud.readAll("mini-schoeller");
         final ApiFamily firstFamily = list.get(0);
-        then(firstFamily.getString()).isEqualTo("F1");
-        final ApiAttribute firstAttribute = firstFamily.getAttributes().get(0);
-        then(firstAttribute.getString()).isEqualTo("Marriage");
-        then(firstAttribute.getAttributes().get(0).getType()).isEqualTo("date");
-        then(firstAttribute.getAttributes().get(0).getString()).isEqualTo("27 MAY 1984");
+
+        assertThat(firstFamily)
+            .returns("F1", f -> f.getString())
+            .returns("Marriage", f -> f.getAttributes().get(0).getString())
+            .returns("date", f -> f.getAttributes().get(0).getAttributes().get(0).getType())
+            .returns("27 MAY 1984",
+                f -> f.getAttributes().get(0).getAttributes().get(0).getString());
     }
 
     /** */
@@ -84,10 +87,11 @@ class FamilyCrudTest {
     void testGetFamiliesGl120368F1593() {
         log.info("Beginning testGetFamiliesGl120368F1593");
         final ApiFamily family = crud.readOne("gl120368", "F1593");
-        then(family.getString()).isEqualTo("F1593");
-        final ApiAttribute firstAttribute = family.getAttributes().get(0);
-        then(firstAttribute.getType()).isEqualTo("sourcelink");
-        then(firstAttribute.getString()).isEqualTo("S33723");
+
+        assertThat(family)
+            .returns("F1593", f -> f.getString())
+            .returns("sourcelink", f -> f.getAttributes().get(0).getType())
+            .returns("S33723", f -> f.getAttributes().get(0).getString());
     }
 
     /** */
@@ -95,18 +99,25 @@ class FamilyCrudTest {
     void testGetFamiliesMiniSchoellerF1() {
         log.info("Beginning testGetFamiliesMiniSchoellerF1");
         final ApiFamily family = crud.readOne("mini-schoeller", "F1");
-        then(family.getString()).isEqualTo("F1");
-        final ApiAttribute firstAttribute = family.getAttributes().get(0);
-        then(firstAttribute.getType()).isEqualTo("attribute");
-        then(firstAttribute.getString()).isEqualTo("Marriage");
-        then(firstAttribute.getAttributes().get(0).getType()).isEqualTo("date");
-        then(firstAttribute.getAttributes().get(0).getString()).isEqualTo("27 MAY 1984");
-        then(firstAttribute.getAttributes().get(1).getType()).isEqualTo("place");
-        then(firstAttribute.getAttributes().get(1).getString()).startsWith("Temple Emanu-el");
-        then(firstAttribute.getAttributes().get(2).getType()).isEqualTo("attribute");
-        then(firstAttribute.getAttributes().get(2).getString()).isEqualTo("Note");
-        then(firstAttribute.getAttributes().get(2).getTail()).contains("Wayne Franklin",
-            "Dale Matcovitch", "Carol Robinson Sacerdote");
+
+        assertThat(family)
+            .returns("F1", f -> f.getString())
+            .returns("attribute", f -> f.getAttributes().get(0).getType())
+            .returns("Marriage", f -> f.getAttributes().get(0).getString())
+            .returns("date", f -> f.getAttributes().get(0).getAttributes().get(0).getType())
+            .returns("27 MAY 1984",
+                f -> f.getAttributes().get(0).getAttributes().get(0).getString())
+            .returns("place", f -> f.getAttributes().get(0).getAttributes().get(1).getType())
+            .returns(true, f -> f.getAttributes().get(0).getAttributes().get(1).getString()
+                .startsWith("Temple Emanu-el"))
+            .returns("attribute", f -> f.getAttributes().get(0).getAttributes().get(2).getType())
+            .returns("Note", f -> f.getAttributes().get(0).getAttributes().get(2).getString())
+            .returns(true, f -> f.getAttributes().get(0).getAttributes().get(2).getTail()
+                .contains("Wayne Franklin"))
+            .returns(true, f -> f.getAttributes().get(0).getAttributes().get(2).getTail()
+                .contains("Dale Matcovitch"))
+            .returns(true, f -> f.getAttributes().get(0).getAttributes().get(2).getTail()
+                .contains("Carol Robinson Sacerdote"));
     }
 
     /** */
@@ -124,9 +135,11 @@ class FamilyCrudTest {
         log.info("Beginning testCreateFamiliesSimple");
         final ApiFamily inFamily = ApiFamily.builder().type("family").string("").build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
-        then(outFamily.getType()).isEqualTo("family");
-        then(outFamily.getAttributes()).isEmpty();
-        then(outFamily.getString()).startsWith("F");
+
+        assertThat(outFamily)
+            .returns("family", f -> f.getType())
+            .returns(true, f -> f.getAttributes().isEmpty())
+            .returns(true, f -> f.getString().startsWith("F"));
     }
 
     /** */
@@ -136,24 +149,32 @@ class FamilyCrudTest {
         final ApiFamily inFamily = ApiFamily.builder()
             .type("family")
             .string("")
-            .attributes(List
-                .of(ApiAttribute.builder().type("attribute").string("Marriage").tail("").build()))
+            .attributes(List.of(ApiAttribute.builder()
+                .type("attribute")
+                .string("Marriage")
+                .tail("")
+                .build()))
             .build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
-        then(outFamily.getType()).isEqualTo("family");
-        then(outFamily.getString()).startsWith("F");
-        then(outFamily.getAttributes().get(0).getString()).isEqualTo("Marriage");
+
+        assertThat(outFamily)
+            .returns("family", f -> f.getType())
+            .returns(true, f -> f.getString().startsWith("F"))
+            .returns("Marriage", f -> f.getAttributes().get(0).getString());
     }
 
     /** */
     @Test
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeleteFamily() {
         log.info("Beginning testDeleteFamily");
         final ApiFamily inFamily = ApiFamily.builder().type("family").string("").build();
         final ApiFamily outFamily = crud.createOne("gl120368", inFamily);
         final String id = outFamily.getString();
         final ApiFamily deletedFamily = crud.deleteOne("gl120368", id);
-        then(deletedFamily.getString()).isEqualTo(id);
+
+        assertThat(deletedFamily)
+            .returns(id, f -> f.getString());
         assertThatExceptionOfType(ObjectNotFoundException.class)
             .isThrownBy(() -> crud.readOne("gl120368", id))
             .withMessage("Object " + id + " of type family not found");
@@ -179,6 +200,7 @@ class FamilyCrudTest {
 
     /** */
     @Test
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testUpdateFamilyWithNote() {
         log.info("Beginning testUpdateFamilyWithNote");
         final List<ApiAttribute> attributes = List
@@ -187,26 +209,32 @@ class FamilyCrudTest {
             .type("family")
             .string("")
             .attributes(attributes)
-            .children(List.of(ApiAttribute.builder().type("child").string("I1").build()))
+            .children(List.of(ApiAttribute.builder()
+                .type("child")
+                .string("I1")
+                .build()))
             .build();
         final ApiFamily familyPostResponse = crud.createOne("gl120368", inFamily);
-        then(familyPostResponse.getType()).isEqualTo(inFamily.getType());
-        then(familyPostResponse.getAttributes().size()).isEqualTo(1);
-        then(familyPostResponse.getChildren().size()).isEqualTo(1);
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")
             .string("Note")
             .tail("this is a note")
             .build();
         final ApiFamily forPut = familyPostResponse.toBuilder().attribute(aNote).build();
-        then(forPut.getAttributes().size()).isEqualTo(2);
         final ApiFamily familyPutResponse = crud.updateOne("gl120368", forPut.getString(), forPut);
         final List<ApiAttribute> attributesPutResponse = familyPutResponse.getAttributes();
         log.info("Attribute list size: {}", attributesPutResponse.size());
-        then(attributesPutResponse.size()).isEqualTo(2);
         for (final ApiAttribute a : attributesPutResponse) {
             log.info("attribute: {} {} {}", a.getType(), a.getString(), a.getTail());
         }
+
+        assertThat(familyPostResponse)
+            .returns(inFamily.getType(), f -> f.getType())
+            .returns(1, f -> f.getAttributes().size())
+            .returns(1, f -> f.getChildren().size());
+        assertThat(forPut)
+            .returns(2, f -> f.getAttributes().size());
+        assertThat(attributesPutResponse).hasSize(2);
         assertEquals(aNote, attributesPutResponse.get(1), "attribute should be present");
     }
 }

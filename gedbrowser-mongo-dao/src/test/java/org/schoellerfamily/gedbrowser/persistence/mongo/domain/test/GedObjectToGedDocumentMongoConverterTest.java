@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.domain.test;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -69,7 +68,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public class GedObjectToGedDocumentMongoConverterTest {
+class GedObjectToGedDocumentMongoConverterTest {
     /** */
     @Autowired
     private transient GedObjectToGedDocumentMongoConverter toDocConverter;

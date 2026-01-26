@@ -1,14 +1,12 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -25,14 +23,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
@@ -72,20 +68,23 @@ public class SourceCrudTest {
         log.info("Beginning testReadSourcesGl120368");
         final List<ApiSource> list = crud.readAll(helper.getDb());
         final ApiSource firstSource = list.get(0);
-        then(firstSource.getString()).isEqualTo("S1688");
-        then(firstSource.getImages()).isEmpty();
-        then(firstSource.getTitle()).isEqualTo("1841 England Census");
+        assertThat(firstSource)
+            .returns("S1688", o -> o.getString())
+            .returns(true, o -> o.getImages().isEmpty())
+            .returns("1841 England Census", o -> o.getTitle());
         final List<ApiAttribute> attributes = firstSource.getAttributes();
-        then(attributes.get(0).getType()).isEqualTo("attribute");
-        then(attributes.get(0).getString()).isEqualTo("Author");
-        then(attributes.get(0).getTail()).isEqualTo("Ancestry.com");
-        then(attributes.get(1).getType()).isEqualTo("attribute");
-        then(attributes.get(1).getString()).isEqualTo("Title");
-        then(attributes.get(1).getTail()).isEqualTo("1841 England Census");
-        then(attributes.get(2).getType()).isEqualTo("attribute");
-        then(attributes.get(2).getString()).isEqualTo("Published");
-        then(attributes.get(2).getTail())
-            .isEqualTo("Provo, UT, USA: The Generations Network, Inc., 2006");
+        assertThat(attributes.get(0))
+            .returns("attribute", o -> o.getType())
+            .returns("Author", o -> o.getString())
+            .returns("Ancestry.com", o -> o.getTail());
+        assertThat(attributes.get(1))
+            .returns("attribute", o -> o.getType())
+            .returns("Title", o -> o.getString())
+            .returns("1841 England Census", o -> o.getTail());
+        assertThat(attributes.get(2))
+            .returns("attribute", o -> o.getType())
+            .returns("Published", o -> o.getString())
+            .returns("Provo, UT, USA: The Generations Network, Inc., 2006", o -> o.getTail());
     }
 
     /** */
@@ -94,20 +93,23 @@ public class SourceCrudTest {
         log.info("Beginning testReadSourcesMiniSchoeller");
         final List<ApiSource> list = crud.readAll("mini-schoeller");
         final ApiSource firstSource = list.get(0);
-        then(firstSource.getString()).isEqualTo("S2");
-        then(firstSource.getImages()).isEmpty();
-        then(firstSource.getTitle()).isEqualTo("Schoeller, Melissa Robinson, birth certificate");
+        assertThat(firstSource)
+            .returns("S2", o -> o.getString())
+            .returns(true, o -> o.getImages().isEmpty())
+            .returns("Schoeller, Melissa Robinson, birth certificate", o -> o.getTitle());
         final List<ApiAttribute> attributes = firstSource.getAttributes();
-        then(attributes.get(0).getType()).isEqualTo("attribute");
-        then(attributes.get(0).getString()).isEqualTo("Title");
-        then(attributes.get(0).getTail())
-            .isEqualTo("Schoeller, Melissa Robinson, birth certificate");
-        then(attributes.get(1).getType()).isEqualTo("attribute");
-        then(attributes.get(1).getString()).isEqualTo("Abbreviation");
-        then(attributes.get(1).getTail()).isEqualTo("SchoellerMelissaBirthCert");
-        then(attributes.get(2).getType()).isEqualTo("attribute");
-        then(attributes.get(2).getString()).isEqualTo("Note");
-        then(attributes.get(2).getTail()).isEqualTo("We have the original of this document");
+        assertThat(attributes.get(0))
+            .returns("attribute", o -> o.getType())
+            .returns("Title", o -> o.getString())
+            .returns("Schoeller, Melissa Robinson, birth certificate", o -> o.getTail());
+        assertThat(attributes.get(1))
+            .returns("attribute", o -> o.getType())
+            .returns("Abbreviation", o -> o.getString())
+            .returns("SchoellerMelissaBirthCert", o -> o.getTail());
+        assertThat(attributes.get(2))
+            .returns("attribute", o -> o.getType())
+            .returns("Note", o -> o.getString())
+            .returns("We have the original of this document", o -> o.getTail());
     }
 
     /** */
@@ -115,20 +117,23 @@ public class SourceCrudTest {
     void testReadSourcesMiniSchoellerS2() {
         log.info("Beginning testReadSourcesMiniSchoellerS2");
         final ApiSource firstSource = crud.readOne("mini-schoeller", "S2");
-        then(firstSource.getString()).isEqualTo("S2");
-        then(firstSource.getImages()).isEmpty();
-        then(firstSource.getTitle()).isEqualTo("Schoeller, Melissa Robinson, birth certificate");
+        assertThat(firstSource)
+            .returns("S2", o -> o.getString())
+            .returns(true, o -> o.getImages().isEmpty())
+            .returns("Schoeller, Melissa Robinson, birth certificate", o -> o.getTitle());
         final List<ApiAttribute> attributes = firstSource.getAttributes();
-        then(attributes.get(0).getType()).isEqualTo("attribute");
-        then(attributes.get(0).getString()).isEqualTo("Title");
-        then(attributes.get(0).getTail())
-            .isEqualTo("Schoeller, Melissa Robinson, birth certificate");
-        then(attributes.get(1).getType()).isEqualTo("attribute");
-        then(attributes.get(1).getString()).isEqualTo("Abbreviation");
-        then(attributes.get(1).getTail()).isEqualTo("SchoellerMelissaBirthCert");
-        then(attributes.get(2).getType()).isEqualTo("attribute");
-        then(attributes.get(2).getString()).isEqualTo("Note");
-        then(attributes.get(2).getTail()).isEqualTo("We have the original of this document");
+        assertThat(attributes.get(0))
+            .returns("attribute", o -> o.getType())
+            .returns("Title", o -> o.getString())
+            .returns("Schoeller, Melissa Robinson, birth certificate", o -> o.getTail());
+        assertThat(attributes.get(1))
+            .returns("attribute", o -> o.getType())
+            .returns("Abbreviation", o -> o.getString())
+            .returns("SchoellerMelissaBirthCert", o -> o.getTail());
+        assertThat(attributes.get(2))
+            .returns("attribute", o -> o.getType())
+            .returns("Note", o -> o.getString())
+            .returns("We have the original of this document", o -> o.getTail());
     }
 
     /** */
@@ -148,10 +153,10 @@ public class SourceCrudTest {
             .type("source")
             .string("")
             .title("Unknown")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         final ApiSource newSource = crud.createOne(helper.getDb(), inSource);
-        then(newSource.getType()).isEqualTo(inSource.getType());
+        assertThat(newSource).returns(inSource.getType(), o -> o.getType());
     }
 
     /** */
@@ -162,7 +167,7 @@ public class SourceCrudTest {
             .type("source")
             .string("")
             .title("Unknown")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         final ApiSource resSource = crud.createOne(helper.getDb(), reqSource);
         final String id = resSource.getString();
@@ -199,7 +204,7 @@ public class SourceCrudTest {
             .type("attribute")
             .string("Note")
             .tail("first note")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build());
         final ApiSource inSource = ApiSource.builder()
             .type("source")
@@ -218,6 +223,6 @@ public class SourceCrudTest {
         newSource.attribute(aNote);
         final ApiSource updatedSource = crud.updateOne(helper.getDb(), newSource.getString(),
             newSource.build());
-        assertEquals(aNote, updatedSource.getAttributes().get(1), "attribute should be present");
+        assertThat(updatedSource.getAttributes().get(1)).isEqualTo(aNote);
     }
 }

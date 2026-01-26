@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.writer.test;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;

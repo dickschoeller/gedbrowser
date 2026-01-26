@@ -1,6 +1,6 @@
 package org.schoellerfamily.geoservice.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -48,8 +48,8 @@ public class BackupRestoreEndpointTest {
                 .exchange()
                 .returnResult(String.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        then(entity.getResponseBody()).contains("backup succeeded to/from")
+        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getResponseBody()).contains("backup succeeded to/from")
             .contains("locations in the cache");
     }
 
@@ -61,8 +61,8 @@ public class BackupRestoreEndpointTest {
                 .exchange()
                 .returnResult(String.class);
 
-        then(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        then(entity.getResponseBody()).contains("restore succeeded to/from")
+        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getResponseBody()).contains("restore succeeded to/from")
             .contains("locations in the cache");
     }
 }

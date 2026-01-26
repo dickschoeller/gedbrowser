@@ -1,14 +1,13 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -24,18 +23,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
 public class NoteCrudTest {
 
@@ -70,10 +66,12 @@ public class NoteCrudTest {
     void testReadNotesGl120368() {
         log.info("Beginning testReadNotesGl120368");
         final List<ApiNote> list = crud.readAll(helper.getDb());
-        then(list.get(0).getString()).isEqualTo("N1");
-        then(list.get(0).getTail()).isEqualTo("_P_CCINFO 1-1319");
-        then(list.get(1).getString()).isEqualTo("N2");
-        then(list.get(1).getTail()).isEqualTo("_P_CCINFO 1-1319");
+        assertThat(list.get(0))
+            .returns("N1", o -> o.getString())
+            .returns("_P_CCINFO 1-1319", o -> o.getTail());
+        assertThat(list.get(1))
+            .returns("N2", o -> o.getString())
+            .returns("_P_CCINFO 1-1319", o -> o.getTail());
     }
 
     /** */
@@ -81,14 +79,14 @@ public class NoteCrudTest {
     void testReadNotesGl120368N13() {
         log.info("Beginning testReadNotesGl120368N13");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N13");
-        then(resNote.getString()).isEqualTo("N13");
+        assertThat(resNote).returns("N13", o -> o.getString());
         final String expected = "_P_CCINFO 1-1319\n"
             + "Suffolk County Record Office, Parish Register, St Mary"
             + " Magdalene, Debenham, Suffolk, England, Baptisms 1813-\n"
             + "1864 (FB47/D1/10), Samuel son of William Amass & Marianne"
             + " Thurston alias Amass of Debenham Butcher was\n"
             + "baptised by George Smalley vicar on 23/3/1828.";
-        then(resNote.getTail()).isEqualTo(expected);
+        assertThat(resNote).returns(expected, o -> o.getTail());
     }
 
     /** */
@@ -96,13 +94,16 @@ public class NoteCrudTest {
     void testReadNotesGl120368N66() {
         log.info("Beginning testReadNotesGl120368N66");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N66");
-        then(resNote.getString()).isEqualTo("N66");
-        then(resNote.getTail()).isEqualTo("_P_CCINFO 1-1319");
+        assertThat(resNote)
+            .returns("N66", o -> o.getString())
+            .returns("_P_CCINFO 1-1319", o -> o.getTail());
         final ApiAttribute changed = resNote.getAttributes().get(0);
-        then(changed.getType()).isEqualTo("attribute");
-        then(changed.getString()).isEqualTo("Changed");
-        then(changed.getAttributes().get(0).getType()).isEqualTo("date");
-        then(changed.getAttributes().get(0).getString()).isEqualTo("22 APR 2007");
+        assertThat(changed)
+            .returns("attribute", o -> o.getType())
+            .returns("Changed", o -> o.getString());
+        assertThat(changed.getAttributes().get(0))
+            .returns("date", o -> o.getType())
+            .returns("22 APR 2007", o -> o.getString());
     }
 
     /** */
@@ -110,7 +111,7 @@ public class NoteCrudTest {
     void testReadNotesGl120368N1932() {
         log.info("Beginning testReadNotesGl120368N1932");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N1932");
-        then(resNote.getString()).isEqualTo("N1932");
+        assertThat(resNote).returns("N1932", o -> o.getString());
         final String expected = "Prince Philip, born at Mon Repos, Corfu 10"
             + " June 1921, renounced his rights to the throne of Greece"
             + " and was naturalised in Great Britain taking the surname of"
@@ -127,22 +128,26 @@ public class NoteCrudTest {
             + " and Northern Ireland (born at 17 Bruton St, London W1 21"
             + " April 1926), and has issue (see GREAT BRITAIN - Almanach"
             + " de Gotha 1998; 1999; 2000).";
-        then(resNote.getTail()).isEqualTo(expected);
+        assertThat(resNote).returns(expected, o -> o.getTail());
         final List<ApiAttribute> attributes = resNote.getAttributes();
-        then(attributes.get(0).getType()).isEqualTo("sourcelink");
-        then(attributes.get(0).getString()).isEqualTo("S33734");
-        then(attributes.get(0).getAttributes().get(0).getString()).isEqualTo("Note");
-        then(attributes.get(0).getAttributes().get(0).getTail())
-            .isEqualTo("Record originated in...");
-        then(attributes.get(1).getType()).isEqualTo("sourcelink");
-        then(attributes.get(1).getString()).isEqualTo("S33716");
-        then(attributes.get(1).getAttributes().get(0).getString()).isEqualTo("Note");
-        then(attributes.get(1).getAttributes().get(0).getTail())
-            .isEqualTo("Record originated in...");
-        then(attributes.get(2).getType()).isEqualTo("attribute");
-        then(attributes.get(2).getString()).isEqualTo("Changed");
-        then(attributes.get(2).getAttributes().get(0).getType()).isEqualTo("date");
-        then(attributes.get(2).getAttributes().get(0).getString()).isEqualTo("8 MAR 2008");
+        assertThat(attributes.get(0))
+            .returns("sourcelink", o -> o.getType())
+            .returns("S33734", o -> o.getString());
+        assertThat(attributes.get(0).getAttributes().get(0))
+            .returns("Note", o -> o.getString())
+            .returns("Record originated in...", o -> o.getTail());
+        assertThat(attributes.get(1))
+            .returns("sourcelink", o -> o.getType())
+            .returns("S33716", o -> o.getString());
+        assertThat(attributes.get(1).getAttributes().get(0))
+            .returns("Note", o -> o.getString())
+            .returns("Record originated in...", o -> o.getTail());
+        assertThat(attributes.get(2))
+            .returns("attribute", o -> o.getType())
+            .returns("Changed", o -> o.getString());
+        assertThat(attributes.get(2).getAttributes().get(0))
+            .returns("date", o -> o.getType())
+            .returns("8 MAR 2008", o -> o.getString());
     }
 
     /** */
@@ -162,10 +167,10 @@ public class NoteCrudTest {
             .type("note")
             .string("")
             .tail("testing")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
-        then(resNote.getTail()).isEqualTo(reqNote.getTail());
+        assertThat(resNote).returns(reqNote.getTail(), o -> o.getTail());
     }
 
     /** */
@@ -176,7 +181,7 @@ public class NoteCrudTest {
             .type("note")
             .string("")
             .tail("this is a note")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         final String id = resNote.getString();
@@ -216,7 +221,7 @@ public class NoteCrudTest {
             .tail("Top level note")
             .build();
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
-        then(resNote.getType()).isEqualTo(reqNote.getType());
+        assertThat(resNote).returns(reqNote.getType(), o -> o.getType());
 
         final ApiNote modNote = resNote.toBuilder()
             .attribute(ApiAttribute.builder()
@@ -231,7 +236,7 @@ public class NoteCrudTest {
             .type("attribute")
             .string("Note")
             .tail("this is a note")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build(), updatedNote.getAttributes().get(1), "attribute should be present");
     }
 }

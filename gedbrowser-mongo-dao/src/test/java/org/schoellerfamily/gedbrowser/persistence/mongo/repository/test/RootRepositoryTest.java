@@ -299,7 +299,8 @@ public final class RootRepositoryTest {
     @Test
     void testFindByRoot() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> rootDocumentRepository.findByRootAndString(rootDocument, root.getString()));
+            .isThrownBy(() -> rootDocumentRepository
+                .findByRootAndString(rootDocument, root.getString()));
     }
 
     /** */

@@ -1,6 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.controller.test;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
@@ -23,7 +22,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
@@ -33,14 +31,12 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 @Slf4j
 @AutoConfigureRestTestClient
-public final class PersonControllerTest {
+class PersonControllerTest {
     /**
      * RestTestClient injected by Spring's test support.
      */
@@ -76,9 +72,11 @@ public final class PersonControllerTest {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("\"type\" : \"person\"", "\"string\" : \"I1\"",
-            "\"attributes\" : [ {", "\"type\" : \"name\"", "\"string\" : \"Living /Williams/\"",
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"person\"",
+            "\"string\" : \"I1\"",
+            "\"attributes\" : [ {", "\"type\" : \"name\"",
+            "\"string\" : \"Living /Williams/\"",
             "\"attributes\" : [ ]", "\"tail\" : \"\"");
     }
 
@@ -93,10 +91,12 @@ public final class PersonControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("\"type\" : \"person\"", "\"string\" : \"I6\"",
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"person\"",
+            "\"string\" : \"I6\"",
             "\"attributes\" : [ {", "\"type\" : \"name\"",
-            "\"string\" : \"Reginald Amass /Williams/\"", "\"attributes\" : [ ]",
+            "\"string\" : \"Reginald Amass /Williams/\"",
+            "\"attributes\" : [ ]",
             "\"tail\" : \"\"");
     }
 
@@ -112,10 +112,13 @@ public final class PersonControllerTest {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(Optional.ofNullable(entity.getResponseBody()).orElse("")).contains(
-            "\"type\" : \"person\"", "\"string\" : \"I1\"", "\"attributes\" : [ {",
-            "\"type\" : \"name\"", "\"string\" : \"Melissa Robinson/Schoeller/\"",
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(Optional.ofNullable(entity.getResponseBody()).orElse("")).contains(
+            "\"type\" : \"person\"",
+            "\"string\" : \"I1\"",
+            "\"attributes\" : [ {",
+            "\"type\" : \"name\"",
+            "\"string\" : \"Melissa Robinson/Schoeller/\"",
             "\"attributes\" : [ {");
     }
 
@@ -129,10 +132,14 @@ public final class PersonControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("\"type\" : \"person\"", "\"string\" : \"I7\"",
-            "\"attributes\" : [ {", "\"type\" : \"name\"", "\"string\" : \"Arnold/Robinson/\"",
-            "\"attributes\" : [ ]", "\"tail\" : \"\"");
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"person\"",
+            "\"string\" : \"I7\"",
+            "\"attributes\" : [ {",
+            "\"type\" : \"name\"",
+            "\"string\" : \"Arnold/Robinson/\"",
+            "\"attributes\" : [ ]",
+            "\"tail\" : \"\"");
     }
 
     /**
@@ -147,10 +154,14 @@ public final class PersonControllerTest {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(entity.getResponseBody()).contains("\"type\" : \"person\"", "\"string\" : \"I2\"",
-            "\"attributes\" : [ {", "\"type\" : \"name\"",
-            "\"string\" : \"Richard John/Schoeller/\"", "\"attributes\" : [ ]", "\"tail\" : \"\"");
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"person\"",
+            "\"string\" : \"I2\"",
+            "\"attributes\" : [ {",
+            "\"type\" : \"name\"",
+            "\"string\" : \"Richard John/Schoeller/\"",
+            "\"attributes\" : [ ]",
+            "\"tail\" : \"\"");
     }
 
     /** */
@@ -163,7 +174,8 @@ public final class PersonControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
@@ -179,11 +191,11 @@ public final class PersonControllerTest {
             .body(reqBody)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final ApiPerson resBody = entity.getResponseBody();
-        then(resBody.getType()).isEqualTo(reqBody.getType());
-        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
     /**
@@ -200,10 +212,10 @@ public final class PersonControllerTest {
             .exchange()
             .returnResult(ApiPerson.class);
         final ApiPerson resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
-        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
     /**
@@ -268,7 +280,8 @@ public final class PersonControllerTest {
             .body(reqBody)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(personEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(personEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new person.
         final ApiPerson resBody = personEntity.getResponseBody();
         final String id = resBody.getString();
@@ -279,19 +292,21 @@ public final class PersonControllerTest {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(ApiPerson.class);
-        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(preDeleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(deleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<ApiPerson> postDeleteEntity = restTestClient.get()
             .uri(URI.create(deleteUrl))
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(ApiPerson.class);
-        then(postDeleteEntity.getStatus())
+        assertThat(postDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -312,7 +327,8 @@ public final class PersonControllerTest {
             .body(reqBody)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(personEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(personEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new person.
         final ApiPerson resBody = personEntity.getResponseBody();
         final String id = resBody.getString();
@@ -323,13 +339,14 @@ public final class PersonControllerTest {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(ApiPerson.class);
-        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(preDeleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .headers(h -> h.addAll(helper.userLogin(port, restTestClient)))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus())
+        assertThat(deleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.FORBIDDEN.value()));
     }
 
@@ -351,7 +368,8 @@ public final class PersonControllerTest {
             .body(reqBody)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(personEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(personEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new person.
         final ApiPerson resBody = personEntity.getResponseBody();
         final String id = resBody.getString();
@@ -365,7 +383,8 @@ public final class PersonControllerTest {
             .body(childReqBody)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(childEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final ApiPerson child = childEntity.getResponseBody();
 
         final String fam = child.getFamcs().get(0).getString();
@@ -384,9 +403,9 @@ public final class PersonControllerTest {
             .body(personReq.getBody())
             .exchange()
             .returnResult(ApiPerson.class);
-        then(pe.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(pe.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final ApiPerson gotP2 = pe.getResponseBody();
-        then(fam).isEqualTo(gotP2.getFamss().get(0).getString());
+        assertThat(fam).isEqualTo(gotP2.getFamss().get(0).getString());
 
         final String deleteUrl = url + "/" + id;
         final EntityExchangeResult<ApiPerson> preDeleteEntity = restTestClient.get()
@@ -395,20 +414,22 @@ public final class PersonControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(preDeleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(deleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<ApiPerson> postDeleteEntity = restTestClient.get()
             .uri(URI.create(deleteUrl))
             .headers(h -> h.addAll(headers))
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(postDeleteEntity.getStatus())
+        assertThat(postDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -430,7 +451,8 @@ public final class PersonControllerTest {
             .body(reqBody)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(personEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(personEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new person.
         final ApiPerson resBody = personEntity.getResponseBody();
 
@@ -442,7 +464,8 @@ public final class PersonControllerTest {
             .body(childReqBody)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(childEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final ApiPerson child = childEntity.getResponseBody();
 
         final String fam = child.getFamcs().get(0).getString();
@@ -461,9 +484,9 @@ public final class PersonControllerTest {
             .body(personReq.getBody())
             .exchange()
             .returnResult(ApiPerson.class);
-        then(pe.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(pe.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final ApiPerson gotP2 = pe.getResponseBody();
-        then(fam).isEqualTo(gotP2.getFamss().get(0).getString());
+        assertThat(fam).isEqualTo(gotP2.getFamss().get(0).getString());
 
         final String deleteUrl = url + "/" + childId;
         final EntityExchangeResult<ApiPerson> preDeleteEntity = restTestClient.get()
@@ -471,19 +494,21 @@ public final class PersonControllerTest {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(ApiPerson.class);
-        then(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(preDeleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(deleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<ApiPerson> entityAfterDelete = restTestClient.get()
             .uri(URI.create(deleteUrl))
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(ApiPerson.class);
-        then(entityAfterDelete.getStatus())
+        assertThat(entityAfterDelete.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -500,14 +525,14 @@ public final class PersonControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(preDeleteEntity.getStatus())
+        assertThat(preDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus())
+        assertThat(deleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -523,14 +548,14 @@ public final class PersonControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiPerson.class);
-        then(preDeleteEntity.getStatus())
+        assertThat(preDeleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        then(deleteEntity.getStatus())
+        assertThat(deleteEntity.getStatus())
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
@@ -548,8 +573,8 @@ public final class PersonControllerTest {
             .exchange()
             .returnResult(ApiPerson.class);
         final ApiPerson resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
 
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")
@@ -565,7 +590,7 @@ public final class PersonControllerTest {
             .exchange()
             .returnResult(ApiPerson.class);
         assertEquals(aNote,
-            java.util.Optional.ofNullable(putResponseEntity.getResponseBody())
+            Optional.ofNullable(putResponseEntity.getResponseBody())
                 .map(b -> b.getAttributes().get(2))
                 .orElse(null),
             "attribute should be present");
@@ -590,10 +615,10 @@ public final class PersonControllerTest {
             .returnResult(ApiPerson.class);
 
         final ApiPerson resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
-        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
     /**
@@ -615,10 +640,10 @@ public final class PersonControllerTest {
             .returnResult(ApiPerson.class);
 
         final ApiPerson resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
-        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
     /**
@@ -640,10 +665,10 @@ public final class PersonControllerTest {
             .returnResult(ApiPerson.class);
 
         final ApiPerson resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
-        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
     /**
@@ -665,10 +690,10 @@ public final class PersonControllerTest {
             .returnResult(ApiPerson.class);
 
         final ApiPerson resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
-        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
     /**
@@ -690,9 +715,9 @@ public final class PersonControllerTest {
             .returnResult(ApiPerson.class);
 
         final ApiPerson resBody = entity.getResponseBody();
-        then(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        then(resBody.getType()).isEqualTo(reqBody.getType());
-        then(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        then(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
+        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 }
