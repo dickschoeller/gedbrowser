@@ -50,11 +50,13 @@ public class SourceControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>File (merged):"
-            + " C:\\Users\\Phil\\Downloads\\butcher\\butcher.GED" + " - S33750 - gl120368")
-            .contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>File (merged):"
+                        + " C:\\Users\\Phil\\Downloads\\butcher\\butcher.GED" + " - S33750 - gl120368",
+                    getMenu("A"));
     }
 
     /** */
@@ -65,9 +67,10 @@ public class SourceControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Data set not found");
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
     }
 
     /** */
@@ -78,9 +81,11 @@ public class SourceControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        final String responseBody = entity.getResponseBody();
-        assertThat(responseBody).contains("Source not found").contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "Source not found",
+                    getMenu("A"));
     }
 }

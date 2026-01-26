@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.io.IOException;
 import java.util.Map;
@@ -51,8 +51,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-@SuppressWarnings({ "PMD.ExcessiveImports" })
-public final class RootRepositoryTest {
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects", "PMD.TooManyMethods" })
+final class RootRepositoryTest {
     /** */
     @Autowired
     private transient RootDocumentRepositoryMongo rootDocumentRepository;
@@ -322,7 +322,7 @@ public final class RootRepositoryTest {
         final Iterable<RootDocument> list = rootDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final RootDocument root1 : list) {
-            checkEquals("Type string mismatch", "root", root1.getType());
+            equals("Type string mismatch", "root", root1.getType());
             count++;
         }
         assertEquals(1, count, "Should only be one root");
@@ -335,7 +335,7 @@ public final class RootRepositoryTest {
             .findAll(rootDocument.getFilename());
         int count = 0;
         for (final RootDocument root1 : list) {
-            checkEquals("Type string mismatch", "root", root1.getType());
+            equals("Type string mismatch", "root", root1.getType());
             count++;
         }
         assertEquals(1, count, "Should only be one root");
@@ -355,7 +355,7 @@ public final class RootRepositoryTest {
      * @param expected expected value
      * @param actual   actual value
      */
-    private void checkEquals(final String message, final Object expected, final Object actual) {
+    private void equals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }
 }

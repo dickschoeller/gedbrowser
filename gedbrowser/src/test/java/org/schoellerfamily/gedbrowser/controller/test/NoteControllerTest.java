@@ -46,10 +46,12 @@ class NoteControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>_P_CCINFO 1-1319 - N1 - gl120368")
-            .contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>_P_CCINFO 1-1319 - N1 - gl120368",
+                    getMenu("A"));
     }
 
     /** */
@@ -60,9 +62,10 @@ class NoteControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Data set not found");
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
     }
 
     /** */
@@ -73,9 +76,11 @@ class NoteControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody())
-            .contains("Note XYZZY not found").contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "Note XYZZY not found",
+                    getMenu("A"));
     }
 }

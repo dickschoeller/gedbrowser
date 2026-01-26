@@ -49,10 +49,12 @@ class LivingControllerTest implements MenuTestHelper {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Living - gl120368</title>")
-            .contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Living - gl120368</title>",
+                    getMenu("A"));
     }
 
     /** */
@@ -63,8 +65,9 @@ class LivingControllerTest implements MenuTestHelper {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Data set not found");
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
     }
 }

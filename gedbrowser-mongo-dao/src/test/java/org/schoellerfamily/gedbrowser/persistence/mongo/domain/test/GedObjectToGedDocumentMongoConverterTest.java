@@ -65,7 +65,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects" })
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects", "PMD.TooManyMethods" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 class GedObjectToGedDocumentMongoConverterTest {
@@ -80,7 +80,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "attribute";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<AttributeDocumentMongo> expectedClass = AttributeDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -90,7 +91,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "child";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<ChildDocumentMongo> expectedClass = ChildDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -100,7 +102,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "date";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<DateDocumentMongo> expectedClass = DateDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -110,7 +113,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "multimedia";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<MultimediaDocumentMongo> expectedClass = MultimediaDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -120,7 +124,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "name";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<NameDocumentMongo> expectedClass = NameDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -130,7 +135,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "note";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<NoteDocumentMongo> expectedClass = NoteDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -140,7 +146,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "notelink";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<NoteLinkDocumentMongo> expectedClass = NoteLinkDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -150,7 +157,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "family";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<FamilyDocumentMongo> expectedClass = FamilyDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -160,7 +168,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "famc";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<FamCDocumentMongo> expectedClass = FamCDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -170,7 +179,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "fams";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<FamSDocumentMongo> expectedClass = FamSDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -180,7 +190,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "head";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<HeadDocumentMongo> expectedClass = HeadDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -190,7 +201,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "husband";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<HusbandDocumentMongo> expectedClass = HusbandDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -200,7 +212,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "person";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<PersonDocumentMongo> expectedClass = PersonDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -210,7 +223,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "place";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<PlaceDocumentMongo> expectedClass = PlaceDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -220,7 +234,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "source";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SourceDocumentMongo> expectedClass = SourceDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -230,7 +245,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "sourcelink";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SourceLinkDocumentMongo> expectedClass = SourceLinkDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -240,7 +256,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "submission";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SubmissionDocumentMongo> expectedClass = SubmissionDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -250,7 +267,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "submissionlink";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SubmissionLinkDocumentMongo> expectedClass = SubmissionLinkDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -260,7 +278,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "submitter";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SubmitterDocumentMongo> expectedClass = SubmitterDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -270,7 +289,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "submitterlink";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<SubmitterLinkDocumentMongo> expectedClass = SubmitterLinkDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -280,7 +300,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "trailer";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<TrailerDocumentMongo> expectedClass = TrailerDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -290,7 +311,8 @@ class GedObjectToGedDocumentMongoConverterTest {
         final String typeString = "wife";
         final GedDocument<?> gmd = toDocConverter.createGedDocument(ged);
         final Class<WifeDocumentMongo> expectedClass = WifeDocumentMongo.class;
-        assertTrue(checkGedDocument(ged, gmd, typeString, expectedClass), "Failed document check");
+        assertTrue(compareGedDocument(ged, gmd, typeString, expectedClass),
+            "Failed document check");
     }
 
     /** */
@@ -330,7 +352,7 @@ class GedObjectToGedDocumentMongoConverterTest {
      * @param expectedClass      the expected class
      * @return true or throws an assertion exception
      */
-    private boolean checkGedDocument(final GedObject ged, final GedDocument<?> gedDocument,
+    private boolean compareGedDocument(final GedObject ged, final GedDocument<?> gedDocument,
         final String expectedTypeString, final Class<? extends GedDocumentMongo<?>> expectedClass) {
         assertEquals(expectedClass, gedDocument.getClass(), "Wrong class");
         assertEquals(ged.getString(), gedDocument.getString(), "Content mismatch");

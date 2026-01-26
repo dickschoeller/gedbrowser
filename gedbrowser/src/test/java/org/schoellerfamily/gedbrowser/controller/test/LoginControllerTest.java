@@ -87,11 +87,13 @@ class LoginControllerTest {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Login to GedBrowser</title>")
-            .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\"/>");
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Login to GedBrowser</title>",
+                    "<input type=\"hidden\" name=\"targetUrl\" value=\""
+                        + refererUrl + "\"/>");
     }
 
     /** */
@@ -104,11 +106,13 @@ class LoginControllerTest {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Login to GedBrowser</title>")
-            .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\"/>");
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Login to GedBrowser</title>",
+                    "<input type=\"hidden\" name=\"targetUrl\" value=\""
+                        + refererUrl + "\"/>");
     }
 
     /**

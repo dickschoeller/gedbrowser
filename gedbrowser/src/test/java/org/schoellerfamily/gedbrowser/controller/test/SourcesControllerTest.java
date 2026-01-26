@@ -51,17 +51,19 @@ public class SourcesControllerTest implements MenuTestHelper {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Sources - gl120368</title>")
-            .contains("Sources for dataset: gl120368</h2>")
-            .contains("href=\"source?db=gl120368&amp;id=S2050\" class=\"name\""
-                    + " id=\"source-S2050\">Parish records (S2050)")
-            .contains("href=\"source?db=gl120368&amp;id=S2124\" class=\"name\""
-                    + " id=\"source-S2124\">Www.peake.net (S2124)")
-            .contains("href=\"source?db=gl120368&amp;id=S2122\" class=\"name\""
-                    + " id=\"source-S2122\">Will of R Harris (S2122)")
-            .contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Sources - gl120368</title>",
+                    "Sources for dataset: gl120368</h2>",
+                    "href=\"source?db=gl120368&amp;id=S2050\" class=\"name\""
+                        + " id=\"source-S2050\">Parish records (S2050)",
+                    "href=\"source?db=gl120368&amp;id=S2124\" class=\"name\""
+                        + " id=\"source-S2124\">Www.peake.net (S2124)",
+                    "href=\"source?db=gl120368&amp;id=S2122\" class=\"name\""
+                        + " id=\"source-S2122\">Will of R Harris (S2122)",
+                    getMenu("A"));
     }
 
     /** */
@@ -72,8 +74,9 @@ public class SourcesControllerTest implements MenuTestHelper {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Data set not found");
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
     }
 }

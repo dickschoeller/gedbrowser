@@ -50,11 +50,13 @@ public class SubmitterControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Phil Williams - U1 - gl120368</title>")
-            .contains("Name:</span> Phil Williams")
-            .contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Phil Williams - U1 - gl120368</title>",
+                    "Name:</span> Phil Williams",
+                    getMenu("A"));
     }
 
     /** */
@@ -66,12 +68,14 @@ public class SubmitterControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Arthur PUNCHARD - U2 - gl120368</title>")
-            .contains("Name:</span> Arthur PUNCHARD")
-            .contains("Changed:</span> 24 MAR 2007")
-            .contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Arthur PUNCHARD - U2 - gl120368</title>",
+                    "Name:</span> Arthur PUNCHARD",
+                    "Changed:</span> 24 MAR 2007",
+                    getMenu("A"));
     }
 
     /** */
@@ -83,15 +87,16 @@ public class SubmitterControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody())
-            .contains("<title>Created by FamilySearch (TM) Internet"
-                + " Genealogy Service - U4 - gl120368</title>")
-            .contains("Name:</span> Created by FamilySearch")
-            .contains("Address:</span> 50 East North Temple Street<br/>")
-            .contains("Salt Lake City, Utah 84150")
-            .contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Created by FamilySearch (TM) Internet"
+                        + " Genealogy Service - U4 - gl120368</title>",
+                    "Name:</span> Created by FamilySearch",
+                    "Address:</span> 50 East North Temple Street<br/>",
+                    "Salt Lake City, Utah 84150",
+                    getMenu("A"));
     }
 
     /** */
@@ -102,9 +107,10 @@ public class SubmitterControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Data set not found");
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
     }
 
     /** */
@@ -116,8 +122,11 @@ public class SubmitterControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Submitter not found").contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), EntityExchangeResult::getStatus)
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "Submitter not found",
+                    getMenu("A"));
     }
 }
