@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.net.URI;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.Application;
 import org.schoellerfamily.gedbrowser.test.TestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,21 +12,17 @@ import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTe
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class SubmissionControllerTest implements MenuTestHelper {
     /**
      * Not sure what this is good for.
@@ -50,9 +45,12 @@ public class SubmissionControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>B1 - gl120368").contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>B1 - gl120368",
+                    getMenu("A"));
     }
 
     /** */
@@ -64,9 +62,10 @@ public class SubmissionControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Data set not found");
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
     }
 
     /** */
@@ -78,8 +77,11 @@ public class SubmissionControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Submission not found").contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "Submission not found",
+                    getMenu("A"));
     }
 }

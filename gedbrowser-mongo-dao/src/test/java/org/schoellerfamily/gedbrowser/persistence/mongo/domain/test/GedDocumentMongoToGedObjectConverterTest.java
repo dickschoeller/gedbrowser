@@ -66,10 +66,10 @@ import org.springframework.test.context.ContextConfiguration;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects" })
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects", "PMD.TooManyMethods" })
 @ExtendWith(org.springframework.test.context.junit.jupiter.SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class GedDocumentMongoToGedObjectConverterTest {
+final class GedDocumentMongoToGedObjectConverterTest {
     /** */
     @Autowired
     private transient GedDocumentMongoToGedObjectConverter toObjConverter;

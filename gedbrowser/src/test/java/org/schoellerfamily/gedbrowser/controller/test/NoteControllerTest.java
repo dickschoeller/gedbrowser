@@ -12,7 +12,6 @@ import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTe
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
@@ -46,10 +45,12 @@ class NoteControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>_P_CCINFO 1-1319 - N1 - gl120368")
-            .contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>_P_CCINFO 1-1319 - N1 - gl120368",
+                    getMenu("A"));
     }
 
     /** */
@@ -60,9 +61,10 @@ class NoteControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Data set not found");
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
     }
 
     /** */
@@ -73,9 +75,11 @@ class NoteControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody())
-            .contains("Note XYZZY not found").contains(getMenu("A"));
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "Note XYZZY not found",
+                    getMenu("A"));
     }
 }

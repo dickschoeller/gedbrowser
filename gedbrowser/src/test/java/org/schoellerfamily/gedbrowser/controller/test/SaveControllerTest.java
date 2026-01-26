@@ -14,7 +14,6 @@ import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTe
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
@@ -62,20 +61,22 @@ public class SaveControllerTest {
                 .uri(URI.create(url))
                 .exchange()
                 .returnResult(String.class);
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody())
-            .contains("0 HEAD")
-            .contains("1 SOUR FAMILY_HISTORIAN")
-            .contains("2 VERS 3.1")
-            .contains("2 NAME Family Historian")
-            .contains("2 CORP Calico Pie Limited")
-            .contains("1 FILE C:\\Users\\Phil\\Documents\\W0803.GED")
-            .contains("1 GEDC")
-            .contains("2 VERS 5.5")
-            .contains("2 FORM LINEAGE-LINKED")
-            .contains("1 CHAR ANSI")
-            .contains("1 DEST FTM");
+
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "0 HEAD",
+                    "1 SOUR FAMILY_HISTORIAN",
+                    "2 VERS 3.1",
+                    "2 NAME Family Historian",
+                    "2 CORP Calico Pie Limited",
+                    "1 FILE C:\\Users\\Phil\\Documents\\W0803.GED",
+                    "1 GEDC",
+                    "2 VERS 5.5",
+                    "2 FORM LINEAGE-LINKED",
+                    "1 CHAR ANSI",
+                    "1 DEST FTM");
 
         // Turn off anonymous admin.
         users.remove(user);
@@ -99,9 +100,10 @@ public class SaveControllerTest {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Data set not found");
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
 
         // Turn off anonymous admin.
         users.remove(user);
@@ -117,9 +119,9 @@ public class SaveControllerTest {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody())
-            .contains("Sorry, you aren't authorized to do that!");
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Sorry, you aren't authorized to do that!");
     }
 }

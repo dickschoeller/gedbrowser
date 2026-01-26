@@ -12,7 +12,6 @@ import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTe
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
@@ -47,18 +46,19 @@ class HeadControllerTest implements MenuTestHelper {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody())
-            .contains("<title>Header - gl120368</title>")
-            .contains("File:</span> C:\\Users\\Phil\\Documents\\W0803.GED")
-            .contains("GEDCOM:</span> 5.5, LINEAGE-LINKED")
-            .contains("Character Set:</span> ANSI")
-            .contains("Destination:</span> FTM")
-            .contains("Submitter:</span> <a class=\"name\""
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Header - gl120368</title>",
+                    "File:</span> C:\\Users\\Phil\\Documents\\W0803.GED",
+                    "GEDCOM:</span> 5.5, LINEAGE-LINKED",
+                    "Character Set:</span> ANSI",
+                    "Destination:</span> FTM",
+                    "Submitter:</span> <a class=\"name\""
                     + " href=\"submitter?db=gl120368&amp;id=U1\">Phil Williams"
-                    + " [U1]</a>")
-            .contains(getMenu("A"));
+                    + " [U1]</a>",
+                    getMenu("A"));
     }
 
     /** */
@@ -71,18 +71,19 @@ class HeadControllerTest implements MenuTestHelper {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody())
-            .contains("<title>Header - mini-schoeller</title>")
-            .contains("Submitter:</span> <a class=\"name\""
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Header - mini-schoeller</title>",
+                    "Submitter:</span> <a class=\"name\""
                     + " href=\"submitter?db=mini-schoeller&amp;"
-                    + "id=SUB1\">Richard Schoeller [SUB1]</a>")
-            .contains("GEDCOM:</span> 5.5.1, LINEAGE-LINKED")
-            .contains("Destination:</span> GED55")
-            .contains("Date:</span> 16 FEB 2001 22:04</li>")
-            .contains("Character Set:</span> UTF-8")
-            .contains(getMenu("mini-schoeller", "A"));
+                    + "id=SUB1\">Richard Schoeller [SUB1]</a>",
+                    "GEDCOM:</span> 5.5.1, LINEAGE-LINKED",
+                    "Destination:</span> GED55",
+                    "Date:</span> 16 FEB 2001 22:04</li>",
+                    "Character Set:</span> UTF-8",
+                    getMenu("mini-schoeller", "A"));
     }
 
     /** */
@@ -93,8 +94,9 @@ class HeadControllerTest implements MenuTestHelper {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Data set not found");
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
     }
 }

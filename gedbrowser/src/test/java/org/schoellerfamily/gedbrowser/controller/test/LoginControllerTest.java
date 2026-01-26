@@ -13,7 +13,6 @@ import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTe
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
@@ -28,7 +27,6 @@ import org.springframework.web.client.RestTemplate;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @AutoConfigureRestTestClient
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 class LoginControllerTest {
 
     /**
@@ -54,10 +52,13 @@ class LoginControllerTest {
         final ResponseEntity<String> entity =
                 restTemplate.getForEntity(url, String.class);
 
-        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getBody()).contains("<title>Login to GedBrowser</title>")
-            .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\"/>");
+        assertThat(entity)
+            .returns(HttpStatus.OK, ResponseEntity::getStatusCode)
+            .extracting(ResponseEntity::getBody)
+                .asString().contains(
+                    "<title>Login to GedBrowser</title>",
+                    "<input type=\"hidden\" name=\"targetUrl\" value=\""
+                        + refererUrl + "\"/>");
     }
 
     /** */
@@ -71,10 +72,13 @@ class LoginControllerTest {
         final ResponseEntity<String> entity =
                 restTemplate.getForEntity(url, String.class);
 
-        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getBody()).contains("<title>Login to GedBrowser</title>")
-            .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\"/>");
+        assertThat(entity)
+            .returns(HttpStatus.OK, ResponseEntity::getStatusCode)
+            .extracting(ResponseEntity::getBody)
+                .asString().contains(
+                    "<title>Login to GedBrowser</title>",
+                    "<input type=\"hidden\" name=\"targetUrl\" value=\""
+                        + refererUrl + "\"/>");
     }
 
     /** */
@@ -87,11 +91,13 @@ class LoginControllerTest {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Login to GedBrowser</title>")
-            .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\"/>");
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Login to GedBrowser</title>",
+                    "<input type=\"hidden\" name=\"targetUrl\" value=\""
+                        + refererUrl + "\"/>");
     }
 
     /** */
@@ -104,11 +110,13 @@ class LoginControllerTest {
                 .exchange()
                 .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Login to GedBrowser</title>")
-            .contains("<input type=\"hidden\" name=\"targetUrl\" value=\""
-                    + refererUrl + "\"/>");
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Login to GedBrowser</title>",
+                    "<input type=\"hidden\" name=\"targetUrl\" value=\""
+                        + refererUrl + "\"/>");
     }
 
     /**

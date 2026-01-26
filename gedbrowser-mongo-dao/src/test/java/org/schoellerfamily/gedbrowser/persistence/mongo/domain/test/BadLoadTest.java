@@ -36,10 +36,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.ExcessiveImports")
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects", "PMD.TooManyMethods" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class BadLoadTest {
+final class BadLoadTest {
     /** */
     @Autowired
     private transient GedObjectToGedDocumentMongoConverter toDocConverter;

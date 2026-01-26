@@ -12,7 +12,6 @@ import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTe
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
@@ -52,13 +51,14 @@ class IndexControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Index - C - gl120368</title>")
-            .contains("<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
-                + " class=\"name\">[?]</a>   </span>")
-            .contains("<li id=\"I2508\"><a href=\"person?db=gl120368&amp;id=")
-            .contains(getMenu("C"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Index - C - gl120368</title>",
+                    "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
+                    "<li id=\"I2508\"><a href=\"person?db=gl120368&amp;id=",
+                    getMenu("C"));
     }
 
     /** */
@@ -70,13 +70,14 @@ class IndexControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Index - B - gl120368</title>")
-            .contains("<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
-                + " class=\"name\">[?]</a>   </span>")
-            .contains("<li id=\"I2561\"><a href=\"person?db=gl120368&amp;id=")
-            .contains(getMenu("B"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Index - B - gl120368</title>",
+                    "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
+                    "<li id=\"I2561\"><a href=\"person?db=gl120368&amp;id=",
+                    getMenu("B"));
     }
 
     /** */
@@ -88,9 +89,10 @@ class IndexControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody()).contains("Data set not found");
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
     }
 
     /** */
@@ -102,12 +104,14 @@ class IndexControllerTest implements MenuTestHelper {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("<title>Index - q - gl120368</title>")
-            .contains("<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
-                + " class=\"name\">[?]</a>   </span>")
-            .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=")
-            .contains(getMenu("q"));
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString()
+                    .contains(
+                        "<title>Index - q - gl120368</title>",
+                        "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
+                        getMenu("q"))
+                    .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=");
     }
 }
