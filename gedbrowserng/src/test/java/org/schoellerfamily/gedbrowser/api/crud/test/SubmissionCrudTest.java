@@ -157,7 +157,7 @@ public class SubmissionCrudTest {
 
     /** */
     @Test
-    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testUpdateSubmissionWithNote() {
         log.info("Beginning testUpdateSubmissionWithNote");
         final ApiSubmission inSubmission = ApiSubmission.builder()
