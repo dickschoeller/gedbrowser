@@ -165,7 +165,7 @@ class FamilyCrudTest {
 
     /** */
     @Test
-    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeleteFamily() {
         log.info("Beginning testDeleteFamily");
         final ApiFamily inFamily = ApiFamily.builder().type("family").string("").build();
@@ -200,7 +200,7 @@ class FamilyCrudTest {
 
     /** */
     @Test
-    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testUpdateFamilyWithNote() {
         log.info("Beginning testUpdateFamilyWithNote");
         final List<ApiAttribute> attributes = List

@@ -177,7 +177,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeletePerson() {
         log.info("Beginning testDeletePerson");
         final ApiPerson reqPerson = createRJS();
@@ -231,7 +231,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeleteChildLinkedPerson() {
         log.info("Beginning testDeleteChildLinkedPerson");
         final ApiPerson reqPerson = createRJS();
@@ -264,7 +264,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeletePersonNotFound() {
         log.info("Beginning testDeletePersonNotFound");
         assertThatExceptionOfType(ObjectNotFoundException.class)
@@ -283,7 +283,7 @@ public class PersonCrudTest {
 
     /** */
     @Test
-    @SuppressWarnings({ "PMD:UnitTestContainsTooManyAsserts" })
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testUpdatePersonWithNote() {
         log.info("Beginning testUpdatePersonWithNote");
         final ApiPerson reqPerson = createRJS();
