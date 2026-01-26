@@ -22,15 +22,15 @@ import com.google.maps.model.LocationType;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.GodClass")
-public class GeocodeChecker {
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.SimplifyBooleanReturns", "PMD.UseVarargs",
+    "PMD.UnusedPrivateMethod" })
+public class GeocodeValidator {
     /**
      * @param result a geocoding result
      * @param backupResult a backup geocoding result
      * @return true if they match
      */
-    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity" })
-    protected boolean checker(final GeocodingResult result,
+    protected boolean validate(final GeocodingResult result,
             final GeoServiceGeocodingResult backupResult) {
         if (result == null && backupResult == null) {
             return true;
@@ -38,25 +38,25 @@ public class GeocodeChecker {
         if (result == null || backupResult == null) {
             return false;
         }
-        if (!checker(result.addressComponents,
+        if (!validate(result.addressComponents,
                 backupResult.getAddressComponents())) {
             return false;
         }
-        if (!checker(result.formattedAddress,
+        if (!validate(result.formattedAddress,
                 backupResult.getFormattedAddress())) {
             return false;
         }
-        if (!checker(result.geometry, backupResult.getGeometry())) {
+        if (!validate(result.geometry, backupResult.getGeometry())) {
             return false;
         }
-        if (!checker(result.placeId, backupResult.getPlaceId())) {
+        if (!validate(result.placeId, backupResult.getPlaceId())) {
             return false;
         }
-        if (!checker(result.postcodeLocalities,
+        if (!validate(result.postcodeLocalities,
                 backupResult.getPostcodeLocalities())) {
             return false;
         }
-        if (!checker(result.types, backupResult.getTypes())) {
+        if (!validate(result.types, backupResult.getTypes())) {
             return false;
         }
         return result.partialMatch == backupResult.isPartialMatch();
@@ -67,8 +67,7 @@ public class GeocodeChecker {
      * @param backupAddressComponents address components from backup model
      * @return true if all match
      */
-    @SuppressWarnings("PMD.UseVarargs")
-    private boolean checker(final AddressComponent[] addressComponents,
+    private boolean validate(final AddressComponent[] addressComponents,
             final AddressComponent[] backupAddressComponents) {
         if (addressComponents == null && backupAddressComponents == null) {
             return true;
@@ -80,7 +79,7 @@ public class GeocodeChecker {
             return false;
         }
         for (int i = 0; i < addressComponents.length; i++) {
-            if (!checker(addressComponents[i], backupAddressComponents[i])) {
+            if (!validate(addressComponents[i], backupAddressComponents[i])) {
                 return false;
             }
         }
@@ -92,7 +91,7 @@ public class GeocodeChecker {
      * @param backupAddressComponent a backup address component
      * @return true if they match
      */
-    private boolean checker(final AddressComponent addressComponent,
+    private boolean validate(final AddressComponent addressComponent,
             final AddressComponent backupAddressComponent) {
         if (addressComponent == null && backupAddressComponent == null) {
             return true;
@@ -100,15 +99,15 @@ public class GeocodeChecker {
         if (addressComponent == null || backupAddressComponent == null) {
             return false;
         }
-        if (!checker(addressComponent.longName,
+        if (!validate(addressComponent.longName,
                 backupAddressComponent.longName)) {
             return false;
         }
-        if (!checker(addressComponent.shortName,
+        if (!validate(addressComponent.shortName,
                 backupAddressComponent.shortName)) {
             return false;
         }
-        return checker(addressComponent.types,
+        return validate(addressComponent.types,
                 backupAddressComponent.types);
     }
 
@@ -117,7 +116,7 @@ public class GeocodeChecker {
      * @param backupString string from backup model
      * @return true if strings match
      */
-    private boolean checker(final String string, final String backupString) {
+    private boolean validate(final String string, final String backupString) {
         if (string == null && backupString == null) {
             return true;
         }
@@ -132,8 +131,7 @@ public class GeocodeChecker {
      * @param backupTypes array of types from backup
      * @return true if they match
      */
-    @SuppressWarnings("PMD.UseVarargs")
-    private boolean checker(final AddressComponentType[] types,
+    private boolean validate(final AddressComponentType[] types,
             final AddressComponentType[] backupTypes) {
         if (types == null && backupTypes == null) {
             return true;
@@ -145,7 +143,7 @@ public class GeocodeChecker {
             return false;
         }
         for (int i = 0; i < types.length; i++) {
-            if (!checker(types[i], backupTypes[i])) {
+            if (!validate(types[i], backupTypes[i])) {
                 return false;
             }
         }
@@ -157,7 +155,7 @@ public class GeocodeChecker {
      * @param type1 type from backup
      * @return true if they match
      */
-    private boolean checker(final AddressComponentType type0,
+    private boolean validate(final AddressComponentType type0,
             final AddressComponentType type1) {
         if (type0 == null && type1 == null) {
             return true;
@@ -173,11 +171,7 @@ public class GeocodeChecker {
      * @param featureCollection the collection that represents the geometry
      * @return true if they match
      */
-    @SuppressWarnings({ "PMD.CyclomaticComplexity",
-        "PMD.ModifiedCyclomaticComplexity",
-        "PMD.NPathComplexity",
-        "PMD.StdCyclomaticComplexity" })
-    private boolean checker(final Geometry geometry,
+    private boolean validate(final Geometry geometry,
             final FeatureCollection featureCollection) {
         if (isEmpty(geometry) && isEmpty(featureCollection)) {
             return true;
@@ -185,39 +179,39 @@ public class GeocodeChecker {
         if (isEmpty(geometry) || isEmpty(featureCollection)) {
             return false;
         }
-        Feature location;
+        final Feature location;
         if (featureCollection.getFeatures().isEmpty()) {
             location = null;
         } else {
             location = featureCollection.getFeatures().get(0);
         }
         if (location == null) {
-            if (!checker(geometry.location, (Point) null)) {
+            if (!validate(geometry.location, (Point) null)) {
                 return false;
             }
-            if (!checker(geometry.locationType, (LocationType) null)) {
+            if (!validate(geometry.locationType, (LocationType) null)) {
                 return false;
             }
         } else {
-            if (!checker(geometry.location, (Point) location.getGeometry())) {
+            if (!validate(geometry.location, (Point) location.getGeometry())) {
                 return false;
             }
-            if (!checker(geometry.locationType,
+            if (!validate(geometry.locationType,
                     location.getProperty("locationType"))) {
                 return false;
             }
         }
         if (featureCollection.getFeatures().isEmpty()) {
-            if (!checker("bounds", geometry.bounds, (Feature) null)) {
+            if (!validate("bounds", geometry.bounds, (Feature) null)) {
                 return false;
             }
-            return checker("viewport", geometry.viewport, null);
+            return validate("viewport", geometry.viewport, null);
         } else {
-            if (!checker("bounds", geometry.bounds,
+            if (!validate("bounds", geometry.bounds,
                     featureCollection.getFeatures().get(1))) {
                 return false;
             }
-            return checker("viewport", geometry.viewport,
+            return validate("viewport", geometry.viewport,
                     featureCollection.getFeatures().get(2));
         }
     }
@@ -325,7 +319,7 @@ public class GeocodeChecker {
      * @param backupBounds backup boundary
      * @return true if they match
      */
-    private boolean checker(final String id, final Bounds bounds,
+    private boolean validate(final String id, final Bounds bounds,
             final Feature backupBounds) {
         if (bounds == null && backupBounds == null) {
             return true;
@@ -342,11 +336,11 @@ public class GeocodeChecker {
         final Polygon polygon = (Polygon) backupBounds.getGeometry();
         final List<LngLatAlt> list = polygon.getCoordinates().get(0);
         final LngLatAlt northeast = list.get(2);
-        if (!checker(bounds.northeast, northeast)) {
+        if (!validate(bounds.northeast, northeast)) {
             return false;
         }
         final LngLatAlt southwest = list.get(0);
-        return checker(bounds.southwest, southwest);
+        return validate(bounds.southwest, southwest);
     }
 
     /**
@@ -354,7 +348,7 @@ public class GeocodeChecker {
      * @param point GeoJSON Point version of location
      * @return true if they match
      */
-    protected boolean checker(final LatLng latLng, final Point point) {
+    protected boolean validate(final LatLng latLng, final Point point) {
         if (latLng == null && point == null) {
             return true;
         }
@@ -375,7 +369,7 @@ public class GeocodeChecker {
      * @param lla GeoJSON LngLatAlt version of location
      * @return true if they match
      */
-    protected boolean checker(final LatLng latLng, final LngLatAlt lla) {
+    protected boolean validate(final LatLng latLng, final LngLatAlt lla) {
         if (latLng == null && lla == null) {
             return true;
         }
@@ -407,7 +401,7 @@ public class GeocodeChecker {
      * @param locationType1 second location type
      * @return true if they match
      */
-    private boolean checker(final LocationType locationType0,
+    private boolean validate(final LocationType locationType0,
             final LocationType locationType1) {
         if (locationType0 == null && locationType1 == null) {
             return true;
@@ -423,8 +417,7 @@ public class GeocodeChecker {
      * @param array1 string array 2
      * @return true if they match
      */
-    @SuppressWarnings("PMD.UseVarargs")
-    private boolean checker(final String[] array0, final String[] array1) {
+    private boolean validate(final String[] array0, final String[] array1) {
         if (array0 == null && array1 == null) {
             return true;
         }
@@ -447,8 +440,7 @@ public class GeocodeChecker {
      * @param types1 second array
      * @return true if they match
      */
-    @SuppressWarnings("PMD.UseVarargs")
-    private boolean checker(final AddressType[] types0,
+    private boolean validate(final AddressType[] types0,
             final AddressType[] types1) {
         if (types0 == null && types1 == null) {
             return true;

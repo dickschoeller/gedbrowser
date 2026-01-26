@@ -13,12 +13,12 @@ import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceGeometry;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.GeoServiceItemComparator;
-import org.schoellerfamily.geoservice.model.builder.test.GeocodeChecker;
+import org.schoellerfamily.geoservice.model.builder.test.GeocodeValidator;
 
 /**
  * @author Dick Schoeller
  */
-public class GeoServiceItemComparatorTest extends GeocodeChecker {
+public class GeoServiceItemComparatorTest extends GeocodeValidator {
     /** */
     private GeoServiceGeocodingResult bgr;
 
