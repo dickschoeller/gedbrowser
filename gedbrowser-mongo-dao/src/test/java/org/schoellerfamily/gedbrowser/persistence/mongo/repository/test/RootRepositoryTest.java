@@ -322,7 +322,7 @@ final class RootRepositoryTest {
         final Iterable<RootDocument> list = rootDocumentRepository.findAll(rootDocument);
         int count = 0;
         for (final RootDocument root1 : list) {
-            equals("Type string mismatch", "root", root1.getType());
+            validate("Type string mismatch", "root", root1.getType());
             count++;
         }
         assertEquals(1, count, "Should only be one root");
@@ -335,7 +335,7 @@ final class RootRepositoryTest {
             .findAll(rootDocument.getFilename());
         int count = 0;
         for (final RootDocument root1 : list) {
-            equals("Type string mismatch", "root", root1.getType());
+            validate("Type string mismatch", "root", root1.getType());
             count++;
         }
         assertEquals(1, count, "Should only be one root");
@@ -355,7 +355,7 @@ final class RootRepositoryTest {
      * @param expected expected value
      * @param actual   actual value
      */
-    private void equals(final String message, final Object expected, final Object actual) {
+    private void validate(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }
 }
