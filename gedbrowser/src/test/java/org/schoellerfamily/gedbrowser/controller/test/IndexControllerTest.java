@@ -12,7 +12,6 @@ import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTe
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
@@ -53,7 +52,7 @@ class IndexControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>Index - C - gl120368</title>",
@@ -72,7 +71,7 @@ class IndexControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>Index - B - gl120368</title>",
@@ -91,7 +90,7 @@ class IndexControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains("Data set not found");
     }
@@ -106,7 +105,7 @@ class IndexControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString()
                     .contains(
