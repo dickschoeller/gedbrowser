@@ -76,7 +76,7 @@ class ChildCrudTest {
         log.info("Beginning testLinkChildInFamily");
         final ApiPerson parent = helper.createPerson();
         final ApiPerson child = createChildOfParent(parent);
-        String famID = child.getFamcs().get(0).getString();
+        final String famID = child.getFamcs().get(0).getString();
         log.info("famc: {}", famID);
 
         final ApiPerson secondChild = helper.createPerson();
@@ -94,17 +94,15 @@ class ChildCrudTest {
         final ApiPerson child = helper.createPerson();
         final ApiPerson gotChild = crud.linkChild(helper.getDb(),
                 parent.getString(), child);
-        
+
         assertThat(gotChild)
             .returns(child.getString(), c -> c.getString())
             .returns(1, c -> c.getFamcs().size());
-        
+
         final ApiPerson gotParent = helper.getPerson(parent);
         assertThat(gotParent)
-            .returns(1, p -> p.getFamss().size());
-        
-        assertEquals(gotParent.getFamss().get(0).getString(),
-                gotChild.getFamcs().get(0).getString(), "check ids");
+            .returns(1, p -> p.getFamss().size())
+            .returns(gotChild.getFamcs().get(0).getString(), p -> p.getFamss().get(0).getString());
     }
 
     /** */
@@ -151,7 +149,7 @@ class ChildCrudTest {
         final ApiPerson reqPerson = helper.createAlexander();
         final ApiPerson resPerson =
                 crud.createChildInFamily(helper.getDb(), "F4", reqPerson);
-        
+
         assertThat(resPerson)
             .returns(reqPerson.getType(), p -> p.getType())
             .returns(reqPerson.getSurname(), p -> p.getSurname())
@@ -166,7 +164,7 @@ class ChildCrudTest {
         final ApiPerson reqChild = helper.createAlexander();
         final ApiPerson resChild = crud.createChild("mini-schoeller", "I9",
                 reqChild);
-        
+
         assertThat(resChild)
             .returns(reqChild.getType(), c -> c.getType())
             .returns(reqChild.getSurname(), c -> c.getSurname())
@@ -180,7 +178,7 @@ class ChildCrudTest {
         final ApiPerson reqChild = helper.createAlexandra();
         final ApiPerson resChild = crud.createChild("mini-schoeller", "I10",
                 reqChild);
-        
+
         assertThat(resChild)
             .returns(reqChild.getType(), c -> c.getType())
             .returns(reqChild.getSurname(), c -> c.getSurname())

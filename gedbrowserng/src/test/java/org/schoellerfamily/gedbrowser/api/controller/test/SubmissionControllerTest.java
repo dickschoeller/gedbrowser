@@ -111,7 +111,8 @@ public class SubmissionControllerTest {
             .exchange()
             .returnResult(String.class);
 
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     /**
@@ -136,9 +137,6 @@ public class SubmissionControllerTest {
         assertThat(resBody.getType()).isEqualTo(reqBody.getType());
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteSubmission() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -155,7 +153,8 @@ public class SubmissionControllerTest {
             .body(reqBody)
             .exchange()
             .returnResult(ApiSubmission.class);
-        assertThat(submissionEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(submissionEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new submission.
         final ApiSubmission resBody = submissionEntity.getResponseBody();
         final String id = resBody.getString();
@@ -166,12 +165,14 @@ public class SubmissionControllerTest {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSubmission.class);
-        assertThat(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(preDeleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .exchange()
             .returnResult(String.class);
-        assertThat(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(deleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<ApiSubmission> postDeleteEntity = restTestClient.get()
             .uri(URI.create(deleteUrl))
             .accept(MediaType.APPLICATION_JSON)

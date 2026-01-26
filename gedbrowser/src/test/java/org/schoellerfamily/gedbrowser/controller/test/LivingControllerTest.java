@@ -25,7 +25,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 @TestPropertySource(properties = {"management.port=0"})
 @AutoConfigureRestTestClient
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
-public class LivingControllerTest implements MenuTestHelper {
+class LivingControllerTest implements MenuTestHelper {
 
     /**
      * Not sure what this is good for.

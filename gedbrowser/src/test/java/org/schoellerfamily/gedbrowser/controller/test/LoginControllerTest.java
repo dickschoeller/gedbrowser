@@ -29,7 +29,7 @@ import org.springframework.web.client.RestTemplate;
 @TestPropertySource(properties = {"management.port=0"})
 @AutoConfigureRestTestClient
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
-public class LoginControllerTest {
+class LoginControllerTest {
 
     /**
      * Not sure what this is good for.

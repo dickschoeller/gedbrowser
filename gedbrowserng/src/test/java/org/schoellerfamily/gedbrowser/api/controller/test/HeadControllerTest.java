@@ -76,7 +76,8 @@ class HeadControllerTest {
             .exchange()
             .returnResult(String.class);
 
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
         assertThat(entity.getResponseBody())
             .contains("  \"cause\" : null",
                 "  \"stackTrace\" : [ ]",

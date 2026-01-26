@@ -149,7 +149,8 @@ class SpousesControllerTest {
             .body(childReqBody)
             .exchange()
             .returnResult(ApiPerson.class);
-        assertThat(childEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(childEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         return childEntity.getResponseBody();
     }
 }

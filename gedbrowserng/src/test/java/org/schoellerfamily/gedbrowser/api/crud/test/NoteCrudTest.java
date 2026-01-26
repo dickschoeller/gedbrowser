@@ -167,7 +167,7 @@ public class NoteCrudTest {
             .type("note")
             .string("")
             .tail("testing")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         assertThat(resNote).returns(reqNote.getTail(), o -> o.getTail());
@@ -181,7 +181,7 @@ public class NoteCrudTest {
             .type("note")
             .string("")
             .tail("this is a note")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
         final String id = resNote.getString();
@@ -236,7 +236,7 @@ public class NoteCrudTest {
             .type("attribute")
             .string("Note")
             .tail("this is a note")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build(), updatedNote.getAttributes().get(1), "attribute should be present");
     }
 }

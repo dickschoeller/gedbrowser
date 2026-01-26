@@ -56,8 +56,10 @@ public class SubmitterControllerTest {
             .returnResult(String.class);
         final HttpStatusCode status = entity.getStatus();
         assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"submitter\"", "\"string\" : \"U1\"",
-            "\"string\" : \"Phil Williams\"", "\"name\" : \"Phil Williams\"");
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"submitter\"",
+            "\"string\" : \"U1\"",
+            "\"string\" : \"Phil Williams\"",
+            "\"name\" : \"Phil Williams\"");
     }
 
     /** */

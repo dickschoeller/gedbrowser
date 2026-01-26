@@ -46,15 +46,12 @@ class FamilyControllerTest {
     private int port;
 
     /** */
-    private ControllerTestHelper helper;
-
-    /** */
     private HttpHeaders headers;
 
     /** */
     @BeforeEach
     void setUp() {
-        helper = new ControllerTestHelper(port, restTestClient);
+        final ControllerTestHelper helper = new ControllerTestHelper(port, restTestClient);
         headers = helper.getHeaders();
     }
 
@@ -89,8 +86,11 @@ class FamilyControllerTest {
             .exchange()
             .returnResult(String.class);
         assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"family\"", "\"string\" : \"F1\"",
-            "\"string\" : \"Marriage\"", "\"type\" : \"date\"", "\"string\" : \"27 MAY 1984\"",
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"family\"",
+            "\"string\" : \"F1\"",
+            "\"string\" : \"Marriage\"",
+            "\"type\" : \"date\"",
+            "\"string\" : \"27 MAY 1984\"",
             "\"string\" : \"Temple Emanu-el, Providence, Providence County, Rhode Island, USA\"",
             "\"tail\" : \"The ceremony performed by Rabbi Wayne"
                 + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
@@ -112,7 +112,8 @@ class FamilyControllerTest {
             .exchange()
             .returnResult(String.class);
         assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"family\"", "\"string\" : \"F1593\"",
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"family\"",
+            "\"string\" : \"F1593\"",
             "\"attributes\" : [ {", "\"type\" : \"sourcelink\"", "\"string\" : \"S33723\"",
             "\"type\" : \"attribute\"", "\"string\" : \"Note\"", "\"attributes\" : [ ]",
             "\"tail\" : \"Record originated in...\"");
@@ -130,8 +131,10 @@ class FamilyControllerTest {
             .exchange()
             .returnResult(String.class);
         assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"family\"", "\"string\" : \"F1\"",
-            "\"string\" : \"Marriage\"", "\"string\" : \"27 MAY 1984\"",
+        assertThat(entity.getResponseBody()).contains("\"type\" : \"family\"",
+            "\"string\" : \"F1\"",
+            "\"string\" : \"Marriage\"",
+            "\"string\" : \"27 MAY 1984\"",
             "\"string\" : \"Temple Emanu-el, Providence, Providence County, Rhode Island, USA\"",
             "\"tail\" : \"The ceremony performed by Rabbi Wayne"
                 + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
@@ -152,7 +155,8 @@ class FamilyControllerTest {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
+        assertThat(entity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
     @Test
@@ -185,8 +189,7 @@ class FamilyControllerTest {
             .exchange()
             .returnResult(ApiFamily.class);
         assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        final ApiFamily resBody = entity.getResponseBody();
-        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(entity.getResponseBody().getType()).isEqualTo(reqBody.getType());
     }
 
     /** */
@@ -203,7 +206,8 @@ class FamilyControllerTest {
             .body(reqBody)
             .exchange()
             .returnResult(ApiFamily.class);
-        assertThat(familyEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(familyEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         // Capture information about new family.
         final ApiFamily resBody = familyEntity.getResponseBody();
         final String id = resBody.getString();
@@ -214,13 +218,15 @@ class FamilyControllerTest {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(ApiFamily.class);
-        assertThat(preDeleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(preDeleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        assertThat(deleteEntity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(deleteEntity.getStatus())
+            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         final EntityExchangeResult<ApiFamily> postDeleteEntity = restTestClient.get()
             .uri(URI.create(deleteUrl))
             .headers(h -> h.addAll(headers))
@@ -288,18 +294,19 @@ class FamilyControllerTest {
             .body(req.getBody())
             .exchange()
             .returnResult(ApiFamily.class);
-        final ApiFamily familyPostResponse = entity.getResponseBody();
         assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(familyPostResponse.getType()).isEqualTo(familyRequest.getType());
-        assertThat(familyPostResponse.getAttributes().size()).isEqualTo(1);
-        assertThat(familyPostResponse.getChildren().size()).isEqualTo(1);
+        assertThat(entity.getResponseBody().getType()).isEqualTo(familyRequest.getType());
+        assertThat(entity.getResponseBody().getAttributes().size()).isEqualTo(1);
+        assertThat(entity.getResponseBody().getChildren().size()).isEqualTo(1);
 
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")
             .string("Note")
             .tail("this is a note")
             .build();
-        final ApiFamily familyPutRequest = familyPostResponse.toBuilder().attribute(aNote).build();
+        final ApiFamily familyPutRequest = entity.getResponseBody().toBuilder()
+            .attribute(aNote)
+            .build();
         assertThat(familyPutRequest.getAttributes().size()).isEqualTo(2);
         final EntityExchangeResult<ApiFamily> putResponseEntity = restTestClient.put()
             .uri(URI.create(url + "/" + familyPutRequest.getString()))
@@ -310,7 +317,8 @@ class FamilyControllerTest {
         final ApiFamily familyPutResponse = putResponseEntity.getResponseBody();
         final List<ApiAttribute> attributesPutResponse = familyPutResponse.getAttributes();
         log.info("Attribute list size: {}", attributesPutResponse.size());
-        assertThat(attributesPutResponse.size()).isEqualTo(2);
+        assertThat(attributesPutResponse.size())
+            .isEqualTo(2);
         for (final ApiAttribute a : attributesPutResponse) {
             log.info("attribute: {} {} {}", a.getType(), a.getString(), a.getTail());
         }
