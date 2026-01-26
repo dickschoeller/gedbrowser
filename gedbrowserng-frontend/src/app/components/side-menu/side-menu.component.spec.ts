@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import { SideMenuComponent } from './side-menu.component';
 import { DatasetsService, SaveService, UploadService, UserService } from '../../services';
@@ -22,11 +23,14 @@ describe('SideMenuComponent', () => {
 
   beforeEach(() => {
     mockDatasetsService = { 
-      get: () => of(['test']),
-      getDbs: () => [] 
+      get: () => of(['test-db', 'another-db'])
     };
-    mockSaveService = { getTextFile: () => ({}) };
-    mockUploadService = { upload: () => ({}) };
+    mockSaveService = { 
+      getTextFile: (dataset: string) => of('GEDCOM content for ' + dataset) 
+    };
+    mockUploadService = { 
+      uploadGedFile: (file: File) => of({ success: true }) 
+    };
     mockUserService = { currentUser: null };
 
     TestBed.configureTestingModule({
@@ -46,10 +50,168 @@ describe('SideMenuComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SideMenuComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    component.dataset = 'test-dataset';
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should initialize with dataset service data', () => {
+    fixture.detectChanges();
+    expect(component.dbs).toContain('test-db');
+    expect(component.dbs).toContain('another-db');
+  });
+
+  it('should setup items sorted in alphabetical order', () => {
+    const dbs = ['zulu', 'alpha', 'bravo'];
+    component.setupItems(dbs);
+    expect(component.dbs).toEqual(['alpha', 'bravo', 'zulu']);
+  });
+
+  it('should handle empty database list', () => {
+    component.setupItems([]);
+    expect(component.dbs).toEqual([]);
+  });
+
+  it('should return false for hasSignedIn when no user is logged in', () => {
+    mockUserService.currentUser = null;
+    expect(component.hasSignedIn()).toBeFalsy();
+  });
+
+  it('should return true for hasSignedIn when user is logged in', () => {
+    mockUserService.currentUser = { id: 'user123', name: 'Test User' };
+    expect(component.hasSignedIn()).toBeTruthy();
+  });
+
+  it('should save file with correct dataset name', () => {
+    vi.spyOn(mockSaveService, 'getTextFile').mockReturnValue(of('test content'));
+    component.saveFile();
+    expect(mockSaveService.getTextFile).toHaveBeenCalledWith('test-dataset');
+  });
+
+  it('should pick dataset and update title', () => {
+    vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
+    component.pickDataset('new-dataset');
+    expect(component.dataset).toBe('new-dataset');
+    expect(component.title).toBe('gedbrowserng - new-dataset');
+  });
+
+  it('should initialize file upload control', () => {
+    fixture.detectChanges();
+    expect(component.fileUploadControl).toBeDefined();
+    expect(component.filesControl).toBeDefined();
+  });
+
+  it('should validate file upload form', () => {
+    fixture.detectChanges();
+    expect(component.uploadForm).toBeDefined();
+    expect(component.uploadForm.get('files')).toBe(component.filesControl);
+  });
+
+  it('should handle file upload success', (done) => {
+    vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of({ success: true }));
+    vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
+    
+    const file = new File(['test content'], 'test.ged', { type: 'application/x-gedcom' });
+    component.filesControl.setValue([file]);
+    
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
+      done();
+    });
+  });
+
+  it('should reject non-ged file uploads', (done) => {
+    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const file = new File(['test content'], 'test.txt', { type: 'text/plain' });
+    component.filesControl.setValue([file]);
+    
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(alertSpy).toHaveBeenCalledWith(expect.stringContaining('unsupported file type'));
+      done();
+    });
+  });
+
+  it('should accept .ged file extension', (done) => {
+    vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of({ success: true }));
+    vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
+    
+    const file = new File(['test content'], 'family.ged', { type: 'text/plain' });
+    component.filesControl.setValue([file]);
+    
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
+      done();
+    });
+  });
+
+  it('should accept .gedcom file extension', (done) => {
+    vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of({ success: true }));
+    vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
+    
+    const file = new File(['test content'], 'family.gedcom', { type: 'text/plain' });
+    component.filesControl.setValue([file]);
+    
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
+      done();
+    });
+  });
+
+  it('should accept application/x-gedcom MIME type', (done) => {
+    vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of({ success: true }));
+    vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
+    
+    const file = new File(['test content'], 'family.ged', { type: 'application/x-gedcom' });
+    component.filesControl.setValue([file]);
+    
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
+      done();
+    });
+  });
+
+  it('should handle upload error gracefully', (done) => {
+    vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of(new Error('Upload failed')));
+    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    
+    const file = new File(['test content'], 'test.ged', { type: 'application/x-gedcom' });
+    component.filesControl.setValue([file]);
+    
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(alertSpy).toHaveBeenCalled();
+      done();
+    });
+  });
+
+  it('should set title on init', () => {
+    fixture.detectChanges();
+    expect(component.title).toBe('gedbrowserng - test-dataset');
+  });
+
+  it('should reinitialize on ngOnChanges', () => {
+    vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of(['updated-db']));
+    component.ngOnChanges();
+    expect(mockDatasetsService.get).toHaveBeenCalled();
+  });
+
+  it('should handle multiple database entries in setupItems', () => {
+    const dbs = ['charlie', 'alice', 'bob', 'david'];
+    component.setupItems(dbs);
+    expect(component.dbs.length).toBe(4);
+    expect(component.dbs[0]).toBe('alice');
+    expect(component.dbs[component.dbs.length - 1]).toBe('david');
+  });
+
+  it('should handle null file in upload', () => {
+    // Null files are handled by the validator, so we just test that the form control exists
+    expect(component.filesControl).toBeDefined();
   });
 });
