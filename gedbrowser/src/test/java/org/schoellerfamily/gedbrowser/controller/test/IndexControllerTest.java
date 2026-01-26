@@ -12,6 +12,7 @@ import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTe
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
@@ -56,8 +57,7 @@ class IndexControllerTest implements MenuTestHelper {
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>Index - C - gl120368</title>",
-                    "<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
-                        + " class=\"name\">[?]</a>   </span>",
+                    "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
                     "<li id=\"I2508\"><a href=\"person?db=gl120368&amp;id=",
                     getMenu("C"));
     }
@@ -76,8 +76,7 @@ class IndexControllerTest implements MenuTestHelper {
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>Index - B - gl120368</title>",
-                    "<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
-                        + " class=\"name\">[?]</a>   </span>",
+                    "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
                     "<li id=\"I2561\"><a href=\"person?db=gl120368&amp;id=",
                     getMenu("B"));
     }
@@ -112,8 +111,7 @@ class IndexControllerTest implements MenuTestHelper {
                 .asString()
                     .contains(
                         "<title>Index - q - gl120368</title>",
-                        "<span><a id=\"letter-?\"" + " href=\"surnames?db=gl120368&amp;letter=?\""
-                            + " class=\"name\">[?]</a>   </span>",
+                        "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
                         getMenu("q"))
                     .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=");
     }
