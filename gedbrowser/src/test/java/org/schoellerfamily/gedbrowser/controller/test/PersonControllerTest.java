@@ -48,7 +48,7 @@ public class PersonControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatus.OK, EntityExchangeResult::getStatus)
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>Living  - I4 - gl120368</title>",
@@ -65,7 +65,7 @@ public class PersonControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatus.OK, EntityExchangeResult::getStatus)
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>Edwin Elijah A  Williams (13 DEC 1883-ABT AUG "
@@ -82,7 +82,7 @@ public class PersonControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatus.NOT_FOUND, EntityExchangeResult::getStatus)
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains("Data set not found");
     }
@@ -96,7 +96,7 @@ public class PersonControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatus.NOT_FOUND, EntityExchangeResult::getStatus)
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "Person not found",

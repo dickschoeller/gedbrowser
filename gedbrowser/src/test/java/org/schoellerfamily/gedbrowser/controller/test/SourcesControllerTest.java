@@ -48,7 +48,7 @@ public class SourcesControllerTest implements MenuTestHelper {
                 .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatus.OK, EntityExchangeResult::getStatus)
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>Sources - gl120368</title>",
@@ -71,7 +71,7 @@ public class SourcesControllerTest implements MenuTestHelper {
                 .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatus.NOT_FOUND, EntityExchangeResult::getStatus)
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains("Data set not found");
     }
