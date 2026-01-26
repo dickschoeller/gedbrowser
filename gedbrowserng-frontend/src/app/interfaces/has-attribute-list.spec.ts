@@ -1,4 +1,3 @@
-import { ApiAttribute, AttributeDialogData, SelectItem } from '../models';
 import { vi } from 'vitest';
 
 describe('HasAttributeList Interface', () => {

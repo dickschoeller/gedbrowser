@@ -1,6 +1,4 @@
-import { Router } from '@angular/router';
 import { GuestGuard } from './guest.guard';
-import { UserService } from '../services';
 import { vi } from 'vitest';
 
 describe('GuestGuard', () => {

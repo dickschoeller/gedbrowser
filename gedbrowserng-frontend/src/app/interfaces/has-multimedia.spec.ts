@@ -1,4 +1,3 @@
-import { ApiAttribute } from '../models';
 import { vi } from 'vitest';
 
 describe('HasMultimedia Interface', () => {

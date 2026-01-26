@@ -1,7 +1,5 @@
-import { Router } from '@angular/router';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AdminGuard } from './admin.guard';
-import { UserService } from '../services';
 import { vi } from 'vitest';
 
 describe('AdminGuard', () => {
