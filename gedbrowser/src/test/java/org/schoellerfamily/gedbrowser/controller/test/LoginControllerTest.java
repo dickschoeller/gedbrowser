@@ -92,7 +92,7 @@ class LoginControllerTest {
                 .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatus.OK, EntityExchangeResult::getStatus)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>Login to GedBrowser</title>",
@@ -111,7 +111,7 @@ class LoginControllerTest {
                 .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatus.OK, EntityExchangeResult::getStatus)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>Login to GedBrowser</title>",

@@ -49,7 +49,7 @@ class LivingControllerTest implements MenuTestHelper {
                 .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatus.OK, EntityExchangeResult::getStatus)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>Living - gl120368</title>",
@@ -65,7 +65,7 @@ class LivingControllerTest implements MenuTestHelper {
                 .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatus.NOT_FOUND, EntityExchangeResult::getStatus)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains("Data set not found");
     }

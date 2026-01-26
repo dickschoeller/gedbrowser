@@ -46,7 +46,7 @@ class NoteControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatus.OK, EntityExchangeResult::getStatus)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "<title>_P_CCINFO 1-1319 - N1 - gl120368",
@@ -62,7 +62,7 @@ class NoteControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatus.NOT_FOUND, EntityExchangeResult::getStatus)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains("Data set not found");
     }
@@ -76,7 +76,7 @@ class NoteControllerTest implements MenuTestHelper {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatus.NOT_FOUND, EntityExchangeResult::getStatus)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
                     "Note XYZZY not found",
