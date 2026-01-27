@@ -12,13 +12,13 @@ describe('NewSubmitterHelper', () => {
 
   it('buildSubmitter defaults empty name to Unknown', () => {
     const data = { name: '' };
-    const submitter = NewSubmitterHelper.buildSubmitter(data);
+    NewSubmitterHelper.buildSubmitter(data);
     expect(data.name).toBe('Unknown'); // buildSubmitter modifies data.name
   });
 
   it('buildSubmitter handles whitespace name as not empty', () => {
     const data = { name: '   ' };
-    const submitter = NewSubmitterHelper.buildSubmitter(data);
+    NewSubmitterHelper.buildSubmitter(data);
     expect(data.name).toBe('   '); // isEmpty doesn't treat whitespace as empty
   });
 

@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { AttributeAnalyzer } from './attribute-analyzer';
-import { ApiAttribute } from '../models';
 
 describe('AttributeAnalyzer', () => {
   function createMockParent(attributeType: string, attributeString = '', attributeTail = '', dataset = 'test') {

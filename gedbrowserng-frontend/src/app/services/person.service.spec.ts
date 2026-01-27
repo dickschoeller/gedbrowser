@@ -113,12 +113,7 @@ describe('PersonService', () => {
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb/persons/NOTFOUND');
       req.flush('Not found', { status: 404, statusText: 'Not Found' });
 
-      try {
-        await promise;
-        fail('should error');
-      } catch (error) {
-        expect(error.status).toBe(404);
-      }
+      await expect(promise).rejects.toMatchObject({ status: 404 });
     });
   });
 

@@ -163,12 +163,7 @@ describe('UserService', () => {
       const error = new Error('Failed');
       mockAuthApiService.get.mockReturnValue(throwError(() => error));
 
-      try {
-        await service.getMyInfo().toPromise();
-        fail('should have thrown');
-      } catch (err) {
-        expect(err).toEqual(error);
-      }
+      await expect(service.getMyInfo().toPromise()).rejects.toEqual(error);
     });
   });
 
@@ -200,12 +195,7 @@ describe('UserService', () => {
       const error = new Error('Fetch failed');
       mockAuthApiService.get.mockReturnValue(throwError(() => error));
 
-      try {
-        await service.getAll().toPromise();
-        fail('should have thrown');
-      } catch (err) {
-        expect(err).toEqual(error);
-      }
+      await expect(service.getAll().toPromise()).rejects.toEqual(error);
     });
   });
 });

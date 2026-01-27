@@ -169,7 +169,6 @@ describe('AuthService', () => {
     });
 
     it('should handle logout error gracefully', async () => {
-      const error = new Error('Logout failed');
       mockAuthApiService.post.mockReturnValue(of({}));
 
       await service.logout().toPromise();
