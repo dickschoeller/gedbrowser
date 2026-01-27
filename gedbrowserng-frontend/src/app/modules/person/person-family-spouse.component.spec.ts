@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { vi } from 'vitest';
 
 import { PersonFamilySpouseComponent } from './person-family-spouse.component';
 import { ConfigService } from '../../services/config.service';
@@ -65,5 +66,27 @@ describe('PersonFamilySpouseComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('ngOnInit and ngOnChanges both initialize person', () => {
+    const spy = vi.spyOn(component as any, 'init');
+    component.ngOnInit();
+    component.ngOnChanges();
+    expect(spy).toHaveBeenCalledTimes(2);
+  });
+
+  it('familyString and refreshPerson delegate to parent', () => {
+    const parent = { familyString: () => 'F9', refreshPerson: vi.fn() } as any;
+    component.parent = parent;
+    expect(component.familyString()).toBe('F9');
+    component.refreshPerson();
+    expect(parent.refreshPerson).toHaveBeenCalled();
+  });
+
+  it('hasSignedIn reflects user presence', () => {
+    const userSvc = TestBed.inject(UserService);
+    expect(component.hasSignedIn()).toBe(false);
+    (userSvc as any).currentUser = { id: 'u' };
+    expect(component.hasSignedIn()).toBe(true);
   });
 });
