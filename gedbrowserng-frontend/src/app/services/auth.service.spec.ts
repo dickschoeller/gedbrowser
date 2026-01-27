@@ -168,15 +168,11 @@ describe('AuthService', () => {
       expect(mockUserService.currentUser).toBeNull();
     });
 
-    it('should handle logout error gracefully', (done) => {
+    it('should handle logout error gracefully', async () => {
       const error = new Error('Logout failed');
       mockAuthApiService.post.mockReturnValue(of({}));
 
-      service.logout().subscribe({
-        next: () => {
-          done();
-        }
-      });
+      await service.logout().toPromise();
     });
   });
 
@@ -203,15 +199,13 @@ describe('AuthService', () => {
       expect(call[1]).toEqual(passwordChanger);
     });
 
-    it('should handle password change response', (done) => {
+    it('should handle password change response', async () => {
       const passwordChanger = { oldPassword: 'old', newPassword: 'new' };
       const response = { status: 'success' };
       mockAuthApiService.post.mockReturnValue(of(response));
 
-      service.changePassowrd(passwordChanger).subscribe((result) => {
-        expect(result).toEqual(response);
-        done();
-      });
+      const result = await service.changePassowrd(passwordChanger).toPromise();
+      expect(result).toEqual(response);
     });
   });
 });
