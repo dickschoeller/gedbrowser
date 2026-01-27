@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { vi } from 'vitest';
 
 import { PersonComponent } from './person.component';
 import { PersonService } from '../../services';
@@ -124,5 +125,73 @@ describe('PersonComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('calls lifespanDateString', () => {
+    component.person = mockPerson;
+    const result = component.lifespanDateString();
+    expect(typeof result).toBe('string');
+  });
+
+  it('save calls service.put', () => {
+    component.person = mockPerson;
+    component.dataset = 'ds';
+    const spy = vi.spyOn(TestBed.inject(PersonService), 'put').mockReturnValue(of(mockPerson));
+    component.save();
+    expect(spy).toHaveBeenCalledWith('ds', mockPerson);
+  });
+
+  it('options returns array of SelectItem', () => {
+    const opts = component.options();
+    expect(Array.isArray(opts)).toBe(true);
+    expect(opts.length).toBeGreaterThan(0);
+  });
+
+  it('defaultData returns AttributeDialogData', () => {
+    const data = component.defaultData();
+    expect(data).toBeDefined();
+    expect(data.type).toBe('Name');
+  });
+
+  it('ngOnInit falls back to empty attributes when none provided', async () => {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [
+        PersonComponent,
+        MockMainLayoutComponent,
+        MockAttributeListComponent,
+        MockMultimediaGalleryComponent,
+        MockPersonFamilyListComponent,
+        MockPersonParentFamiliesComponent
+      ],
+      imports: [RouterTestingModule.withRoutes([]), HttpClientTestingModule, NoopAnimationsModule],
+      providers: [
+        PersonService,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ dataset: 'testDataset' }),
+            data: of({
+              dataset: 'testDataset',
+              person: {
+                attributes: undefined,
+                lifespan: {},
+                refns: [{ string: '', tail: '' }],
+                changes: [{ string: '', attributes: [{ string: '' }] }],
+                famss: [],
+                famcs: [],
+                images: []
+              }
+            })
+          }
+        }
+      ]
+    }).compileComponents();
+
+    const fixture2 = TestBed.createComponent(PersonComponent);
+    const component2 = fixture2.componentInstance;
+    fixture2.detectChanges();
+    expect(component2.attributes).toEqual([]);
   });
 });
