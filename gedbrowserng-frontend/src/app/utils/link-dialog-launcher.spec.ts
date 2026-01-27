@@ -54,23 +54,22 @@ describe('LinkDialogLauncher', () => {
       );
     });
 
-    it('calls onOpen when dialog opens', (done) => {
+    it('calls onOpen when dialog opens', async () => {
       mockDialogRef.afterOpened.mockReturnValue(of(null));
       mockDialogRef.afterClosed.mockReturnValue(of(null));
 
       LinkDialogLauncher.openDialog(mockThat, 'Test', mockLinkHelper);
 
-      setTimeout(() => {
-        expect(mockLinkHelper.onOpen).toHaveBeenCalledWith(
-          mockThat.service,
-          mockDialogRef.componentInstance,
-          mockThat.parent.attributes
-        );
-        done();
-      }, 10);
+      await new Promise(resolve => setTimeout(resolve, 10));
+
+      expect(mockLinkHelper.onOpen).toHaveBeenCalledWith(
+        mockThat.service,
+        mockDialogRef.componentInstance,
+        mockThat.parent.attributes
+      );
     });
 
-    it('calls onOK when dialog closes with selected items', (done) => {
+    it('calls onOK when dialog closes with selected items', async () => {
       const mockResult: LinkDialogData = {
         name: 'Test',
         dataset: 'test-dataset',
@@ -83,17 +82,16 @@ describe('LinkDialogLauncher', () => {
 
       LinkDialogLauncher.openDialog(mockThat, 'Test', mockLinkHelper);
 
-      setTimeout(() => {
-        expect(mockLinkHelper.onOK).toHaveBeenCalledWith(
-          mockResult,
-          mockThat.parent.attributes,
-          expect.any(Function)
-        );
-        done();
-      }, 10);
+      await new Promise(resolve => setTimeout(resolve, 10));
+
+      expect(mockLinkHelper.onOK).toHaveBeenCalledWith(
+        mockResult,
+        mockThat.parent.attributes,
+        expect.any(Function)
+      );
     });
 
-    it('calls save callback when onOK is invoked', (done) => {
+    it('calls save callback when onOK is invoked', async () => {
       const mockResult: LinkDialogData = {
         name: 'Test',
         dataset: 'test-dataset',
@@ -111,14 +109,13 @@ describe('LinkDialogLauncher', () => {
 
       LinkDialogLauncher.openDialog(mockThat, 'Test', mockLinkHelper);
 
-      setTimeout(() => {
-        saveCallback();
-        expect(mockThat.parent.save).toHaveBeenCalled();
-        done();
-      }, 10);
+      await new Promise(resolve => setTimeout(resolve, 10));
+
+      saveCallback();
+      expect(mockThat.parent.save).toHaveBeenCalled();
     });
 
-    it('ignores close result with no selected items', (done) => {
+    it('ignores close result with no selected items', async () => {
       const mockResult: LinkDialogData = {
         name: 'Test',
         dataset: 'test-dataset',
@@ -131,25 +128,23 @@ describe('LinkDialogLauncher', () => {
 
       LinkDialogLauncher.openDialog(mockThat, 'Test', mockLinkHelper);
 
-      setTimeout(() => {
-        expect(mockLinkHelper.onOK).toHaveBeenCalled();
-        done();
-      }, 10);
+      await new Promise(resolve => setTimeout(resolve, 10));
+
+      expect(mockLinkHelper.onOK).toHaveBeenCalled();
     });
 
-    it('handles null dialog result', (done) => {
+    it('handles null dialog result', async () => {
       mockDialogRef.afterOpened.mockReturnValue(of(null));
       mockDialogRef.afterClosed.mockReturnValue(of(null));
 
       LinkDialogLauncher.openDialog(mockThat, 'Test', mockLinkHelper);
 
-      setTimeout(() => {
-        expect(mockLinkHelper.onOK).not.toHaveBeenCalled();
-        done();
-      }, 10);
+      await new Promise(resolve => setTimeout(resolve, 10));
+
+      expect(mockLinkHelper.onOK).not.toHaveBeenCalled();
     });
 
-    it('handles result with no selected property', (done) => {
+    it('handles result with no selected property', async () => {
       const mockResult = { name: 'Test', dataset: 'test' };
 
       mockDialogRef.afterOpened.mockReturnValue(of(null));
@@ -157,10 +152,9 @@ describe('LinkDialogLauncher', () => {
 
       LinkDialogLauncher.openDialog(mockThat, 'Test', mockLinkHelper);
 
-      setTimeout(() => {
-        expect(mockLinkHelper.onOK).not.toHaveBeenCalled();
-        done();
-      }, 10);
+      await new Promise(resolve => setTimeout(resolve, 10));
+
+      expect(mockLinkHelper.onOK).not.toHaveBeenCalled();
     });
 
     it('uses correct dataset in dialog parameters', () => {
