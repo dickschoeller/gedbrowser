@@ -31,7 +31,16 @@ export default defineConfig({
         'target/**',
         'ui-src/META-INF/resources/**',
         'tools/**'
-      ]
+      ],
+      // Set global thresholds
+      thresholds: {
+        lines: 69,
+        functions: 62,
+        branches: 53,
+        statements: 70,
+        // Optional: set thresholds per file
+        perFile: false
+      }
     }
   }
 });
