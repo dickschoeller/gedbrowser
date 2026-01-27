@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { MultimediaDialogHelper } from './multimedia-dialog-helper';
-import { MultimediaDialogData, MultimediaFileData, MultimediaFormat, MultimediaSourceType, ApiAttribute } from '../models';
+import { MultimediaDialogData } from '../models';
 
 describe('MultimediaDialogHelper', () => {
   describe('buildMultimediaAttribute()', () => {

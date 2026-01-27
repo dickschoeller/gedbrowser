@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { AttributeDialogHelper } from './attribute-dialog-helper';
-import { ApiAttribute, AttributeDialogData } from '../models';
+import { AttributeDialogData } from '../models';
 
 describe('AttributeDialogHelper', () => {
   let helper: AttributeDialogHelper;

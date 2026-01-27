@@ -2,9 +2,9 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import { LinkPersonHelper } from './link-person-helper';
 import { PersonService } from './person.service';
-import { ApiPerson, LinkPersonDialogData, LinkPersonItem } from '../models';
+import { ApiPerson } from '../models';
 import { LinkCheck } from '../interfaces';
-import { ApiComparators, LifespanUtil } from '../utils';
+import { ApiComparators } from '../utils';
 import { of } from 'rxjs';
 
 describe('LinkPersonHelper', () => {

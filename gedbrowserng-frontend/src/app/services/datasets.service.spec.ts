@@ -61,12 +61,7 @@ describe('DatasetsService', () => {
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs');
       req.flush('Server error', { status: 500, statusText: 'Internal Server Error' });
 
-      try {
-        await promise;
-        fail('should error');
-      } catch (error) {
-        expect(error.status).toBe(500);
-      }
+      await expect(promise).rejects.toMatchObject({ status: 500 });
     });
   });
 

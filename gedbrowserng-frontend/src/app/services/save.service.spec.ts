@@ -98,12 +98,7 @@ describe('SaveService', () => {
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/notfound/save');
       req.flush('Not found', { status: 404, statusText: 'Not Found' });
 
-      try {
-        await promise;
-        fail('should have thrown an error');
-      } catch (error) {
-        expect(error.status).toBe(404);
-      }
+      await expect(promise).rejects.toMatchObject({ status: 404 });
     });
 
     it('should handle HTTP 500 errors', async () => {
@@ -114,12 +109,7 @@ describe('SaveService', () => {
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb/save');
       req.flush('Server error', { status: 500, statusText: 'Internal Server Error' });
 
-      try {
-        await promise;
-        fail('should have thrown an error');
-      } catch (error) {
-        expect(error.status).toBe(500);
-      }
+      await expect(promise).rejects.toMatchObject({ status: 500 });
     });
 
     it('should use UrlBuilder to construct URL', async () => {
