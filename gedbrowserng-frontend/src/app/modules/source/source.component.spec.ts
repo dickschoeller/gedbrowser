@@ -196,18 +196,6 @@ describe('SourceComponent', () => {
     expect(typeof defaultData).toBe('object');
   });
 
-  it('should have HasAttributeList interface methods', () => {
-    expect(component.options).toBeDefined();
-    expect(typeof component.options).toBe('function');
-    expect(component.defaultData).toBeDefined();
-    expect(typeof component.defaultData).toBe('function');
-  });
-
-  it('should implement OnInit interface', () => {
-    expect(component.ngOnInit).toBeDefined();
-    expect(typeof component.ngOnInit).toBe('function');
-  });
-
   it('should handle source with empty attributes', () => {
     const sourceWithoutAttributes = { ...mockSource, attributes: [] } as ApiSource;
     

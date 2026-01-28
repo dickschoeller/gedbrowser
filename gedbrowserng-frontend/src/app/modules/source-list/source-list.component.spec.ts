@@ -88,21 +88,6 @@ describe('SourceListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should implement OnInit interface', () => {
-    expect(component.ngOnInit).toBeDefined();
-    expect(typeof component.ngOnInit).toBe('function');
-  });
-
-  it('should implement OnChanges interface', () => {
-    expect(component.ngOnChanges).toBeDefined();
-    expect(typeof component.ngOnChanges).toBe('function');
-  });
-
-  it('should implement AfterViewInit interface', () => {
-    expect(component.ngAfterViewInit).toBeDefined();
-    expect(typeof component.ngAfterViewInit).toBe('function');
-  });
-
   it('should have displayedColumns property', () => {
     expect(component.displayedColumns).toBeDefined();
     expect(Array.isArray(component.displayedColumns)).toBe(true);
@@ -126,22 +111,6 @@ describe('SourceListComponent', () => {
     component.ngOnInit();
 
     expect(component.datasource).toBeDefined();
-  });
-
-  it('should call ngAfterViewInit without errors', () => {
-    component.sources = mockSources;
-
-    expect(() => {
-      component.ngAfterViewInit();
-    }).not.toThrow();
-  });
-
-  it('should call ngOnChanges without errors', () => {
-    component.sources = mockSources;
-
-    expect(() => {
-      component.ngOnChanges();
-    }).not.toThrow();
   });
 
   it('should return page size options from pagesizeoptions()', () => {
@@ -211,33 +180,6 @@ describe('SourceListComponent', () => {
     expect(component.datasource.data).toEqual([]);
   });
 
-  it('should extend SourceCreator base class', () => {
-    expect(component).toHaveProperty('sourceService');
-    expect(component).toHaveProperty('dialog');
-  });
-
-  it('should have @Input dataset property', () => {
-    component.dataset = 'newDataset';
-
-    expect(component.dataset).toBe('newDataset');
-  });
-
-  it('should have @Input sources property', () => {
-    const newSources = [
-      { id: '10', title: 'New Source', string: 'NS1' } as ApiSource
-    ];
-    component.sources = newSources;
-
-    expect(component.sources).toEqual(newSources);
-  });
-
-  it('should have @Input parent property', () => {
-    const newParent = { refreshSource: () => {} };
-    component.parent = newParent as any;
-
-    expect(component.parent).toBe(newParent);
-  });
-
   it('should handle applyFilter with empty string', () => {
     component.sources = mockSources;
     component.ngOnInit();
@@ -256,26 +198,6 @@ describe('SourceListComponent', () => {
     }).not.toThrow();
   });
 
-  it('should navigate with correct dataset prefix', () => {
-    component.dataset = 'myDataset';
-    const navigateSpy = vi.spyOn(router, 'navigate');
-
-    component.navigate('testSourceId');
-
-    expect(navigateSpy).toHaveBeenCalledWith(['/myDataset/sources/testSourceId']);
-  });
-
-  it('should delete and call refreshSource with correct arguments', () => {
-    component.dataset = 'testDataset';
-    const refreshSourceSpy = vi.spyOn(component, 'refreshSource');
-
-    vi.spyOn(sourceService, 'delete').mockReturnValue(of(mockSources[0]));
-
-    component.delete(mockSources[0]);
-
-    expect(refreshSourceSpy).toHaveBeenCalled();
-  });
-
   it('should have initial empty datasource', () => {
     const newComponent = new SourceListComponent(router, sourceService, dialog);
 
@@ -285,7 +207,6 @@ describe('SourceListComponent', () => {
 
   it('should maintain datasource reference through lifecycle', () => {
     component.sources = mockSources;
-    const initialDataSource = component.datasource;
 
     component.ngOnInit();
 

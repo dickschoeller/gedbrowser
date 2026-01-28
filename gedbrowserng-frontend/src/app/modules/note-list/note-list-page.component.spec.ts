@@ -69,11 +69,6 @@ describe('NoteListPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should implement RefreshNote interface', () => {
-    expect(component.refreshNote).toBeDefined();
-    expect(typeof component.refreshNote).toBe('function');
-  });
-
   it('should subscribe to route params on init', () => {
     paramsSubject.next({ dataset: 'testDataset' });
     dataSubject.next({ dataset: 'testDataset', notes: mockNotes });

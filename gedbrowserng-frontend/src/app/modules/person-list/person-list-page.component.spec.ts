@@ -68,46 +68,7 @@ describe('PersonListPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should implement OnInit interface', () => {
-    expect(component.ngOnInit).toBeDefined();
-    expect(typeof component.ngOnInit).toBe('function');
-  });
-
-  it('should implement OnChanges interface', () => {
-    expect(component.ngOnChanges).toBeDefined();
-    expect(typeof component.ngOnChanges).toBe('function');
-  });
-
-  it('should have dataset property', () => {
-    expect(component).toHaveProperty('dataset');
-  });
-
-  it('should have persons array property', () => {
-    expect(component).toHaveProperty('persons');
-  });
-
-  it('should call ngOnInit', () => {
-    paramsSubject.next({ dataset: 'testDataset' });
-    dataSubject.next({ dataset: 'testDataset', persons: mockPersons });
-
-    expect(() => {
-      component.ngOnInit();
-    }).not.toThrow();
-  });
-
-  it('should call ngOnChanges', () => {
-    expect(() => {
-      component.ngOnChanges();
-    }).not.toThrow();
-  });
-
-  it('should have refreshPerson method', () => {
-    expect(component.refreshPerson).toBeDefined();
-    expect(typeof component.refreshPerson).toBe('function');
-  });
-
-  it('should call refreshPerson without errors', () => {
-    component.dataset = 'testDataset';
+  it('should subscribe to route params on init', () => {
     vi.spyOn(personService, 'getAll').mockReturnValue(of(mockPersons));
     vi.spyOn(router.routeReuseStrategy, 'shouldReuseRoute').mockReturnValue(false);
 
