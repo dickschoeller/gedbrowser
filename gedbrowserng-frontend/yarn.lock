@@ -136,20 +136,12 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@angular-devkit/architect@0.2101.2":
+"@angular-devkit/architect@0.2101.2", "@angular-devkit/architect@>= 0.2100.0 < 0.2200.0":
   version "0.2101.2"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.2101.2.tgz#c6e76c31e1f0ecc19fec2879ff416cd16293ba58"
   integrity sha512-pV2onJgp16xO0vAqEfRWVynRPPLVHydYLANNa3UX3l5T39JcYdMIoOHSIIl8tWrxVeOwiWd1ajub0VsFTUok4Q==
   dependencies:
     "@angular-devkit/core" "21.1.2"
-    rxjs "7.8.2"
-
-"@angular-devkit/architect@>= 0.2100.0 < 0.2200.0":
-  version "0.2101.1"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.2101.1.tgz#d36db61c0b7e3b2fe3e925900f2acf65be37f653"
-  integrity sha512-8x7hKcFs3hnpDaIj9fyzinh4X74oQaMxMsZzBf4dBL7EwokjPIf2fadQsZd8a5M+Ja4tIgTnXH9ySyaRFWGNXA==
-  dependencies:
-    "@angular-devkit/core" "21.1.1"
     rxjs "7.8.2"
 
 "@angular-devkit/build-angular@^21.0.0":
@@ -222,19 +214,7 @@
     "@angular-devkit/architect" "0.2101.2"
     rxjs "7.8.2"
 
-"@angular-devkit/core@21.1.1", "@angular-devkit/core@>= 21.0.0 < 22.0.0":
-  version "21.1.1"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-21.1.1.tgz#4a889c8e75849811981d33b3ab59a88157485eae"
-  integrity sha512-rCwfBUemyRoAfrO4c85b49lkPiD5WljWE+IK7vjUNIFFf4TXOS4tg4zxqopUDVE4zEjXORa5oHCEc5HCerjn1g==
-  dependencies:
-    ajv "8.17.1"
-    ajv-formats "3.0.1"
-    jsonc-parser "3.3.1"
-    picomatch "4.0.3"
-    rxjs "7.8.2"
-    source-map "0.7.6"
-
-"@angular-devkit/core@21.1.2":
+"@angular-devkit/core@21.1.2", "@angular-devkit/core@>= 21.0.0 < 22.0.0":
   version "21.1.2"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-21.1.2.tgz#a5d21f7ac12627882676a44d64fb32d226b61621"
   integrity sha512-0wl5nJlFWsbwfUB2CQeTSmnVQ8AtqqwM3bYPYtXSc+vA8+hzsOAjjDuRnBxZS9zTnqtXKXB1e7M3Iy7KUwh7LA==
@@ -246,23 +226,12 @@
     rxjs "7.8.2"
     source-map "0.7.6"
 
-"@angular-devkit/schematics@21.1.2":
+"@angular-devkit/schematics@21.1.2", "@angular-devkit/schematics@>= 21.0.0 < 22.0.0":
   version "21.1.2"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-21.1.2.tgz#978e7624568a8e43dbfaf8f36ebaa0c97ddcbd99"
   integrity sha512-PA3gkiFhHUuXd2XuP7yzKg/9N++bjw+uOl473KwIsMuZwMPhncKa4+mUYBaffDoPqaujZvjfo6mjtCBuiBv05w==
   dependencies:
     "@angular-devkit/core" "21.1.2"
-    jsonc-parser "3.3.1"
-    magic-string "0.30.21"
-    ora "9.0.0"
-    rxjs "7.8.2"
-
-"@angular-devkit/schematics@>= 21.0.0 < 22.0.0":
-  version "21.1.1"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-21.1.1.tgz#485db31989fe04b9dea23ec1b5f7b0a979c24b1f"
-  integrity sha512-3ptEOuALghEYEPVbhRa7g8a+YmvmHqHVNqF9XqCbG22nPGWkE58qfNNbXi3tF9iQxzKSGw5Iy5gYUvSvpsdcfw==
-  dependencies:
-    "@angular-devkit/core" "21.1.1"
     jsonc-parser "3.3.1"
     magic-string "0.30.21"
     ora "9.0.0"
@@ -2501,7 +2470,7 @@
   dependencies:
     "@primeuix/utils" "^0.6.1"
 
-"@primeuix/styles@^2.0.2":
+"@primeuix/styles@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@primeuix/styles/-/styles-2.0.3.tgz#e42d14c138fe092683228d65a3f6de17de70d6a0"
   integrity sha512-2ykAB6BaHzR/6TwF8ShpJTsZrid6cVIEBVlookSdvOdmlWuevGu5vWOScgIwqWwlZcvkFYAGR/SUV3OHCTBMdw==
@@ -2520,10 +2489,10 @@
   resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.6.4.tgz#f436eae1be166662d424b8550a97ba0c150819e6"
   integrity sha512-pZ5f+vj7wSzRhC7KoEQRU5fvYAe+RP9+m39CTscZ3UywCD1Y2o6Fe1rRgklMPSkzUcty2jzkA0zMYkiJBD1hgg==
 
-"@puppeteer/browsers@2.11.1":
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/@puppeteer/browsers/-/browsers-2.11.1.tgz#dad378d5d2d4764a3ab7316c9476105faa0d7c0b"
-  integrity sha512-YmhAxs7XPuxN0j7LJloHpfD1ylhDuFmmwMvfy/+6nBSrETT2ycL53LrhgPtR+f+GcPSybQVuQ5inWWu5MrWCpA==
+"@puppeteer/browsers@2.11.2":
+  version "2.11.2"
+  resolved "https://registry.yarnpkg.com/@puppeteer/browsers/-/browsers-2.11.2.tgz#54ac339579c23014535011e6dc04bf3157705d73"
+  integrity sha512-GBY0+2lI9fDrjgb5dFL9+enKXqyOPok9PXg/69NVkjW3bikbK9RQrNrI3qccQXmDNN7ln4j/yL89Qgvj/tfqrw==
   dependencies:
     debug "^4.4.3"
     extract-zip "^2.0.1"
@@ -3028,9 +2997,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "25.0.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.0.10.tgz#4864459c3c9459376b8b75fd051315071c8213e7"
-  integrity sha512-zWW5KPngR/yvakJgGOmZ5vTBemDoSqF3AcV/LrO5u5wTWyEAVVh+IT39G4gtyAkh3CtTZs8aX/yRM82OfzHJRg==
+  version "25.1.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.1.0.tgz#95cc584f1f478301efc86de4f1867e5875e83571"
+  integrity sha512-t7frlewr6+cbx+9Ohpl0NOTKXZNV9xHRmNOvql47BFJKcEG1CxtxlPEEe+gR9uhVWM4DwhnvTF110mIL4yP9RA==
   dependencies:
     undici-types "~7.16.0"
 
@@ -3767,9 +3736,9 @@ bare-url@^2.2.2:
     bare-path "^3.0.0"
 
 baseline-browser-mapping@^2.9.0:
-  version "2.9.18"
-  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.9.18.tgz#c8281693035a9261b10d662a5379650a6c2d1ff7"
-  integrity sha512-e23vBV1ZLfjb9apvfPk4rHVu2ry6RIr2Wfs+O324okSidrX7pTAnEJPCh/O5BtRlr7QtZI7ktOP3vsqr7Z5XoA==
+  version "2.9.19"
+  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.9.19.tgz#3e508c43c46d961eb4d7d2e5b8d1dd0f9ee4f488"
+  integrity sha512-ipDqC8FrAl/76p2SSWKSI+H9tFwm7vYqXQrItCuiVPt26Km0jS+NzSsBWAaBusvSbQcfJG+JitdMm+wZAgTYqg==
 
 basic-ftp@^5.0.2:
   version "5.1.0"
@@ -6537,9 +6506,9 @@ node-gyp-build-optional-packages@5.2.2:
     detect-libc "^2.0.1"
 
 node-gyp@^12.1.0:
-  version "12.1.0"
-  resolved "https://registry.yarnpkg.com/node-gyp/-/node-gyp-12.1.0.tgz#302fc2d3fec36975cfb8bfee7a6bf6b7f0be9553"
-  integrity sha512-W+RYA8jBnhSr2vrTtlPYPc1K+CSjGpVDRZxcqJcERZ8ND3A1ThWPHRwctTx3qC3oW99jt726jhdz3Y6ky87J4g==
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/node-gyp/-/node-gyp-12.2.0.tgz#ff73f6f509e33d8b7e768f889ffc9738ad117b07"
+  integrity sha512-q23WdzrQv48KozXlr0U1v9dwO/k59NHeSzn6loGcasyf0UnSrtzs8kRxM+mfwJSf0DkX0s43hcqgnSO4/VNthQ==
   dependencies:
     env-paths "^2.2.0"
     exponential-backoff "^3.1.1"
@@ -6548,7 +6517,7 @@ node-gyp@^12.1.0:
     nopt "^9.0.0"
     proc-log "^6.0.0"
     semver "^7.3.5"
-    tar "^7.5.2"
+    tar "^7.5.4"
     tinyglobby "^0.2.12"
     which "^6.0.0"
 
@@ -6882,10 +6851,33 @@ pac-resolver@^7.0.1:
     degenerator "^5.0.0"
     netmask "^2.0.2"
 
-pacote@21.0.4, pacote@^21.0.0, pacote@^21.0.2, pacote@^21.0.4:
+pacote@21.0.4:
   version "21.0.4"
   resolved "https://registry.yarnpkg.com/pacote/-/pacote-21.0.4.tgz#59cd2a2b5a4c8c1b625f33991a96b136d1c05d95"
   integrity sha512-RplP/pDW0NNNDh3pnaoIWYPvNenS7UqMbXyvMqJczosiFWTeGGwJC2NQBLqKf4rGLFfwCOnntw1aEp9Jiqm1MA==
+  dependencies:
+    "@npmcli/git" "^7.0.0"
+    "@npmcli/installed-package-contents" "^4.0.0"
+    "@npmcli/package-json" "^7.0.0"
+    "@npmcli/promise-spawn" "^9.0.0"
+    "@npmcli/run-script" "^10.0.0"
+    cacache "^20.0.0"
+    fs-minipass "^3.0.0"
+    minipass "^7.0.2"
+    npm-package-arg "^13.0.0"
+    npm-packlist "^10.0.1"
+    npm-pick-manifest "^11.0.1"
+    npm-registry-fetch "^19.0.0"
+    proc-log "^6.0.0"
+    promise-retry "^2.0.1"
+    sigstore "^4.0.0"
+    ssri "^13.0.0"
+    tar "^7.4.3"
+
+pacote@^21.0.0, pacote@^21.0.2, pacote@^21.0.4:
+  version "21.1.0"
+  resolved "https://registry.yarnpkg.com/pacote/-/pacote-21.1.0.tgz#4f319aae0192dc96f707ac6b33c22ecf523b6253"
+  integrity sha512-WF/PwrImIIVaLmtuCeO5L7n6DA0ZGCqmDPO/XbNjZgNUX+2O5z4f4Wdmu6erBWNICkl3ftKJvit2eIVcpegRRw==
   dependencies:
     "@npmcli/git" "^7.0.0"
     "@npmcli/installed-package-contents" "^4.0.0"
@@ -7124,13 +7116,13 @@ primeicons@^7.0.0:
   integrity sha512-jK3Et9UzwzTsd6tzl2RmwrVY/b8raJ3QZLzoDACj+oTJ0oX7L9Hy+XnVwgo4QVKlKpnP/Ur13SXV/pVh4LzaDw==
 
 primeng@^21.0.4:
-  version "21.0.4"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-21.0.4.tgz#30bd941c6ca2a940c7577e1339ec772f2d730962"
-  integrity sha512-3egRt7p7sERALFVOVnNQ+JsW+GYgHHcqAYeFBxj3wvKN+tgGo1rtkHxBbMQjYGuO9S/V18LPhk8LJwfdE3DNoQ==
+  version "21.1.1"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-21.1.1.tgz#01999bdb61053ea6e01142627c8b7a51c651189c"
+  integrity sha512-ArX5X+psJjL37/5mRzIbeedYOtxDwjLrbBoTTw9hV6+kQt4v8xKy9R1dKuiIFG9OeQTQwzIaJ74OREBAJJmvoA==
   dependencies:
     "@primeuix/motion" "^0.0.10"
     "@primeuix/styled" "^0.7.4"
-    "@primeuix/styles" "^2.0.2"
+    "@primeuix/styles" "^2.0.3"
     "@primeuix/utils" "^0.6.3"
     tslib "^2.3.0"
 
@@ -7224,12 +7216,12 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.1.tgz#027422e2faec0b25e1549c3e1bd8309b9133b6e5"
   integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
 
-puppeteer-core@24.36.0:
-  version "24.36.0"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-24.36.0.tgz#6d4421b56b598bc503a4800f5204aaf2785d2ad3"
-  integrity sha512-P3Ou0MAFDCQ0dK1d9F9+8jTrg6JvXjUacgG0YkJQP4kbEnUOGokSDEMmMId5ZhXD5HwsHM202E9VwEpEjWfwxg==
+puppeteer-core@24.36.1:
+  version "24.36.1"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-24.36.1.tgz#8d60c80a27b86b3d1d948155ecab2deb404cc00f"
+  integrity sha512-L7ykMWc3lQf3HS7ME3PSjp7wMIjJeW6+bKfH/RSTz5l6VUDGubnrC2BKj3UvM28Y5PMDFW0xniJOZHBZPpW1dQ==
   dependencies:
-    "@puppeteer/browsers" "2.11.1"
+    "@puppeteer/browsers" "2.11.2"
     chromium-bidi "13.0.1"
     debug "^4.4.3"
     devtools-protocol "0.0.1551306"
@@ -7237,16 +7229,16 @@ puppeteer-core@24.36.0:
     webdriver-bidi-protocol "0.4.0"
     ws "^8.19.0"
 
-puppeteer@24.36.0:
-  version "24.36.0"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-24.36.0.tgz#240813cf24686ef93396a5c0975cd4b336a46f6f"
-  integrity sha512-BD/VCyV/Uezvd6o7Fd1DmEJSxTzofAKplzDy6T9d4WbLTQ5A+06zY7VwO91ZlNU22vYE8sidVEsTpTrKc+EEnQ==
+puppeteer@24.36.1:
+  version "24.36.1"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-24.36.1.tgz#55b328215090b9617eb71ca541232c14a60c14cb"
+  integrity sha512-uPiDUyf7gd7Il1KnqfNUtHqntL0w1LapEw5Zsuh8oCK8GsqdxySX1PzdIHKB2Dw273gWY4MW0zC5gy3Re9XlqQ==
   dependencies:
-    "@puppeteer/browsers" "2.11.1"
+    "@puppeteer/browsers" "2.11.2"
     chromium-bidi "13.0.1"
     cosmiconfig "^9.0.0"
     devtools-protocol "0.0.1551306"
-    puppeteer-core "24.36.0"
+    puppeteer-core "24.36.1"
     typed-query-selector "^2.12.0"
 
 qrcode-terminal@^0.12.0:
@@ -8119,10 +8111,10 @@ tar-stream@^3.1.5:
     fast-fifo "^1.2.0"
     streamx "^2.15.0"
 
-tar@^7.4.3, tar@^7.5.1, tar@^7.5.2, tar@^7.5.4, tar@^7.5.6:
-  version "7.5.6"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-7.5.6.tgz#2db7a210748a82f0a89cc31527b90d3a24984fb7"
-  integrity sha512-xqUeu2JAIJpXyvskvU3uvQW8PAmHrtXp2KDuMJwQqW8Sqq0CaZBAQ+dKS3RBXVhU4wC5NjAdKrmh84241gO9cA==
+tar@7.5.7, tar@^7.4.3, tar@^7.5.1, tar@^7.5.4:
+  version "7.5.7"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-7.5.7.tgz#adf99774008ba1c89819f15dbd6019c630539405"
+  integrity sha512-fov56fJiRuThVFXD6o6/Q354S7pnWMJIVlDBYijsTNx6jKSE4pvrDTs6lUnmGvNyfJwFQQwWy3owKz1ucIhveQ==
   dependencies:
     "@isaacs/fs-minipass" "^4.0.0"
     chownr "^3.0.0"
