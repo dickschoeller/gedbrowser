@@ -2,6 +2,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { of } from 'rxjs';
+import { vi } from 'vitest';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -52,5 +54,48 @@ describe('PersonParentComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('label returns Father for husband', () => {
+    component.attribute = { ...mockAttribute, type: 'husband' };
+    expect(component.label()).toBe('Father');
+  });
+
+  it('label returns Mother for wife', () => {
+    component.attribute = { ...mockAttribute, type: 'wife' };
+    expect(component.label()).toBe('Mother');
+  });
+
+  it('label returns Parent for other types', () => {
+    component.attribute = { ...mockAttribute, type: 'other' };
+    expect(component.label()).toBe('Parent');
+  });
+
+  it('familyString delegates to parent', () => {
+    expect(component.familyString()).toBe('F123');
+  });
+
+  it('refreshPerson delegates to parent', () => {
+    const spy = vi.spyOn(mockParent, 'refreshPerson');
+    component.refreshPerson();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('unlink calls deleteLink and refreshes', () => {
+    const person = { string: 'P1' } as any;
+    component.person = person;
+    const spy = vi.spyOn(TestBed.inject(PersonService), 'deleteLink').mockReturnValue(of(person));
+    const refreshSpy = vi.spyOn(mockParent, 'refreshPerson');
+    component.unlink();
+    expect(spy).toHaveBeenCalled();
+    expect(refreshSpy).toHaveBeenCalled();
+  });
+
+  it('ngOnChanges re-initializes with current dataset and attribute', () => {
+    const initSpy = vi.spyOn(component as any, 'init').mockImplementation(() => {});
+    component.dataset = 'ds';
+    component.attribute = { ...mockAttribute, string: 'I999' } as any;
+    component.ngOnChanges();
+    expect(initSpy).toHaveBeenCalledWith('ds', 'I999');
   });
 });
