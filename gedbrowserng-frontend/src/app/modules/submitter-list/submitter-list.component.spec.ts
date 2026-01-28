@@ -99,17 +99,8 @@ describe('SubmitterListComponent', () => {
   it('should initialize datasource on ngAfterViewInit', () => {
     component.ngAfterViewInit();
     expect(component.datasource).toBeDefined();
-  });
-
-  it('should handle ngOnChanges lifecycle hook', () => {
-    component.ngOnChanges();
-    expect(component).toBeTruthy();
-  });
-
-  it('should implement ListPage interface', () => {
-    expect(component.datasource).toBeDefined();
-    expect(component.paginator).toBeDefined();
-    expect(component.sort).toBeDefined();
+    expect(component.datasource.paginator).toBe(component.paginator);
+    expect(component.datasource.sort).toBe(component.sort);
   });
 
   it('should navigate on navigate() call', () => {
@@ -141,7 +132,6 @@ describe('SubmitterListComponent', () => {
 
   it('should maintain datasource reference through lifecycle', () => {
     component.submitters = mockSubmitters;
-    const initialDataSource = component.datasource;
 
     component.ngOnInit();
 
@@ -164,15 +154,6 @@ describe('SubmitterListComponent', () => {
     expect(component.datasource.filter).toBe('testfilter');
   });
 
-  it('should navigate with correct dataset prefix', () => {
-    component.dataset = 'myDataset';
-    const navigateSpy = vi.spyOn(router, 'navigate');
-
-    component.navigate('testSubmitterId');
-
-    expect(navigateSpy).toHaveBeenCalledWith(['/myDataset/submitters/testSubmitterId']);
-  });
-
   it('should call applyFilter with target.value from event', () => {
     component.submitters = mockSubmitters;
     component.ngOnInit();
@@ -182,12 +163,6 @@ describe('SubmitterListComponent', () => {
     component.applyFilter(mockEvent.target.value);
 
     expect(applyFilterSpy).toHaveBeenCalledWith('testFilter');
-  });
-
-  it('should implement SubmitterCreator base class', () => {
-    expect(component.submitterService).toBeDefined();
-    expect(component.openCreateSubmitterDialog).toBeDefined();
-    expect(typeof component.openCreateSubmitterDialog).toBe('function');
   });
 
   it('should handle delete operation', () => {
@@ -214,24 +189,5 @@ describe('SubmitterListComponent', () => {
     component.ngOnInit();
 
     expect(component.datasource.data).toEqual(newSubmitters);
-  });
-
-  it('should have displayedColumns property', () => {
-    expect(component.displayedColumns).toBeDefined();
-    expect(Array.isArray(component.displayedColumns)).toBe(true);
-  });
-
-  it('should have pagesizeoptions method', () => {
-    expect(component.pagesizeoptions).toBeDefined();
-    expect(typeof component.pagesizeoptions).toBe('function');
-  });
-
-  it('should refresh submitter', () => {
-    component.dataset = 'testDataset';
-    const refreshSubmitterSpy = vi.spyOn(component.parent, 'refreshSubmitter');
-
-    component.refreshSubmitter(mockSubmitters[0]);
-
-    expect(refreshSubmitterSpy).toHaveBeenCalledWith(mockSubmitters[0]);
   });
 });

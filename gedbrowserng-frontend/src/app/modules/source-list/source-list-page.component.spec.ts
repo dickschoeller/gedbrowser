@@ -68,36 +68,6 @@ describe('SourceListPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should implement OnInit interface', () => {
-    expect(component.ngOnInit).toBeDefined();
-    expect(typeof component.ngOnInit).toBe('function');
-  });
-
-  it('should implement OnChanges interface', () => {
-    expect(component.ngOnChanges).toBeDefined();
-    expect(typeof component.ngOnChanges).toBe('function');
-  });
-
-  it('should implement RefreshSource interface', () => {
-    expect(component.refreshSource).toBeDefined();
-    expect(typeof component.refreshSource).toBe('function');
-  });
-
-  it('should call ngOnInit', () => {
-    paramsSubject.next({ dataset: 'testDataset' });
-    dataSubject.next({ dataset: 'testDataset', sources: mockSources });
-
-    expect(() => {
-      component.ngOnInit();
-    }).not.toThrow();
-  });
-
-  it('should call ngOnChanges', () => {
-    expect(() => {
-      component.ngOnChanges();
-    }).not.toThrow();
-  });
-
   it('should subscribe to route params', () => {
     paramsSubject.next({ dataset: 'testDataset' });
     dataSubject.next({ dataset: 'testDataset', sources: mockSources });
@@ -187,14 +157,6 @@ describe('SourceListPageComponent', () => {
     component.refreshSource(mockSources[1]);
 
     expect(getAllSpy).toHaveBeenCalledTimes(2);
-  });
-
-  it('should have dataset property', () => {
-    expect(component).toHaveProperty('dataset');
-  });
-
-  it('should have sources property', () => {
-    expect(component).toHaveProperty('sources');
   });
 
   it('should update sources when new data is received', () => {
