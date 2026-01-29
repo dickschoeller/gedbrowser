@@ -9,13 +9,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.persistence.domain.NoteDocument;
+import org.schoellerfamily.gedbrowser.datamodel.Submission;
+import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmissionDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -25,15 +25,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public class NoteRepositoryTest {
-    /**
-     * Standard answer in the note counts tests.
-     */
-    private static final long NOTE_COUNT = 3L;
-
+public final class SubmissionRepositoryIT {
     /** */
     @Autowired
-    private transient NoteDocumentRepositoryMongo noteDocumentRepository;
+    private transient SubmissionDocumentRepositoryMongo submissionDocumentRepository;
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
@@ -67,80 +62,87 @@ public class NoteRepositoryTest {
 
     /** */
     @Test
-    void testN1() {
-        final NoteDocument famdoc = noteDocumentRepository.findByFileAndString(root.getFilename(),
-            "N1");
-        final Note note = (Note) toObjConverter.createGedObject(root, famdoc);
-        assertEquals("N1", note.getString(), "Id mismatch");
+    void testSubmission() {
+        final SubmissionDocument document = submissionDocumentRepository
+            .findByFileAndString(root.getFilename(), "SUBMISSION");
+        final Submission submission = (Submission) toObjConverter.createGedObject(root, document);
+        assertEquals("SUBMISSION", submission.getString(), "Expected submission string");
     }
 
     /** */
     @Test
-    void testN1Root() {
-        final NoteDocument famdoc = noteDocumentRepository.findByRootAndString(rootDocument, "N1");
-        final Note note = (Note) toObjConverter.createGedObject(root, famdoc);
-        assertEquals("N1", note.getString(), "Id mismatch");
+    void testSubmissionRoot() {
+        final SubmissionDocument document = submissionDocumentRepository
+            .findByRootAndString(rootDocument, "SUBMISSION");
+        final Submission submission = (Submission) toObjConverter.createGedObject(root, document);
+        assertEquals("SUBMISSION", submission.getString(), "Expected submission string");
     }
 
     /** */
     @Test
     void testBogus() {
-        final NoteDocument famdoc = noteDocumentRepository.findByFileAndString(root.getFilename(),
-            "N999999");
-        assertNull(famdoc, "Bogus request should return null");
+        final SubmissionDocument perdoc = submissionDocumentRepository
+            .findByFileAndString(root.getFilename(), "Mumble");
+        assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     void testBogusRoot() {
-        final NoteDocument famdoc = noteDocumentRepository.findByRootAndString(rootDocument,
-            "N999999");
-        assertNull(famdoc, "Bogus request should return null");
+        final SubmissionDocument perdoc = submissionDocumentRepository
+            .findByRootAndString(rootDocument, "Mumble");
+        assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     void testCountRoot() {
-        assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument), "Should be 3 notes");
+        final long expected = 1;
+        final long count = submissionDocumentRepository.count(rootDocument);
+        assertEquals(expected, count, "Should be 1 submission");
     }
 
     /** */
     @Test
     void testCountFilename() {
-        assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument.getFilename()),
-            "Should be 3 notes");
+        final long expected = 1;
+        final long count = submissionDocumentRepository.count(rootDocument.getFilename());
+        assertEquals(expected, count, "Should be 1 submission");
     }
 
     /** */
     @Test
     void testFindAllRoot() {
-        final Iterable<NoteDocument> list = noteDocumentRepository.findAll(rootDocument);
+        final Iterable<SubmissionDocument> list = submissionDocumentRepository
+            .findAll(rootDocument);
         int count = 0;
-        for (final NoteDocument note : list) {
-            checkEquals("Type string mismatch", "note", note.getType());
+        for (final SubmissionDocument submission : list) {
+            checkEquals("Type string mismatch", "submission", submission.getType());
             count++;
         }
-        assertEquals(NOTE_COUNT, count, "Should be 3 notes");
+        final long expected = 1;
+        assertEquals(expected, count, "Should be 1 submission");
     }
 
     /** */
     @Test
     void testFindAllFilename() {
-        final Iterable<NoteDocument> list = noteDocumentRepository
+        final Iterable<SubmissionDocument> list = submissionDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;
-        for (final NoteDocument note : list) {
-            checkEquals("Type string mismatch", "note", note.getType());
+        for (final SubmissionDocument submission : list) {
+            checkEquals("Type string mismatch", "submission", submission.getType());
             count++;
         }
-        assertEquals(NOTE_COUNT, count, "Should be 3 notes");
+        final long expected = 1;
+        assertEquals(expected, count, "Should be 1 submission");
     }
 
     /** */
     @Test
     void testLastId() {
-        final String string = noteDocumentRepository.lastId(rootDocument);
-        assertEquals("N3", string, "");
+        final String string = submissionDocumentRepository.lastId(rootDocument);
+        assertEquals("SUBN", string, "");
     }
 
     /**

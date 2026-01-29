@@ -10,12 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Submission;
-import org.schoellerfamily.gedbrowser.persistence.domain.SubmissionDocument;
+import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmissionDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -25,10 +25,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class SubmissionRepositoryTest {
+public final class SubmitterRepositoryIT {
     /** */
     @Autowired
-    private transient SubmissionDocumentRepositoryMongo submissionDocumentRepository;
+    private transient SubmitterDocumentRepositoryMongo submitterDocumentRepository;
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
@@ -62,26 +62,26 @@ public final class SubmissionRepositoryTest {
 
     /** */
     @Test
-    void testSubmission() {
-        final SubmissionDocument document = submissionDocumentRepository
-            .findByFileAndString(root.getFilename(), "SUBMISSION");
-        final Submission submission = (Submission) toObjConverter.createGedObject(root, document);
-        assertEquals("SUBMISSION", submission.getString(), "Expected submission string");
+    void testSubmitter() {
+        final SubmitterDocument document = submitterDocumentRepository
+            .findByFileAndString(root.getFilename(), "SUB1");
+        final Submitter submitter = (Submitter) toObjConverter.createGedObject(root, document);
+        assertEquals("SUB1", submitter.getString(), "Expected submitter string");
     }
 
     /** */
     @Test
-    void testSubmissionRoot() {
-        final SubmissionDocument document = submissionDocumentRepository
-            .findByRootAndString(rootDocument, "SUBMISSION");
-        final Submission submission = (Submission) toObjConverter.createGedObject(root, document);
-        assertEquals("SUBMISSION", submission.getString(), "Expected submission string");
+    void testSubmitterRoot() {
+        final SubmitterDocument document = submitterDocumentRepository
+            .findByRootAndString(rootDocument, "SUB1");
+        final Submitter submitter = (Submitter) toObjConverter.createGedObject(root, document);
+        assertEquals("SUB1", submitter.getString(), "Expected submitter string");
     }
 
     /** */
     @Test
     void testBogus() {
-        final SubmissionDocument perdoc = submissionDocumentRepository
+        final SubmitterDocument perdoc = submitterDocumentRepository
             .findByFileAndString(root.getFilename(), "Mumble");
         assertNull(perdoc, "Bogus request should return null");
     }
@@ -89,7 +89,7 @@ public final class SubmissionRepositoryTest {
     /** */
     @Test
     void testBogusRoot() {
-        final SubmissionDocument perdoc = submissionDocumentRepository
+        final SubmitterDocument perdoc = submitterDocumentRepository
             .findByRootAndString(rootDocument, "Mumble");
         assertNull(perdoc, "Bogus request should return null");
     }
@@ -98,51 +98,50 @@ public final class SubmissionRepositoryTest {
     @Test
     void testCountRoot() {
         final long expected = 1;
-        final long count = submissionDocumentRepository.count(rootDocument);
-        assertEquals(expected, count, "Should be 1 submission");
+        final long count = submitterDocumentRepository.count(rootDocument);
+        assertEquals(expected, count, "Should be 1 submitter");
     }
 
     /** */
     @Test
     void testCountFilename() {
         final long expected = 1;
-        final long count = submissionDocumentRepository.count(rootDocument.getFilename());
-        assertEquals(expected, count, "Should be 1 submission");
+        final long count = submitterDocumentRepository.count(rootDocument.getFilename());
+        assertEquals(expected, count, "Should be 1 submitter");
     }
 
     /** */
     @Test
     void testFindAllRoot() {
-        final Iterable<SubmissionDocument> list = submissionDocumentRepository
-            .findAll(rootDocument);
+        final Iterable<SubmitterDocument> list = submitterDocumentRepository.findAll(rootDocument);
         int count = 0;
-        for (final SubmissionDocument submission : list) {
-            checkEquals("Type string mismatch", "submission", submission.getType());
+        for (final SubmitterDocument submitter : list) {
+            checkEquals("Type string mismatch", "submitter", submitter.getType());
             count++;
         }
         final long expected = 1;
-        assertEquals(expected, count, "Should be 1 submission");
+        assertEquals(expected, count, "Should be 1 submitter");
     }
 
     /** */
     @Test
     void testFindAllFilename() {
-        final Iterable<SubmissionDocument> list = submissionDocumentRepository
+        final Iterable<SubmitterDocument> list = submitterDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;
-        for (final SubmissionDocument submission : list) {
-            checkEquals("Type string mismatch", "submission", submission.getType());
+        for (final SubmitterDocument submitter : list) {
+            checkEquals("Type string mismatch", "submitter", submitter.getType());
             count++;
         }
         final long expected = 1;
-        assertEquals(expected, count, "Should be 1 submission");
+        assertEquals(expected, count, "Should be 1 submitter");
     }
 
     /** */
     @Test
     void testLastId() {
-        final String string = submissionDocumentRepository.lastId(rootDocument);
-        assertEquals("SUBN", string, "");
+        final String string = submitterDocumentRepository.lastId(rootDocument);
+        assertEquals("SUB1", string, "");
     }
 
     /**

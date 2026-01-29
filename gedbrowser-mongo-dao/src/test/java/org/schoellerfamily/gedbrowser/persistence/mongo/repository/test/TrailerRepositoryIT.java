@@ -10,12 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Submitter;
-import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
+import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -25,10 +25,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class SubmitterRepositoryTest {
+public final class TrailerRepositoryIT {
+    /** */
+    private static final String TRAILER_STRING = "Trailer";
+
     /** */
     @Autowired
-    private transient SubmitterDocumentRepositoryMongo submitterDocumentRepository;
+    private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
@@ -62,26 +65,26 @@ public final class SubmitterRepositoryTest {
 
     /** */
     @Test
-    void testSubmitter() {
-        final SubmitterDocument document = submitterDocumentRepository
-            .findByFileAndString(root.getFilename(), "SUB1");
-        final Submitter submitter = (Submitter) toObjConverter.createGedObject(root, document);
-        assertEquals("SUB1", submitter.getString(), "Expected submitter string");
+    void testTrailer() {
+        final TrailerDocument document = trailerDocumentRepository
+            .findByFileAndString(root.getFilename(), TRAILER_STRING);
+        final Trailer trailer = (Trailer) toObjConverter.createGedObject(root, document);
+        assertEquals(TRAILER_STRING, trailer.getString(), "Expected trailer string");
     }
 
     /** */
     @Test
-    void testSubmitterRoot() {
-        final SubmitterDocument document = submitterDocumentRepository
-            .findByRootAndString(rootDocument, "SUB1");
-        final Submitter submitter = (Submitter) toObjConverter.createGedObject(root, document);
-        assertEquals("SUB1", submitter.getString(), "Expected submitter string");
+    void testTrailerRoot() {
+        final TrailerDocument document = trailerDocumentRepository.findByRootAndString(rootDocument,
+            TRAILER_STRING);
+        final Trailer trailer = (Trailer) toObjConverter.createGedObject(root, document);
+        assertEquals(TRAILER_STRING, trailer.getString(), "Expected trailer string");
     }
 
     /** */
     @Test
     void testBogus() {
-        final SubmitterDocument perdoc = submitterDocumentRepository
+        final TrailerDocument perdoc = trailerDocumentRepository
             .findByFileAndString(root.getFilename(), "Mumble");
         assertNull(perdoc, "Bogus request should return null");
     }
@@ -89,59 +92,48 @@ public final class SubmitterRepositoryTest {
     /** */
     @Test
     void testBogusRoot() {
-        final SubmitterDocument perdoc = submitterDocumentRepository
-            .findByRootAndString(rootDocument, "Mumble");
+        final TrailerDocument perdoc = trailerDocumentRepository.findByRootAndString(rootDocument,
+            "Mumble");
         assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     void testCountRoot() {
-        final long expected = 1;
-        final long count = submitterDocumentRepository.count(rootDocument);
-        assertEquals(expected, count, "Should be 1 submitter");
+        assertEquals(1, trailerDocumentRepository.count(rootDocument),
+            "Should only be one trailer");
     }
 
     /** */
     @Test
     void testCountFilename() {
-        final long expected = 1;
-        final long count = submitterDocumentRepository.count(rootDocument.getFilename());
-        assertEquals(expected, count, "Should be 1 submitter");
+        assertEquals(1, trailerDocumentRepository.count(rootDocument.getFilename()),
+            "Should only be one trailer");
     }
 
     /** */
     @Test
     void testFindAllRoot() {
-        final Iterable<SubmitterDocument> list = submitterDocumentRepository.findAll(rootDocument);
+        final Iterable<TrailerDocument> list = trailerDocumentRepository.findAll(rootDocument);
         int count = 0;
-        for (final SubmitterDocument submitter : list) {
-            checkEquals("Type string mismatch", "submitter", submitter.getType());
+        for (final TrailerDocument trailer : list) {
+            checkEquals("Type string mismatch", "trailer", trailer.getType());
             count++;
         }
-        final long expected = 1;
-        assertEquals(expected, count, "Should be 1 submitter");
+        assertEquals(1, count, "Should only be one trailer");
     }
 
     /** */
     @Test
     void testFindAllFilename() {
-        final Iterable<SubmitterDocument> list = submitterDocumentRepository
+        final Iterable<TrailerDocument> list = trailerDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;
-        for (final SubmitterDocument submitter : list) {
-            checkEquals("Type string mismatch", "submitter", submitter.getType());
+        for (final TrailerDocument trailer : list) {
+            checkEquals("Type string mismatch", "trailer", trailer.getType());
             count++;
         }
-        final long expected = 1;
-        assertEquals(expected, count, "Should be 1 submitter");
-    }
-
-    /** */
-    @Test
-    void testLastId() {
-        final String string = submitterDocumentRepository.lastId(rootDocument);
-        assertEquals("SUB1", string, "");
+        assertEquals(1, count, "Should only be one trailer");
     }
 
     /**

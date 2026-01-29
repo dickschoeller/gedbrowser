@@ -9,13 +9,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Source;
-import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
+import org.schoellerfamily.gedbrowser.persistence.domain.NoteDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.NoteDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -25,15 +25,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class SourceRepositoryTest {
+public class NoteRepositoryIT {
     /**
-     * Expected value in source count tests.
+     * Standard answer in the note counts tests.
      */
-    private static final long SOURCE_COUNT = 9L;
+    private static final long NOTE_COUNT = 3L;
 
     /** */
     @Autowired
-    private transient SourceDocumentRepositoryMongo sourceDocumentRepository;
+    private transient NoteDocumentRepositoryMongo noteDocumentRepository;
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
@@ -67,89 +67,80 @@ public final class SourceRepositoryTest {
 
     /** */
     @Test
-    void testSource() {
-        final SourceDocument document = sourceDocumentRepository
-            .findByFileAndString(root.getFilename(), "S2");
-        final Source source = (Source) toObjConverter.createGedObject(root, document);
-        assertEquals("S2", source.getString(), "Id mismatch");
+    void testN1() {
+        final NoteDocument famdoc = noteDocumentRepository.findByFileAndString(root.getFilename(),
+            "N1");
+        final Note note = (Note) toObjConverter.createGedObject(root, famdoc);
+        assertEquals("N1", note.getString(), "Id mismatch");
     }
 
     /** */
     @Test
-    void testSourceRoot() {
-        final SourceDocument document = sourceDocumentRepository.findByRootAndString(rootDocument,
-            "S2");
-        final Source source = (Source) toObjConverter.createGedObject(root, document);
-        assertEquals("S2", source.getString(), "Id mismatch");
+    void testN1Root() {
+        final NoteDocument famdoc = noteDocumentRepository.findByRootAndString(rootDocument, "N1");
+        final Note note = (Note) toObjConverter.createGedObject(root, famdoc);
+        assertEquals("N1", note.getString(), "Id mismatch");
     }
 
     /** */
     @Test
     void testBogus() {
-        final SourceDocument perdoc = sourceDocumentRepository
-            .findByFileAndString(root.getFilename(), "S999999");
-        assertNull(perdoc, "Bogus request should return null");
+        final NoteDocument famdoc = noteDocumentRepository.findByFileAndString(root.getFilename(),
+            "N999999");
+        assertNull(famdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     void testBogusRoot() {
-        final SourceDocument perdoc = sourceDocumentRepository.findByRootAndString(rootDocument,
-            "S999999");
-        assertNull(perdoc, "Bogus request should return null");
+        final NoteDocument famdoc = noteDocumentRepository.findByRootAndString(rootDocument,
+            "N999999");
+        assertNull(famdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     void testCountRoot() {
-        assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument),
-            "Should be 9 sources");
+        assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument), "Should be 3 notes");
     }
 
     /** */
     @Test
     void testCountFilename() {
-        assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument.getFilename()),
-            "Should be 9 sources");
+        assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument.getFilename()),
+            "Should be 3 notes");
     }
 
     /** */
     @Test
     void testFindAllRoot() {
-        final Iterable<SourceDocument> list = sourceDocumentRepository.findAll(rootDocument);
+        final Iterable<NoteDocument> list = noteDocumentRepository.findAll(rootDocument);
         int count = 0;
-        for (final SourceDocument source : list) {
-            checkEquals("Type string mismatch", "source", source.getType());
+        for (final NoteDocument note : list) {
+            checkEquals("Type string mismatch", "note", note.getType());
             count++;
         }
-        assertEquals(SOURCE_COUNT, count, "Should be 9 sources");
+        assertEquals(NOTE_COUNT, count, "Should be 3 notes");
     }
 
     /** */
     @Test
     void testFindAllFilename() {
-        final Iterable<SourceDocument> list = sourceDocumentRepository
+        final Iterable<NoteDocument> list = noteDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;
-        for (final SourceDocument source : list) {
-            checkEquals("Type string mismatch", "source", source.getType());
+        for (final NoteDocument note : list) {
+            checkEquals("Type string mismatch", "note", note.getType());
             count++;
         }
-        assertEquals(SOURCE_COUNT, count, "Should be 9 sources");
+        assertEquals(NOTE_COUNT, count, "Should be 3 notes");
     }
 
     /** */
     @Test
     void testLastId() {
-        final String string = sourceDocumentRepository.lastId(rootDocument);
-        assertEquals("S229", string, "");
-    }
-
-    /** */
-    @Test
-    void testNewId() {
-        final String string = sourceDocumentRepository.newId(rootDocument);
-        assertEquals("S230", string, "");
+        final String string = noteDocumentRepository.lastId(rootDocument);
+        assertEquals("N3", string, "");
     }
 
     /**

@@ -10,12 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Trailer;
-import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
+import org.schoellerfamily.gedbrowser.datamodel.Source;
+import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedDocumentMongoToGedObjectConverter;
-import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SourceDocumentRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -25,13 +25,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class TrailerRepositoryTest {
-    /** */
-    private static final String TRAILER_STRING = "Trailer";
+public final class SourceRepositoryIT {
+    /**
+     * Expected value in source count tests.
+     */
+    private static final long SOURCE_COUNT = 9L;
 
     /** */
     @Autowired
-    private transient TrailerDocumentRepositoryMongo trailerDocumentRepository;
+    private transient SourceDocumentRepositoryMongo sourceDocumentRepository;
     /** */
     @Autowired
     private transient RepositoryFixture repositoryFixture;
@@ -65,75 +67,89 @@ public final class TrailerRepositoryTest {
 
     /** */
     @Test
-    void testTrailer() {
-        final TrailerDocument document = trailerDocumentRepository
-            .findByFileAndString(root.getFilename(), TRAILER_STRING);
-        final Trailer trailer = (Trailer) toObjConverter.createGedObject(root, document);
-        assertEquals(TRAILER_STRING, trailer.getString(), "Expected trailer string");
+    void testSource() {
+        final SourceDocument document = sourceDocumentRepository
+            .findByFileAndString(root.getFilename(), "S2");
+        final Source source = (Source) toObjConverter.createGedObject(root, document);
+        assertEquals("S2", source.getString(), "Id mismatch");
     }
 
     /** */
     @Test
-    void testTrailerRoot() {
-        final TrailerDocument document = trailerDocumentRepository.findByRootAndString(rootDocument,
-            TRAILER_STRING);
-        final Trailer trailer = (Trailer) toObjConverter.createGedObject(root, document);
-        assertEquals(TRAILER_STRING, trailer.getString(), "Expected trailer string");
+    void testSourceRoot() {
+        final SourceDocument document = sourceDocumentRepository.findByRootAndString(rootDocument,
+            "S2");
+        final Source source = (Source) toObjConverter.createGedObject(root, document);
+        assertEquals("S2", source.getString(), "Id mismatch");
     }
 
     /** */
     @Test
     void testBogus() {
-        final TrailerDocument perdoc = trailerDocumentRepository
-            .findByFileAndString(root.getFilename(), "Mumble");
+        final SourceDocument perdoc = sourceDocumentRepository
+            .findByFileAndString(root.getFilename(), "S999999");
         assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     void testBogusRoot() {
-        final TrailerDocument perdoc = trailerDocumentRepository.findByRootAndString(rootDocument,
-            "Mumble");
+        final SourceDocument perdoc = sourceDocumentRepository.findByRootAndString(rootDocument,
+            "S999999");
         assertNull(perdoc, "Bogus request should return null");
     }
 
     /** */
     @Test
     void testCountRoot() {
-        assertEquals(1, trailerDocumentRepository.count(rootDocument),
-            "Should only be one trailer");
+        assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument),
+            "Should be 9 sources");
     }
 
     /** */
     @Test
     void testCountFilename() {
-        assertEquals(1, trailerDocumentRepository.count(rootDocument.getFilename()),
-            "Should only be one trailer");
+        assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument.getFilename()),
+            "Should be 9 sources");
     }
 
     /** */
     @Test
     void testFindAllRoot() {
-        final Iterable<TrailerDocument> list = trailerDocumentRepository.findAll(rootDocument);
+        final Iterable<SourceDocument> list = sourceDocumentRepository.findAll(rootDocument);
         int count = 0;
-        for (final TrailerDocument trailer : list) {
-            checkEquals("Type string mismatch", "trailer", trailer.getType());
+        for (final SourceDocument source : list) {
+            checkEquals("Type string mismatch", "source", source.getType());
             count++;
         }
-        assertEquals(1, count, "Should only be one trailer");
+        assertEquals(SOURCE_COUNT, count, "Should be 9 sources");
     }
 
     /** */
     @Test
     void testFindAllFilename() {
-        final Iterable<TrailerDocument> list = trailerDocumentRepository
+        final Iterable<SourceDocument> list = sourceDocumentRepository
             .findAll(rootDocument.getFilename());
         int count = 0;
-        for (final TrailerDocument trailer : list) {
-            checkEquals("Type string mismatch", "trailer", trailer.getType());
+        for (final SourceDocument source : list) {
+            checkEquals("Type string mismatch", "source", source.getType());
             count++;
         }
-        assertEquals(1, count, "Should only be one trailer");
+        assertEquals(SOURCE_COUNT, count, "Should be 9 sources");
+    }
+
+    /** */
+    @Test
+    void testLastId() {
+        final String string = sourceDocumentRepository.lastId(rootDocument);
+        assertEquals("S229", string, "");
+    }
+
+    /** */
+    @Test
+    void testNewId() {
+        final String string = sourceDocumentRepository.newId(rootDocument);
+        assertEquals("S230", string, "");
     }
 
     /**

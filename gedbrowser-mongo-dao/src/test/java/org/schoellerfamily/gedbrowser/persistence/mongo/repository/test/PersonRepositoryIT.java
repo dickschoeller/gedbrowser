@@ -28,7 +28,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class PersonRepositoryTest {
+public final class PersonRepositoryIT {
     /**
      * Normal expected value in person counting tests.
      */

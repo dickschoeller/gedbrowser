@@ -37,7 +37,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class HeadRepositoryTest {
+public final class HeadRepositoryIT {
     /** */
     private static final String HEADER_STRING = "Header";
 

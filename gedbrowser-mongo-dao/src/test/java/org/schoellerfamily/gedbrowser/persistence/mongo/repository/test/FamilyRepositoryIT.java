@@ -25,7 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class FamilyRepositoryTest {
+public final class FamilyRepositoryIT {
     /**
      * Standard answer in the family counts tests.
      */
