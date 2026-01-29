@@ -113,7 +113,7 @@ public final class IndexByPlaceRendererTest {
     void testIndexAsAdminSchoeller() throws IOException {
         // Test can only be run with my data.
         // Takes about .4 seconds
-        final Root root = reader.readFileTestSource("/var/lib/gedbrowser/schoeller.ged");
+        final Root root = reader.readFileTestSource("schoeller.ged");
         log.info("starting testIndexAsAdminSchoeller");
         final IndexByPlaceRenderer ir = new IndexByPlaceRenderer(root, client, adminContext);
         final Map<String, Set<PersonRenderer>> map = ir.getWholeIndex();
