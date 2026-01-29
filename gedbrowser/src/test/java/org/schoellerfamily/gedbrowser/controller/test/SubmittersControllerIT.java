@@ -23,9 +23,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @AutoConfigureRestTestClient
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
-class LivingControllerTest implements MenuTestHelper {
-
+public class SubmittersControllerIT implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -40,9 +38,9 @@ class LivingControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    void testLivingControllerOK() {
+    void testSubmittersControllerOK() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser/living?db=gl120368";
+                + "/gedbrowser/submitters?db=gl120368";
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create(url))
                 .exchange()
@@ -52,15 +50,31 @@ class LivingControllerTest implements MenuTestHelper {
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
-                    "<title>Living - gl120368</title>",
+                    "<title>Submitters - gl120368</title>",
+                    "Submitters for dataset: gl120368</h2>",
+                    "href=\"submitter?db=gl120368&amp;id=U1\">Phil Williams",
+                    "href=\"submitter?db=gl120368&amp;id=U3\"> ",
+                    "href=\"submitter?db=gl120368&amp;id=U14\">A K Robinson",
+                    "href=\"submitter?db=gl120368&amp;id=U15\">Michael ",
+                    "href=\"submitter?db=gl120368&amp;id=U2\">Arthur PUNCHA",
+                    "href=\"submitter?db=gl120368&amp;id=U4\">Created by Fa",
+                    "href=\"submitter?db=gl120368&amp;id=U5\">Paul Alger",
+                    "href=\"submitter?db=gl120368&amp;id=U6\">Jim Beecroft",
+                    "href=\"submitter?db=gl120368&amp;id=U7\">ken stel",
+                    "href=\"submitter?db=gl120368&amp;id=U8\">Mark Willis B",
+                    "href=\"submitter?db=gl120368&amp;id=U9\">Patricia Fisc",
+                    "href=\"submitter?db=gl120368&amp;id=U10\">Hirt-Klooze",
+                    "href=\"submitter?db=gl120368&amp;id=U11\">Lester LeMay",
+                    "href=\"submitter?db=gl120368&amp;id=U12\">David A. Blo",
+                    "href=\"submitter?db=gl120368&amp;id=U13\">Dave Morris",
                     getMenu("A"));
     }
 
     /** */
     @Test
-    void testLivingControllerBadDataSet() {
+    void testSubmittersControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/living?db=XYZZY"))
+                .uri(URI.create("http://localhost:" + port + "/gedbrowser/submitters?db=XYZZY"))
                 .exchange()
                 .returnResult(String.class);
 

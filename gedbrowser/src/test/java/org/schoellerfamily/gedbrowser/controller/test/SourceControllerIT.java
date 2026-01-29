@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-public class SubmissionControllerTest implements MenuTestHelper {
+public class SourceControllerIT implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -38,8 +38,8 @@ public class SubmissionControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    void testSubmissionControllerS33750() {
-        final String url = "http://localhost:" + port + "/gedbrowser/submission?db=gl120368&id=B1";
+    void testSourceControllerS33750() {
+        final String url = "http://localhost:" + port + "/gedbrowser/source?db=gl120368&id=S33750";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
             .exchange()
@@ -49,16 +49,16 @@ public class SubmissionControllerTest implements MenuTestHelper {
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
-                    "<title>B1 - gl120368",
+                    "<title>File (merged):"
+                    + " C:\\Users\\Phil\\Downloads\\butcher\\butcher.GED" + " - S33750 - gl120368",
                     getMenu("A"));
     }
 
     /** */
     @Test
-    void testSubmissionControllerBadDataSet() {
+    void testSourceControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-            .uri(URI
-                .create("http://localhost:" + port + "/gedbrowser/submission?db=XYZZY&id=S33750"))
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/source?db=XYZZY&id=S33750"))
             .exchange()
             .returnResult(String.class);
 
@@ -70,10 +70,9 @@ public class SubmissionControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    void testSubmissionControllerBadSubmission() {
+    void testSourceControllerBadSource() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-            .uri(URI
-                .create("http://localhost:" + port + "/gedbrowser/submission?db=gl120368&id=XYZZY"))
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/source?db=gl120368&id=XYZZY"))
             .exchange()
             .returnResult(String.class);
 
@@ -81,7 +80,7 @@ public class SubmissionControllerTest implements MenuTestHelper {
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
-                    "Submission not found",
+                    "Source not found",
                     getMenu("A"));
     }
 }

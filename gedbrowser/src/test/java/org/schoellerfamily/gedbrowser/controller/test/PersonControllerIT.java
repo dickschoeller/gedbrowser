@@ -23,12 +23,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-class IndexControllerTest implements MenuTestHelper {
-    /**
-     * Template for building surname index URLs.
-     */
-    private static final String URL_TEMPLATE =
-        "http://localhost:%d/gedbrowser/surnames?db=%s&letter=%s";
+public class PersonControllerIT implements MenuTestHelper {
 
     /**
      * Not sure what this is good for.
@@ -44,8 +39,8 @@ class IndexControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    void testIndexControllerC() {
-        final String url = URL_TEMPLATE.formatted(port, "gl120368", "C");
+    void testPersonControllerI4() {
+        final String url = "http://localhost:" + port + "/gedbrowser/person?db=gl120368&id=I4";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
             .exchange()
@@ -55,16 +50,14 @@ class IndexControllerTest implements MenuTestHelper {
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
-                    "<title>Index - C - gl120368</title>",
-                    "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
-                    "<li id=\"I2508\"><a href=\"person?db=gl120368&amp;id=",
-                    getMenu("C"));
+                    "<title>Living  - I4 - gl120368</title>",
+                    getMenu("?#?"));
     }
 
     /** */
     @Test
-    void testIndexControllerB() {
-        final String url = URL_TEMPLATE.formatted(port, "gl120368", "B");
+    void testPersonControllerI9() {
+        final String url = "http://localhost:" + port + "/gedbrowser/person?db=gl120368&id=I9";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
             .exchange()
@@ -74,18 +67,16 @@ class IndexControllerTest implements MenuTestHelper {
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
-                    "<title>Index - B - gl120368</title>",
-                    "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
-                    "<li id=\"I2561\"><a href=\"person?db=gl120368&amp;id=",
-                    getMenu("B"));
+                    "<title>Edwin Elijah A  Williams (13 DEC 1883-ABT AUG "
+                        + "1951) - I9 - gl120368</title>",
+                    getMenu("W#Williams"));
     }
 
     /** */
     @Test
-    void testIndexControllerBadDataSet() {
-        final String url = URL_TEMPLATE.formatted(port, "XYZZY", "A");
+    void testPersonControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-            .uri(URI.create(url))
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/person?db=XYZZY&id=I99"))
             .exchange()
             .returnResult(String.class);
 
@@ -97,21 +88,17 @@ class IndexControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    void testIndexControllerLetter() {
-        final String url = URL_TEMPLATE.formatted(port, "gl120368", "q");
+    void testPersonControllerBadPerson() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-            .uri(URI.create(url))
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/person?db=gl120368&id=XYZZY"))
             .exchange()
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
-                .asString()
-                    .contains(
-                        "<title>Index - q - gl120368</title>",
-                        "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
-                        getMenu("q"))
-                    .doesNotContain("<li><a href=\"person?db=gl120368&amp;id=");
+                .asString().contains(
+                    "Person not found",
+                    getMenu("A"));
     }
 }

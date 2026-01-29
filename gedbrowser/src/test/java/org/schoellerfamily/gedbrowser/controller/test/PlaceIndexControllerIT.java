@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @AutoConfigureRestTestClient
-class HeadControllerTest implements MenuTestHelper {
+public class PlaceIndexControllerIT implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -38,9 +38,9 @@ class HeadControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    void testHeadController() {
+    void testControllerGL120368() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser/head?db=gl120368";
+                + "/gedbrowser/places?db=gl120368";
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create(url))
                 .exchange()
@@ -50,47 +50,15 @@ class HeadControllerTest implements MenuTestHelper {
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
-                    "<title>Header - gl120368</title>",
-                    "File:</span> C:\\Users\\Phil\\Documents\\W0803.GED",
-                    "GEDCOM:</span> 5.5, LINEAGE-LINKED",
-                    "Character Set:</span> ANSI",
-                    "Destination:</span> FTM",
-                    "Submitter:</span> <a class=\"name\""
-                    + " href=\"submitter?db=gl120368&amp;id=U1\">Phil Williams"
-                    + " [U1]</a>",
+                    "<title>Places - gl120368</title>",
                     getMenu("A"));
     }
 
     /** */
     @Test
-    void testHeadControllerSchoeller() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/head?db=mini-schoeller";
+    void testControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity)
-            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
-                .asString().contains(
-                    "<title>Header - mini-schoeller</title>",
-                    "Submitter:</span> <a class=\"name\""
-                    + " href=\"submitter?db=mini-schoeller&amp;"
-                    + "id=SUB1\">Richard Schoeller [SUB1]</a>",
-                    "GEDCOM:</span> 5.5.1, LINEAGE-LINKED",
-                    "Destination:</span> GED55",
-                    "Date:</span> 16 FEB 2001 22:04</li>",
-                    "Character Set:</span> UTF-8",
-                    getMenu("mini-schoeller", "A"));
-    }
-
-    /** */
-    @Test
-    void testHeadControllerBadDataSet() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/head?db=XYZZY"))
+                .uri(URI.create("http://localhost:" + port + "/gedbrowser/places?db=XYZZY"))
                 .exchange()
                 .returnResult(String.class);
 

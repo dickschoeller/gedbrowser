@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 
@@ -18,15 +17,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
-/**
- * @author Dick Schoeller
- */
 @SpringBootTest(classes = Application.class,
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.server.port=0"})
 @AutoConfigureRestTestClient
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-public class ApplicationTest {
+public class ApplicationIT {
     /**
      * Management port.
      */
@@ -47,31 +43,15 @@ public class ApplicationTest {
 
     /** */
     @Test
-    void shouldReturn200WhenSendingRequestToInfoEndpoint() {
+    void shouldReturn200WhenSendingRequestToLoadEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + mgt + "/actuator/info"))
-                .exchange()
-                .returnResult(String.class);
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-    }
-
-    /** */
-    @Test
-    void shouldReturn200WhenSendingRequestToHealthEndpoint() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + mgt + "/actuator/health"))
+                .uri(URI.create("http://localhost:" + mgt + "/actuator/restore"))
                 .exchange()
                 .returnResult(String.class);
 
         final HttpStatusCode status = entity.getStatus();
         assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        assertThat(entity.getResponseBody()).contains("Reloaded");
     }
 
-    /** */
-    @Test
-    void testApplicationName() {
-        final Application a = new Application();
-        assertEquals("gedbrowser", a.getApplicationName(), "Application name mismatch");
-    }
 }

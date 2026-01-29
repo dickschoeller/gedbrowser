@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-class NoteControllerTest implements MenuTestHelper {
+public class SubmitterControllerIT implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -38,8 +38,8 @@ class NoteControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    void testNoteControllerN1() {
-        final String url = "http://localhost:" + port + "/gedbrowser/note?db=gl120368&id=N1";
+    void testSubmitterControllerU1() {
+        final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U1";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
             .exchange()
@@ -49,15 +49,56 @@ class NoteControllerTest implements MenuTestHelper {
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
-                    "<title>_P_CCINFO 1-1319 - N1 - gl120368",
+                    "<title>Phil Williams - U1 - gl120368</title>",
+                    "Name:</span> Phil Williams",
                     getMenu("A"));
     }
 
     /** */
     @Test
-    void testNoteControllerBadDataSet() {
+    void testSubmitterControllerU2() {
+        final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U2";
         final EntityExchangeResult<String> entity = restTestClient.get()
-            .uri(URI.create("http://localhost:" + port + "/gedbrowser/note?db=XYZZY&id=N1"))
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
+
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Arthur PUNCHARD - U2 - gl120368</title>",
+                    "Name:</span> Arthur PUNCHARD",
+                    "Changed:</span> 24 MAR 2007",
+                    getMenu("A"));
+    }
+
+    /** */
+    @Test
+    void testSubmitterControllerU4() {
+        final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U4";
+        final EntityExchangeResult<String> entity = restTestClient.get()
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
+
+        assertThat(entity)
+            .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "<title>Created by FamilySearch (TM) Internet"
+                        + " Genealogy Service - U4 - gl120368</title>",
+                    "Name:</span> Created by FamilySearch",
+                    "Address:</span> 50 East North Temple Street<br/>",
+                    "Salt Lake City, Utah 84150",
+                    getMenu("A"));
+    }
+
+    /** */
+    @Test
+    void testSubmitterControllerBadDataSet() {
+        final EntityExchangeResult<String> entity = restTestClient.get()
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/submitter?db=XYZZY&id=U4"))
             .exchange()
             .returnResult(String.class);
 
@@ -69,9 +110,10 @@ class NoteControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    void testNoteControllerBadNote() {
+    void testSubmitterControllerBadSubmitter() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-            .uri(URI.create("http://localhost:" + port + "/gedbrowser/note?db=gl120368&id=XYZZY"))
+            .uri(URI
+                .create("http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U99999"))
             .exchange()
             .returnResult(String.class);
 
@@ -79,7 +121,7 @@ class NoteControllerTest implements MenuTestHelper {
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
-                    "Note XYZZY not found",
+                    "Submitter not found",
                     getMenu("A"));
     }
 }

@@ -19,11 +19,11 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 /**
  * @author Dick Schoeller
  */
-@SpringBootTest(classes = { Application.class, TestConfiguration.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@SpringBootTest(classes = { Application.class,
+    TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-public class SourcesControllerTest implements MenuTestHelper {
+class NoteControllerIT implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
@@ -38,40 +38,48 @@ public class SourcesControllerTest implements MenuTestHelper {
 
     /** */
     @Test
-    void testSourcesControllerOK() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/sources?db=gl120368";
+    void testNoteControllerN1() {
+        final String url = "http://localhost:" + port + "/gedbrowser/note?db=gl120368&id=N1";
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create(url))
+            .exchange()
+            .returnResult(String.class);
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
-                    "<title>Sources - gl120368</title>",
-                    "Sources for dataset: gl120368</h2>",
-                    "href=\"source?db=gl120368&amp;id=S2050\" class=\"name\""
-                        + " id=\"source-S2050\">Parish records (S2050)",
-                    "href=\"source?db=gl120368&amp;id=S2124\" class=\"name\""
-                        + " id=\"source-S2124\">Www.peake.net (S2124)",
-                    "href=\"source?db=gl120368&amp;id=S2122\" class=\"name\""
-                        + " id=\"source-S2122\">Will of R Harris (S2122)",
+                    "<title>_P_CCINFO 1-1319 - N1 - gl120368",
                     getMenu("A"));
     }
 
     /** */
     @Test
-    void testSourcesControllerBadDataSet() {
+    void testNoteControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/gedbrowser/sources?db=XYZZY"))
-                .exchange()
-                .returnResult(String.class);
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/note?db=XYZZY&id=N1"))
+            .exchange()
+            .returnResult(String.class);
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains("Data set not found");
+    }
+
+    /** */
+    @Test
+    void testNoteControllerBadNote() {
+        final EntityExchangeResult<String> entity = restTestClient.get()
+            .uri(URI.create("http://localhost:" + port + "/gedbrowser/note?db=gl120368&id=XYZZY"))
+            .exchange()
+            .returnResult(String.class);
+
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains(
+                    "Note XYZZY not found",
+                    getMenu("A"));
     }
 }

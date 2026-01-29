@@ -6,8 +6,6 @@ import java.net.URI;
 
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.Application;
-import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
-import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.schoellerfamily.gedbrowser.test.TestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
@@ -25,18 +23,12 @@ import org.springframework.test.web.servlet.client.RestTestClient;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @AutoConfigureRestTestClient
-public class SaveControllerTest {
+class HeadControllerIT implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */
     @Autowired
     private RestTestClient restTestClient;
-
-    /**
-     * The data of known users.
-     */
-    @Autowired
-    private Users<UserImpl> users;
 
     /**
      * Server port.
@@ -46,17 +38,9 @@ public class SaveControllerTest {
 
     /** */
     @Test
-    void testSaveControllerOK() {
-        // This makes it so anonymous access has admin. That allows testing
-        // stuff that only works for admin.
-        final UserImpl user = new UserImpl();
-        user.setUsername("anonymousUser");
-        user.setPassword("guest");
-        user.addRole("ADMIN");
-        users.add(user);
-
+    void testHeadController() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser/save?db=gl120368";
+                + "/gedbrowser/head?db=gl120368";
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create(url))
                 .exchange()
@@ -66,54 +50,22 @@ public class SaveControllerTest {
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
                 .asString().contains(
-                    "0 HEAD",
-                    "1 SOUR FAMILY_HISTORIAN",
-                    "2 VERS 3.1",
-                    "2 NAME Family Historian",
-                    "2 CORP Calico Pie Limited",
-                    "1 FILE C:\\Users\\Phil\\Documents\\W0803.GED",
-                    "1 GEDC",
-                    "2 VERS 5.5",
-                    "2 FORM LINEAGE-LINKED",
-                    "1 CHAR ANSI",
-                    "1 DEST FTM");
-
-        // Turn off anonymous admin.
-        users.remove(user);
+                    "<title>Header - gl120368</title>",
+                    "File:</span> C:\\Users\\Phil\\Documents\\W0803.GED",
+                    "GEDCOM:</span> 5.5, LINEAGE-LINKED",
+                    "Character Set:</span> ANSI",
+                    "Destination:</span> FTM",
+                    "Submitter:</span> <a class=\"name\""
+                    + " href=\"submitter?db=gl120368&amp;id=U1\">Phil Williams"
+                    + " [U1]</a>",
+                    getMenu("A"));
     }
 
     /** */
     @Test
-    void testSaveControllerDatasetNotFound() {
-        // This makes it so anonymous access has admin. That allows testing
-        // stuff that only works for admin.
-        final UserImpl user = new UserImpl();
-        user.setUsername("anonymousUser");
-        user.setPassword("guest");
-        user.addRole("ADMIN");
-        users.add(user);
-
+    void testHeadControllerSchoeller() {
         final String url = "http://localhost:" + port
-                + "/gedbrowser/save?db=XYZZY";
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri(URI.create(url))
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity)
-            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
-                .asString().contains("Data set not found");
-
-        // Turn off anonymous admin.
-        users.remove(user);
-    }
-
-    /** */
-    @Test
-    void testSaveControllerNotAdmin() {
-        final String url = "http://localhost:" + port
-                + "/gedbrowser/save?db=gl120368";
+                + "/gedbrowser/head?db=mini-schoeller";
         final EntityExchangeResult<String> entity = restTestClient.get()
                 .uri(URI.create(url))
                 .exchange()
@@ -122,6 +74,29 @@ public class SaveControllerTest {
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
             .extracting(EntityExchangeResult::getResponseBody)
-                .asString().contains("Sorry, you aren't authorized to do that!");
+                .asString().contains(
+                    "<title>Header - mini-schoeller</title>",
+                    "Submitter:</span> <a class=\"name\""
+                    + " href=\"submitter?db=mini-schoeller&amp;"
+                    + "id=SUB1\">Richard Schoeller [SUB1]</a>",
+                    "GEDCOM:</span> 5.5.1, LINEAGE-LINKED",
+                    "Destination:</span> GED55",
+                    "Date:</span> 16 FEB 2001 22:04</li>",
+                    "Character Set:</span> UTF-8",
+                    getMenu("mini-schoeller", "A"));
+    }
+
+    /** */
+    @Test
+    void testHeadControllerBadDataSet() {
+        final EntityExchangeResult<String> entity = restTestClient.get()
+                .uri(URI.create("http://localhost:" + port + "/gedbrowser/head?db=XYZZY"))
+                .exchange()
+                .returnResult(String.class);
+
+        assertThat(entity)
+            .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
+            .extracting(EntityExchangeResult::getResponseBody)
+                .asString().contains("Data set not found");
     }
 }
