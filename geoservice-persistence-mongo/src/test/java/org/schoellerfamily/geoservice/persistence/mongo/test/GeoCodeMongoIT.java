@@ -42,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = MongoTestConfiguration.class)
 @Slf4j
-public final class GeoCodeMongoTest {
+public final class GeoCodeMongoIT {
     // TODO reduce this to tests of only the local methods.
     // This is too much of an integration test.
     // Instead leave testing of the base class geocode methods to the tests
