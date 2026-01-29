@@ -32,7 +32,7 @@ import org.springframework.web.client.RestClientException;
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-class NoteControllerTest {
+class NoteControllerIT {
     /**
      * RestTestClient injected by Spring's test support.
      */

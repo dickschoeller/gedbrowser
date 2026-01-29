@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-class HeadControllerTest {
+class HeadControllerIT {
     /**
      * RestTestClient injected by Spring's test support.
      */

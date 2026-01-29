@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
-public class SourceCrudTest {
+public class SourceCrudIT {
 
     /** */
     @Autowired

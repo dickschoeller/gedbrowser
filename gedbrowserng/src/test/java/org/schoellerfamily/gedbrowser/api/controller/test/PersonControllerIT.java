@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
-class PersonControllerTest {
+class PersonControllerIT {
     /**
      * RestTestClient injected by Spring's test support.
      */
