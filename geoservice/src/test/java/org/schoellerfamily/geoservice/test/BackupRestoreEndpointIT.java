@@ -2,32 +2,29 @@ package org.schoellerfamily.geoservice.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.schoellerfamily.geoservice.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalManagementPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
-import org.springframework.test.context.TestPropertySource;
 
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @AutoConfigureRestTestClient
-public class BackupRestoreEndpointTest {
+public class BackupRestoreEndpointIT {
     /**
      * Management port.
      */
