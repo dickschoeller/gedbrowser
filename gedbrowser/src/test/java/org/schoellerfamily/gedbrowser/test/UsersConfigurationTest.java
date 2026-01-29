@@ -18,7 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 public final class UsersConfigurationTest {
     /** */
-    @Value("${gedbrowser.home:/var/lib/gedbrowser}")
+    @Value("${gedbrowser.home:src/test/resources}")
     private transient String gedbrowserHome;
 
     /** */

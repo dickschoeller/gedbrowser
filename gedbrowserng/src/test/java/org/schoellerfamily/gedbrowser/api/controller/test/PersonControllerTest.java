@@ -85,7 +85,7 @@ class PersonControllerTest {
      */
     @Test
     void testGetPersonsGl120368NotLoggedIn() throws RestClientException {
-        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/persons";
+        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/mini-schoeller/persons";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
             .accept(MediaType.APPLICATION_JSON)
@@ -93,9 +93,9 @@ class PersonControllerTest {
             .returnResult(String.class);
         assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         assertThat(entity.getResponseBody()).contains("\"type\" : \"person\"",
-            "\"string\" : \"I6\"",
+            "\"string\" : \"I7\"",
             "\"attributes\" : [ {", "\"type\" : \"name\"",
-            "\"string\" : \"Reginald Amass /Williams/\"",
+            "\"string\" : \"Arnold/Robinson/\"",
             "\"attributes\" : [ ]",
             "\"tail\" : \"\"");
     }
