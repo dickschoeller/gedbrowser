@@ -85,7 +85,8 @@ class PersonControllerTest {
      */
     @Test
     void testGetPersonsGl120368NotLoggedIn() throws RestClientException {
-        final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/mini-schoeller/persons";
+        final String url =
+            "http://localhost:" + port + "/gedbrowserng/v1/dbs/mini-schoeller/persons";
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
             .accept(MediaType.APPLICATION_JSON)

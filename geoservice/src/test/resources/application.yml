@@ -1,5 +1,5 @@
 gedbrowser:
-    home: /var/lib/gedbrowser
+    home: src/test/resources
 
 logging:
     level:
@@ -17,7 +17,8 @@ spring:
 
 geoservice:
     keyfile: stub
-    backupfile: /var/lib/gedbrowser/geoservice-test-backup.json
+    backupfile: src/test/resources/geoservice-test-backup.json
+    loadfile: src/test/resources/geoservice-loadfile.txt
 
 management:
     port: 8081
