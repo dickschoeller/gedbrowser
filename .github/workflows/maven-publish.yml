@@ -28,8 +28,19 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }}/config # location for the settings.xml file
 
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.12.1
+      with:
+        mongodb-version: '4.4'
+
     - name: Build with Maven
-      run: mvn -B clean package --file pom.xml -Dskip.integration.tests=true -DskipDocker=true -DskipIT=true
+      run: mvn -B clean verify --file pom.xml
+
+    - name: Publish to coveralls.io
+      uses: coverallsapp/github-action@v2
+      with:
+        files: "*/target/site/jacoco/jacoco.xml */coverage/lcov.info"
+        github-token: ${{ github.token }}
 
 #    - name: Publish to GitHub Packages Apache Maven
 #      run: mvn -B deploy -s $GITHUB_WORKSPACE/config/settings.xml -Dskip.integration.tests=true -DskipDocker=true -DskipIT=true -DskipTests=true -Djacoco.skip=true -Dpmd.skip=true -Dcheckstyle.skip=true -Dspotbugs.skip=true -Dcpd.skip=true

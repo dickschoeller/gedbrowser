@@ -2,6 +2,6 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml" />
     <logger name="org.springframework" level="INFO"/>
-    <logger name="org.schoellerfamily" level="DEBUG"/>
+    <logger name="org.schoellerfamily" level="INFO"/>
     <logger name="org.mongodb" level="ERROR"/>
 </configuration>
