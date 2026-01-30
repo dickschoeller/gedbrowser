@@ -40,8 +40,8 @@ jobs:
       uses: coverallsapp/github-action@v2
       with:
         files:
-	  - **/jacoco*.exec
-	  - **/lcov.info
+          - **/jacoco*.exec
+          - **/lcov.info
         github-token: ${{ github.token }}
 
 #    - name: Publish to GitHub Packages Apache Maven
