@@ -4,7 +4,7 @@ gedbrowser:
 logging:
     level:
         org:
-            schoellerfamily: DEBUG
+            schoellerfamily: INFO
 
 spring:
     jackson:
