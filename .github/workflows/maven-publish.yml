@@ -31,8 +31,8 @@ jobs:
     - name: Build with Maven
       run: mvn -B clean package --file pom.xml -Dskip.integration.tests=true -DskipDocker=true -DskipIT=true
 
-    - name: Publish to GitHub Packages Apache Maven
-      run: mvn -B deploy -s $GITHUB_WORKSPACE/config/settings.xml -Dskip.integration.tests=true -DskipDocker=true -DskipIT=true -DskipTests=true -Djacoco.skip=true -Dpmd.skip=true -Dcheckstyle.skip=true -Dspotbugs.skip=true -Dcpd.skip=true
-
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+#    - name: Publish to GitHub Packages Apache Maven
+#      run: mvn -B deploy -s $GITHUB_WORKSPACE/config/settings.xml -Dskip.integration.tests=true -DskipDocker=true -DskipIT=true -DskipTests=true -Djacoco.skip=true -Dpmd.skip=true -Dcheckstyle.skip=true -Dspotbugs.skip=true -Dcpd.skip=true
+#
+#      env:
+#        GITHUB_TOKEN: ${{ github.token }}
