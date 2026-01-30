@@ -39,7 +39,7 @@ jobs:
     - name: Publish to coveralls.io
       uses: coverallsapp/github-action@v2
       with:
-        files: "**/jacoco*.exec"
+        files: "*/target/jacoco*.exec"
 #          - **/lcov.info
         github-token: ${{ github.token }}
 
