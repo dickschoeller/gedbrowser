@@ -122,18 +122,17 @@ and some ideas of how much further we have to go.
 
 ## Technology
 
-* ![](images/spring-boot-25.png)
-  [Spring Boot](http://projects.spring.io/spring-boot/)
-* ![](images/thymeleaf-25.png)
-  [Thymeleaf](http://www.thymeleaf.org/)
-* ![](images/mongodb-25.png)
-  [MongoDB](https://www.mongodb.org/)
-* ![](images/docker-25.png)
-  [Docker](https://www.docker.com/)
-* ![](images/genealogy-net-25.png)
-  [GEDCOM](http://wiki-en.genealogy.net/GEDCOM)
-* ![](images/selenium-25.png)
-  [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/)
+[![OpenJDK](https://img.shields.io/badge/OpenJDK-25-orange?logo=openjdk)](https://openjdk.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-7.0.2-6DB33F?logo=springboot)](https://docs.spring.io/spring-boot/index.html)
+[![Angular](https://img.shields.io/badge/Angular-21.0.8-0F0F11?logo=angular)](https://angular.dev/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4.4-47A248?logo=mongodb)](https://www.mongodb.com/)
+[![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.1.3-47A248?logo=thymeleaf)](https://www.thymeleaf.org/)
+[![Docker](https://img.shields.io/badge/Docker-28.4.0-2496ED?logo=docker)](https://www.docker.com/)
+[![PrimeNG](https://img.shields.io/badge/PrimeNG-21.0.0-DD0031?logo=primeng)](https://primeng.org/)
+[![GEDCOM](https://img.shields.io/badge/GEDCOM-5.5.1-001386)](http://genealogy.net/GEDCOM/GEDCOM551%20GEDCOM-L%20Addendum-R2.pdf)
+[![Google Maps Services](https://img.shields.io/badge/Google_Maps-2.2.0-4285F4?logo=googlemaps)](https://developers.google.com/maps)
+[![geojson-jackson](https://img.shields.io/badge/geojson_jackson-3.0-fee074)](https://github.com/opendatalab-de/geojson-jackson)
 
 ## Architecture
 
