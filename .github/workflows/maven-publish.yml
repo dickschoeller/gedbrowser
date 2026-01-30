@@ -40,7 +40,7 @@ jobs:
       uses: coverallsapp/github-action@v1.1.2
       with:
         files: "**/jacoco*.exec" "**/lcov.info"
-#        github-token: ${{ github.token }}
+        github-token: ${{ github.token }}
 
 #    - name: Publish to GitHub Packages Apache Maven
 #      run: mvn -B deploy -s $GITHUB_WORKSPACE/config/settings.xml -Dskip.integration.tests=true -DskipDocker=true -DskipIT=true -DskipTests=true -Djacoco.skip=true -Dpmd.skip=true -Dcheckstyle.skip=true -Dspotbugs.skip=true -Dcpd.skip=true
