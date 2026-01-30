@@ -2,14 +2,18 @@
 
 [![Maven Package](https://github.com/dickschoeller/gedbrowser/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/dickschoeller/gedbrowser/actions/workflows/maven-publish.yml)
 [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=development)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=development)
+[![Known Vulnerabilities](https://snyk.io/test/github/dickschoeller/gedbrowser/badge.svg)](https://snyk.io/test/github/dickschoeller/gedbrowser)
 <!--
 [![Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser/badges/gpa.svg)](https://codeclimate.com/github/dickschoeller/gedbrowser)
 -->
-[![Known Vulnerabilities](https://snyk.io/test/github/dickschoeller/gedbrowser/badge.svg)](https://snyk.io/test/github/dickschoeller/gedbrowser)
-[![Sauce Labs](https://saucelabs.com/buildstatus/dickschoeller)](https://saucelabs.com/open_sauce/user/dickschoeller)
 <!--
-[![Dependency Status](https://dependencyci.com/github/dickschoeller/gedbrowser/badge)](https://tidelift.com/repo/github/dickschoeller/gedbrowser) -->
-<!-- [![codebeat badge](https://codebeat.co/badges/0a10c645-cc88-4f2f-9058-df89e8dc408f)](https://codebeat.co/projects/github-com-dickschoeller-gedbrowser-development)
+[![Sauce Labs](https://saucelabs.com/buildstatus/dickschoeller)](https://saucelabs.com/open_sauce/user/dickschoeller)
+-->
+<!--
+[![Dependency Status](https://dependencyci.com/github/dickschoeller/gedbrowser/badge)](https://tidelift.com/repo/github/dickschoeller/gedbrowser)
+-->
+<!--
+[![codebeat badge](https://codebeat.co/badges/0a10c645-cc88-4f2f-9058-df89e8dc408f)](https://codebeat.co/projects/github-com-dickschoeller-gedbrowser-development)
 -->
 
 Spring Boot application to display the genealogy data from a
