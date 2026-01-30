@@ -2,6 +2,7 @@
 
 [![Maven Package](https://github.com/dickschoeller/gedbrowser/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/dickschoeller/gedbrowser/actions/workflows/maven-publish.yml)
 [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=development)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=development)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dickschoeller_gedbrowser&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dickschoeller_gedbrowser)
 [![Known Vulnerabilities](https://snyk.io/test/github/dickschoeller/gedbrowser/badge.svg)](https://snyk.io/test/github/dickschoeller/gedbrowser)
 <!--
 [![Sauce Labs](https://saucelabs.com/buildstatus/dickschoeller)](https://saucelabs.com/open_sauce/user/dickschoeller)
