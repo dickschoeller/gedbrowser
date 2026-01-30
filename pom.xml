@@ -173,7 +173,7 @@
           <version>${compiler-plugin.version}</version>
           <configuration>
             <release>${java.version}</release>
-	    <proc>full</proc>
+            <proc>full</proc>
             <compilerArgs>
               <arg>-parameters</arg>
             </compilerArgs>
@@ -185,9 +185,9 @@
           <version>${failsafe.version}</version>
           <configuration>
             <useSystemClassLoader>false</useSystemClassLoader>
-	    <skip>${skip.integration.tests}</skip>
+            <skip>${skip.integration.tests}</skip>
           </configuration>
-	  <executions>
+          <executions>
             <execution>
               <goals>
                 <goal>integration-test</goal>
@@ -207,7 +207,7 @@
           <version>${surefire.version}</version>
           <configuration>
             <useSystemClassLoader>false</useSystemClassLoader>
-	    <skip>${skip.unit.tests}</skip>
+            <skip>${skip.unit.tests}</skip>
           </configuration>
         </plugin>
         <plugin>
@@ -381,7 +381,7 @@
             <!-- USE THIS ONE WHEN WE GO ALL JAVA 9 additionalOptions>
               <additionalOption>-html5</additionalOption>
             </additionalOptions -->
-	    <quiet>true</quiet>
+            <quiet>true</quiet>
           </configuration>
           <executions>
             <execution>

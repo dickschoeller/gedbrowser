@@ -223,6 +223,7 @@
                     <limit>
                       <counter>COMPLEXITY</counter>
                       <value>COVEREDRATIO</value>
+		      <!-- coverage will be moved back up when integration tests work -->
                       <!-- minimum>0.60</minimum -->
                       <minimum>0.13</minimum>
                     </limit>
@@ -281,8 +282,8 @@
       </plugin>
       <!-- doesn't like lombok custom builders. -->
       <!-- plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-javadoc-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
       </plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -324,7 +324,7 @@
               <arguments>
                 <argument> - - server.port=${server.port}</argument>
               </arguments>
-	      <skip>${skip.integration.tests}</skip>
+              <skip>${skip.integration.tests}</skip>
             </configuration>
           </execution>
           <execution>
@@ -386,6 +386,7 @@
           <classesDirectory>${project.build.outputDirectory}</classesDirectory>
         </configuration>
       </plugin>
+      <!-- The commented out version will be revived when I can revive selenium testing -->
       <!-- plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
