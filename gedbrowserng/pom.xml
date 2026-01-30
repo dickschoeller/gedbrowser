@@ -296,6 +296,7 @@
         <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
           <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</argLine>
+          <classesDirectory>${project.build.outputDirectory}</classesDirectory>
         </configuration>
       </plugin>
     </plugins>
