@@ -2,12 +2,13 @@ package org.schoellerfamily.gedbrowser.endpoint;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
-import org.springframework.boot.health.contributor.Health.Builder;
 import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.Health.Builder;
 import org.springframework.boot.health.contributor.HealthIndicator;
 import org.springframework.stereotype.Component;
 
@@ -39,9 +40,16 @@ public class ApplicationHealthIndicator implements HealthIndicator {
         final Builder builder = Health.up();
         log.debug("    {}", appInfo.getVersion());
         builder.withDetail("version", appInfo.getVersion());
-        final List<Map<String, Object>> details = loader.details(repositoryManager);
-        log.debug("    {} datasets", details.size());
-        builder.withDetail("datasets", details);
+        try {
+            final List<Map<String, Object>> details =
+                Optional.ofNullable(loader.details(repositoryManager)).orElse(List.of());
+            log.debug("    {} datasets", details.size());
+            builder.withDetail("datasets", details);
+        } catch (Exception e) {
+            final List<Map<String, Object>> details = List.of();
+            log.error("    0 datasets (could not connect to database)");
+            builder.withDetail("datasets", details);
+        }
         builder.up();
         return builder.build();
     }

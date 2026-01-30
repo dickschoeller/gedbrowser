@@ -307,24 +307,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <configuration>
-          <systemPropertyVariables>
-            <server.port>${server.port}</server.port>
-            <!-- selenium.version>${selenium.version}</selenium.version -->
-          </systemPropertyVariables>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <executions>
@@ -333,16 +315,16 @@
               <goal>repackage</goal>
             </goals>
           </execution>
-          <execution>
+          <!-- execution>
             <id>pre-integration-test</id>
             <goals>
               <goal>start</goal>
             </goals>
             <configuration>
-              <skip>${skip.integration.tests}</skip>
               <arguments>
-                <argument>--server.port=${server.port}</argument>
+                <argument> - - server.port=${server.port}</argument>
               </arguments>
+              <skip>${skip.integration.tests}</skip>
             </configuration>
           </execution>
           <execution>
@@ -350,10 +332,7 @@
             <goals>
               <goal>stop</goal>
             </goals>
-            <configuration>
-              <skip>${skip.integration.tests}</skip>
-            </configuration>
-          </execution>
+          </execution -->
         </executions>
       </plugin>
       <plugin>
@@ -399,6 +378,33 @@
           <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</argLine>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <configuration>
+          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</argLine>
+          <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+        </configuration>
+      </plugin>
+      <!-- The commented out version will be revived when I can revive selenium testing -->
+      <!-- plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <configuration>
+          <systemPropertyVariables>
+            <server.port>${server.port}</server.port>
+            < ! - - selenium.version>${selenium.version}</selenium.version - - >
+          </systemPropertyVariables>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin -->
     </plugins>
   </build>
 </project>

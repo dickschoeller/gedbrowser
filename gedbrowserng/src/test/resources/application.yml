@@ -1,5 +1,5 @@
 gedbrowser:
-    home: /var/lib/gedbrowser
+    home: src/test/resources
     userFile: ../gedbrowserng/src/test/resources/testUserFile.csv
 
 server:
@@ -14,5 +14,9 @@ spring:
     jackson:
         serialization:
             INDENT_OUTPUT: true
+    data:
+        mongodb:
+            host: localhost
+            port: 27017
 jwt:
     expires_in: 600

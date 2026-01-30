@@ -87,7 +87,12 @@ public class PersonController extends GeoDataController {
         model.addAttribute("name", nameHtml(context, person));
         model.addAttribute("model", personRenderer(context, person));
         model.addAttribute("places", places);
-        model.addAttribute("key", getMapsKey());
+        try {
+            model.addAttribute("key", getMapsKey());
+        } catch (final Exception e) {
+            log.error("Couldn't get maps key: {}", e.getMessage());
+            model.addAttribute("key", "");
+        }
         model.addAttribute("showMap", showMap);
         model.addAttribute("appInfo", getAppInfo());
 

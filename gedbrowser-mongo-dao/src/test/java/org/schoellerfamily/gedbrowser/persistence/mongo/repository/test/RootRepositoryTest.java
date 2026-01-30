@@ -52,7 +52,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects", "PMD.TooManyMethods" })
-final class RootRepositoryTest {
+final class RootRepositoryIT {
     /** */
     @Autowired
     private transient RootDocumentRepositoryMongo rootDocumentRepository;

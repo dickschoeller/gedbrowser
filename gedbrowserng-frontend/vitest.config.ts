@@ -34,10 +34,10 @@ export default defineConfig({
       ],
       // Set global thresholds
       thresholds: {
-        lines: 69,
-        functions: 62,
-        branches: 53,
-        statements: 70,
+        statements: 92,
+        branches: 85,
+        functions: 89,
+        lines: 92,
         // Optional: set thresholds per file
         perFile: false
       }

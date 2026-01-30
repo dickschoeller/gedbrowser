@@ -48,11 +48,17 @@ public final class SecurityTestHelper {
         final String fileNameStr = FilenameUtils.getName(userFile);
         final String basePathStr = FilenameUtils.getFullPath(userFile);
 
-	deleteNumberedFiles(basePathStr, fileNameStr);
+        deleteNumberedFiles(basePathStr, fileNameStr);
     }
 
-    public static void deleteNumberedFiles(String directoryPath, String baseFileName) {
-        final String globPattern = baseFileName + ".[0-9]*"; 
+    /**
+     * Delete numbered files matching the pattern baseFileName.NNN where NNN is a number.
+     *
+     * @param directoryPath the directory to search
+     * @param baseFileName the base file name
+     */
+    public static void deleteNumberedFiles(final String directoryPath, final String baseFileName) {
+        final String globPattern = baseFileName + ".[0-9]*";
         final Path dir = Paths.get(directoryPath);
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, globPattern)) {

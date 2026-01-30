@@ -3,6 +3,10 @@ spring:
         active: test
     main:
         allow-bean-definition-overriding: true
+    data:
+        mongodb:
+            host: localhost
+            port: 27017
 logging:
     level:
         org:
