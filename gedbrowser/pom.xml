@@ -374,17 +374,14 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</argLine>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <configuration>
-          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</argLine>
-          <classesDirectory>${project.build.outputDirectory}</classesDirectory>
-        </configuration>
+	<configuration>
+	  <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+	  <useModulePath>false</useModulePath>
+	</configuration>
       </plugin>
       <!-- The commented out version will be revived when I can revive selenium testing -->
       <!-- plugin>
