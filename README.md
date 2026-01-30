@@ -1,8 +1,8 @@
 # gedbrowser
 
 [![Maven Package](https://github.com/dickschoeller/gedbrowser/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/dickschoeller/gedbrowser/actions/workflows/maven-publish.yml)
-<!--
 [![Coverage Status](https://coveralls.io/repos/github/dickschoeller/gedbrowser/badge.svg?branch=development)](https://coveralls.io/github/dickschoeller/gedbrowser?branch=development)
+<!--
 [![Code Climate](https://codeclimate.com/github/dickschoeller/gedbrowser/badges/gpa.svg)](https://codeclimate.com/github/dickschoeller/gedbrowser)
 [![Known Vulnerabilities](https://snyk.io/test/github/dickschoeller/gedbrowser/badge.svg)](https://snyk.io/org/dickschoeller)
 [![Sauce Labs](https://saucelabs.com/buildstatus/dickschoeller)](https://saucelabs.com/open_sauce/user/dickschoeller)
