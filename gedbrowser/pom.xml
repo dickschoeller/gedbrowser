@@ -378,10 +378,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-	<configuration>
-	  <classesDirectory>${project.build.outputDirectory}</classesDirectory>
-	  <useModulePath>false</useModulePath>
-	</configuration>
+        <configuration>
+          <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+          <useModulePath>false</useModulePath>
+        </configuration>
       </plugin>
       <!-- The commented out version will be revived when I can revive selenium testing -->
       <!-- plugin>
