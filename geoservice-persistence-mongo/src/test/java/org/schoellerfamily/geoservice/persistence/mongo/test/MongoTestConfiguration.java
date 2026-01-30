@@ -47,7 +47,7 @@ public class MongoTestConfiguration {
     private final String host;
 
     /** */
-    @Value("${spring.data.mongodb.port:27017}")
+    @Value("${spring.data.mongodb.port:37017}")
     private final int port;
 
     /** */

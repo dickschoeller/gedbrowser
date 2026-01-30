@@ -14,6 +14,10 @@ spring:
         active: test
     main:
         allow-bean-definition-overriding: true
+    data:
+        mongodb:
+            host: localhost
+            port: 37017
 
 geoservice:
     keyfile: stub

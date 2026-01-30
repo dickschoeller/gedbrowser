@@ -339,7 +339,6 @@
               <goal>start</goal>
             </goals>
             <configuration>
-              <skip>${skip.integration.tests}</skip>
               <arguments>
                 <argument>--server.port=${server.port}</argument>
               </arguments>
@@ -350,9 +349,6 @@
             <goals>
               <goal>stop</goal>
             </goals>
-            <configuration>
-              <skip>${skip.integration.tests}</skip>
-            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -398,6 +394,17 @@
         <configuration>
           <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</argLine>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <configuration>
+          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.github.joelittlejohn.embedmongo</groupId>
+        <artifactId>embedmongo-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
