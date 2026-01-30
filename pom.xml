@@ -185,6 +185,7 @@
           <version>${failsafe.version}</version>
           <configuration>
             <useSystemClassLoader>false</useSystemClassLoader>
+	    <skip>${skip.integration.tests}</skip>
           </configuration>
 	  <executions>
             <execution>
@@ -206,6 +207,7 @@
           <version>${surefire.version}</version>
           <configuration>
             <useSystemClassLoader>false</useSystemClassLoader>
+	    <skip>${skip.unit.tests}</skip>
           </configuration>
         </plugin>
         <plugin>
@@ -410,38 +412,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>${jar-plugin.version}</version>
-        </plugin>
-        <plugin>
-  <groupId>com.github.joelittlejohn.embedmongo</groupId>
-  <artifactId>embedmongo-maven-plugin</artifactId>
-  <version>0.4.1</version>
-          <dependencies>
-            <dependency>
-              <groupId>de.flapdoodle.embed</groupId>
-              <artifactId>de.flapdoodle.embed.mongo</artifactId>
-              <version>4.24.0</version>
-            </dependency>
-          </dependencies>
-          <executions>
-            <execution>
-              <id>start-mongo</id>
-              <phase>pre-integration-test</phase>
-              <goals>
-                <goal>start</goal>
-              </goals>
-              <configuration>
-                <port>37017</port>
-                <version>4.4.30</version>
-              </configuration>
-            </execution>
-            <execution>
-              <id>stop-mongo</id>
-              <phase>post-integration-test</phase>
-              <goals>
-                <goal>stop</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
