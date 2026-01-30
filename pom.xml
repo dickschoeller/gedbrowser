@@ -109,8 +109,6 @@
 
     <config-dir>${project.basedir}/config</config-dir>
     <server.port>8080</server.port>
-    <skip.unit.tests>false</skip.unit.tests>
-    <skip.integration.tests>true</skip.integration.tests>
   </properties>
 
   <name>gedbrowser POM</name>
@@ -175,7 +173,7 @@
           <version>${compiler-plugin.version}</version>
           <configuration>
             <release>${java.version}</release>
-	    <proc>full</proc>
+            <proc>full</proc>
             <compilerArgs>
               <arg>-parameters</arg>
             </compilerArgs>
@@ -186,9 +184,17 @@
           <artifactId>maven-failsafe-plugin</artifactId>
           <version>${failsafe.version}</version>
           <configuration>
-            <skip>${skip.integration.tests}</skip>
             <useSystemClassLoader>false</useSystemClassLoader>
+            <skip>${skip.integration.tests}</skip>
           </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -200,8 +206,8 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${surefire.version}</version>
           <configuration>
-            <skip>${skip.unit.tests}</skip>
             <useSystemClassLoader>false</useSystemClassLoader>
+            <skip>${skip.unit.tests}</skip>
           </configuration>
         </plugin>
         <plugin>
@@ -375,7 +381,7 @@
             <!-- USE THIS ONE WHEN WE GO ALL JAVA 9 additionalOptions>
               <additionalOption>-html5</additionalOption>
             </additionalOptions -->
-	    <quiet>true</quiet>
+            <quiet>true</quiet>
           </configuration>
           <executions>
             <execution>
@@ -579,61 +585,61 @@
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-support</artifactId>
         <version>${selenium.version}</version>
-	<scope>test</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
         <version>${selenium.version}</version>
-	<scope>test</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-api</artifactId>
         <version>${selenium.version}</version>
-	<scope>test</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-remote-driver</artifactId>
         <version>${selenium.version}</version>
-	<scope>test</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-chrome-driver</artifactId>
         <version>${selenium.version}</version>
-	<scope>test</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-firefox-driver</artifactId>
         <version>${selenium.version}</version>
-	<scope>test</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <!-- htmlunit-driver works, selenium-htmlunit-driver does not -->
         <artifactId>htmlunit-driver</artifactId>
         <version>${htmlunit-driver.version}</version>
-	<scope>test</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-safari-driver</artifactId>
         <version>${selenium.version}</version>
-	<scope>test</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-ie-driver</artifactId>
         <version>${selenium.version}</version>
-	<scope>test</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
-	<groupId>com.google.guava</groupId>
-	<artifactId>guava</artifactId>
-	<version>33.5.0-jre</version>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>33.5.0-jre</version>
       </dependency>
       <dependency>
         <groupId>com.google.maps</groupId>
@@ -675,7 +681,7 @@
             <artifactId>guava</artifactId>
           </exclusion>
         </exclusions>
-	<scope>test</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>de.grundid.opendatalab</groupId>
@@ -797,19 +803,19 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-	<groupId>org.junit.platform</groupId>
-	<artifactId>junit-platform-commons</artifactId>
-	<version>${junit-platform.version}</version>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-commons</artifactId>
+        <version>${junit-platform.version}</version>
       </dependency>
       <dependency>
-	<groupId>org.junit.platform</groupId>
-	<artifactId>junit-platform-engine</artifactId>
-	<version>${junit-platform.version}</version>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-engine</artifactId>
+        <version>${junit-platform.version}</version>
       </dependency>
       <dependency>
-	<groupId>org.junit.platform</groupId>
-	<artifactId>junit-platform-launcher</artifactId>
-	<version>${junit-platform.version}</version>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-launcher</artifactId>
+        <version>${junit-platform.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
