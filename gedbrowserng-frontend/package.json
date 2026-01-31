@@ -9,7 +9,7 @@
     "build": "ng build --configuration=production --optimization=false --output-path=ui-src/META-INF/resources",
     "test": "vitest --run",
     "test-watch": "vitest",
-    "lint": "ng lint",
+    "lint": "ng lint --format=json > lint-output.json",
     "e2e": "ng e2e",
     "snyk-protect": "snyk-protect",
     "prepare": "npm run snyk-protect",
