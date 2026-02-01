@@ -59,6 +59,7 @@ public final class KeyManagerImpl implements KeyManager {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("java:S2677")
     public String getMapsKey() {
         if (mapKey != null) {
             return mapKey;
