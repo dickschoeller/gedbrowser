@@ -214,10 +214,10 @@ describe('AttributeAnalyzer', () => {
 
   describe('multimedia()', () => {
     it.each([
-      ['multimedia', '', true, ''],
-      ['name', '', false, ''],
-      ['attribute', 'Custom', false, " with stringValue 'Custom'"]
-    ])('returns %s for type \'%s\'%s', (type, stringValue, expected, suffix) => {
+      [true, 'multimedia', '', ''],
+      [false, 'name', '', ''],
+      [false, 'attribute', 'Custom', " with stringValue 'Custom'"]
+    ])('returns %s for type \'%s\'%s', (expected, type, stringValue, suffix) => {
       const parent = createMockParent(type, stringValue);
       const analyzer = new AttributeAnalyzer(parent);
       expect(analyzer.multimedia()).toBe(expected);
