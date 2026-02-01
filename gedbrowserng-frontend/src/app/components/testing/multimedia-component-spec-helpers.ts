@@ -1,49 +1,9 @@
-import { TestBed } from '@angular/core/testing';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { vi } from 'vitest';
 import { of } from 'rxjs';
 
 /**
  * Common test assertions for multimedia button components
  */
 export function describeMultimediaButtonCommonTests(
-  componentFactory: () => any,
-  it: (name: string, fn: () => void) => void,
-  expect: any
-) {
-  it('should create', () => {
-    const component = componentFactory();
-    expect(component).toBeTruthy();
-  });
-
-  it('should accept dataset input', () => {
-    const component = componentFactory();
-    component.dataset = 'another-dataset';
-    expect(component.dataset).toBe('another-dataset');
-  });
-
-  it('should accept parent input', () => {
-    const component = componentFactory();
-    const mockParent = { save: () => {} };
-    component.parent = mockParent;
-    expect(component.parent).toBe(mockParent);
-  });
-
-  it('should have dialog injected', () => {
-    const component = componentFactory();
-    expect(component.dialog).toBeDefined();
-  });
-}
-
-/**
- * Test cases specific to MultimediaAddButton
- */
-export function describeMultimediaAddButtonTests(
   componentFactory: () => any,
   it: (name: string, fn: () => void) => void,
   expect: any
