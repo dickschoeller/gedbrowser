@@ -45,38 +45,6 @@ export function describeMultimediaButtonCommonTests(
  */
 export function describeMultimediaAddButtonTests(
   componentFactory: () => any,
-  it: (name: string, fn: () => void) => void,
-  expect: any
-) {
-  it('should create', () => {
-    const component = componentFactory();
-    expect(component).toBeTruthy();
-  });
-
-  it('should accept dataset input', () => {
-    const component = componentFactory();
-    component.dataset = 'another-dataset';
-    expect(component.dataset).toBe('another-dataset');
-  });
-
-  it('should accept parent input', () => {
-    const component = componentFactory();
-    const mockParent = { save: () => {} };
-    component.parent = mockParent;
-    expect(component.parent).toBe(mockParent);
-  });
-
-  it('should have dialog injected', () => {
-    const component = componentFactory();
-    expect(component.dialog).toBeDefined();
-  });
-}
-
-/**
- * Test cases specific to MultimediaAddButton
- */
-export function describeMultimediaAddButtonTests(
-  componentFactory: () => any,
   mockDialogFactory: () => any,
   it: (name: string, fn: () => void) => void,
   expect: any,
