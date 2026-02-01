@@ -9,7 +9,7 @@ describe('StringUtil', () => {
       ['exact length', 'hello', 5, 'hello'],
       ['empty string', '', 5, ''],
       ['whitespace-only string', '   ', 5, '']
-    ])('should handle %s', (_label, input, length, expected) => {
+    ])('should handle %s', (scenario, input, length, expected) => {
       expect(StringUtil.truncate(input, length)).toBe(expected);
     });
   });
@@ -64,12 +64,12 @@ describe('StringUtil', () => {
 
   describe('isEmpty', () => {
     it.each([
-      [null, true],
-      [undefined, true],
-      ['', true],
-      ['hello', false],
-      ['  ', false]
-    ])('should return %s for %s', (input, expected) => {
+      [true, null],
+      [true, undefined],
+      [true, ''],
+      [false, 'hello'],
+      [false, '  ']
+    ])('should return %s when input is %s', (expected, input) => {
       expect(StringUtil.isEmpty(input as string | null | undefined)).toBe(expected);
     });
   });
