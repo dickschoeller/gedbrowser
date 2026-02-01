@@ -6,16 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { vi } from 'vitest';
 
-/**
- * Configuration for link dialog component tests
- */
-export interface LinkDialogTestConfig<TComponent, TData> {
-  componentClass: new (...args: any[]) => TComponent;
-  createMockData: () => TData;
-  dataPropertyName?: string; // 'name' or 'titleString'
-  dataPropertyValue?: string; // 'Test Dialog' or 'Link Person'
-  hasSelectOne?: boolean; // For LinkPersonDialog
-}
+
 
 /**
  * Setup function for link dialog components
@@ -37,98 +28,7 @@ export function setupLinkDialogTest<TData>(mockData: TData) {
   return { mockDialogRef, mockData };
 }
 
-/**
- * Generic test suite for link dialog components
- */
-export function describeLinkDialogComponent<TComponent, TData>(
-  config: LinkDialogTestConfig<TComponent, TData>,
-  describe: (name: string, fn: () => void) => void,
-  it: (name: string, fn: () => void) => void,
-  expect: any,
-  beforeEach: (fn: () => void) => void
-) {
-  let component: TComponent;
-  let mockData: TData;
-  let mockDialogRef: any;
 
-  beforeEach(() => {
-    mockData = config.createMockData();
-    const setup = setupLinkDialogTest(mockData);
-    mockDialogRef = setup.mockDialogRef;
-
-    const fixture = TestBed.createComponent(config.componentClass);
-    component = fixture.componentInstance;
-    (component as any).data = mockData;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should initialize with dialog data', () => {
-    const data = (component as any).data;
-    expect(data).toBeDefined();
-    
-    const propName = config.dataPropertyName || 'name';
-    const propValue = config.dataPropertyValue || 'Test Dialog';
-    expect(data[propName]).toBe(propValue);
-  });
-
-  it('should have items in dialog data', () => {
-    const data = (component as any).data;
-    expect(data.items.length).toBe(3);
-  });
-
-  it('should close dialog on onNoClick', () => {
-    (component as any).onNoClick();
-    expect(mockDialogRef.close).toHaveBeenCalled();
-  });
-
-  it('should handle empty selection', () => {
-    (component as any).onSelection({}, []);
-    expect((component as any).data.selected.length).toBe(0);
-  });
-
-  it('should accept titleString input', () => {
-    (component as any).titleString = 'Custom Title';
-    expect((component as any).titleString).toBe('Custom Title');
-  });
-
-  it('should initialize ngOnInit without errors', () => {
-    if ((component as any).ngOnInit) {
-      expect(() => (component as any).ngOnInit()).not.toThrow();
-    }
-  });
-
-  it('should initialize ngOnChanges without errors', () => {
-    if ((component as any).ngOnChanges) {
-      expect(() => (component as any).ngOnChanges()).not.toThrow();
-    }
-  });
-
-  it('should preserve data reference after selection', () => {
-    const originalData = (component as any).data;
-    const mockOption = config.hasSelectOne
-      ? { value: { id: 1, label: 'Item 1', person: { id: 1 } } }
-      : { value: 1, getLabel: () => 'Item 1' };
-
-    (component as any).onSelection({}, [mockOption]);
-
-    expect((component as any).data).toBe(originalData);
-  });
-
-  it('should create new array for selected items', () => {
-    const oldSelected = (component as any).data.selected;
-    const mockOption = config.hasSelectOne
-      ? { value: { id: 1, label: 'Item 1', person: { id: 1 } } }
-      : { value: 1, getLabel: () => 'Item 1' };
-
-    (component as any).onSelection({}, [mockOption]);
-
-    expect((component as any).data.selected).not.toBe(oldSelected);
-  });
-}
 
 /**
  * Additional tests specific to LinkDialog (non-person)
