@@ -2,6 +2,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { Type } from '@angular/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { Observable, firstValueFrom } from 'rxjs';
 import { UrlBuilder } from '../../utils/urlbuilder';
 
 type LinkConfig = {
@@ -19,14 +20,14 @@ type LinkMethods = {
 type CrudService<T> = {
   url: (db: string) => string;
   baseUrl: (db: string) => string;
-  post: (db: string, entity: T) => { toPromise: () => Promise<T> };
-  getAll: (db: string) => { toPromise: () => Promise<T[]> };
-  getOne: (db: string, id: string) => { toPromise: () => Promise<T> };
-  put: (db: string, entity: T) => { toPromise: () => Promise<T> };
-  delete: (db: string, entity: T) => { toPromise: () => Promise<T> };
-  postLink?: (ub: UrlBuilder, id: string, entity: T) => { toPromise: () => Promise<T> };
-  putLink?: (ub: UrlBuilder, id: string, entity: T) => { toPromise: () => Promise<T> };
-  deleteLink?: (ub: UrlBuilder, id: string, entity: T) => { toPromise: () => Promise<T> };
+  post: (db: string, entity: T) => Observable<T>;
+  getAll: (db: string) => Observable<T[]>;
+  getOne: (db: string, id: string) => Observable<T>;
+  put: (db: string, entity: T) => Observable<T>;
+  delete: (db: string, entity: T) => Observable<T>;
+  postLink?: (ub: UrlBuilder, id: string, entity: T) => Observable<T>;
+  putLink?: (ub: UrlBuilder, id: string, entity: T) => Observable<T>;
+  deleteLink?: (ub: UrlBuilder, id: string, entity: T) => Observable<T>;
 };
 
 type CrudSpecConfig<T> = {
@@ -102,7 +103,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       const entity = createEntity(id);
 
       const result$ = getService().post(testDb, entity);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}`);
       expect(req.request.method).toBe('POST');
@@ -119,7 +120,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       const entities = [createEntity(id), createEntity(altId)];
 
       const result$ = getService().getAll(testDb);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}`);
       expect(req.request.method).toBe('GET');
@@ -132,7 +133,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
     if (includeEmptyListTest) {
       it('should handle empty list', async () => {
         const result$ = getService().getAll(testDb);
-        const promise = result$.toPromise();
+        const promise = firstValueFrom(result$);
 
         const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}`);
         req.flush([]);
@@ -148,7 +149,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       const entity = createEntity(id);
 
       const result$ = getService().getOne(testDb, id);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}/${id}`);
       expect(req.request.method).toBe('GET');
@@ -160,7 +161,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
 
     if (includeGetOne404Test) {
       it('should handle 404 errors', async () => {
-        const promise = getService().getOne(testDb, 'NOTFOUND').toPromise();
+        const promise = firstValueFrom(getService().getOne(testDb, 'NOTFOUND'));
 
         const req = getHttpMock().expectOne(
           `/gedbrowserng/v1/dbs/${testDb}/${resource}/NOTFOUND`
@@ -177,7 +178,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       const entity = createEntity(id);
 
       const result$ = getService().put(testDb, entity);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}/${id}`);
       expect(req.request.method).toBe('PUT');
@@ -194,7 +195,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       const entity = createEntity(id);
 
       const result$ = getService().delete(testDb, entity);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}/${id}`);
       expect(req.request.method).toBe('DELETE');
@@ -215,7 +216,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
           const entity = createEntity(link.childId);
 
           const result$ = getService().postLink?.(ub, link.parentId, entity);
-          const promise = result$?.toPromise();
+          const promise = result$ ? firstValueFrom(result$) : undefined;
 
           const req = getHttpMock().expectOne((r) =>
             r.url.includes(`/${resource}/${link.parentId}/${link.collection}`)
@@ -237,7 +238,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
           const entity = createEntity(link.childId);
 
           const result$ = getService().putLink?.(ub, link.parentId, entity);
-          const promise = result$?.toPromise();
+          const promise = result$ ? firstValueFrom(result$) : undefined;
 
           const req = getHttpMock().expectOne((r) =>
             r.url.includes(`/${resource}/${link.parentId}/${link.collection}`)
@@ -259,7 +260,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
           const entity = createEntity(link.childId);
 
           const result$ = getService().deleteLink?.(ub, link.parentId, entity);
-          const promise = result$?.toPromise();
+          const promise = result$ ? firstValueFrom(result$) : undefined;
 
           const req = getHttpMock().expectOne((r) =>
             r.url.includes(`/${resource}/${link.parentId}/${link.collection}/${link.childId}`)
