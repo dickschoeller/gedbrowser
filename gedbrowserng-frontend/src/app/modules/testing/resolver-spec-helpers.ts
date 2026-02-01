@@ -52,13 +52,13 @@ export function describeResolverTests(
     stateUrl?: string;
   } = {}
 ): void {
-  it('should be created', () => {
+  it(`${resolverServiceName} should be created`, () => {
     const service = TestBed.inject(resolverService);
     expect(service).toBeTruthy();
   });
 
   if (options.testResolve) {
-    it('resolve delegates to rh.resolve', () => {
+    it(`${resolverServiceName} resolve delegates to rh.resolve`, () => {
       const service = TestBed.inject(resolverService) as any;
       
       // Runtime check: Ensure the service follows the expected pattern
