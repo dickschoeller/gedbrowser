@@ -35,8 +35,8 @@ describe('ImageUtil', () => {
     it.each([
       ['photo.jpg', 'jpg'],
       ['photo.png', 'png']
-    ])('should return %s format for %s', (_tail, expected) => {
-      const attr = createAttribute(_tail);
+    ])('should return %s format for %s', (fileName, expected) => {
+      const attr = createAttribute(fileName);
       expect(ImageUtil.imageFormat(attr)).toBe(expected);
     });
 
