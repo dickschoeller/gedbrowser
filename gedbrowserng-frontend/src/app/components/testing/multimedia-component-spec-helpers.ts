@@ -9,33 +9,41 @@ import { vi } from 'vitest';
 import { of } from 'rxjs';
 
 /**
- * Common setup for multimedia button components
- */
-export function setupMultimediaButtonTest(includeMenu = false) {
-  const mockDialog = {
-    open: vi.fn().mockReturnValue({
-      afterClosed: () => of(undefined)
-    })
-  };
-
-  const imports = [MatDialogModule, NoopAnimationsModule];
-  if (includeMenu) {
-    imports.push(MatMenuModule, MatIconModule, MatTooltipModule);
-  }
-
-  TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports,
-    providers: [{ provide: 'MatDialog', useValue: mockDialog }]
-  }).compileComponents();
-
-  return { mockDialog };
-}
-
-/**
  * Common test assertions for multimedia button components
  */
 export function describeMultimediaButtonCommonTests(
+  componentFactory: () => any,
+  it: (name: string, fn: () => void) => void,
+  expect: any
+) {
+  it('should create', () => {
+    const component = componentFactory();
+    expect(component).toBeTruthy();
+  });
+
+  it('should accept dataset input', () => {
+    const component = componentFactory();
+    component.dataset = 'another-dataset';
+    expect(component.dataset).toBe('another-dataset');
+  });
+
+  it('should accept parent input', () => {
+    const component = componentFactory();
+    const mockParent = { save: () => {} };
+    component.parent = mockParent;
+    expect(component.parent).toBe(mockParent);
+  });
+
+  it('should have dialog injected', () => {
+    const component = componentFactory();
+    expect(component.dialog).toBeDefined();
+  });
+}
+
+/**
+ * Test cases specific to MultimediaAddButton
+ */
+export function describeMultimediaAddButtonTests(
   componentFactory: () => any,
   it: (name: string, fn: () => void) => void,
   expect: any
