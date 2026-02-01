@@ -39,13 +39,13 @@ export function describeResolverTests<R, D>(
     stateUrl?: string;
   } = {}
 ): void {
-  it('should be created', () => {
+  it(`${resolverServiceName} should be created`, () => {
     const service = TestBed.inject(resolverService);
     expect(service).toBeTruthy();
   });
 
   if (options.testResolve) {
-    it('resolve delegates to rh.resolve', () => {
+    it(`${resolverServiceName} resolve delegates to rh.resolve`, () => {
       const service = TestBed.inject(resolverService) as any;
       const route = { params: options.routeParams || {} } as any;
       const state = { url: options.stateUrl || '' } as any;

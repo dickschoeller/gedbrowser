@@ -214,8 +214,9 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
           const ub = new UrlBuilder(testDb, resource, link.collection);
           const entity = createEntity(link.childId);
 
-          const result$ = getService().postLink?.(ub, link.parentId, entity);
-          const promise = result$?.toPromise();
+          expect(getService().postLink).toBeDefined();
+          const result$ = getService().postLink!(ub, link.parentId, entity);
+          const promise = result$.toPromise();
 
           const req = getHttpMock().expectOne((r) =>
             r.url.includes(`/${resource}/${link.parentId}/${link.collection}`)
@@ -236,8 +237,9 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
           const ub = new UrlBuilder(testDb, resource, link.collection);
           const entity = createEntity(link.childId);
 
-          const result$ = getService().putLink?.(ub, link.parentId, entity);
-          const promise = result$?.toPromise();
+          expect(getService().putLink).toBeDefined();
+          const result$ = getService().putLink!(ub, link.parentId, entity);
+          const promise = result$.toPromise();
 
           const req = getHttpMock().expectOne((r) =>
             r.url.includes(`/${resource}/${link.parentId}/${link.collection}`)
@@ -258,8 +260,9 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
           const ub = new UrlBuilder(testDb, resource, link.collection);
           const entity = createEntity(link.childId);
 
-          const result$ = getService().deleteLink?.(ub, link.parentId, entity);
-          const promise = result$?.toPromise();
+          expect(getService().deleteLink).toBeDefined();
+          const result$ = getService().deleteLink!(ub, link.parentId, entity);
+          const promise = result$.toPromise();
 
           const req = getHttpMock().expectOne((r) =>
             r.url.includes(`/${resource}/${link.parentId}/${link.collection}/${link.childId}`)
