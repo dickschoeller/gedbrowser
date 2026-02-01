@@ -24,24 +24,19 @@ import {
 
         <form *ngIf="!submitted" [formGroup]="form" (ngSubmit)="onSubmit()" #signupForm="ngForm">
           <mat-form-field>
-            <label>Username: </label>
-            <input matInput formControlName="username" required>
+            <label>Username: <input matInput formControlName="username" required></label>
           </mat-form-field>
           <mat-form-field>
-            <label>Password: </label>
-            <input matInput formControlName="password" required type="password">
+            <label>Password: <input matInput formControlName="password" required type="password"></label>
           </mat-form-field>
           <mat-form-field>
-            <label>First Name: </label>
-            <input matInput formControlName="firstname">
+            <label>First Name: <input matInput formControlName="firstname"></label>
           </mat-form-field>
           <mat-form-field>
-            <label>Last Name: </label>
-            <input matInput formControlName="lastname">
+            <label>Last Name: <input matInput formControlName="lastname"></label>
           </mat-form-field>
           <mat-form-field>
-            <label>Email: </label>
-            <input matInput formControlName="email">
+            <label>Email: <input matInput formControlName="email"></label>
           </mat-form-field>
           <button type="submit" [disabled]="!signupForm.form.valid" mat-raised-button color="primary">Sign up</button>
         </form>
