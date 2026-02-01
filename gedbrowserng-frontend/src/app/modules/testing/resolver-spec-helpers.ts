@@ -45,7 +45,7 @@ export function describeResolverTests(
 
   if (options.testResolve) {
     it('resolve delegates to rh.resolve', () => {
-      const service = TestBed.inject(resolverService);
+      const service = TestBed.inject(resolverService) as any;
       const route = { params: options.routeParams || {} } as any;
       const state = { url: options.stateUrl || '' } as any;
       const spy = vi.spyOn(service.rh, 'resolve');
