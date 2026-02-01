@@ -22,6 +22,7 @@ describe('PersonService', () => {
     id: 'I1',
     altId: 'I2',
     createEntity: createPerson,
+    getEntityId: (entity) => entity.string,
     includeEmptyListTest: true,
     includeGetOne404Test: true,
     link: {

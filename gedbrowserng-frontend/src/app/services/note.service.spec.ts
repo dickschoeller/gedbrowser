@@ -21,6 +21,7 @@ describe('NoteService', () => {
     id: 'N1',
     altId: 'N2',
     createEntity: createNote,
+    getEntityId: (entity) => entity.string,
     link: {
       parentId: 'N1',
       childId: 'N2',
