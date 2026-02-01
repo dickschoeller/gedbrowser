@@ -64,11 +64,11 @@ export class AuthApiService {
 
     // Display error if logged in, otherwise redirect to IDP
     private checkError(error: any): any {
-        if (error && error.status === 401) {
-            // this.redirectIfUnauth(error);
-        } else {
-            // this.displayError(error);
-        }
+        // if (error && error.status === 401) {
+        //     // this.redirectIfUnauth(error);
+        // } else {
+        //     // this.displayError(error);
+        // }
         throw error;
     }
 
