@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { it, expect, beforeEach, vi } from 'vitest';
 
 /**
  * Shared test helpers for resolver services.

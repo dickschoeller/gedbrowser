@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { it, expect } from 'vitest';
 
 /**
  * Shared test helpers for dialog data model specs.
