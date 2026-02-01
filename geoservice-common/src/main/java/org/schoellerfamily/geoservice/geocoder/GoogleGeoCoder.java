@@ -35,7 +35,7 @@ public final class GoogleGeoCoder implements GeoCoder {
         GeocodingResult[] results;
         try {
             results = GeocodingApi.geocode(context, placeName).await();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ie) {
             Thread.currentThread().interrupt();
             results = new GeocodingResult[0];
         } catch (Exception e) {
