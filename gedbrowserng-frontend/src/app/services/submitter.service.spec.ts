@@ -22,6 +22,7 @@ describe('SubmitterService', () => {
     id: 'SUBM1',
     altId: 'SUBM2',
     createEntity: createSubmitter,
+    getEntityId: (entity) => entity.string,
     link: {
       parentId: 'SUBM1',
       childId: 'SUBM2',

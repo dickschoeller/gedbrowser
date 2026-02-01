@@ -22,6 +22,7 @@ describe('FamilyService', () => {
     id: 'F1',
     altId: 'F2',
     createEntity: createFamily,
+    getEntityId: (entity) => entity.string,
     link: {
       parentId: 'F1',
       childId: 'F2',

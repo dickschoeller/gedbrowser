@@ -39,6 +39,7 @@ type CrudSpecConfig<T> = {
   id: string;
   altId: string;
   createEntity: (id: string) => T;
+  getEntityId: (entity: T) => string;
   includeEmptyListTest?: boolean;
   includeGetOne404Test?: boolean;
   link?: LinkConfig;
@@ -79,6 +80,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
     id,
     altId,
     createEntity,
+    getEntityId,
     includeEmptyListTest,
     includeGetOne404Test,
     link,
@@ -180,7 +182,8 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       const result$ = getService().put(testDb, entity);
       const promise = firstValueFrom(result$);
 
-      const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}/${id}`);
+      const entityId = getEntityId(entity);
+      const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}/${entityId}`);
       expect(req.request.method).toBe('PUT');
       expect(req.request.body).toEqual(entity);
       req.flush(entity);
@@ -197,7 +200,8 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       const result$ = getService().delete(testDb, entity);
       const promise = firstValueFrom(result$);
 
-      const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}/${id}`);
+      const entityId = getEntityId(entity);
+      const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}/${entityId}`);
       expect(req.request.method).toBe('DELETE');
       req.flush(entity);
 

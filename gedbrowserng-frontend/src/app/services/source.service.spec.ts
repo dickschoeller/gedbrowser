@@ -22,6 +22,7 @@ describe('SourceService', () => {
     id: 'S1',
     altId: 'S2',
     createEntity: createSource,
+    getEntityId: (entity) => entity.string,
     link: {
       parentId: 'S1',
       childId: 'S2',
