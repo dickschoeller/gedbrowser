@@ -9,36 +9,16 @@ describe('ImageUtil', () => {
     return attr;
   };
 
+  const createWrapper = (inner: ApiAttribute) => createAttribute('wrapper.txt', [inner]);
+
   describe('isImage', () => {
-    it('should identify jpg as image', () => {
-      const attr = createAttribute('photo.jpg');
-      expect(ImageUtil.isImage(attr)).toBe(true);
-    });
-
-    it('should identify jpeg as image', () => {
-      const attr = createAttribute('photo.jpeg');
-      expect(ImageUtil.isImage(attr)).toBe(true);
-    });
-
-    it('should identify png as image', () => {
-      const attr = createAttribute('photo.png');
-      expect(ImageUtil.isImage(attr)).toBe(true);
-    });
-
-    it('should identify gif as image', () => {
-      const attr = createAttribute('photo.gif');
-      expect(ImageUtil.isImage(attr)).toBe(true);
-    });
-
-    it('should identify bmp as image', () => {
-      const attr = createAttribute('photo.bmp');
-      expect(ImageUtil.isImage(attr)).toBe(true);
-    });
-
-    it('should identify svg as image', () => {
-      const attr = createAttribute('photo.svg');
-      expect(ImageUtil.isImage(attr)).toBe(true);
-    });
+    it.each(['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg'])(
+      'should identify %s as image',
+      (extension) => {
+        const attr = createAttribute(`photo.${extension}`);
+        expect(ImageUtil.isImage(attr)).toBe(true);
+      }
+    );
 
     it('should not identify non-image file', () => {
       const attr = createAttribute('document.pdf');
@@ -52,14 +32,12 @@ describe('ImageUtil', () => {
   });
 
   describe('imageFormat', () => {
-    it('should return jpg format for jpg file', () => {
-      const attr = createAttribute('photo.jpg');
-      expect(ImageUtil.imageFormat(attr)).toBe('jpg');
-    });
-
-    it('should return png format for png file', () => {
-      const attr = createAttribute('photo.png');
-      expect(ImageUtil.imageFormat(attr)).toBe('png');
+    it.each([
+      ['photo.jpg', 'jpg'],
+      ['photo.png', 'png']
+    ])('should return %s format for %s', (_tail, expected) => {
+      const attr = createAttribute(_tail);
+      expect(ImageUtil.imageFormat(attr)).toBe(expected);
     });
 
     it('should return default jpg for non-image file', () => {
@@ -90,7 +68,7 @@ describe('ImageUtil', () => {
 
     it('should identify wrapper with image', () => {
       const innerImage = createAttribute('photo.jpg');
-      const wrapper = createAttribute('wrapper.txt', [innerImage]);
+      const wrapper = createWrapper(innerImage);
       const result = ImageUtil.imageAttributes([wrapper]);
       expect(result.length).toBe(1);
     });
@@ -109,7 +87,7 @@ describe('ImageUtil', () => {
 
     it('should return true for wrapper containing image', () => {
       const innerImage = createAttribute('photo.jpg');
-      const wrapper = createAttribute('wrapper.txt', [innerImage]);
+      const wrapper = createWrapper(innerImage);
       expect(ImageUtil.isImageWrapper(wrapper)).toBe(true);
     });
   });
@@ -137,7 +115,7 @@ describe('ImageUtil', () => {
 
     it('should convert wrapper with images to gallery images', () => {
       const innerImage = createAttribute('photo.jpg');
-      const wrapper = createAttribute('wrapper.txt', [innerImage]);
+      const wrapper = createWrapper(innerImage);
       const result = ImageUtil.galleryImages([wrapper]);
       expect(result.length).toBe(1);
       expect(result[0]).toBeDefined();

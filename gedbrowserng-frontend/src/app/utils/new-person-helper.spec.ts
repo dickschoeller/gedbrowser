@@ -2,17 +2,42 @@ import { describe, it, expect } from 'vitest';
 import { NewPersonHelper } from './new-person-helper';
 import { ApiPerson, ApiAttribute } from '../models';
 
+type PersonData = {
+  name: string;
+  sex: string;
+  birthDate: string;
+  birthPlace: string;
+  deathDate: string;
+  deathPlace: string;
+};
+
+const makePersonData = (overrides: Partial<PersonData> = {}): PersonData => ({
+  name: '',
+  sex: 'M',
+  birthDate: '',
+  birthPlace: '',
+  deathDate: '',
+  deathPlace: '',
+  ...overrides
+});
+
+const findEventAttribute = (person: ApiPerson, label: string) =>
+  person.attributes.find((a) => a.type === 'attribute' && a.string === label);
+
+const findChildAttribute = (parent: ApiAttribute | undefined, type: string) =>
+  parent?.attributes?.find((a) => a.type === type);
+
 describe('NewPersonHelper', () => {
   describe('buildPerson', () => {
     it('creates a person with all provided data', () => {
-      const data = {
+      const data = makePersonData({
         name: 'John/Smith/',
         sex: 'M',
         birthDate: '1980-01-15',
         birthPlace: 'New York',
         deathDate: '2050-05-20',
         deathPlace: 'Boston'
-      };
+      });
 
       const person = NewPersonHelper.buildPerson(data);
 
@@ -26,153 +51,81 @@ describe('NewPersonHelper', () => {
       expect(nameAttr?.string).toBe('John/Smith/');
       
       // Check sex
-      const sexAttr = person.attributes.find(a => a.type === 'attribute' && a.string === 'Sex');
+      const sexAttr = findEventAttribute(person, 'Sex');
       expect(sexAttr).toBeDefined();
       expect(sexAttr?.tail).toBe('M');
       
       // Check birth
-      const birthAttr = person.attributes.find(a => a.type === 'attribute' && a.string === 'Birth');
+      const birthAttr = findEventAttribute(person, 'Birth');
       expect(birthAttr).toBeDefined();
-      const birthDateAttr = birthAttr?.attributes?.find(a => a.type === 'date');
+      const birthDateAttr = findChildAttribute(birthAttr, 'date');
       expect(birthDateAttr?.string).toBe('1980-01-15');
-      const birthPlaceAttr = birthAttr?.attributes?.find(a => a.type === 'place');
+      const birthPlaceAttr = findChildAttribute(birthAttr, 'place');
       expect(birthPlaceAttr?.string).toBe('New York');
       
       // Check death
-      const deathAttr = person.attributes.find(a => a.type === 'attribute' && a.string === 'Death');
+      const deathAttr = findEventAttribute(person, 'Death');
       expect(deathAttr).toBeDefined();
-      const deathDateAttr = deathAttr?.attributes?.find(a => a.type === 'date');
+      const deathDateAttr = findChildAttribute(deathAttr, 'date');
       expect(deathDateAttr?.string).toBe('2050-05-20');
-      const deathPlaceAttr = deathAttr?.attributes?.find(a => a.type === 'place');
+      const deathPlaceAttr = findChildAttribute(deathAttr, 'place');
       expect(deathPlaceAttr?.string).toBe('Boston');
     });
 
-    it('uses default name when name is empty for male', () => {
-      const data = {
-        name: '',
-        sex: 'M',
-        birthDate: '',
-        birthPlace: '',
-        deathDate: '',
-        deathPlace: ''
-      };
-
-      const person = NewPersonHelper.buildPerson(data);
-      const nameAttr = person.attributes.find(a => a.type === 'name');
-      expect(nameAttr?.string).toBe('Anonymous');
-    });
-
-    it('uses default name when name is empty for female', () => {
-      const data = {
-        name: '',
-        sex: 'F',
-        birthDate: '',
-        birthPlace: '',
-        deathDate: '',
-        deathPlace: ''
-      };
-
-      const person = NewPersonHelper.buildPerson(data);
-      const nameAttr = person.attributes.find(a => a.type === 'name');
-      expect(nameAttr?.string).toBe('Anonyma');
+    it.each([
+      ['M', 'Anonymous'],
+      ['F', 'Anonyma']
+    ])('uses default name when name is empty for %s', (sex, expectedName) => {
+      const person = NewPersonHelper.buildPerson(makePersonData({ sex, name: '' }));
+      const nameAttr = person.attributes.find((a) => a.type === 'name');
+      expect(nameAttr?.string).toBe(expectedName);
     });
 
     it('skips birth when date and place are empty', () => {
-      const data = {
-        name: 'Jane/Doe/',
-        sex: 'F',
-        birthDate: '',
-        birthPlace: '',
-        deathDate: '',
-        deathPlace: ''
-      };
-
-      const person = NewPersonHelper.buildPerson(data);
-      const birthAttr = person.attributes.find(a => a.type === 'attribute' && a.string === 'Birth');
+      const person = NewPersonHelper.buildPerson(
+        makePersonData({ name: 'Jane/Doe/', sex: 'F' })
+      );
+      const birthAttr = findEventAttribute(person, 'Birth');
       expect(birthAttr).toBeUndefined();
     });
 
-    it('includes birth when only date is provided', () => {
-      const data = {
-        name: 'Jane/Doe/',
-        sex: 'F',
-        birthDate: '1990-05-10',
-        birthPlace: '',
-        deathDate: '',
-        deathPlace: ''
-      };
-
-      const person = NewPersonHelper.buildPerson(data);
-      const birthAttr = person.attributes.find(a => a.type === 'attribute' && a.string === 'Birth');
+    it.each([
+      ['date', { birthDate: '1990-05-10', birthPlace: '' }, '1990-05-10'],
+      ['place', { birthDate: '', birthPlace: 'Paris' }, 'Paris']
+    ])('includes birth when only %s is provided', (type, overrides, expected) => {
+      const person = NewPersonHelper.buildPerson(
+        makePersonData({ name: 'Jane/Doe/', sex: 'F', ...overrides })
+      );
+      const birthAttr = findEventAttribute(person, 'Birth');
       expect(birthAttr).toBeDefined();
-      const birthDateAttr = birthAttr?.attributes?.find(a => a.type === 'date');
-      expect(birthDateAttr?.string).toBe('1990-05-10');
-    });
-
-    it('includes birth when only place is provided', () => {
-      const data = {
-        name: 'Jane/Doe/',
-        sex: 'F',
-        birthDate: '',
-        birthPlace: 'Paris',
-        deathDate: '',
-        deathPlace: ''
-      };
-
-      const person = NewPersonHelper.buildPerson(data);
-      const birthAttr = person.attributes.find(a => a.type === 'attribute' && a.string === 'Birth');
-      expect(birthAttr).toBeDefined();
-      const birthPlaceAttr = birthAttr?.attributes?.find(a => a.type === 'place');
-      expect(birthPlaceAttr?.string).toBe('Paris');
+      const childAttr = findChildAttribute(birthAttr, type);
+      expect(childAttr?.string).toBe(expected);
     });
 
     it('skips death when date and place are empty', () => {
-      const data = {
-        name: 'Bob/Brown/',
-        sex: 'M',
-        birthDate: '1950-01-01',
-        birthPlace: 'London',
-        deathDate: '',
-        deathPlace: ''
-      };
-
-      const person = NewPersonHelper.buildPerson(data);
-      const deathAttr = person.attributes.find(a => a.type === 'attribute' && a.string === 'Death');
+      const person = NewPersonHelper.buildPerson(
+        makePersonData({
+          name: 'Bob/Brown/',
+          sex: 'M',
+          birthDate: '1950-01-01',
+          birthPlace: 'London'
+        })
+      );
+      const deathAttr = findEventAttribute(person, 'Death');
       expect(deathAttr).toBeUndefined();
     });
 
-    it('includes death when only date is provided', () => {
-      const data = {
-        name: 'Bob/Brown/',
-        sex: 'M',
-        birthDate: '',
-        birthPlace: '',
-        deathDate: '2020-12-25',
-        deathPlace: ''
-      };
-
-      const person = NewPersonHelper.buildPerson(data);
-      const deathAttr = person.attributes.find(a => a.type === 'attribute' && a.string === 'Death');
+    it.each([
+      ['date', { deathDate: '2020-12-25', deathPlace: '' }, '2020-12-25'],
+      ['place', { deathDate: '', deathPlace: 'Chicago' }, 'Chicago']
+    ])('includes death when only %s is provided', (type, overrides, expected) => {
+      const person = NewPersonHelper.buildPerson(
+        makePersonData({ name: 'Bob/Brown/', sex: 'M', ...overrides })
+      );
+      const deathAttr = findEventAttribute(person, 'Death');
       expect(deathAttr).toBeDefined();
-      const deathDateAttr = deathAttr?.attributes?.find(a => a.type === 'date');
-      expect(deathDateAttr?.string).toBe('2020-12-25');
-    });
-
-    it('includes death when only place is provided', () => {
-      const data = {
-        name: 'Bob/Brown/',
-        sex: 'M',
-        birthDate: '',
-        birthPlace: '',
-        deathDate: '',
-        deathPlace: 'Chicago'
-      };
-
-      const person = NewPersonHelper.buildPerson(data);
-      const deathAttr = person.attributes.find(a => a.type === 'attribute' && a.string === 'Death');
-      expect(deathAttr).toBeDefined();
-      const deathPlaceAttr = deathAttr?.attributes?.find(a => a.type === 'place');
-      expect(deathPlaceAttr?.string).toBe('Chicago');
+      const childAttr = findChildAttribute(deathAttr, type);
+      expect(childAttr?.string).toBe(expected);
     });
   });
 

@@ -1,20 +1,9 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
 import { NoteListResolverService } from './note-list-resolver.service';
 import { NoteService } from '../../services';
+import { setupResolverTest, describeResolverTests } from '../testing/resolver-spec-helpers';
 
 describe('NoteListResolverService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule, RouterTestingModule ],
-      providers: [ NoteListResolverService, NoteService ]
-    });
-  });
+  setupResolverTest(NoteListResolverService, NoteService);
 
-  it('should be created', () => {
-    const service: NoteListResolverService = TestBed.inject(NoteListResolverService);
-    expect(service).toBeTruthy();
-  });
+  describeResolverTests('NoteListResolverService', NoteListResolverService, NoteService);
 });
