@@ -9,7 +9,7 @@ describe('StringUtil', () => {
       ['exact length', 'hello', 5, 'hello'],
       ['empty string', '', 5, ''],
       ['whitespace-only string', '   ', 5, '']
-    ])('should handle %s', (_label, input, length, expected) => {
+    ])('should handle %s', (scenario, input, length, expected) => {
       expect(StringUtil.truncate(input, length)).toBe(expected);
     });
   });
