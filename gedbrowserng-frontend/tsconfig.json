@@ -14,8 +14,7 @@
     ],
     "lib": [
       "es2022",
-      "dom",
-      "esnext.disposable"
+      "dom"
     ],
     "module": "preserve",
     "baseUrl": "./"
