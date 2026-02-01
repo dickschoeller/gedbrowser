@@ -75,9 +75,6 @@ public class MongoConfiguration {
         final String databaseName = "gebrowser-1_2_2";
         final String connectionString = "mongodb://" + host + ":" + port;
         final MongoClient client = MongoClients.create(connectionString);
-        if (client == null) {
-            throw new UnknownHostException("Could not connect to MongoDB at " + host + ":" + port);
-        }
         return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
 
