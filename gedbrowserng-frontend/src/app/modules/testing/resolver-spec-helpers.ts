@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { Type } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { it, expect, beforeEach, vi } from 'vitest';
@@ -12,9 +13,9 @@ import { it, expect, beforeEach, vi } from 'vitest';
  * Setup function for resolver service tests.
  * Configures TestBed with common imports and providers.
  */
-export function setupResolverTest(
-  resolverService: any,
-  dataService: any
+export function setupResolverTest<R, D>(
+  resolverService: Type<R>,
+  dataService: Type<D>
 ): void {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -28,10 +29,10 @@ export function setupResolverTest(
  * Generates common test suite for resolver services.
  * Includes creation test and optional resolve delegation test.
  */
-export function describeResolverTests(
+export function describeResolverTests<R, D>(
   resolverServiceName: string,
-  resolverService: any,
-  dataService: any,
+  resolverService: Type<R>,
+  dataService: Type<D>,
   options: {
     testResolve?: boolean;
     routeParams?: { [key: string]: string };
