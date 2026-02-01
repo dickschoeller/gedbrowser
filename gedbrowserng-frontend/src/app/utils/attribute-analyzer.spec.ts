@@ -17,74 +17,44 @@ describe('AttributeAnalyzer', () => {
   }
 
   describe('label()', () => {
-    it('returns string for attribute type', () => {
-      const parent = createMockParent('attribute', 'Custom Label');
+    it.each([
+      ['attribute', 'Custom Label', '', 'Custom Label'],
+      ['name', '', '', 'Name'],
+      ['multimedia', '', '', 'Multimedia']
+    ])('returns label for %s', (type, stringValue, tail, expected) => {
+      const parent = createMockParent(type, stringValue, tail);
       const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.label()).toBe('Custom Label');
-    });
-
-    it('returns titleCase for non-attribute types', () => {
-      const parent = createMockParent('name');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.label()).toBe('Name');
-    });
-
-    it('titleCases multimedia', () => {
-      const parent = createMockParent('multimedia');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.label()).toBe('Multimedia');
+      expect(analyzer.label()).toBe(expected);
     });
   });
 
   describe('contents()', () => {
-    it('returns tail for attribute type', () => {
-      const parent = createMockParent('attribute', 'Label', 'Content Value');
+    it.each([
+      ['attribute', 'Label', 'Content Value', 'Content Value', 'toBe'],
+      ['name', 'John/Doe', '', 'John', 'toContain'],
+      ['multimedia', '', '', '', 'toBe'],
+      ['birthdate', 'January 1, 2000', '', 'January 1, 2000', 'toBe']
+    ])('returns contents for %s', (type, stringValue, tail, expected, matcher) => {
+      const parent = createMockParent(type, stringValue, tail);
       const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.contents()).toBe('Content Value');
-    });
-
-    it('returns cleaned up string for name type', () => {
-      const parent = createMockParent('name', 'John/Doe');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.contents()).toContain('John');
-    });
-
-    it('returns empty string for multimedia type', () => {
-      const parent = createMockParent('multimedia');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.contents()).toBe('');
-    });
-
-    it('returns string for other types', () => {
-      const parent = createMockParent('birthdate', 'January 1, 2000');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.contents()).toBe('January 1, 2000');
+      if (matcher === 'toContain') {
+        expect(analyzer.contents()).toContain(expected);
+      } else {
+        expect(analyzer.contents()).toBe(expected);
+      }
     });
   });
 
   describe('editable()', () => {
-    it('returns false for Reference Number', () => {
-      const parent = createMockParent('attribute', 'Reference Number');
+    it.each([
+      ['attribute', 'Reference Number', false],
+      ['attribute', 'Changed', false],
+      ['attribute', 'Custom Field', true],
+      ['name', '', true]
+    ])('returns editable=%s for %s', (type, stringValue, expected) => {
+      const parent = createMockParent(type, stringValue);
       const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.editable()).toBe(false);
-    });
-
-    it('returns false for Changed', () => {
-      const parent = createMockParent('attribute', 'Changed');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.editable()).toBe(false);
-    });
-
-    it('returns true for other attributes', () => {
-      const parent = createMockParent('attribute', 'Custom Field');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.editable()).toBe(true);
-    });
-
-    it('returns true for name type', () => {
-      const parent = createMockParent('name');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.editable()).toBe(true);
+      expect(analyzer.editable()).toBe(expected);
     });
   });
 
@@ -204,34 +174,16 @@ describe('AttributeAnalyzer', () => {
   });
 
   describe('href()', () => {
-    it('returns sourcelink href', () => {
-      const parent = createMockParent('sourcelink', 'source123');
+    it.each([
+      ['sourcelink', 'source123', '', '#/test/sources/source123'],
+      ['submitterlink', 'submitter456', '', '#/test/submitters/submitter456'],
+      ['submissionlink', 'submission789', '', '#/test/submissions/submission789'],
+      ['notelink', 'note123', '', '#/test/notes/note123'],
+      ['attribute', 'File', '/path/to/file.pdf', '/path/to/file.pdf']
+    ])('returns href for %s', (type, stringValue, tail, expected) => {
+      const parent = createMockParent(type, stringValue, tail);
       const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.href()).toBe('#/test/sources/source123');
-    });
-
-    it('returns submitterlink href', () => {
-      const parent = createMockParent('submitterlink', 'submitter456');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.href()).toBe('#/test/submitters/submitter456');
-    });
-
-    it('returns submissionlink href', () => {
-      const parent = createMockParent('submissionlink', 'submission789');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.href()).toBe('#/test/submissions/submission789');
-    });
-
-    it('returns notelink href', () => {
-      const parent = createMockParent('notelink', 'note123');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.href()).toBe('#/test/notes/note123');
-    });
-
-    it('returns tail for File attribute', () => {
-      const parent = createMockParent('attribute', 'File', '/path/to/file.pdf');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.href()).toBe('/path/to/file.pdf');
+      expect(analyzer.href()).toBe(expected);
     });
 
     it('returns null for non-link types', () => {
@@ -242,18 +194,14 @@ describe('AttributeAnalyzer', () => {
   });
 
   describe('hrefit()', () => {
-    it('constructs sourcelink correctly with dataset', () => {
-      const parent = createMockParent('sourcelink', 'source123', '', 'mydataset');
+    it.each([
+      ['sourcelink', 'source123', 'mydataset', '#/mydataset/sources/source123'],
+      ['submitterlink', 'sub456', 'dataset2', '#/dataset2/submitters/sub456']
+    ])('constructs %s with dataset', (type, stringValue, dataset, expected) => {
+      const parent = createMockParent(type, stringValue, '', dataset);
       const analyzer = new AttributeAnalyzer(parent);
-      const href = analyzer.hrefit('mydataset', parent.attribute);
-      expect(href).toBe('#/mydataset/sources/source123');
-    });
-
-    it('constructs submitterlink correctly', () => {
-      const parent = createMockParent('submitterlink', 'sub456', '', 'dataset2');
-      const analyzer = new AttributeAnalyzer(parent);
-      const href = analyzer.hrefit('dataset2', parent.attribute);
-      expect(href).toBe('#/dataset2/submitters/sub456');
+      const href = analyzer.hrefit(dataset, parent.attribute);
+      expect(href).toBe(expected);
     });
 
     it('handles empty string in sourcelink', () => {
@@ -265,22 +213,14 @@ describe('AttributeAnalyzer', () => {
   });
 
   describe('multimedia()', () => {
-    it('returns true for multimedia type', () => {
-      const parent = createMockParent('multimedia');
+    it.each([
+      [true, 'multimedia', '', ''],
+      [false, 'name', '', ''],
+      [false, 'attribute', 'Custom', " with stringValue 'Custom'"]
+    ])('returns %s for type \'%s\'%s', (expected, type, stringValue, suffix) => {
+      const parent = createMockParent(type, stringValue);
       const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.multimedia()).toBe(true);
-    });
-
-    it('returns false for non-multimedia types', () => {
-      const parent = createMockParent('name');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.multimedia()).toBe(false);
-    });
-
-    it('returns false for attribute type', () => {
-      const parent = createMockParent('attribute', 'Custom');
-      const analyzer = new AttributeAnalyzer(parent);
-      expect(analyzer.multimedia()).toBe(false);
+      expect(analyzer.multimedia()).toBe(expected);
     });
   });
 });

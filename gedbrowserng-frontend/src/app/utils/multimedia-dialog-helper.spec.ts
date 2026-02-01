@@ -1,17 +1,37 @@
 import { describe, it, expect } from 'vitest';
 import { MultimediaDialogHelper } from './multimedia-dialog-helper';
-import { MultimediaDialogData } from '../models';
+import { MultimediaDialogData, ApiAttribute } from '../models';
+
+const makeDialogData = (
+  overrides: Partial<MultimediaDialogData> = {}
+): MultimediaDialogData => ({
+  title: 'Photos',
+  files: [],
+  note: '',
+  ...overrides
+});
+
+const makeFile = (fileUrl: string, format = 'jpg', sourceType = 'electronic') => ({
+  fileUrl,
+  format: format as any,
+  sourceType: sourceType as any
+});
+
+const makeMultimediaAttribute = (attributes: ApiAttribute[]): ApiAttribute => ({
+  type: 'multimedia',
+  string: 'Multimedia',
+  tail: '',
+  attributes
+});
 
 describe('MultimediaDialogHelper', () => {
   describe('buildMultimediaAttribute()', () => {
     it('creates multimedia attribute with title and files', () => {
-      const data: MultimediaDialogData = {
+      const data = makeDialogData({
         title: 'Photo Album',
-        files: [
-          { fileUrl: 'photo1.jpg', format: 'jpg' as any, sourceType: 'electronic' as any }
-        ],
+        files: [makeFile('photo1.jpg')],
         note: 'Family photos'
-      };
+      });
 
       const attribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
 
@@ -21,11 +41,7 @@ describe('MultimediaDialogHelper', () => {
     });
 
     it('includes title in first attribute', () => {
-      const data: MultimediaDialogData = {
-        title: 'My Title',
-        files: [],
-        note: ''
-      };
+      const data = makeDialogData({ title: 'My Title' });
 
       const attribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
       const titleAttr = attribute.attributes.find((a: any) => a.string === 'Title');
@@ -35,14 +51,9 @@ describe('MultimediaDialogHelper', () => {
     });
 
     it('includes all files', () => {
-      const data: MultimediaDialogData = {
-        title: 'Photos',
-        files: [
-          { fileUrl: 'photo1.jpg', format: 'jpg' as any, sourceType: 'electronic' as any },
-          { fileUrl: 'photo2.png', format: 'png' as any, sourceType: 'electronic' as any }
-        ],
-        note: ''
-      };
+      const data = makeDialogData({
+        files: [makeFile('photo1.jpg', 'jpg'), makeFile('photo2.png', 'png')]
+      });
 
       const attribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
       const fileAttrs = attribute.attributes.filter((a: any) => a.string === 'File');
@@ -50,45 +61,27 @@ describe('MultimediaDialogHelper', () => {
       expect(fileAttrs.length).toBe(2);
     });
 
-    it('includes note when not empty', () => {
-      const data: MultimediaDialogData = {
-        title: 'Photos',
-        files: [],
-        note: 'Important photos'
-      };
-
-      const attribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
-      const noteAttr = attribute.attributes.find((a: any) => a.string === 'Note');
-
-      expect(noteAttr).toBeDefined();
-      expect(noteAttr.tail).toBe('Important photos');
-    });
-
-    it('omits note when empty', () => {
-      const data: MultimediaDialogData = {
-        title: 'Photos',
-        files: [],
-        note: ''
-      };
-
-      const attribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
+    it.each([
+      ['Important photos', true],
+      ['', false]
+    ])('handles note value "%s"', (note, shouldInclude) => {
+      const attribute = MultimediaDialogHelper.buildMultimediaAttribute(
+        makeDialogData({ note })
+      );
       const noteAttrs = attribute.attributes.filter((a: any) => a.string === 'Note');
 
-      expect(noteAttrs.length).toBe(0);
+      if (shouldInclude) {
+        expect(noteAttrs.length).toBe(1);
+        expect(noteAttrs[0].tail).toBe(note);
+      } else {
+        expect(noteAttrs.length).toBe(0);
+      }
     });
 
     it('handles file with source type', () => {
-      const data: MultimediaDialogData = {
-        title: 'Photos',
-        files: [
-          {
-            fileUrl: 'photo.jpg',
-            format: 'jpg' as any,
-            sourceType: 'electronic' as any
-          }
-        ],
-        note: ''
-      };
+      const data = makeDialogData({
+        files: [makeFile('photo.jpg', 'jpg', 'electronic')]
+      });
 
       const attribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
       const fileAttr = attribute.attributes.find((a: any) => a.string === 'File');
@@ -109,14 +102,9 @@ describe('MultimediaDialogHelper', () => {
 
     it('extracts title from multimedia attribute', () => {
       const multimedias: ApiAttribute[] = [
-        {
-          type: 'multimedia',
-          string: 'Multimedia',
-          tail: '',
-          attributes: [
-            { type: 'attribute', string: 'Title', tail: 'Family Photos', attributes: [] }
-          ]
-        }
+        makeMultimediaAttribute([
+          { type: 'attribute', string: 'Title', tail: 'Family Photos', attributes: [] }
+        ])
       ];
 
       const data = MultimediaDialogHelper.buildMultimediaDialogData(multimedias, 0);
@@ -126,26 +114,21 @@ describe('MultimediaDialogHelper', () => {
 
     it('extracts files from multimedia', () => {
       const multimedias: ApiAttribute[] = [
-        {
-          type: 'multimedia',
-          string: 'Multimedia',
-          tail: '',
-          attributes: [
-            {
-              type: 'attribute',
-              string: 'File',
-              tail: 'photo.jpg',
-              attributes: [
-                {
-                  type: 'attribute',
-                  string: 'Format',
-                  tail: 'jpg',
-                  attributes: []
-                }
-              ]
-            }
-          ]
-        }
+        makeMultimediaAttribute([
+          {
+            type: 'attribute',
+            string: 'File',
+            tail: 'photo.jpg',
+            attributes: [
+              {
+                type: 'attribute',
+                string: 'Format',
+                tail: 'jpg',
+                attributes: []
+              }
+            ]
+          }
+        ])
       ];
 
       const data = MultimediaDialogHelper.buildMultimediaDialogData(multimedias, 0);
@@ -156,14 +139,9 @@ describe('MultimediaDialogHelper', () => {
 
     it('extracts note from multimedia', () => {
       const multimedias: ApiAttribute[] = [
-        {
-          type: 'multimedia',
-          string: 'Multimedia',
-          tail: '',
-          attributes: [
-            { type: 'attribute', string: 'Note', tail: 'Some note', attributes: [] }
-          ]
-        }
+        makeMultimediaAttribute([
+          { type: 'attribute', string: 'Note', tail: 'Some note', attributes: [] }
+        ])
       ];
 
       const data = MultimediaDialogHelper.buildMultimediaDialogData(multimedias, 0);
@@ -173,26 +151,21 @@ describe('MultimediaDialogHelper', () => {
 
     it('extracts format from file attribute', () => {
       const multimedias: ApiAttribute[] = [
-        {
-          type: 'multimedia',
-          string: 'Multimedia',
-          tail: '',
-          attributes: [
-            {
-              type: 'attribute',
-              string: 'File',
-              tail: 'photo.jpg',
-              attributes: [
-                {
-                  type: 'attribute',
-                  string: 'Format',
-                  tail: 'jpg',
-                  attributes: []
-                }
-              ]
-            }
-          ]
-        }
+        makeMultimediaAttribute([
+          {
+            type: 'attribute',
+            string: 'File',
+            tail: 'photo.jpg',
+            attributes: [
+              {
+                type: 'attribute',
+                string: 'Format',
+                tail: 'jpg',
+                attributes: []
+              }
+            ]
+          }
+        ])
       ];
 
       const data = MultimediaDialogHelper.buildMultimediaDialogData(multimedias, 0);
@@ -202,33 +175,28 @@ describe('MultimediaDialogHelper', () => {
 
     it('extracts source type from file attribute', () => {
       const multimedias: ApiAttribute[] = [
-        {
-          type: 'multimedia',
-          string: 'Multimedia',
-          tail: '',
-          attributes: [
-            {
-              type: 'attribute',
-              string: 'File',
-              tail: 'photo.jpg',
-              attributes: [
-                {
-                  type: 'attribute',
-                  string: 'Format',
-                  tail: 'jpg',
-                  attributes: [
-                    {
-                      type: 'attribute',
-                      string: 'Media',
-                      tail: 'electronic',
-                      attributes: []
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
+        makeMultimediaAttribute([
+          {
+            type: 'attribute',
+            string: 'File',
+            tail: 'photo.jpg',
+            attributes: [
+              {
+                type: 'attribute',
+                string: 'Format',
+                tail: 'jpg',
+                attributes: [
+                  {
+                    type: 'attribute',
+                    string: 'Media',
+                    tail: 'electronic',
+                    attributes: []
+                  }
+                ]
+              }
+            ]
+          }
+        ])
       ];
 
       const data = MultimediaDialogHelper.buildMultimediaDialogData(multimedias, 0);
@@ -238,25 +206,20 @@ describe('MultimediaDialogHelper', () => {
 
     it('handles multiple files', () => {
       const multimedias: ApiAttribute[] = [
-        {
-          type: 'multimedia',
-          string: 'Multimedia',
-          tail: '',
-          attributes: [
-            {
-              type: 'attribute',
-              string: 'File',
-              tail: 'photo1.jpg',
-              attributes: []
-            },
-            {
-              type: 'attribute',
-              string: 'File',
-              tail: 'photo2.png',
-              attributes: []
-            }
-          ]
-        }
+        makeMultimediaAttribute([
+          {
+            type: 'attribute',
+            string: 'File',
+            tail: 'photo1.jpg',
+            attributes: []
+          },
+          {
+            type: 'attribute',
+            string: 'File',
+            tail: 'photo2.png',
+            attributes: []
+          }
+        ])
       ];
 
       const data = MultimediaDialogHelper.buildMultimediaDialogData(multimedias, 0);
@@ -266,19 +229,14 @@ describe('MultimediaDialogHelper', () => {
 
     it('handles file without format', () => {
       const multimedias: ApiAttribute[] = [
-        {
-          type: 'multimedia',
-          string: 'Multimedia',
-          tail: '',
-          attributes: [
-            {
-              type: 'attribute',
-              string: 'File',
-              tail: 'unknown.xyz',
-              attributes: []
-            }
-          ]
-        }
+        makeMultimediaAttribute([
+          {
+            type: 'attribute',
+            string: 'File',
+            tail: 'unknown.xyz',
+            attributes: []
+          }
+        ])
       ];
 
       const data = MultimediaDialogHelper.buildMultimediaDialogData(multimedias, 0);
@@ -289,43 +247,25 @@ describe('MultimediaDialogHelper', () => {
   });
 
   describe('fileFormat()', () => {
-    it('detects format from file extension', () => {
+    it.each([
+      ['photo.jpg', 'jpg'],
+      ['document.PDF', 'pdf'],
+      ['file.unknown', '']
+    ])('handles file format for %s', (tail, expected) => {
       const file: ApiAttribute = {
         type: 'attribute',
         string: 'File',
-        tail: 'photo.jpg',
+        tail,
         attributes: []
       };
 
       const format = MultimediaDialogHelper.fileFormat(file);
 
-      expect(format.toLowerCase()).toBe('jpg');
-    });
-
-    it('handles uppercase extension', () => {
-      const file: ApiAttribute = {
-        type: 'attribute',
-        string: 'File',
-        tail: 'document.PDF',
-        attributes: []
-      };
-
-      const format = MultimediaDialogHelper.fileFormat(file);
-
-      expect(format.toLowerCase()).toBe('pdf');
-    });
-
-    it('returns empty string for unknown format', () => {
-      const file: ApiAttribute = {
-        type: 'attribute',
-        string: 'File',
-        tail: 'file.unknown',
-        attributes: []
-      };
-
-      const format = MultimediaDialogHelper.fileFormat(file);
-
-      expect(format).toBe('');
+      if (expected) {
+        expect(format.toLowerCase()).toBe(expected);
+      } else {
+        expect(format).toBe('');
+      }
     });
   });
 });

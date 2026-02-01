@@ -1,12 +1,4 @@
-import { TestBed } from '@angular/core/testing';
-
 import { NoteListModule } from './note-list.module';
+import { describeModuleTest } from '../testing/module-spec-helpers';
 
-describe('NoteListModule', () => {
-  it('should instantiate', () => {
-    const module = TestBed.configureTestingModule({
-      imports: [NoteListModule]
-    }).inject(NoteListModule);
-    expect(module).toBeTruthy();
-  });
-});
+describeModuleTest('NoteListModule', NoteListModule);

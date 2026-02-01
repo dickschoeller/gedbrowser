@@ -1,20 +1,9 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import {TestBed} from '@angular/core/testing';
-
-import {SubmitterResolverService} from './submitter-resolver.service';
+import { SubmitterResolverService } from './submitter-resolver.service';
 import { SubmitterService } from '../../services';
+import { setupResolverTest, describeResolverTests } from '../testing/resolver-spec-helpers';
 
 describe('SubmitterResolverService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule, RouterTestingModule ],
-      providers: [SubmitterResolverService, SubmitterService]
-    });
-  });
+  setupResolverTest(SubmitterResolverService, SubmitterService);
 
-  it('should be created', () => {
-    const service: SubmitterResolverService = TestBed.inject(SubmitterResolverService);
-    expect(service).toBeTruthy();
-  });
+  describeResolverTests('SubmitterResolverService', SubmitterResolverService, SubmitterService);
 });

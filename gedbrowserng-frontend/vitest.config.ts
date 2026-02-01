@@ -30,7 +30,9 @@ export default defineConfig({
         'dist/**',
         'target/**',
         'ui-src/META-INF/resources/**',
-        'tools/**'
+        'tools/**',
+        '**/*.spec.ts',
+        '**/testing/**'
       ],
       // Set global thresholds
       thresholds: {

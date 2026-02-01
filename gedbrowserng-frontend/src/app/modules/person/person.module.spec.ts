@@ -1,12 +1,4 @@
-import { TestBed } from '@angular/core/testing';
-
 import { PersonModule } from './person.module';
+import { describeModuleTest } from '../testing/module-spec-helpers';
 
-describe('PersonModule', () => {
-  it('should instantiate', () => {
-    const module = TestBed.configureTestingModule({
-      imports: [PersonModule]
-    }).inject(PersonModule);
-    expect(module).toBeTruthy();
-  });
-});
+describeModuleTest('PersonModule', PersonModule);

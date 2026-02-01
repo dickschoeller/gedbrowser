@@ -2,48 +2,26 @@ import { StringUtil } from './string-util';
 
 describe('StringUtil', () => {
   describe('truncate', () => {
-    it('should not truncate string shorter than length', () => {
-      expect(StringUtil.truncate('hello', 10)).toBe('hello');
-    });
-
-    it('should truncate string longer than length', () => {
-      expect(StringUtil.truncate('hello world', 5)).toBe('hello...');
-    });
-
-    it('should trim string before truncating', () => {
-      expect(StringUtil.truncate('  hello world  ', 5)).toBe('hello...');
-    });
-
-    it('should handle exact length', () => {
-      expect(StringUtil.truncate('hello', 5)).toBe('hello');
-    });
-
-    it('should handle empty string', () => {
-      expect(StringUtil.truncate('', 5)).toBe('');
-    });
-
-    it('should handle whitespace-only string', () => {
-      expect(StringUtil.truncate('   ', 5)).toBe('');
+    it.each([
+      ['shorter than length', 'hello', 10, 'hello'],
+      ['longer than length', 'hello world', 5, 'hello...'],
+      ['with surrounding whitespace', '  hello world  ', 5, 'hello...'],
+      ['exact length', 'hello', 5, 'hello'],
+      ['empty string', '', 5, ''],
+      ['whitespace-only string', '   ', 5, '']
+    ])('should handle %s', (scenario, input, length, expected) => {
+      expect(StringUtil.truncate(input, length)).toBe(expected);
     });
   });
 
   describe('titleCase', () => {
-    it('should capitalize first word', () => {
-      expect(StringUtil.titleCase('hello world')).toContain('Hello');
-    });
-
-    it('should capitalize last word', () => {
-      expect(StringUtil.titleCase('hello world')).toContain('World');
-    });
-
-    it('should handle lowercase articles', () => {
-      const result = StringUtil.titleCase('the united states of america');
-      expect(result).toContain('The');
-      expect(result).toContain('United');
-    });
-
-    it('should preserve all caps states', () => {
-      expect(StringUtil.titleCase('california')).toContain('California');
+    it.each([
+      ['hello world', ['Hello', 'World']],
+      ['the united states of america', ['The', 'United']],
+      ['california', ['California']]
+    ])('should titleCase %s', (input, expectedParts) => {
+      const result = StringUtil.titleCase(input);
+      expectedParts.forEach((part) => expect(result).toContain(part));
     });
 
     it('should handle single word', () => {
@@ -57,42 +35,25 @@ describe('StringUtil', () => {
   });
 
   describe('capitalize', () => {
-    it('should capitalize first character', () => {
-      expect(StringUtil.capitalize('hello')).toBe('Hello');
-    });
-
-    it('should lowercase rest of string', () => {
-      expect(StringUtil.capitalize('HELLO')).toBe('Hello');
-    });
-
-    it('should handle already capitalized', () => {
-      expect(StringUtil.capitalize('Hello')).toBe('Hello');
-    });
-
-    it('should handle single character', () => {
-      expect(StringUtil.capitalize('a')).toBe('A');
-    });
-
-    it('should handle empty string', () => {
-      expect(StringUtil.capitalize('')).toBe('');
+    it.each([
+      ['hello', 'Hello'],
+      ['HELLO', 'Hello'],
+      ['Hello', 'Hello'],
+      ['a', 'A'],
+      ['', '']
+    ])('should capitalize %s', (input, expected) => {
+      expect(StringUtil.capitalize(input)).toBe(expected);
     });
   });
 
   describe('replaceAll', () => {
-    it('should replace all occurrences', () => {
-      expect(StringUtil.replaceAll('hello world hello', 'hello', 'hi')).toBe('hi world hi');
-    });
-
-    it('should handle no matches', () => {
-      expect(StringUtil.replaceAll('hello world', 'foo', 'bar')).toBe('hello world');
-    });
-
-    it('should handle single match', () => {
-      expect(StringUtil.replaceAll('hello world', 'hello', 'goodbye')).toBe('goodbye world');
-    });
-
-    it('should handle empty replacement', () => {
-      expect(StringUtil.replaceAll('hello world', 'o', '')).toBe('hell wrld');
+    it.each([
+      ['hello world hello', 'hello', 'hi', 'hi world hi'],
+      ['hello world', 'foo', 'bar', 'hello world'],
+      ['hello world', 'hello', 'goodbye', 'goodbye world'],
+      ['hello world', 'o', '', 'hell wrld']
+    ])('should replace all for %s', (input, search, replacement, expected) => {
+      expect(StringUtil.replaceAll(input, search, replacement)).toBe(expected);
     });
 
     it('should handle empty search', () => {
@@ -102,24 +63,14 @@ describe('StringUtil', () => {
   });
 
   describe('isEmpty', () => {
-    it('should return true for null', () => {
-      expect(StringUtil.isEmpty(null)).toBe(true);
-    });
-
-    it('should return true for undefined', () => {
-      expect(StringUtil.isEmpty(undefined)).toBe(true);
-    });
-
-    it('should return true for empty string', () => {
-      expect(StringUtil.isEmpty('')).toBe(true);
-    });
-
-    it('should return false for non-empty string', () => {
-      expect(StringUtil.isEmpty('hello')).toBe(false);
-    });
-
-    it('should return false for whitespace string', () => {
-      expect(StringUtil.isEmpty('  ')).toBe(false);
+    it.each([
+      [true, null],
+      [true, undefined],
+      [true, ''],
+      [false, 'hello'],
+      [false, '  ']
+    ])('should return %s when input is %s', (expected, input) => {
+      expect(StringUtil.isEmpty(input as string | null | undefined)).toBe(expected);
     });
   });
 });

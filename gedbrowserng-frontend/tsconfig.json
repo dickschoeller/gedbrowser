@@ -14,7 +14,9 @@
     ],
     "lib": [
       "es2022",
-      "dom"
+      "dom",
+      // Required for Vitest 4.0's MockInstance interface which extends Disposable
+      "esnext.disposable"
     ],
     "module": "preserve",
     "baseUrl": "./"
