@@ -72,10 +72,6 @@ public class MongoTestConfiguration {
         final String databaseName = "gebrowserTest_" + UUID.randomUUID().toString();
         final String connectionString = "mongodb://" + host + ":" + port;
         final MongoClient client = MongoClients.create(connectionString);
-        if (client == null) {
-            throw new IllegalStateException(
-                "Could not connect to MongoDB at: {}".formatted(connectionString));
-        }
         return new SimpleMongoClientDatabaseFactory(client, databaseName);
     }
 

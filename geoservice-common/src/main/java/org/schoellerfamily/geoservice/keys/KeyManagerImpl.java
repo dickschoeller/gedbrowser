@@ -69,10 +69,12 @@ public final class KeyManagerImpl implements KeyManager {
                 BufferedReader br = new BufferedReader(iStreamReader);) {
             final StringBuilder sb = new StringBuilder();
             // Ignore first line, that's the geocoding key
-            br.readLine();
-            final String line = br.readLine();
-            if (line != null) {
-                sb.append(line.replace("\n", ""));
+            final String firstLine = br.readLine();
+            if (firstLine != null) {
+                final String line = br.readLine();
+                if (line != null) {
+                    sb.append(line.replace("\n", ""));
+                }
             }
             mapKey = sb.toString();
             return mapKey;

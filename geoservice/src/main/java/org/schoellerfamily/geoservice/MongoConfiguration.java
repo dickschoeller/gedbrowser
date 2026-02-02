@@ -49,9 +49,6 @@ public class MongoConfiguration {
     public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
         final String connectionString = "mongodb://" + host + ":" + port;
         final MongoClient client = MongoClients.create(connectionString);
-        if (client == null) {
-            throw new UnknownHostException("Could not connect to MongoDB at " + connectionString);
-        }
         return new SimpleMongoClientDatabaseFactory(client, "geoservice");
     }
 
