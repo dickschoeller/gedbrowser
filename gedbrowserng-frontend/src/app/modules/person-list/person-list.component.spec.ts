@@ -182,5 +182,19 @@ describe('PersonListComponent', () => {
     component.p = refreshSpy as any;
     expect(() => component.refreshPerson()).not.toThrow();
   });
+
+  it('should prevent default and navigate on onSpaceKey', () => {
+    const router = new StubRouter();
+    const comp = new PersonListComponent(router as any, new StubPersonService() as any, new StubDialog() as any);
+    comp.dataset = 'testDataset';
+    const mockEvent = { preventDefault: () => {} };
+    let preventDefaultCalled = false;
+    mockEvent.preventDefault = () => { preventDefaultCalled = true; };
+    
+    comp.onSpaceKey(mockEvent as any, 'P1');
+    
+    expect(preventDefaultCalled).toBe(true);
+    expect(router.navigated).toEqual(['/testDataset/persons/P1']);
+  });
 });
 
