@@ -150,4 +150,51 @@ describe('PersonListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call ngOnChanges successfully', () => {
+    component.persons = [];
+    expect(() => component.ngOnChanges()).not.toThrow();
+  });
+
+  it('should call ngAfterViewInit successfully', () => {
+    component.persons = [];
+    expect(() => component.ngAfterViewInit()).not.toThrow();
+  });
+
+  it('should call ngOnInit successfully', () => {
+    component.persons = [];
+    expect(() => component.ngOnInit()).not.toThrow();
+  });
+
+  it('should return personUB', () => {
+    component.dataset = 'testDataset';
+    const urlBuilder = component.personUB();
+    expect(urlBuilder).toBeDefined();
+  });
+
+  it('should return undefined for personAnchor', () => {
+    const result = component.personAnchor();
+    expect(result).toBeUndefined();
+  });
+
+  it('should call refreshPerson on parent', () => {
+    const refreshSpy = { refreshPerson: () => {} };
+    component.p = refreshSpy as any;
+    expect(() => component.refreshPerson()).not.toThrow();
+  });
+
+  it('should prevent default and navigate on onSpaceKey', () => {
+    const router = new StubRouter();
+    const comp = new PersonListComponent(router as any, new StubPersonService() as any, new StubDialog() as any);
+    comp.dataset = 'testDataset';
+    const mockEvent = { preventDefault: () => {} };
+    let preventDefaultCalled = false;
+    mockEvent.preventDefault = () => { preventDefaultCalled = true; };
+    
+    comp.onSpaceKey(mockEvent as any, 'P1');
+    
+    expect(preventDefaultCalled).toBe(true);
+    expect(router.navigated).toEqual(['/testDataset/persons/P1']);
+  });
 });
+
