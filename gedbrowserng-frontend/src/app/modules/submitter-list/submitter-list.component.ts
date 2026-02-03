@@ -128,9 +128,7 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
   }
 
   handleKeyboardNavigation(event: KeyboardEvent, id: string) {
-    if (event.key === ' ') {
-      event.preventDefault();
-    }
+    event.preventDefault();
     this.navigate(id);
   }
 
