@@ -39,11 +39,11 @@ import { SubmitterListPageComponent } from './submitter-list-page.component';
                 <mat-table #table [dataSource]="datasource" matSort>
                   <ng-container matColumnDef="name">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Submitter </mat-header-cell>
-                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" (keydown.enter)="navigate(submitter.string)" (keydown.space)="onSpaceKey($event, submitter.string)" tabindex="0" role="button" style="cursor: pointer;">{{ submitter.name }}</mat-cell>
+                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" (keydown.enter)="handleKeyboardNavigation($event, submitter.string)" (keydown.space)="handleKeyboardNavigation($event, submitter.string)" tabindex="0" style="cursor: pointer;">{{ submitter.name }}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="string">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" (keydown.enter)="navigate(submitter.string)" (keydown.space)="onSpaceKey($event, submitter.string)" tabindex="0" role="button" style="cursor: pointer;">[{{ submitter.string }}]</mat-cell>
+                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" (keydown.enter)="handleKeyboardNavigation($event, submitter.string)" (keydown.space)="handleKeyboardNavigation($event, submitter.string)" tabindex="0" style="cursor: pointer;">[{{ submitter.string }}]</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="delete">
                     <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
@@ -127,7 +127,8 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
     this.router.navigate(['/' + this.dataset + '/submitters/' + id]);
   }
 
-  onSpaceKey(event: KeyboardEvent, id: string) {
+
+  handleKeyboardNavigation(event: KeyboardEvent, id: string) {
     event.preventDefault();
     this.navigate(id);
   }
