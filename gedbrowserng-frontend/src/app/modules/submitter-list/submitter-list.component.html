@@ -21,11 +21,11 @@
                 <mat-table #table [dataSource]="datasource" matSort>
                   <ng-container matColumnDef="name">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Submitter </mat-header-cell>
-                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" style="cursor: pointer;">{{ submitter.name }}</mat-cell>
+                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" (keydown.enter)="navigate(submitter.string)" (keydown.space)="navigate(submitter.string)" style="cursor: pointer;">{{ submitter.name }}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="string">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" style="cursor: pointer;">[{{ submitter.string }}]</mat-cell>
+                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" (keydown.enter)="navigate(submitter.string)" (keydown.space)="navigate(submitter.string)" style="cursor: pointer;">[{{ submitter.string }}]</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="delete">
                     <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
