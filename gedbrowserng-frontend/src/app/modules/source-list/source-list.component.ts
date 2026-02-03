@@ -124,6 +124,11 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
     this.router.navigate(['/' + this.dataset + '/sources/' + id]);
   }
 
+  navigateOnSpace(event: KeyboardEvent, id: string) {
+    event.preventDefault();
+    this.navigate(id);
+  }
+
   delete(source: ApiSource) {
     this.sourceService.delete(this.dataset, source).subscribe((s: ApiSource) => {
       this.refreshSource(s);
