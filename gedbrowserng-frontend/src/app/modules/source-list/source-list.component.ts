@@ -38,7 +38,7 @@ import { SourceListPageComponent } from './source-list-page.component';
                 <mat-table #table [dataSource]="datasource" matSort>
                   <ng-container matColumnDef="title">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Source </mat-header-cell>
-                    <mat-cell *matCellDef="let source" (click)="navigate(source.string)" (keydown.enter)="navigateOnKeyboard($event, source.string)" (keydown.space)="navigateOnKeyboard($event, source.string)" tabindex="0" role="button" style="cursor: pointer;">{{ source.title }}</mat-cell>
+                    <mat-cell *matCellDef="let source" (click)="navigate(source.string)" (keydown.enter)="navigateOnKeyboard($event, source.string)" (keydown.space)="navigateOnKeyboard($event, source.string)" tabindex="0" role="button" [attr.aria-label]="'Navigate to source ' + source.title" style="cursor: pointer;">{{ source.title }}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="string">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
@@ -125,9 +125,7 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
   }
 
   navigateOnKeyboard(event: KeyboardEvent, id: string) {
-    if (event.key === ' ') {
-      event.preventDefault();
-    }
+    event.preventDefault();
     this.navigate(id);
   }
 
