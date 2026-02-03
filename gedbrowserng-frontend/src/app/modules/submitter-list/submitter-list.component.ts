@@ -127,6 +127,7 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
     this.router.navigate(['/' + this.dataset + '/submitters/' + id]);
   }
 
+
   handleKeyboardNavigation(event: KeyboardEvent, id: string) {
     event.preventDefault();
     this.navigate(id);

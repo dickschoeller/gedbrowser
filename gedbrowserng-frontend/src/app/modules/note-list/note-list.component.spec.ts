@@ -137,4 +137,31 @@ describe('NoteListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call ngOnChanges successfully', () => {
+    component.notes = [];
+    expect(() => component.ngOnChanges()).not.toThrow();
+  });
+
+  it('should call ngAfterViewInit successfully', () => {
+    component.notes = [];
+    expect(() => component.ngAfterViewInit()).not.toThrow();
+  });
+
+  it('should call ngOnInit successfully', () => {
+    component.notes = [];
+    expect(() => component.ngOnInit()).not.toThrow();
+  });
+
+  it('should return noteUB', () => {
+    component.dataset = 'testDataset';
+    const urlBuilder = component.noteUB();
+    expect(urlBuilder).toBeDefined();
+  });
+
+  it('should return undefined for noteAnchor', () => {
+    const result = component.noteAnchor();
+    expect(result).toBeUndefined();
+  });
 });
+
