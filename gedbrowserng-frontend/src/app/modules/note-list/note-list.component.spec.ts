@@ -163,5 +163,30 @@ describe('NoteListComponent', () => {
     const result = component.noteAnchor();
     expect(result).toBeUndefined();
   });
+
+  it('should call refreshNote on parent', () => {
+    const mockNote = new (class {
+      string = 'N1';
+      tail = 'test note';
+    })();
+    const refreshSpy = { refreshNote: () => {} };
+    component.parent = refreshSpy as any;
+    expect(() => component.refreshNote(mockNote as any)).not.toThrow();
+  });
+
+  it('should prevent default and navigate on onSpaceKey', () => {
+    const navigateSpy = { navigate: () => {} };
+    component.router = navigateSpy as any;
+    component.dataset = 'testDataset';
+    const mockEvent = { preventDefault: () => {} };
+    expect(() => component.onSpaceKey(mockEvent as any, 'N1')).not.toThrow();
+  });
+
+  it('should format note tail correctly', () => {
+    const longTail = 'a'.repeat(100) + '\n' + 'b'.repeat(50);
+    const result = component.formatNoteTail(longTail);
+    expect(result.length).toBe(80);
+    expect(result.includes('\n')).toBe(false);
+  });
 });
 
