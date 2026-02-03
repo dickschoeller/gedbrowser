@@ -38,19 +38,19 @@ import { PersonListPageComponent } from './person-list-page.component';
                <mat-table #table [dataSource]="datasource" matSort>
                   <ng-container matColumnDef="indexName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" style="cursor: pointer;">{{ person.indexName }}</mat-cell>
+                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" (keydown.enter)="navigate(person.string)" (keydown.space)="onSpaceKey($event, person.string)" tabindex="0" role="button" style="cursor: pointer;">{{ person.indexName }}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="string">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" style="cursor: pointer;">[{{ person.string }}]</mat-cell>
+                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" (keydown.enter)="navigate(person.string)" (keydown.space)="onSpaceKey($event, person.string)" tabindex="0" role="button" style="cursor: pointer;">[{{ person.string }}]</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="birthdate">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Born </mat-header-cell>
-                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" style="cursor: pointer;">{{ person.lifespan?.birthDate }}</mat-cell>
+                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" (keydown.enter)="navigate(person.string)" (keydown.space)="onSpaceKey($event, person.string)" tabindex="0" role="button" style="cursor: pointer;">{{ person.lifespan?.birthDate }}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="deathdate">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Died </mat-header-cell>
-                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" style="cursor: pointer;">{{ person.lifespan?.deathDate }}</mat-cell>
+                    <mat-cell *matCellDef="let person" (click)="navigate(person.string)" (keydown.enter)="navigate(person.string)" (keydown.space)="onSpaceKey($event, person.string)" tabindex="0" role="button" style="cursor: pointer;">{{ person.lifespan?.deathDate }}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="delete">
                     <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
@@ -178,6 +178,11 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
 
   navigate(id: string) {
     this.router.navigate(['/' + this.dataset + '/persons/' + id]);
+  }
+
+  onSpaceKey(event: KeyboardEvent, id: string) {
+    event.preventDefault();
+    this.navigate(id);
   }
 
   delete(person: ApiPerson) {
