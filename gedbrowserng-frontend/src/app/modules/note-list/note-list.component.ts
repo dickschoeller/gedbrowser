@@ -39,11 +39,11 @@ import { NoteListPageComponent } from './note-list-page.component';
                 <mat-table #table [dataSource]="datasource" matSort>
                   <ng-container matColumnDef="tail">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Note </mat-header-cell>
-                    <mat-cell *matCellDef="let note" (click)="navigate(note.string)" (keydown.enter)="navigate(note.string)" (keydown.space)="onSpaceKey($event, note.string)" tabindex="0" role="button" style="cursor: pointer;">{{ formatNoteTail(note.tail) }}</mat-cell>
+                    <mat-cell *matCellDef="let note" (click)="navigate(note.string)" (keydown.enter)="onKeyboardActivate($event, note.string)" (keydown.space)="onKeyboardActivate($event, note.string)" tabindex="0" role="button" style="cursor: pointer;">{{ formatNoteTail(note.tail) }}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="string">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                    <mat-cell *matCellDef="let note" (click)="navigate(note.string)" (keydown.enter)="navigate(note.string)" (keydown.space)="onSpaceKey($event, note.string)" tabindex="0" role="button" style="cursor: pointer;">[{{ note.string }}]</mat-cell>
+                    <mat-cell *matCellDef="let note" (click)="navigate(note.string)" (keydown.enter)="onKeyboardActivate($event, note.string)" (keydown.space)="onKeyboardActivate($event, note.string)" tabindex="0" role="button" style="cursor: pointer;">[{{ note.string }}]</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="delete">
                     <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
@@ -138,7 +138,7 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
     return safeTail.slice(0, 80).replace(/\n/g, ' ');
   }
 
-  onSpaceKey(event: KeyboardEvent, id: string) {
+  onKeyboardActivate(event: KeyboardEvent, id: string) {
     event.preventDefault();
     this.navigate(id);
   }
