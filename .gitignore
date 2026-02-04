@@ -7,4 +7,3 @@ target/
 .checkstyle
 .springBeans
 .vscode/
-gedbrowserng-frontend/yarn.lock
