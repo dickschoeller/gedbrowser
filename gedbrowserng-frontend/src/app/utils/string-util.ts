@@ -74,7 +74,7 @@ export class StringUtil {
    * string.
    */
   public static replaceAll(target: string, search: string, replacement: string): string {
-    return target.replace(new RegExp(search, 'g'), replacement);
+    return target.replaceAll(search, replacement);
   }
 
   public static isEmpty(input: string) {

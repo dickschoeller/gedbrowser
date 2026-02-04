@@ -11,13 +11,14 @@ import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Main module of a Spring Boot application to provide cached geocode lookups
@@ -28,10 +29,11 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = { "org.schoellerfamily.geoservice" })
 @EnableAutoConfiguration
 @Configuration
+@RequiredArgsConstructor
 public class Application {
     /** */
     @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
-    private String keyfile;
+    private final String keyfile;
 
     /** */
     private GeoCode gcc;
@@ -40,8 +42,7 @@ public class Application {
     private GeoCoder geoCoder;
 
     /** */
-    @Autowired
-    private GeoDocumentRepositoryMongo repositoryMongo;
+    private final GeoDocumentRepositoryMongo repositoryMongo;
 
     /**
      * @param args usual command line arguments are handled by Spring Boot.

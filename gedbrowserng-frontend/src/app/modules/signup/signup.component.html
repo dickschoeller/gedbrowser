@@ -9,23 +9,23 @@
 
         <form *ngIf="!submitted" [formGroup]="form" (ngSubmit)="onSubmit()" #signupForm="ngForm">
           <mat-form-field>
-            <label>Username: </label>
+            <mat-label>Username</mat-label>
             <input matInput formControlName="username" required>
           </mat-form-field>
           <mat-form-field>
-            <label>Password: </label>
+            <mat-label>Password</mat-label>
             <input matInput formControlName="password" required type="password">
           </mat-form-field>
           <mat-form-field>
-            <label>First Name: </label>
+            <mat-label>First Name</mat-label>
             <input matInput formControlName="firstname">
           </mat-form-field>
           <mat-form-field>
-            <label>Last Name: </label>
+            <mat-label>Last Name</mat-label>
             <input matInput formControlName="lastname">
           </mat-form-field>
           <mat-form-field>
-            <label>Email: </label>
+            <mat-label>Email</mat-label>
             <input matInput formControlName="email">
           </mat-form-field>
           <button type="submit" [disabled]="!signupForm.form.valid" mat-raised-button color="primary">Sign up</button>
