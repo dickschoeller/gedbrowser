@@ -30,7 +30,6 @@ export class ApiComparators {
       return '';
     }
     const punctRE = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g;
-    const spaceRE = /\s+/g;
     return a.replaceAll(punctRE, ' ').replaceAll(/(\s){2,}/g, ' ').trim();
   }
 }
