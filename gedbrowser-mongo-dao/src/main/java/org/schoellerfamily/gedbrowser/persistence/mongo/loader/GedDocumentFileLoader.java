@@ -85,7 +85,8 @@ public class GedDocumentFileLoader {
     }
 
     /**
-     * Validates that the database name does not contain path traversal sequences.
+     * Validates that the database name does not contain path traversal sequences
+     * or other potentially dangerous path components.
      *
      * @param dbName the database name to validate
      * @throws IllegalArgumentException if dbName is invalid
@@ -94,10 +95,55 @@ public class GedDocumentFileLoader {
         if (dbName == null || dbName.isEmpty()) {
             throw new IllegalArgumentException("Database name cannot be null or empty");
         }
-        if (dbName.contains("..") || dbName.contains("/") || dbName.contains("\\")
-            || dbName.contains(":")) {
+        
+        // Check for basic path traversal and separators
+        if (dbName.contains("..") || dbName.contains("/") || dbName.contains("\\")) {
             throw new IllegalArgumentException(
                 "Database name contains invalid characters: " + dbName);
+        }
+        
+        // Check for NTFS alternate data streams (contains colon)
+        if (dbName.contains(":")) {
+            throw new IllegalArgumentException(
+                "Database name contains invalid characters (NTFS stream): " + dbName);
+        }
+        
+        // Check for Windows reserved device names
+        final String upperDbName = dbName.toUpperCase();
+        final String[] reservedNames = {
+            "CON", "PRN", "AUX", "NUL",
+            "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+            "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+        };
+        
+        for (final String reserved : reservedNames) {
+            // Check if dbName equals reserved name or starts with reserved name followed by a dot
+            if (upperDbName.equals(reserved) || upperDbName.startsWith(reserved + ".")) {
+                throw new IllegalArgumentException(
+                    "Database name is a reserved device name: " + dbName);
+            }
+        }
+        
+        // Normalize path to ensure it doesn't resolve to a directory path
+        try {
+            final java.nio.file.Path normalizedPath = Paths.get(dbName).normalize();
+            final String normalizedStr = normalizedPath.toString();
+            
+            // After normalization, the path should be exactly the same as the input
+            // (no directory components should be resolved)
+            if (!normalizedStr.equals(dbName)) {
+                throw new IllegalArgumentException(
+                    "Database name contains path components: " + dbName);
+            }
+            
+            // Ensure normalized path has no directory separators
+            if (normalizedStr.contains("/") || normalizedStr.contains("\\")) {
+                throw new IllegalArgumentException(
+                    "Database name contains path separators: " + dbName);
+            }
+        } catch (java.nio.file.InvalidPathException e) {
+            throw new IllegalArgumentException(
+                "Database name is not a valid path: " + dbName, e);
         }
     }
 
