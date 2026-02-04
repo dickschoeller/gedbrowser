@@ -190,4 +190,42 @@ describe('SubmitterListComponent', () => {
 
     expect(component.datasource.data).toEqual(newSubmitters);
   });
+
+  it('should call ngOnChanges successfully', () => {
+    component.submitters = mockSubmitters;
+    expect(() => component.ngOnChanges()).not.toThrow();
+  });
+
+  it('should return page size options', () => {
+    component.submitters = mockSubmitters;
+    const result = component.pagesizeoptions();
+    expect(Array.isArray(result)).toBe(true);
+  });
+
+  it('should return submitterUB', () => {
+    component.dataset = 'testDataset';
+    const urlBuilder = component.submitterUB();
+    expect(urlBuilder).toBeDefined();
+  });
+
+  it('should return undefined for submitterAnchor', () => {
+    const result = component.submitterAnchor();
+    expect(result).toBeUndefined();
+  });
+
+  it('should call refreshSubmitter with correct submitter', () => {
+    const refreshSpy = vi.spyOn(component.parent, 'refreshSubmitter');
+    component.refreshSubmitter(mockSubmitters[0]);
+    expect(refreshSpy).toHaveBeenCalledWith(mockSubmitters[0]);
+  });
+
+  it('should prevent default and navigate on handleKeyboardNavigation', () => {
+    const navigateSpy = vi.spyOn(component, 'navigate');
+    const mockEvent = { preventDefault: vi.fn() } as unknown as KeyboardEvent;
+
+    component.handleKeyboardNavigation(mockEvent, 'S1');
+
+    expect(mockEvent.preventDefault).toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalledWith('S1');
+  });
 });

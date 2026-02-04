@@ -152,6 +152,16 @@ describe('SourceListComponent', () => {
     expect(navigateSpy).toHaveBeenCalledWith(['/testDataset/sources/S1']);
   });
 
+  it('should prevent default and navigate on space key', () => {
+    const navigateSpy = vi.spyOn(component, 'navigate');
+    const mockEvent = { preventDefault: vi.fn() } as unknown as KeyboardEvent;
+
+    component.onSpaceKey(mockEvent, 'S2');
+
+    expect(mockEvent.preventDefault).toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalledWith('S2');
+  });
+
   it('should call parent.refreshSource on refreshSource() call', () => {
     component.parent = { refreshSource: vi.fn() } as any;
 
