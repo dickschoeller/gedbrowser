@@ -9,6 +9,7 @@ import java.io.Reader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
@@ -109,7 +110,7 @@ public class GedDocumentFileLoader {
         }
         
         // Check for Windows reserved device names
-        final String upperDbName = dbName.toUpperCase();
+        final String upperDbName = dbName.toUpperCase(Locale.ROOT);
         final String[] reservedNames = {
             "CON", "PRN", "AUX", "NUL",
             "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
