@@ -160,7 +160,8 @@ public class WebSecurityConfig {
                     PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"),
                     PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/login"),
                     PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/signup"))
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            );
         }
         return http;
     }
