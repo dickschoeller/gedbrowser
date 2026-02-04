@@ -127,19 +127,19 @@ public class GedDocumentFileLoader {
         // Normalize path to ensure it doesn't resolve to a directory path
         try {
             final java.nio.file.Path normalizedPath = Paths.get(dbName).normalize();
-            final String normalizedStr = normalizedPath.toString();
             
-            // After normalization, the path should be exactly the same as the input
-            // (no directory components should be resolved)
-            if (!normalizedStr.equals(dbName)) {
+            // Verify the path has no parent (i.e., it's just a filename, not a path with directories)
+            if (normalizedPath.getParent() != null) {
                 throw new IllegalArgumentException(
                     "Database name contains path components: " + dbName);
             }
             
-            // Ensure normalized path has no directory separators
-            if (normalizedStr.contains("/") || normalizedStr.contains("\\")) {
+            // Verify the filename component matches the input
+            // This ensures no path manipulation occurred during normalization
+            final String filename = normalizedPath.getFileName().toString();
+            if (!filename.equals(dbName)) {
                 throw new IllegalArgumentException(
-                    "Database name contains path separators: " + dbName);
+                    "Database name contains path components: " + dbName);
             }
         } catch (java.nio.file.InvalidPathException e) {
             throw new IllegalArgumentException(
