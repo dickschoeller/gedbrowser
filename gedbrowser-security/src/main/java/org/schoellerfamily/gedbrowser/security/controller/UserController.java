@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,7 +100,7 @@ public class UserController {
      *
      * @return the current user
      */
-    @RequestMapping("/whoami")
+    @GetMapping("/whoami")
     @PreAuthorize("hasRole('USER')")
     public SecurityUser user() {
         return (SecurityUser) SecurityContextHolder

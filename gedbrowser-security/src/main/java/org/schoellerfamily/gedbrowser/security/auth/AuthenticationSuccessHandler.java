@@ -57,6 +57,7 @@ public class AuthenticationSuccessHandler
         authCookie.setHttpOnly(true);
         authCookie.setMaxAge(expiresIn);
         authCookie.setPath("/");
+        authCookie.setSecure(true);
 
         // Add cookie to response
         response.addCookie(authCookie);

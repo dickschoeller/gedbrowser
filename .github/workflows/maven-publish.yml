@@ -29,7 +29,7 @@ jobs:
         settings-path: ${{ github.workspace }}/config # location for the settings.xml file
 
     - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.12.1
+      uses: supercharge/mongodb-github-action@0db69880d3c2305e6297f8edbb8f0a82139f754c # v1.12.1
       with:
         mongodb-version: '4.4'
 
@@ -52,7 +52,7 @@ jobs:
       run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dickschoeller_gedbrowser
 
     - name: Publish to coveralls.io
-      uses: coverallsapp/github-action@v2
+      uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2
       with:
         files: "*/target/site/jacoco/jacoco.xml */coverage/lcov.info"
         github-token: ${{ github.token }}

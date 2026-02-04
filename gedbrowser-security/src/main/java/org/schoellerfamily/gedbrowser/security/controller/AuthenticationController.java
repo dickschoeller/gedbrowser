@@ -80,6 +80,7 @@ public class AuthenticationController {
         authCookie.setPath("/");
         authCookie.setHttpOnly(true);
         authCookie.setMaxAge(expiresIn);
+        authCookie.setSecure(true);
         // Add cookie to response
         response.addCookie(authCookie);
 
