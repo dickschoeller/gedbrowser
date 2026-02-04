@@ -31,6 +31,7 @@ public class MyErrorController implements ErrorController {
      * @param model Spring connection between the data model wrapper
      * @return error
      */
+    @SuppressWarnings("java:S3752")
     @RequestMapping(value = "/error")
     public final String error(final Model model) {
         log.debug("Entering error");
