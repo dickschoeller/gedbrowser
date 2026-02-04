@@ -1,6 +1,6 @@
 <app-main-layout [dataset]="dataset">
   <mat-card>
-    <mat-card-title><div class="with-icon"><mat-icon matListIcon>contacts</mat-icon> Submitters</div></mat-card-title>
+    <mat-card-title><div class="with-icon"><mat-icon matListIcon>collections_bookmark</mat-icon> Sources</div></mat-card-title>
     <mat-card-content>
       <div class="ui-g">
         <div class="ui-g-12">
@@ -12,26 +12,26 @@
                 </mat-form-field>
                 <span class="example-fill-remaining-space"></span>
                 <span>
-                  <button (click)="openCreateSubmitterDialog()" mat-icon-button color="primary"
-                      matTooltip="Add submitter"><mat-icon>add_box</mat-icon></button>
+                  <button (click)="openCreateSourceDialog()" mat-icon-button color="primary"
+                      matTooltip="Add source"><mat-icon>add_comment</mat-icon></button>
                 </span>
               </mat-toolbar>
             </mat-card-header>
             <mat-card-content>
                 <mat-table #table [dataSource]="datasource" matSort>
-                  <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Submitter </mat-header-cell>
-                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" (keydown.enter)="navigate(submitter.string)" (keydown.space)="onSpaceKey($event, submitter.string)" tabindex="0" role="button" style="cursor: pointer;">{{ submitter.name }}</mat-cell>
+                  <ng-container matColumnDef="title">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Source </mat-header-cell>
+                    <mat-cell *matCellDef="let source" (click)="navigate(source.string)" (keydown.enter)="navigate(source.string)" (keydown.space)="onSpaceKey($event, source.string)" tabindex="0" role="button" style="cursor: pointer;">{{ source.title }}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="string">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                    <mat-cell *matCellDef="let submitter" (click)="navigate(submitter.string)" (keydown.enter)="navigate(submitter.string)" (keydown.space)="onSpaceKey($event, submitter.string)" tabindex="0" role="button" style="cursor: pointer;">[{{ submitter.string }}]</mat-cell>
+                    <mat-cell *matCellDef="let source" (click)="navigate(source.string)" (keydown.enter)="navigate(source.string)" (keydown.space)="onSpaceKey($event, source.string)" tabindex="0" role="button" style="cursor: pointer;">[{{ source.string }}]</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="delete">
                     <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-                    <mat-cell *matCellDef="let submitter">
+                    <mat-cell *matCellDef="let source">
                       <span class="hidden">
-                        <button mat-icon-button matTooltip="Delete submitter" color="warn" (click)="delete(submitter)">
+                        <button mat-icon-button matTooltip="Delete source" color="warn" (click)="delete(source)">
                         <mat-icon matListIcon>delete</mat-icon></button>
                       </span>
                     </mat-cell>
