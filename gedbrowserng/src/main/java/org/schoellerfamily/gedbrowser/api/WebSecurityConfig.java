@@ -144,7 +144,7 @@ public class WebSecurityConfig {
      * @return the http security object
      * @throws Exception if there is a problem
      */
-    @SuppressWarnings("java:S4502")
+    @SuppressWarnings({ "java:S4502", "java:S3330" })
     private HttpSecurity configureCsrf(final HttpSecurity http) throws Exception {
         // Warning suppressed because CSRF is disabled only in test profile.
         if ("test".equals(activeProfile)) {
@@ -160,7 +160,7 @@ public class WebSecurityConfig {
                     PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"),
                     PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/login"),
                     PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/signup"))
-//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             );
         }
         return http;
