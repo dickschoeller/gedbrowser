@@ -68,6 +68,46 @@ public class GedDocumentFileLoaderIT {
 
     /** */
     @Test
+    void testPathTraversalWithDoubleDots() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "../../../etc/passwd"));
+    }
+
+    /** */
+    @Test
+    void testPathTraversalWithForwardSlash() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "foo/bar"));
+    }
+
+    /** */
+    @Test
+    void testPathTraversalWithBackslash() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "foo\\bar"));
+    }
+
+    /** */
+    @Test
+    void testPathTraversalWithWindowsDrive() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "C:\\windows\\system32"));
+    }
+
+    /** */
+    @Test
+    void testEmptyDatabaseName() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, ""));
+    }
+
+    /** */
+    @Test
     void testReloadAll() {
         loader.reset(repositoryManager);
         loader.loadDocument(repositoryManager, "mini-schoeller");

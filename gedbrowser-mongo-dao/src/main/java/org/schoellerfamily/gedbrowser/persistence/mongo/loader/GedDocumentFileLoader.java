@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -76,9 +77,28 @@ public class GedDocumentFileLoader {
     /**
      * @param dbName the name of the DB
      * @return the derived filename
+     * @throws IllegalArgumentException if dbName contains path traversal sequences
      */
     protected String buildFileName(final String dbName) {
-        return gedbrowserHome + "/" + dbName + ".ged";
+        validateDatabaseName(dbName);
+        return Paths.get(gedbrowserHome, dbName + ".ged").toString();
+    }
+
+    /**
+     * Validates that the database name does not contain path traversal sequences.
+     *
+     * @param dbName the database name to validate
+     * @throws IllegalArgumentException if dbName is invalid
+     */
+    private void validateDatabaseName(final String dbName) {
+        if (dbName == null || dbName.isEmpty()) {
+            throw new IllegalArgumentException("Database name cannot be null or empty");
+        }
+        if (dbName.contains("..") || dbName.contains("/") || dbName.contains("\\")
+            || dbName.contains(":")) {
+            throw new IllegalArgumentException(
+                "Database name contains invalid characters: " + dbName);
+        }
     }
 
     /**
