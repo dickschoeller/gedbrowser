@@ -100,6 +100,14 @@ public class GedDocumentFileLoaderIT {
 
     /** */
     @Test
+    void testPathTraversalWithColonOnly() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "bad:name"));
+    }
+
+    /** */
+    @Test
     void testEmptyDatabaseName() {
         loader.reset(repositoryManager);
         assertThatExceptionOfType(IllegalArgumentException.class)
