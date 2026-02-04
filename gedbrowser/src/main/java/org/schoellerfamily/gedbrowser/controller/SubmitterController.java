@@ -17,7 +17,7 @@ import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +63,7 @@ public class SubmitterController extends GeoDataController {
      * @param model    Spring connection between the data model wrapper.
      * @return a string identifying which HTML template to use.
      */
-    @RequestMapping("/submitter")
+    @GetMapping("/submitter")
     public final String source(
         @RequestParam(value = "id", required = false, defaultValue = "SUBM1")
         final String idString,

@@ -4,6 +4,7 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,7 +38,7 @@ public class LoginController {
      * @param request the servlet request
      * @return a string identifying which template to use.
      */
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public final String login(final Model model,
             final HttpServletRequest request) {
         log.debug("Entering login");

@@ -12,7 +12,7 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
@@ -57,7 +57,7 @@ public class LivingController extends DatedDataController {
      * @param model Spring connection between the data model wrapper.
      * @return a string identifying which HTML template to use.
      */
-    @RequestMapping("/living")
+    @GetMapping("/living")
     public final String living(@RequestParam(value = "db",
                 required = false,
                 defaultValue = "schoeller") final String dbName,

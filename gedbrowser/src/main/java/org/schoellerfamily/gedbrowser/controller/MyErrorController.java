@@ -6,7 +6,7 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.boot.webmvc.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class MyErrorController implements ErrorController {
      * @param model Spring connection between the data model wrapper
      * @return error
      */
-    @RequestMapping(value = "/error")
+    @GetMapping(value = "/error")
     public final String error(final Model model) {
         log.debug("Entering error");
         final Renderer renderer = new ErrorRenderer(appInfo);

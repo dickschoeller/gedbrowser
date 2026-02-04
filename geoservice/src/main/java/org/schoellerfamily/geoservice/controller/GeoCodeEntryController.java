@@ -7,7 +7,7 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +36,7 @@ public class GeoCodeEntryController {
      * @param modernName the modern searchable name of the place
      * @return a search result
      */
-    @RequestMapping("/geocode")
+    @GetMapping("/geocode")
     public final GeoServiceItem find(
             @RequestParam(value = "name", required = true)
                 final String name,

@@ -144,7 +144,9 @@ public class WebSecurityConfig {
      * @return the http security object
      * @throws Exception if there is a problem
      */
+    @SuppressWarnings("java:S4502")
     private HttpSecurity configureCsrf(final HttpSecurity http) throws Exception {
+        // Warning suppressed because CSRF is disabled only in test profile.
         if ("test".equals(activeProfile)) {
             // Disable CSRF using the lambda-based CsrfConfigurer
             http.csrf(csrf -> csrf.disable());
