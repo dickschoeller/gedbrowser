@@ -68,6 +68,126 @@ public class GedDocumentFileLoaderIT {
 
     /** */
     @Test
+    void testPathTraversalWithDoubleDots() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "../../../etc/passwd"));
+    }
+
+    /** */
+    @Test
+    void testPathTraversalWithForwardSlash() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "foo/bar"));
+    }
+
+    /** */
+    @Test
+    void testPathTraversalWithBackslash() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "foo\\bar"));
+    }
+
+    /** */
+    @Test
+    void testPathTraversalWithWindowsDrive() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "C:\\windows\\system32"));
+    }
+
+    /** */
+    @Test
+    void testPathTraversalWithColonOnly() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "bad:name"));
+    }
+
+    /** */
+    @Test
+    void testEmptyDatabaseName() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, ""));
+    }
+
+    /** */
+    @Test
+    void testNtfsAlternateDataStream() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "filename.txt:stream"));
+    }
+
+    /** */
+    @Test
+    void testWindowsReservedNameCON() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "CON"));
+    }
+
+    /** */
+    @Test
+    void testWindowsReservedNamePRN() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "PRN"));
+    }
+
+    /** */
+    @Test
+    void testWindowsReservedNameAUX() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "AUX"));
+    }
+
+    /** */
+    @Test
+    void testWindowsReservedNameNUL() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "NUL"));
+    }
+
+    /** */
+    @Test
+    void testWindowsReservedNameCOM1() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "COM1"));
+    }
+
+    /** */
+    @Test
+    void testWindowsReservedNameLPT1() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "LPT1"));
+    }
+
+    /** */
+    @Test
+    void testWindowsReservedNameWithExtension() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "CON.txt"));
+    }
+
+    /** */
+    @Test
+    void testWindowsReservedNameLowerCase() {
+        loader.reset(repositoryManager);
+        assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, "con"));
+    }
+
+    /** */
+    @Test
     void testReloadAll() {
         loader.reset(repositoryManager);
         loader.loadDocument(repositoryManager, "mini-schoeller");

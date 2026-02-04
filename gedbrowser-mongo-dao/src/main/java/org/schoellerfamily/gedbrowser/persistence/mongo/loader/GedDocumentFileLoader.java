@@ -6,8 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
@@ -76,9 +78,74 @@ public class GedDocumentFileLoader {
     /**
      * @param dbName the name of the DB
      * @return the derived filename
+     * @throws IllegalArgumentException if dbName contains path traversal sequences
      */
     protected String buildFileName(final String dbName) {
-        return gedbrowserHome + "/" + dbName + ".ged";
+        validateDatabaseName(dbName);
+        return Paths.get(gedbrowserHome, dbName + ".ged").toString();
+    }
+
+    /**
+     * Validates that the database name does not contain path traversal sequences
+     * or other potentially dangerous path components.
+     *
+     * @param dbName the database name to validate
+     * @throws IllegalArgumentException if dbName is invalid
+     */
+    private void validateDatabaseName(final String dbName) {
+        if (dbName == null || dbName.isEmpty()) {
+            throw new IllegalArgumentException("Database name cannot be null or empty");
+        }
+
+        // Check for basic path traversal and separators
+        if (dbName.contains("..") || dbName.contains("/") || dbName.contains("\\")) {
+            throw new IllegalArgumentException(
+                "Database name contains invalid characters: " + dbName);
+        }
+
+        // Check for NTFS alternate data streams (contains colon)
+        if (dbName.contains(":")) {
+            throw new IllegalArgumentException(
+                "Database name contains invalid characters (NTFS stream): " + dbName);
+        }
+
+        // Check for Windows reserved device names
+        final String upperDbName = dbName.toUpperCase(Locale.ROOT);
+        final String[] reservedNames = {
+            "CON", "PRN", "AUX", "NUL",
+            "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+            "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+        };
+
+        for (final String reserved : reservedNames) {
+            // Check if dbName equals reserved name or starts with reserved name followed by a dot
+            if (upperDbName.equals(reserved) || upperDbName.startsWith(reserved + ".")) {
+                throw new IllegalArgumentException(
+                    "Database name is a reserved device name: " + dbName);
+            }
+        }
+
+        // Normalize path to ensure it doesn't resolve to a directory path
+        try {
+            final java.nio.file.Path normalizedPath = Paths.get(dbName).normalize();
+
+            // Verify the path has no parent (i.e., it's just a filename, not a path with directories)
+            if (normalizedPath.getParent() != null) {
+                throw new IllegalArgumentException(
+                    "Database name contains path components: " + dbName);
+            }
+
+            // Verify the filename component matches the input
+            // This ensures no path manipulation occurred during normalization
+            final String filename = normalizedPath.getFileName().toString();
+            if (!filename.equals(dbName)) {
+                throw new IllegalArgumentException(
+                    "Database name contains path components: " + dbName);
+            }
+        } catch (java.nio.file.InvalidPathException e) {
+            throw new IllegalArgumentException(
+                "Database name is not a valid path: " + dbName, e);
+        }
     }
 
     /**

@@ -33,10 +33,15 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public void store(final MultipartFile file) {
         final String filename = validateFile(file);
-        final Path rootLocation = Paths.get(gedbrowserProperties.gedbrowserHome());
+        final Path rootLocation = Paths.get(gedbrowserProperties.gedbrowserHome()).normalize();
+        final Path resolvedPath = rootLocation.resolve(filename).normalize();
+        // Ensure the resolved path is still under the root directory
+        if (!resolvedPath.startsWith(rootLocation)) {
+            throw new StorageException(
+                "Cannot store file outside root directory: " + filename);
+        }
         try (InputStream inputStream = file.getInputStream()) {
-            Files.copy(inputStream, rootLocation.resolve(filename),
-                StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(inputStream, resolvedPath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new StorageException("Failed to store file %s".formatted(filename), e);
         }
