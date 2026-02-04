@@ -10,7 +10,7 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.writer.GedWriter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -50,7 +50,7 @@ public class SaveController extends AbstractController {
      * @param response the servlet response object, needed for tweaking headers
      * @return a string identifying which HTML template to use.
      */
-    @RequestMapping(value = "/save")
+    @GetMapping(value = "/save")
     @ResponseBody
     public final String save(
             @RequestParam(value = "db",

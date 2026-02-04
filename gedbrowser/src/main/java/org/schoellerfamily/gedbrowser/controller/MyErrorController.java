@@ -25,10 +25,13 @@ public class MyErrorController implements ErrorController {
 
     /**
      * Handle display of error conditions.
+     * This endpoint must handle errors from all HTTP methods (GET, POST, PUT, DELETE, etc.),
+     * not just GET requests, as it serves as the application's error handler.
      *
      * @param model Spring connection between the data model wrapper
      * @return error
      */
+    @SuppressWarnings("java:S3752")
     @RequestMapping(value = "/error")
     public final String error(final Model model) {
         log.debug("Entering error");
