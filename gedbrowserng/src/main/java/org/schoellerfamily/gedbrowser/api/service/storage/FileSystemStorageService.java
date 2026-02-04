@@ -33,7 +33,7 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public void store(final MultipartFile file) {
         final String filename = validateFile(file);
-        final Path rootLocation = Paths.get(gedbrowserProperties.gedbrowserHome());
+        final Path rootLocation = Paths.get(gedbrowserProperties.gedbrowserHome()).normalize();
         final Path resolvedPath = rootLocation.resolve(filename).normalize();
         // Ensure the resolved path is still under the root directory
         if (!resolvedPath.startsWith(rootLocation)) {

@@ -79,19 +79,8 @@ public class StreamManager {
             throw new IllegalArgumentException(
                 "File path contains null bytes: " + filePath);
         }
-        // Check for path traversal sequences
-        if (filePath.contains("..")) {
-            throw new IllegalArgumentException(
-                "File path contains traversal sequences: " + filePath);
-        }
-        // Normalize the path to detect bypassed traversal attempts
-        final Path normalizedPath = Paths.get(filePath).normalize();
-        final Path filePath2 = Paths.get(filePath);
-        // Check if normalization changed the path (indicates traversal)
-        if (!normalizedPath.toString().equals(filePath2.toString())) {
-            throw new IllegalArgumentException(
-                "File path contains invalid characters: " + filePath);
-        }
+        // Check for ".." as a path component (not just substring)
+        checkForPathTraversal(filePath);
     }
 
     /**
@@ -104,11 +93,29 @@ public class StreamManager {
         if (resourcePath == null || resourcePath.isEmpty()) {
             throw new IllegalArgumentException("Resource path cannot be null or empty");
         }
-        if (resourcePath.contains("..") || resourcePath.contains("\0")
-            || resourcePath.startsWith("/")) {
+        // Check for null bytes and absolute paths
+        if (resourcePath.contains("\0") || resourcePath.startsWith("/")) {
             throw new IllegalArgumentException(
                 "Resource path contains invalid characters or traversal sequences: "
                     + resourcePath);
+        }
+        // Check for ".." as a path component (not just substring)
+        checkForPathTraversal(resourcePath);
+    }
+
+    /**
+     * Checks if a path contains ".." as a path component, which indicates a path traversal attempt.
+     *
+     * @param pathString the path string to check
+     * @throws IllegalArgumentException if the path contains ".." as a path component
+     */
+    private void checkForPathTraversal(final String pathString) {
+        final Path path = Paths.get(pathString);
+        for (final Path part : path) {
+            if ("..".equals(part.toString())) {
+                throw new IllegalArgumentException(
+                    "Path contains traversal sequences: " + pathString);
+            }
         }
     }
 }

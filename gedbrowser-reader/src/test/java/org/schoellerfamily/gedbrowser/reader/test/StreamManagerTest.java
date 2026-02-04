@@ -135,9 +135,9 @@ public class StreamManagerTest {
     /** */
     @Test
     void testPathNormalizationEdgeCase() {
-        // Tests a path that uses ./ which changes when normalized
+        // Tests a path that uses ./ which is valid but will not be found
         final StreamManager streamManager = new StreamManager("./foo/bar.ged");
-        assertThrows(IllegalArgumentException.class, streamManager::getInputStream);
+        assertThrows(FileNotFoundException.class, streamManager::getInputStream);
     }
 
     /** */
@@ -151,9 +151,9 @@ public class StreamManagerTest {
     /** */
     @Test
     void testMultipleDotsInResourcePath() throws FileNotFoundException {
-        // Tests resource path with "..." which gets caught as containing ".."
+        // Tests resource path with "..." which should be valid (not ".." as path component)
         final StreamManager streamManager = new StreamManager("test...ged");
-        assertThrows(IllegalArgumentException.class, streamManager::getInputStream);
+        assertThrows(FileNotFoundException.class, streamManager::getInputStream);
     }
 
     /** */
