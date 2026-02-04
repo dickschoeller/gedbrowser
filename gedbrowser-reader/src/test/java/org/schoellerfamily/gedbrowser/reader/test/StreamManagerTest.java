@@ -135,9 +135,9 @@ public class StreamManagerTest {
     /** */
     @Test
     void testPathNormalizationEdgeCase() {
-        // Tests a path that uses ./ which changes when normalized
+        // Tests a path that uses ./ which is valid but will not be found
         final StreamManager streamManager = new StreamManager("./foo/bar.ged");
-        assertThrows(IllegalArgumentException.class, streamManager::getInputStream);
+        assertThrows(FileNotFoundException.class, streamManager::getInputStream);
     }
 
     /** */

@@ -80,20 +80,7 @@ public class StreamManager {
                 "File path contains null bytes: " + filePath);
         }
         // Check for ".." as a path component (not just substring)
-        final Path path = Paths.get(filePath);
-        for (final Path part : path) {
-            if ("..".equals(part.toString())) {
-                throw new IllegalArgumentException(
-                    "File path contains traversal sequences: " + filePath);
-            }
-        }
-        // Normalize the path to detect bypassed traversal attempts
-        final Path normalizedPath = path.normalize();
-        // Check if normalization changed the path (indicates traversal)
-        if (!normalizedPath.toString().equals(filePath)) {
-            throw new IllegalArgumentException(
-                "File path contains invalid characters: " + filePath);
-        }
+        checkForPathTraversal(filePath);
     }
 
     /**
@@ -113,11 +100,21 @@ public class StreamManager {
                     + resourcePath);
         }
         // Check for ".." as a path component (not just substring)
-        final Path path = Paths.get(resourcePath);
+        checkForPathTraversal(resourcePath);
+    }
+
+    /**
+     * Checks if a path contains ".." as a path component, which indicates a path traversal attempt.
+     *
+     * @param pathString the path string to check
+     * @throws IllegalArgumentException if the path contains ".." as a path component
+     */
+    private void checkForPathTraversal(final String pathString) {
+        final Path path = Paths.get(pathString);
         for (final Path part : path) {
             if ("..".equals(part.toString())) {
                 throw new IllegalArgumentException(
-                    "Resource path contains traversal sequences: " + resourcePath);
+                    "Path contains traversal sequences: " + pathString);
             }
         }
     }
