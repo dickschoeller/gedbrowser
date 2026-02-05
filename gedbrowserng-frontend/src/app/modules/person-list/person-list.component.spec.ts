@@ -96,10 +96,9 @@ describe('PersonListComponent', () => {
 });
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 import {PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService} from '../../services';
 import {PersonListComponent} from './person-list.component';
@@ -109,7 +108,9 @@ import {PersonListResolverService} from './person-list-resolver.service';
 @Component({
     selector: 'app-main-layout',
     template: '<ng-content></ng-content>',
-    imports: []
+    imports: [HttpClientTestingModule,
+        RouterTestingModule,
+        NoopAnimationsModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -123,14 +124,11 @@ describe('PersonListComponent', () => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
     imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        NoopAnimationsModule,
         PersonListComponent,
         MockMainLayoutComponent,
-    ],
-    providers: [
-        provideRouter([]),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideNoopAnimations()
     ],
     providers: [
         PersonService,

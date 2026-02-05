@@ -4,7 +4,7 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { of } from 'rxjs';
 import * as utils from '../../utils';
@@ -25,10 +25,7 @@ describe('MultimediaAddButtonComponent', () => {
 
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatDialogModule, MatMenuModule, MatIconModule, MatTooltipModule, MultimediaAddButtonComponent],
-    providers: [
-        provideNoopAnimations()
-    ],
+    imports: [MatDialogModule, MatMenuModule, MatIconModule, MatTooltipModule, NoopAnimationsModule, MultimediaAddButtonComponent],
     providers: [{ provide: MatDialog, useValue: mockDialog }]
 }).compileComponents();
 

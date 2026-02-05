@@ -5,10 +5,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
@@ -26,7 +25,9 @@ import { ApiSource, ApiAttribute } from '../../models';
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
-        FormsModule]
+        FormsModule,
+        HttpClientTestingModule,
+        NoopAnimationsModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -41,7 +42,9 @@ class MockMainLayoutComponent {
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
-        FormsModule]
+        FormsModule,
+        HttpClientTestingModule,
+        NoopAnimationsModule]
 })
 class MockAttributeListComponent {
   @Input() dataset: string;
@@ -60,7 +63,9 @@ class MockAttributeListComponent {
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
-        FormsModule]
+        FormsModule,
+        HttpClientTestingModule,
+        NoopAnimationsModule]
 })
 class MockMultimediaGalleryComponent {
   @Input() dataset: string;
@@ -101,17 +106,13 @@ describe('SourceComponent', () => {
         MatInputModule,
         ReactiveFormsModule,
         FormsModule,
-        ,
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+        RouterTestingModule.withRoutes([]),
         SourceComponent,
         MockMainLayoutComponent,
         MockAttributeListComponent,
         MockMultimediaGalleryComponent
-    ],
-    providers: [
-        provideRouter([]),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideNoopAnimations()
     ],
     providers: [
       SourceService,

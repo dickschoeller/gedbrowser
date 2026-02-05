@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Type } from '@angular/core';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { it, expect, beforeEach, vi } from 'vitest';
 
 /**
@@ -20,13 +19,8 @@ export function setupResolverTest<R, D>(
 ): void {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideRouter([]),
-        resolverService,
-        dataService
-      ]
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [resolverService, dataService]
     });
   });
 }

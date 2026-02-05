@@ -1,9 +1,8 @@
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -26,7 +25,10 @@ import { ApiSubmitter } from '../../models';
 @Component({
     selector: 'app-main-layout',
     template: '<ng-content></ng-content>',
-    imports: [MatTableModule,
+    imports: [RouterTestingModule,
+        NoopAnimationsModule,
+        HttpClientTestingModule,
+        MatTableModule,
         MatPaginatorModule,
         MatSortModule,
         MatToolbarModule,
@@ -56,6 +58,9 @@ describe('SubmitterListComponent', () => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
     imports: [
+        RouterTestingModule,
+        NoopAnimationsModule,
+        HttpClientTestingModule,
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
@@ -67,12 +72,6 @@ describe('SubmitterListComponent', () => {
         MatTooltipModule,
         SubmitterListComponent,
         MockMainLayoutComponent
-    ],
-    providers: [
-        provideRouter([]),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideNoopAnimations()
     ],
     providers: [
       SubmitterService,

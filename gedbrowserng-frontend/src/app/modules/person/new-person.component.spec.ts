@@ -41,7 +41,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('NewPersonComponent', () => {
   let component: NewPersonComponent;
@@ -50,10 +50,7 @@ describe('NewPersonComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, NewPersonComponent],
-    providers: [
-        provideNoopAnimations()
-    ],
+    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, NoopAnimationsModule, NewPersonComponent],
     providers: []
 })
     .compileComponents();

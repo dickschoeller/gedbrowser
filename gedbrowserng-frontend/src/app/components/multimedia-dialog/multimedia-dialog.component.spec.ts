@@ -7,9 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MultimediaDialogComponent } from './multimedia-dialog.component';
 import { UserService, AuthApiService, ConfigService } from '../../services';
@@ -21,12 +20,7 @@ describe('MultimediaDialogComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatDialogModule, DragDropModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MultimediaDialogComponent],
-    providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideNoopAnimations()
-    ],
+    imports: [MatDialogModule, DragDropModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, HttpClientTestingModule, NoopAnimationsModule, MultimediaDialogComponent],
     providers: [
         { provide: MatDialogRef, useValue: {} },
         {

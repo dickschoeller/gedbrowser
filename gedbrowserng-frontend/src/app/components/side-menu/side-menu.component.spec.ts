@@ -1,13 +1,12 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { provideRouter } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
@@ -36,13 +35,7 @@ describe('SideMenuComponent', () => {
 
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [ReactiveFormsModule, FormsModule, MatListModule, MatMenuModule, MatIconModule, SideMenuComponent],
-    providers: [
-        provideRouter([]),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideNoopAnimations()
-    ],
+    imports: [ReactiveFormsModule, FormsModule, HttpClientTestingModule, NoopAnimationsModule, MatListModule, MatMenuModule, MatIconModule, RouterTestingModule, SideMenuComponent],
     providers: [
         { provide: DatasetsService, useValue: mockDatasetsService },
         { provide: SaveService, useValue: mockSaveService },

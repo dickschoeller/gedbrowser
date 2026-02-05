@@ -2,10 +2,9 @@ import { describe, it, expect } from 'vitest';
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NoteService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { NoteListComponent } from './note-list.component';
@@ -95,7 +94,9 @@ describe('NoteListComponent', () => {
 @Component({
     selector: 'app-main-layout',
     template: '<ng-content></ng-content>',
-    imports: []
+    imports: [HttpClientTestingModule,
+        RouterTestingModule,
+        NoopAnimationsModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -109,14 +110,11 @@ describe('NoteListComponent', () => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
     imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        NoopAnimationsModule,
         NoteListComponent,
         MockMainLayoutComponent,
-    ],
-    providers: [
-        provideRouter([]),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideNoopAnimations()
     ],
     providers: [
       NoteService,

@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AttributeListItemDetailListComponent } from './attribute-list-item-detail-list.component';
 
@@ -12,10 +12,7 @@ describe('AttributeListItemDetailListComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatButtonModule, AttributeListItemDetailListComponent],
-    providers: [
-        provideNoopAnimations()
-    ],
+    imports: [MatButtonModule, NoopAnimationsModule, AttributeListItemDetailListComponent],
     providers: []
 })
     .compileComponents();

@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { vi } from 'vitest';
 
 import { MainMenuComponent } from './main-menu.component';
@@ -14,11 +14,7 @@ describe('MainMenuComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [MainMenuComponent],
-    providers: [
-        provideRouter([]),
-        provideNoopAnimations()
-    ],
+    imports: [NoopAnimationsModule, RouterTestingModule, MainMenuComponent],
     providers: [
       { provide: AuthService, useValue: { isLoggedIn: () => false, login: vi.fn(), logout: vi.fn() } },
       { provide: UserService, useValue: { currentUser: null } },

@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import { UserService, User } from './user.service';
@@ -35,11 +34,7 @@ describe('UserService', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [],
-    providers: [
-        provideHttpClient(),
-        provideHttpClientTesting()
-    ],
+      imports: [HttpClientTestingModule],
       providers: [
         UserService,
         { provide: AuthApiService, useValue: mockAuthApiService },

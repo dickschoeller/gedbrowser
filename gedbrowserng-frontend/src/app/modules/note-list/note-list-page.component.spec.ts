@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
@@ -16,7 +15,7 @@ import { ApiNote } from '../../models';
 @Component({
     selector: 'app-note-list',
     template: '',
-    imports: []
+    imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule]
 })
 class MockNoteListComponent {
   @Input() parent: any;
@@ -42,13 +41,7 @@ describe('NoteListPageComponent', () => {
     dataSubject = new ReplaySubject(1);
 
     TestBed.configureTestingModule({
-    imports: [NoteListPageComponent, MockNoteListComponent],
-    providers: [
-        provideRouter([]),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideNoopAnimations()
-    ],
+    imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule, NoteListPageComponent, MockNoteListComponent],
     providers: [
       NoteService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },

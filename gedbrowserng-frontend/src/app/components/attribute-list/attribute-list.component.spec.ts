@@ -5,9 +5,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
@@ -42,15 +41,10 @@ describe('AttributeListComponent', () => {
     schemas: [NO_ERRORS_SCHEMA],
     imports: [
         MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
-        ReactiveFormsModule, FormsModule,
+        ReactiveFormsModule, FormsModule, NoopAnimationsModule, HttpClientTestingModule,
         DragDropModule, MatDialogModule, MatCardModule, MatToolbarModule, MatIconModule,
         MatTooltipModule,
         AttributeListComponent
-    ],
-    providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideNoopAnimations()
     ],
     providers: [
         { provide: UserService, useValue: mockUserService },
