@@ -8,7 +8,6 @@ import { setupPersonComponentTest } from '../testing/person-component-spec-helpe
 
 describe('PersonParentComponent', () => {
   let component: PersonParentComponent;
-  let fixture: any;
   let mockPersonService: any;
 
   const mockAttribute: ApiAttribute = {
@@ -32,7 +31,6 @@ describe('PersonParentComponent', () => {
       },
       detectChanges: true
     });
-    fixture = setup.fixture;
     component = setup.component;
     mockPersonService = setup.mockPersonService;
   });

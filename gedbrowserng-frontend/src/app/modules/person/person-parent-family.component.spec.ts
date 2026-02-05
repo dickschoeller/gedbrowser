@@ -7,7 +7,6 @@ import { setupPersonComponentTest } from '../testing/person-component-spec-helpe
 
 describe('PersonParentFamilyComponent', () => {
   let component: PersonParentFamilyComponent;
-  let fixture: any;
   let mockFamilyService: any;
   let mockUserService: any;
 
@@ -19,7 +18,6 @@ describe('PersonParentFamilyComponent', () => {
         parent: { refresh: () => {}, person: { string: 'test' } }
       }
     });
-    fixture = setup.fixture;
     component = setup.component;
     mockFamilyService = setup.mockFamilyService;
     mockUserService = setup.mockUserService;

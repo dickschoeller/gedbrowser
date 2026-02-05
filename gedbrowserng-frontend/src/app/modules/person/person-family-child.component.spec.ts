@@ -8,7 +8,6 @@ import { createTestPerson, setupPersonComponentTest } from '../testing/person-co
 
 describe('PersonFamilyChildComponent', () => {
   let component: PersonFamilyChildComponent;
-  let fixture: any;
   let mockPersonService: any;
   let mockUserService: any;
 
@@ -38,7 +37,6 @@ describe('PersonFamilyChildComponent', () => {
         deleteLink: vi.fn().mockReturnValue(of({}))
       }
     });
-    fixture = setup.fixture;
     component = setup.component;
     mockPersonService = setup.mockPersonService;
     mockUserService = setup.mockUserService;

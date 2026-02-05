@@ -6,7 +6,6 @@ import { setupPersonComponentTest } from '../testing/person-component-spec-helpe
 
 describe('PersonFamilySpouseComponent', () => {
   let component: PersonFamilySpouseComponent;
-  let fixture: any;
   let mockUserService: any;
 
   beforeEach(() => {
@@ -19,7 +18,6 @@ describe('PersonFamilySpouseComponent', () => {
       },
       detectChanges: true
     });
-    fixture = setup.fixture;
     component = setup.component;
     mockUserService = setup.mockUserService;
   });
