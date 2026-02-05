@@ -1,26 +1,16 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatButtonModule } from '@angular/material/button';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
-
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 import { PersonParentComponent } from './person-parent.component';
 import { PersonService } from '../../services/person.service';
 import { ApiAttribute } from '../../models';
+import { setupPersonComponentTest } from '../testing/person-component-spec-helpers';
 
 
 describe('PersonParentComponent', () => {
   let component: PersonParentComponent;
-  let fixture: ComponentFixture<PersonParentComponent>;
+  let fixture: any;
 
   const mockAttribute: ApiAttribute = {
     string: 'I123',
@@ -35,22 +25,9 @@ describe('PersonParentComponent', () => {
   };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [PersonParentComponent],
-    providers: [
-      provideHttpClient(),
-      provideHttpClientTesting(),
-      provideNoopAnimations(),
-      PersonService
-    ]
-})
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PersonParentComponent);
-    component = fixture.componentInstance;
+    const setup = setupPersonComponentTest(PersonParentComponent);
+    fixture = setup.fixture;
+    component = setup.component;
     component.dataset = 'testDataset';
     component.attribute = mockAttribute;
     component.parent = mockParent as any;

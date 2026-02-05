@@ -1,60 +1,19 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatButtonModule } from '@angular/material/button';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
-import { of } from 'rxjs';
+import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 
 import { PersonFamilySpouseComponent } from './person-family-spouse.component';
-import { ConfigService } from '../../services/config.service';
-
-import { AuthApiService } from '../../services/auth-api.service';
-
 import { UserService } from '../../services/user.service';
-
-import { PersonService } from '../../services/person.service';
+import { setupPersonComponentTest } from '../testing/person-component-spec-helpers';
 
 
 describe('PersonFamilySpouseComponent', () => {
   let component: PersonFamilySpouseComponent;
-  let fixture: ComponentFixture<PersonFamilySpouseComponent>;
-  let mockPersonService: any;
+  let fixture: any;
 
   beforeEach(() => {
-    mockPersonService = {
-      getOne: () => of({
-        string: 'test',
-        indexName: 'Test',
-        lifespan: {
-          birthYear: undefined,
-          deathYear: undefined,
-          birthDate: undefined,
-          deathDate: undefined
-        }
-      })
-    };
-
-    TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatButtonModule, PersonFamilySpouseComponent],
-    providers: [
-      provideRouter([]),
-      provideHttpClient(),
-      provideHttpClientTesting(),
-      provideNoopAnimations(),
-      { provide: PersonService, useValue: mockPersonService },
-      UserService, AuthApiService, ConfigService
-    ]
-})
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PersonFamilySpouseComponent);
-    component = fixture.componentInstance;
+    const setup = setupPersonComponentTest(PersonFamilySpouseComponent);
+    fixture = setup.fixture;
+    component = setup.component;
     component.dataset = 'testDataset';
     component.parent = { families: [], refresh: () => {} } as any;
     component.attribute = { string: 'test', type: 'test' } as any;
