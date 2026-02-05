@@ -1,4 +1,4 @@
-import {Component, Input, Inject } from '@angular/core';
+import {Component, Input } from '@angular/core';
 
 import {ApiAttribute} from '../../models';
 import { AttributeListItemDetailListItemComponent } from './attribute-list-item-detail-list-item.component';
