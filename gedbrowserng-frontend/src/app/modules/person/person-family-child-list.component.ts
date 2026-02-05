@@ -20,6 +20,7 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
  *  children: the attributes referring to the children
  */
 @Component({
+    standalone: true,
     selector: 'app-person-family-child-list',
     template: `<div class="ui-g">
   <div class="ui-g-1"></div>

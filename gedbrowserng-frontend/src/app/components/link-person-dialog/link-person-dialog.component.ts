@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
@@ -31,7 +31,7 @@ import { MatButton } from '@angular/material/button';
     imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatSelectionList, MatListOption, MatDialogActions, MatButton, MatDialogClose]
 })
 export class LinkPersonDialogComponent
-  implements OnInit, OnChanges {
+  implements OnInit {
   @Input() titleString: string;
   persons: Array<ApiPerson>;
   @ViewChild(MatSelectionList, {static: true}) selectionList: MatSelectionList;
@@ -43,9 +43,6 @@ export class LinkPersonDialogComponent
 
   ngOnInit() {
     this.selectionList.selectedOptions = new SelectionModel<MatListOption>(this.data.multi);
-  }
-
-  ngOnChanges() {
   }
 
   onNoClick(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit , Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router, RouterLinkActive, RouterLink } from '@angular/router';
 import { AuthService, UserService } from '../../services';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -40,16 +40,13 @@ import { AccountMenuComponent } from '../account-menu/account-menu.component';
     styles: [],
     imports: [MatButton, RouterLinkActive, RouterLink, MatMenuTrigger, MatIconButton, MatIcon, MatMenu, AccountMenuComponent]
 })
-export class UserButtonsComponent implements OnInit {
+export class UserButtonsComponent {
 
     constructor(
         @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) private authService: AuthService,
         @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService,
         @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
     ) { }
-
-    ngOnInit() {
-    }
 
     logout() {
         this.authService.logout().subscribe(() => {

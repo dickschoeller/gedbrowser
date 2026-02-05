@@ -29,6 +29,7 @@ import { PersonFamilyChildListComponent } from './person-family-child-list.compo
  *  family the family identified by the ID
  */
 @Component({
+    standalone: true,
     selector: 'app-person-family',
     template: `<mat-card>
   <mat-card-title>

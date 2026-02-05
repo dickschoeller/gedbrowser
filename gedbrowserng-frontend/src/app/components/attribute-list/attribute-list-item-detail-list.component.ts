@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject } from '@angular/core';
+import {Component, Input, Inject } from '@angular/core';
 
 import {ApiAttribute} from '../../models';
 import { AttributeListItemDetailListItemComponent } from './attribute-list-item-detail-list-item.component';
@@ -16,12 +16,9 @@ import { AttributeListItemDetailListItemComponent } from './attribute-list-item-
     styles: [],
     imports: [AttributeListItemDetailListItemComponent]
 })
-export class AttributeListItemDetailListComponent implements OnInit {
+export class AttributeListItemDetailListComponent {
   @Input() attributes: Array<ApiAttribute>;
   @Input() dataset: string;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 }
