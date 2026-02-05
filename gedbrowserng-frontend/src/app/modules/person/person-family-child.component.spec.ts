@@ -1,7 +1,6 @@
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 import { PersonFamilyChildComponent } from './person-family-child.component';
-import { UserService } from '../../services';
 import { UrlBuilder } from '../../utils';
 import { createTestPerson, setupPersonComponentTest } from '../testing/person-component-spec-helpers';
 
