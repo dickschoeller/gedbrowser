@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 
@@ -31,7 +31,7 @@ describe('AccountMenuComponent', () => {
       provideRouter([]),
       provideHttpClient(),
       provideHttpClientTesting(),
-      provideNoopAnimations(),
+      provideAnimations(),
       { provide: AuthService, useValue: mockAuthService },
       { provide: UserService, useValue: mockUserService }
     ]

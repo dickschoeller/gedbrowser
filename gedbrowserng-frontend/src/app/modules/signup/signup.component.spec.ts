@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { SignupComponent } from './signup.component';
 import { AuthService, UserService, AuthApiService, ConfigService } from '../../services';
@@ -21,7 +21,7 @@ describe('SignupComponent', () => {
       provideRouter([]),
       provideHttpClient(),
       provideHttpClientTesting(),
-      provideNoopAnimations(),
+      provideAnimations(),
       AuthService,
       UserService,
       AuthApiService,

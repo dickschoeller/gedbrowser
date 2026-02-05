@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { vi } from 'vitest';
 
@@ -16,7 +16,7 @@ describe('MainMenuComponent', () => {
     schemas: [NO_ERRORS_SCHEMA],
     imports: [MainMenuComponent],
     providers: [
-      provideNoopAnimations(),
+      provideAnimations(),
       provideRouter([]),
       { provide: AuthService, useValue: { isLoggedIn: () => false, login: vi.fn(), logout: vi.fn() } },
       { provide: UserService, useValue: { currentUser: null } },

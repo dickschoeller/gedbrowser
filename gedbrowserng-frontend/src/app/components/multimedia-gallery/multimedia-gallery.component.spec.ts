@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { NgxGalleryModule } from 'ngx-gallery-15';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -34,7 +34,7 @@ describe('MultimediaGalleryComponent', () => {
     schemas: [NO_ERRORS_SCHEMA],
     imports: [MatDialogModule, NgxGalleryModule, MultimediaGalleryComponent],
     providers: [
-      provideNoopAnimations(),
+      provideAnimations(),
       provideHttpClient(),
       provideHttpClientTesting(),
       { provide: UserService, useValue: mockUserService },

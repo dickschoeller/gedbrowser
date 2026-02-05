@@ -148,7 +148,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FamilyService, PersonService, UserService, AuthApiService, ConfigService } from '../../services';
@@ -162,7 +162,7 @@ describe('PersonFamilyComponent', () => {
     schemas: [NO_ERRORS_SCHEMA],
     imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, PersonFamilyComponent],
     providers: [
-      provideNoopAnimations(),
+      provideAnimations(),
       provideHttpClient(),
       provideHttpClientTesting(),
       FamilyService,

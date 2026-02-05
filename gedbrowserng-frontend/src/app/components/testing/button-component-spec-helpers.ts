@@ -3,7 +3,7 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { vi } from 'vitest';
 import { of } from 'rxjs';
@@ -44,7 +44,7 @@ export function setupResourceButtonTest<TComponent, TService>(
     schemas: [NO_ERRORS_SCHEMA],
     imports: [MatDialogModule, MatMenuModule, MatIconModule, MatTooltipModule, config.componentClass],
     providers: [
-      provideNoopAnimations(),
+      provideAnimations(),
       { provide: config.serviceClass, useValue: mockService },
       { provide: MatDialog, useValue: mockDialog }
     ]

@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -16,7 +16,7 @@ describe('MainLayoutComponent', () => {
     schemas: [NO_ERRORS_SCHEMA],
     imports: [MainLayoutComponent],
     providers: [
-      provideNoopAnimations(),
+      provideAnimations(),
       provideRouter([]),
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
       { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },

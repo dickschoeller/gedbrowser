@@ -99,7 +99,7 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import {PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService} from '../../services';
 import {PersonListComponent} from './person-list.component';
@@ -130,7 +130,7 @@ describe('PersonListComponent', () => {
       provideRouter([]),
       provideHttpClient(),
       provideHttpClientTesting(),
-      provideNoopAnimations(),
+      provideAnimations(),
       PersonService,
       PersonListResolverService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },

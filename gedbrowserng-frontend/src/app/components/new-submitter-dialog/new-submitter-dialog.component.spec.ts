@@ -4,7 +4,7 @@ import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/materia
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { NewSubmitterDialogComponent } from './new-submitter-dialog.component';
 
@@ -17,7 +17,7 @@ describe('NewSubmitterDialogComponent', () => {
     schemas: [NO_ERRORS_SCHEMA],
     imports: [MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, NewSubmitterDialogComponent],
     providers: [
-      provideNoopAnimations(),
+      provideAnimations(),
       { provide: MatDialogRef, useValue: {} },
       { provide: MAT_DIALOG_DATA, useValue: {} }
     ]
