@@ -7,7 +7,6 @@ import { UserService } from '../../services';
 import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
 
 import { HasAttributeDialog } from './has-attribute-dialog';
-import { NgIf } from '@angular/common';
 import { AttributeListItemDetailListComponent } from './attribute-list-item-detail-list.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -18,28 +17,39 @@ import { SourceButtonComponent } from '../source-button/source-button.component'
 @Component({
     selector: 'app-attribute-list-item',
     template: `<div class="parent">
-  <b>{{ attributeUtil.label() }}:&nbsp;</b><span *ngIf="attributeUtil.contents()">
-    <span *ngIf="href(); else elseLinkBlock"><a
-        href="{{ href() }}">[{{ attributeUtil.contents() }}]</a></span><ng-template
-        #elseLinkBlock><span>{{ attributeUtil.contents() }}</span></ng-template><span
-        *ngIf="attribute?.attributes.length">,</span>
-   </span>
+    <b>{{ attributeUtil.label() }}:&nbsp;</b>
+    @if (attributeUtil.contents()) {
+        <span>
+            @if (href()) {
+                <span><a href="{{ href() }}">[{{ attributeUtil.contents() }}]</a></span>
+            } @else {
+                <span>{{ attributeUtil.contents() }}</span>
+            }
+            @if (attribute?.attributes.length) { <span>,</span> }
+        </span>
+    }
   <app-attribute-list-item-detail-list [dataset]="dataset" [attributes]="attribute?.attributes">
     </app-attribute-list-item-detail-list>
   <span class="example-fill-remaining-space"></span>
-  <span *ngIf="attributeUtil.editable() && hasSignedIn()" class="hidden">
-    <button mat-icon-button matTooltip="Edit" color="primary" (click)="edit()">
-      <mat-icon matListIcon>edit</mat-icon></button>
-    <app-multimedia-edit-button *ngIf="attributeUtil.multimedia()"
-        [parent]="this" [dataset]="dataset" [attributes]="attributeList" [index]="index">
-      </app-multimedia-edit-button>
-    <button mat-icon-button matTooltip="Delete" color="warn" (click)="delete()">
-      <mat-icon matListIcon>delete</mat-icon></button>
-    <app-source-button *ngIf="!href()" [parent]="this" [dataset]="dataset"></app-source-button>
-  </span>
+    @if (attributeUtil.editable() && hasSignedIn()) {
+        <span class="hidden">
+            <button mat-icon-button matTooltip="Edit" color="primary" (click)="edit()">
+                <mat-icon matListIcon>edit</mat-icon></button>
+            @if (attributeUtil.multimedia()) {
+                <app-multimedia-edit-button
+                        [parent]="this" [dataset]="dataset" [attributes]="attributeList" [index]="index">
+                </app-multimedia-edit-button>
+            }
+            <button mat-icon-button matTooltip="Delete" color="warn" (click)="delete()">
+                <mat-icon matListIcon>delete</mat-icon></button>
+            @if (!href()) {
+                <app-source-button [parent]="this" [dataset]="dataset"></app-source-button>
+            }
+        </span>
+    }
 </div>`,
     styles: [],
-    imports: [NgIf, AttributeListItemDetailListComponent, MatIconButton, MatTooltip, MatIcon, MultimediaEditButtonComponent, SourceButtonComponent]
+    imports: [AttributeListItemDetailListComponent, MatIconButton, MatTooltip, MatIcon, MultimediaEditButtonComponent, SourceButtonComponent]
 })
 export class AttributeListItemComponent extends HasAttributeDialog {
     @Input() attribute: ApiAttribute;

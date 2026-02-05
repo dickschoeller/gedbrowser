@@ -1,7 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { UserButtonsComponent } from './user-buttons.component';
 import { AuthService, UserService, AuthApiService, ConfigService } from '../../services';
@@ -13,8 +14,16 @@ describe('UserButtonsComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [RouterTestingModule, HttpClientTestingModule, UserButtonsComponent],
-    providers: [AuthService, UserService, AuthApiService, ConfigService]
+    imports: [UserButtonsComponent],
+    providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      AuthService,
+      UserService,
+      AuthApiService,
+      ConfigService
+    ]
 })
     .compileComponents();
   });

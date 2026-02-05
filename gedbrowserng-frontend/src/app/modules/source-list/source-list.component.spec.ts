@@ -1,8 +1,9 @@
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
-import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -25,10 +26,7 @@ import { ApiSource } from '../../models';
 @Component({
     selector: 'app-main-layout',
     template: '<ng-content></ng-content>',
-    imports: [HttpClientTestingModule,
-        RouterTestingModule,
-        NoopAnimationsModule,
-        MatTableModule,
+    imports: [MatTableModule,
         MatPaginatorModule,
         MatSortModule,
         MatToolbarModule,
@@ -59,10 +57,7 @@ describe('SourceListComponent', () => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
     imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
-        NoopAnimationsModule,
-        MatTableModule,
+      MatTableModule,
         MatPaginatorModule,
         MatSortModule,
         MatToolbarModule,
@@ -75,6 +70,10 @@ describe('SourceListComponent', () => {
         MockMainLayoutComponent
     ],
     providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideNoopAnimations(),
       SourceService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
       { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },

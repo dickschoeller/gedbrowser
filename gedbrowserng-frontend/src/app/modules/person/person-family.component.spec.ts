@@ -148,8 +148,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FamilyService, PersonService, UserService, AuthApiService, ConfigService } from '../../services';
 
 describe('PersonFamilyComponent', () => {
@@ -159,8 +160,17 @@ describe('PersonFamilyComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, NoopAnimationsModule, HttpClientTestingModule, PersonFamilyComponent],
-    providers: [FamilyService, PersonService, UserService, AuthApiService, ConfigService]
+    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, PersonFamilyComponent],
+    providers: [
+      provideNoopAnimations(),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      FamilyService,
+      PersonService,
+      UserService,
+      AuthApiService,
+      ConfigService
+    ]
 })
     .compileComponents();
   });

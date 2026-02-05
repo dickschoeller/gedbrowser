@@ -5,10 +5,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 
 import { SubmitterComponent } from './submitter.component';
@@ -20,13 +20,11 @@ import { ApiSubmitter } from '../../models';
     selector: 'app-main-layout',
     template: '<ng-content></ng-content>',
     imports: [MatButtonModule,
-        MatSelectModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule]
+      MatSelectModule,
+      MatFormFieldModule,
+      MatInputModule,
+      ReactiveFormsModule,
+      FormsModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -37,13 +35,11 @@ class MockMainLayoutComponent {
     selector: 'app-attribute-list',
     template: '',
     imports: [MatButtonModule,
-        MatSelectModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule]
+      MatSelectModule,
+      MatFormFieldModule,
+      MatInputModule,
+      ReactiveFormsModule,
+      FormsModule]
 })
 class MockAttributeListComponent {
   @Input() dataset: string;
@@ -74,14 +70,15 @@ describe('SubmitterComponent', () => {
         MatInputModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule,
-        RouterTestingModule.withRoutes([]),
         SubmitterComponent,
         MockMainLayoutComponent,
         MockAttributeListComponent
     ],
     providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideNoopAnimations(),
       SubmitterService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
       { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },

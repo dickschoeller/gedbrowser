@@ -8,7 +8,6 @@ import { LinkDialogData, LinkItem } from '../../models';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { NgFor } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 
 @Component({
@@ -18,7 +17,9 @@ import { MatButton } from '@angular/material/button';
 </div>
 <div mat-dialog-content>
   <mat-selection-list #items (selectionChange)="onSelection($event, items.selectedOptions.selected)">
-    <mat-list-option *ngFor="let item of data.items" [value]="item.id">{{ item.label }}</mat-list-option>
+    @for (item of data.items; track $index) {
+      <mat-list-option [value]="item.id">{{ item.label }}</mat-list-option>
+    }
   </mat-selection-list>
 </div>
 <div mat-dialog-actions>
@@ -27,7 +28,7 @@ import { MatButton } from '@angular/material/button';
   <button mat-button (click)="onNoClick()" >Cancel</button>
 </div>`,
     styles: [],
-    imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatSelectionList, NgFor, MatListOption, MatDialogActions, MatButton, MatDialogClose]
+    imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatSelectionList, MatListOption, MatDialogActions, MatButton, MatDialogClose]
 })
 export class LinkDialogComponent
   implements OnInit, OnChanges, LinkDialogInterface {

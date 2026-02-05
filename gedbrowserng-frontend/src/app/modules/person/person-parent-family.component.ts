@@ -8,7 +8,6 @@ import { RefreshPerson, Saveable, HasPerson, HasFamily } from '../../interfaces'
 import { UrlBuilder } from '../../utils';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
-import { NgFor, NgIf } from '@angular/common';
 import { PersonParentComponent } from './person-parent.component';
 import { NewPersonComponent } from './new-person.component';
 import { LinkPersonComponent } from './link-person.component';
@@ -19,27 +18,33 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
     template: `<mat-card>
   <mat-card-title>
     <mat-toolbar color="primary">
-      <mat-toolbar-row *ngFor="let spouse of family?.spouses">
-        <app-person-parent [dataset]="dataset" [parent]="this"
-            [attribute]="spouse"></app-person-parent>
-        <span class="example-fill-remaining-space"></span>
-        <span *ngIf="family?.spouses.length < 2">
-          <app-new-person
-              [sex]="sex" [surname]="surname" [label]="'Create parent'"
-              (emitOK)="createPerson($event)"></app-new-person>
-          <app-link-person
-              [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
-              (emitOK)="linkPerson($event)"></app-link-person>
-        </span>
-      </mat-toolbar-row>
-      <mat-toolbar-row *ngIf="family?.spouses.length == 0">
-          <app-new-person
-              [sex]="sex" [surname]="surname" [label]="'Create parent'"
-              (emitOK)="createPerson($event)"></app-new-person>
-          <app-link-person
-              [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
-              (emitOK)="linkPerson($event)"></app-link-person>
-      </mat-toolbar-row>
+      @for (spouse of family?.spouses; track $index) {
+        <mat-toolbar-row>
+          <app-person-parent [dataset]="dataset" [parent]="this"
+              [attribute]="spouse"></app-person-parent>
+          <span class="example-fill-remaining-space"></span>
+          @if (family?.spouses.length < 2) {
+            <span>
+              <app-new-person
+                  [sex]="sex" [surname]="surname" [label]="'Create parent'"
+                  (emitOK)="createPerson($event)"></app-new-person>
+              <app-link-person
+                  [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+                  (emitOK)="linkPerson($event)"></app-link-person>
+            </span>
+          }
+        </mat-toolbar-row>
+      }
+      @if (family?.spouses.length == 0) {
+        <mat-toolbar-row>
+            <app-new-person
+                [sex]="sex" [surname]="surname" [label]="'Create parent'"
+                (emitOK)="createPerson($event)"></app-new-person>
+            <app-link-person
+                [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+                (emitOK)="linkPerson($event)"></app-link-person>
+        </mat-toolbar-row>
+      }
     </mat-toolbar>
   </mat-card-title>
   <mat-card-content>
@@ -55,11 +60,12 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
       <mat-card-content>
         <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)"
             [cdkDropListDisabled]="!hasSignedIn()">
-          <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : '' }}"
-              *ngFor="let child of family?.children; let i=index">
-            <app-person-family-child [dataset]="dataset" [parent]="this"
-                [child]="child" [index]="i"></app-person-family-child>
-          </div>
+          @for (child of family?.children; track $index; let i = $index) {
+            <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : '' }}">
+              <app-person-family-child [dataset]="dataset" [parent]="this"
+                  [child]="child" [index]="i"></app-person-family-child>
+            </div>
+          }
         </div>
       </mat-card-content>
     </mat-card>
@@ -69,7 +75,7 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
   </mat-card-content>
 </mat-card>`,
     styles: [],
-    imports: [MatCard, MatCardTitle, MatToolbar, NgFor, MatToolbarRow, PersonParentComponent, NgIf, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, CdkDrag, PersonFamilyChildComponent]
+    imports: [MatCard, MatCardTitle, MatToolbar, MatToolbarRow, PersonParentComponent, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, CdkDrag, PersonFamilyChildComponent]
 })
 export class PersonParentFamilyComponent extends InitablePersonCreator
     implements OnInit, OnChanges, HasFamily, RefreshPerson {

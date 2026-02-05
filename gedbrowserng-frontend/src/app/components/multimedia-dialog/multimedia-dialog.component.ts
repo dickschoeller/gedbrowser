@@ -12,7 +12,6 @@ import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
 import { MatSelect, MatOption } from '@angular/material/select';
 import { MatButton } from '@angular/material/button';
 
@@ -30,28 +29,33 @@ import { MatButton } from '@angular/material/button';
   <div>
     <div cdkDropList class="file-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
-      <div cdkDrag class="{{ hasSignedIn() ? 'file-box' : '' }}"
-          *ngFor="let file of data.files; let i=index">
-        <br/>
-        <mat-form-field>
-          <mat-label>File URL</mat-label>
-          <input matInput [(ngModel)]="file.fileUrl">
-        </mat-form-field>
-        <br/>
-        <mat-form-field>
-          <mat-label>Format</mat-label>
-          <mat-select [(ngModel)]="file.format">
-            <mat-option *ngFor="let format of formats" [value]="format.value">{{ format.label }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br/>
-        <mat-form-field>
-          <mat-label>Format</mat-label>
-          <mat-select [(ngModel)]="file.sourceType">
-            <mat-option *ngFor="let type of sourceTypes" [value]="type.value">{{ type.label }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      @for (file of data.files; track $index) {
+        <div cdkDrag class="{{ hasSignedIn() ? 'file-box' : '' }}">
+          <br/>
+          <mat-form-field>
+            <mat-label>File URL</mat-label>
+            <input matInput [(ngModel)]="file.fileUrl">
+          </mat-form-field>
+          <br/>
+          <mat-form-field>
+            <mat-label>Format</mat-label>
+            <mat-select [(ngModel)]="file.format">
+              @for (format of formats; track $index) {
+                <mat-option [value]="format.value">{{ format.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <br/>
+          <mat-form-field>
+            <mat-label>Format</mat-label>
+            <mat-select [(ngModel)]="file.sourceType">
+              @for (type of sourceTypes; track $index) {
+                <mat-option [value]="type.value">{{ type.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      }
     </div>
   </div>
   <br/>
@@ -67,7 +71,7 @@ import { MatButton } from '@angular/material/button';
   <button mat-button (click)="onNoClick()" >Cancel</button>
 </div>`,
     styles: [],
-    imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, CdkDropList, NgFor, CdkDrag, MatSelect, MatOption, MatDialogActions, MatButton, MatDialogClose]
+    imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, CdkDropList, CdkDrag, MatSelect, MatOption, MatDialogActions, MatButton, MatDialogClose]
 })
 export class MultimediaDialogComponent implements OnInit {
     formats: Array<SelectItem>;

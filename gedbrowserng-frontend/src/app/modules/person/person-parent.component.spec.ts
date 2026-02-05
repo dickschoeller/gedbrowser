@@ -1,7 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 
@@ -10,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 import { PersonParentComponent } from './person-parent.component';
 import { PersonService } from '../../services/person.service';
@@ -36,8 +37,13 @@ describe('PersonParentComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [HttpClientTestingModule, PersonParentComponent],
-    providers: [PersonService]
+    imports: [PersonParentComponent],
+    providers: [
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideNoopAnimations(),
+      PersonService
+    ]
 })
     .compileComponents();
   });

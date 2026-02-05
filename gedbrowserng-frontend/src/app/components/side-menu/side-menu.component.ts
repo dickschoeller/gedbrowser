@@ -7,7 +7,6 @@ import { SaveService, DatasetsService, UploadService, UserService } from '../../
 import { MatNavList, MatListItem } from '@angular/material/list';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { NgIf, NgFor } from '@angular/common';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 
 @Component({
@@ -18,7 +17,9 @@ import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
   <a mat-list-item [routerLink]="['/' + dataset + '/notes']"><div class="with-icon"><mat-icon matListIcon>comment</mat-icon> Notes</div></a>
   <a mat-list-item [routerLink]="['/' + dataset + '/sources']"><div class="with-icon"><mat-icon matListIcon>collections_bookmark</mat-icon> Sources</div></a>
   <a mat-list-item [routerLink]="['/' + dataset + '/submitters']"><div class="with-icon"><mat-icon matListIcon>contacts</mat-icon> Submitters</div></a>
-  <a mat-list-item (click)="saveFile()" *ngIf="hasSignedIn()"><div class="with-icon"><mat-icon matListIcon>cloud_download</mat-icon> Save</div></a>
+  @if (hasSignedIn()) {
+    <a mat-list-item (click)="saveFile()"><div class="with-icon"><mat-icon matListIcon>cloud_download</mat-icon> Save</div></a>
+  }
   <a mat-list-item [matMenuTriggerFor]="dbPickerMenu"><div class="with-icon"><mat-icon matListIcon>folder_open</mat-icon> Pick dataset</div></a>
   <!-- mat-list-item>
     <wa-mat-file-upload #fileUpload="waMatFileUpload" placeholder="File"
@@ -26,19 +27,23 @@ import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
         (change)="onFileChange(fileUpload)">Upload GEDCOM file</wa-mat-file-upload>
   </mat-list-item -->
 </mat-nav-list>
-<form [formGroup]="uploadForm" *ngIf="hasSignedIn()">
-  <file-upload formControlName="files">
-    <ng-template #placeholder>
-      <mat-icon matListIcon class="placeholder">cloud_upload</mat-icon>
-      <div class="placeholder">Upload GEDCOM file</div>
-    </ng-template>
-  </file-upload>
-</form>
+@if (hasSignedIn()) {
+  <form [formGroup]="uploadForm">
+    <file-upload formControlName="files">
+      <ng-template #placeholder>
+        <mat-icon matListIcon class="placeholder">cloud_upload</mat-icon>
+        <div class="placeholder">Upload GEDCOM file</div>
+      </ng-template>
+    </file-upload>
+  </form>
+}
 <mat-menu #dbPickerMenu="matMenu" [overlapTrigger]="false">
-  <button *ngFor="let db of dbs" mat-menu-item [routerLink]="['/' + db + '/persons']">{{ db }}</button>
+  @for (db of dbs; track $index) {
+    <button mat-menu-item [routerLink]="['/' + db + '/persons']">{{ db }}</button>
+  }
 </mat-menu>`,
     styles: [],
-    imports: [MatNavList, MatListItem, RouterLink, MatIcon, NgIf, MatMenuTrigger, FormsModule, ReactiveFormsModule, FileUploadComponent, MatMenu, NgFor, MatMenuItem]
+    imports: [MatNavList, MatListItem, RouterLink, MatIcon, MatMenuTrigger, FormsModule, ReactiveFormsModule, FileUploadComponent, MatMenu, MatMenuItem]
 })
 export class SideMenuComponent implements OnInit, OnChanges {
   @Input() dataset: string;

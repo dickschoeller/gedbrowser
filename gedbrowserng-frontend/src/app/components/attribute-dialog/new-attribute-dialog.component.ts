@@ -8,7 +8,6 @@ import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect, MatOption } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 
@@ -21,7 +20,9 @@ import { MatButton } from '@angular/material/button';
   <mat-form-field>
     <mat-label>Attribute type</mat-label>
     <mat-select [(ngModel)]="data.default.type">
-      <mat-option *ngFor="let option of data.options" [value]="option.value">{{ option.label }}</mat-option>
+      @for (option of data.options; track $index) {
+        <mat-option [value]="option.value">{{ option.label }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
   <br/>
@@ -52,7 +53,7 @@ import { MatButton } from '@angular/material/button';
   <button mat-button (click)="onNoClick()" >Cancel</button>
 </div>`,
     styles: [],
-    imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatSelect, FormsModule, NgFor, MatOption, MatInput, MatDialogActions, MatButton, MatDialogClose]
+    imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatSelect, FormsModule, MatOption, MatInput, MatDialogActions, MatButton, MatDialogClose]
 })
 export class NewAttributeDialogComponent {
   constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<NewAttributeDialogComponent>,

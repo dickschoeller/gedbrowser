@@ -8,7 +8,6 @@ import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { PersonService, UserService } from '../../services';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
-import { NgFor, NgIf } from '@angular/common';
 import { PersonFamilyComponent } from './person-family.component';
 import { NewPersonComponent } from './new-person.component';
 import { LinkPersonComponent } from './link-person.component';
@@ -28,33 +27,36 @@ import { LinkPersonComponent } from './link-person.component';
   <mat-card-content>
     <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
-      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : '' }}"
-          *ngFor="let attribute of person.famss; let i=index">
-        <app-person-family
-            [dataset]="dataset" [person]="person" [parent]="this" [string]="attribute.string"
-            [index]="i"></app-person-family>
-      </div>
+      @for (attribute of person.famss; track $index; let i = $index) {
+        <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : '' }}">
+          <app-person-family
+              [dataset]="dataset" [person]="person" [parent]="this" [string]="attribute.string"
+              [index]="i"></app-person-family>
+        </div>
+      }
     </div>
-    <app-new-person *ngIf="hasSignedIn()"
-        [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
-        color="primary"
-        (emitOK)="createSpouse($event)"></app-new-person>
-    <app-link-person *ngIf="hasSignedIn()"
-        [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link spouse'"
-        color="primary"
-        (emitOK)="linkSpouse($event)"></app-link-person>
-    <app-new-person *ngIf="hasSignedIn()"
-        [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
-        color="primary"
-        (emitOK)="createChild($event)"></app-new-person>
-    <app-link-person *ngIf="hasSignedIn()"
-        [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link children'"
-        color="primary"
-        (emitOK)="linkChildren($event)"></app-link-person>
+    @if (hasSignedIn()) {
+      <app-new-person
+          [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
+          color="primary"
+          (emitOK)="createSpouse($event)"></app-new-person>
+      <app-link-person
+          [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link spouse'"
+          color="primary"
+          (emitOK)="linkSpouse($event)"></app-link-person>
+      <app-new-person
+          [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
+          color="primary"
+          (emitOK)="createChild($event)"></app-new-person>
+      <app-link-person
+          [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link children'"
+          color="primary"
+          (emitOK)="linkChildren($event)"></app-link-person>
+    }
   </mat-card-content>
 </mat-card>`,
     styles: [],
-    imports: [MatCard, MatCardTitle, MatToolbar, MatCardContent, CdkDropList, NgFor, CdkDrag, PersonFamilyComponent, NgIf, NewPersonComponent, LinkPersonComponent]
+    imports: [MatCard, MatCardTitle, MatToolbar, MatCardContent, CdkDropList, CdkDrag, PersonFamilyComponent, NewPersonComponent, LinkPersonComponent]
 })
 export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {
     @Input() dataset: string;

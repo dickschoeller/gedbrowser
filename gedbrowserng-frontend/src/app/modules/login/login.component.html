@@ -5,9 +5,12 @@
       <mat-card-subtitle>gedbrowserng</mat-card-subtitle>
 
       <mat-card-content>
-        <p [class]="notification.msgType" *ngIf="notification">{{ notification.msgBody }}</p>
+        @if (notification) {
+          <p [class]="notification.msgType">{{ notification.msgBody }}</p>
+        }
 
-        <form *ngIf="!submitted" [formGroup]="form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        @if (!submitted) {
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
           <mat-form-field>
             <input matInput formControlName="username" required placeholder="username">
           </mat-form-field>
@@ -15,10 +18,13 @@
             <input matInput formControlName="password" required type="password" placeholder="password">
           </mat-form-field>
           <button type="submit" [disabled]="!loginForm.form.valid" mat-raised-button color="primary">Login</button>
-        </form>
+          </form>
+        }
         <br/>
 
-        <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+        @if (submitted) {
+          <mat-spinner mode="indeterminate"></mat-spinner>
+        }
       </mat-card-content>
     </mat-card>
   </div>
