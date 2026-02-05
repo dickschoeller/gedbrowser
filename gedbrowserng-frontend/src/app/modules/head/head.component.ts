@@ -36,9 +36,9 @@ export class HeadComponent implements OnInit, HasAttributeList {
       {value: 'Submitterlink', label: 'Submitterlink'},
     ];
 
-  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(HeadService) private headService: HeadService,
-    @Inject(Router) private router: Router
+  constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
+    @Inject(HeadService) private readonly headService: HeadService,
+    @Inject(Router) private readonly router: Router
   ) {}
 
   ngOnInit() {
