@@ -22,6 +22,7 @@ import { NgIf } from '@angular/common';
  */
 @Component({
     selector: 'app-person',
+    standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
     <mat-card-title><mat-icon>person</mat-icon> {{ person?.indexName }}</mat-card-title>

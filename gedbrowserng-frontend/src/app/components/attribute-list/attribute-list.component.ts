@@ -21,6 +21,7 @@ import { AttributeListItemComponent } from './attribute-list-item.component';
 
 @Component({
     selector: 'app-attribute-list',
+    standalone: true,
     template: `<mat-card>
   <mat-card-title>
     <mat-toolbar>
@@ -65,8 +66,8 @@ export class AttributeListComponent extends HasAttributeDialog implements OnInit
     attributeDialogHelper = new AttributeDialogHelper(this);
     attributeUtil = new AttributeAnalyzer(this);
 
-    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
+    constructor(@Inject(MatDialog) public dialog: MatDialog,
+        @Inject(UserService) private userService: UserService) {
         super(dialog);
     }
 

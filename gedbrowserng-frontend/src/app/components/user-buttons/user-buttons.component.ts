@@ -9,6 +9,7 @@ import { AccountMenuComponent } from '../account-menu/account-menu.component';
 
 @Component({
     selector: 'app-user-buttons',
+    standalone: true,
     template: `<!-- div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-end center" -->
 <div>
   <button *ngIf="!hasSignedIn()" [routerLink]="['/signup', { returnUrl: currentUrl() } ]"

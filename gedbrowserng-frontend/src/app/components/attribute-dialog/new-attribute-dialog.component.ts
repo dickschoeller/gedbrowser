@@ -55,8 +55,8 @@ import { MatButton } from '@angular/material/button';
     imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatSelect, FormsModule, NgFor, MatOption, MatInput, MatDialogActions, MatButton, MatDialogClose]
 })
 export class NewAttributeDialogComponent {
-  constructor(@Inject(MatDialogRef<NewAttributeDialogComponent>) @Inject(MatDialogRef<NewAttributeDialogComponent>) @Inject(MatDialogRef<NewAttributeDialogComponent>) public dialogRef: MatDialogRef<NewAttributeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) @Inject(NewAttributeDialogData) @Inject(NewAttributeDialogData) @Inject(NewAttributeDialogData) public data: NewAttributeDialogData) {
+  constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<NewAttributeDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: NewAttributeDialogData) {
   }
 
   onNoClick(): void {

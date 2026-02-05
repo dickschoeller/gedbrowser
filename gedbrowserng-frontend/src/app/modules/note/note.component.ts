@@ -1,7 +1,6 @@
 import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AttributeListComponent } from '../../components';
 import { ApiNote, ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { NoteService } from '../../services';
 import { HasAttributeList } from '../../interfaces';
@@ -9,10 +8,11 @@ import { StringUtil, AttributeDialogHelper } from '../../utils';
 import { MainLayoutComponent } from '../../components/main-layout/main-layout.component';
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
-import { AttributeListComponent as AttributeListComponent_1 } from '../../components/attribute-list/attribute-list.component';
+import { AttributeListComponent } from '../../components/attribute-list/attribute-list.component';
 
 @Component({
     selector: 'app-note',
+    standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
     <mat-card-title><mat-icon>comment</mat-icon> {{ truncateNote(70) }}</mat-card-title>
@@ -24,7 +24,7 @@ import { AttributeListComponent as AttributeListComponent_1 } from '../../compon
   </mat-card>
 </app-main-layout>`,
     styles: [],
-    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent_1]
+    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent]
 })
 export class NoteComponent implements OnInit, HasAttributeList {
   dataset: string;

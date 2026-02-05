@@ -24,8 +24,6 @@ import {
     NewSubmitterDialogComponent,
 } from './components';
 
-import { HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule } from './modules';
-
 import {
     AuthApiService,
     AuthService,

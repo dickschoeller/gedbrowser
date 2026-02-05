@@ -5,6 +5,7 @@ import { SideMenuComponent } from '../side-menu/side-menu.component';
 
 @Component({
     selector: 'app-main-layout',
+    standalone: true,
     template: `<app-main-menu [dataset]="dataset" (emitToggle)="drawer.toggle()"></app-main-menu>
 <mat-drawer-container>
   <mat-drawer mode="side" opened="true" #drawer>

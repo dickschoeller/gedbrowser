@@ -18,6 +18,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
     selector: 'app-signup',
+    standalone: true,
     template: `<div class="content">
   <div>
     <mat-card elevation="5">

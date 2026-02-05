@@ -22,6 +22,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
     selector: 'app-person-list',
+    standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
     <mat-card-title><div class="with-icon"><mat-icon matListIcon>people</mat-icon> Persons</div></mat-card-title>
