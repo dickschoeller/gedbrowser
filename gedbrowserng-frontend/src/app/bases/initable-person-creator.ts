@@ -5,7 +5,7 @@ import { PersonService } from '../services';
 import { PersonCreator } from './person-creator';
 
 @Component({
-  standalone: false,
+  standalone: true,
   template: ''
 })
 export abstract class InitablePersonCreator extends PersonCreator implements OnInit, OnChanges {

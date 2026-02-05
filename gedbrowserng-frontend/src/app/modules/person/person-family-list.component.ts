@@ -19,6 +19,7 @@ import { LinkPersonComponent } from './link-person.component';
  *  person: the person this page is for
  */
 @Component({
+    standalone: true,
     selector: 'app-person-family-list',
     template: `<mat-card>
   <mat-card-title>

@@ -14,6 +14,7 @@ import { LinkPersonComponent } from './link-person.component';
 import { PersonFamilyChildComponent } from './person-family-child.component';
 
 @Component({
+    standalone: true,
     selector: 'app-person-parent-family',
     template: `<mat-card>
   <mat-card-title>

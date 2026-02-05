@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
@@ -31,19 +31,13 @@ import { MatButton } from '@angular/material/button';
     imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatSelectionList, MatListOption, MatDialogActions, MatButton, MatDialogClose]
 })
 export class LinkDialogComponent
-  implements OnInit, OnChanges, LinkDialogInterface {
+  implements LinkDialogInterface {
   @Input() titleString: string;
   objects: Array<any>;
 
   constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
     @Inject(MatDialogRef<LinkDialogComponent>) @Inject(MatDialogRef<LinkDialogComponent>) @Inject(MatDialogRef<LinkDialogComponent>) public dialogRef: MatDialogRef<LinkDialogComponent>,
     @Inject(MAT_DIALOG_DATA) @Inject(LinkDialogData) @Inject(LinkDialogData) @Inject(LinkDialogData) public data: LinkDialogData) {
-  }
-
-  ngOnInit() {
-  }
-
-  ngOnChanges() {
   }
 
   onNoClick(): void {

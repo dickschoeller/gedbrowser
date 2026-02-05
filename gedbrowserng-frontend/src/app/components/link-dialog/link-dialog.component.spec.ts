@@ -62,14 +62,6 @@ describe('LinkDialogComponent', () => {
     expect(component.titleString).toBe('Custom Title');
   });
 
-  it('should initialize ngOnInit without errors', () => {
-    expect(() => component.ngOnInit()).not.toThrow();
-  });
-
-  it('should initialize ngOnChanges without errors', () => {
-    expect(() => component.ngOnChanges()).not.toThrow();
-  });
-
   it('should preserve data reference after selection', () => {
     const originalData = component.data;
     const mockOption = { value: 1, getLabel: () => 'Item 1' } as any;

@@ -1,15 +1,14 @@
 package org.schoellerfamily.gedbrowser.api.service.storage.test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +50,7 @@ public class FileSystemStorageServiceTest {
         storageService.store(file);
         // Verify file was created
         final Path filePath = tempDir.resolve("test.ged");
-        assert Files.exists(filePath);
+        assertTrue(Files.exists(filePath), "File should exist after storing");
     }
 
     /** */

@@ -69,10 +69,6 @@ describe('LinkPersonDialogComponent', () => {
     expect(() => component.ngOnInit()).not.toThrow();
   });
 
-  it('should initialize ngOnChanges without errors', () => {
-    expect(() => component.ngOnChanges()).not.toThrow();
-  });
-
   it('should preserve data reference after selection', () => {
     const originalData = component.data;
     const mockOption = { value: { id: 1, label: 'Person 1', person: { id: 1 } } } as any;

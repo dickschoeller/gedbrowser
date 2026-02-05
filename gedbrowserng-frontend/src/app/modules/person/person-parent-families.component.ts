@@ -13,6 +13,7 @@ import { LinkPersonComponent } from './link-person.component';
 import { PersonParentFamilyComponent } from './person-parent-family.component';
 
 @Component({
+    standalone: true,
     selector: 'app-person-parent-families',
     template: `<mat-card>
   <mat-card-title>
