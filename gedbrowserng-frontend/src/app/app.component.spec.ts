@@ -9,18 +9,16 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-      ],
-      imports: [
+    imports: [
         RouterTestingModule,
         ButtonModule,
         TieredMenuModule,
-        ToolbarModule
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: []
-    });
+        ToolbarModule,
+        AppComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: []
+});
   });
 
   it('should create the app', () => {

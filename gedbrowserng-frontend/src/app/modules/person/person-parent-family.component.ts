@@ -1,14 +1,20 @@
 import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
 import { FamilyService, PersonService, UserService } from '../../services';
 import { RefreshPerson, Saveable, HasPerson, HasFamily } from '../../interfaces';
 import { UrlBuilder } from '../../utils';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import { NgFor, NgIf } from '@angular/common';
+import { PersonParentComponent } from './person-parent.component';
+import { NewPersonComponent } from './new-person.component';
+import { LinkPersonComponent } from './link-person.component';
+import { PersonFamilyChildComponent } from './person-family-child.component';
 
 @Component({
-    standalone: false,
     selector: 'app-person-parent-family',
     template: `<mat-card>
   <mat-card-title>
@@ -62,7 +68,8 @@ import { UrlBuilder } from '../../utils';
 </div>
   </mat-card-content>
 </mat-card>`,
-    styles: []
+    styles: [],
+    imports: [MatCard, MatCardTitle, MatToolbar, NgFor, MatToolbarRow, PersonParentComponent, NgIf, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, CdkDrag, PersonFamilyChildComponent]
 })
 export class PersonParentFamilyComponent extends InitablePersonCreator
     implements OnInit, OnChanges, HasFamily, RefreshPerson {

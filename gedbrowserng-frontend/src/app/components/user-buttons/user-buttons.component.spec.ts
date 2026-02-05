@@ -12,11 +12,10 @@ describe('UserButtonsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ UserButtonsComponent ],
-      imports: [ RouterTestingModule, HttpClientTestingModule ],
-      providers: [ AuthService, UserService, AuthApiService, ConfigService ]
-    })
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule, HttpClientTestingModule, UserButtonsComponent],
+    providers: [AuthService, UserService, AuthApiService, ConfigService]
+})
     .compileComponents();
   });
 

@@ -34,16 +34,15 @@ describe('SideMenuComponent', () => {
     mockUserService = { currentUser: null };
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ SideMenuComponent ],
-      imports: [ ReactiveFormsModule, FormsModule, HttpClientTestingModule, NoopAnimationsModule, MatListModule, MatMenuModule, MatIconModule, RouterTestingModule ],
-      providers: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [ReactiveFormsModule, FormsModule, HttpClientTestingModule, NoopAnimationsModule, MatListModule, MatMenuModule, MatIconModule, RouterTestingModule, SideMenuComponent],
+    providers: [
         { provide: DatasetsService, useValue: mockDatasetsService },
         { provide: SaveService, useValue: mockSaveService },
         { provide: UploadService, useValue: mockUploadService },
         { provide: UserService, useValue: mockUserService }
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

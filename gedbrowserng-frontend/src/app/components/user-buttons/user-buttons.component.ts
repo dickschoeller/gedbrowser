@@ -1,9 +1,13 @@
 import { Component, OnInit , Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLinkActive, RouterLink } from '@angular/router';
 import { AuthService, UserService } from '../../services';
+import { NgIf } from '@angular/common';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { AccountMenuComponent } from '../account-menu/account-menu.component';
 
 @Component({
-    standalone: false,
     selector: 'app-user-buttons',
     template: `<!-- div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-end center" -->
 <div>
@@ -25,7 +29,8 @@ import { AuthService, UserService } from '../../services';
     <app-account-menu></app-account-menu>
   </mat-menu>
 </div>`,
-    styles: []
+    styles: [],
+    imports: [NgIf, MatButton, RouterLinkActive, RouterLink, MatMenuTrigger, MatIconButton, MatIcon, MatMenu, AccountMenuComponent]
 })
 export class UserButtonsComponent implements OnInit {
 

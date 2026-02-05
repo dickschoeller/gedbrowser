@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
-import { ComponentsModule } from '../../components';
+
 
 import { SubmitterComponent } from './submitter.component';
 import { SubmitterResolverService } from './submitter-resolver.service';
@@ -21,23 +21,19 @@ const submitterRouting: ModuleWithProviders<RouterModule> = RouterModule.forChil
 ]);
 
 @NgModule({
-  imports: [
+    imports: [
     submitterRouting,
     CommonModule,
-    ComponentsModule,
-
     MatCardModule,
     MatIconModule,
-  ],
-  declarations: [
     SubmitterComponent,
-  ],
-  exports: [
-    SubmitterComponent,
-  ],
-  providers: [
-    SubmitterResolverService
-  ]
+],
+    exports: [
+        SubmitterComponent,
+    ],
+    providers: [
+        SubmitterResolverService
+    ]
 })
 
 export class SubmitterModule {}

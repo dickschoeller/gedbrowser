@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
@@ -8,9 +8,18 @@ import { HasAttributeList } from '../../interfaces';
 
 import { HasAttributeDialog } from './has-attribute-dialog';
 import { UserService } from '../../services';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { NgIf, NgFor } from '@angular/common';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { NoteButtonComponent } from '../note-button/note-button.component';
+import { SourceButtonComponent } from '../source-button/source-button.component';
+import { SubmitterButtonComponent } from '../submitter-button/submitter-button.component';
+import { AttributeListItemComponent } from './attribute-list-item.component';
 
 @Component({
-    standalone: false,
     selector: 'app-attribute-list',
     template: `<mat-card>
   <mat-card-title>
@@ -38,7 +47,8 @@ import { UserService } from '../../services';
     </div>
   </mat-card-content>
 </mat-card>`,
-    styles: []
+    styles: [],
+    imports: [MatCard, MatCardTitle, MatToolbar, NgIf, MatIconButton, MatTooltip, MatIcon, NoteButtonComponent, SourceButtonComponent, SubmitterButtonComponent, MatCardContent, CdkDropList, NgFor, CdkDrag, AttributeListItemComponent]
 })
 export class AttributeListComponent extends HasAttributeDialog implements OnInit, OnChanges, HasAttributeList {
     @Input() attributes: Array<ApiAttribute>;

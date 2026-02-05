@@ -30,16 +30,15 @@ describe('MultimediaGalleryComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ MultimediaGalleryComponent ],
-      imports: [ MatDialogModule, NgxGalleryModule, NoopAnimationsModule, HttpClientTestingModule ],
-      providers: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatDialogModule, NgxGalleryModule, NoopAnimationsModule, HttpClientTestingModule, MultimediaGalleryComponent],
+    providers: [
         { provide: UserService, useValue: mockUserService },
         { provide: MatDialog, useValue: mockDialog },
         AuthApiService,
         ConfigService
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

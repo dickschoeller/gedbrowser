@@ -1,15 +1,19 @@
 import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatListOption } from '@angular/material/list';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { MatListOption, MatSelectionList } from '@angular/material/list';
 
 import { LinkDialogInterface } from '../../interfaces';
 import { LinkDialogData, LinkItem } from '../../models';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIcon } from '@angular/material/icon';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { NgFor } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  standalone: false,
-  selector: 'app-link-dialog',
-  template: `<div mat-dialog-title>
+    selector: 'app-link-dialog',
+    template: `<div mat-dialog-title>
   <mat-toolbar color="primary"><mat-icon matListIcon>contact_mail</mat-icon>&nbsp; {{ data.name }}</mat-toolbar>
 </div>
 <div mat-dialog-content>
@@ -22,7 +26,8 @@ import { LinkDialogData, LinkItem } from '../../models';
   <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
   <button mat-button (click)="onNoClick()" >Cancel</button>
 </div>`,
-    styles: []
+    styles: [],
+    imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatSelectionList, NgFor, MatListOption, MatDialogActions, MatButton, MatDialogClose]
 })
 export class LinkDialogComponent
   implements OnInit, OnChanges, LinkDialogInterface {

@@ -8,14 +8,14 @@ import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
 
 import { SubmitterListPageComponent } from './submitter-list-page.component';
-import { SubmitterService } from '../../services';
+import { SubmitterService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { ApiSubmitter } from '../../models';
 
 // Mock component to replace the child app-submitter-list
 @Component({
-  selector: 'app-submitter-list',
-  template: '',
-  standalone: false
+    selector: 'app-submitter-list',
+    template: '',
+    imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule]
 })
 class MockSubmitterListComponent {
   @Input() parent: any;
@@ -41,19 +41,25 @@ describe('SubmitterListPageComponent', () => {
     dataSubject = new ReplaySubject(1);
 
     TestBed.configureTestingModule({
-      declarations: [ SubmitterListPageComponent, MockSubmitterListComponent ],
-      imports: [ HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule ],
-      providers: [
-        SubmitterService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: paramsSubject.asObservable(),
-            data: dataSubject.asObservable()
-          }
+    imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule, SubmitterListPageComponent, MockSubmitterListComponent],
+    providers: [
+      SubmitterService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          params: paramsSubject.asObservable(),
+          data: dataSubject.asObservable()
         }
-      ]
-    })
+      }
+    ]
+})
     .compileComponents();
 
     submitterService = TestBed.inject(SubmitterService);

@@ -2,15 +2,16 @@ import { Component, Input , Inject } from '@angular/core';
 
 import { ApiAttribute } from '../../models';
 import { AttributeAnalyzer, ImageUtil } from '../../utils';
+import { NgIf } from '@angular/common';
 
 @Component({
-  standalone: false,
-  selector: 'app-attribute-list-item-detail-list-item',
-  template: `<span *ngIf="href(); else elseLinkBlock"><a *ngIf="!image(); else imageBlock" href="{{ href() }}">{{ displayString() }}</a></span>
+    selector: 'app-attribute-list-item-detail-list-item',
+    template: `<span *ngIf="href(); else elseLinkBlock"><a *ngIf="!image(); else imageBlock" href="{{ href() }}">{{ displayString() }}</a></span>
 
 <ng-template #elseLinkBlock><span>{{ displayString() }}<span *ngIf="!last()">,</span></span></ng-template>
 <ng-template #imageBlock><div><a href="{{ displayString() }}"><img src="{{ displayString() }}" width="300px"/></a></div></ng-template>`,
-    styles: []
+    styles: [],
+    imports: [NgIf]
 })
 export class AttributeListItemDetailListItemComponent {
   @Input() attribute: ApiAttribute;

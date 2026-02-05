@@ -5,6 +5,11 @@ import { PersonService, UserService } from '../../services';
 import { HasFamily } from '../../interfaces/has-family';
 import { PersonGetter } from './person-getter';
 import { RefreshPerson } from '../../interfaces';
+import { NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
 
 /**
  * Implements a spouse block within a family on a person page.
@@ -16,7 +21,6 @@ import { RefreshPerson } from '../../interfaces';
  *  person: the person identified by the attribute
  */
 @Component({
-    standalone: false,
     selector: 'app-person-family-spouse',
     template: `<span *ngIf="person" class="parent"><a
     [routerLink]="['/' + dataset + '/persons', person.string]"
@@ -27,7 +31,8 @@ import { RefreshPerson } from '../../interfaces';
   <button mat-icon-button matTooltip="Unlink spouse" color="warn" (click)="unlink()">
     <mat-icon matListIcon>link_off</mat-icon></button>
 </span>`,
-    styles: []
+    styles: [],
+    imports: [NgIf, RouterLink, MatIconButton, MatTooltip, MatIcon]
 })
 export class PersonFamilySpouseComponent extends PersonGetter
     implements OnInit, OnChanges {

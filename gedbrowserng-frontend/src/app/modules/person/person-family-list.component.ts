@@ -1,11 +1,17 @@
 import { Component, Input , Inject } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasPerson, LinkCheck, Saveable } from '../../interfaces';
 import { ApiPerson, NewPersonDialogData, LinkPersonDialogData, LinkPersonItem } from '../../models';
 import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { PersonService, UserService } from '../../services';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { NgFor, NgIf } from '@angular/common';
+import { PersonFamilyComponent } from './person-family.component';
+import { NewPersonComponent } from './new-person.component';
+import { LinkPersonComponent } from './link-person.component';
 
 /**
  * Implements a the list of families on a person page
@@ -14,7 +20,6 @@ import { PersonService, UserService } from '../../services';
  *  person: the person this page is for
  */
 @Component({
-    standalone: false,
     selector: 'app-person-family-list',
     template: `<mat-card>
   <mat-card-title>
@@ -48,7 +53,8 @@ import { PersonService, UserService } from '../../services';
         (emitOK)="linkChildren($event)"></app-link-person>
   </mat-card-content>
 </mat-card>`,
-    styles: []
+    styles: [],
+    imports: [MatCard, MatCardTitle, MatToolbar, MatCardContent, CdkDropList, NgFor, CdkDrag, PersonFamilyComponent, NgIf, NewPersonComponent, LinkPersonComponent]
 })
 export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {
     @Input() dataset: string;

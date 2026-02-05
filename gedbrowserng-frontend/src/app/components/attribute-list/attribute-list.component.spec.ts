@@ -38,21 +38,21 @@ describe('AttributeListComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ AttributeListComponent ],
-      imports: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
         MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
         ReactiveFormsModule, FormsModule, NoopAnimationsModule, HttpClientTestingModule,
         DragDropModule, MatDialogModule, MatCardModule, MatToolbarModule, MatIconModule,
-        MatTooltipModule
-      ],
-      providers: [
+        MatTooltipModule,
+        AttributeListComponent
+    ],
+    providers: [
         { provide: UserService, useValue: mockUserService },
         { provide: MatDialog, useValue: mockDialog },
         AuthApiService,
         ConfigService
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

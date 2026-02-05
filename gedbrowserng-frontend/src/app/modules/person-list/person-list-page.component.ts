@@ -4,12 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiPerson } from '../../models';
 import { PersonService } from '../../services';
 import { ApiComparators, NewPersonHelper } from '../../utils';
+import { PersonListComponent } from './person-list.component';
 
 @Component({
-  standalone: false,
-  selector: 'app-person-list-page',
-  template: `<app-person-list [p]="this" [dataset]="dataset" [persons]="persons"></app-person-list>`,
-    styles: []
+    selector: 'app-person-list-page',
+    template: `<app-person-list [p]="this" [dataset]="dataset" [persons]="persons"></app-person-list>`,
+    styles: [],
+    imports: [PersonListComponent]
 })
 export class PersonListPageComponent implements OnInit, OnChanges {
   dataset: string;

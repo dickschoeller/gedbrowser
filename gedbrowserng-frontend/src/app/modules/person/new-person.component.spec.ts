@@ -34,8 +34,7 @@ describe('NewPersonComponent', () => {
     expect(emitted).not.toBeNull();
   });
 });
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -44,19 +43,16 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NewPersonComponent } from './new-person.component';
-
 describe('NewPersonComponent', () => {
   let component: NewPersonComponent;
   let fixture: ComponentFixture<NewPersonComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ NewPersonComponent ],
-      imports: [ MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, NoopAnimationsModule ],
-      providers: []
-    })
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, NoopAnimationsModule, NewPersonComponent],
+    providers: []
+})
     .compileComponents();
   });
 

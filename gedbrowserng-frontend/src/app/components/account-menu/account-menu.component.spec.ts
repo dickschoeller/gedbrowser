@@ -24,14 +24,13 @@ describe('AccountMenuComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ AccountMenuComponent ],
-      imports: [ RouterTestingModule, HttpClientTestingModule, NoopAnimationsModule ],
-      providers: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule, HttpClientTestingModule, NoopAnimationsModule, AccountMenuComponent],
+    providers: [
         { provide: AuthService, useValue: mockAuthService },
         { provide: UserService, useValue: mockUserService }
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

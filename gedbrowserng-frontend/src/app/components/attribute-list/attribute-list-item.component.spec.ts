@@ -18,9 +18,11 @@ import { ApiAttribute, AttributeDialogData } from '../../models';
 
 // Mock components
 @Component({
-  standalone: false,
-  selector: 'app-attribute-list-item-detail-list',
-  template: ''
+    selector: 'app-attribute-list-item-detail-list',
+    template: '',
+    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
+        ReactiveFormsModule, FormsModule, NoopAnimationsModule, MatDialogModule,
+        MatIconModule, MatTooltipModule]
 })
 class MockAttributeListItemDetailListComponent {
   @Input() dataset: string;
@@ -28,9 +30,11 @@ class MockAttributeListItemDetailListComponent {
 }
 
 @Component({
-  standalone: false,
-  selector: 'app-multimedia-edit-button',
-  template: ''
+    selector: 'app-multimedia-edit-button',
+    template: '',
+    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
+        ReactiveFormsModule, FormsModule, NoopAnimationsModule, MatDialogModule,
+        MatIconModule, MatTooltipModule]
 })
 class MockMultimediaEditButtonComponent {
   @Input() parent: any;
@@ -40,9 +44,11 @@ class MockMultimediaEditButtonComponent {
 }
 
 @Component({
-  standalone: false,
-  selector: 'app-source-button',
-  template: ''
+    selector: 'app-source-button',
+    template: '',
+    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
+        ReactiveFormsModule, FormsModule, NoopAnimationsModule, MatDialogModule,
+        MatIconModule, MatTooltipModule]
 })
 class MockSourceButtonComponent {
   @Input() parent: any;
@@ -67,23 +73,21 @@ describe('AttributeListItemComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ 
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
+        MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
+        ReactiveFormsModule, FormsModule, NoopAnimationsModule, MatDialogModule,
+        MatIconModule, MatTooltipModule,
         AttributeListItemComponent,
         MockAttributeListItemDetailListComponent,
         MockMultimediaEditButtonComponent,
         MockSourceButtonComponent
-      ],
-      imports: [
-        MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
-        ReactiveFormsModule, FormsModule, NoopAnimationsModule, MatDialogModule,
-        MatIconModule, MatTooltipModule
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: UserService, useValue: mockUserService },
         { provide: MatDialog, useValue: mockMatDialog }
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

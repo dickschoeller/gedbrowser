@@ -1,15 +1,18 @@
 import { Component, OnInit, Input , Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAction } from 'ngx-gallery-15';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAction, NgxGalleryModule } from 'ngx-gallery-15';
 
 import { HasMultimedia, Saveable } from '../../interfaces';
 import { ApiAttribute, MultimediaDialogData, MultimediaFileData, MultimediaFormat } from '../../models';
 import { ImageUtil, StringUtil, MultimediaDialogHelper, ArrayUtil } from '../../utils';
 import { MultimediaDialogComponent, } from '../multimedia-dialog';
 import { UserService } from '../../services';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { NgIf } from '@angular/common';
+import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedia-add-button.component';
 
 @Component({
-    standalone: false,
     selector: 'app-multimedia-gallery',
     template: `<mat-card>
   <mat-card-title>
@@ -26,7 +29,8 @@ import { UserService } from '../../services';
   </mat-card-content>
   <mat-card-content *ngIf="!galleryImages().length"></mat-card-content>
 </mat-card>`,
-    styles: []
+    styles: [],
+    imports: [MatCard, MatCardTitle, MatToolbar, NgIf, MultimediaAddButtonComponent, MatCardContent, NgxGalleryModule]
 })
 export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
     @Input() dataset: string;

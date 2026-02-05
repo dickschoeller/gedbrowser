@@ -8,14 +8,14 @@ import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
 
 import { SourceListPageComponent } from './source-list-page.component';
-import { SourceService } from '../../services';
+import { SourceService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { ApiSource } from '../../models';
 
 // Mock component to replace the child app-source-list
 @Component({
-  selector: 'app-source-list',
-  template: '',
-  standalone: false
+    selector: 'app-source-list',
+    template: '',
+    imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule]
 })
 class MockSourceListComponent {
   @Input() parent: any;
@@ -41,19 +41,25 @@ describe('SourceListPageComponent', () => {
     dataSubject = new ReplaySubject(1);
 
     TestBed.configureTestingModule({
-      declarations: [ SourceListPageComponent, MockSourceListComponent ],
-      imports: [ HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule ],
-      providers: [
-        SourceService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: paramsSubject.asObservable(),
-            data: dataSubject.asObservable()
-          }
+    imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule, SourceListPageComponent, MockSourceListComponent],
+    providers: [
+      SourceService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          params: paramsSubject.asObservable(),
+          data: dataSubject.asObservable()
         }
-      ]
-    })
+      }
+    ]
+})
     .compileComponents();
   });
 

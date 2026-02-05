@@ -27,23 +27,22 @@ describe('LoginComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ LoginComponent ],
-      imports: [ ReactiveFormsModule, FormsModule, RouterTestingModule, HttpClientTestingModule, NoopAnimationsModule ],
-      providers: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [ReactiveFormsModule, FormsModule, RouterTestingModule, HttpClientTestingModule, NoopAnimationsModule, LoginComponent],
+    providers: [
         AuthService,
         UserService,
         AuthApiService,
         ConfigService,
         {
-          provide: ActivatedRoute,
-          useValue: {
-            params: paramSubject.asObservable(),
-            paramMap: paramMapSubject.asObservable()
-          }
+            provide: ActivatedRoute,
+            useValue: {
+                params: paramSubject.asObservable(),
+                paramMap: paramMapSubject.asObservable()
+            }
         }
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

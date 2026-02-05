@@ -42,13 +42,12 @@ export function setupResourceButtonTest<TComponent, TService>(
 
   TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    declarations: [config.componentClass],
-    imports: [MatDialogModule, MatMenuModule, MatIconModule, MatTooltipModule, NoopAnimationsModule],
+    imports: [MatDialogModule, MatMenuModule, MatIconModule, MatTooltipModule, NoopAnimationsModule, config.componentClass],
     providers: [
-      { provide: config.serviceClass, useValue: mockService },
-      { provide: MatDialog, useValue: mockDialog }
+        { provide: config.serviceClass, useValue: mockService },
+        { provide: MatDialog, useValue: mockDialog }
     ]
-  }).compileComponents();
+}).compileComponents();
 
   return { mockService, mockDialog };
 }

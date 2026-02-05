@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit , Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
@@ -9,11 +9,16 @@ import {
     UserService,
     AuthService
 } from '../../services';
+import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent } from '@angular/material/card';
+import { NgIf } from '@angular/common';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
-  standalone: false,
-  selector: 'app-signup',
-  template: `<div class="content">
+    selector: 'app-signup',
+    template: `<div class="content">
   <div>
     <mat-card elevation="5">
       <mat-card-title>{{ title }}</mat-card-title>
@@ -52,7 +57,8 @@ import {
     </mat-card>
   </div>
 </div>`,
-    styles: []
+    styles: [],
+    imports: [MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, NgIf, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton, MatProgressSpinner]
 })
 export class SignupComponent implements OnInit, OnDestroy {
     title = 'Login';

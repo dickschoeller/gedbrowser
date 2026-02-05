@@ -7,9 +7,15 @@ import { UserService } from '../../services';
 import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
 
 import { HasAttributeDialog } from './has-attribute-dialog';
+import { NgIf } from '@angular/common';
+import { AttributeListItemDetailListComponent } from './attribute-list-item-detail-list.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { MultimediaEditButtonComponent } from '../multimedia-edit-button/multimedia-edit-button.component';
+import { SourceButtonComponent } from '../source-button/source-button.component';
 
 @Component({
-    standalone: false,
     selector: 'app-attribute-list-item',
     template: `<div class="parent">
   <b>{{ attributeUtil.label() }}:&nbsp;</b><span *ngIf="attributeUtil.contents()">
@@ -32,7 +38,8 @@ import { HasAttributeDialog } from './has-attribute-dialog';
     <app-source-button *ngIf="!href()" [parent]="this" [dataset]="dataset"></app-source-button>
   </span>
 </div>`,
-    styles: []
+    styles: [],
+    imports: [NgIf, AttributeListItemDetailListComponent, MatIconButton, MatTooltip, MatIcon, MultimediaEditButtonComponent, SourceButtonComponent]
 })
 export class AttributeListItemComponent extends HasAttributeDialog {
     @Input() attribute: ApiAttribute;

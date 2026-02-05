@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { HeadComponent } from './head.component';
-import { HeadService } from '../../services';
+import { HeadService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 
 describe('HeadComponent', () => {
   let component: HeadComponent;
@@ -19,20 +19,26 @@ describe('HeadComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ HeadComponent ],
-      imports: [ MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, HttpClientTestingModule, NoopAnimationsModule ],
-      providers: [
-        HeadService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            data: of({ dataset: 'test', head: {} }),
-            params: of({ dataset: 'test' })
-          }
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, HttpClientTestingModule, NoopAnimationsModule, HeadComponent],
+    providers: [
+      HeadService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          data: of({ dataset: 'test', head: {} }),
+          params: of({ dataset: 'test' })
         }
-      ]
-    })
+      }
+    ]
+})
     .compileComponents();
   });
 

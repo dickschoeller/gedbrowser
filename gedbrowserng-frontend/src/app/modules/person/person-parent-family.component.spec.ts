@@ -30,10 +30,10 @@ describe('PersonParentFamilyComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ PersonParentFamilyComponent ],
-      providers: [ PersonService, FamilyService, UserService, AuthApiService, ConfigService ]
-    })
+    imports: [PersonParentFamilyComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [PersonService, FamilyService, UserService, AuthApiService, ConfigService]
+})
     .compileComponents();
   });
 

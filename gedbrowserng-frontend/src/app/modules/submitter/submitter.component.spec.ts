@@ -12,14 +12,21 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { SubmitterComponent } from './submitter.component';
-import { SubmitterService } from '../../services';
+import { SubmitterService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { ApiSubmitter } from '../../models';
 
 // Mock component to replace the child app-main-layout
 @Component({
-  selector: 'app-main-layout',
-  template: '<ng-content></ng-content>',
-  standalone: false
+    selector: 'app-main-layout',
+    template: '<ng-content></ng-content>',
+    imports: [MatButtonModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientTestingModule,
+        NoopAnimationsModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -27,9 +34,16 @@ class MockMainLayoutComponent {
 
 // Mock attribute-list component
 @Component({
-  selector: 'app-attribute-list',
-  template: '',
-  standalone: false
+    selector: 'app-attribute-list',
+    template: '',
+    imports: [MatButtonModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientTestingModule,
+        NoopAnimationsModule]
 })
 class MockAttributeListComponent {
   @Input() dataset: string;
@@ -52,34 +66,39 @@ describe('SubmitterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ 
-        SubmitterComponent, 
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
+        MatButtonModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+        RouterTestingModule.withRoutes([]),
+        SubmitterComponent,
         MockMainLayoutComponent,
         MockAttributeListComponent
-      ],
-      imports: [ 
-        MatButtonModule, 
-        MatSelectModule, 
-        MatFormFieldModule, 
-        MatInputModule, 
-        ReactiveFormsModule, 
-        FormsModule, 
-        HttpClientTestingModule, 
-        NoopAnimationsModule,
-        RouterTestingModule.withRoutes([]) 
-      ],
-      providers: [ 
-        SubmitterService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: of({ dataset: 'testDataset' }),
-            data: of({ dataset: 'testDataset', submitter: mockSubmitter })
-          }
+    ],
+    providers: [
+      SubmitterService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          params: of({ dataset: 'testDataset' }),
+          data: of({ dataset: 'testDataset', submitter: mockSubmitter })
         }
-      ]
-    })
+      }
+    ]
+})
     .compileComponents();
   });
 

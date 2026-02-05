@@ -24,19 +24,7 @@ import {
     NewSubmitterDialogComponent,
 } from './components';
 
-import {
-    HeadModule,
-    LoginModule,
-    NoteModule,
-    NoteListModule,
-    PersonListModule,
-    PersonModule,
-    SignupModule,
-    SourceListModule,
-    SourceModule,
-    SubmitterListModule,
-    SubmitterModule
-} from './modules';
+import { HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule } from './modules';
 
 import {
     AuthApiService,
@@ -61,60 +49,4 @@ export function initUserFactory(userService: UserService) {
     return () => userService.initUser();
 }
 
-@NgModule({
-    imports: [
-        rootRouting,
 
-        // standalone welcome component
-        WelcomeComponent,
-
-        BrowserModule,
-        BrowserAnimationsModule,
-        CdkTableModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-
-        HeadModule,
-        LoginModule,
-        NoteModule,
-        NoteListModule,
-        PersonListModule,
-        PersonModule,
-        SignupModule,
-        SourceListModule,
-        SourceModule,
-        SubmitterListModule,
-        SubmitterModule,
-    ],
-    declarations: [
-        AppComponent,
-    ],
-    providers: [
-        AuthApiService,
-        AuthService,
-        ConfigService,
-        DatasetsService,
-        HeadService,
-        NoteService,
-        FamilyService,
-        FooService,
-        PersonService,
-        SourceService,
-        SubmitterService,
-        SaveService,
-        UploadService,
-        UserService,
-        LoginGuard,
-        GuestGuard,
-        AdminGuard,
-        {
-            'provide': APP_INITIALIZER,
-            'useFactory': initUserFactory,
-            'deps': [UserService],
-            'multi': true
-        }
-    ],
-    bootstrap: [AppComponent]
-})
-export class AppModule { }

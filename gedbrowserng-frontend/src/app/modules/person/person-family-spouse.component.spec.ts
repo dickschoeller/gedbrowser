@@ -43,14 +43,13 @@ describe('PersonFamilySpouseComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ PersonFamilySpouseComponent ],
-      imports: [ MatButtonModule, RouterTestingModule ],
-      providers: [ 
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatButtonModule, RouterTestingModule, PersonFamilySpouseComponent],
+    providers: [
         { provide: PersonService, useValue: mockPersonService },
-        UserService, AuthApiService, ConfigService 
-      ]
-    })
+        UserService, AuthApiService, ConfigService
+    ]
+})
     .compileComponents();
   });
 

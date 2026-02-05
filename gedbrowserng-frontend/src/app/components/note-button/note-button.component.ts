@@ -6,11 +6,14 @@ import { NoteCreator } from '../../bases';
 import { ApiObject, ApiNote, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { NoteService } from '../../services';
 import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  standalone: false,
-  selector: 'app-note-button',
-  template: `<span>
+    selector: 'app-note-button',
+    template: `<span>
   <button mat-icon-button matTooltip="Note" [matMenuTriggerFor]="noteMenu" color="primary">
     <mat-icon matListIcon>comment</mat-icon></button>
 </span>
@@ -20,7 +23,8 @@ import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher, LinkD
   <button mat-menu-item (click)="openLinkNoteDialog()"><mat-icon>link</mat-icon> Link note</button>
   <button mat-menu-item (click)="openUnlinkNoteDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink note</button>
 </mat-menu>`,
-    styles: []
+    styles: [],
+    imports: [MatIconButton, MatTooltip, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem]
 })
 export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;

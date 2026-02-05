@@ -17,15 +17,26 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 
-import { SubmitterService } from '../../services';
+import { SubmitterService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { SubmitterListComponent } from './submitter-list.component';
 import { ApiSubmitter } from '../../models';
 
 // Mock component to replace the child app-main-layout
 @Component({
-  selector: 'app-main-layout',
-  template: '<ng-content></ng-content>',
-  standalone: false
+    selector: 'app-main-layout',
+    template: '<ng-content></ng-content>',
+    imports: [RouterTestingModule,
+        NoopAnimationsModule,
+        HttpClientTestingModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatToolbarModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -45,12 +56,8 @@ describe('SubmitterListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [
-        SubmitterListComponent,
-        MockMainLayoutComponent
-      ],
-      imports: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
         RouterTestingModule,
         NoopAnimationsModule,
         HttpClientTestingModule,
@@ -62,12 +69,21 @@ describe('SubmitterListComponent', () => {
         MatInputModule,
         MatButtonModule,
         MatIconModule,
-        MatTooltipModule
-      ],
-      providers: [
-        SubmitterService,
-      ]
-    })
+        MatTooltipModule,
+        SubmitterListComponent,
+        MockMainLayoutComponent
+    ],
+    providers: [
+      SubmitterService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } }
+    ]
+})
     .compileComponents();
 
     submitterService = TestBed.inject(SubmitterService);

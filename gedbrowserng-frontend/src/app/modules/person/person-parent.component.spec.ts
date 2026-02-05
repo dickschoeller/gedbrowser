@@ -35,11 +35,10 @@ describe('PersonParentComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ PersonParentComponent ],
-      imports: [ HttpClientTestingModule ],
-      providers: [ PersonService ]
-    })
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [HttpClientTestingModule, PersonParentComponent],
+    providers: [PersonService]
+})
     .compileComponents();
   });
 

@@ -34,13 +34,13 @@ describe('PersonParentFamiliesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PersonParentFamiliesComponent],
-      providers: [
+    imports: [PersonParentFamiliesComponent],
+    providers: [
         { provide: PersonService, useValue: personServiceMock },
         { provide: UserService, useValue: userServiceMock },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
     fixture = TestBed.createComponent(PersonParentFamiliesComponent);
     component = fixture.componentInstance;

@@ -6,7 +6,13 @@ import { LinkPersonDialogComponent } from '../../components';
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
 import { PersonService, FamilyService, UserService } from '../../services';
 import { UrlBuilder, LifespanUtil } from '../../utils';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { NgIf, NgFor } from '@angular/common';
+import { NewPersonComponent } from './new-person.component';
+import { LinkPersonComponent } from './link-person.component';
+import { PersonFamilyChildComponent } from './person-family-child.component';
 
 /**
  * Implements a child list within a family on a person page.
@@ -15,7 +21,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
  *  children: the attributes referring to the children
  */
 @Component({
-    standalone: false,
     selector: 'app-person-family-child-list',
     template: `<div class="ui-g">
   <div class="ui-g-1"></div>
@@ -51,7 +56,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   </div>
   <div class="ui-g-1"></div>
 </div>`,
-    styles: []
+    styles: [],
+    imports: [MatCard, MatCardTitle, MatToolbar, NgIf, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, NgFor, CdkDrag, PersonFamilyChildComponent]
 })
 export class PersonFamilyChildListComponent extends InitablePersonCreator
     implements HasFamily, Saveable, LinkCheck {

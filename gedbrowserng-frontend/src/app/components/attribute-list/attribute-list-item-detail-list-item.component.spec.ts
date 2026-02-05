@@ -12,11 +12,10 @@ describe('AttributeListItemDetailListItemComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ AttributeListItemDetailListItemComponent ],
-      imports: [ MatButtonModule, NoopAnimationsModule ],
-      providers: []
-    })
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatButtonModule, NoopAnimationsModule, AttributeListItemDetailListItemComponent],
+    providers: []
+})
     .compileComponents();
   });
 

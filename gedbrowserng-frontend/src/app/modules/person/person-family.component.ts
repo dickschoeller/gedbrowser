@@ -5,6 +5,18 @@ import { FamilyService, PersonService, UserService } from '../../services';
 import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { InitablePersonCreator } from '../../bases';
 import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from '../../interfaces';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { NgIf } from '@angular/common';
+import { PersonFamilySpouseComponent } from './person-family-spouse.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { NewPersonComponent } from './new-person.component';
+import { LinkPersonComponent } from './link-person.component';
+import { AttributeListComponent } from '../../components/attribute-list/attribute-list.component';
+import { MultimediaGalleryComponent } from '../../components/multimedia-gallery/multimedia-gallery.component';
+import { PersonFamilyChildListComponent } from './person-family-child-list.component';
 
 /**
  * Implements a family block within a person page.
@@ -18,7 +30,6 @@ import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from 
  *  family the family identified by the ID
  */
 @Component({
-    standalone: false,
     selector: 'app-person-family',
     template: `<mat-card>
   <mat-card-title>
@@ -65,7 +76,8 @@ import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from 
   </mat-card-content>
 </mat-card>
 <br/>`,
-    styles: []
+    styles: [],
+    imports: [MatCard, MatCardTitle, MatToolbar, NgIf, PersonFamilySpouseComponent, MatIconButton, MatTooltip, MatIcon, NewPersonComponent, LinkPersonComponent, MatCardContent, AttributeListComponent, MultimediaGalleryComponent, PersonFamilyChildListComponent]
 })
 export class PersonFamilyComponent extends InitablePersonCreator
     implements HasAttributeList, LinkCheck, Saveable {

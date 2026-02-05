@@ -16,20 +16,19 @@ describe('NewPersonDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ NewPersonDialogComponent ],
-      imports: [ MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, NoopAnimationsModule ],
-      providers: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, NoopAnimationsModule, NewPersonDialogComponent],
+    providers: [
         { provide: MatDialogRef, useValue: {} },
         {
-          provide: MAT_DIALOG_DATA,
-          useValue: {
-            name: '',
-            sex: ''
-          }
+            provide: MAT_DIALOG_DATA,
+            useValue: {
+                name: '',
+                sex: ''
+            }
         }
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

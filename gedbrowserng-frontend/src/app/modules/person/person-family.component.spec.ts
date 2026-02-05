@@ -150,8 +150,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-
-import { PersonFamilyComponent } from './person-family.component';
 import { FamilyService, PersonService, UserService, AuthApiService, ConfigService } from '../../services';
 
 describe('PersonFamilyComponent', () => {
@@ -160,11 +158,10 @@ describe('PersonFamilyComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ PersonFamilyComponent ],
-      imports: [ MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, NoopAnimationsModule, HttpClientTestingModule ],
-      providers: [ FamilyService, PersonService, UserService, AuthApiService, ConfigService ]
-    })
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatDialogModule, NoopAnimationsModule, HttpClientTestingModule, PersonFamilyComponent],
+    providers: [FamilyService, PersonService, UserService, AuthApiService, ConfigService]
+})
     .compileComponents();
   });
 

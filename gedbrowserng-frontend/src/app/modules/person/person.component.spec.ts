@@ -8,14 +8,15 @@ import { of } from 'rxjs';
 import { vi } from 'vitest';
 
 import { PersonComponent } from './person.component';
-import { PersonService } from '../../services';
+import { PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { ApiPerson, ApiAttribute, ApiLifespan } from '../../models';
 
 // Mock component to replace the child app-main-layout
 @Component({
-  selector: 'app-main-layout',
-  template: '<ng-content></ng-content>',
-  standalone: false
+    selector: 'app-main-layout',
+    template: '<ng-content></ng-content>',
+    imports: [HttpClientTestingModule,
+        NoopAnimationsModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -23,9 +24,10 @@ class MockMainLayoutComponent {
 
 // Mock attribute-list component
 @Component({
-  selector: 'app-attribute-list',
-  template: '',
-  standalone: false
+    selector: 'app-attribute-list',
+    template: '',
+    imports: [HttpClientTestingModule,
+        NoopAnimationsModule]
 })
 class MockAttributeListComponent {
   @Input() dataset: string;
@@ -36,9 +38,10 @@ class MockAttributeListComponent {
 
 // Mock multimedia-gallery component
 @Component({
-  selector: 'app-multimedia-gallery',
-  template: '',
-  standalone: false
+    selector: 'app-multimedia-gallery',
+    template: '',
+    imports: [HttpClientTestingModule,
+        NoopAnimationsModule]
 })
 class MockMultimediaGalleryComponent {
   @Input() dataset: string;
@@ -48,9 +51,10 @@ class MockMultimediaGalleryComponent {
 
 // Mock person-family-list component
 @Component({
-  selector: 'app-person-family-list',
-  template: '',
-  standalone: false
+    selector: 'app-person-family-list',
+    template: '',
+    imports: [HttpClientTestingModule,
+        NoopAnimationsModule]
 })
 class MockPersonFamilyListComponent {
   @Input() dataset: string;
@@ -60,9 +64,10 @@ class MockPersonFamilyListComponent {
 
 // Mock person-parent-families component
 @Component({
-  selector: 'app-person-parent-families',
-  template: '',
-  standalone: false
+    selector: 'app-person-parent-families',
+    template: '',
+    imports: [HttpClientTestingModule,
+        NoopAnimationsModule]
 })
 class MockPersonParentFamiliesComponent {
   @Input() dataset: string;
@@ -89,31 +94,36 @@ describe('PersonComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ 
-        PersonComponent, 
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
+        RouterTestingModule.withRoutes([]),
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+        PersonComponent,
         MockMainLayoutComponent,
         MockAttributeListComponent,
         MockMultimediaGalleryComponent,
         MockPersonFamilyListComponent,
         MockPersonParentFamiliesComponent
-      ],
-      imports: [ 
-        RouterTestingModule.withRoutes([]),
-        HttpClientTestingModule, 
-        NoopAnimationsModule 
-      ],
-      providers: [ 
-        PersonService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: of({ dataset: 'testDataset' }),
-            data: of({ dataset: 'testDataset', person: mockPerson })
-          }
+    ],
+    providers: [
+      PersonService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          params: of({ dataset: 'testDataset' }),
+          data: of({ dataset: 'testDataset', person: mockPerson })
         }
-      ]
-    })
+      }
+    ]
+})
     .compileComponents();
   });
 
@@ -156,38 +166,42 @@ describe('PersonComponent', () => {
   it('ngOnInit falls back to empty attributes when none provided', async () => {
     TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [
-        PersonComponent,
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule.withRoutes([]), HttpClientTestingModule, NoopAnimationsModule, PersonComponent,
         MockMainLayoutComponent,
         MockAttributeListComponent,
         MockMultimediaGalleryComponent,
         MockPersonFamilyListComponent,
-        MockPersonParentFamiliesComponent
-      ],
-      imports: [RouterTestingModule.withRoutes([]), HttpClientTestingModule, NoopAnimationsModule],
-      providers: [
+        MockPersonParentFamiliesComponent],
+    providers: [
         PersonService,
+        { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+        { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+        { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+        { provide: UserService, useValue: { currentUser: null } },
+        { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+        { provide: AuthApiService, useValue: { request: () => {} } },
+        { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
         {
-          provide: ActivatedRoute,
-          useValue: {
-            params: of({ dataset: 'testDataset' }),
-            data: of({
-              dataset: 'testDataset',
-              person: {
-                attributes: undefined,
-                lifespan: {},
-                refns: [{ string: '', tail: '' }],
-                changes: [{ string: '', attributes: [{ string: '' }] }],
-                famss: [],
-                famcs: [],
-                images: []
-              }
-            })
-          }
+            provide: ActivatedRoute,
+            useValue: {
+                params: of({ dataset: 'testDataset' }),
+                data: of({
+                    dataset: 'testDataset',
+                    person: {
+                        attributes: undefined,
+                        lifespan: {},
+                        refns: [{ string: '', tail: '' }],
+                        changes: [{ string: '', attributes: [{ string: '' }] }],
+                        famss: [],
+                        famcs: [],
+                        images: []
+                    }
+                })
+            }
         }
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     const fixture2 = TestBed.createComponent(PersonComponent);
     const component2 = fixture2.componentInstance;

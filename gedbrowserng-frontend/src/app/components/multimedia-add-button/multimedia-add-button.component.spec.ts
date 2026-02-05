@@ -24,11 +24,10 @@ describe('MultimediaAddButtonComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [MultimediaAddButtonComponent],
-      imports: [MatDialogModule, MatMenuModule, MatIconModule, MatTooltipModule, NoopAnimationsModule],
-      providers: [{ provide: MatDialog, useValue: mockDialog }]
-    }).compileComponents();
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatDialogModule, MatMenuModule, MatIconModule, MatTooltipModule, NoopAnimationsModule, MultimediaAddButtonComponent],
+    providers: [{ provide: MatDialog, useValue: mockDialog }]
+}).compileComponents();
 
     fixture = TestBed.createComponent(MultimediaAddButtonComponent);
     component = fixture.componentInstance;

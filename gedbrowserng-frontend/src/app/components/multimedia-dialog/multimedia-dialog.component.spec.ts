@@ -19,25 +19,24 @@ describe('MultimediaDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ MultimediaDialogComponent ],
-      imports: [ MatDialogModule, DragDropModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, HttpClientTestingModule, NoopAnimationsModule ],
-      providers: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatDialogModule, DragDropModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, HttpClientTestingModule, NoopAnimationsModule, MultimediaDialogComponent],
+    providers: [
         { provide: MatDialogRef, useValue: {} },
         {
-          provide: MAT_DIALOG_DATA,
-          useValue: {
-            title: '',
-            description: '',
-            citations: [],
-            files: []
-          }
+            provide: MAT_DIALOG_DATA,
+            useValue: {
+                title: '',
+                description: '',
+                citations: [],
+                files: []
+            }
         },
         UserService,
         AuthApiService,
         ConfigService
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

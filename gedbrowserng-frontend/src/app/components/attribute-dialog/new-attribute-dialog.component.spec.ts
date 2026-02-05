@@ -15,20 +15,19 @@ describe('NewAttributeDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ NewAttributeDialogComponent ],
-      imports: [ MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, NoopAnimationsModule ],
-      providers: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, NoopAnimationsModule, NewAttributeDialogComponent],
+    providers: [
         { provide: MatDialogRef, useValue: {} },
         {
-          provide: MAT_DIALOG_DATA,
-          useValue: {
-            options: [{ label: 'Test', value: 'test' }],
-            default: { type: 'test', text: '', date: '' }
-          }
+            provide: MAT_DIALOG_DATA,
+            useValue: {
+                options: [{ label: 'Test', value: 'test' }],
+                default: { type: 'test', text: '', date: '' }
+            }
         }
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

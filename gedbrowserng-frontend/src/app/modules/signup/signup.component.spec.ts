@@ -14,11 +14,10 @@ describe('SignupComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ SignupComponent ],
-      imports: [ ReactiveFormsModule, FormsModule, RouterTestingModule, HttpClientTestingModule, NoopAnimationsModule ],
-      providers: [ AuthService, UserService, AuthApiService, ConfigService ]
-    })
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [ReactiveFormsModule, FormsModule, RouterTestingModule, HttpClientTestingModule, NoopAnimationsModule, SignupComponent],
+    providers: [AuthService, UserService, AuthApiService, ConfigService]
+})
     .compileComponents();
   });
 

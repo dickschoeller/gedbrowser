@@ -17,15 +17,26 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 
-import {SourceService} from '../../services';
+import {SourceService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService} from '../../services';
 import {SourceListComponent} from './source-list.component';
 import { ApiSource } from '../../models';
 
 // Mock component to replace the child app-main-layout
 @Component({
-  selector: 'app-main-layout',
-  template: '<ng-content></ng-content>',
-  standalone: false
+    selector: 'app-main-layout',
+    template: '<ng-content></ng-content>',
+    imports: [HttpClientTestingModule,
+        RouterTestingModule,
+        NoopAnimationsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatToolbarModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -46,12 +57,8 @@ describe('SourceListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [
-        SourceListComponent,
-        MockMainLayoutComponent
-      ],
-      imports: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
         HttpClientTestingModule,
         RouterTestingModule,
         NoopAnimationsModule,
@@ -63,12 +70,21 @@ describe('SourceListComponent', () => {
         MatInputModule,
         MatButtonModule,
         MatIconModule,
-        MatTooltipModule
-      ],
-      providers: [
-        SourceService,
-      ]
-    })
+        MatTooltipModule,
+        SourceListComponent,
+        MockMainLayoutComponent
+    ],
+    providers: [
+      SourceService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } }
+    ]
+})
     .compileComponents();
   });
 

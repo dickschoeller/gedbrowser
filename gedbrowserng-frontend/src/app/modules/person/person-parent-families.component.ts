@@ -1,16 +1,21 @@
 import { Component, Input , Inject } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasLifespan, HasPerson, Saveable, RefreshPerson } from '../../interfaces';
 import { ApiPerson } from '../../models';
 import { PersonService, UserService } from '../../services';
 import { UrlBuilder } from '../../utils';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { NgIf, NgFor } from '@angular/common';
+import { NewPersonComponent } from './new-person.component';
+import { LinkPersonComponent } from './link-person.component';
+import { PersonParentFamilyComponent } from './person-parent-family.component';
 
 @Component({
-  standalone: false,
-  selector: 'app-person-parent-families',
-  template: `<mat-card>
+    selector: 'app-person-parent-families',
+    template: `<mat-card>
   <mat-card-title>
     <mat-toolbar>
     Parents and Siblings
@@ -38,7 +43,8 @@ import { UrlBuilder } from '../../utils';
     </div>
   </mat-card-content>
 </mat-card>`,
-    styles: []
+    styles: [],
+    imports: [MatCard, MatCardTitle, MatToolbar, NgIf, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, NgFor, CdkDrag, PersonParentFamilyComponent]
 })
 export class PersonParentFamiliesComponent extends InitablePersonCreator
   implements HasLifespan, HasPerson, RefreshPerson, Saveable {

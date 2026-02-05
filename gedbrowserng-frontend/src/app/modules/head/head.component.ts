@@ -6,14 +6,16 @@ import { ApiHead, ApiAttribute, AttributeDialogData, SelectItem } from '../../mo
 import { HeadService } from '../../services';
 import { AttributeDialogHelper } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
+import { MainLayoutComponent } from '../../components/main-layout/main-layout.component';
+import { AttributeListComponent as AttributeListComponent_1 } from '../../components/attribute-list/attribute-list.component';
 
 @Component({
-  standalone: false,
-  selector: 'app-head',
-  template: `<app-main-layout [dataset]="dataset">
+    selector: 'app-head',
+    template: `<app-main-layout [dataset]="dataset">
   <app-attribute-list [dataset]="dataset" [attributes]="head?.attributes" [parent]="this"></app-attribute-list>
 </app-main-layout>`,
-    styles: []
+    styles: [],
+    imports: [MainLayoutComponent, AttributeListComponent_1]
 })
 export class HeadComponent implements OnInit, HasAttributeList {
   dataset: string;

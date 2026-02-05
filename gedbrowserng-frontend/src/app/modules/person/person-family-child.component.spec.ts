@@ -51,13 +51,13 @@ describe('PersonFamilyChildComponent', () => {
     personServiceMock.deleteLink = vi.fn().mockReturnValue(of({}));
 
     await TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [PersonFamilyChildComponent],
-      providers: [
+    imports: [PersonFamilyChildComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
         { provide: PersonService, useValue: personServiceMock },
         { provide: UserService, useValue: userServiceMock },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
 
     fixture = TestBed.createComponent(PersonFamilyChildComponent);
     component = fixture.componentInstance;

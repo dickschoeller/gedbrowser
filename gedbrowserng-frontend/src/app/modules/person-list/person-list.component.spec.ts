@@ -100,15 +100,17 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
-import {PersonService} from '../../services';
+import {PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService} from '../../services';
 import {PersonListComponent} from './person-list.component';
 import {PersonListResolverService} from './person-list-resolver.service';
 
 // Mock component to replace the child app-main-layout
 @Component({
-  selector: 'app-main-layout',
-  template: '<ng-content></ng-content>',
-  standalone: false
+    selector: 'app-main-layout',
+    template: '<ng-content></ng-content>',
+    imports: [HttpClientTestingModule,
+        RouterTestingModule,
+        NoopAnimationsModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -120,21 +122,26 @@ describe('PersonListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [
-        PersonListComponent,
-        MockMainLayoutComponent
-      ],
-      imports: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
         HttpClientTestingModule,
         RouterTestingModule,
         NoopAnimationsModule,
-      ],
-      providers: [
+        PersonListComponent,
+        MockMainLayoutComponent,
+    ],
+    providers: [
         PersonService,
         PersonListResolverService,
-      ]
-    })
+        { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+        { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+        { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+        { provide: UserService, useValue: { currentUser: null } },
+        { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+        { provide: AuthApiService, useValue: { request: () => {} } },
+        { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } }
+    ]
+})
     .compileComponents();
   });
 
