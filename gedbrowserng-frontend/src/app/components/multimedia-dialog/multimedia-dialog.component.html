@@ -11,7 +11,7 @@
     <div cdkDropList class="file-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
       @for (file of data.files; track $index) {
-        <div cdkDrag class="{{ hasSignedIn() ? 'file-box' : ''">
+        <div cdkDrag class="{{ hasSignedIn() ? 'file-box' : '' }}">
           <br/>
           <mat-form-field>
             <mat-label>File URL</mat-label>
