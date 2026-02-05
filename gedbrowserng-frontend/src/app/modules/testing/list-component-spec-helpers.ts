@@ -98,11 +98,10 @@ export function setupListComponentTest<T>(
     primaryService
   } = options;
 
-  const providers = [...STANDARD_PROVIDERS];
+  const providers = [...STANDARD_PROVIDERS, ...additionalProviders];
   if (primaryService) {
     providers.push(primaryService);
   }
-  providers.push(...additionalProviders);
 
   TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
