@@ -3,7 +3,9 @@
 </div>
 <div mat-dialog-content>
   <mat-selection-list #items (selectionChange)="onSelection($event, items.selectedOptions.selected)">
-    <mat-list-option *ngFor="let item of data.items" [value]="item.id">{{ item.label }}</mat-list-option>
+    @for (item of data.items; track $index) {
+      <mat-list-option [value]="item.id">{{ item.label }}</mat-list-option>
+    }
   </mat-selection-list>
 </div>
 <div mat-dialog-actions>

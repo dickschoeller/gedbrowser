@@ -5,20 +5,20 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Router } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 
 import { NoteComponent } from './note.component';
-import { NoteService } from '../../services';
+import { NoteService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { ApiNote, ApiAttribute } from '../../models';
 
 describe('NoteComponent', () => {
   let component: NoteComponent;
   let fixture: ComponentFixture<NoteComponent>;
   let noteService: NoteService;
-  let router: Router;
   let mockNote: ApiNote;
 
   beforeEach(() => {
@@ -31,33 +31,38 @@ describe('NoteComponent', () => {
     } as ApiNote;
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ NoteComponent ],
-      imports: [ 
-        MatButtonModule, 
-        MatSelectModule, 
-        MatFormFieldModule, 
-        MatInputModule, 
-        ReactiveFormsModule, 
-        FormsModule, 
-        HttpClientTestingModule, 
-        NoopAnimationsModule 
-      ],
-      providers: [
-        NoteService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            data: of({ dataset: 'test-dataset', note: mockNote }),
-            params: of({ dataset: 'test-dataset' })
-          }
-        },
-        {
-          provide: Router,
-          useValue: { navigate: vi.fn() }
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
+        MatButtonModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NoteComponent
+    ],
+    providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
+      NoteService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          data: of({ dataset: 'test-dataset', note: mockNote }),
+          params: of({ dataset: 'test-dataset' })
         }
-      ]
-    })
+      },
+    ]
+})
     .compileComponents();
   });
 
@@ -65,7 +70,6 @@ describe('NoteComponent', () => {
     fixture = TestBed.createComponent(NoteComponent);
     component = fixture.componentInstance;
     noteService = TestBed.inject(NoteService);
-    router = TestBed.inject(Router);
     // Don't call detectChanges - the component uses 'dataset' which conflicts with HTMLElement.dataset
     // Manually trigger ngOnInit for tests
     component.ngOnInit();

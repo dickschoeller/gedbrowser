@@ -13,7 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { ComponentsModule } from '../../components';
+
 
 import { NoteListPageComponent } from './note-list-page.component';
 import { NoteListComponent } from './note-list.component';
@@ -30,10 +30,9 @@ const noteRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
 ]);
 
 @NgModule({
-  imports: [
+    imports: [
     noteRouting,
     CommonModule,
-
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -44,16 +43,12 @@ const noteRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
     MatTableModule,
     MatTooltipModule,
     MatToolbarModule,
-
-    ComponentsModule,
-  ],
-  declarations: [
     NoteListPageComponent,
     NoteListComponent,
-  ],
-  providers: [
-    NoteListResolverService
-  ]
+],
+    providers: [
+        NoteListResolverService
+    ]
 })
 
 export class NoteListModule {}

@@ -13,7 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { ComponentsModule } from '../../components';
+
 
 import { SourceListPageComponent } from './source-list-page.component';
 import { SourceListComponent } from './source-list.component';
@@ -30,10 +30,9 @@ const sourceRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
 ]);
 
 @NgModule({
-  imports: [
+    imports: [
     sourceRouting,
     CommonModule,
-
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -44,16 +43,12 @@ const sourceRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
     MatTableModule,
     MatTooltipModule,
     MatToolbarModule,
-
-    ComponentsModule,
-  ],
-  declarations: [
     SourceListPageComponent,
     SourceListComponent,
-  ],
-  providers: [
-    SourceListResolverService
-  ]
+],
+    providers: [
+        SourceListResolverService
+    ]
 })
 
 export class SourceListModule {}

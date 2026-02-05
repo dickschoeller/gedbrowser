@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { vi } from 'vitest';
@@ -18,8 +18,9 @@ export function setupLinkDialogTest<TData>(mockData: TData) {
 
   TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatDialogModule, MatListModule, RouterTestingModule, BrowserAnimationsModule],
+    imports: [MatDialogModule, MatListModule, BrowserAnimationsModule],
     providers: [
+      provideRouter([]),
       { provide: MatDialogRef, useValue: mockDialogRef },
       { provide: MAT_DIALOG_DATA, useValue: mockData }
     ]

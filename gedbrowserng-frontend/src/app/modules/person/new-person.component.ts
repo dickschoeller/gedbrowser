@@ -4,13 +4,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewPersonDialogComponent } from '../../components';
 import { NewPersonDialogData } from '../../models';
 import { NewPersonHelper } from '../../utils';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  standalone: false,
-  selector: 'app-new-person',
-  template: `<button (click)="openDialog()" mat-icon-button [color]="color"
+    selector: 'app-new-person',
+    template: `<button (click)="openDialog()" mat-icon-button [color]="color"
     matTooltip="{{ label }}"><mat-icon>person_add</mat-icon></button>`,
-    styles: []
+    styles: [],
+    imports: [MatIconButton, MatTooltip, MatIcon]
 })
 export class NewPersonComponent {
   @Input() sex: string;

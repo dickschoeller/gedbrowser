@@ -5,11 +5,14 @@ import { HasMultimedia } from '../../interfaces';
 import { ApiAttribute, MultimediaDialogData, MultimediaFileData } from '../../models';
 import { StringUtil, MultimediaDialogHelper } from '../../utils';
 import { MultimediaDialogComponent } from '../multimedia-dialog';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  standalone: false,
-  selector: 'app-multimedia-add-button',
-  template: `<span>
+    selector: 'app-multimedia-add-button',
+    template: `<span>
   <button mat-icon-button matTooltip="Multimedia" [matMenuTriggerFor]="multimediaMenu" color="primary">
     <mat-icon matListIcon>image</mat-icon></button>
 </span>
@@ -17,7 +20,8 @@ import { MultimediaDialogComponent } from '../multimedia-dialog';
 <mat-menu #multimediaMenu="matMenu" [overlapTrigger]="false">
   <button mat-menu-item (click)="openMultimediaDialog()"><mat-icon>add_photo_alternate</mat-icon> Add multimedia</button>
 </mat-menu>`,
-    styles: []
+    styles: [],
+    imports: [MatIconButton, MatTooltip, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem]
 })
 export class MultimediaAddButtonComponent {
   @Input() parent: HasMultimedia;

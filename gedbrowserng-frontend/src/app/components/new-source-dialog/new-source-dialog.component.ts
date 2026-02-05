@@ -1,12 +1,18 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 
 import { NewSourceDialogData } from '../../models';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIcon } from '@angular/material/icon';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  standalone: false,
-  selector: 'app-new-source-dialog',
-  template: `<div mat-dialog-title>
+    selector: 'app-new-source-dialog',
+    template: `<div mat-dialog-title>
   <mat-toolbar color="primary"><mat-icon matListIcon>book</mat-icon> &nbsp; New source</mat-toolbar>
 </div>
 <div mat-dialog-content>
@@ -31,7 +37,8 @@ import { NewSourceDialogData } from '../../models';
   <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
   <button mat-button (click)="onNoClick()" >Cancel</button>
 </div>`,
-    styles: []
+    styles: [],
+    imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatDialogActions, MatButton, MatDialogClose]
 })
 export class NewSourceDialogComponent {
   constructor(

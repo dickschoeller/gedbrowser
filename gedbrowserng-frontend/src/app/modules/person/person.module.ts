@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { ComponentsModule } from '../../components';
+
 
 import { LinkPersonComponent } from './link-person.component';
 import { NewPersonComponent } from './new-person.component';
@@ -41,12 +41,10 @@ const personRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
  * The module for a person page routing.
  */
 @NgModule( {
-  imports: [
+    imports: [
     personRouting,
     CommonModule,
-
     DragDropModule,
-
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
@@ -54,10 +52,6 @@ const personRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
     MatIconModule,
     MatToolbarModule,
     MatTooltipModule,
-
-    ComponentsModule,
-  ],
-  declarations: [
     LinkPersonComponent,
     NewPersonComponent,
     PersonComponent,
@@ -69,10 +63,10 @@ const personRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
     PersonParentFamiliesComponent,
     PersonParentFamilyComponent,
     PersonParentComponent,
-  ],
-  providers: [
-    PersonResolverService,
-  ]
+],
+    providers: [
+        PersonResolverService,
+    ]
 } )
 
 export class PersonModule {}

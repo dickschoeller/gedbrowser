@@ -13,7 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { ComponentsModule } from '../../components';
+
 
 import { PersonListPageComponent } from './person-list-page.component';
 import { PersonListComponent } from './person-list.component';
@@ -30,10 +30,9 @@ const personRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
 ]);
 
 @NgModule({
-  imports: [
+    imports: [
     personRouting,
     CommonModule,
-
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -44,15 +43,11 @@ const personRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
     MatTableModule,
     MatTooltipModule,
     MatToolbarModule,
-
-    ComponentsModule,
-  ],
-  declarations: [
     PersonListComponent,
-    PersonListPageComponent
-  ],
-  providers: [
-    PersonListResolverService
-  ]
+    PersonListPageComponent,
+],
+    providers: [
+        PersonListResolverService
+    ]
 })
 export class PersonListModule {}

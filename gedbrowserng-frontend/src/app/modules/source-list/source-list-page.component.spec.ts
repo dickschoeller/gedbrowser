@@ -1,21 +1,22 @@
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
 
 import { SourceListPageComponent } from './source-list-page.component';
-import { SourceService } from '../../services';
+import { SourceService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { ApiSource } from '../../models';
 
 // Mock component to replace the child app-source-list
 @Component({
-  selector: 'app-source-list',
-  template: '',
-  standalone: false
+    selector: 'app-source-list',
+    template: '',
+    imports: []
 })
 class MockSourceListComponent {
   @Input() parent: any;
@@ -41,19 +42,29 @@ describe('SourceListPageComponent', () => {
     dataSubject = new ReplaySubject(1);
 
     TestBed.configureTestingModule({
-      declarations: [ SourceListPageComponent, MockSourceListComponent ],
-      imports: [ HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule ],
-      providers: [
-        SourceService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: paramsSubject.asObservable(),
-            data: dataSubject.asObservable()
-          }
+    imports: [SourceListPageComponent, MockSourceListComponent],
+    providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
+      SourceService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          params: paramsSubject.asObservable(),
+          data: dataSubject.asObservable()
         }
-      ]
-    })
+      }
+    ]
+})
     .compileComponents();
   });
 

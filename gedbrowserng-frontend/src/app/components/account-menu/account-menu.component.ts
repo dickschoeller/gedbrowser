@@ -1,13 +1,14 @@
 import { Component, OnInit , Inject } from '@angular/core';
 import { AuthService, UserService, User } from '../../services';
 import { Router } from '@angular/router';
+import { MatMenuItem } from '@angular/material/menu';
 
 @Component({
-    standalone: false,
     selector: 'app-account-menu',
     template: `<!-- button mat-menu-item [routerLink]="['/change-password']">CHANGE PASSWORD</button -->
 <button mat-menu-item (click)="logout()">Sign out</button>`,
-    styles: []
+    styles: [],
+    imports: [MatMenuItem]
 })
 export class AccountMenuComponent implements OnInit {
 
