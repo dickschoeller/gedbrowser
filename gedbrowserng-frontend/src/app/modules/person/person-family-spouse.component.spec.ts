@@ -1,24 +1,27 @@
-import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 
 import { PersonFamilySpouseComponent } from './person-family-spouse.component';
-import { UserService } from '../../services/user.service';
 import { setupPersonComponentTest } from '../testing/person-component-spec-helpers';
 
 
 describe('PersonFamilySpouseComponent', () => {
   let component: PersonFamilySpouseComponent;
   let fixture: any;
+  let mockUserService: any;
 
   beforeEach(() => {
-    const setup = setupPersonComponentTest(PersonFamilySpouseComponent);
+    const setup = setupPersonComponentTest(PersonFamilySpouseComponent, {
+      inputs: {
+        dataset: 'testDataset',
+        parent: { families: [], refresh: () => {} },
+        attribute: { string: 'test', type: 'test' },
+        index: 0
+      },
+      detectChanges: true
+    });
     fixture = setup.fixture;
     component = setup.component;
-    component.dataset = 'testDataset';
-    component.parent = { families: [], refresh: () => {} } as any;
-    component.attribute = { string: 'test', type: 'test' } as any;
-    component.index = 0;
-    fixture.detectChanges();
+    mockUserService = setup.mockUserService;
   });
 
   it('should create', () => {
@@ -41,9 +44,8 @@ describe('PersonFamilySpouseComponent', () => {
   });
 
   it('hasSignedIn reflects user presence', () => {
-    const userSvc = TestBed.inject(UserService);
     expect(component.hasSignedIn()).toBe(false);
-    (userSvc as any).currentUser = { id: 'u' };
+    mockUserService.currentUser = { id: 'u' };
     expect(component.hasSignedIn()).toBe(true);
   });
 });

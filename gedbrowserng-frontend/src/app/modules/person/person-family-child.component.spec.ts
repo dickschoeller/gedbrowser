@@ -1,4 +1,3 @@
-import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 import { PersonFamilyChildComponent } from './person-family-child.component';
@@ -27,19 +26,22 @@ describe('PersonFamilyChildComponent', () => {
   } as any;
 
   beforeEach(async () => {
-    const setup = setupPersonComponentTest(PersonFamilyChildComponent);
+    const setup = setupPersonComponentTest(PersonFamilyChildComponent, {
+      inputs: {
+        dataset: 'testDataset',
+        parent: parentMock,
+        child: { string: 'C1', type: 'child' },
+        index: 0
+      },
+      personServiceOverrides: {
+        getOne: vi.fn().mockReturnValue(of(createTestPerson())),
+        deleteLink: vi.fn().mockReturnValue(of({}))
+      }
+    });
     fixture = setup.fixture;
     component = setup.component;
     mockPersonService = setup.mockPersonService;
-    mockUserService = TestBed.inject(UserService);
-
-    mockPersonService.getOne = vi.fn().mockReturnValue(of(createTestPerson()));
-    mockPersonService.deleteLink = vi.fn().mockReturnValue(of({}));
-
-    component.dataset = 'testDataset';
-    component.parent = parentMock;
-    component.child = { string: 'C1', type: 'child' } as any;
-    component.index = 0;
+    mockUserService = setup.mockUserService;
   });
 
   afterEach(() => {

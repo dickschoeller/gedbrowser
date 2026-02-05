@@ -1,9 +1,7 @@
-import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 
 import { PersonParentComponent } from './person-parent.component';
-import { PersonService } from '../../services/person.service';
 import { ApiAttribute } from '../../models';
 import { setupPersonComponentTest } from '../testing/person-component-spec-helpers';
 
@@ -11,6 +9,7 @@ import { setupPersonComponentTest } from '../testing/person-component-spec-helpe
 describe('PersonParentComponent', () => {
   let component: PersonParentComponent;
   let fixture: any;
+  let mockPersonService: any;
 
   const mockAttribute: ApiAttribute = {
     string: 'I123',
@@ -25,13 +24,17 @@ describe('PersonParentComponent', () => {
   };
 
   beforeEach(() => {
-    const setup = setupPersonComponentTest(PersonParentComponent);
+    const setup = setupPersonComponentTest(PersonParentComponent, {
+      inputs: {
+        dataset: 'testDataset',
+        attribute: mockAttribute,
+        parent: mockParent
+      },
+      detectChanges: true
+    });
     fixture = setup.fixture;
     component = setup.component;
-    component.dataset = 'testDataset';
-    component.attribute = mockAttribute;
-    component.parent = mockParent as any;
-    fixture.detectChanges();
+    mockPersonService = setup.mockPersonService;
   });
 
   it('should create', () => {
@@ -66,7 +69,7 @@ describe('PersonParentComponent', () => {
   it('unlink calls deleteLink and refreshes', () => {
     const person = { string: 'P1' } as any;
     component.person = person;
-    const spy = vi.spyOn(TestBed.inject(PersonService), 'deleteLink').mockReturnValue(of(person));
+    const spy = vi.spyOn(mockPersonService, 'deleteLink').mockReturnValue(of(person));
     const refreshSpy = vi.spyOn(mockParent, 'refreshPerson');
     component.unlink();
     expect(spy).toHaveBeenCalled();

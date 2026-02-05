@@ -122,13 +122,30 @@ export function createMockDatasetsService(): any {
 }
 
 /**
+ * Configuration options for setupPersonComponentTest
+ */
+export interface PersonComponentTestOptions {
+  /** Component inputs to set (e.g., { dataset: 'testDataset', index: 0 }) */
+  inputs?: Record<string, any>;
+  /** Whether to call detectChanges after setup (default: false) */
+  detectChanges?: boolean;
+  /** Additional providers to include in TestBed */
+  additionalProviders?: any[];
+  /** Additional imports to include in TestBed */
+  additionalImports?: any[];
+  /** Custom mock overrides for PersonService */
+  personServiceOverrides?: Partial<PersonService>;
+  /** Custom mock overrides for FamilyService */
+  familyServiceOverrides?: Partial<FamilyService>;
+}
+
+/**
  * Standard TestBed configuration for person module components
  * Includes all common imports and providers
  */
 export function setupPersonComponentTest<T>(
   componentClass: Type<T>,
-  additionalProviders: any[] = [],
-  additionalImports: any[] = []
+  options: PersonComponentTestOptions = {}
 ): {
   fixture: ComponentFixture<T>;
   component: T;
@@ -136,8 +153,17 @@ export function setupPersonComponentTest<T>(
   mockFamilyService: any;
   mockUserService: any;
 } {
-  const mockPersonService = createMockPersonService();
-  const mockFamilyService = createMockFamilyService();
+  const {
+    inputs = {},
+    detectChanges = false,
+    additionalProviders = [],
+    additionalImports = [],
+    personServiceOverrides = {},
+    familyServiceOverrides = {}
+  } = options;
+
+  const mockPersonService = createMockPersonService(personServiceOverrides);
+  const mockFamilyService = createMockFamilyService(familyServiceOverrides);
   const mockUserService = createMockUserService();
 
   TestBed.configureTestingModule({
@@ -173,6 +199,14 @@ export function setupPersonComponentTest<T>(
 
   const fixture = TestBed.createComponent(componentClass);
   const component = fixture.componentInstance;
+
+  // Set component inputs
+  Object.assign(component, inputs);
+
+  // Optionally trigger change detection
+  if (detectChanges) {
+    fixture.detectChanges();
+  }
 
   return { fixture, component, mockPersonService, mockFamilyService, mockUserService };
 }
