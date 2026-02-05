@@ -7,8 +7,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { MultimediaDialogComponent } from './multimedia-dialog.component';
 import { UserService, AuthApiService, ConfigService } from '../../services';
@@ -19,25 +20,27 @@ describe('MultimediaDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ MultimediaDialogComponent ],
-      imports: [ MatDialogModule, DragDropModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, HttpClientTestingModule, NoopAnimationsModule ],
-      providers: [
-        { provide: MatDialogRef, useValue: {} },
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatDialogModule, DragDropModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MultimediaDialogComponent],
+    providers: [
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
+      { provide: MatDialogRef, useValue: {} },
         {
-          provide: MAT_DIALOG_DATA,
-          useValue: {
-            title: '',
-            description: '',
-            citations: [],
-            files: []
-          }
+            provide: MAT_DIALOG_DATA,
+            useValue: {
+                title: '',
+                description: '',
+                citations: [],
+                files: []
+            }
         },
         UserService,
         AuthApiService,
         ConfigService
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

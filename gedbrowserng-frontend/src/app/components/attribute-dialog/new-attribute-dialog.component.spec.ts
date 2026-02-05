@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { NewAttributeDialogComponent } from './new-attribute-dialog.component';
 
@@ -15,20 +15,20 @@ describe('NewAttributeDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ NewAttributeDialogComponent ],
-      imports: [ MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, NoopAnimationsModule ],
-      providers: [
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, NewAttributeDialogComponent],
+    providers: [
+      provideAnimations(),
         { provide: MatDialogRef, useValue: {} },
         {
-          provide: MAT_DIALOG_DATA,
-          useValue: {
-            options: [{ label: 'Test', value: 'test' }],
-            default: { type: 'test', text: '', date: '' }
-          }
+            provide: MAT_DIALOG_DATA,
+            useValue: {
+                options: [{ label: 'Test', value: 'test' }],
+                default: { type: 'test', text: '', date: '' }
+            }
         }
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

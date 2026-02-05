@@ -5,6 +5,13 @@ import { HasAttributeList, HasPerson, Saveable } from '../../interfaces';
 import { ApiPerson, ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { PersonService } from '../../services';
 import { AttributeDialogHelper, LifespanUtil } from '../../utils';
+import { MainLayoutComponent } from '../../components/main-layout/main-layout.component';
+import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardFooter } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import { AttributeListComponent } from '../../components/attribute-list/attribute-list.component';
+import { MultimediaGalleryComponent } from '../../components/multimedia-gallery/multimedia-gallery.component';
+import { PersonFamilyListComponent } from './person-family-list.component';
+import { PersonParentFamiliesComponent } from './person-parent-families.component';
 
 /**
  * Implements a person page.
@@ -13,16 +20,16 @@ import { AttributeDialogHelper, LifespanUtil } from '../../utils';
  *  person: the person routed by the module
  */
 @Component({
-  standalone: false,
-  selector: 'app-person',
-  template: `<app-main-layout [dataset]="dataset">
+    selector: 'app-person',
+    standalone: true,
+    template: `<app-main-layout [dataset]="dataset">
   <mat-card>
     <mat-card-title><mat-icon>person</mat-icon> {{ person?.indexName }}</mat-card-title>
     <mat-card-subtitle>{{ lifespanDateString() }} : {{ person?.string }}</mat-card-subtitle>
     <mat-card-content>
       <div class="ui-g">
         <div class="ui-g-12">
-          <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="person?.attributes"
+          <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="attributes"
                   [toggleable]="true"></app-attribute-list>
         </div>
         <div class="ui-g-12">
@@ -38,12 +45,15 @@ import { AttributeDialogHelper, LifespanUtil } from '../../utils';
     </mat-card-content>
     <mat-card-footer>
       <div><b>{{ person?.refns[0].string }}:&nbsp;</b> {{ person?.refns[0].tail }}</div>
-      <div *ngIf="person?.changes[0]"><b>{{ person?.changes[0]?.string }}:&nbsp;</b> {{ person?.changes[0]?.attributes[0].string }}</div>
+      @if (person?.changes[0]) {
+        <div><b>{{ person?.changes[0]?.string }}:&nbsp;</b> {{ person?.changes[0]?.attributes[0].string }}</div>
+      }
     </mat-card-footer>
   </mat-card>
   <br/>
 </app-main-layout>`,
-    styles: []
+    styles: [],
+    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent, PersonFamilyListComponent, PersonParentFamiliesComponent, MatCardFooter]
 })
 export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Saveable {
   dataset: string;
@@ -134,7 +144,8 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
     this.route.data.subscribe(
       (data: {dataset: string, person: ApiPerson}) => {
         this.person = data.person;
-        this.attributes = this.person?.attributes || [];
+        this.person.attributes = this.person?.attributes || [];
+        this.attributes = this.person.attributes;
       }
     );
   }

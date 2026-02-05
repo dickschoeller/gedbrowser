@@ -4,13 +4,20 @@ import { ApiAttribute } from '../../models';
 import { AttributeAnalyzer, ImageUtil } from '../../utils';
 
 @Component({
-  standalone: false,
-  selector: 'app-attribute-list-item-detail-list-item',
-  template: `<span *ngIf="href(); else elseLinkBlock"><a *ngIf="!image(); else imageBlock" href="{{ href() }}">{{ displayString() }}</a></span>
-
-<ng-template #elseLinkBlock><span>{{ displayString() }}<span *ngIf="!last()">,</span></span></ng-template>
-<ng-template #imageBlock><div><a href="{{ displayString() }}"><img src="{{ displayString() }}" width="300px"/></a></div></ng-template>`,
-    styles: []
+    selector: 'app-attribute-list-item-detail-list-item',
+    template: `@if (href()) {
+  <span>
+    @if (!image()) {
+      <a href="{{ href() }}">{{ displayString() }}</a>
+    } @else {
+      <div><a href="{{ displayString() }}"><img src="{{ displayString() }}" width="300px"/></a></div>
+    }
+  </span>
+} @else {
+  <span>{{ displayString() }}@if (!last()) { <span>,</span> }</span>
+}`,
+    styles: [],
+    imports: []
 })
 export class AttributeListItemDetailListItemComponent {
   @Input() attribute: ApiAttribute;

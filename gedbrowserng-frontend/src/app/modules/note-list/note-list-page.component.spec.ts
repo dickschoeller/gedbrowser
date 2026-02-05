@@ -1,21 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
 
 import { NoteListPageComponent } from './note-list-page.component';
-import { NoteService } from '../../services';
+import { NoteService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { ApiNote } from '../../models';
 
 // Mock component to replace the child app-note-list
 @Component({
-  selector: 'app-note-list',
-  template: '',
-  standalone: false
+    selector: 'app-note-list',
+    template: '',
+    imports: []
 })
 class MockNoteListComponent {
   @Input() parent: any;
@@ -41,19 +42,29 @@ describe('NoteListPageComponent', () => {
     dataSubject = new ReplaySubject(1);
 
     TestBed.configureTestingModule({
-      declarations: [ NoteListPageComponent, MockNoteListComponent ],
-      imports: [ HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule ],
-      providers: [
-        NoteService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: paramsSubject.asObservable(),
-            data: dataSubject.asObservable()
-          }
+    imports: [NoteListPageComponent, MockNoteListComponent],
+    providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
+      NoteService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          params: paramsSubject.asObservable(),
+          data: dataSubject.asObservable()
         }
-      ]
-    })
+      }
+    ]
+})
     .compileComponents();
 
     noteService = TestBed.inject(NoteService);

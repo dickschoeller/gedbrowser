@@ -5,6 +5,17 @@ import { FamilyService, PersonService, UserService } from '../../services';
 import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { InitablePersonCreator } from '../../bases';
 import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from '../../interfaces';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { PersonFamilySpouseComponent } from './person-family-spouse.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { NewPersonComponent } from './new-person.component';
+import { LinkPersonComponent } from './link-person.component';
+import { AttributeListComponent } from '../../components/attribute-list/attribute-list.component';
+import { MultimediaGalleryComponent } from '../../components/multimedia-gallery/multimedia-gallery.component';
+import { PersonFamilyChildListComponent } from './person-family-child-list.component';
 
 /**
  * Implements a family block within a person page.
@@ -18,28 +29,36 @@ import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from 
  *  family the family identified by the ID
  */
 @Component({
-    standalone: false,
     selector: 'app-person-family',
     template: `<mat-card>
   <mat-card-title>
-    <mat-toolbar color="primary">Family {{ index + 1 }}<span *ngIf="spouse()">&nbsp;-&nbsp;</span>
-      <app-person-family-spouse *ngIf="spouse()"
-          [dataset]="dataset" [parent]="this" [attribute]="spouse()"></app-person-family-spouse>
-      <span *ngIf="spouse() && hasSignedIn()">
-        <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
-          <mat-icon matListIcon>link_off</mat-icon></button>
-      </span>
-      <span *ngIf="!spouse()" class="example-fill-remaining-space"></span>
-      <span *ngIf="!spouse() && hasSignedIn()">
-        <app-new-person
-            [sex]="sex" [surname]="surname" [label]="'Create spouse'"
-            (emitOK)="createPerson($event)"></app-new-person>
-        <app-link-person
-            [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
-            (emitOK)="linkPerson($event)"></app-link-person>
-        <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
-          <mat-icon matListIcon>link_off</mat-icon></button>
-      </span>
+        <mat-toolbar color="primary">Family {{ index + 1 }}
+            @if (spouse()) { <span>&nbsp;-&nbsp;</span> }
+            @if (spouse()) {
+                <app-person-family-spouse
+                        [dataset]="dataset" [parent]="this" [attribute]="spouse()"></app-person-family-spouse>
+            }
+            @if (spouse() && hasSignedIn()) {
+                <span>
+                    <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
+                        <mat-icon matListIcon>link_off</mat-icon></button>
+                </span>
+            }
+            @if (!spouse()) {
+                <span class="example-fill-remaining-space"></span>
+            }
+            @if (!spouse() && hasSignedIn()) {
+                <span>
+                    <app-new-person
+                            [sex]="sex" [surname]="surname" [label]="'Create spouse'"
+                            (emitOK)="createPerson($event)"></app-new-person>
+                    <app-link-person
+                            [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+                            (emitOK)="linkPerson($event)"></app-link-person>
+                    <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
+                        <mat-icon matListIcon>link_off</mat-icon></button>
+                </span>
+            }
     </mat-toolbar>
   </mat-card-title>
   <mat-card-content>
@@ -59,13 +78,16 @@ import { HasAttributeList, HasPerson, RefreshPerson, LinkCheck, Saveable } from 
     </div>
     <div class="ui-g-1"></div>
   </div>
-  <app-person-family-child-list *ngIf="family?.children"
-      [children]="family?.children" [family]="family" [parent]="this"
-      [dataset]="dataset"></app-person-family-child-list>
+    @if (family?.children) {
+        <app-person-family-child-list
+                [children]="family?.children" [family]="family" [parent]="this"
+                [dataset]="dataset"></app-person-family-child-list>
+    }
   </mat-card-content>
 </mat-card>
 <br/>`,
-    styles: []
+    styles: [],
+    imports: [MatCard, MatCardTitle, MatToolbar, PersonFamilySpouseComponent, MatIconButton, MatTooltip, MatIcon, NewPersonComponent, LinkPersonComponent, MatCardContent, AttributeListComponent, MultimediaGalleryComponent, PersonFamilyChildListComponent]
 })
 export class PersonFamilyComponent extends InitablePersonCreator
     implements HasAttributeList, LinkCheck, Saveable {

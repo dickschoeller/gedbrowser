@@ -1,120 +1,16 @@
-import { ModuleWithProviders, NgModule, APP_INITIALIZER } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CdkTableModule } from '@angular/cdk/table';
 
-import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome.component';
 
 const rootRouting: ModuleWithProviders<RouterModule> = RouterModule.forRoot([
   { path: '', component: WelcomeComponent },
 ], { useHash: true });
 
-import {
-    LinkDialogComponent,
-    LinkPersonDialogComponent,
-    MultimediaDialogComponent,
-    NewAttributeDialogComponent,
-    NewNoteDialogComponent,
-    NewPersonDialogComponent,
-    NewSourceDialogComponent,
-    NewSubmitterDialogComponent,
-} from './components';
-
-import {
-    HeadModule,
-    LoginModule,
-    NoteModule,
-    NoteListModule,
-    PersonListModule,
-    PersonModule,
-    SignupModule,
-    SourceListModule,
-    SourceModule,
-    SubmitterListModule,
-    SubmitterModule
-} from './modules';
-
-import {
-    AuthApiService,
-    AuthService,
-    ConfigService,
-    DatasetsService,
-    HeadService,
-    FamilyService,
-    FooService,
-    NoteService,
-    PersonService,
-    SourceService,
-    SubmitterService,
-    SaveService,
-    UploadService,
-    UserService,
-} from './services';
-
-import { LoginGuard, GuestGuard, AdminGuard } from './guards';
+import { UserService } from './services';
 
 export function initUserFactory(userService: UserService) {
     return () => userService.initUser();
 }
 
-@NgModule({
-    imports: [
-        rootRouting,
 
-        // standalone welcome component
-        WelcomeComponent,
-
-        BrowserModule,
-        BrowserAnimationsModule,
-        CdkTableModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-
-        HeadModule,
-        LoginModule,
-        NoteModule,
-        NoteListModule,
-        PersonListModule,
-        PersonModule,
-        SignupModule,
-        SourceListModule,
-        SourceModule,
-        SubmitterListModule,
-        SubmitterModule,
-    ],
-    declarations: [
-        AppComponent,
-    ],
-    providers: [
-        AuthApiService,
-        AuthService,
-        ConfigService,
-        DatasetsService,
-        HeadService,
-        NoteService,
-        FamilyService,
-        FooService,
-        PersonService,
-        SourceService,
-        SubmitterService,
-        SaveService,
-        UploadService,
-        UserService,
-        LoginGuard,
-        GuestGuard,
-        AdminGuard,
-        {
-            'provide': APP_INITIALIZER,
-            'useFactory': initUserFactory,
-            'deps': [UserService],
-            'multi': true
-        }
-    ],
-    bootstrap: [AppComponent]
-})
-export class AppModule { }

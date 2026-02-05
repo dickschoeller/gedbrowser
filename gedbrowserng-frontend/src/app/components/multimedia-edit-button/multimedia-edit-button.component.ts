@@ -5,13 +5,16 @@ import { Saveable } from '../../interfaces';
 import { ApiAttribute, MultimediaDialogData } from '../../models';
 import { MultimediaDialogHelper } from '../../utils';
 import { MultimediaDialogComponent } from '../multimedia-dialog';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  standalone: false,
-  selector: 'app-multimedia-edit-button',
-  template: `<button mat-icon-button matTooltip="Edit multimedia attribute" color="primary" (click)="edit()">
+    selector: 'app-multimedia-edit-button',
+    template: `<button mat-icon-button matTooltip="Edit multimedia attribute" color="primary" (click)="edit()">
   <mat-icon matListIcon>edit</mat-icon></button>`,
-    styles: []
+    styles: [],
+    imports: [MatIconButton, MatTooltip, MatIcon]
 })
 export class MultimediaEditButtonComponent {
   @Input() dataset: string;

@@ -5,7 +5,9 @@
   <mat-form-field>
     <mat-label>Attribute type</mat-label>
     <mat-select [(ngModel)]="data.default.type">
-      <mat-option *ngFor="let option of data.options" [value]="option.value">{{ option.label }}</mat-option>
+      @for (option of data.options; track $index) {
+        <mat-option [value]="option.value">{{ option.label }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
   <br/>

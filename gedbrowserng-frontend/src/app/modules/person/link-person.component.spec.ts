@@ -1,6 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 import { LinkPersonComponent } from './link-person.component';
@@ -46,13 +45,13 @@ describe('LinkPersonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [LinkPersonComponent],
-      providers: [
+    imports: [LinkPersonComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
         { provide: PersonService, useValue: personServiceMock },
         { provide: MatDialog, useValue: mockDialog },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
 
     fixture = TestBed.createComponent(LinkPersonComponent);
     component = fixture.componentInstance;

@@ -13,7 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { ComponentsModule } from '../../components';
+
 
 import { SubmitterListPageComponent } from './submitter-list-page.component';
 import { SubmitterListComponent } from './submitter-list.component';
@@ -30,10 +30,9 @@ const submitterRouting: ModuleWithProviders<RouterModule> = RouterModule.forChil
 ]);
 
 @NgModule({
-  imports: [
+    imports: [
     submitterRouting,
     CommonModule,
-
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -44,15 +43,11 @@ const submitterRouting: ModuleWithProviders<RouterModule> = RouterModule.forChil
     MatTableModule,
     MatTooltipModule,
     MatToolbarModule,
-
-    ComponentsModule,
-  ],
-  declarations: [
     SubmitterListComponent,
-    SubmitterListPageComponent
-  ],
-  providers: [
-    SubmitterListResolverService
-  ]
+    SubmitterListPageComponent,
+],
+    providers: [
+        SubmitterListResolverService
+    ]
 })
 export class SubmitterListModule {}

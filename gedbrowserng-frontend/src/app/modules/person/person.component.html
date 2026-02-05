@@ -21,7 +21,9 @@
     </mat-card-content>
     <mat-card-footer>
       <div><b>{{ person?.refns[0].string }}:&nbsp;</b> {{ person?.refns[0].tail }}</div>
-      <div *ngIf="person?.changes[0]"><b>{{ person?.changes[0]?.string }}:&nbsp;</b> {{ person?.changes[0]?.attributes[0].string }}</div>
+      @if (person?.changes[0]) {
+        <div><b>{{ person?.changes[0]?.string }}:&nbsp;</b> {{ person?.changes[0]?.attributes[0].string }}</div>
+      }
     </mat-card-footer>
   </mat-card>
   <br/>

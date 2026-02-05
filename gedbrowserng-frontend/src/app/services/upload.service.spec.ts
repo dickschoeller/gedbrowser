@@ -1,5 +1,5 @@
-import { HttpClient, HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpEvent, HttpEventType, HttpResponse, provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 
@@ -12,8 +12,11 @@ describe('UploadService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [UploadService]
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        UploadService
+      ]
     });
 
     httpClient = TestBed.inject(HttpClient);
