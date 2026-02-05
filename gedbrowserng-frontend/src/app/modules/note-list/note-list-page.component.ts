@@ -5,12 +5,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiNote } from '../../models';
 import { NoteService } from '../../services';
 import { ApiComparators } from '../../utils';
+import { NoteListComponent } from './note-list.component';
 
 @Component({
-  standalone: false,
-  selector: 'app-note-list-page',
-  template: `<app-note-list [parent]="this" [dataset]="dataset" [notes]="notes"></app-note-list>`,
-    styles: []
+    selector: 'app-note-list-page',
+    template: `<app-note-list [parent]="this" [dataset]="dataset" [notes]="notes"></app-note-list>`,
+    styles: [],
+    imports: [NoteListComponent]
 })
 export class NoteListPageComponent implements OnInit, OnChanges, RefreshNote {
   dataset: string;

@@ -1,16 +1,19 @@
 import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AttributeListComponent } from '../../components';
 import { ApiSubmitter, ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { SubmitterService } from '../../services';
 import { HasAttributeList } from '../../interfaces';
 import { AttributeDialogHelper } from '../../utils';
+import { MainLayoutComponent } from '../../components/main-layout/main-layout.component';
+import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import { AttributeListComponent } from '../../components/attribute-list/attribute-list.component';
 
 @Component({
-  standalone: false,
-  selector: 'app-submitter',
-  template: `<app-main-layout [dataset]="dataset">
+    selector: 'app-submitter',
+    standalone: true,
+    template: `<app-main-layout [dataset]="dataset">
   <mat-card>
     <mat-card-title><mat-icon>contact_mail</mat-icon> {{ submitter?.name }}
     </mat-card-title>
@@ -20,7 +23,8 @@ import { AttributeDialogHelper } from '../../utils';
     </mat-card-content>
   </mat-card>
 </app-main-layout>`,
-    styles: []
+    styles: [],
+    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent]
 })
 export class SubmitterComponent implements OnInit, HasAttributeList {
   dataset: string;

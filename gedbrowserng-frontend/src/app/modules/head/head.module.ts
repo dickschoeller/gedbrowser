@@ -2,7 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { ComponentsModule } from '../../components';
+
 
 import { HeadComponent } from './head.component';
 import { HeadResolverService } from './head-resolver.service';
@@ -18,17 +18,14 @@ const sourceRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
 ]);
 
 @NgModule({
-  imports: [
+    imports: [
     sourceRouting,
     CommonModule,
-    ComponentsModule,
-  ],
-  declarations: [
     HeadComponent,
-  ],
-  providers: [
-    HeadResolverService
-  ]
+],
+    providers: [
+        HeadResolverService
+    ]
 })
 
 export class HeadModule {}

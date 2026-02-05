@@ -1,10 +1,12 @@
 {{ label() }}:&nbsp;
-<span *ngIf="person"><a class="name"
-  [routerLink]="['/' + dataset + '/persons', person.string]">
-  {{ person.indexName }} {{ lifespanYearString() }} [{{ person.string }}]</a>
-<span class="example-fill-remaining-space"></span>
-<span class="hidden">
-  <button mat-icon-button matTooltip="Unlink parent" color="warn" (click)="unlink()">
-    <mat-icon matListIcon>link_off</mat-icon></button>
-</span>
-</span>
+@if (person) {
+  <span><a class="name"
+    [routerLink]="['/' + dataset + '/persons', person.string]">
+    {{ person.indexName }} {{ lifespanYearString() }} [{{ person.string }}]</a>
+  <span class="example-fill-remaining-space"></span>
+  <span class="hidden">
+    <button mat-icon-button matTooltip="Unlink parent" color="warn" (click)="unlink()">
+      <mat-icon matListIcon>link_off</mat-icon></button>
+  </span>
+  </span>
+}

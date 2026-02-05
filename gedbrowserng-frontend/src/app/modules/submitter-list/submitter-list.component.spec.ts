@@ -1,8 +1,9 @@
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -17,15 +18,23 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 
-import { SubmitterService } from '../../services';
+import { SubmitterService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { SubmitterListComponent } from './submitter-list.component';
 import { ApiSubmitter } from '../../models';
 
 // Mock component to replace the child app-main-layout
 @Component({
-  selector: 'app-main-layout',
-  template: '<ng-content></ng-content>',
-  standalone: false
+    selector: 'app-main-layout',
+    template: '<ng-content></ng-content>',
+    imports: [MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatToolbarModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -45,16 +54,9 @@ describe('SubmitterListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [
-        SubmitterListComponent,
-        MockMainLayoutComponent
-      ],
-      imports: [
-        RouterTestingModule,
-        NoopAnimationsModule,
-        HttpClientTestingModule,
-        MatTableModule,
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
+      MatTableModule,
         MatPaginatorModule,
         MatSortModule,
         MatToolbarModule,
@@ -62,12 +64,25 @@ describe('SubmitterListComponent', () => {
         MatInputModule,
         MatButtonModule,
         MatIconModule,
-        MatTooltipModule
-      ],
-      providers: [
-        SubmitterService,
-      ]
-    })
+        MatTooltipModule,
+        SubmitterListComponent,
+        MockMainLayoutComponent
+    ],
+    providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
+      SubmitterService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } }
+    ]
+})
     .compileComponents();
 
     submitterService = TestBed.inject(SubmitterService);

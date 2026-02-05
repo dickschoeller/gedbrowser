@@ -2,8 +2,8 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild , Inject 
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
 import { NoteCreator } from '../../bases';
 import { NewNoteDialogComponent } from '../../components';
@@ -12,11 +12,18 @@ import { ApiNote, NewPersonDialogData } from '../../models';
 import { NoteService } from '../../services';
 import { NewNoteHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { NoteListPageComponent } from './note-list-page.component';
+import { MainLayoutComponent } from '../../components/main-layout/main-layout.component';
+import { MatCard, MatCardTitle, MatCardContent, MatCardHeader } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
-  standalone: false,
-  selector: 'app-note-list',
-  template: `<app-main-layout [dataset]="dataset">
+    selector: 'app-note-list',
+    template: `<app-main-layout [dataset]="dataset">
   <mat-card>
     <mat-card-title><div class="with-icon"><mat-icon matListIcon>comment</mat-icon> Notes</div></mat-card-title>
     <mat-card-content>
@@ -68,7 +75,8 @@ import { NoteListPageComponent } from './note-list-page.component';
     </mat-card-content>
   </mat-card>
 </app-main-layout>`,
-    styles: []
+    styles: [],
+    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardContent, MatCardHeader, MatToolbar, MatFormField, MatInput, MatIconButton, MatTooltip, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
 export class NoteListComponent extends NoteCreator implements AfterViewInit, OnChanges, OnInit, ListPage<ApiNote> {
   @Input() parent: NoteListPageComponent;

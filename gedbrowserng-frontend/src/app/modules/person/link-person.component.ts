@@ -5,11 +5,13 @@ import { LinkPersonDialogComponent } from '../../components';
 import { LinkCheck } from '../../interfaces/link-check';
 import { LinkPersonDialogData } from '../../models';
 import { LinkPersonHelper, PersonService } from '../../services';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  standalone: false,
-  selector: 'app-link-person',
-  template: `<button (click)="openDialog()" mat-icon-button [color]="color" matTooltip="{{ label }}"><mat-icon>link</mat-icon></button>
+    selector: 'app-link-person',
+    template: `<button (click)="openDialog()" mat-icon-button [color]="color" matTooltip="{{ label }}"><mat-icon>link</mat-icon></button>
 <!-- app-link-person-dialog
     [p]="this" [dataset]="dataset"
     [titleString]="label" [multi]="multi"
@@ -18,7 +20,8 @@ import { LinkPersonHelper, PersonService } from '../../services';
     (emitOK)="onDialogOK($event)"
     [(display)]="displayDialog">
 </app-link-person-dialog -->`,
-    styles: []
+    styles: [],
+    imports: [MatIconButton, MatTooltip, MatIcon]
 })
 export class LinkPersonComponent {
   @Input() dataset: string;

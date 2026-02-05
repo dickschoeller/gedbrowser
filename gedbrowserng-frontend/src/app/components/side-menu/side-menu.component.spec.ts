@@ -1,12 +1,13 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
@@ -34,16 +35,19 @@ describe('SideMenuComponent', () => {
     mockUserService = { currentUser: null };
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ SideMenuComponent ],
-      imports: [ ReactiveFormsModule, FormsModule, HttpClientTestingModule, NoopAnimationsModule, MatListModule, MatMenuModule, MatIconModule, RouterTestingModule ],
-      providers: [
-        { provide: DatasetsService, useValue: mockDatasetsService },
-        { provide: SaveService, useValue: mockSaveService },
-        { provide: UploadService, useValue: mockUploadService },
-        { provide: UserService, useValue: mockUserService }
-      ]
-    })
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [ReactiveFormsModule, FormsModule, MatListModule, MatMenuModule, MatIconModule, SideMenuComponent],
+    providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
+      { provide: DatasetsService, useValue: mockDatasetsService },
+      { provide: SaveService, useValue: mockSaveService },
+      { provide: UploadService, useValue: mockUploadService },
+      { provide: UserService, useValue: mockUserService }
+    ]
+})
     .compileComponents();
   });
 
@@ -51,6 +55,7 @@ describe('SideMenuComponent', () => {
     fixture = TestBed.createComponent(SideMenuComponent);
     component = fixture.componentInstance;
     component.dataset = 'test-dataset';
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -114,10 +119,11 @@ describe('SideMenuComponent', () => {
     vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
     
     const file = new File(['test content'], 'test.ged', { type: 'application/x-gedcom' });
-    component.filesControl.setValue([file]);
+    component.filesControl.setValue([file], { emitEvent: true });
+    component.filesControl.updateValueAndValidity({ emitEvent: true });
     
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
+      fixture.detectChanges();
       expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
       done();
     });
@@ -126,7 +132,8 @@ describe('SideMenuComponent', () => {
   it('should reject non-ged file uploads', (done) => {
     const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
     const file = new File(['test content'], 'test.txt', { type: 'text/plain' });
-    component.filesControl.setValue([file]);
+    component.filesControl.setValue([file], { emitEvent: true });
+    component.filesControl.updateValueAndValidity({ emitEvent: true });
     
     fixture.detectChanges();
     fixture.whenStable().then(() => {
@@ -140,10 +147,11 @@ describe('SideMenuComponent', () => {
     vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
     
     const file = new File(['test content'], 'family.ged', { type: 'text/plain' });
-    component.filesControl.setValue([file]);
+    component.filesControl.setValue([file], { emitEvent: true });
+    component.filesControl.updateValueAndValidity({ emitEvent: true });
     
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
+      fixture.detectChanges();
       expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
       done();
     });
@@ -154,10 +162,11 @@ describe('SideMenuComponent', () => {
     vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
     
     const file = new File(['test content'], 'family.gedcom', { type: 'text/plain' });
-    component.filesControl.setValue([file]);
+    component.filesControl.setValue([file], { emitEvent: true });
+    component.filesControl.updateValueAndValidity({ emitEvent: true });
     
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
+      fixture.detectChanges();
       expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
       done();
     });
@@ -168,10 +177,11 @@ describe('SideMenuComponent', () => {
     vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
     
     const file = new File(['test content'], 'family.ged', { type: 'application/x-gedcom' });
-    component.filesControl.setValue([file]);
+    component.filesControl.setValue([file], { emitEvent: true });
+    component.filesControl.updateValueAndValidity({ emitEvent: true });
     
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
+      fixture.detectChanges();
       expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
       done();
     });
@@ -180,12 +190,14 @@ describe('SideMenuComponent', () => {
   it('should handle upload error gracefully', (done) => {
     vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of(new Error('Upload failed')));
     const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
     
     const file = new File(['test content'], 'test.ged', { type: 'application/x-gedcom' });
-    component.filesControl.setValue([file]);
+    component.filesControl.setValue([file], { emitEvent: true });
+    component.filesControl.updateValueAndValidity({ emitEvent: true });
     
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
+      fixture.detectChanges();
       expect(alertSpy).toHaveBeenCalled();
       done();
     });

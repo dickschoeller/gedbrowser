@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { ComponentsModule } from './components/components.module';
+
+import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
-  imports: [ComponentsModule],
+  imports: [MainLayoutComponent],
   template: `
     <app-main-layout [dataset]="'default'">
       <div style="padding:16px">

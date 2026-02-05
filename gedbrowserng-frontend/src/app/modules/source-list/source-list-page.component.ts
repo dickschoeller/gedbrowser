@@ -5,12 +5,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiSource } from '../../models';
 import { SourceService } from '../../services';
 import { ApiComparators } from '../../utils';
+import { SourceListComponent } from './source-list.component';
 
 @Component({
-  standalone: false,
-  selector: 'app-source-list-page',
-  template: `<app-source-list [parent]="this" [dataset]="dataset" [sources]="sources"></app-source-list>`,
-    styles: []
+    selector: 'app-source-list-page',
+    template: `<app-source-list [parent]="this" [dataset]="dataset" [sources]="sources"></app-source-list>`,
+    styles: [],
+    imports: [SourceListComponent]
 })
 export class SourceListPageComponent implements OnInit, OnChanges, RefreshSource {
   dataset: string;

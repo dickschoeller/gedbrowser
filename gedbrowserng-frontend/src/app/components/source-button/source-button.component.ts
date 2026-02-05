@@ -6,11 +6,14 @@ import { SourceCreator } from '../../bases';
 import { ApiObject, ApiSource, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SourceService } from '../../services';
 import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  standalone: false,
-  selector: 'app-source-button',
-  template: `<span>
+    selector: 'app-source-button',
+    template: `<span>
   <button mat-icon-button matTooltip="Source" [matMenuTriggerFor]="sourceMenu" color="primary">
     <mat-icon matListIcon>book</mat-icon></button>
 </span>
@@ -20,7 +23,8 @@ import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher, Lin
   <button mat-menu-item (click)="openLinkSourceDialog()"><mat-icon>link</mat-icon> Link source</button>
   <button mat-menu-item (click)="openUnlinkSourceDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink source</button>
 </mat-menu>`,
-    styles: []
+    styles: [],
+    imports: [MatIconButton, MatTooltip, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem]
 })
 export class SourceButtonComponent extends SourceCreator {
   @Input() parent: HasAttributeList;

@@ -1,19 +1,21 @@
 import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AttributeListComponent } from '../../components';
 import { ApiHead, ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { HeadService } from '../../services';
 import { AttributeDialogHelper } from '../../utils';
 import { HasAttributeList } from '../../interfaces';
+import { MainLayoutComponent } from '../../components/main-layout/main-layout.component';
+import { AttributeListComponent } from '../../components/attribute-list/attribute-list.component';
 
 @Component({
-  standalone: false,
-  selector: 'app-head',
-  template: `<app-main-layout [dataset]="dataset">
+    selector: 'app-head',
+    standalone: true,
+    template: `<app-main-layout [dataset]="dataset">
   <app-attribute-list [dataset]="dataset" [attributes]="head?.attributes" [parent]="this"></app-attribute-list>
 </app-main-layout>`,
-    styles: []
+    styles: [],
+    imports: [MainLayoutComponent, AttributeListComponent]
 })
 export class HeadComponent implements OnInit, HasAttributeList {
   dataset: string;
@@ -34,9 +36,9 @@ export class HeadComponent implements OnInit, HasAttributeList {
       {value: 'Submitterlink', label: 'Submitterlink'},
     ];
 
-  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(HeadService) @Inject(HeadService) @Inject(HeadService) private headService: HeadService,
-    @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
+  constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
+    @Inject(HeadService) private readonly headService: HeadService,
+    @Inject(Router) private readonly router: Router
   ) {}
 
   ngOnInit() {

@@ -1,21 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
 
 import { PersonListPageComponent } from './person-list-page.component';
-import { PersonService } from '../../services';
+import { PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { ApiPerson } from '../../models';
 
 // Mock component to replace the child app-person-list
 @Component({
-  selector: 'app-person-list',
-  template: '',
-  standalone: false
+    selector: 'app-person-list',
+    template: '',
+    imports: []
 })
 class MockPersonListComponent {
   @Input() p: any;
@@ -41,19 +42,29 @@ describe('PersonListPageComponent', () => {
     dataSubject = new ReplaySubject(1);
 
     TestBed.configureTestingModule({
-      declarations: [ PersonListPageComponent, MockPersonListComponent ],
-      imports: [ HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule ],
-      providers: [
-        PersonService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: paramsSubject.asObservable(),
-            data: dataSubject.asObservable()
-          }
+    imports: [PersonListPageComponent, MockPersonListComponent],
+    providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
+      PersonService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          params: paramsSubject.asObservable(),
+          data: dataSubject.asObservable()
         }
-      ]
-    })
+      }
+    ]
+})
     .compileComponents();
   });
 

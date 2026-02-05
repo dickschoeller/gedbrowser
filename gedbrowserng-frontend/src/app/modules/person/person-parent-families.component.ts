@@ -1,44 +1,52 @@
 import { Component, Input , Inject } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasLifespan, HasPerson, Saveable, RefreshPerson } from '../../interfaces';
 import { ApiPerson } from '../../models';
 import { PersonService, UserService } from '../../services';
 import { UrlBuilder } from '../../utils';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { NewPersonComponent } from './new-person.component';
+import { LinkPersonComponent } from './link-person.component';
+import { PersonParentFamilyComponent } from './person-parent-family.component';
 
 @Component({
-  standalone: false,
-  selector: 'app-person-parent-families',
-  template: `<mat-card>
+    selector: 'app-person-parent-families',
+    template: `<mat-card>
   <mat-card-title>
     <mat-toolbar>
     Parents and Siblings
     <span class="example-fill-remaining-space"></span>
-    <span *ngIf="!person.famcs.length && hasSignedIn()">
-      <app-new-person
-          [sex]="sex" [surname]="surname" [label]="'Create parent'"
-          color="primary"
-          (emitOK)="createPerson($event)"></app-new-person>
-      <app-link-person
-          [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
-          color="primary"
-          (emitOK)="linkPerson($event)"></app-link-person>
-    </span>
+    @if (!person.famcs.length && hasSignedIn()) {
+      <span>
+        <app-new-person
+            [sex]="sex" [surname]="surname" [label]="'Create parent'"
+            color="primary"
+            (emitOK)="createPerson($event)"></app-new-person>
+        <app-link-person
+            [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+            color="primary"
+            (emitOK)="linkPerson($event)"></app-link-person>
+      </span>
+    }
     </mat-toolbar>
   </mat-card-title>
   <mat-card-content>
     <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
-      <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : '' }}"
-          *ngFor="let attribute of person?.famcs; let i=index">
-        <app-person-parent-family
-            [dataset]="dataset" [parent]="this" [attribute]="attribute"></app-person-parent-family>
-      </div>
+      @for (attribute of person?.famcs; track $index; let i = $index) {
+        <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : '' }}">
+          <app-person-parent-family
+              [dataset]="dataset" [parent]="this" [attribute]="attribute"></app-person-parent-family>
+        </div>
+      }
     </div>
   </mat-card-content>
 </mat-card>`,
-    styles: []
+    styles: [],
+    imports: [MatCard, MatCardTitle, MatToolbar, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, CdkDrag, PersonParentFamilyComponent]
 })
 export class PersonParentFamiliesComponent extends InitablePersonCreator
   implements HasLifespan, HasPerson, RefreshPerson, Saveable {
