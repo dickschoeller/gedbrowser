@@ -4,7 +4,7 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { of } from 'rxjs';
 import * as utils from '../../utils';
@@ -24,11 +24,13 @@ describe('MultimediaAddButtonComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [MultimediaAddButtonComponent],
-      imports: [MatDialogModule, MatMenuModule, MatIconModule, MatTooltipModule, NoopAnimationsModule],
-      providers: [{ provide: MatDialog, useValue: mockDialog }]
-    }).compileComponents();
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [MatDialogModule, MatMenuModule, MatIconModule, MatTooltipModule, MultimediaAddButtonComponent],
+    providers: [
+      provideAnimations(),
+      { provide: MatDialog, useValue: mockDialog }
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(MultimediaAddButtonComponent);
     component = fixture.componentInstance;

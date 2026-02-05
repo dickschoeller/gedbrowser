@@ -5,21 +5,26 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 
 import { SubmitterComponent } from './submitter.component';
-import { SubmitterService } from '../../services';
+import { SubmitterService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
 import { ApiSubmitter } from '../../models';
 
 // Mock component to replace the child app-main-layout
 @Component({
-  selector: 'app-main-layout',
-  template: '<ng-content></ng-content>',
-  standalone: false
+    selector: 'app-main-layout',
+    template: '<ng-content></ng-content>',
+    imports: [MatButtonModule,
+      MatSelectModule,
+      MatFormFieldModule,
+      MatInputModule,
+      ReactiveFormsModule,
+      FormsModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -27,9 +32,14 @@ class MockMainLayoutComponent {
 
 // Mock attribute-list component
 @Component({
-  selector: 'app-attribute-list',
-  template: '',
-  standalone: false
+    selector: 'app-attribute-list',
+    template: '',
+    imports: [MatButtonModule,
+      MatSelectModule,
+      MatFormFieldModule,
+      MatInputModule,
+      ReactiveFormsModule,
+      FormsModule]
 })
 class MockAttributeListComponent {
   @Input() dataset: string;
@@ -52,34 +62,40 @@ describe('SubmitterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ 
-        SubmitterComponent, 
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
+        MatButtonModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        SubmitterComponent,
         MockMainLayoutComponent,
         MockAttributeListComponent
-      ],
-      imports: [ 
-        MatButtonModule, 
-        MatSelectModule, 
-        MatFormFieldModule, 
-        MatInputModule, 
-        ReactiveFormsModule, 
-        FormsModule, 
-        HttpClientTestingModule, 
-        NoopAnimationsModule,
-        RouterTestingModule.withRoutes([]) 
-      ],
-      providers: [ 
-        SubmitterService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: of({ dataset: 'testDataset' }),
-            data: of({ dataset: 'testDataset', submitter: mockSubmitter })
-          }
+    ],
+    providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
+      SubmitterService,
+      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: UserService, useValue: { currentUser: null } },
+      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+      { provide: AuthApiService, useValue: { request: () => {} } },
+      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          params: of({ dataset: 'testDataset' }),
+          data: of({ dataset: 'testDataset', submitter: mockSubmitter })
         }
-      ]
-    })
+      }
+    ]
+})
     .compileComponents();
   });
 

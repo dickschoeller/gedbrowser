@@ -1,4 +1,5 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Type } from '@angular/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -52,8 +53,11 @@ export const setupHttpServiceTest = <T>(serviceType: Type<T>) => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [serviceType]
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        serviceType
+      ]
     });
 
     service = TestBed.inject(serviceType);

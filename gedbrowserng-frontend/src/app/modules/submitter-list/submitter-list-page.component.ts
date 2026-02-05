@@ -4,12 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiSubmitter } from '../../models';
 import { SubmitterService } from '../../services';
 import { ApiComparators } from '../../utils';
+import { SubmitterListComponent } from './submitter-list.component';
 
 @Component({
-  standalone: false,
-  selector: 'app-submitter-list-page',
-  template: `<app-submitter-list [parent]="this" [dataset]="dataset" [submitters]="submitters"></app-submitter-list>`,
-    styles: []
+    selector: 'app-submitter-list-page',
+    template: `<app-submitter-list [parent]="this" [dataset]="dataset" [submitters]="submitters"></app-submitter-list>`,
+    styles: [],
+    imports: [SubmitterListComponent]
 })
 export class SubmitterListPageComponent implements OnInit, OnChanges {
   dataset: string;

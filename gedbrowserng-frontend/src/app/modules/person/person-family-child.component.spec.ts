@@ -1,37 +1,14 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 import { PersonFamilyChildComponent } from './person-family-child.component';
-import { PersonService, UserService } from '../../services';
-import { ApiPerson } from '../../models';
 import { UrlBuilder } from '../../utils';
+import { createTestPerson, setupPersonComponentTest } from '../testing/person-component-spec-helpers';
 
 
 describe('PersonFamilyChildComponent', () => {
   let component: PersonFamilyChildComponent;
-  let fixture: ComponentFixture<PersonFamilyChildComponent>;
-
-  const personServiceMock = {
-    getOne: vi.fn(),
-    deleteLink: vi.fn(),
-  } as unknown as PersonService;
-
-  const userServiceMock = {
-    currentUser: undefined as unknown,
-  } as unknown as UserService;
-
-  const createPerson = (overrides: Partial<ApiPerson> = {}): ApiPerson => ({
-    string: 'test',
-    indexName: 'Test Person',
-    lifespan: {
-      birthYear: 1950,
-      deathYear: 2020,
-      birthDate: '1 JAN 1950',
-      deathDate: '15 DEC 2020',
-    },
-    ...overrides,
-  } as ApiPerson);
+  let mockPersonService: any;
+  let mockUserService: any;
 
   const parentMock = {
     family: {
@@ -47,29 +24,26 @@ describe('PersonFamilyChildComponent', () => {
   } as any;
 
   beforeEach(async () => {
-    personServiceMock.getOne = vi.fn().mockReturnValue(of(createPerson()));
-    personServiceMock.deleteLink = vi.fn().mockReturnValue(of({}));
-
-    await TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [PersonFamilyChildComponent],
-      providers: [
-        { provide: PersonService, useValue: personServiceMock },
-        { provide: UserService, useValue: userServiceMock },
-      ],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(PersonFamilyChildComponent);
-    component = fixture.componentInstance;
-    component.dataset = 'testDataset';
-    component.parent = parentMock;
-    component.child = { string: 'C1', type: 'child' } as any;
-    component.index = 0;
+    const setup = setupPersonComponentTest(PersonFamilyChildComponent, {
+      inputs: {
+        dataset: 'testDataset',
+        parent: parentMock,
+        child: { string: 'C1', type: 'child' },
+        index: 0
+      },
+      personServiceOverrides: {
+        getOne: vi.fn().mockReturnValue(of(createTestPerson())),
+        deleteLink: vi.fn().mockReturnValue(of({}))
+      }
+    });
+    component = setup.component;
+    mockPersonService = setup.mockPersonService;
+    mockUserService = setup.mockUserService;
   });
 
   afterEach(() => {
     vi.clearAllMocks();
-    userServiceMock.currentUser = undefined;
+    mockUserService.currentUser = undefined;
   });
 
   it('should create', () => {
@@ -88,7 +62,7 @@ describe('PersonFamilyChildComponent', () => {
     it('should fetch person from PersonService', () => {
       component.ngOnInit();
 
-      expect(personServiceMock.getOne).toHaveBeenCalledWith('testDataset', 'C1');
+      expect(mockPersonService.getOne).toHaveBeenCalledWith('testDataset', 'C1');
       expect(component.person).toBeDefined();
       expect(component.person?.indexName).toBe('Test Person');
     });
@@ -108,7 +82,7 @@ describe('PersonFamilyChildComponent', () => {
 
       component.ngOnChanges();
 
-      expect(personServiceMock.getOne).toHaveBeenCalledWith('testDataset', 'C2');
+      expect(mockPersonService.getOne).toHaveBeenCalledWith('testDataset', 'C2');
     });
   });
 
@@ -178,7 +152,7 @@ describe('PersonFamilyChildComponent', () => {
 
   describe('hasSignedIn()', () => {
     it('should return true when user is signed in', () => {
-      userServiceMock.currentUser = { username: 'testuser' } as any;
+      mockUserService.currentUser = { username: 'testuser' } as any;
 
       const result = component.hasSignedIn();
 
@@ -186,7 +160,7 @@ describe('PersonFamilyChildComponent', () => {
     });
 
     it('should return false when user is not signed in', () => {
-      userServiceMock.currentUser = null as any;
+      mockUserService.currentUser = null as any;
 
       const result = component.hasSignedIn();
 
@@ -194,7 +168,7 @@ describe('PersonFamilyChildComponent', () => {
     });
 
     it('should return false when currentUser is undefined', () => {
-      userServiceMock.currentUser = undefined as any;
+      mockUserService.currentUser = undefined as any;
 
       const result = component.hasSignedIn();
 
@@ -211,7 +185,7 @@ describe('PersonFamilyChildComponent', () => {
     });
 
     it('should handle person with no lifespan data', () => {
-      (personServiceMock.getOne as any).mockReturnValue(of(createPerson({
+      (mockPersonService.getOne as any).mockReturnValue(of(createTestPerson({
         lifespan: { birthYear: undefined, deathYear: undefined } as any,
       })));
 
@@ -224,21 +198,21 @@ describe('PersonFamilyChildComponent', () => {
 
   describe('unlink()', () => {
     it('should call deleteLink and refresh person', () => {
-      component.person = createPerson();
+      component.person = createTestPerson();
 
       component.unlink();
 
-      expect(personServiceMock.deleteLink).toHaveBeenCalledTimes(1);
+      expect(mockPersonService.deleteLink).toHaveBeenCalledTimes(1);
       expect(parentMock.refreshPerson).toHaveBeenCalledTimes(1);
     });
 
     it('should use correct parameters for deleteLink', () => {
-      component.person = createPerson({ string: 'P9' });
+      component.person = createTestPerson({ string: 'P9' });
       (component as any).hiddenDataset = 'testDataset';
 
       component.unlink();
 
-      const [builder, famString, person] = (personServiceMock.deleteLink as any).mock.calls[0];
+      const [builder, famString, person] = (mockPersonService.deleteLink as any).mock.calls[0];
       expect(builder.constructor.name).toBe('UrlBuilder');
       expect((builder as UrlBuilder).plusT()).toBe('/gedbrowserng/v1/dbs/testDataset/families');
       expect(famString).toBe('F1');

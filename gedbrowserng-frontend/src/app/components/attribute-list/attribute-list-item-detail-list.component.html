@@ -1,7 +1,8 @@
-<app-attribute-list-item-detail-list-item
-  *ngFor="let attribute of attributes; let i = index"
-  [dataset]="dataset"
-  [attribute]="attribute"
-  [index]="i"
-  [length]="attributes?.length">
-</app-attribute-list-item-detail-list-item>
+@for (attribute of attributes; track $index; let i = $index) {
+  <app-attribute-list-item-detail-list-item
+    [dataset]="dataset"
+    [attribute]="attribute"
+    [index]="i"
+    [length]="attributes?.length">
+  </app-attribute-list-item-detail-list-item>
+}

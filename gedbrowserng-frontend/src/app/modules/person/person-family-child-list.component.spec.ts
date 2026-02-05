@@ -31,14 +31,14 @@ describe('PersonFamilyChildListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [PersonFamilyChildListComponent],
-      providers: [
+    imports: [PersonFamilyChildListComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
         { provide: PersonService, useValue: personServiceMock },
         { provide: FamilyService, useValue: familyServiceMock },
         { provide: UserService, useValue: userServiceMock },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
 
     fixture = TestBed.createComponent(PersonFamilyChildListComponent);
     component = fixture.componentInstance;

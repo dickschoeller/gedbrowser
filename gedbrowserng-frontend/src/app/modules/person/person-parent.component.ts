@@ -5,21 +5,27 @@ import { PersonService } from '../../services';
 import { HasFamily } from '../../interfaces/has-family';
 import { PersonGetter } from './person-getter';
 import { RefreshPerson } from '../../interfaces';
+import { RouterLink } from '@angular/router';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  standalone: false,
-  selector: 'app-person-parent',
-  template: `{{ label() }}:&nbsp;
-<span *ngIf="person"><a class="name"
-  [routerLink]="['/' + dataset + '/persons', person.string]">
-  {{ person.indexName }} {{ lifespanYearString() }} [{{ person.string }}]</a>
-<span class="example-fill-remaining-space"></span>
-<span class="hidden">
-  <button mat-icon-button matTooltip="Unlink parent" color="warn" (click)="unlink()">
-    <mat-icon matListIcon>link_off</mat-icon></button>
-</span>
-</span>`,
-    styles: []
+    selector: 'app-person-parent',
+    template: `{{ label() }}:&nbsp;
+@if (person) {
+  <span><a class="name"
+    [routerLink]="['/' + dataset + '/persons', person.string]">
+    {{ person.indexName }} {{ lifespanYearString() }} [{{ person.string }}]</a>
+  <span class="example-fill-remaining-space"></span>
+  <span class="hidden">
+    <button mat-icon-button matTooltip="Unlink parent" color="warn" (click)="unlink()">
+      <mat-icon matListIcon>link_off</mat-icon></button>
+  </span>
+  </span>
+}`,
+    styles: [],
+    imports: [RouterLink, MatIconButton, MatTooltip, MatIcon]
 })
 export class PersonParentComponent extends PersonGetter implements OnInit, OnChanges {
   @Input() dataset: string;

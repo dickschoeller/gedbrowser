@@ -1,20 +1,25 @@
 import { Component, Inject, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
 
 import { ApiPerson, LinkPersonItem, LinkPersonDialogData } from '../../models';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIcon } from '@angular/material/icon';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  standalone: false,
-  selector: 'app-link-person-dialog',
-  template: `<div mat-dialog-title>
+    selector: 'app-link-person-dialog',
+    template: `<div mat-dialog-title>
   <mat-toolbar color="primary"><mat-icon matListIcon>person</mat-icon>&nbsp; {{ data.titleString }}</mat-toolbar>
 </div>
 <div mat-dialog-content>
   <mat-selection-list #items (selectionChange)="onSelection($event, items.selectedOptions.selected)">
-    <mat-list-option *ngFor="let item of data.items" [value]="item">{{ item.label }}</mat-list-option>
+    @for (item of data.items; track $index) {
+      <mat-list-option [value]="item">{{ item.label }}</mat-list-option>
+    }
   </mat-selection-list>
 </div>
 <div mat-dialog-actions>
@@ -22,7 +27,8 @@ import { SelectionModel } from '@angular/cdk/collections';
   <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
   <button mat-button (click)="onNoClick()" >Cancel</button>
 </div>`,
-    styles: []
+    styles: [],
+    imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatSelectionList, MatListOption, MatDialogActions, MatButton, MatDialogClose]
 })
 export class LinkPersonDialogComponent
   implements OnInit, OnChanges {

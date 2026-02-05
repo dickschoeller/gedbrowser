@@ -6,11 +6,14 @@ import { SubmitterCreator } from '../../bases';
 import { ApiObject, ApiSubmitter, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
 import { SubmitterService } from '../../services';
 import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  standalone: false,
-  selector: 'app-submitter-button',
-  template: `<span>
+    selector: 'app-submitter-button',
+    template: `<span>
   <button mat-icon-button matTooltip="Submitter" [matMenuTriggerFor]="submitterMenu" color="primary">
     <mat-icon matListIcon>mail</mat-icon></button>
 </span>
@@ -20,7 +23,8 @@ import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, 
   <button mat-menu-item (click)="openLinkSubmitterDialog()"><mat-icon>link</mat-icon> Link submitter</button>
   <button mat-menu-item (click)="openUnlinkSubmitterDialog()"><mat-icon color="warn">link_off</mat-icon> Unlink submitter</button>
 </mat-menu>`,
-    styles: []
+    styles: [],
+    imports: [MatIconButton, MatTooltip, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem]
 })
 export class SubmitterButtonComponent extends SubmitterCreator {
   @Input() parent: HasAttributeList;

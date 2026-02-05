@@ -1,25 +1,14 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatButtonModule } from '@angular/material/button';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { PersonParentComponent } from './person-parent.component';
-import { PersonService } from '../../services/person.service';
 import { ApiAttribute } from '../../models';
+import { setupPersonComponentTest } from '../testing/person-component-spec-helpers';
 
 
 describe('PersonParentComponent', () => {
   let component: PersonParentComponent;
-  let fixture: ComponentFixture<PersonParentComponent>;
+  let mockPersonService: any;
 
   const mockAttribute: ApiAttribute = {
     string: 'I123',
@@ -34,22 +23,16 @@ describe('PersonParentComponent', () => {
   };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      declarations: [ PersonParentComponent ],
-      imports: [ HttpClientTestingModule ],
-      providers: [ PersonService ]
-    })
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PersonParentComponent);
-    component = fixture.componentInstance;
-    component.dataset = 'testDataset';
-    component.attribute = mockAttribute;
-    component.parent = mockParent as any;
-    fixture.detectChanges();
+    const setup = setupPersonComponentTest(PersonParentComponent, {
+      inputs: {
+        dataset: 'testDataset',
+        attribute: mockAttribute,
+        parent: mockParent
+      },
+      detectChanges: true
+    });
+    component = setup.component;
+    mockPersonService = setup.mockPersonService;
   });
 
   it('should create', () => {
@@ -84,7 +67,7 @@ describe('PersonParentComponent', () => {
   it('unlink calls deleteLink and refreshes', () => {
     const person = { string: 'P1' } as any;
     component.person = person;
-    const spy = vi.spyOn(TestBed.inject(PersonService), 'deleteLink').mockReturnValue(of(person));
+    const spy = vi.spyOn(mockPersonService, 'deleteLink').mockReturnValue(of(person));
     const refreshSpy = vi.spyOn(mockParent, 'refreshPerson');
     component.unlink();
     expect(spy).toHaveBeenCalled();
