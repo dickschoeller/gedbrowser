@@ -1,9 +1,10 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { SignupComponent } from './signup.component';
 import { AuthService, UserService, AuthApiService, ConfigService } from '../../services';
@@ -15,8 +16,17 @@ describe('SignupComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [ReactiveFormsModule, FormsModule, RouterTestingModule, HttpClientTestingModule, NoopAnimationsModule, SignupComponent],
-    providers: [AuthService, UserService, AuthApiService, ConfigService]
+    imports: [ReactiveFormsModule, FormsModule, SignupComponent],
+    providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
+      AuthService,
+      UserService,
+      AuthApiService,
+      ConfigService
+    ]
 })
     .compileComponents();
   });

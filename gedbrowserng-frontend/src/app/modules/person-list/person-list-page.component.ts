@@ -8,6 +8,7 @@ import { PersonListComponent } from './person-list.component';
 
 @Component({
     selector: 'app-person-list-page',
+    standalone: true,
     template: `<app-person-list [p]="this" [dataset]="dataset" [persons]="persons"></app-person-list>`,
     styles: [],
     imports: [PersonListComponent]

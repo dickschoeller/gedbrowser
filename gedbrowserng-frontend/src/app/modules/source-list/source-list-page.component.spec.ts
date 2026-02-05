@@ -1,8 +1,9 @@
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
@@ -15,7 +16,7 @@ import { ApiSource } from '../../models';
 @Component({
     selector: 'app-source-list',
     template: '',
-    imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule]
+    imports: []
 })
 class MockSourceListComponent {
   @Input() parent: any;
@@ -41,8 +42,12 @@ describe('SourceListPageComponent', () => {
     dataSubject = new ReplaySubject(1);
 
     TestBed.configureTestingModule({
-    imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule, SourceListPageComponent, MockSourceListComponent],
+    imports: [SourceListPageComponent, MockSourceListComponent],
     providers: [
+      provideRouter([]),
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
       SourceService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
       { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },

@@ -1,4 +1,4 @@
-import { enableProdMode, APP_INITIALIZER, ModuleWithProviders, importProvidersFrom } from '@angular/core';
+import { APP_INITIALIZER, ModuleWithProviders, importProvidersFrom } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { initUserFactory } from './app/app.module';
@@ -7,6 +7,8 @@ import { AuthApiService, AuthService, ConfigService, DatasetsService, HeadServic
 import { LoginGuard, GuestGuard, AdminGuard } from './app/guards';
 import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from './app/welcome.component';
+import { LoginComponent } from './app/modules/login/login.component';
+import { SignupComponent } from './app/modules/signup/signup.component';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -17,12 +19,13 @@ import { AppComponent } from './app/app.component';
 
 const rootRouting: ModuleWithProviders<RouterModule> = RouterModule.forRoot([
   { path: '', component: WelcomeComponent },
+  { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+  { path: 'signup', component: SignupComponent, canActivate: [GuestGuard] },
 ], { useHash: true });
 
 
-
 if (environment.production) {
-//  enableProdMode();
+//  Production mode is disabled for now
 }
 
 bootstrapApplication(AppComponent, {

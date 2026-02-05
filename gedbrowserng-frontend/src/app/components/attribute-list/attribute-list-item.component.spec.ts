@@ -5,7 +5,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -21,8 +21,8 @@ import { ApiAttribute, AttributeDialogData } from '../../models';
     selector: 'app-attribute-list-item-detail-list',
     template: '',
     imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
-        ReactiveFormsModule, FormsModule, NoopAnimationsModule, MatDialogModule,
-        MatIconModule, MatTooltipModule]
+      ReactiveFormsModule, FormsModule, MatDialogModule,
+      MatIconModule, MatTooltipModule]
 })
 class MockAttributeListItemDetailListComponent {
   @Input() dataset: string;
@@ -33,8 +33,8 @@ class MockAttributeListItemDetailListComponent {
     selector: 'app-multimedia-edit-button',
     template: '',
     imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
-        ReactiveFormsModule, FormsModule, NoopAnimationsModule, MatDialogModule,
-        MatIconModule, MatTooltipModule]
+      ReactiveFormsModule, FormsModule, MatDialogModule,
+      MatIconModule, MatTooltipModule]
 })
 class MockMultimediaEditButtonComponent {
   @Input() parent: any;
@@ -47,8 +47,8 @@ class MockMultimediaEditButtonComponent {
     selector: 'app-source-button',
     template: '',
     imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
-        ReactiveFormsModule, FormsModule, NoopAnimationsModule, MatDialogModule,
-        MatIconModule, MatTooltipModule]
+      ReactiveFormsModule, FormsModule, MatDialogModule,
+      MatIconModule, MatTooltipModule]
 })
 class MockSourceButtonComponent {
   @Input() parent: any;
@@ -76,7 +76,7 @@ describe('AttributeListItemComponent', () => {
     schemas: [NO_ERRORS_SCHEMA],
     imports: [
         MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule,
-        ReactiveFormsModule, FormsModule, NoopAnimationsModule, MatDialogModule,
+        ReactiveFormsModule, FormsModule, MatDialogModule,
         MatIconModule, MatTooltipModule,
         AttributeListItemComponent,
         MockAttributeListItemDetailListComponent,
@@ -84,6 +84,7 @@ describe('AttributeListItemComponent', () => {
         MockSourceButtonComponent
     ],
     providers: [
+        provideAnimations(),
         { provide: UserService, useValue: mockUserService },
         { provide: MatDialog, useValue: mockMatDialog }
     ]

@@ -1,7 +1,6 @@
 import { Component, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AttributeListComponent } from '../../components';
 import { ApiSource, ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { SourceService } from '../../services';
 import { AttributeDialogHelper } from '../../utils';
@@ -9,11 +8,12 @@ import { HasAttributeList } from '../../interfaces';
 import { MainLayoutComponent } from '../../components/main-layout/main-layout.component';
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
-import { AttributeListComponent as AttributeListComponent_1 } from '../../components/attribute-list/attribute-list.component';
+import { AttributeListComponent } from '../../components/attribute-list/attribute-list.component';
 import { MultimediaGalleryComponent } from '../../components/multimedia-gallery/multimedia-gallery.component';
 
 @Component({
     selector: 'app-source',
+    standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
     <mat-card-title><mat-icon>book</mat-icon> {{ source?.title }}</mat-card-title>
@@ -31,7 +31,7 @@ import { MultimediaGalleryComponent } from '../../components/multimedia-gallery/
   </mat-card>
 </app-main-layout>`,
     styles: [],
-    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent_1, MultimediaGalleryComponent]
+    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent]
 })
 export class SourceComponent implements OnInit, HasAttributeList {
   dataset: string;

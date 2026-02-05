@@ -12,7 +12,6 @@ import { AttributeListComponent } from '../../components/attribute-list/attribut
 import { MultimediaGalleryComponent } from '../../components/multimedia-gallery/multimedia-gallery.component';
 import { PersonFamilyListComponent } from './person-family-list.component';
 import { PersonParentFamiliesComponent } from './person-parent-families.component';
-import { NgIf } from '@angular/common';
 
 /**
  * Implements a person page.
@@ -22,6 +21,7 @@ import { NgIf } from '@angular/common';
  */
 @Component({
     selector: 'app-person',
+    standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
     <mat-card-title><mat-icon>person</mat-icon> {{ person?.indexName }}</mat-card-title>
@@ -45,13 +45,15 @@ import { NgIf } from '@angular/common';
     </mat-card-content>
     <mat-card-footer>
       <div><b>{{ person?.refns[0].string }}:&nbsp;</b> {{ person?.refns[0].tail }}</div>
-      <div *ngIf="person?.changes[0]"><b>{{ person?.changes[0]?.string }}:&nbsp;</b> {{ person?.changes[0]?.attributes[0].string }}</div>
+      @if (person?.changes[0]) {
+        <div><b>{{ person?.changes[0]?.string }}:&nbsp;</b> {{ person?.changes[0]?.attributes[0].string }}</div>
+      }
     </mat-card-footer>
   </mat-card>
   <br/>
 </app-main-layout>`,
     styles: [],
-    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent, PersonFamilyListComponent, PersonParentFamiliesComponent, MatCardFooter, NgIf]
+    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent, PersonFamilyListComponent, PersonParentFamiliesComponent, MatCardFooter]
 })
 export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Saveable {
   dataset: string;

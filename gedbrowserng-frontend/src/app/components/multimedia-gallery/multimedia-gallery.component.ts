@@ -9,7 +9,6 @@ import { MultimediaDialogComponent, } from '../multimedia-dialog';
 import { UserService } from '../../services';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
-import { NgIf } from '@angular/common';
 import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedia-add-button.component';
 
 @Component({
@@ -19,18 +18,24 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
     <mat-toolbar>
       Multimedia
       <span class="example-fill-remaining-space"></span>
-      <span *ngIf="hasSignedIn()">
-        <app-multimedia-add-button [parent]="this" [dataset]="dataset"></app-multimedia-add-button>
-      </span>
+            @if (hasSignedIn()) {
+                <span>
+                    <app-multimedia-add-button [parent]="this" [dataset]="dataset"></app-multimedia-add-button>
+                </span>
+            }
     </mat-toolbar>
   </mat-card-title>
-  <mat-card-content *ngIf="galleryImages().length">
-    <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
-  </mat-card-content>
-  <mat-card-content *ngIf="!galleryImages().length"></mat-card-content>
+    @if (galleryImages().length) {
+        <mat-card-content>
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
+        </mat-card-content>
+    }
+    @if (!galleryImages().length) {
+        <mat-card-content></mat-card-content>
+    }
 </mat-card>`,
     styles: [],
-    imports: [MatCard, MatCardTitle, MatToolbar, NgIf, MultimediaAddButtonComponent, MatCardContent, NgxGalleryModule]
+    imports: [MatCard, MatCardTitle, MatToolbar, MultimediaAddButtonComponent, MatCardContent, NgxGalleryModule]
 })
 export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
     @Input() dataset: string;

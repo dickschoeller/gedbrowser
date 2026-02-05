@@ -10,7 +10,6 @@ import {
     AuthService
 } from '../../services';
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent } from '@angular/material/card';
-import { NgIf } from '@angular/common';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
@@ -25,9 +24,12 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
       <mat-card-subtitle>gedbrowserng</mat-card-subtitle>
 
       <mat-card-content>
-        <p [class]="notification.msgType" *ngIf="notification">{{ notification.msgBody }}</p>
+        @if (notification) {
+          <p [class]="notification.msgType">{{ notification.msgBody }}</p>
+        }
 
-        <form *ngIf="!submitted" [formGroup]="form" (ngSubmit)="onSubmit()" #signupForm="ngForm">
+        @if (!submitted) {
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" #signupForm="ngForm">
           <mat-form-field>
             <mat-label>Username</mat-label>
             <input matInput formControlName="username" required>
@@ -49,16 +51,19 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
             <input matInput formControlName="email">
           </mat-form-field>
           <button type="submit" [disabled]="!signupForm.form.valid" mat-raised-button color="primary">Sign up</button>
-        </form>
+          </form>
+        }
         <br>
 
-        <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+        @if (submitted) {
+          <mat-spinner mode="indeterminate"></mat-spinner>
+        }
       </mat-card-content>
     </mat-card>
   </div>
 </div>`,
     styles: [],
-    imports: [MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, NgIf, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton, MatProgressSpinner]
+    imports: [MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton, MatProgressSpinner]
 })
 export class SignupComponent implements OnInit, OnDestroy {
     title = 'Login';

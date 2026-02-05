@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { NewPersonDialogComponent } from './new-person-dialog.component';
 
@@ -17,16 +17,17 @@ describe('NewPersonDialogComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, NoopAnimationsModule, NewPersonDialogComponent],
+    imports: [MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, NewPersonDialogComponent],
     providers: [
-        { provide: MatDialogRef, useValue: {} },
-        {
-            provide: MAT_DIALOG_DATA,
-            useValue: {
-                name: '',
-                sex: ''
-            }
+      provideAnimations(),
+      { provide: MatDialogRef, useValue: {} },
+      {
+        provide: MAT_DIALOG_DATA,
+        useValue: {
+          name: '',
+          sex: ''
         }
+      }
     ]
 })
     .compileComponents();

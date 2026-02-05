@@ -5,8 +5,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -20,8 +21,11 @@ describe('HeadComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, HttpClientTestingModule, NoopAnimationsModule, HeadComponent],
+    imports: [MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, HeadComponent],
     providers: [
+      provideHttpClient(),
+      provideHttpClientTesting(),
+      provideAnimations(),
       HeadService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
       { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
