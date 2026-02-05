@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { describe, it, expect, beforeEach } from 'vitest';
 
 import { ConfigService } from './config.service';
@@ -9,7 +10,11 @@ describe('ConfigService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
+      imports: [],
+    providers: [
+        provideHttpClient(),
+        provideHttpClientTesting()
+    ],
       providers: [ ConfigService ]
     });
     service = TestBed.inject(ConfigService);

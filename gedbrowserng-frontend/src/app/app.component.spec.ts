@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {RouterTestingModule} from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import {ButtonModule} from 'primeng/button';
 import {TieredMenuModule} from 'primeng/tieredmenu';
 import {ToolbarModule} from 'primeng/toolbar';
@@ -10,11 +10,13 @@ describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     imports: [
-        RouterTestingModule,
         ButtonModule,
         TieredMenuModule,
         ToolbarModule,
         AppComponent
+    ],
+    providers: [
+        provideRouter([])
     ],
     schemas: [NO_ERRORS_SCHEMA],
     providers: []

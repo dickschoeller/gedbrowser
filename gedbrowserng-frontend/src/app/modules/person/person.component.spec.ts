@@ -1,8 +1,9 @@
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
@@ -15,8 +16,7 @@ import { ApiPerson, ApiAttribute, ApiLifespan } from '../../models';
 @Component({
     selector: 'app-main-layout',
     template: '<ng-content></ng-content>',
-    imports: [HttpClientTestingModule,
-        NoopAnimationsModule]
+    imports: []
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -26,8 +26,7 @@ class MockMainLayoutComponent {
 @Component({
     selector: 'app-attribute-list',
     template: '',
-    imports: [HttpClientTestingModule,
-        NoopAnimationsModule]
+    imports: []
 })
 class MockAttributeListComponent {
   @Input() dataset: string;
@@ -40,8 +39,7 @@ class MockAttributeListComponent {
 @Component({
     selector: 'app-multimedia-gallery',
     template: '',
-    imports: [HttpClientTestingModule,
-        NoopAnimationsModule]
+    imports: []
 })
 class MockMultimediaGalleryComponent {
   @Input() dataset: string;
@@ -53,8 +51,7 @@ class MockMultimediaGalleryComponent {
 @Component({
     selector: 'app-person-family-list',
     template: '',
-    imports: [HttpClientTestingModule,
-        NoopAnimationsModule]
+    imports: []
 })
 class MockPersonFamilyListComponent {
   @Input() dataset: string;
@@ -66,8 +63,7 @@ class MockPersonFamilyListComponent {
 @Component({
     selector: 'app-person-parent-families',
     template: '',
-    imports: [HttpClientTestingModule,
-        NoopAnimationsModule]
+    imports: []
 })
 class MockPersonParentFamiliesComponent {
   @Input() dataset: string;
@@ -96,15 +92,19 @@ describe('PersonComponent', () => {
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
     imports: [
-        RouterTestingModule.withRoutes([]),
-        HttpClientTestingModule,
-        NoopAnimationsModule,
+        ,
         PersonComponent,
         MockMainLayoutComponent,
         MockAttributeListComponent,
         MockMultimediaGalleryComponent,
         MockPersonFamilyListComponent,
         MockPersonParentFamiliesComponent
+    ],
+    providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideNoopAnimations()
     ],
     providers: [
       PersonService,
@@ -167,12 +167,18 @@ describe('PersonComponent', () => {
     TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [RouterTestingModule.withRoutes([]), HttpClientTestingModule, NoopAnimationsModule, PersonComponent,
+    imports: [, PersonComponent,
         MockMainLayoutComponent,
         MockAttributeListComponent,
         MockMultimediaGalleryComponent,
         MockPersonFamilyListComponent,
         MockPersonParentFamiliesComponent],
+    providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideNoopAnimations()
+    ],
     providers: [
         PersonService,
         { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },

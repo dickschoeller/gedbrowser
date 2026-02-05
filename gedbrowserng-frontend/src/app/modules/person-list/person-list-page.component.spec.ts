@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
@@ -15,7 +16,7 @@ import { ApiPerson } from '../../models';
 @Component({
     selector: 'app-person-list',
     template: '',
-    imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule]
+    imports: []
 })
 class MockPersonListComponent {
   @Input() p: any;
@@ -41,7 +42,13 @@ describe('PersonListPageComponent', () => {
     dataSubject = new ReplaySubject(1);
 
     TestBed.configureTestingModule({
-    imports: [HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule, PersonListPageComponent, MockPersonListComponent],
+    imports: [PersonListPageComponent, MockPersonListComponent],
+    providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideNoopAnimations()
+    ],
     providers: [
       PersonService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },

@@ -5,9 +5,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -24,9 +25,7 @@ import { ApiSubmitter } from '../../models';
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
-        FormsModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule]
+        FormsModule]
 })
 class MockMainLayoutComponent {
   @Input() dataset: string;
@@ -41,9 +40,7 @@ class MockMainLayoutComponent {
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
-        FormsModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule]
+        FormsModule]
 })
 class MockAttributeListComponent {
   @Input() dataset: string;
@@ -74,12 +71,16 @@ describe('SubmitterComponent', () => {
         MatInputModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule,
-        RouterTestingModule.withRoutes([]),
+        ,
         SubmitterComponent,
         MockMainLayoutComponent,
         MockAttributeListComponent
+    ],
+    providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideNoopAnimations()
     ],
     providers: [
       SubmitterService,
