@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.analytics.order;
 
+import java.util.Set;
+
 import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.analytics.visitor.PersonAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -61,22 +63,26 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
      */
     private void birthCheck(final Attribute attribute) {
         final LocalDate newDate = createLocalDate(attribute);
-        if (isBirthRelatedEvent(attribute) && getSeenEvent() != null) {
-            if (isBirthRelatedEvent(getSeenEvent())) {
-                if (isBirthEvent(attribute) && isNamingEvent(getSeenEvent())) {
-                    final String message = String.format(
-                            "Logical order: %s%s after %s",
-                            attribute.getString(), onDateString(newDate),
-                            getSeenEvent().getString());
-                    getResult().addMismatch(message);
-                }
-            } else {
-                final String message = String.format(
-                        "Logical order: %s%s after non birth event, %s",
-                        attribute.getString(), onDateString(newDate),
-                        getSeenEvent().getString());
-                getResult().addMismatch(message);
-            }
+        if (!isBirthRelatedEvent(attribute)) {
+            return;
+        }
+        if (getSeenEvent() == null) {
+            return;
+        }
+        if (!isBirthRelatedEvent(getSeenEvent())) {
+            final String message = "Logical order: %s%s after non birth event, %s".formatted(
+                attribute.getString(),
+                onDateString(newDate),
+                getSeenEvent().getString());
+            getResult().addMismatch(message);
+            return;
+        }
+        if (isBirthEvent(attribute) && isNamingEvent(getSeenEvent())) {
+            final String message = "Logical order: %s%s after %s".formatted(
+                attribute.getString(),
+                onDateString(newDate),
+                getSeenEvent().getString());
+            getResult().addMismatch(message);
         }
     }
 
@@ -85,23 +91,26 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
      */
     private void deathCheck(final Attribute attribute) {
         final LocalDate newDate = createLocalDate(attribute);
-        if (getSeenEvent() != null && isDeathRelatedEvent(getSeenEvent())) {
-            if (isDeathRelatedEvent(attribute)) {
-                if (isDeathEvent(attribute)
-                        && isPostDeathEvent(getSeenEvent())) {
-                    final String message = String.format(
-                            "Logical order: %s%s after post death even, %s",
-                            attribute.getString(), onDateString(newDate),
-                            getSeenEvent().getString());
-                    getResult().addMismatch(message);
-                }
-            } else {
-                final String message = String.format(
-                        "Logical order: %s%s after death related event, %s",
-                        attribute.getString(), onDateString(newDate),
-                        getSeenEvent().getString());
-                getResult().addMismatch(message);
-            }
+        if (getSeenEvent() == null) {
+            return;
+        }
+        if (!isDeathRelatedEvent(getSeenEvent())) {
+            return;
+        }
+        if (!isDeathRelatedEvent(attribute)) {
+            final String message = "Logical order: %s%s after death related event, %s".formatted(
+                    attribute.getString(),
+                    onDateString(newDate),
+                    getSeenEvent().getString());
+            getResult().addMismatch(message);
+            return;
+        }
+        if (isDeathEvent(attribute) && isPostDeathEvent(getSeenEvent())) {
+            final String message = "Logical order: %s%s after post death even, %s".formatted(
+                attribute.getString(),
+                onDateString(newDate),
+                getSeenEvent().getString());
+            getResult().addMismatch(message);
         }
     }
 
@@ -113,13 +122,9 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
      * @return true if this is a death related event
      */
     public boolean isDeathRelatedEvent(final Attribute event) {
-        if (isDeathEvent(event)) {
-            return true;
-        }
-        if (isPostDeathEvent(event)) {
-            return true;
-        }
-        return isUnorderedEvent(event);
+        return isDeathEvent(event)
+            || isPostDeathEvent(event)
+            || isUnorderedEvent(event);
     }
 
     /**
@@ -142,16 +147,8 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
      * @return true if this is a death event
      */
     public boolean isPostDeathEvent(final Attribute event) {
-        if ("Burial".equals(event.getString())) {
-            return true;
-        }
-        if ("Cremation".equals(event.getString())) {
-            return true;
-        }
-        if ("Funeral".equals(event.getString())) {
-            return true;
-        }
-        return "Headstone unveiling".equals(event.getString());
+        return Set.of("Burial", "Cremation", "Funeral", "Headstone unveiling")
+            .contains(event.getString());
     }
 
     /**
