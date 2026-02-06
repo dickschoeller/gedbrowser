@@ -24,7 +24,7 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
     /**
      * Constructor.
      */
-    public AbstractAnalysisVisitor() {
+    protected AbstractAnalysisVisitor() {
         super();
     }
 
