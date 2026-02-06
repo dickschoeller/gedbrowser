@@ -80,7 +80,7 @@ public class UserController {
      * @return the new user
      */
     @RequestMapping(method = POST, value = "/signup")
-    public ResponseEntity<?> addUser(
+    public ResponseEntity<SecurityUser> addUser(
             @RequestBody final UserRequest userRequest,
             final UriComponentsBuilder ucBuilder) {
         final SecurityUser existUser =

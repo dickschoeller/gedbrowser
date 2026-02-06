@@ -56,6 +56,7 @@ public final class SourceRenderer extends GedRenderer<Source>
      *
      * @return the list of attribute renderers.
      */
+    @SuppressWarnings("java:S1452")
     public List<GedRenderer<?>> getAttributes() {
         final Source source = getGedObject();
         final List<GedRenderer<?>> list = new ArrayList<GedRenderer<?>>();

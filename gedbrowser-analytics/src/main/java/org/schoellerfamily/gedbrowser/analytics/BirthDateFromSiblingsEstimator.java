@@ -35,6 +35,7 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
      * @param localDate if not null we already have a better estimate
      * @return the estimate from siblings
      */
+    @SuppressWarnings("java:S3776")
     public LocalDate estimateFromSiblings(final LocalDate localDate) {
         if (localDate != null) {
             return localDate;
@@ -103,6 +104,7 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
      * @param localDate if not null we already have a better estimate
      * @return an estimate from spouses of siblings
      */
+    @SuppressWarnings("java:S3776")
     public LocalDate estimateFromSiblingsSpouses(final LocalDate localDate) {
         if (localDate != null) {
             return localDate;

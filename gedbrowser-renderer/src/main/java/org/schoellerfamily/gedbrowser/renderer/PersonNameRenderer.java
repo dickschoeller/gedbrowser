@@ -22,6 +22,7 @@ public interface PersonNameRenderer {
      * @param attribute The sub-object to render.
      * @return The renderer.
      */
+    @SuppressWarnings("java:S1452")
     GedRenderer<? extends GedObject> createGedRenderer(GedObject attribute);
 
     /**

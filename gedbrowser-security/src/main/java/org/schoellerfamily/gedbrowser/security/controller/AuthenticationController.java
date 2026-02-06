@@ -52,7 +52,7 @@ public class AuthenticationController {
      * @return the response entity
      */
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
-    public ResponseEntity<?> refreshAuthenticationToken(
+    public ResponseEntity<UserTokenState> refreshAuthenticationToken(
             final HttpServletRequest request,
             final HttpServletResponse response) {
 
@@ -72,7 +72,7 @@ public class AuthenticationController {
      * @param authToken the authentication token
      * @return the response
      */
-    private ResponseEntity<?> doRefresh(final HttpServletResponse response,
+    private ResponseEntity<UserTokenState> doRefresh(final HttpServletResponse response,
             final String authToken) {
         final String refreshedToken = tokenHelper.refreshToken(authToken);
 

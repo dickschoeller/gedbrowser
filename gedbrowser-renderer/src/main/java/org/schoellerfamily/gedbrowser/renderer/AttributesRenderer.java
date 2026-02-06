@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  *
  * @param <T> the data type being rendered
  */
+@SuppressWarnings("java:S1452")
 public interface AttributesRenderer<T extends GedObject> {
     /**
      * @return the gedobject necessary to render the attributes
