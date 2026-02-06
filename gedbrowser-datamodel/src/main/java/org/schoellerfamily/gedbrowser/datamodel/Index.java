@@ -71,15 +71,8 @@ public final class Index {
      * @param surname surname to search
      * @return the associated map
      */
-    private SortedMap<String, SortedSet<String>> findNamesPerSurname(
-            final String surname) {
-        if (surnameIndex.containsKey(surname)) {
-            return surnameIndex.get(surname);
-        }
-        final SortedMap<String, SortedSet<String>> namesPerSurname =
-                new TreeMap<String, SortedSet<String>>();
-        surnameIndex.put(surname, namesPerSurname);
-        return namesPerSurname;
+    private SortedMap<String, SortedSet<String>> findNamesPerSurname(final String surname) {
+        return surnameIndex.computeIfAbsent(surname, k -> new TreeMap<>());
     }
 
     /**
@@ -91,12 +84,7 @@ public final class Index {
      */
     private SortedSet<String> findIdsPerName(final String indexName,
             final SortedMap<String, SortedSet<String>> names) {
-        if (names.containsKey(indexName)) {
-            return names.get(indexName);
-        }
-        final TreeSet<String> idsPerName = new TreeSet<String>();
-        names.put(indexName, idsPerName);
-        return idsPerName;
+        return names.computeIfAbsent(indexName, k -> new TreeSet<>());
     }
 
     /**

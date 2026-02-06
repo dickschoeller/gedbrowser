@@ -502,12 +502,7 @@ public abstract class AbstractGedObjectFactory {
      * @return the token processor.
      */
     private GedToken getToken(final String tag) {
-        GedToken gedToken = tokens.get(tag);
-        if (gedToken == null) {
-            // Any unknown token is an attribute, retaining its tag.
-            gedToken = new GedToken(tag, ATTR_FACTORY);
-        }
-        return gedToken;
+        return tokens.computeIfAbsent(tag, k -> new GedToken(k, ATTR_FACTORY));
     }
 
     /**

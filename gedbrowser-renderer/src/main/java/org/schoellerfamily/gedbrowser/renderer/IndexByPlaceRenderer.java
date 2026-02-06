@@ -130,12 +130,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
      */
     private Set<PersonRenderer> personRendererSet(
             final Map<String, Set<PersonRenderer>> aMap, final String place) {
-        Set<PersonRenderer> locatedPersons = aMap.get(place);
-        if (locatedPersons == null) {
-            locatedPersons = new TreeSet<>(new PersonRendererComparator());
-            aMap.put(place, locatedPersons);
-        }
-        return locatedPersons;
+        return aMap.computeIfAbsent(place, k -> new TreeSet<>(new PersonRendererComparator()));
     }
 
     /**
