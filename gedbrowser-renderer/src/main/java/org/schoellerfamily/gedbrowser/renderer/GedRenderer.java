@@ -11,6 +11,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 @SuppressWarnings({ "PMD.AbstractClassWithoutAbstractMethod" })
 public abstract class GedRenderer<G extends GedObject>
         extends SectionedRenderer {
+    /**
+     * Beginning of common anchor.
+     */
+    private static final String A_HREF = "\n    <a href=\"?";
+
     /** */
     private final transient G gedObject;
 
@@ -158,15 +163,15 @@ public abstract class GedRenderer<G extends GedObject>
         final StringBuilder builder = new StringBuilder();
         builder.append("\n    <p>");
         if ("Header".equals(omit)) {
-            builder.append("\n    <a href=\"?" + gedObject.getDbName()
+            builder.append(A_HREF + gedObject.getDbName()
                     + "+Header\">Header</a><br>");
         }
         if ("Surnames".equals(omit)) {
-            builder.append("\n    <a href=\"?" + gedObject.getDbName()
+            builder.append(A_HREF + gedObject.getDbName()
                     + "+Surnames\">Surnames</a><br>");
         }
         if ("Index".equals(omit)) {
-            builder.append("\n    <a href=\"?" + gedObject.getDbName()
+            builder.append(A_HREF + gedObject.getDbName()
                     + "+Index\">Index</a><br>");
         }
         builder.append("\n    </p>");

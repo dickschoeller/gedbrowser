@@ -31,7 +31,7 @@ public class SourceDocumentRepositoryMongoImpl implements
     public final SourceDocument findByFileAndString(
             final String filename, final String string) {
         final Query searchQuery = new Query(Criteria.where("string").is(string)
-                .and("filename").is(filename));
+                .and(FILENAME).is(filename));
         final SourceDocument sourceDocument =
                 mongoTemplate.findOne(searchQuery, SourceDocumentMongo.class);
         if (sourceDocument == null) {
@@ -59,7 +59,7 @@ public class SourceDocumentRepositoryMongoImpl implements
     @Override
     public final Iterable<SourceDocument> findAll(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         final List<SourceDocumentMongo> sourceDocumentsMongo =
                 mongoTemplate.find(searchQuery, SourceDocumentMongo.class);
         return sourceDocumentsMongo.stream()
@@ -89,7 +89,7 @@ public class SourceDocumentRepositoryMongoImpl implements
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         return mongoTemplate.count(searchQuery, SourceDocumentMongo.class);
     }
 

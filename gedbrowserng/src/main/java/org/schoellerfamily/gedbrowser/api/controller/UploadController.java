@@ -65,7 +65,7 @@ public class UploadController {
         }
         log.info("in file upload: {}", originalFilename);
         storageService.store(file);
-        final String name = originalFilename.replaceAll("\\.ged", "");
+        final String name = originalFilename.replace(".ged", "");
         return readOne(name);
     }
 }

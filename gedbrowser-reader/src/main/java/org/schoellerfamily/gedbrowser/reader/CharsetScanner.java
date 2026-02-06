@@ -22,18 +22,27 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class CharsetScanner {
-
+    /** */
+    private static final String ANSEL = "ANSEL";
+    /** */
+    private static final String ASCII = "ASCII";
+    /** */
+    private static final String CP1252 = "Cp1252";
+    /** */
+    private static final String UTF_8 = "UTF-8";
+    /** */
+    private static final String UTF_16 = "UTF-16";
     /**
      * Holds the mapping between GEDCOM known charsets and Java known charsets.
      */
     private static final Map<String, String> CHARSET_MAP = Map.of(
-        "ansel", "ANSEL",
-        "ansi", "Cp1252",
-        "cp1252", "Cp1252",
-        "unicode", "UTF-16",
-        "utf-8", "UTF-8",
-        "utf8", "UTF-8",
-        "ascii", "ASCII");
+        "ansel", ANSEL,
+        "ansi", CP1252,
+        "cp1252", CP1252,
+        "unicode", UTF_16,
+        "utf-8", UTF_8,
+        "utf8", UTF_8,
+        "ascii", ASCII);
 
     /**
      * @param filename the name of the file to scan
@@ -43,9 +52,9 @@ public class CharsetScanner {
         try (InputStream fis = new StreamManager(filename).getInputStream()) {
                 if (fis == null) {
                 log.warn("Could not open stream for: {}", filename);
-                return "UTF-8";
+                return UTF_8;
             }
-            try (Reader reader = new InputStreamReader(fis, "ASCII");
+            try (Reader reader = new InputStreamReader(fis, ASCII);
                     BufferedReader bufferedReader = new BufferedReader(reader)) {
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
@@ -57,7 +66,7 @@ public class CharsetScanner {
         } catch (IOException e) {
             log.warn("Could not read file: {}", filename);
         }
-        return "UTF-8";
+        return UTF_8;
     }
 
     /**
@@ -86,7 +95,7 @@ public class CharsetScanner {
         if ("Header".equals(gob.getString())) {
             return gedcomCharsetToJava(findCharsetInHeader(gob));
         }
-        return "UTF-8";
+        return UTF_8;
     }
 
     /**
@@ -101,7 +110,7 @@ public class CharsetScanner {
                 return ((Attribute) hgob).getTail();
             }
         }
-        return "UTF-8";
+        return UTF_8;
     }
 
     /**
@@ -112,7 +121,7 @@ public class CharsetScanner {
         final String javaCharset = CHARSET_MAP
                 .get(charset.toLowerCase(Locale.ENGLISH));
         if (javaCharset == null) {
-            return "UTF-8";
+            return UTF_8;
         }
         return javaCharset;
     }

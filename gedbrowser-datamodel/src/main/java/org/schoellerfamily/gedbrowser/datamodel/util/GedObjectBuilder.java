@@ -70,46 +70,46 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
     /** */
     private enum Construction {
         /** */
-        attribute,
+        ATTRIBUTE,
         /** */
-        hasid,
+        HASID,
         /** */
-        note,
+        NOTE,
         /** */
-        reference,
+        REFERENCE,
         /** */
-        value
+        VALUE
     };
 
     /** */
     private static final Map<String, Construction> CONSTRUCTION_MAP =
             new HashMap<>();
     static {
-        CONSTRUCTION_MAP.put("attribute", Construction.attribute);
-        CONSTRUCTION_MAP.put("child", Construction.reference);
-        CONSTRUCTION_MAP.put("date", Construction.value);
-        CONSTRUCTION_MAP.put("famc", Construction.reference);
-        CONSTRUCTION_MAP.put("family", Construction.hasid);
-        CONSTRUCTION_MAP.put("fams", Construction.reference);
-        CONSTRUCTION_MAP.put("head", Construction.value);
-        CONSTRUCTION_MAP.put("header", Construction.value);
-        CONSTRUCTION_MAP.put("husband", Construction.reference);
-        CONSTRUCTION_MAP.put("link", Construction.reference);
-        CONSTRUCTION_MAP.put("multimedia", Construction.value);
-        CONSTRUCTION_MAP.put("name", Construction.value);
-        CONSTRUCTION_MAP.put("note", Construction.note);
-        CONSTRUCTION_MAP.put("notelink", Construction.reference);
-        CONSTRUCTION_MAP.put("person", Construction.hasid);
-        CONSTRUCTION_MAP.put("place", Construction.value);
-        CONSTRUCTION_MAP.put("root", Construction.value);
-        CONSTRUCTION_MAP.put("source", Construction.hasid);
-        CONSTRUCTION_MAP.put("sourcelink", Construction.reference);
-        CONSTRUCTION_MAP.put("submission", Construction.hasid);
-        CONSTRUCTION_MAP.put("submissionlink", Construction.reference);
-        CONSTRUCTION_MAP.put("submitter", Construction.hasid);
-        CONSTRUCTION_MAP.put("submitterlink", Construction.reference);
-        CONSTRUCTION_MAP.put("trailer", Construction.value);
-        CONSTRUCTION_MAP.put("wife", Construction.reference);
+        CONSTRUCTION_MAP.put("attribute", Construction.ATTRIBUTE);
+        CONSTRUCTION_MAP.put("child", Construction.REFERENCE);
+        CONSTRUCTION_MAP.put("date", Construction.VALUE);
+        CONSTRUCTION_MAP.put("famc", Construction.REFERENCE);
+        CONSTRUCTION_MAP.put("family", Construction.HASID);
+        CONSTRUCTION_MAP.put("fams", Construction.REFERENCE);
+        CONSTRUCTION_MAP.put("head", Construction.VALUE);
+        CONSTRUCTION_MAP.put("header", Construction.VALUE);
+        CONSTRUCTION_MAP.put("husband", Construction.REFERENCE);
+        CONSTRUCTION_MAP.put("link", Construction.REFERENCE);
+        CONSTRUCTION_MAP.put("multimedia", Construction.VALUE);
+        CONSTRUCTION_MAP.put("name", Construction.VALUE);
+        CONSTRUCTION_MAP.put("note", Construction.NOTE);
+        CONSTRUCTION_MAP.put("notelink", Construction.REFERENCE);
+        CONSTRUCTION_MAP.put("person", Construction.HASID);
+        CONSTRUCTION_MAP.put("place", Construction.VALUE);
+        CONSTRUCTION_MAP.put("root", Construction.VALUE);
+        CONSTRUCTION_MAP.put("source", Construction.HASID);
+        CONSTRUCTION_MAP.put("sourcelink", Construction.REFERENCE);
+        CONSTRUCTION_MAP.put("submission", Construction.HASID);
+        CONSTRUCTION_MAP.put("submissionlink", Construction.REFERENCE);
+        CONSTRUCTION_MAP.put("submitter", Construction.HASID);
+        CONSTRUCTION_MAP.put("submitterlink", Construction.REFERENCE);
+        CONSTRUCTION_MAP.put("trailer", Construction.VALUE);
+        CONSTRUCTION_MAP.put("wife", Construction.REFERENCE);
     }
 
     /**
@@ -225,20 +225,20 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
         }
         Construction construction = CONSTRUCTION_MAP.get(type);
         if (construction == null) {
-            construction = Construction.attribute;
+            construction = Construction.ATTRIBUTE;
         }
         GedObject gob;
         switch (construction) {
-        case attribute:
+        case ATTRIBUTE:
             gob = factory.create(parent, "", string, tail);
             break;
-        case hasid:
+        case HASID:
             gob = factory.create(parent, string, tag, tail);
             break;
-        case reference:
+        case REFERENCE:
             gob = factory.create(parent, "", tag, "@" + string + "@");
             break;
-        case value:
+        case VALUE:
             gob = factory.create(parent, "", tag, string);
             break;
         default:

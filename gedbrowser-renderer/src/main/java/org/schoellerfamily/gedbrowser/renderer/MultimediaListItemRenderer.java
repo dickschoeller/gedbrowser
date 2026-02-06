@@ -57,7 +57,7 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
     private void renderListItemContents(final StringBuilder builder) {
         final Multimedia multimedia = multimediaRenderer.getGedObject();
         builder.append("<span class=\"label\">");
-        builder.append(GedRenderer.escapeString(multimedia));
+        builder.append(RenderingContextRenderer.escapeString(multimedia));
         builder.append(":</span> ");
 
         final MultimediaVisitor visitor = new MultimediaVisitor();

@@ -15,7 +15,7 @@ public interface ComplexRenderer {
      * @return the string prepared for display in HTML
      */
     default String escapeString(final String input) {
-        return GedRenderer.escapeString(input).trim();
+        return RenderingContextRenderer.escapeString(input).trim();
     }
 
     /**

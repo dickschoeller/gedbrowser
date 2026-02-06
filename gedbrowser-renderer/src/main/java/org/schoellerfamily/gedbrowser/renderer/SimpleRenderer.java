@@ -15,7 +15,7 @@ public interface SimpleRenderer {
      * @return the string prepared for display in HTML
      */
     default String escapeString(final String input) {
-        return noQuestion(GedRenderer.escapeString(input)).trim();
+        return noQuestion(RenderingContextRenderer.escapeString(input)).trim();
     }
 
     /**

@@ -27,6 +27,6 @@ public final class AttributeRenderer extends GedRenderer<Attribute> {
      */
     public String getEscapedString() {
         final Attribute attribute = getGedObject();
-        return GedRenderer.escapeString(attribute);
+        return RenderingContextRenderer.escapeString(attribute);
     }
 }

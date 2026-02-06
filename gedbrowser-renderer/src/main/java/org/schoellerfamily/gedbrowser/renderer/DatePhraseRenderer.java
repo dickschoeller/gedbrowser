@@ -29,6 +29,6 @@ public class DatePhraseRenderer implements PhraseRenderer {
         final GetDateVisitor visitor = new GetDateVisitor();
         final Date date1 = dateRenderer.getGedObject();
         date1.accept(visitor);
-        return GedRenderer.escapeString(visitor.getDate());
+        return RenderingContextRenderer.escapeString(visitor.getDate());
     }
 }

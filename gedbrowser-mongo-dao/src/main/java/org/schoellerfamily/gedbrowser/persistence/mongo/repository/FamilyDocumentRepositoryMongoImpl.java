@@ -31,7 +31,7 @@ public class FamilyDocumentRepositoryMongoImpl implements
     public final FamilyDocument findByFileAndString(final String filename,
             final String string) {
         final Query searchQuery = new Query(Criteria.where("string").is(string)
-                .and("filename").is(filename));
+                .and(FILENAME).is(filename));
         final FamilyDocumentMongo familyDocument =
                 mongoTemplate.findOne(searchQuery, FamilyDocumentMongo.class);
         if (familyDocument == null) {
@@ -59,7 +59,7 @@ public class FamilyDocumentRepositoryMongoImpl implements
     @Override
     public final Iterable<FamilyDocument> findAll(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         final List<FamilyDocumentMongo> familyDocumentsMongo =
                 mongoTemplate.find(searchQuery, FamilyDocumentMongo.class);
         return familyDocumentsMongo.stream()
@@ -89,7 +89,7 @@ public class FamilyDocumentRepositoryMongoImpl implements
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         return mongoTemplate.count(searchQuery, FamilyDocumentMongo.class);
     }
 
