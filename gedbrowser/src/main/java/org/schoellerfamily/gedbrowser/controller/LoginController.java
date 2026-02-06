@@ -45,6 +45,7 @@ public class LoginController {
      * @param request the servlet request
      * @return a string identifying which template to use.
      */
+    @SuppressWarnings("java:S3752")
     @RequestMapping(value = "/login", method = { RequestMethod.POST, RequestMethod.GET })
     public final String login(final Model model,
             final HttpServletRequest request) {
@@ -64,6 +65,7 @@ public class LoginController {
      * @param request the servlet request
      * @return a string identifying which template to use.
      */
+    @SuppressWarnings("java:S3752")
     @RequestMapping(value = "/logout", method = { RequestMethod.POST, RequestMethod.GET })
     public final String logout(final Model model,
             final HttpServletRequest request) {
