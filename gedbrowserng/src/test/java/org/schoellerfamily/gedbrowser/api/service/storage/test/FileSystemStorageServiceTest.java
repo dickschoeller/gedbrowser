@@ -27,7 +27,7 @@ public class FileSystemStorageServiceTest {
 
     /** */
     @TempDir
-    Path tempDir;
+    private Path tempDir;
 
     /** */
     private FileSystemStorageService storageService;

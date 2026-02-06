@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser;
 
+import org.schoellerfamily.gedbrowser.controller.ApplicationInfoImpl;
+import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,7 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @author Dick Schoeller
  */
 @SpringBootApplication
-@ComponentScan
+@ComponentScan(basePackageClasses = { GeoServiceClient.class, ApplicationInfoImpl.class,
+    MongoConfiguration.class })
 public class Application {
     /** Sleep during shutdown to let everything finish. */
     private static final int TWENTY_SECONDS = 20000;

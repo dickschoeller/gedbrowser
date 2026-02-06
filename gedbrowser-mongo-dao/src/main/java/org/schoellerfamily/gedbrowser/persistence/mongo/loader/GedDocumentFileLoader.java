@@ -129,7 +129,8 @@ public class GedDocumentFileLoader {
         try {
             final java.nio.file.Path normalizedPath = Paths.get(dbName).normalize();
 
-            // Verify the path has no parent (i.e., it's just a filename, not a path with directories)
+            // Verify the path has no parent (i.e., it's just a filename, not a path with
+            // directories)
             if (normalizedPath.getParent() != null) {
                 throw new IllegalArgumentException(
                     "Database name contains path components: " + dbName);

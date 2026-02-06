@@ -81,7 +81,7 @@ public class StreamManagerTest {
     void testFilePathWithSrcDirectory() throws IOException {
         // Tests paths containing "src/"
         final String userDir = System.getProperty("user.dir");
-        final StreamManager streamManager = 
+        final StreamManager streamManager =
             new StreamManager(userDir + "/src/test/resources/gl120368.ged");
         try (InputStream is = streamManager.getInputStream()) {
             assertNotNull(is, "Should successfully open file in src/");
@@ -115,7 +115,8 @@ public class StreamManagerTest {
     /** */
     @Test
     void testResourcePathStartingWithSlash() {
-        // Tests resource path starting with "/" - treated as file path, so throws FileNotFoundException
+        // Tests resource path starting with "/" - treated as file path, so throws
+        // FileNotFoundException
         final StreamManager streamManager = new StreamManager("/resource.ged");
         assertThrows(FileNotFoundException.class, streamManager::getInputStream);
     }
@@ -123,9 +124,10 @@ public class StreamManagerTest {
     /** */
     @Test
     void testValidRelativeFilePath() throws IOException {
-        // Tests a valid relative file path - use absolute path instead to avoid normalization issues
+        // Tests a valid relative file path - use absolute path instead to avoid
+        // normalization issues
         final String userDir = System.getProperty("user.dir");
-        final StreamManager streamManager = 
+        final StreamManager streamManager =
             new StreamManager(userDir + "/src/test/resources/gl120368.ged");
         try (InputStream is = streamManager.getInputStream()) {
             assertNotNull(is, "Should successfully open file with absolute path");

@@ -35,10 +35,14 @@ public class GedDocumentFileLoaderCoverageTest {
         final Root root = new Root();
         root.setDbName("test-db");
 
+        final Class<?>[] classes = {
+            RootDocumentRepositoryMongo.class
+        };
+        @SuppressWarnings("unused")
         final RootDocumentRepositoryMongo repositoryProxy =
             (RootDocumentRepositoryMongo) Proxy.newProxyInstance(
                 RootDocumentRepositoryMongo.class.getClassLoader(),
-                new Class<?>[] { RootDocumentRepositoryMongo.class },
+                classes,
                 (proxy, method, args) -> {
                     if ("save".equals(method.getName())) {
                         throw new DataAccessResourceFailureException("boom");
@@ -70,11 +74,14 @@ public class GedDocumentFileLoaderCoverageTest {
      * Test subclass to expose protected methods.
      */
     private static final class TestLoader extends GedDocumentFileLoader {
+        @SuppressWarnings("unused")
         private TestLoader() {
             super(null, null, new GedObjectToGedDocumentMongoConverter(),
                 (RootDocumentRepositoryMongo) Proxy.newProxyInstance(
                     RootDocumentRepositoryMongo.class.getClassLoader(),
-                    new Class<?>[] { RootDocumentRepositoryMongo.class },
+                    new Class<?>[] {
+                        RootDocumentRepositoryMongo.class
+                    },
                     (proxy, method, args) -> null),
                 "home");
         }
