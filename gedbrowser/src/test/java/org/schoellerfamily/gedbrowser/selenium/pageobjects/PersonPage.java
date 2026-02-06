@@ -2,6 +2,8 @@ package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -59,8 +61,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
      * @return the built url string
      */
     private String url(final String baseUrl, final String iD) {
-        if (baseUrl == null || baseUrl.isEmpty() || iD == null
-                || iD.isEmpty()) {
+        if (StringUtils.isEmpty(baseUrl) || StringUtils.isEmpty(iD)) {
             return "";
         }
         return getBaseUrl() + "person?db=gl120368&id=" + iD;

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -109,7 +110,7 @@ public class FileSystemStorageServiceTest {
         throws IOException {
         final MultipartFile file = mock(MultipartFile.class);
         when(file.getOriginalFilename()).thenReturn(filename);
-        when(file.isEmpty()).thenReturn(content == null || content.isEmpty());
+        when(file.isEmpty()).thenReturn(StringUtils.isEmpty(content));
         when(file.getInputStream())
             .thenReturn(new ByteArrayInputStream(
                 content == null ? new byte[0] : content.getBytes()));

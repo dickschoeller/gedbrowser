@@ -13,6 +13,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
@@ -93,7 +95,7 @@ public class GedDocumentFileLoader {
      * @throws IllegalArgumentException if dbName is invalid
      */
     private void validateDatabaseName(final String dbName) {
-        if (dbName == null || dbName.isEmpty()) {
+        if (StringUtils.isEmpty(dbName)) {
             throw new IllegalArgumentException("Database name cannot be null or empty");
         }
 

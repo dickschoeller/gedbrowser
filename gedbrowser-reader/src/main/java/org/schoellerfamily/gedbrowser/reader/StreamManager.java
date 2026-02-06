@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Can open a stream either in an absolute file location or in the classpath.
  *
@@ -48,8 +50,9 @@ public class StreamManager {
         if (filename.isEmpty()) {
             throw new IllegalArgumentException("Filename cannot be empty");
         }
-        final boolean looksLikeFile = (filename.length() > 0 && filename.charAt(0) == '/')
-            || (filename.length() > 0 && filename.charAt(0) == '.')
+        final char firstChar = filename.charAt(0);
+        final boolean looksLikeFile = firstChar == '/'
+            || firstChar == '.'
             || filename.contains(":") || filename.contains("src/") || filename.contains("target/");
         if (looksLikeFile) {
             validateFilePath(filename);
@@ -71,7 +74,7 @@ public class StreamManager {
      * @throws IllegalArgumentException if filePath contains path traversal sequences
      */
     private void validateFilePath(final String filePath) {
-        if (filePath == null || filePath.isEmpty()) {
+        if (StringUtils.isEmpty(filePath)) {
             throw new IllegalArgumentException("File path cannot be null or empty");
         }
         // Check for null bytes and other dangerous characters
@@ -90,7 +93,7 @@ public class StreamManager {
      * @throws IllegalArgumentException if resourcePath contains path traversal sequences
      */
     private void validateResourcePath(final String resourcePath) {
-        if (resourcePath == null || resourcePath.isEmpty()) {
+        if (StringUtils.isEmpty(resourcePath)) {
             throw new IllegalArgumentException("Resource path cannot be null or empty");
         }
         // Check for null bytes and absolute paths

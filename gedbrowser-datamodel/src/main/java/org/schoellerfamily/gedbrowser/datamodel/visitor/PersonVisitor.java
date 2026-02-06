@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.datamodel.visitor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
@@ -73,7 +74,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      * @return the father.
      */
     public Person getFather() {
-        if (familyCNavigators == null || familyCNavigators.isEmpty()) {
+        if (CollectionUtils.isEmpty(familyCNavigators)) {
             return new Person();
         }
         return familyCNavigators.get(0).getFather();
@@ -85,7 +86,7 @@ public final class PersonVisitor implements GedObjectVisitor {
      * @return the mother.
      */
     public Person getMother() {
-        if (familyCNavigators == null || familyCNavigators.isEmpty()) {
+        if (CollectionUtils.isEmpty(familyCNavigators)) {
             return new Person();
         }
         return familyCNavigators.get(0).getMother();

@@ -5,6 +5,8 @@ import java.net.URI;
 import java.net.URL;
 import java.util.logging.Level;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
@@ -80,10 +82,10 @@ public class WebDriverFactory {
 
         // Standard W3C capability keys
         capabilities.setCapability(CapabilityType.BROWSER_NAME, browserName);
-        if (browserVersion != null && !browserVersion.isEmpty()) {
+        if (StringUtils.isNotEmpty(browserVersion)) {
             capabilities.setCapability("browserVersion", browserVersion);
         }
-        if (platform != null && !platform.isEmpty()) {
+        if (StringUtils.isNotEmpty(platform)) {
             // W3C uses "platformName" (string) instead of the old Platform enum
             capabilities.setCapability("platformName", platform);
         }

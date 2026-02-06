@@ -9,6 +9,7 @@ import org.geojson.LngLatAlt;
 import org.geojson.Point;
 import org.geojson.Polygon;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
+import org.apache.commons.collections4.CollectionUtils;
 
 import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressComponentType;
@@ -306,7 +307,7 @@ public class GeocodeValidator {
         } else if (geometry instanceof Polygon) {
             final Polygon poly = (Polygon) geometry;
             final List<List<LngLatAlt>> coordinates = poly.getCoordinates();
-            if (coordinates != null && !coordinates.isEmpty()) {
+            if (CollectionUtils.isNotEmpty(coordinates)) {
                 return false;
             }
         }

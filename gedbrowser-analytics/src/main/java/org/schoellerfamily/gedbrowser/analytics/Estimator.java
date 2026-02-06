@@ -99,7 +99,7 @@ public abstract class Estimator {
      * @return true if valid
      */
     protected final boolean validDateString(final String dateString) {
-        return dateString != null && !dateString.isEmpty();
+        return StringUtils.isNotEmpty(dateString);
     }
 
     /**

@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -120,9 +122,9 @@ public class GeoCodeLoader {
         ) {
             while ((line = br.readLine()) != null) {
                 final String[] splitLine = line.split("[|]", 4);
-                if (splitLine.length >= 2 && !splitLine[1].isEmpty()) {
+                if (splitLine.length >= 2 && StringUtils.isNotEmpty(splitLine[1])) {
                     loader.load(splitLine[0], splitLine[1]);
-                } else if (splitLine[0] != null && !splitLine[0].isEmpty()) {
+                } else if (StringUtils.isNotEmpty(splitLine[0])) {
                     loader.load(splitLine[0], splitLine[0]);
                 }
             }

@@ -3,6 +3,7 @@ package org.schoellerfamily.geoservice.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
+import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
@@ -42,7 +43,7 @@ public class GeoCodeEntryController {
                 final String name,
             @RequestParam(value = "modernName", required = false)
                 final String modernName) {
-        if (modernName == null || modernName.isEmpty()) {
+        if (StringUtils.isEmpty(modernName)) {
             log.debug("Find location: \"{}\"", name);
         } else {
             log.debug("Find location: \"{}\", \"{}\"", name, modernName);
@@ -54,7 +55,7 @@ public class GeoCodeEntryController {
             findName = name;
         }
         String findModernName;
-        if (modernName == null || modernName.isEmpty()) {
+        if (StringUtils.isEmpty(modernName)) {
             final GeoCodeItem find = gcc.find(findName);
             final GeocodeResultBuilder builder = new GeocodeResultBuilder();
             return builder.toGeoServiceItem(find);
