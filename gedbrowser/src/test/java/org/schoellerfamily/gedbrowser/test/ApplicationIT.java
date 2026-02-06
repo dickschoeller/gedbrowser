@@ -24,7 +24,6 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.server.port=0"})
 @AutoConfigureRestTestClient
-@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class ApplicationIT {
     /**
      * Management port.

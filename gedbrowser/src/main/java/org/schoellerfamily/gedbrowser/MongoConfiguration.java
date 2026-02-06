@@ -118,6 +118,16 @@ public class MongoConfiguration {
     }
 
     /**
+     * Create a RestClient builder.
+     *
+     * @return the builder
+     */
+    @Bean
+    public RestClient.Builder restClientBuilder() {
+        return RestClient.builder();
+    }
+
+    /**
      * Create the rest client bean.
      *
      * @param builder the rest client builder that Spring provides
