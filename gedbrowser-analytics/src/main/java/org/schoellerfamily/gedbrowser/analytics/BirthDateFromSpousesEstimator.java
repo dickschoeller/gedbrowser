@@ -46,7 +46,7 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
         for (final Family family : families) {
             final Person mother = getMother(family);
             final Person father = getFather(family);
-            Person spouse;
+            final Person spouse;
             if (person.equals(mother)) {
                 if (father == null) {
                     continue;
@@ -92,7 +92,7 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
         for (final Family family : families) {
             final Person mother = getMother(family);
             final Person father = getFather(family);
-            Person spouse;
+            final Person spouse;
             if (person.equals(mother)) {
                 if (father == null) {
                     continue;
