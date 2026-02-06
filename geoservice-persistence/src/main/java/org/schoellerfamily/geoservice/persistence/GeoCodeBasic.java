@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RequiredArgsConstructor
+@SuppressWarnings("PMD.TooManyMethods")
 public abstract class GeoCodeBasic implements GeoCode {
 
     /** The key string to use for talking to Google's map APIs. */
@@ -53,6 +54,7 @@ public abstract class GeoCodeBasic implements GeoCode {
         return gcce;
     }
 
+    @SuppressWarnings("PMD.UseVarargs")
     private GeoCodeItem createGeoCodeItem(final String placeName, final GeocodingResult[] results) {
         if (results.length > 0) {
             /* Work with the first result. */
@@ -62,6 +64,7 @@ public abstract class GeoCodeBasic implements GeoCode {
         return new GeoCodeItem(placeName);
     }
 
+    @SuppressWarnings("PMD.UseVarargs")
     private GeoCodeItem replaceItemInCache(final String placeName, final String modernPlaceName,
         final GeocodingResult[] results) {
         final GeoCodeItem newGcce = new GeoCodeItem(placeName, modernPlaceName, results[0]);
@@ -105,6 +108,7 @@ public abstract class GeoCodeBasic implements GeoCode {
         return gcce;
     }
 
+    @SuppressWarnings("PMD.UseVarargs")
     private GeoCodeItem createGeoCodeItem(final String placeName, final String modernPlaceName,
         final GeocodingResult[] results) {
         if (results.length > 0) {

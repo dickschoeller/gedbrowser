@@ -52,6 +52,7 @@ public class GedDocumentFileLoaderCoverageTest {
 
         final GedObjectToGedDocumentMongoConverter converter =
             new GedObjectToGedDocumentMongoConverter() {
+                @SuppressWarnings("unchecked")
                 @Override
                 public RootDocumentMongo createGedDocument(
                     final org.schoellerfamily.gedbrowser.datamodel.GedObject ged) {
