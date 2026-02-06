@@ -45,7 +45,7 @@ public class LoginController {
      * @param request the servlet request
      * @return a string identifying which template to use.
      */
-    @RequestMapping(value = "/login", method = { RequestMethod.POST })
+    @RequestMapping(value = "/login", method = { RequestMethod.POST, RequestMethod.GET })
     public final String login(final Model model,
             final HttpServletRequest request) {
         log.debug("Entering login");
@@ -64,7 +64,7 @@ public class LoginController {
      * @param request the servlet request
      * @return a string identifying which template to use.
      */
-    @GetMapping("/logout")
+    @RequestMapping(value = "/logout", method = { RequestMethod.POST, RequestMethod.GET })
     public final String logout(final Model model,
             final HttpServletRequest request) {
         log.debug("Entering logout");
