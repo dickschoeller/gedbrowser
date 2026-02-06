@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Map;
 
@@ -29,9 +30,9 @@ public class CharsetScanner {
     /** */
     private static final String CP1252 = "Cp1252";
     /** */
-    private static final String UTF_8 = "UTF-8";
+    private static final String UTF_8 = StandardCharsets.UTF_8.name();
     /** */
-    private static final String UTF_16 = "UTF-16";
+    private static final String UTF_16 = StandardCharsets.UTF_16.name();
     /**
      * Holds the mapping between GEDCOM known charsets and Java known charsets.
      */
@@ -54,7 +55,7 @@ public class CharsetScanner {
                 log.warn("Could not open stream for: {}", filename);
                 return UTF_8;
             }
-            try (Reader reader = new InputStreamReader(fis, ASCII);
+            try (Reader reader = new InputStreamReader(fis, StandardCharsets.US_ASCII);
                     BufferedReader bufferedReader = new BufferedReader(reader)) {
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
