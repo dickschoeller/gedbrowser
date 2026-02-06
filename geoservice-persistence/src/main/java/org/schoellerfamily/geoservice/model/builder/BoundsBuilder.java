@@ -5,6 +5,7 @@ import java.util.List;
 import org.geojson.Feature;
 import org.geojson.LngLatAlt;
 import org.geojson.Polygon;
+import org.apache.commons.collections4.CollectionUtils;
 
 import com.google.maps.model.Bounds;
 
@@ -24,7 +25,7 @@ public interface BoundsBuilder extends LatLngBuilder {
         }
         final Polygon polygon = (Polygon) feature.getGeometry();
         final List<List<LngLatAlt>> coordinates = polygon.getCoordinates();
-        if (coordinates == null || coordinates.isEmpty()) {
+        if (CollectionUtils.isEmpty(coordinates)) {
             return new Bounds();
         }
         final List<LngLatAlt> list = coordinates.get(0);

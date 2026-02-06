@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
+import org.apache.commons.collections4.CollectionUtils;
 
 import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressType;
@@ -231,7 +232,7 @@ public final class GeoServiceGeocodingResult {
             return null;
         }
         final List<Feature> features = geometry.getFeatures();
-        if (features == null || features.isEmpty()) {
+        if (CollectionUtils.isEmpty(features)) {
             return null;
         }
         return features.get(0);

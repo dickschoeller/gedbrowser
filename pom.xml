@@ -83,6 +83,7 @@
     <commons-io.version>2.21.0</commons-io.version>
     <commons-logging.version>1.3.5</commons-logging.version>
     <commons-lang3.version>3.20.0</commons-lang3.version>
+    <commons-collections4.version>4.5.0</commons-collections4.version>
     <assertj.version>3.27.7</assertj.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
@@ -733,6 +734,11 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>${commons-lang3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${commons-collections4.version}</version>
       </dependency>
       <!-- related to working forward on google-maps-services -->
       <dependency>
