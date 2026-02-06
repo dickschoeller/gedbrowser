@@ -36,7 +36,6 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.CouplingBetweenObjects")
 public final class GedRendererFactory {
     /**
      * Dispatcher for factory.

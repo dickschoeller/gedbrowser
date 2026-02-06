@@ -17,28 +17,28 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 public final class GetStringComparatorTest {
     /** */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
-    private static final Object[][] PARAMETERS = { { null, null, Direction.equalto },
-        { null, "", Direction.lessthan }, { "", null, Direction.greaterthan },
-        { null, "A", Direction.lessthan }, { "A", null, Direction.greaterthan },
-        { "", "", Direction.equalto }, { "I", "I", Direction.equalto },
-        { "I", "J", Direction.lessthan }, { "I9", "I10", Direction.lessthan },
-        { "J", "I", Direction.greaterthan }, { "I9", "I8", Direction.greaterthan },
-        { "I7", "I8", Direction.lessthan }, { "I100", "I99", Direction.greaterthan },
-        { "I1J100", "I1J99", Direction.greaterthan }, { "I1J99", "I1J100", Direction.lessthan },
-        { "I1J99", "I1J991", Direction.lessthan }, { "I1J991", "I1J99", Direction.greaterthan },
-        { "&99", "&98", Direction.greaterthan }, { "I99", "&98", Direction.greaterthan },
-        { "I", "9", Direction.greaterthan }, { "9", "I", Direction.lessthan },
-        { "I01", "I10", Direction.lessthan }, { "I01J", "I1K", Direction.greaterthan },
-        { "999", "99", Direction.greaterthan }, { "99", "999", Direction.lessthan }, };
+    private static final Object[][] PARAMETERS = { { null, null, Direction.EQUALTO },
+        { null, "", Direction.LESSTHAN }, { "", null, Direction.GREATERTHAN },
+        { null, "A", Direction.LESSTHAN }, { "A", null, Direction.GREATERTHAN },
+        { "", "", Direction.EQUALTO }, { "I", "I", Direction.EQUALTO },
+        { "I", "J", Direction.LESSTHAN }, { "I9", "I10", Direction.LESSTHAN },
+        { "J", "I", Direction.GREATERTHAN }, { "I9", "I8", Direction.GREATERTHAN },
+        { "I7", "I8", Direction.LESSTHAN }, { "I100", "I99", Direction.GREATERTHAN },
+        { "I1J100", "I1J99", Direction.GREATERTHAN }, { "I1J99", "I1J100", Direction.LESSTHAN },
+        { "I1J99", "I1J991", Direction.LESSTHAN }, { "I1J991", "I1J99", Direction.GREATERTHAN },
+        { "&99", "&98", Direction.GREATERTHAN }, { "I99", "&98", Direction.GREATERTHAN },
+        { "I", "9", Direction.GREATERTHAN }, { "9", "I", Direction.LESSTHAN },
+        { "I01", "I10", Direction.LESSTHAN }, { "I01J", "I1K", Direction.GREATERTHAN },
+        { "999", "99", Direction.GREATERTHAN }, { "99", "999", Direction.LESSTHAN }, };
 
     /** */
     private enum Direction {
         /** */
-        greaterthan,
+        GREATERTHAN,
         /** */
-        lessthan,
+        LESSTHAN,
         /** */
-        equalto
+        EQUALTO
     };
 
     /**
@@ -58,13 +58,13 @@ public final class GetStringComparatorTest {
 
     private void assertMatches(final int result, final Direction expectation) {
         switch (expectation) {
-        case greaterthan:
+        case GREATERTHAN:
             assertTrue(result > 0, "result should be greater than 0");
             break;
-        case lessthan:
+        case LESSTHAN:
             assertTrue(result < 0, "result should be less than 0");
             break;
-        case equalto:
+        case EQUALTO:
             assertEquals(0, result, "result should be equal to 0");
             break;
         default:

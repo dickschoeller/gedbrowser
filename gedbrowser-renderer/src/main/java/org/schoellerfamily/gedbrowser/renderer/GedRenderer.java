@@ -105,6 +105,7 @@ public abstract class GedRenderer<G extends GedObject>
      *            The sub-object to render.
      * @return The renderer.
      */
+    @SuppressWarnings("java:S1452")
     public final GedRenderer<? extends GedObject> createGedRenderer(
             final GedObject attribute) {
         return getRendererFactory().create(attribute, getRenderingContext());

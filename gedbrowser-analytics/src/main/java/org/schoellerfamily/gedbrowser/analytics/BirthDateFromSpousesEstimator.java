@@ -33,6 +33,7 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
      * @param shortEstimate whether to do a short estimate or a deep estimate
      * @return the estimate from own marriages
      */
+    @SuppressWarnings("java:S3776")
     public LocalDate estimate(final LocalDate localDate,
             final boolean shortEstimate) {
         if (localDate != null) {
@@ -80,6 +81,7 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
      * @param localDate if not null we already have a better estimate
      * @return estimate from spouses' ancestors
      */
+    @SuppressWarnings("java:S3776")
     public LocalDate estimateFromAncestors(final LocalDate localDate) {
         if (localDate != null) {
             return localDate;

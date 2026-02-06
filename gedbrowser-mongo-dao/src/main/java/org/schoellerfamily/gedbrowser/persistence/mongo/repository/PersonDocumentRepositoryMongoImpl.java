@@ -34,6 +34,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
         FindableByNameDocument<Person, PersonDocument>,
         LastId<PersonDocumentMongo> {
     /** */
+    private static final String SURNAME = "surname";
+    /** */
     private final MongoTemplate mongoTemplate;
     /** */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
@@ -73,7 +75,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
             return Collections.emptyList();
         }
         final Query searchQuery =
-                new Query(Criteria.where("surname").is(surname)
+                new Query(Criteria.where(SURNAME).is(surname)
                         .and(FILENAME).is(filename));
         final List<PersonDocumentMongo> personDocuments =
                 mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
@@ -121,8 +123,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
             final String filename) {
         final Query emptyQuery = new Query(
                 Criteria.where(FILENAME).is(filename).andOperator(
-                        Criteria.where("surname").in("", "?"),
-                        Criteria.where("surname").exists(false)));
+                        Criteria.where(SURNAME).in("", "?"),
+                        Criteria.where(SURNAME).exists(false)));
         return mongoTemplate.find(emptyQuery, PersonDocumentMongo.class);
     }
 
@@ -133,7 +135,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
      */
     private List<PersonDocumentMongo> querySurnameBeginsWith(
             final String filename, final String beginsWith) {
-        final Query searchQuery = new Query(Criteria.where("surname")
+        final Query searchQuery = new Query(Criteria.where(SURNAME)
                 .regex("^" + beginsWith + ".*").and(FILENAME)
                 .is(filename));
         return mongoTemplate.find(searchQuery, PersonDocumentMongo.class);

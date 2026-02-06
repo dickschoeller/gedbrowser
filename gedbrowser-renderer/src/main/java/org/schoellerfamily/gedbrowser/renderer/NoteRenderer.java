@@ -62,6 +62,7 @@ public final class NoteRenderer extends GedRenderer<Note>
      *
      * @return the list of attribute renderers.
      */
+    @SuppressWarnings("java:S1452")
     public List<GedRenderer<?>> getAttributes() {
         final Note source = getGedObject();
         final List<GedRenderer<?>> list = new ArrayList<GedRenderer<?>>();

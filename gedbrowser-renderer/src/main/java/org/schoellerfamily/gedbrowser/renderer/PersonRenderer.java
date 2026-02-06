@@ -92,6 +92,7 @@ public final class PersonRenderer extends GedRenderer<Person>
      *
      * @return the list of attribute renderers.
      */
+    @SuppressWarnings("java:S1452")
     public List<GedRenderer<?>> getAttributes() {
         if (isConfidential() || isHiddenLiving()) {
             return List.of();

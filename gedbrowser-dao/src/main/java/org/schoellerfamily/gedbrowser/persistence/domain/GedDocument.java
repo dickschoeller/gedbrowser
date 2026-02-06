@@ -70,6 +70,7 @@ public interface GedDocument<G extends GedObject> extends GetString {
     /**
      * @return the attributes
      */
+    @SuppressWarnings("java:S1452")
     List<GedDocument<? extends GedObject>> getAttributes();
 
     /**

@@ -101,6 +101,7 @@ public interface GeoCode {
      *
      * @return the collection
      */
+    @SuppressWarnings("java:S1452")
     Iterable<? extends GeoDocument> findAllDocuments();
 
     /**
