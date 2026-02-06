@@ -32,21 +32,30 @@ export function serialize(obj: any): ParamsObject {
             continue;
         }
 
-        if (Array.isArray(value)) {
-            const list: string[] = [];
-            for (const v of value) {
-                if (looseInvalid(v)) {
-                    continue;
-                }
-                list.push(formatValue(v));
-            }
-            if (list.length > 0) {
-                params[key] = list;
-            }
-        } else {
-            params[key] = formatValue(value);
-        }
+        addToParams(value, params, key);
     }
 
     return params;
 }
+
+function addToParams(value: any, params: ParamsObject, key: string) {
+    if (Array.isArray(value)) {
+        const list: string[] = listOfValues(value);
+        if (list.length > 0) {
+            params[key] = list;
+        }
+    } else {
+        params[key] = formatValue(value);
+    }
+}
+function listOfValues(value: any[]) {
+    const list: string[] = [];
+    for (const v of value) {
+        if (looseInvalid(v)) {
+            continue;
+        }
+        list.push(formatValue(v));
+    }
+    return list;
+}
+
