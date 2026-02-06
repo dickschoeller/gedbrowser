@@ -50,8 +50,9 @@ public class StreamManager {
         if (filename.isEmpty()) {
             throw new IllegalArgumentException("Filename cannot be empty");
         }
-        final boolean looksLikeFile = (!filename.isEmpty() && filename.charAt(0) == '/')
-            || (!filename.isEmpty() && filename.charAt(0) == '.')
+        final char firstChar = filename.charAt(0);
+        final boolean looksLikeFile = firstChar == '/'
+            || firstChar == '.'
             || filename.contains(":") || filename.contains("src/") || filename.contains("target/");
         if (looksLikeFile) {
             validateFilePath(filename);
