@@ -110,7 +110,7 @@
         <rule ref="category/java/codestyle.xml/ConfusingTernary" />
         <rule ref="category/java/codestyle.xml/EmptyMethodInAbstractClassShouldBeAbstract" />
         <rule ref="category/java/codestyle.xml/FieldDeclarationsShouldBeAtStartOfClass" />
-        <rule ref="category/java/codestyle.xml/UnnecessaryLocalBeforeReturn" />
+        <rule ref="category/java/codestyle.xml/VariableCanBeInlined" />
 
         <rule ref="category/java/multithreading.xml/AvoidSynchronizedAtMethodLevel" />
         <rule ref="category/java/multithreading.xml/NonThreadSafeSingleton" />
