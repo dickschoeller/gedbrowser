@@ -134,6 +134,7 @@ public class RequestUserUtilTest {
     private final class StubUserService implements UserService {
         @Override
         public void resetCredentials() {
+            // do nothing
         }
 
         @Override

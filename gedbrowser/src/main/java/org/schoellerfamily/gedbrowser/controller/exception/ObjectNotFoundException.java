@@ -18,7 +18,7 @@ public class ObjectNotFoundException extends RuntimeException {
     private final String datasetName;
 
     /** Rendering context. */
-    private final RenderingContext context;
+    private final transient RenderingContext context;
 
     /**
      * Constructor.

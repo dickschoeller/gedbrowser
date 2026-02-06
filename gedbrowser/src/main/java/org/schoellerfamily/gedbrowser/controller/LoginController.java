@@ -22,6 +22,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class LoginController {
+    /** Return string. */
+    private static final String LOGIN = "login";
+
+    /** Referer header. */
+    private static final String REFERER = "referer";
+
     /** Key to find the login referer in the session attributes. */
     private static final String SESSION_REFERER_KEY = "SESSION_REFERER";
 
@@ -44,11 +50,11 @@ public class LoginController {
             final HttpServletRequest request) {
         log.debug("Entering login");
         final String referer = loginDestinationUrl(request);
-        model.addAttribute("referer", referer);
+        model.addAttribute(REFERER, referer);
         request.getSession().setAttribute(SESSION_REFERER_KEY, referer);
         model.addAttribute("appInfo", appInfo);
         log.debug("Exiting login");
-        return "login";
+        return LOGIN;
     }
 
     /**
@@ -63,11 +69,11 @@ public class LoginController {
             final HttpServletRequest request) {
         log.debug("Entering logout");
         final String referer = loginDestinationUrl(request);
-        model.addAttribute("referer", referer);
+        model.addAttribute(REFERER, referer);
         request.getSession().setAttribute(SESSION_REFERER_KEY, referer);
         model.addAttribute("appInfo", appInfo);
         log.debug("Exiting logout");
-        return "login";
+        return LOGIN;
     }
 
     /**
@@ -79,7 +85,7 @@ public class LoginController {
      */
     private String loginDestinationUrl(final HttpServletRequest request) {
         final HttpSession session = request.getSession();
-        final String requestReferer = request.getHeader("referer");
+        final String requestReferer = request.getHeader(REFERER);
         final String sessionReferer = (String) session
                 .getAttribute(SESSION_REFERER_KEY);
         if (useReferer(requestReferer)) {
@@ -99,6 +105,6 @@ public class LoginController {
      */
     private boolean useReferer(final String referer) {
         return referer != null && referer.contains(servletPath)
-                && !referer.contains("login");
+                && !referer.contains(LOGIN);
     }
 }

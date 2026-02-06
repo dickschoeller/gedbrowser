@@ -32,7 +32,7 @@ public class TrailerDocumentRepositoryMongoImpl implements
     public final TrailerDocument findByFileAndString(
             final String filename, final String string) {
         final Query searchQuery = new Query(Criteria.where("string").is(string)
-                .and("filename").is(filename));
+                .and(FILENAME).is(filename));
         final TrailerDocument trailerDocument =
                 mongoTemplate.findOne(searchQuery, TrailerDocumentMongo.class);
         if (trailerDocument == null) {
@@ -60,7 +60,7 @@ public class TrailerDocumentRepositoryMongoImpl implements
     @Override
     public final Iterable<TrailerDocument> findAll(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         final List<TrailerDocumentMongo> trailerDocumentsMongo =
                 mongoTemplate.find(searchQuery, TrailerDocumentMongo.class);
         return trailerDocumentsMongo.stream()
@@ -90,7 +90,7 @@ public class TrailerDocumentRepositoryMongoImpl implements
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         return mongoTemplate.count(searchQuery, TrailerDocumentMongo.class);
     }
 

@@ -18,6 +18,9 @@ import com.google.maps.model.AddressType;
  */
 @SuppressWarnings("PMD.CommentSize")
 public final class GeoServiceGeocodingResult {
+    /** */
+    private static final String POSTCODE_LOCALITIES = "postcodeLocalities";
+
     /**
      * The {@code types} array indicates the type of the returned result. This
      * array contains a set of zero or more tags identifying the type of feature
@@ -73,9 +76,9 @@ public final class GeoServiceGeocodingResult {
             fg.setProperty("partialMatch", Boolean.valueOf(partialMatch));
             fg.setProperty("placeId", placeId);
             if (postcodeLocalities == null) {
-                fg.setProperty("postcodeLocalities", null);
+                fg.setProperty(POSTCODE_LOCALITIES, null);
             } else {
-                fg.setProperty("postcodeLocalities", Arrays
+                fg.setProperty(POSTCODE_LOCALITIES, Arrays
                         .copyOf(postcodeLocalities, postcodeLocalities.length));
             }
             fg.setProperty("types", types);
@@ -144,7 +147,7 @@ public final class GeoServiceGeocodingResult {
         if (location == null) {
             return null;
         }
-        return location.getProperty("postcodeLocalities");
+        return location.getProperty(POSTCODE_LOCALITIES);
     }
 
     /**

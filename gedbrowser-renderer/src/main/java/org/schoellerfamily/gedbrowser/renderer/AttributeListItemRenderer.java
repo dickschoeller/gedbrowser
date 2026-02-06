@@ -57,7 +57,7 @@ public class AttributeListItemRenderer implements ListItemRenderer {
     protected final void renderListItemContents(final StringBuilder builder) {
         final Attribute attribute = attributeRenderer.getGedObject();
         builder.append("<span class=\"label\">");
-        builder.append(GedRenderer.escapeString(attribute));
+        builder.append(RenderingContextRenderer.escapeString(attribute));
         builder.append(":</span> ");
         builder.append(attributeRenderer.renderAsPhrase());
 

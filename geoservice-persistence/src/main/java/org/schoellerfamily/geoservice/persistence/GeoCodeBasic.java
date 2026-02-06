@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 
@@ -15,9 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.CommentSize")
 @Slf4j
 @RequiredArgsConstructor
+@SuppressWarnings("PMD.TooManyMethods")
 public abstract class GeoCodeBasic implements GeoCode {
 
     /** The key string to use for talking to Google's map APIs. */
@@ -27,128 +28,105 @@ public abstract class GeoCodeBasic implements GeoCode {
     public final GeoCodeItem find(final String placeName) {
         log.debug("find(\"{}\")", placeName);
         final GeoDocument geoDocument = getDocument(placeName);
-        GeoCodeItem gcce;
-        if (geoDocument != null) {
-            gcce = geoDocument.getGeoItem();
-            if (gcce.getGeocodingResult() != null) {
-                return gcce;
-            }
-
-            // It doesn't have a coding result, see if there is one.
-            final GeocodingResult[] results = geoCoder.geocode(
-                    gcce.getModernPlaceName());
-            if (results.length == 0) {
-                // Nope, so we live with the current entry from the cache.
-                return gcce;
-            } else {
-                // Replace item in cache with new one.
-                gcce = new GeoCodeItem(gcce.getPlaceName(),
-                        gcce.getModernPlaceName(), results[0]);
-                add(gcce);
-                return gcce;
-            }
+        if (geoDocument == null) {
+            return addToCacheIfFound(placeName);
         }
+        final GeoCodeItem gcce = geoDocument.getGeoItem();
+        if (gcce.getGeocodingResult() != null) {
+            return gcce;
+        }
+
+        // It doesn't have a coding result, see if there is one.
+        final GeocodingResult[] results = geoCoder.geocode(gcce.getModernPlaceName());
+        if (results.length == 0) {
+            // Nope, so we live with the current entry from the cache.
+            return gcce;
+        }
+        return replaceItemInCache(gcce.getPlaceName(), gcce.getModernPlaceName(),
+            results);
+    }
+
+    private GeoCodeItem addToCacheIfFound(final String placeName) {
         // Not found in cache. Let's see what we can find.
         final GeocodingResult[] results = geoCoder.geocode(placeName);
-        if (results.length > 0) {
-            /* Work with the first result. */
-            gcce = new GeoCodeItem(placeName, results[0]);
-        } else {
-            // Not found, create empty.
-            gcce = new GeoCodeItem(placeName);
-        }
+        final GeoCodeItem gcce = createGeoCodeItem(placeName, results);
         add(gcce);
         return gcce;
     }
 
+    @SuppressWarnings("PMD.UseVarargs")
+    private GeoCodeItem createGeoCodeItem(final String placeName, final GeocodingResult[] results) {
+        if (results.length > 0) {
+            /* Work with the first result. */
+            return new GeoCodeItem(placeName, results[0]);
+        }
+        // Not found, create empty.
+        return new GeoCodeItem(placeName);
+    }
 
-    /**
-     * {@inheritDoc}
-     */
+    @SuppressWarnings("PMD.UseVarargs")
+    private GeoCodeItem replaceItemInCache(final String placeName, final String modernPlaceName,
+        final GeocodingResult[] results) {
+        final GeoCodeItem newGcce = new GeoCodeItem(placeName, modernPlaceName, results[0]);
+        add(newGcce);
+        return newGcce;
+    }
+
     @Override
-    public final GeoCodeItem find(final String placeName,
-            final String modernPlaceName) {
-        if (modernPlaceName == null || modernPlaceName.isEmpty()) {
+    public final GeoCodeItem find(final String placeName, final String modernPlaceName) {
+        if (StringUtils.isEmpty(modernPlaceName)) {
             return find(placeName);
         }
         log.debug("find(\"{}\", \"{}\")", placeName, modernPlaceName);
         final GeoDocument geoDocument = getDocument(placeName);
-        if (geoDocument != null) {
-            // We found one.
-            if (modernPlaceName.equals(geoDocument.getModernName())) {
-                // Modern name matches existing, so we don't have a change.
-                if (geoDocument.getResult() == null) {
-                    return modernWithNoResult(placeName, modernPlaceName,
-                            geoDocument);
-                } else {
-                    // Fully formed return it.
-                    return geoDocument.getGeoItem();
-                }
-            } else {
-                // Modern place names don't match, replace.
-                // No result, try to get.
-                final GeocodingResult[] results = geoCoder.geocode(
-                        modernPlaceName);
-                if (results.length == 0) {
-                    return noModernResult(placeName, modernPlaceName);
-                } else {
-                    return newModernResult(placeName, modernPlaceName, results);
-                }
-            }
+        if (geoDocument == null) {
+            return addToCacheIfFound(placeName, modernPlaceName);
         }
+        // We found one.
+        if (modernPlaceName.equals(geoDocument.getModernName())) {
+            // Modern name matches existing, so we don't have a change.
+            if (geoDocument.getResult() == null) {
+                return modernWithNoResult(placeName, modernPlaceName, geoDocument);
+            }
+            // Fully formed return it.
+            return geoDocument.getGeoItem();
+        }
+        // Modern place names don't match, replace.
+        // No result, try to get.
+        final GeocodingResult[] results = geoCoder.geocode(modernPlaceName);
+        if (results.length == 0) {
+            return noModernResult(placeName, modernPlaceName);
+        }
+        return replaceItemInCache(placeName, modernPlaceName, results);
+    }
 
-        GeoCodeItem gcce;
+    private GeoCodeItem addToCacheIfFound(final String placeName, final String modernPlaceName) {
         // Not found in cache. Let's see what we can find.
         final GeocodingResult[] results = geoCoder.geocode(modernPlaceName);
+        final GeoCodeItem gcce = createGeoCodeItem(placeName, modernPlaceName, results);
+        add(gcce);
+        return gcce;
+    }
+
+    @SuppressWarnings("PMD.UseVarargs")
+    private GeoCodeItem createGeoCodeItem(final String placeName, final String modernPlaceName,
+        final GeocodingResult[] results) {
         if (results.length > 0) {
             /* Work with the first result. */
-            gcce = new GeoCodeItem(placeName, modernPlaceName, results[0]);
-        } else {
-            // Not found, create empty.
-            gcce = new GeoCodeItem(placeName, modernPlaceName);
+            return new GeoCodeItem(placeName, modernPlaceName, results[0]);
         }
-        add(gcce);
-        return gcce;
+        // Not found, create empty.
+        return new GeoCodeItem(placeName, modernPlaceName);
     }
 
-
-    /**
-     * @param placeName the old place name
-     * @param modernPlaceName the modern place name
-     * @param results the geocoding result
-     * @return the new item
-     */
-    @SuppressWarnings("PMD.UseVarargs")
-    private GeoCodeItem newModernResult(final String placeName,
-            final String modernPlaceName, final GeocodingResult[] results) {
-        final GeoCodeItem gcce = new GeoCodeItem(placeName, modernPlaceName,
-                results[0]);
-        add(gcce);
-        return gcce;
-    }
-
-
-    /**
-     * @param placeName the old place name
-     * @param modernPlaceName the modern place name
-     * @return a geocode item
-     */
-    private GeoCodeItem noModernResult(final String placeName,
-            final String modernPlaceName) {
+    private GeoCodeItem noModernResult(final String placeName, final String modernPlaceName) {
         final GeoCodeItem gcce = new GeoCodeItem(placeName, modernPlaceName);
         add(gcce);
         return gcce;
     }
 
-
-    /**
-     * @param placeName the old place name
-     * @param modernPlaceName the modern place name
-     * @param geoDocument the document
-     * @return the matching geocode item
-     */
-    private GeoCodeItem modernWithNoResult(final String placeName,
-            final String modernPlaceName, final GeoDocument geoDocument) {
+    private GeoCodeItem modernWithNoResult(final String placeName, final String modernPlaceName,
+        final GeoDocument geoDocument) {
         // No result, try to get.
         final GeocodingResult[] results = geoCoder.geocode(modernPlaceName);
         if (results.length == 0) {
@@ -156,23 +134,16 @@ public abstract class GeoCodeBasic implements GeoCode {
             return geoDocument.getGeoItem();
         }
 
-        final GeoCodeItem gcce =
-                new GeoCodeItem(placeName, modernPlaceName, results[0]);
+        final GeoCodeItem gcce = new GeoCodeItem(placeName, modernPlaceName, results[0]);
         add(gcce);
         return gcce;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void dump() {
         System.out.println(toString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final int countNotFound() {
         log.debug("Count the places that couldn't be found");
@@ -181,9 +152,6 @@ public abstract class GeoCodeBasic implements GeoCode {
         return count;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Collection<String> allKeys() {
         final SortedSet<String> names = new TreeSet<>();
@@ -193,9 +161,6 @@ public abstract class GeoCodeBasic implements GeoCode {
         return names;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final Collection<String> notFoundKeys() {
         log.debug("Captures the places that couldn't be found");
@@ -215,18 +180,12 @@ public abstract class GeoCodeBasic implements GeoCode {
         return notFoundSet;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final GeoCodeItem add(final GeoCodeItem item) {
         addDocument(create(item));
         return item;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final GeoCodeItem delete(final GeoCodeItem item) {
         final String placeName = item.getPlaceName();
@@ -239,9 +198,6 @@ public abstract class GeoCodeBasic implements GeoCode {
         return item;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final GeoCodeItem get(final String placeName) {
         final GeoDocument geoDocument = getDocument(placeName);

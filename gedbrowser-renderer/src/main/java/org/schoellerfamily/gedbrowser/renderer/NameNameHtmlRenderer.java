@@ -34,9 +34,9 @@ public class NameNameHtmlRenderer implements NameHtmlRenderer {
         final Name name = nameRenderer.getGedObject();
         final StringBuilder builder = new StringBuilder(40);
 
-        final String prefix = GedRenderer.escapeString(name.getPrefix());
-        final String surname = GedRenderer.escapeString(name.getSurname());
-        final String suffix = GedRenderer.escapeString(name.getSuffix());
+        final String prefix = RenderingContextRenderer.escapeString(name.getPrefix());
+        final String surname = RenderingContextRenderer.escapeString(name.getSurname());
+        final String suffix = RenderingContextRenderer.escapeString(name.getSuffix());
 
         builder.append(prefix);
         builder.append(" <span class=\"surname\">");

@@ -25,6 +25,6 @@ public final class MultimediaRenderer extends GedRenderer<Multimedia> {
      */
     public String getEscapedString() {
         final Multimedia attribute = getGedObject();
-        return GedRenderer.escapeString(attribute);
+        return escapeString(attribute);
     }
 }

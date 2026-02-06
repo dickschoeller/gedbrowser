@@ -31,7 +31,7 @@ public class SubmissionDocumentRepositoryMongoImpl implements
     public final SubmissionDocument findByFileAndString(
             final String filename, final String string) {
         final Query searchQuery = new Query(Criteria.where("string").is(string)
-                .and("filename").is(filename));
+                .and(FILENAME).is(filename));
         final SubmissionDocument submDocument = mongoTemplate
                 .findOne(searchQuery, SubmissionDocumentMongo.class);
         if (submDocument == null) {
@@ -59,7 +59,7 @@ public class SubmissionDocumentRepositoryMongoImpl implements
     @Override
     public final Iterable<SubmissionDocument> findAll(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         final List<SubmissionDocumentMongo> submissionDocumentsMongo =
                 mongoTemplate.find(searchQuery, SubmissionDocumentMongo.class);
         return submissionDocumentsMongo.stream()
@@ -89,7 +89,7 @@ public class SubmissionDocumentRepositoryMongoImpl implements
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         return mongoTemplate.count(searchQuery, SubmissionDocumentMongo.class);
     }
 

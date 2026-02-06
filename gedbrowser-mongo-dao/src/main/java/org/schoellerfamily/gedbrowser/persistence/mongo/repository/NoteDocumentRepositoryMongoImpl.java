@@ -31,7 +31,7 @@ public class NoteDocumentRepositoryMongoImpl implements
     public final NoteDocument findByFileAndString(
             final String filename, final String string) {
         final Query searchQuery = new Query(Criteria.where("string").is(string)
-                .and("filename").is(filename));
+                .and(FILENAME).is(filename));
         final NoteDocument noteDocument =
                 mongoTemplate.findOne(searchQuery, NoteDocumentMongo.class);
         if (noteDocument == null) {
@@ -59,7 +59,7 @@ public class NoteDocumentRepositoryMongoImpl implements
     @Override
     public final Iterable<NoteDocument> findAll(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         final List<NoteDocumentMongo> noteDocumentsMongo =
                 mongoTemplate.find(searchQuery, NoteDocumentMongo.class);
         return noteDocumentsMongo.stream()
@@ -89,7 +89,7 @@ public class NoteDocumentRepositoryMongoImpl implements
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         return mongoTemplate.count(searchQuery, NoteDocumentMongo.class);
     }
 

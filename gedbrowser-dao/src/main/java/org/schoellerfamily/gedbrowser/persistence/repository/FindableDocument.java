@@ -13,6 +13,11 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 public  interface FindableDocument
     <G extends GedObject, D extends GedDocument<G>>  {
     /**
+     * Constant for use in a number of calls.
+     */
+    String FILENAME = "filename";
+
+    /**
      * @param filename the value of filename
      * @param string the value of string
      * @return the matching item

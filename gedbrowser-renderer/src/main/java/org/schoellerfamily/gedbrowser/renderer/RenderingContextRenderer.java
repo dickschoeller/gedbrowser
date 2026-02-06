@@ -102,8 +102,8 @@ public abstract class RenderingContextRenderer implements Renderer {
      * @return the escaped string.
      */
     public static final String escapeString(final String input) {
-        return input.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>\n");
+        return input.replace("&", "&amp;").replace("<", "&lt;")
+                .replace(">", "&gt;").replace("\n", "<br/>\n");
     }
 
     /**

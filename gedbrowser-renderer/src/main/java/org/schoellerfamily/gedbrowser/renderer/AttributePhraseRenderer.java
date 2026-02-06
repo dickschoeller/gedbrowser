@@ -24,7 +24,7 @@ public final class AttributePhraseRenderer implements PhraseRenderer {
      */
     @Override
     public String renderAsPhrase() {
-        return GedRenderer.escapeString(attributeRenderer.getGedObject()
+        return RenderingContextRenderer.escapeString(attributeRenderer.getGedObject()
                 .getTail());
     }
 }

@@ -26,6 +26,6 @@ public class PlacePhraseRenderer implements PhraseRenderer {
     @Override
     public final String renderAsPhrase() {
         final Place place = placeRenderer.getGedObject();
-        return GedRenderer.escapeString(place.getString());
+        return RenderingContextRenderer.escapeString(place.getString());
     }
 }

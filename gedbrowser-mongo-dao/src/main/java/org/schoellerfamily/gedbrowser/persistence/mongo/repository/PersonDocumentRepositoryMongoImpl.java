@@ -41,7 +41,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     public PersonDocument findByFileAndString(final String filename,
             final String string) {
         final Query searchQuery = new Query(Criteria.where("string").is(string)
-                .and("filename").is(filename));
+                .and(FILENAME).is(filename));
         final PersonDocument personDocument = mongoTemplate.findOne(
                 searchQuery, PersonDocumentMongo.class);
         if (personDocument == null) {
@@ -74,7 +74,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
         }
         final Query searchQuery =
                 new Query(Criteria.where("surname").is(surname)
-                        .and("filename").is(filename));
+                        .and(FILENAME).is(filename));
         final List<PersonDocumentMongo> personDocuments =
                 mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
         createGedObjects(personDocuments);
@@ -120,7 +120,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     private List<PersonDocumentMongo> queryUnknownSurname(
             final String filename) {
         final Query emptyQuery = new Query(
-                Criteria.where("filename").is(filename).andOperator(
+                Criteria.where(FILENAME).is(filename).andOperator(
                         Criteria.where("surname").in("", "?"),
                         Criteria.where("surname").exists(false)));
         return mongoTemplate.find(emptyQuery, PersonDocumentMongo.class);
@@ -134,7 +134,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     private List<PersonDocumentMongo> querySurnameBeginsWith(
             final String filename, final String beginsWith) {
         final Query searchQuery = new Query(Criteria.where("surname")
-                .regex("^" + beginsWith + ".*").and("filename")
+                .regex("^" + beginsWith + ".*").and(FILENAME)
                 .is(filename));
         return mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
     }
@@ -208,7 +208,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     @Override
     public Iterable<PersonDocument> findAll(final String filename) {
         final Query searchQuery = new Query(
-                Criteria.where("filename").is(filename));
+                Criteria.where(FILENAME).is(filename));
         final List<PersonDocumentMongo> personDocuments =
                 mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
         createGedObjects(personDocuments);
@@ -232,7 +232,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     @Override
     public long count(final String filename) {
         final Query searchQuery =
-                new Query(Criteria.where("filename").is(filename));
+                new Query(Criteria.where(FILENAME).is(filename));
         return mongoTemplate.count(searchQuery, PersonDocumentMongo.class);
     }
 
