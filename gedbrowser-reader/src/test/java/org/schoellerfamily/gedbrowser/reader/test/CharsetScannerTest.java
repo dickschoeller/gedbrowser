@@ -19,7 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public class CharsetScannerTest {
+class CharsetScannerTest {
     /** */
     @Autowired
     private transient TestDataReader reader;

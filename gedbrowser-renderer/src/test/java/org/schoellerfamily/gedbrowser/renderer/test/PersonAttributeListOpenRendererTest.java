@@ -22,7 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class PersonAttributeListOpenRendererTest {
+final class PersonAttributeListOpenRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -46,7 +46,7 @@ public final class PersonAttributeListOpenRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         anonymousContext = RenderingContext.anonymous(appInfo);

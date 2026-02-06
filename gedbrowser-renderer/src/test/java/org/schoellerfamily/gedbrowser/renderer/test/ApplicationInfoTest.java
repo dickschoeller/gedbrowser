@@ -17,7 +17,7 @@ public class ApplicationInfoTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         appInfo = new ApplicationInfo() {
             @Override
             public String getApplicationName() {

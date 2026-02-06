@@ -37,7 +37,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
-public final class PersonVisitorTest {
+final class PersonVisitorTest {
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 

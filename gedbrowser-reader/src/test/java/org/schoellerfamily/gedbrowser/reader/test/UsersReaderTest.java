@@ -12,7 +12,7 @@ import org.schoellerfamily.gedbrowser.reader.users.UsersReader;
 /**
  * @author Dick Schoeller
  */
-public class UsersReaderTest {
+class UsersReaderTest {
     /**
      * The name of the user file for tests.
      */

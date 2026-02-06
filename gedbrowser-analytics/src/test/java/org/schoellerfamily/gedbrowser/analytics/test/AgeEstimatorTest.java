@@ -20,7 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class AgeEstimatorTest implements AnalyzerTest {
+final class AgeEstimatorTest implements AnalyzerTest {
     /** */
     @Autowired
     private CalendarProvider provider;

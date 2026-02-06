@@ -8,7 +8,7 @@ import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictExcepti
 /**
  * @author Dick Schoeller
  */
-public class ResourceConfliectExceptionTest {
+class ResourceConfliectExceptionTest {
     /** */
     @Test
     void testMessage() {

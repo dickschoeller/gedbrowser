@@ -15,7 +15,7 @@ import nl.jqno.equalsverifier.Warning;
 /**
  * @author Dick Schoeller
  */
-public class ApiHeadTest {
+class ApiHeadTest {
     /** */
     @Test
     void testDefaultConstructorType() {

@@ -38,7 +38,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports", "PMD.CommentSize" })
-public final class GedObjectBuilderEventByNameTest {
+final class GedObjectBuilderEventByNameTest {
     /** */
     private static GedObjectBuilder builder = new GedObjectBuilder();
     /** */
@@ -92,7 +92,7 @@ public final class GedObjectBuilderEventByNameTest {
      * @return stream of arguments
      */
     @SuppressWarnings("PMD.MethodReturnsInternalArray")
-    public static Stream<Arguments> params() {
+    static Stream<Arguments> params() {
         return Arrays.stream(PARAMETERS).map(Arguments::of);
     }
 

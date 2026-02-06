@@ -16,7 +16,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public final class IndexTest {
+final class IndexTest {
 
     /**
      * Dummy input line.

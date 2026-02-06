@@ -13,13 +13,13 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
-public final class MultimediaConstructorTest {
+final class MultimediaConstructorTest {
 
     /**
      * @return parameters for parameterized tests
      */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
-    public static Stream<Arguments> params() {
+    static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1", "J. Random/Schoeller/");
 

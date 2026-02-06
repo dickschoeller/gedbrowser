@@ -11,7 +11,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public class GedObjectBuilderSubmissionTest {
+class GedObjectBuilderSubmissionTest {
     /** */
     @Test
     void testCreateSubmissionSimple() {

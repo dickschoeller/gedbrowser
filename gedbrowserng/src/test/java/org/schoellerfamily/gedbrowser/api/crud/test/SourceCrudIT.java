@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestPropertySource(properties = { "management.port=0" })
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 @Slf4j
-public class SourceCrudIT {
+class SourceCrudIT {
 
     /** */
     @Autowired
@@ -56,7 +56,7 @@ public class SourceCrudIT {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         helper = new CrudTestHelper(new PersonCrud(loader, toDocConverter, repositoryManager),
             new FamilyCrud(loader, toDocConverter, repositoryManager));
         crud = new SourceCrud(loader, toDocConverter, repositoryManager);

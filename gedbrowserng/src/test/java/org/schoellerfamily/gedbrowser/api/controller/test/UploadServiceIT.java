@@ -28,7 +28,7 @@ import org.springframework.util.MultiValueMap;
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-public class UploadServiceIT {
+class UploadServiceIT {
     /**
      * RestTestClient injected by Spring's test support.
      */

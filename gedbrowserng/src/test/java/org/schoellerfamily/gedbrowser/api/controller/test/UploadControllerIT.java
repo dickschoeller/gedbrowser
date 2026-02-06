@@ -35,7 +35,7 @@ import tools.jackson.databind.ObjectMapper;
  * @author Richard Schoeller
  */
 @ExtendWith(MockitoExtension.class)
-public class UploadControllerIT {
+class UploadControllerIT {
     /** */
     private InputStream is;
     /** */

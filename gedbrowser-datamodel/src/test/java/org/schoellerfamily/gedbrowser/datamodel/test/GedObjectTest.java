@@ -25,7 +25,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyStaticImports", "PMD.ExcessivePublicCount" })
-public final class GedObjectTest {
+final class GedObjectTest {
     /** */
     private static final int HASH_CODE_1 = 79247288;
     /** */
@@ -71,7 +71,7 @@ public final class GedObjectTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         root = new Root("Root");
         root.setDbName("DBNAME");
     }

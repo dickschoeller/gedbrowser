@@ -18,13 +18,13 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  *
  * @author Dick Schoeller
  */
-public final class FamCConstructorTest {
+final class FamCConstructorTest {
 
     /**
      * @return parameters for parameterized tests
      */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
-    public static Stream<Arguments> params() {
+    static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1", "J. Random/Schoeller/");
 

@@ -14,13 +14,13 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 /**
  * @author Dick Schoeller
  */
-public class PersonNotFoundExceptionTest {
+class PersonNotFoundExceptionTest {
     /** */
     private PersonNotFoundException exception;
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final ApplicationInfo appInfo = new ApplicationInfoImpl(null, null, null, null);
         exception = new PersonNotFoundException("Person not found", "ID1", "xyzzy",
             RenderingContext.user(appInfo));

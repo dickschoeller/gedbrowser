@@ -22,7 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class OrderAnalyzerDeathTest implements AnalyzerTest {
+final class OrderAnalyzerDeathTest implements AnalyzerTest {
     /** */
     @Autowired
     private OrderAnalyzerTestWrapper wrapper;

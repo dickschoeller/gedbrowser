@@ -13,7 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.GodClass" })
-public final class SubmitterTest {
+final class SubmitterTest {
     /** */
     private static final String TEST_STRUNG = "strung";
     /** */

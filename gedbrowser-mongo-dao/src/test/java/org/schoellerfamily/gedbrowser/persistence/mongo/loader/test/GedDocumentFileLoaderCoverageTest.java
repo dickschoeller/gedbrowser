@@ -19,7 +19,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
  *
  * @author Dick Schoeller
  */
-public class GedDocumentFileLoaderCoverageTest {
+class GedDocumentFileLoaderCoverageTest {
 
     /** */
     @Test

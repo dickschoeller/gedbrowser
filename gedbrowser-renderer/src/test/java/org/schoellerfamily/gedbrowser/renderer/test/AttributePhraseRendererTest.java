@@ -22,7 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class AttributePhraseRendererTest {
+final class AttributePhraseRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -41,7 +41,7 @@ public final class AttributePhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
         attribute1 = new Attribute(person, "String", "");

@@ -21,7 +21,7 @@ import org.springframework.security.access.AccessDeniedException;
 /**
  * @author Dick Schoeller
  */
-public final class UserServiceTest extends AbstractTest {
+final class UserServiceTest extends AbstractTest {
 
     /** */
     @Autowired

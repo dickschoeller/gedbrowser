@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 /**
  * @author Dick Schoeller
  */
-public class CalendarProviderFacadeTest {
+class CalendarProviderFacadeTest {
     /** */
     private final Calendar calendar = Calendar.getInstance();
     /** */
@@ -80,7 +80,7 @@ public class CalendarProviderFacadeTest {
      * Prepare for the test.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mockProvider = new CalendarProviderFacadeImpl(new CalendarProviderMock());
         implProvider = new CalendarProviderFacadeImpl(new CalendarProviderImpl());
     }

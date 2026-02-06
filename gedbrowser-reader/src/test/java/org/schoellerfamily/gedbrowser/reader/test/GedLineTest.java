@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 @Slf4j
-public final class GedLineTest {
+final class GedLineTest {
     /**
      * Embed some GEDCOM right here in the source. That allows us to test
      * without reading a file.

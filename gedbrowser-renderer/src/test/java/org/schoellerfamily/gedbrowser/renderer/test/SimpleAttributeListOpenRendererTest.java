@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class SimpleAttributeListOpenRendererTest {
+final class SimpleAttributeListOpenRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -49,7 +49,7 @@ public final class SimpleAttributeListOpenRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final DefaultRenderer renderer = new DefaultRenderer(gob,
                 new GedRendererFactory(),
                 RenderingContext.anonymous(appInfo));

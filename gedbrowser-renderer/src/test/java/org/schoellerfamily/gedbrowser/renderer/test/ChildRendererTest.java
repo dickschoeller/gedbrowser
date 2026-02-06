@@ -24,7 +24,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class ChildRendererTest {
+final class ChildRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -36,7 +36,7 @@ public final class ChildRendererTest {
      * Set up the renderer to test.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         renderer = new ChildRenderer(new Child(), new GedRendererFactory(),
             RenderingContext.anonymous(appInfo));
     }

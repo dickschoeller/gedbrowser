@@ -33,7 +33,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SuppressWarnings({ "PMD.ExcessiveClassLength" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class BirthDateEstimatorTest implements AnalyzerTest {
+final class BirthDateEstimatorTest implements AnalyzerTest {
     /** */
     @Autowired
     private GedObjectBuilder builder;

@@ -13,7 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public class RendererContextRendererTest {
+class RendererContextRendererTest {
     /** */
     @Test
     void testEscapeStringAmpersand() {

@@ -25,7 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class SubmitterLinkListItemRendererTest {
+final class SubmitterLinkListItemRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -38,7 +38,7 @@ public final class SubmitterLinkListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final Root root = new Root("Root");
         final Head head = new Head(root, "Head");
         root.insert(head);

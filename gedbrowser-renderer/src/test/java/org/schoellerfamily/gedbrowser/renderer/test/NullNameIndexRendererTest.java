@@ -8,7 +8,7 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 /**
  * @author Dick Schoeller
  */
-public final class NullNameIndexRendererTest {
+final class NullNameIndexRendererTest {
     /** */
     @Test
     void testGetNameIndex() {

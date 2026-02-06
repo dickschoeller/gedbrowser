@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class NullListItemRendererTest {
+final class NullListItemRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -31,7 +31,7 @@ public final class NullListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final RenderingContext anonymousContext = RenderingContext.anonymous(appInfo);
         final DefaultRenderer renderer = new DefaultRenderer(createGedObject(),
             new GedRendererFactory(), anonymousContext);

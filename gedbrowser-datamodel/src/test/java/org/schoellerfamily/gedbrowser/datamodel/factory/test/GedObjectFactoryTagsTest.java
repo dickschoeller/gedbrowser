@@ -13,7 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
-public final class GedObjectFactoryTagsTest {
+final class GedObjectFactoryTagsTest {
     /**
      * The root object for testing.
      */

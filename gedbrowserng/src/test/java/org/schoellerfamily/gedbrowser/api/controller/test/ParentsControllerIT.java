@@ -52,7 +52,7 @@ class ParentsControllerIT {
      * Set up some base objects.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         helper = new ControllerTestHelper(port, restTestClient);
     }
 

@@ -18,13 +18,13 @@ import org.schoellerfamily.geoservice.model.builder.test.GeocodeValidator;
 /**
  * @author Dick Schoeller
  */
-public class GeoServiceItemComparatorTest extends GeocodeValidator {
+class GeoServiceItemComparatorTest extends GeocodeValidator {
     /** */
     private GeoServiceGeocodingResult bgr;
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final double neLat = 10.00;
         final double neLng = 20.00;
         final LngLatAlt northeast = new LngLatAlt(neLng, neLat);

@@ -27,13 +27,13 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public class ApiModelToGedObjectVisitorTest {
+class ApiModelToGedObjectVisitorTest {
     /** */
     private GedObjectBuilder builder;
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         builder = new GedObjectBuilder();
     }
 

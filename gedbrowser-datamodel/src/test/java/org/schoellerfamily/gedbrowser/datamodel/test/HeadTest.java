@@ -21,7 +21,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
-public final class HeadTest {
+final class HeadTest {
     /** */
     private static final int ATTRIBUTE_COUNT = 7;
 

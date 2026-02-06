@@ -33,13 +33,13 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.GodClass", "PMD.TooManyStaticImports" })
-public final class GedObjectBuilderTest {
+final class GedObjectBuilderTest {
     /** */
     private GedObjectBuilder builder;
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         builder = new GedObjectBuilder();
     }
 

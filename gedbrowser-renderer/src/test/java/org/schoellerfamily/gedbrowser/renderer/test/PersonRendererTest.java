@@ -30,7 +30,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
     "PMD.ExcessiveImports" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class PersonRendererTest {
+final class PersonRendererTest {
     /** */
     @Autowired
     private transient TestDataReader reader;

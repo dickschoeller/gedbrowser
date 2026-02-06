@@ -37,7 +37,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class HeadRepositoryIT {
+final class HeadRepositoryIT {
     /** */
     private static final String HEADER_STRING = "Header";
 
@@ -76,7 +76,7 @@ public final class HeadRepositoryIT {
      * @throws IOException because the reader does
      */
     @BeforeEach
-    public void setUp() throws IOException {
+    void setUp() throws IOException {
         repositoryFixture.clearRepository();
 
         root = reader.readBigTestSource();
@@ -103,7 +103,7 @@ public final class HeadRepositoryIT {
 
     /** */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         repositoryFixture.clearRepository();
     }
 

@@ -31,7 +31,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 /**
  * @author Dick Schoeller
  */
-public final class FamilyVisitorTest {
+final class FamilyVisitorTest {
     /** */
     @Test
     void testUninitHusband() {

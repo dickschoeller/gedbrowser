@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class NullPhraseRendererTest {
+final class NullPhraseRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -31,7 +31,7 @@ public final class NullPhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final DefaultRenderer renderer = new DefaultRenderer(createGedObject(),
                 new GedRendererFactory(), RenderingContext.anonymous(appInfo));
         npr = (NullPhraseRenderer) renderer.getPhraseRenderer();

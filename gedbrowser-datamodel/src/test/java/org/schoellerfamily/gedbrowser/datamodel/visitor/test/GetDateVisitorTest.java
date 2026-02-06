@@ -31,7 +31,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 /**
  * @author Dick Schoeller
  */
-public final class GetDateVisitorTest {
+final class GetDateVisitorTest {
     /** */
     @Test
     void testNoPersonsFromUnrelated() {

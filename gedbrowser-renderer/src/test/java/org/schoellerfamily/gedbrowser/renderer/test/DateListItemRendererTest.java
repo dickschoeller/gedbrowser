@@ -23,7 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ContextConfiguration(classes = { TestConfiguration.class })
 @ExtendWith(SpringExtension.class)
-public final class DateListItemRendererTest {
+final class DateListItemRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -42,7 +42,7 @@ public final class DateListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
         attribute = builder.createPersonEvent(person, "String");

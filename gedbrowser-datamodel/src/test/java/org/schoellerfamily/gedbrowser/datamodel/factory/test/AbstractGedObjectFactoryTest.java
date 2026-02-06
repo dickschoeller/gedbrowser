@@ -42,7 +42,7 @@ import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
-public final class AbstractGedObjectFactoryTest {
+final class AbstractGedObjectFactoryTest {
 
     /** */
     private static final GedObjectBuilder BUILDER = new GedObjectBuilder();

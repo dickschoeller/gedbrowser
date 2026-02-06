@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public class RenderingContextTest {
+class RenderingContextTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -31,7 +31,7 @@ public class RenderingContextTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

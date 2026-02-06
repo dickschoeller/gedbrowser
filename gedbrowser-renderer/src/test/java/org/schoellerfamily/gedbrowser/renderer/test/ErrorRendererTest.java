@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public class ErrorRendererTest {
+class ErrorRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -36,7 +36,7 @@ public class ErrorRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         homeUrl = "http://www.schoellerfamily.org/";
         renderer = new ErrorRenderer(appInfo);
     }

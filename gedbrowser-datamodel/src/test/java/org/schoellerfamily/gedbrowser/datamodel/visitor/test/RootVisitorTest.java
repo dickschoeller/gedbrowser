@@ -36,7 +36,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
-public final class RootVisitorTest {
+final class RootVisitorTest {
     /** */
     @Test
     void testBasicGetPersons() {

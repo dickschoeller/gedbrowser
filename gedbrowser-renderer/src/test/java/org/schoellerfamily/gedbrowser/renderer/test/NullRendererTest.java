@@ -33,7 +33,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class NullRendererTest {
+final class NullRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -46,7 +46,7 @@ public final class NullRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
         homeUrl = "http://www.schoellerfamily.org/";
     }

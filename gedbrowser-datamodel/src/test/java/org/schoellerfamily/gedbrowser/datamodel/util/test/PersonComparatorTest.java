@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 /**
  * @author Dick Schoeller
  */
-public class PersonComparatorTest {
+class PersonComparatorTest {
     /** */
     private Person person1;
     /** */
@@ -30,7 +30,7 @@ public class PersonComparatorTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person1 = builder.createPerson("I1",
                 "J. Random/Schoeller/");

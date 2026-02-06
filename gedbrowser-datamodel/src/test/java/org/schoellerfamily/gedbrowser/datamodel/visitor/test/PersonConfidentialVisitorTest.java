@@ -11,7 +11,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonConfidentialVisito
 /**
  * @author Dick Schoeller
  */
-public class PersonConfidentialVisitorTest {
+class PersonConfidentialVisitorTest {
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 

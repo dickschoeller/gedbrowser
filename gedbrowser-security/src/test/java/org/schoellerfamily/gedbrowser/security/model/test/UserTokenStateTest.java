@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
 /**
  * @author Dick Schoeller
  */
-public final class UserTokenStateTest {
+final class UserTokenStateTest {
     /** */
     @Test
     void testDefaultExpiration() {

@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @SuppressWarnings("PMD.ExcessiveImports")
 @Disabled("Selenium tests currently failing in setup phase")
 @Slf4j
-public class MenuNavigationIT {
+class MenuNavigationIT {
 
     /** */
     @Value("${server.host:localhost}")
@@ -80,7 +80,7 @@ public class MenuNavigationIT {
      * @throws MalformedURLException if something goes awry
      */
     @BeforeEach
-    public void setUp(final TestInfo testInfo) throws MalformedURLException {
+    void setUp(final TestInfo testInfo) throws MalformedURLException {
         final String methodName = testInfo.getTestMethod()
                 .map(m -> m.getName()).orElse("unknown");
         if (driver == null) {
@@ -175,7 +175,7 @@ public class MenuNavigationIT {
      * Tear down after test.
      */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         // Quit only if we created the driver locally.
         if (!driverManagedByExtension && driver != null) {
             driver.quit();

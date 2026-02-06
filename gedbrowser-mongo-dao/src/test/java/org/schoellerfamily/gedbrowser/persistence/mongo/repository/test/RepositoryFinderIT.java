@@ -37,7 +37,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
 @SuppressWarnings({ "PMD.TooManyMethods" })
-public final class RepositoryFinderIT {
+final class RepositoryFinderIT {
     /** */
     private static final String BOGUS_ID = "XYZZY";
 

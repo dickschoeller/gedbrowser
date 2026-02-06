@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 /**
  * @author Dick Schoeller
  */
-public final class GetStringComparatorTest {
+final class GetStringComparatorTest {
     /** */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     private static final Object[][] PARAMETERS = { { null, null, Direction.EQUALTO },
@@ -45,7 +45,7 @@ public final class GetStringComparatorTest {
      * @return the stream of test values
      */
     @SuppressWarnings("PMD.MethodReturnsInternalArray")
-    public static Stream<Arguments> params() {
+    static Stream<Arguments> params() {
         return Stream.of(PARAMETERS).map(a -> Arguments.of(a[0], a[1], a[2]));
     }
 

@@ -23,7 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class SourcesRendererTest {
+final class SourcesRendererTest {
     /**
      * Collection of expected values.
      */

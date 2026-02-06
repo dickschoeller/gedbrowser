@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class,
     classes = { GeoCodeBackupTest.ContextConfiguration.class, GeoCodeBackup.class })
-public final class GeoCodeBackupTest {
+final class GeoCodeBackupTest {
     /** */
     @Autowired
     private transient GeoCode gcd;

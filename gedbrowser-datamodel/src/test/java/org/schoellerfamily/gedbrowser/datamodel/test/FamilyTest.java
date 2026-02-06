@@ -28,7 +28,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
-public final class FamilyTest {
+final class FamilyTest {
     /** */
     private static final int F1_ATTRS_LENGTH = 4;
     /** */
@@ -44,7 +44,7 @@ public final class FamilyTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         family1 = builder.createFamily("F1");
         person1 = builder.createPerson(

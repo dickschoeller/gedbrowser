@@ -23,7 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class PlaceListItemRendererTest {
+final class PlaceListItemRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -39,7 +39,7 @@ public final class PlaceListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
         attribute = new Attribute(person, "String", "");

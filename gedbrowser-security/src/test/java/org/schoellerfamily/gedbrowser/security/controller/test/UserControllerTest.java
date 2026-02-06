@@ -44,7 +44,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
-public final class UserControllerTest {
+final class UserControllerTest {
     /** */
     private static final int MILLIS_PER_SECOND = 1000;
 

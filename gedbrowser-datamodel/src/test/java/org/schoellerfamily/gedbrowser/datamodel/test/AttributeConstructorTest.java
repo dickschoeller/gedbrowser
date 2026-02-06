@@ -19,13 +19,13 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  *
  * @author Dick Schoeller
  */
-public final class AttributeConstructorTest {
+final class AttributeConstructorTest {
 
     /**
      * @return stream of argument arrays
      */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
-    public static Stream<Arguments> params() {
+    static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1", "J. Random/Schoeller/");
 

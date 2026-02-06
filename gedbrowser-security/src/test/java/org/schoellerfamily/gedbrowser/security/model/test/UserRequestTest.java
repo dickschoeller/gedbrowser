@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 /**
  * @author Dick Schoeller
  */
-public class UserRequestTest {
+class UserRequestTest {
     /** */
     @Test
     void testDefaultUsername() {

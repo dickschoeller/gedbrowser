@@ -8,7 +8,7 @@ import org.schoellerfamily.gedbrowser.security.exception.ExceptionResponse;
 /**
  * @author Dick Schoeller
  */
-public class ExceptionResponseTest {
+class ExceptionResponseTest {
     /** */
     @Test
     void testMessage() {

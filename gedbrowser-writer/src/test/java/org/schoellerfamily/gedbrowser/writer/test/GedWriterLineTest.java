@@ -30,13 +30,13 @@ import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor
 /**
  * @author Dick Schoeller
  */
-public class GedWriterLineTest {
+class GedWriterLineTest {
     /** */
     private GedObjectToGedWriterVisitor gedLineCreator;
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         gedLineCreator = new GedObjectToGedWriterVisitor();
         final Root root = builder.getRoot();

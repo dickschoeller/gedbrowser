@@ -11,13 +11,13 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ImageUtils;
 /**
  * @author Dick Schoeller
  */
-public class ImageUtilsTest {
+class ImageUtilsTest {
     /** */
     private ImageUtils imageUtils;
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.imageUtils = new ImageUtils();
     }
 

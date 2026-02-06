@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Dick Schoeller
  */
 @Slf4j
-public class GedWriterLinesTest {
+class GedWriterLinesTest {
 
     /**
      * This array contains the expected output and messages to go along with.

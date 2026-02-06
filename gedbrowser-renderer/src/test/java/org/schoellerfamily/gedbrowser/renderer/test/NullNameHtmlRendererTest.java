@@ -10,13 +10,13 @@ import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 /**
  * @author Dick Schoeller
  */
-public final class NullNameHtmlRendererTest {
+final class NullNameHtmlRendererTest {
     /** */
     private transient NameHtmlRenderer nameHtmlRenderer;
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         nameHtmlRenderer = new NullNameHtmlRenderer();
     }
 
