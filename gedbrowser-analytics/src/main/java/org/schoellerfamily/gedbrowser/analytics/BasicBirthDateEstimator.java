@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.analytics;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.analytics.visitor.PersonAnalysisVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -113,7 +114,7 @@ public class BasicBirthDateEstimator extends Estimator {
      */
     private LocalDate estimateFromEvent(final GedObject gob,
             final String dateString) {
-        if (dateString == null || dateString.isEmpty()) {
+        if (StringUtils.isEmpty(dateString)) {
             return null;
         }
         LocalDate date = createLocalDate(dateString);

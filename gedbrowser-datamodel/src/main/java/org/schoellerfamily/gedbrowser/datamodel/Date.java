@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.schoellerfamily.gedbrowser.datamodel.util.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
@@ -46,7 +48,7 @@ public final class Date extends AbstractAttribute {
      * @return the year as a string.
      */
     public String getYear() {
-        if (getString() == null || getString().isEmpty()) {
+        if (StringUtils.isEmpty(getString())) {
             return "";
         }
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy",
@@ -58,7 +60,7 @@ public final class Date extends AbstractAttribute {
      * @return the string in a sortable format.
      */
     public String getSortDate() {
-        if (getString() == null || getString().isEmpty()) {
+        if (StringUtils.isEmpty(getString())) {
             return "";
         }
         final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd",

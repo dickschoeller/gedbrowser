@@ -2,6 +2,8 @@ package org.schoellerfamily.geoservice.persistence.fixture;
 
 import java.util.Arrays;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 
 /**
@@ -162,7 +164,7 @@ public class GeoCodeTestFixture {
      */
     private void load(final String[][] strings, final GeoCode gcc) {
         for (final String[] line : strings) {
-            if (line.length < 2 || line[1] == null || line[1].isEmpty()) {
+            if (line.length < 2 || StringUtils.isEmpty(line[1])) {
                 gcc.find(line[0]);
             } else {
                 gcc.find(line[0], line[1]);
