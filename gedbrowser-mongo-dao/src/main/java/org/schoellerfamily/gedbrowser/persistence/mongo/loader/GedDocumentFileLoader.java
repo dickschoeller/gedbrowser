@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,6 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 
 import org.apache.commons.lang3.StringUtils;
-
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
@@ -129,7 +130,7 @@ public class GedDocumentFileLoader {
 
         // Normalize path to ensure it doesn't resolve to a directory path
         try {
-            final java.nio.file.Path normalizedPath = Paths.get(dbName).normalize();
+            final Path normalizedPath = Paths.get(dbName).normalize();
 
             // Verify the path has no parent (i.e., it's just a filename, not a path with
             // directories)
@@ -138,14 +139,21 @@ public class GedDocumentFileLoader {
                     "Database name contains path components: " + dbName);
             }
 
+            // Verify the filename component is not null.
+            final Path fileNamePath = normalizedPath.getFileName();
+            if (fileNamePath == null) {
+                throw new IllegalArgumentException(
+                    "Database name does not contain a valid filename: " + dbName);
+            }
+
             // Verify the filename component matches the input
             // This ensures no path manipulation occurred during normalization
-            final String filename = normalizedPath.getFileName().toString();
+            final String filename = fileNamePath.toString();
             if (!filename.equals(dbName)) {
                 throw new IllegalArgumentException(
                     "Database name contains path components: " + dbName);
             }
-        } catch (java.nio.file.InvalidPathException e) {
+        } catch (InvalidPathException e) {
             throw new IllegalArgumentException(
                 "Database name is not a valid path: " + dbName, e);
         }

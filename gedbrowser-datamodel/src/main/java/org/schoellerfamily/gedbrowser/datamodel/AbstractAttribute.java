@@ -8,14 +8,14 @@ public abstract class AbstractAttribute extends GedObject {
     /**
      * Null object constructor.
      */
-    public AbstractAttribute() {
+    protected AbstractAttribute() {
         super();
     }
 
     /**
      * @param parent parent object of this attribute
      */
-    public AbstractAttribute(final GedObject parent) {
+    protected AbstractAttribute(final GedObject parent) {
         super(parent);
     }
 
@@ -23,7 +23,7 @@ public abstract class AbstractAttribute extends GedObject {
      * @param parent parent object of this attribute
      * @param string long version of type string
      */
-    public AbstractAttribute(final GedObject parent, final String string) {
+    protected AbstractAttribute(final GedObject parent, final String string) {
         super(parent, string);
     }
 }

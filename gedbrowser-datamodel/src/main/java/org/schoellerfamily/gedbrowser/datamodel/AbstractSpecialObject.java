@@ -7,7 +7,7 @@ public abstract class AbstractSpecialObject extends GedObject {
     /**
      * Default constructor.
      */
-    public AbstractSpecialObject() {
+    protected AbstractSpecialObject() {
         super();
     }
 
@@ -15,7 +15,7 @@ public abstract class AbstractSpecialObject extends GedObject {
      * @param parent parent object of this attribute
      * @param string long version of type string
      */
-    public AbstractSpecialObject(final GedObject parent, final String string) {
+    protected AbstractSpecialObject(final GedObject parent, final String string) {
         super(parent, string);
     }
 }

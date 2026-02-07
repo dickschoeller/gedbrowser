@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzerResult;
 import org.schoellerfamily.gedbrowser.analytics.test.TestConfiguration;
@@ -198,53 +200,21 @@ final class OrderAnalyzerDeathTest implements AnalyzerTest {
     }
 
     /** */
-    @Test
-    void testDeathIsDeathRelated() {
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "Death",
+        "Burial",
+        "Cremation",
+        "Headstone unveiling",
+        "Will"
+    })
+    void testIsDeathRelated(final String eventType) {
         final Person person1 = createJRandom();
-        final Attribute event =
-                builder.createPersonEvent(person1, "Death");
+        final Attribute event = "Headstone unveiling".equals(eventType)
+            ? builder.createPersonEvent(person1, eventType)
+            : builder.createPersonEvent(person1, eventType);
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
-        assertTrue(analyzer.isDeathRelatedEvent(event), "Death is death related");
-    }
-
-    /** */
-    @Test
-    void testBurialIsDeathRelated() {
-        final Person person1 = createJRandom();
-        final Attribute event =
-                builder.createPersonEvent(person1, "Burial");
-        final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
-        assertTrue(analyzer.isDeathRelatedEvent(event), "Burial is death related");
-    }
-
-    /** */
-    @Test
-    void testCremationIsDeathRelated() {
-        final Person person1 = createJRandom();
-        final Attribute event =
-                builder.createPersonEvent(person1, "Cremation");
-        final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
-        assertTrue(analyzer.isDeathRelatedEvent(event), "Cremation is death related");
-    }
-
-    /** */
-    @Test
-    void testUnveilingIsDeathRelated() {
-        final Person person1 = createJRandom();
-        final Attribute event = builder.createPersonEvent(
-                person1, "Headstone unveiling");
-        final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
-        assertTrue(analyzer.isDeathRelatedEvent(event), "Unveiling is death related");
-    }
-
-    /** */
-    @Test
-    void testWillIsDeathRelated() {
-        final Person person1 = createJRandom();
-        final Attribute event =
-                builder.createPersonEvent(person1, "Will");
-        final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
-        assertTrue(analyzer.isDeathRelatedEvent(event), "Will is death related");
+        assertTrue(analyzer.isDeathRelatedEvent(event), eventType + " is death related");
     }
 
     /** */
@@ -278,52 +248,30 @@ final class OrderAnalyzerDeathTest implements AnalyzerTest {
     }
 
     /** */
-    @Test
-    void testUnveilingIsPostDeath() {
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "Burial",
+        "Cremation",
+        "Headstone unveiling",
+        "Funeral"
+    })
+    void testIsPostDeath(final String eventType) {
         final Person person1 = createJRandom();
-        final Attribute event = builder.createPersonEvent(
-                person1, "Headstone unveiling");
+        final Attribute event = builder.createPersonEvent(person1, eventType);
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
-        assertTrue(analyzer.isPostDeathEvent(event), "Unveiling is post death");
+        assertTrue(analyzer.isPostDeathEvent(event), eventType + " is post death");
     }
 
     /** */
-    @Test
-    void testFuneralIsPostDeath() {
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "Death",
+        "Will"
+    })
+    void testIsNotPostDeath(final String eventType) {
         final Person person1 = createJRandom();
-        final Attribute event =
-                builder.createPersonEvent(person1, "Funeral");
+        final Attribute event = builder.createPersonEvent(person1, eventType);
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
-        assertTrue(analyzer.isPostDeathEvent(event), "Funeral is post death");
-    }
-
-    /** */
-    @Test
-    void testWillIsNotPostDeath() {
-        final Person person1 = createJRandom();
-        final Attribute event = builder.createPersonEvent(
-                person1, "Will");
-        final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
-        assertFalse(analyzer.isPostDeathEvent(event), "Will is not post death");
-    }
-
-    /** */
-    @Test
-    void testDeathIsNotUnordered() {
-        final Person person1 = createJRandom();
-        final Attribute event = builder.createPersonEvent(
-                person1, "Death");
-        final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
-        assertFalse(analyzer.isUnorderedEvent(event), "Death is ordered");
-    }
-
-    /** */
-    @Test
-    void testWillIsUnordered() {
-        final Person person1 = createJRandom();
-        final Attribute event = builder.createPersonEvent(
-                person1, "Will");
-        final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
-        assertTrue(analyzer.isUnorderedEvent(event), "Will is unordered");
+        assertFalse(analyzer.isPostDeathEvent(event), eventType + " is not post death");
     }
 }

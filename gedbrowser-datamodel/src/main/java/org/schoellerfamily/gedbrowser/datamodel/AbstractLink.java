@@ -16,7 +16,7 @@ public abstract class AbstractLink extends GedObject {
     /**
      * Default constructor.
      */
-    public AbstractLink() {
+    protected AbstractLink() {
         super();
     }
 
@@ -24,7 +24,7 @@ public abstract class AbstractLink extends GedObject {
      * @param parent
      *            parent object of this link
      */
-    public AbstractLink(final GedObject parent) {
+    protected AbstractLink(final GedObject parent) {
         super(parent);
         initLink(new ObjectId(""));
     }
@@ -35,7 +35,7 @@ public abstract class AbstractLink extends GedObject {
      * @param string
      *            long version of type string
      */
-    public AbstractLink(final GedObject parent, final String string) {
+    protected AbstractLink(final GedObject parent, final String string) {
         super(parent, string);
         initLink(new ObjectId(""));
     }
@@ -48,7 +48,7 @@ public abstract class AbstractLink extends GedObject {
      * @param tail
      *            ID string of referred object
      */
-    public AbstractLink(final GedObject parent, final String string,
+    protected AbstractLink(final GedObject parent, final String string,
             final ObjectId tail) {
         super(parent, string);
         initLink(tail);
