@@ -10,6 +10,8 @@ import java.io.IOException;
 import org.joda.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzer;
 import org.schoellerfamily.gedbrowser.analytics.order.OrderAnalyzerResult;
 import org.schoellerfamily.gedbrowser.analytics.test.TestConfiguration;
@@ -146,41 +148,17 @@ final class OrderAnalyzerTest implements AnalyzerTest {
     }
 
     /** */
-    @Test
-    void testPersonWithBaptismAfterNonBirthMismatch() {
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "Baptism",
+        "Christening",
+        "Naming",
+        "Birth"
+    })
+    void testBirthEventAfterNonBirthMismatch(final String birthEventType) {
         final Person person = createJRandom();
         personBuilder().createPersonEvent(person, "Education");
-        personBuilder().createPersonEvent(person, "Baptism");
-        final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
-    }
-
-    /** */
-    @Test
-    void testPersonWithChristeningAfterNonBirthMismatch() {
-        final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Education");
-        personBuilder().createPersonEvent(person, "Christening");
-        final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
-    }
-
-    /** */
-    @Test
-    void testPersonWithNamingAfterNonBirthMismatch() {
-        final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Education");
-        personBuilder().createPersonEvent(person, "Naming");
-        final OrderAnalyzerResult result = wrapper.analyze(person);
-        assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
-    }
-
-    /** */
-    @Test
-    void testPersonWithBirthAfterNonBirthMismatch() {
-        final Person person = createJRandom();
-        personBuilder().createPersonEvent(person, "Education");
-        personBuilder().createPersonEvent(person, "Birth");
+        personBuilder().createPersonEvent(person, birthEventType);
         final OrderAnalyzerResult result = wrapper.analyze(person);
         assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
     }

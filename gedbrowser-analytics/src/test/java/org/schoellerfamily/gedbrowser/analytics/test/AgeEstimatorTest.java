@@ -2,8 +2,9 @@ package org.schoellerfamily.gedbrowser.analytics.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.schoellerfamily.gedbrowser.analytics.AgeEstimator;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.order.test.AnalyzerTest;
@@ -39,292 +40,61 @@ final class AgeEstimatorTest implements AnalyzerTest {
     }
 
     /**
-     * Test against Dick's data.
+     * Test against a variety of birth date formats.
+     *
+     * @param birthDate birth date string
+     * @param expectedAge expected age in years
      */
-    @Test
-    void testDick() {
+    @ParameterizedTest(name = "birth={0} -> age={1}")
+    @CsvSource({
+        "'14 DEC 1958', 57",
+        "'09 MAY 1960', 55",
+        "'01 JAN 1960', 55",
+        "'31 DEC 1960', 54",
+        "'BEF 1960', 55",
+        "'BEF DEC 1960', 55",
+        "'BEF 13 DEC 1960', 55",
+        "'BEF 14 DEC 1960', 55",
+        "'BEF 15 DEC 1960', 55",
+        "'BEF 16 DEC 1960', 54",
+        "'AFT 1960', 54",
+        "'AFT DEC 1960', 54",
+        "'AFT JAN 1960', 55",
+        "'AFT 12 DEC 1960', 55",
+        "'AFT 13 DEC 1960', 55",
+        "'AFT 14 DEC 1960', 54",
+        "'AFT 15 DEC 1960', 54"
+    })
+    void testEstimateInYears(final String birthDate,
+            final int expectedAge) {
         final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "14 DEC 1958");
+        builder.createPersonEvent(person, "Birth", birthDate);
 
-        final int ageAtReferenceDate = 57;
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 57");
+        assertEquals(expectedAge, estimator.estimateInYears(),
+                "estimate does not match expected value of " + expectedAge);
     }
 
     /**
-     * Test against Lisa's data.
+     * Test formatting for years/months/days estimation.
+     *
+     * @param birthDate birth date string
+     * @param expected expected formatted age string
      */
-    @Test
-    void testLisa() {
+    @ParameterizedTest(name = "birth={0} -> {1}")
+    @CsvSource({
+        "'13 DEC 1960', '55 years, 1 day'",
+        "'13 JAN 1961', '54 years, 11 months, 1 day'",
+        "'16 DEC 1960', '54 years, 11 months, 28 days'",
+        "'14 JAN 1961', '54 years, 11 months'"
+    })
+    void testEstimateInYearsMonthsDays(final String birthDate,
+            final String expected) {
         final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "09 MAY 1960");
-
-        final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     * Test against a January 1st birth.
-     */
-    @Test
-    void testBeginYear() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "01 JAN 1960");
-
-        final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     * Test against a December 31st birth.
-     */
-    @Test
-    void testEndYear() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "31 DEC 1960");
-
-        final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 54");
-    }
-
-    /**
-     * Test a birth date that is just before some year.
-     */
-    @Test
-    void testBeforeYear() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "BEF 1960");
-
-        final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     * Test a birth date that is before the same month as the reference.
-     */
-    @Test
-    void testBeforeMonth() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "BEF DEC 1960");
-
-        final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     * Test a date that is before the day before the reference.
-     */
-    @Test
-    void testBeforeTheDayBeforeTheReference() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "BEF 13 DEC 1960");
-
-        final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     * Test a date that is before the reference date.
-     */
-    @Test
-    void testBeforeTheReference() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "BEF 14 DEC 1960");
-
-        final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     * Test a birth date that is before the day after the reference.
-     */
-    @Test
-    void testBeforeTheDayAfterTheReference() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "BEF 15 DEC 1960");
-
-        final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     * Test a birth date that is before 2 days after the reference.
-     */
-    @Test
-    void testBeforeTwoDaysAfterTheReference() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "BEF 16 DEC 1960");
-
-        final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 54");
-    }
-
-    /**
-     * Test a birth date that is after a year.
-     */
-    @Test
-    void testAfterYear() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "AFT 1960");
-
-        final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 54");
-    }
-
-    /**
-     * Test a birth date that is after the same month as the reference.
-     */
-    @Test
-    void testAfterReferenceMonth() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "AFT DEC 1960");
-
-        final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 54");
-    }
-
-    /**
-     * Test a date that is after the first month of the year.
-     */
-    @Test
-    void testAfterJanuary() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "AFT JAN 1960");
-
-        final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     * Test a birthday after 2 days before the reference date.
-     */
-    @Test
-    void testAfterTwoDaysBeforeTheReference() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "AFT 12 DEC 1960");
-
-        final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     * Test a birthday after the day before the reference date.
-     */
-    @Test
-    void testAfterTheDayBeforeTheReference() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "AFT 13 DEC 1960");
-
-        final int ageAtReferenceDate = 55;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     *  Test a birthday after the reference date.
-     */
-    @Test
-    void testAfterTheReference() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "AFT 14 DEC 1960");
-
-        final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 55");
-    }
-
-    /**
-     * Test a birthday after the day after the reference date.
-     */
-    @Test
-    void testAfterTheDayAfterTheReference() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "AFT 15 DEC 1960");
-
-        final int ageAtReferenceDate = 54;
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals(ageAtReferenceDate, estimator.estimateInYears(),
-                "estimate does not match expected value of 54");
-    }
-
-    /**
-     * Test a date whose string has years, no months and a single day.
-     */
-    @Test
-    void testYearsDay() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "13 DEC 1960");
+        builder.createPersonEvent(person, "Birth", birthDate);
 
         final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("55 years, 1 day", estimator.estimateInYearsMonthsDays(),
-                "estimate string doesn't match");
-    }
-
-    /**
-     * Test a date whose string has years, months and a single day.
-     */
-    @Test
-    void testYearsMonthsDay() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "13 JAN 1961");
-
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("54 years, 11 months, 1 day", estimator.estimateInYearsMonthsDays(),
-                "estimate string doesn't match");
-    }
-
-    /**
-     * Test a date whose string has years, months and days.
-     */
-    @Test
-    void testYearsMonthsDays() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "16 DEC 1960");
-
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("54 years, 11 months, 28 days", estimator.estimateInYearsMonthsDays(),
-                "estimate string doesn't match");
-    }
-
-    /**
-     * Test a date whose string has years and months but no days.
-     */
-    @Test
-    void testYearsMonths() {
-        final Person person = createJRandom();
-        builder.createPersonEvent(person, "Birth", "14 JAN 1961");
-
-        final AgeEstimator estimator = new AgeEstimator(person, provider);
-        assertEquals("54 years, 11 months", estimator.estimateInYearsMonthsDays(),
+        assertEquals(expected, estimator.estimateInYearsMonthsDays(),
                 "estimate string doesn't match");
     }
 }

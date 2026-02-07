@@ -15,7 +15,7 @@ public abstract class AbstractFinderObject implements FinderObject {
     /**
      * Constructor.
      */
-    public AbstractFinderObject() {
+    protected AbstractFinderObject() {
         finder = new ParentFinder();
     }
 

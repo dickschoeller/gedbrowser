@@ -1,13 +1,18 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.loader.test;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
@@ -66,124 +71,47 @@ class GedDocumentFileLoaderIT {
         assertNull(loader.loadDocument(repositoryManager, "foofy"), "Should be not found");
     }
 
-    /** */
-    @Test
-    void testPathTraversalWithDoubleDots() {
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = {
+        "../../../etc/passwd",
+        "foo/bar",
+        "foo\\bar",
+        "C:\\windows\\system32",
+        "bad:name",
+        "",
+        "\u0000",
+        "filename.txt:stream",
+        "CON",
+        "PRN",
+        "AUX",
+        "NUL",
+        "COM1",
+        "LPT1",
+        "CON.txt",
+        "con"
+    })
+    void testInvalidDatabaseNames(final String databaseName) {
         loader.reset(repositoryManager);
         assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "../../../etc/passwd"));
+            .isThrownBy(() -> loader.loadDocument(repositoryManager, databaseName));
     }
 
-    /** */
-    @Test
-    void testPathTraversalWithForwardSlash() {
+    /**
+     * Test that valid database names with hyphens, underscores, and digits pass validation.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "my-database",
+        "data_2024",
+        "test123",
+        "valid.name",
+        "MiniSchoeller"
+    })
+    void testValidDatabaseNames(final String databaseName) {
         loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "foo/bar"));
-    }
-
-    /** */
-    @Test
-    void testPathTraversalWithBackslash() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "foo\\bar"));
-    }
-
-    /** */
-    @Test
-    void testPathTraversalWithWindowsDrive() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "C:\\windows\\system32"));
-    }
-
-    /** */
-    @Test
-    void testPathTraversalWithColonOnly() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "bad:name"));
-    }
-
-    /** */
-    @Test
-    void testEmptyDatabaseName() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, ""));
-    }
-
-    /** */
-    @Test
-    void testNtfsAlternateDataStream() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "filename.txt:stream"));
-    }
-
-    /** */
-    @Test
-    void testWindowsReservedNameCON() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "CON"));
-    }
-
-    /** */
-    @Test
-    void testWindowsReservedNamePRN() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "PRN"));
-    }
-
-    /** */
-    @Test
-    void testWindowsReservedNameAUX() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "AUX"));
-    }
-
-    /** */
-    @Test
-    void testWindowsReservedNameNUL() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "NUL"));
-    }
-
-    /** */
-    @Test
-    void testWindowsReservedNameCOM1() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "COM1"));
-    }
-
-    /** */
-    @Test
-    void testWindowsReservedNameLPT1() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "LPT1"));
-    }
-
-    /** */
-    @Test
-    void testWindowsReservedNameWithExtension() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "CON.txt"));
-    }
-
-    /** */
-    @Test
-    void testWindowsReservedNameLowerCase() {
-        loader.reset(repositoryManager);
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> loader.loadDocument(repositoryManager, "con"));
+        assertThatCode(() -> loader.loadDocument(repositoryManager, databaseName))
+            .doesNotThrowAnyException();
     }
 
     /** */
@@ -196,6 +124,7 @@ class GedDocumentFileLoaderIT {
     }
 
     /** */
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     @Test
     void testDetails() {
         loader.reset(repositoryManager);
@@ -205,6 +134,7 @@ class GedDocumentFileLoaderIT {
     }
 
     /** */
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     @Test
     void testAllDetails() {
         loader.reset(repositoryManager);
@@ -235,8 +165,16 @@ class GedDocumentFileLoaderIT {
         loader.reset(repositoryManager);
         final RootDocument rootDocument1 = loader.loadDocument(repositoryManager, "mini-schoeller");
         final RootDocument resultDoc = loader.loadDocument(repositoryManager, "mini-schoeller");
-        checkSame(rootDocument1, resultDoc);
-        assertJustThisOne(resultDoc);
+        boolean singleMatch = false;
+        int count = 0;
+        for (final RootDocument foundDoc : findAll()) {
+            count++;
+            singleMatch = rootDocument1 != null
+                && resultDoc != null
+                && rootDocument1.getIdString().equals(resultDoc.getIdString())
+                && resultDoc.getIdString().equals(foundDoc.getIdString());
+        }
+        assertTrue(singleMatch && count == 1, "expected a single reloaded document");
     }
 
     /**
