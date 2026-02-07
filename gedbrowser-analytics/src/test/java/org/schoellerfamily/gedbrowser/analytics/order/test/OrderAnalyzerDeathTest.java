@@ -210,9 +210,8 @@ final class OrderAnalyzerDeathTest implements AnalyzerTest {
     })
     void testIsDeathRelated(final String eventType) {
         final Person person1 = createJRandom();
-        final Attribute event = "Headstone unveiling".equals(eventType)
-            ? builder.createPersonEvent(person1, eventType)
-            : builder.createPersonEvent(person1, eventType);
+        final Attribute event =
+                builder.createPersonEvent(person1, eventType);
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertTrue(analyzer.isDeathRelatedEvent(event), eventType + " is death related");
     }
@@ -273,5 +272,23 @@ final class OrderAnalyzerDeathTest implements AnalyzerTest {
         final Attribute event = builder.createPersonEvent(person1, eventType);
         final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
         assertFalse(analyzer.isPostDeathEvent(event), eventType + " is not post death");
+    }
+
+    /** */
+    @Test
+    void testWillIsUnorderedEvent() {
+        final Person person1 = createJRandom();
+        final Attribute event = builder.createPersonEvent(person1, "Will");
+        final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
+        assertTrue(analyzer.isUnorderedEvent(event), "Will is unordered event");
+    }
+
+    /** */
+    @Test
+    void testDeathIsNotUnorderedEvent() {
+        final Person person1 = createJRandom();
+        final Attribute event = builder.createPersonEvent(person1, "Death");
+        final OrderAnalyzer analyzer = new OrderAnalyzer(person1);
+        assertFalse(analyzer.isUnorderedEvent(event), "Death is not unordered event");
     }
 }
