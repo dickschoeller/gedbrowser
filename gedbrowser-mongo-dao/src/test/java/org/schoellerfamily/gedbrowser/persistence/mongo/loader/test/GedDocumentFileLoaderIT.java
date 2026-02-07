@@ -1,10 +1,10 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.loader.test;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -110,13 +110,8 @@ class GedDocumentFileLoaderIT {
     })
     void testValidDatabaseNames(final String databaseName) {
         loader.reset(repositoryManager);
-        // Should not throw any exceptions - this is a validation test
-        // If loadDocument throws IllegalArgumentException, the test fails
-        try {
-            loader.loadDocument(repositoryManager, databaseName);
-        } catch (IllegalArgumentException e) {
-            fail("Valid database name should not throw exception: " + databaseName, e);
-        }
+        assertThatCode(() -> loader.loadDocument(repositoryManager, databaseName))
+            .doesNotThrowAnyException();
     }
 
     /** */
