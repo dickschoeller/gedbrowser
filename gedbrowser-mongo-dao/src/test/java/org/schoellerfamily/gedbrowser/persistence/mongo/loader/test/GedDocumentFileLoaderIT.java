@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -94,6 +95,28 @@ class GedDocumentFileLoaderIT {
         loader.reset(repositoryManager);
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> loader.loadDocument(repositoryManager, databaseName));
+    }
+
+    /**
+     * Test that valid database names with hyphens, underscores, and digits pass validation.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "my-database",
+        "data_2024",
+        "test123",
+        "valid.name",
+        "MiniSchoeller"
+    })
+    void testValidDatabaseNames(final String databaseName) {
+        loader.reset(repositoryManager);
+        // Should not throw any exceptions - this is a validation test
+        // If loadDocument throws IllegalArgumentException, the test fails
+        try {
+            loader.loadDocument(repositoryManager, databaseName);
+        } catch (IllegalArgumentException e) {
+            fail("Valid database name should not throw exception: " + databaseName, e);
+        }
     }
 
     /** */
