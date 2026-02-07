@@ -12,7 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UsersImpl;
 /**
  * @author Dick Schoeller
  */
-public final class UsersImplTest {
+final class UsersImplTest {
     @Test
     void testAddGet() {
         final Users<User> users = new UsersImpl<>();

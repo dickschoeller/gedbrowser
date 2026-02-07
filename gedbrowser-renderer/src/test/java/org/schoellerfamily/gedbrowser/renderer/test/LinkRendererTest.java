@@ -24,7 +24,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class LinkRendererTest {
+final class LinkRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -34,7 +34,7 @@ public final class LinkRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

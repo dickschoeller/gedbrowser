@@ -25,7 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public final class SubmissionRepositoryIT {
+final class SubmissionRepositoryIT {
     /** */
     @Autowired
     private transient SubmissionDocumentRepositoryMongo submissionDocumentRepository;
@@ -46,7 +46,7 @@ public final class SubmissionRepositoryIT {
      * @throws IOException because the reader does
      */
     @BeforeEach
-    public void setUp() throws IOException {
+    void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
         rootDocument.setFilename(root.getFilename());
@@ -56,7 +56,7 @@ public final class SubmissionRepositoryIT {
 
     /** */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         repositoryFixture.clearRepository();
     }
 

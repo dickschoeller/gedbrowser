@@ -23,7 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ContextConfiguration(classes = { TestConfiguration.class })
 @ExtendWith(SpringExtension.class)
-public final class NameNameHtmlRendererTest {
+final class NameNameHtmlRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -36,7 +36,7 @@ public final class NameNameHtmlRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         anonymousContext = RenderingContext.anonymous(appInfo);

@@ -11,7 +11,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public final class TrailerTest {
+final class TrailerTest {
     /** */
     @Test
     void testTrailerGedObject() {

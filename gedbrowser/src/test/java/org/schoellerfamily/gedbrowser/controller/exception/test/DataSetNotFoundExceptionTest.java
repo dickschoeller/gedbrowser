@@ -9,13 +9,13 @@ import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundExcept
 /**
  * @author Dick Schoeller
  */
-public class DataSetNotFoundExceptionTest {
+class DataSetNotFoundExceptionTest {
     /** */
     private DataSetNotFoundException exception;
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         exception = new DataSetNotFoundException("Data set not found", "xyzzy");
     }
 

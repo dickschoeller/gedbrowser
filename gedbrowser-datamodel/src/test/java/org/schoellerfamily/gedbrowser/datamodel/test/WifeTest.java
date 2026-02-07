@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public final class WifeTest {
+final class WifeTest {
     /** */
     private static final String WIFE_TAG = "WIFE";
     /** */
@@ -31,7 +31,7 @@ public final class WifeTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person1 = builder.createPerson("I1");
         person2 = builder.createPerson("I2");

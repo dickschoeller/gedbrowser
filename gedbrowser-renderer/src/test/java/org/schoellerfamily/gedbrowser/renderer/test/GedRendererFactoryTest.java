@@ -67,7 +67,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SuppressWarnings({ "PMD.ExcessiveImports" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class GedRendererFactoryTest {
+final class GedRendererFactoryTest {
     /** */
     @Autowired
     private transient CalendarProvider provider;
@@ -83,7 +83,7 @@ public final class GedRendererFactoryTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         grf = new GedRendererFactory();
     }
 

@@ -36,7 +36,7 @@ public final class ApplicationInfoRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         homeUrl = "http://www.schoellerfamily.org/";
         renderer = new ApplicationInfoRenderer(appInfo) {
         };

@@ -23,7 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class MultimediaRendererTest {
+final class MultimediaRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -33,7 +33,7 @@ public final class MultimediaRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

@@ -27,7 +27,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class LivingEstimatorTest {
+final class LivingEstimatorTest {
     /** Divide output into buckets of 10 years. */
     private static final int AGE_BUCKET_SIZE = 10;
     /** Anybody estimated at over 100 is assumed dead. */

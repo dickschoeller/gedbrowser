@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @ContextConfiguration(classes = SeleniumConfig.class)
 @Disabled("Example; enable when SAUCE_USERNAME/SAUCE_ACCESS_KEY are configured")
 @Slf4j
-public class SauceBindingsExampleIT {
+class SauceBindingsExampleIT {
     /** Factory to create WebDriver instances. */
     @Autowired
     private WebDriverFactory driverFactory;

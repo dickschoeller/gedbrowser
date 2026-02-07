@@ -13,7 +13,7 @@ import nl.jqno.equalsverifier.Warning;
 /**
  * @author Dick Schoeller
  */
-public final class ApiFamilyTest {
+final class ApiFamilyTest {
     /** */
     @Test
     void testDefaultConstructorType() {

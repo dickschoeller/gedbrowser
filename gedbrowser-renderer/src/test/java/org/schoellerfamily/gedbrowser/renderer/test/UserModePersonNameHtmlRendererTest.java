@@ -22,7 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class UserModePersonNameHtmlRendererTest {
+final class UserModePersonNameHtmlRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -35,7 +35,7 @@ public final class UserModePersonNameHtmlRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         renderingContext = RenderingContext.user(appInfo);

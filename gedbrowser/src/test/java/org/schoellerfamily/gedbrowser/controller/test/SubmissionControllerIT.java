@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-public class SubmissionControllerIT implements MenuTestHelper {
+class SubmissionControllerIT implements MenuTestHelper {
     /**
      * Not sure what this is good for.
      */

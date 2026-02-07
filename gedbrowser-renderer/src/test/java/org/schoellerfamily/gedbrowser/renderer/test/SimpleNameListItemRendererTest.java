@@ -20,7 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class SimpleNameListItemRendererTest {
+final class SimpleNameListItemRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -36,7 +36,7 @@ public final class SimpleNameListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

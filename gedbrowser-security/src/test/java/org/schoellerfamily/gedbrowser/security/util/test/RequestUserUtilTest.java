@@ -18,7 +18,7 @@ import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.util.RequestUserUtil;
 import org.springframework.security.core.GrantedAuthority;
 
-public class RequestUserUtilTest {
+class RequestUserUtilTest {
     @Test
     void testGood() {
         final StubPrincipal principal = new StubPrincipal("fred");

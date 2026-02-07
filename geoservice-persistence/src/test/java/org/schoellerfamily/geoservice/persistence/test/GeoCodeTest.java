@@ -43,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.ExcessivePublicCount", "PMD.TooManyMethods" })
 @Slf4j
-public final class GeoCodeTest {
+final class GeoCodeTest {
 
     /** */
     @Value("${geoservice.dummyfile:/foo}")

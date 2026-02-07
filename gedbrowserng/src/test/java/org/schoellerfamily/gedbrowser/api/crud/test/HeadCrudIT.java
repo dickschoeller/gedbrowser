@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @Slf4j
-public class HeadCrudIT {
+class HeadCrudIT {
 
     /** */
     @Autowired
@@ -45,7 +45,7 @@ public class HeadCrudIT {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         crud = new HeadCrud(loader, toDocConverter, repositoryManager);
     }
 

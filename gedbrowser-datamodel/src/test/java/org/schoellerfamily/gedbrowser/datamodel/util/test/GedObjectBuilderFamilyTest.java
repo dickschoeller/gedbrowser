@@ -17,7 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 /**
  * @author Dick Schoeller
  */
-public final class GedObjectBuilderFamilyTest {
+final class GedObjectBuilderFamilyTest {
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 

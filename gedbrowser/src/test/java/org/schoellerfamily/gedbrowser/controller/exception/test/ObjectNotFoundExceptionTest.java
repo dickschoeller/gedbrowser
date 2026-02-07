@@ -14,13 +14,13 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 /**
  * @author Dick Schoeller
  */
-public class ObjectNotFoundExceptionTest {
+class ObjectNotFoundExceptionTest {
     /** */
     private ObjectNotFoundException exception;
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final ApplicationInfo appInfo = new ApplicationInfoImpl(null, null, null, null);
         exception = new ObjectNotFoundException("Object not found", "ID1", "xyzzy",
             RenderingContext.user(appInfo));

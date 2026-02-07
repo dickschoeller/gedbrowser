@@ -29,7 +29,7 @@ import org.springframework.web.client.RestClientException;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-public final class BasicLoginTest {
+final class BasicLoginTest {
     /** */
     @Autowired
     private RestTestClient restTestClient;

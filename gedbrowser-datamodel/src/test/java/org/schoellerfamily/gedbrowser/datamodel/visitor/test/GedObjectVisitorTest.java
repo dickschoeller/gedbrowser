@@ -40,7 +40,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
-public final class GedObjectVisitorTest {
+final class GedObjectVisitorTest {
     /** */
     private final GedObjectVisitorStub visitor = new GedObjectVisitorStub();
 
@@ -225,7 +225,7 @@ public final class GedObjectVisitorTest {
      * @return stream of arguments
      */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
-    public static Stream<Arguments> params() {
+    static Stream<Arguments> params() {
         final GedObject generic = new GedObject() {
             @Override
             public void accept(final GedObjectVisitor v) {

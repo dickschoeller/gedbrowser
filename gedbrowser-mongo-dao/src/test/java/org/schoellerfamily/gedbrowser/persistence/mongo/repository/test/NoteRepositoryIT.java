@@ -25,7 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public class NoteRepositoryIT {
+class NoteRepositoryIT {
     /**
      * Standard answer in the note counts tests.
      */
@@ -51,7 +51,7 @@ public class NoteRepositoryIT {
      * @throws IOException because the reader does
      */
     @BeforeEach
-    public void setUp() throws IOException {
+    void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
         rootDocument.setFilename(root.getFilename());
@@ -61,7 +61,7 @@ public class NoteRepositoryIT {
 
     /** */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         repositoryFixture.clearRepository();
     }
 

@@ -32,7 +32,7 @@ import org.springframework.web.client.RestClientException;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
-public class SubmissionControllerIT {
+class SubmissionControllerIT {
     /**
      * RestTestClient injected by Spring's test support.
      */

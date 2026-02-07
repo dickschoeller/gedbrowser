@@ -18,7 +18,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public final class PersonNavigatorTest {
+final class PersonNavigatorTest {
     /** */
     private transient Person person1;
     /** */
@@ -35,7 +35,7 @@ public final class PersonNavigatorTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         person1 =
                 builder.createPerson("I1", "Richard John/Schoeller/");
         final Attribute attr =

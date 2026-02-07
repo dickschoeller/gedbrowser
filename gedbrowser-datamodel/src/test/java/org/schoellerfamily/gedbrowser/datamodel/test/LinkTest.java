@@ -13,7 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public final class LinkTest {
+final class LinkTest {
     /** */
     private static final String LINK_TEST = "Link";
     /** */
@@ -24,7 +24,7 @@ public final class LinkTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         person1 = builder.createPerson("I1", "J. Random/Schoeller/");
         final Person person2 =
                 builder.createPerson("I2", "Anonymous/Schoeller/");

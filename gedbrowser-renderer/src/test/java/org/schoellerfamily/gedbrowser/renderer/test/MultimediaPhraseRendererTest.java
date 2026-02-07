@@ -23,7 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class MultimediaPhraseRendererTest {
+final class MultimediaPhraseRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -42,7 +42,7 @@ public final class MultimediaPhraseRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson();
 

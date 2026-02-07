@@ -32,7 +32,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class HeadRendererTest {
+final class HeadRendererTest {
     /** */
     @Autowired
     private transient TestDataReader reader;
@@ -46,7 +46,7 @@ public final class HeadRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 

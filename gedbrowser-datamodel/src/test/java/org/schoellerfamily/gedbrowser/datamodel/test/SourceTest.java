@@ -12,7 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 /**
  * @author Dick Schoeller
  */
-public final class SourceTest {
+final class SourceTest {
     /** */
     @Test
     void testSourceGedObjectCompare() {

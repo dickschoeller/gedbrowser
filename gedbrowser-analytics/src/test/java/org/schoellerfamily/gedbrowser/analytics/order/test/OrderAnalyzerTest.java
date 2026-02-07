@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 @Slf4j
-public final class OrderAnalyzerTest implements AnalyzerTest {
+final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
     @Autowired

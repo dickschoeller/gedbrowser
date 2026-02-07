@@ -15,7 +15,7 @@ import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongoF
  *
  * @author Dick Schoeller
  */
-public final class GeoDocumentMongoFactoryIT {
+final class GeoDocumentMongoFactoryIT {
     /** */
     @Test
     void testToGeoCodeItem() {

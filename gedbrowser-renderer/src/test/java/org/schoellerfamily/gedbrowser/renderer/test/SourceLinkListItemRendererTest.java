@@ -25,7 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class SourceLinkListItemRendererTest {
+final class SourceLinkListItemRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -38,7 +38,7 @@ public final class SourceLinkListItemRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         final Root root = builder.getRoot();

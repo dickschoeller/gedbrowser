@@ -16,7 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
  *
  * @author Dick Schoeller
  */
-public final class UserTest {
+final class UserTest {
     @Test
     void testDefaultUsername() {
         final UserImpl user = new UserImpl();

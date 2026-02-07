@@ -40,7 +40,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PlaceVisitor;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
-public final class PlaceVisitorTest {
+final class PlaceVisitorTest {
     /** */
     private transient Root root;
     /** */
@@ -52,7 +52,7 @@ public final class PlaceVisitorTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         root = new Root();
         final GedObjectBuilder builder = new GedObjectBuilder(root);
         final Person person1 = builder.createPerson("I1",

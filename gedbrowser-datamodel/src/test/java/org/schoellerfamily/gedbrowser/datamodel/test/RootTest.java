@@ -22,7 +22,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public final class RootTest {
+final class RootTest {
     /** */
     private static final int OBJECT_COUNT = 6;
     /** */
@@ -38,7 +38,7 @@ public final class RootTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         root = new Root("Root");
         final GedObjectBuilder builder = new GedObjectBuilder(root);
         person1 = builder.createPerson("I1", "Richard/Schoeller/");

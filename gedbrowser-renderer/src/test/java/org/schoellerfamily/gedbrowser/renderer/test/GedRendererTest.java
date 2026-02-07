@@ -34,7 +34,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class GedRendererTest {
+final class GedRendererTest {
     /** */
     @Autowired
     private transient CalendarProvider provider;
@@ -50,7 +50,7 @@ public final class GedRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         homeUrl = "http://www.schoellerfamily.org/";
         anonymousContext = RenderingContext.anonymous(appInfo);
     }

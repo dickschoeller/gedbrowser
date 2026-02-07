@@ -22,7 +22,7 @@ public class TokenHelperTest {
      * Setup token helper for testing.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         tokenHelper = new TokenHelper("none", KEY, 1, "Authorization", "AUTH-TOKEN");
         final long twentyMillis = 20L;
         DateTimeUtils.setCurrentMillisFixed(twentyMillis);

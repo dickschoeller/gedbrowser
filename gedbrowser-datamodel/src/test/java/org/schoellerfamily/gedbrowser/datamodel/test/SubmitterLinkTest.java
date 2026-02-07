@@ -14,13 +14,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
-public final class SubmitterLinkTest {
+final class SubmitterLinkTest {
 
     /**
      * @return parameters for the parameterized tests
      */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
-    public static Stream<Arguments> params() {
+    static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I1", "J. Random/Schoeller/");
         return Arrays

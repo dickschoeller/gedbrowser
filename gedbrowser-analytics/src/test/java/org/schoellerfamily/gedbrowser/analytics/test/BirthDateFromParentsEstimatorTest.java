@@ -23,7 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
+final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
     /** */
     @Autowired
     private transient GedObjectBuilder builder;
@@ -49,7 +49,7 @@ public final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final Person person1 = createJRandom();
         person2 = createAnonymousSchoeller();
         person3 = createAnonymousJones();

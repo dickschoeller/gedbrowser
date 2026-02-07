@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 @SuppressWarnings({"PMD.JUnitTestsShouldIncludeAssert"})
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @AutoConfigureRestTestClient
-public class LoadEndpointIT {
+class LoadEndpointIT {
     /**
      * Management port.
      */

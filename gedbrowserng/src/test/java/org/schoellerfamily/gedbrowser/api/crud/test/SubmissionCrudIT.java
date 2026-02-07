@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
-public class SubmissionCrudIT {
+class SubmissionCrudIT {
 
     /** */
     @Autowired
@@ -59,7 +59,7 @@ public class SubmissionCrudIT {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         helper = new CrudTestHelper(new PersonCrud(loader, toDocConverter, repositoryManager),
             new FamilyCrud(loader, toDocConverter, repositoryManager));
         crud = new SubmissionCrud(loader, toDocConverter, repositoryManager);

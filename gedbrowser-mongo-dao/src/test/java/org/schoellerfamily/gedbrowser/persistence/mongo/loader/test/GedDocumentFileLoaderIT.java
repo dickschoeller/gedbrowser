@@ -25,7 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
-public class GedDocumentFileLoaderIT {
+class GedDocumentFileLoaderIT {
     /** */
     @Autowired
     private transient GedDocumentFileLoader loader;

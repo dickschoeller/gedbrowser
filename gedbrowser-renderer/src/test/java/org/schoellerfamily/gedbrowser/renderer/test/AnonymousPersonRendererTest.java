@@ -37,7 +37,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.ExcessiveClassLength" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class AnonymousPersonRendererTest {
+final class AnonymousPersonRendererTest {
     /** */
     @Autowired
     private transient TestDataReader reader;

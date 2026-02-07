@@ -18,7 +18,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMo
 /**
  * @author Dick Schoeller
  */
-public class DocumentToApiModelTest {
+class DocumentToApiModelTest {
     /** */
     @Test
     void basicTrailerTest() {

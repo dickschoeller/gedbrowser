@@ -14,7 +14,7 @@ import com.google.maps.model.LatLng;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessivePublicCount" })
-public final class GeoCodeItemTest {
+final class GeoCodeItemTest {
     /** */
     @Test
     void testEqualsSelf() {

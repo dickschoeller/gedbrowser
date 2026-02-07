@@ -28,7 +28,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfiguration.class)
-public final class PlaceListRendererTest {
+final class PlaceListRendererTest {
     /** */
     @Autowired
     private transient GeoServiceClient client;

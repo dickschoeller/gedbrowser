@@ -17,7 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 /**
  * @author Dick Schoeller
  */
-public final class MultimediaTest {
+final class MultimediaTest {
     /** */
     private transient String filePathString;
 
@@ -30,7 +30,7 @@ public final class MultimediaTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         builder = new GedObjectBuilder();
         person1 = builder.createPerson("I1", "J. Random/Schoeller/");
         final Person person2 = builder.createPerson("I2", "Anonymous/Schoeller/");

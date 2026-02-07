@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 @Slf4j
-public class GedWriterTest {
+class GedWriterTest {
     /** */
     @Autowired
     private transient GedLineToGedObjectTransformer g2g;
@@ -56,7 +56,7 @@ public class GedWriterTest {
      * @throws IOException if there are problems reading the data file
      */
     @BeforeEach
-    public void setUp() throws IOException {
+    void setUp() throws IOException {
         inputFilename = gedbrowserHome + "/mini-schoeller.ged";
         final AbstractGedLine top = readFileTestSource();
         root = g2g.create(top);
@@ -109,7 +109,7 @@ public class GedWriterTest {
 
     /** */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         cleanTemp(filename);
     }
 

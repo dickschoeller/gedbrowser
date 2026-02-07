@@ -39,7 +39,7 @@ import com.saucelabs.saucebindings.junit5.SauceBindingsExtension;
 @ContextConfiguration(classes = { SeleniumConfig.class, WebDriverFactory.class })
 @SuppressWarnings("PMD.ExcessiveImports")
 @Slf4j
-public class LoginIT {
+class LoginIT {
 
     /** */
     @Value("${server.host:localhost}")
@@ -110,7 +110,7 @@ public class LoginIT {
      * @throws MalformedURLException if something goes awry
      */
     @BeforeEach
-    public void setUp() throws MalformedURLException {
+    void setUp() throws MalformedURLException {
         if (driver == null) {
             if (sauceExtension != null && sauceExtension.getDriver() != null) {
                 driver = (RemoteWebDriver) sauceExtension.getDriver();
@@ -217,7 +217,7 @@ public class LoginIT {
      * Tear down after test.
      */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         if (!driverManagedByExtension && driver != null) {
             driver.quit();
         }

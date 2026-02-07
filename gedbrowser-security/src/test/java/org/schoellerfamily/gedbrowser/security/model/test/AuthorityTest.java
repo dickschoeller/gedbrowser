@@ -10,7 +10,7 @@ import org.schoellerfamily.gedbrowser.security.model.Authority;
 /**
  * @author Dick Schoeller
  */
-public class AuthorityTest {
+class AuthorityTest {
     /** */
     @Test
     void testDefault() {

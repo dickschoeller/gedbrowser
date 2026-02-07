@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 @Slf4j
-public final class GedFileTest {
+final class GedFileTest {
 
     /** */
     @Autowired

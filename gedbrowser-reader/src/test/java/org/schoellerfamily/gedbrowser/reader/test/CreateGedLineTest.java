@@ -13,14 +13,14 @@ import org.schoellerfamily.gedbrowser.reader.GedLine;
 /**
  * @author Dick Schoeller
  */
-public class CreateGedLineTest {
+class CreateGedLineTest {
 
     /**
      * Parameter source for tests.
      *
      * @return stream of arguments
      */
-    public static Stream<Arguments> params() {
+    static Stream<Arguments> params() {
         return Stream.of(
                 Arguments.of("0 HEAD", 0, "HEAD", "", ""),
                 Arguments.of("1 SOUR TMG", 1, "SOUR", "TMG", ""),

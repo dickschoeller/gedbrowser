@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @AutoConfigureRestTestClient
-public class BackupRestoreEndpointIT {
+class BackupRestoreEndpointIT {
     /**
      * Management port.
      */

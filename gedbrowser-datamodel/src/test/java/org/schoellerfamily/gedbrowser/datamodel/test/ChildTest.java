@@ -22,7 +22,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  * @author Dick Schoeller
  */
 @SuppressWarnings("PMD.TooManyStaticImports")
-public final class ChildTest {
+final class ChildTest {
     /** */
     private transient Family family1;
     /** */
@@ -33,7 +33,7 @@ public final class ChildTest {
     /**
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
 
         final Person person1 = builder.createPerson(

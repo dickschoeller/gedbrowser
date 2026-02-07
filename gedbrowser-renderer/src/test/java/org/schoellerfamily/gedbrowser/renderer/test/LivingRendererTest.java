@@ -28,7 +28,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class LivingRendererTest {
+final class LivingRendererTest {
     /** */
     @Autowired
     private transient TestDataReader reader;
@@ -52,7 +52,7 @@ public final class LivingRendererTest {
      * @throws IOException if there is a problem reading the test data
      */
     @BeforeEach
-    public void setUp() throws IOException {
+    void setUp() throws IOException {
         root = reader.readBigTestSource();
         final UserImpl admin = new UserImpl();
         admin.setUsername("admin");

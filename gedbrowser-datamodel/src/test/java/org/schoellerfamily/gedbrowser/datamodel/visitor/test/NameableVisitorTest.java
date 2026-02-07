@@ -31,7 +31,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 /**
  * @author Dick Schoeller
  */
-public final class NameableVisitorTest {
+final class NameableVisitorTest {
     /** */
     @Test
     void testUninit() {

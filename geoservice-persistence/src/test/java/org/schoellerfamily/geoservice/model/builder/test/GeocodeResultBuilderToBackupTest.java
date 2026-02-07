@@ -23,7 +23,7 @@ import com.google.maps.model.LocationType;
  * @author Dick Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
-public class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
+class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
     /** */
     private final GeocodeResultBuilder builder = new GeocodeResultBuilder();
 

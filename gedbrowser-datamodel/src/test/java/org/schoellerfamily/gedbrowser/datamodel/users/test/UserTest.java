@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
  *
  * @author Dick Schoeller
  */
-public final class UserTest {
+final class UserTest {
     /** */
     @Test
     void testDefaultUsername() {

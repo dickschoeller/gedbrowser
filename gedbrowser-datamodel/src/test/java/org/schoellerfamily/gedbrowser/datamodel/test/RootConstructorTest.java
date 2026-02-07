@@ -14,12 +14,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 /**
  * @author Dick Schoeller
  */
-public final class RootConstructorTest {
+final class RootConstructorTest {
     /**
      * @return collection of parameter arrays
      */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
-    public static Stream<Arguments> params() {
+    static Stream<Arguments> params() {
         return Arrays.stream(
             new Object[][] { { null, "" }, { "", "" }, { "Root", "Root" }, { "ROOT", "ROOT" }, })
             .map(Arguments::of);

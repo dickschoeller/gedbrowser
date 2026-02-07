@@ -18,7 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public class GedResourceNotFoundRendererTest {
+class GedResourceNotFoundRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -33,7 +33,7 @@ public class GedResourceNotFoundRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final RenderingContext context = RenderingContext.user(appInfo);
         throwable = new Exception("This is a test");
         renderer = new GedResourceNotFoundRenderer(throwable, context);

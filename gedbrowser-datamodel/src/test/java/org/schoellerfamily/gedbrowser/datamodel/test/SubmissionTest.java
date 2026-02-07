@@ -14,13 +14,13 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public class SubmissionTest {
+class SubmissionTest {
     /** */
     private GedObjectBuilder builder;
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         builder = new GedObjectBuilder();
     }
 

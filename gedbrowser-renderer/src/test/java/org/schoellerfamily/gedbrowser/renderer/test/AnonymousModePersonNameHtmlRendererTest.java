@@ -30,7 +30,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SuppressWarnings("PMD.CommentSize")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
-public final class AnonymousModePersonNameHtmlRendererTest {
+final class AnonymousModePersonNameHtmlRendererTest {
     /** */
     @Autowired
     private transient ApplicationInfo appInfo;
@@ -43,7 +43,7 @@ public final class AnonymousModePersonNameHtmlRendererTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         renderingContext = RenderingContext.anonymous(appInfo);

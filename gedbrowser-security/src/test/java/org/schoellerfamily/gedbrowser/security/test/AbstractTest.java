@@ -36,7 +36,7 @@ public abstract class AbstractTest {
 
     /** */
     @BeforeEach
-    public final void setUpBase() {
+    protected final void setUpBase() {
         securityContext = Mockito.mock(SecurityContext.class);
         SecurityContextHolder.setContext(securityContext);
         Mockito.when(securityContext.getAuthentication())
@@ -45,7 +45,7 @@ public abstract class AbstractTest {
 
     /** */
     @AfterEach
-    public final void tearDownBase() {
+    protected final void tearDownBase() {
         SecurityContextHolder.clearContext();
     }
 

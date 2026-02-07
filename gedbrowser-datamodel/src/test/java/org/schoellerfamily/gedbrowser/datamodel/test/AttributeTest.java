@@ -14,7 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 /**
  * @author Dick Schoeller
  */
-public final class AttributeTest {
+final class AttributeTest {
     /** */
     private static final String DUMMY = "Dummy";
     /** */
@@ -26,7 +26,7 @@ public final class AttributeTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person1 = builder.createPerson("I1", "J. Random/Schoeller/");
     }

@@ -13,13 +13,13 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
-public final class WifeConstructorTest {
+final class WifeConstructorTest {
 
     /**
      * @return parameters for the tests
      */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
-    public static Stream<Arguments> params() {
+    static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");
 

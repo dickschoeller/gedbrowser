@@ -13,7 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public final class NameTest {
+final class NameTest {
     /** */
     private transient Person person;
     /** */
@@ -29,7 +29,7 @@ public final class NameTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person = builder.createPerson("I1");
         final Person person1 = person;

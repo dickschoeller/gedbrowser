@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author Dick Schoeller
  */
-public class FileSystemStorageServiceTest {
+class FileSystemStorageServiceTest {
 
     /** */
     @TempDir

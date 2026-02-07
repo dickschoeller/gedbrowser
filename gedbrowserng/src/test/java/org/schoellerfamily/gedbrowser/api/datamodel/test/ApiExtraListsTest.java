@@ -8,7 +8,7 @@ import nl.jqno.equalsverifier.Warning;
 /**
  * @author Dick Schoeller
  */
-public class ApiExtraListsTest {
+class ApiExtraListsTest {
     /** */
     @Test
     void testHashAndEquals() {

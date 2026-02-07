@@ -16,7 +16,7 @@ import org.schoellerfamily.gedbrowser.reader.StreamManager;
  *
  * @author Dick Schoeller
  */
-public class StreamManagerTest {
+class StreamManagerTest {
 
     /** */
     @Test

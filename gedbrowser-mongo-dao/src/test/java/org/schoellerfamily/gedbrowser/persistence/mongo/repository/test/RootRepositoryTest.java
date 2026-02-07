@@ -94,7 +94,7 @@ final class RootRepositoryIT {
      * @throws IOException because the reader can
      */
     @BeforeEach
-    public void setUp() throws IOException {
+    void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
         rootDocument = new RootDocumentMongo();
         rootDocument.setFilename(root.getFilename());
@@ -104,7 +104,7 @@ final class RootRepositoryIT {
 
     /** */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         repositoryFixture.clearRepository();
     }
 

@@ -17,7 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-public final class FamilyNavigatorTest {
+final class FamilyNavigatorTest {
     /** */
     private transient Family family1;
     /** */
@@ -29,7 +29,7 @@ public final class FamilyNavigatorTest {
 
     /** */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         family1 = builder.createFamily("F1");
         person1 = builder.createPerson("I1", "J. Random/Schoeller/");
