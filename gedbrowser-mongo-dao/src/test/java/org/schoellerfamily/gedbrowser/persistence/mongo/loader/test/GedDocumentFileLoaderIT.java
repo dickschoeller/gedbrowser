@@ -165,7 +165,6 @@ class GedDocumentFileLoaderIT {
     }
 
     /** */
-    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     @Test
     void testReload() {
         loader.reset(repositoryManager);
