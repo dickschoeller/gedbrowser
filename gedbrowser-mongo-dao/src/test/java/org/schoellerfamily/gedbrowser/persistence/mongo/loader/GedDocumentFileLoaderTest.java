@@ -1,0 +1,91 @@
+package org.schoellerfamily.gedbrowser.persistence.mongo.loader;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
+import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
+import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
+
+/**
+ * Tests for GedDocumentFileLoader validateDatabaseName branches that are hard
+ * to reach with normal string inputs by mocking Paths.get(...).
+ */
+public class GedDocumentFileLoaderTest {
+
+    private GedDocumentFileLoader createLoader() {
+        FinderStrategy finder = Mockito.mock(FinderStrategy.class);
+        GedLineToGedObjectTransformer g2g = Mockito.mock(GedLineToGedObjectTransformer.class);
+        GedObjectToGedDocumentMongoConverter conv = Mockito
+                .mock(GedObjectToGedDocumentMongoConverter.class);
+        RootDocumentRepositoryMongo repo = Mockito.mock(RootDocumentRepositoryMongo.class);
+        return new GedDocumentFileLoader(finder, g2g, conv, repo, "/tmp");
+    }
+
+    @Test
+    void testNormalizedPathHasParentThrows() {
+        final GedDocumentFileLoader loader = createLoader();
+        final String dbName = "validname";
+
+        final Path mockNormalized = Mockito.mock(Path.class);
+        final Path mockParent = Mockito.mock(Path.class);
+
+        try (MockedStatic<Paths> pathsMock = Mockito.mockStatic(Paths.class)) {
+            // When validateDatabaseName calls Paths.get(dbName).normalize() return our mock
+            pathsMock.when(() -> Paths.get(dbName)).thenReturn(mockNormalized);
+            Mockito.when(mockNormalized.normalize()).thenReturn(mockNormalized);
+            Mockito.when(mockNormalized.getParent()).thenReturn(mockParent);
+
+            final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                    () -> loader.buildFileName(dbName));
+            assertTrue(ex.getMessage().contains("Database name contains path components"));
+        }
+    }
+
+    @Test
+    void testFileNamePathNullThrows() {
+        final GedDocumentFileLoader loader = createLoader();
+        final String dbName = "validname";
+
+        final Path mockNormalized = Mockito.mock(Path.class);
+
+        try (MockedStatic<Paths> pathsMock = Mockito.mockStatic(Paths.class)) {
+            pathsMock.when(() -> Paths.get(dbName)).thenReturn(mockNormalized);
+            Mockito.when(mockNormalized.normalize()).thenReturn(mockNormalized);
+            Mockito.when(mockNormalized.getParent()).thenReturn(null);
+            Mockito.when(mockNormalized.getFileName()).thenReturn(null);
+
+            final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                    () -> loader.buildFileName(dbName));
+            assertTrue(ex.getMessage().contains("Database name does not contain a valid filename"));
+        }
+    }
+
+    @Test
+    void testFileNameMismatchThrows() {
+        final GedDocumentFileLoader loader = createLoader();
+        final String dbName = "validname";
+
+        final Path mockNormalized = Mockito.mock(Path.class);
+        final Path mockFileNamePath = Mockito.mock(Path.class);
+
+        try (MockedStatic<Paths> pathsMock = Mockito.mockStatic(Paths.class)) {
+            pathsMock.when(() -> Paths.get(dbName)).thenReturn(mockNormalized);
+            Mockito.when(mockNormalized.normalize()).thenReturn(mockNormalized);
+            Mockito.when(mockNormalized.getParent()).thenReturn(null);
+            Mockito.when(mockNormalized.getFileName()).thenReturn(mockFileNamePath);
+            Mockito.when(mockFileNamePath.toString()).thenReturn("differentname");
+
+            final IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                    () -> loader.buildFileName(dbName));
+            assertTrue(ex.getMessage().contains("Database name contains path components"));
+        }
+    }
+}
