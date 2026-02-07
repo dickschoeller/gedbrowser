@@ -3,12 +3,14 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.loader.test;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
@@ -68,8 +70,8 @@ class GedDocumentFileLoaderIT {
         assertNull(loader.loadDocument(repositoryManager, "foofy"), "Should be not found");
     }
 
-    /** */
     @ParameterizedTest
+    @NullSource
     @ValueSource(strings = {
         "../../../etc/passwd",
         "foo/bar",
@@ -77,6 +79,7 @@ class GedDocumentFileLoaderIT {
         "C:\\windows\\system32",
         "bad:name",
         "",
+        "\u0000",
         "filename.txt:stream",
         "CON",
         "PRN",
@@ -103,6 +106,7 @@ class GedDocumentFileLoaderIT {
     }
 
     /** */
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     @Test
     void testDetails() {
         loader.reset(repositoryManager);
@@ -112,6 +116,7 @@ class GedDocumentFileLoaderIT {
     }
 
     /** */
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     @Test
     void testAllDetails() {
         loader.reset(repositoryManager);
@@ -137,13 +142,22 @@ class GedDocumentFileLoaderIT {
     }
 
     /** */
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     @Test
     void testReload() {
         loader.reset(repositoryManager);
         final RootDocument rootDocument1 = loader.loadDocument(repositoryManager, "mini-schoeller");
         final RootDocument resultDoc = loader.loadDocument(repositoryManager, "mini-schoeller");
-        checkSame(rootDocument1, resultDoc);
-        assertJustThisOne(resultDoc);
+        boolean singleMatch = false;
+        int count = 0;
+        for (final RootDocument foundDoc : findAll()) {
+            count++;
+            singleMatch = rootDocument1 != null
+                && resultDoc != null
+                && rootDocument1.getIdString().equals(resultDoc.getIdString())
+                && resultDoc.getIdString().equals(foundDoc.getIdString());
+        }
+        assertTrue(singleMatch && count == 1, "expected a single reloaded document");
     }
 
     /**
