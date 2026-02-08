@@ -8,11 +8,6 @@
     <a mat-list-item (click)="saveFile()"><div class="with-icon"><mat-icon matListIcon>cloud_download</mat-icon> Save</div></a>
   }
   <a mat-list-item [matMenuTriggerFor]="dbPickerMenu"><div class="with-icon"><mat-icon matListIcon>folder_open</mat-icon> Pick dataset</div></a>
-  <!-- mat-list-item>
-    <wa-mat-file-upload #fileUpload="waMatFileUpload" placeholder="File"
-        [multiple]="false" [preview]="true" [selectedText]="selectedText"
-        (change)="onFileChange(fileUpload)">Upload GEDCOM file</wa-mat-file-upload>
-  </mat-list-item -->
 </mat-nav-list>
 @if (hasSignedIn()) {
   <form [formGroup]="uploadForm">

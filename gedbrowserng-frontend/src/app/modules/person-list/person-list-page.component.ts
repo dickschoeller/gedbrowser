@@ -38,7 +38,7 @@ export class PersonListPageComponent implements OnInit, OnChanges {
         // Guard against undefined resolver data
         this.persons = data?.persons ?? [];
         if ((this.persons?.length ?? 0) > 0) {
-          this.persons.sort(ApiComparators.comparePersons);
+          this.persons = this.persons.toSorted(ApiComparators.comparePersons);
         }
       }
     );
@@ -53,7 +53,11 @@ export class PersonListPageComponent implements OnInit, OnChanges {
 
     this.personService.getAll(this.dataset).subscribe(
       (persons: Array<ApiPerson>) => {
-        this.persons = persons?.sort ? persons.sort(ApiComparators.comparePersons) : [];
+        this.persons = persons
+          ? (persons.toSorted
+              ? persons.toSorted(ApiComparators.comparePersons)
+              : [...persons].sort(ApiComparators.comparePersons))
+          : [];
       }
     );
   }

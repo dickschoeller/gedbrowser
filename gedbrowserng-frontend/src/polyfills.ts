@@ -40,8 +40,10 @@
 /** IE10 and IE11 requires the following for the Reflect API. */
 // import 'core-js/es6/reflect';
 
+/** ES2023 features for broader browser compatibility */
+import 'core-js/actual/array/to-sorted';
 
-/** Evergreen browsers require these. **/
+/** Evergreen browsers require these. */
 // Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
 
 

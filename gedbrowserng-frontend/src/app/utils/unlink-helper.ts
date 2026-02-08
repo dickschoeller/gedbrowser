@@ -15,7 +15,7 @@ export class UnlinkHelper extends LinkDialogActions {
 
   fillUnlinkData(dialog: LinkDialogInterface, value, attributes: Array<ApiAttribute>) {
     dialog.objects = value;
-    dialog.objects.sort(this.comparator);
+    dialog.objects = dialog.objects.toSorted(this.comparator);
     dialog.data.items = new Array<LinkItem>();
     let index = 1;
     for (const attribute of attributes) {

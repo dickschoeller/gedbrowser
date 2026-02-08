@@ -1,4 +1,4 @@
-import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { RefreshNote } from '../interfaces/refresh-note';
 import { ApiNote, NewNoteDialogData } from '../models';

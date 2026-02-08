@@ -116,7 +116,7 @@ export class SideMenuComponent implements OnInit, OnChanges {
 
   setupItems(dbs: Array<string>): void {
     this.dbs = new Array<string>();
-    for (const db of dbs.sort((a, b) => a.localeCompare(b))) {
+    for (const db of dbs.toSorted((a, b) => a.localeCompare(b))) {
       this.dbs.push(db);
     }
   }

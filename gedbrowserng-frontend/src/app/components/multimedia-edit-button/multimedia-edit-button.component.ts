@@ -1,5 +1,5 @@
 import { Component, Input , Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Saveable } from '../../interfaces';
 import { ApiAttribute, MultimediaDialogData } from '../../models';

@@ -36,7 +36,7 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
     this.route.data.subscribe(
       (data: {submitters: ApiSubmitter[]}) => {
         this.submitters = data.submitters;
-        this.submitters.sort(ApiComparators.compareSubmitters);
+        this.submitters = this.submitters.toSorted(ApiComparators.compareSubmitters);
       }
     );
   }
@@ -50,7 +50,7 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
 
     this.submitterService.getAll(this.dataset).subscribe(
       (submitters: Array<ApiSubmitter>) => {
-        this.submitters = submitters.sort(ApiComparators.compareSubmitters);
+        this.submitters = submitters.toSorted(ApiComparators.compareSubmitters);
       }
     );
   }

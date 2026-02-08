@@ -1,5 +1,5 @@
 import { Component, OnInit, Input , Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAction, NgxGalleryModule } from 'ngx-gallery-15';
 
 import { HasMultimedia, Saveable } from '../../interfaces';

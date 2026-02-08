@@ -16,7 +16,7 @@ class StubPersonService {
 }
 
 class StubDialogRef<T> {
-  constructor(private value: T | undefined) {}
+  constructor(private readonly value: T | undefined) {}
   afterClosed() { return of(this.value); }
 }
 

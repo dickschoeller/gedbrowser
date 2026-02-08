@@ -1,6 +1,4 @@
 @import '~font-awesome/css/font-awesome.min.css';
-/* @import '~primeng/resources/themes/luna-blue/theme.css'; */
-/* @import '~primeng/resources/primeng.min.css'; */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 html, body, app-root, .body, .mat-drawer-container {
