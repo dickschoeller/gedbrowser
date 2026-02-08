@@ -36,7 +36,7 @@ export class SourceListPageComponent implements OnInit, OnChanges, RefreshSource
     this.route.data.subscribe(
       (data: {dataset: string, sources: ApiSource[]}) => {
         this.sources = data.sources;
-        this.sources.sort(ApiComparators.compareSources);
+        this.sources = this.sources.toSorted(ApiComparators.compareSources);
       }
     );
   }
@@ -50,7 +50,7 @@ export class SourceListPageComponent implements OnInit, OnChanges, RefreshSource
 
     this.sourceService.getAll(this.dataset).subscribe(
       (sources: Array<ApiSource>) => {
-        this.sources = sources.sort(ApiComparators.compareSources);
+        this.sources = sources.toSorted(ApiComparators.compareSources);
       }
     );
   }

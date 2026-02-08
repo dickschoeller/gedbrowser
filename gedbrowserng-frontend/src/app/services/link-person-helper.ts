@@ -10,7 +10,7 @@ export class LinkPersonHelper {
     this.personService.getAll(dialogComponent.data.dataset).subscribe(
       (value: ApiPerson[]) => {
         dialogComponent.persons = value;
-        dialogComponent.persons.sort(ApiComparators.comparePersons);
+        dialogComponent.persons = dialogComponent.persons.toSorted(ApiComparators.comparePersons);
         dialogComponent.data.items = new Array<LinkPersonItem>();
         dialogComponent.data.selected = new Array<LinkPersonItem>();
         for (const person of dialogComponent.persons) {
