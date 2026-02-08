@@ -80,22 +80,11 @@ img.button {
 table.tree {
   border-collapse: collapse;
   border-color: black;
-
-/* the commented out section below changes the tree area to one that is explicitly
-   delimited and has a solid color background */
   border-style: none;
   border-width: 0;
   border-spacing: 0;
   background: inherit;
   color: inherit;
-/*
-  border-style: solid;
-  border-width: 2px;
-  border-spacing: 0;
-  background: #ddddff;
-  color: black;
-*/
-
   padding: 2px;
   margin: 0;
   clear: both;
