@@ -125,9 +125,9 @@ export class PersonFamilyComponent extends InitablePersonCreator
     sex: string;
     surname: string;
 
-    constructor(@Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) private readonly familyService: FamilyService,
-        @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public readonly personService: PersonService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) {
+    constructor(@Inject(FamilyService) private readonly familyService: FamilyService,
+        @Inject(PersonService) public readonly personService: PersonService,
+        @Inject(UserService) private readonly userService: UserService) {
         super(personService);
     }
 
