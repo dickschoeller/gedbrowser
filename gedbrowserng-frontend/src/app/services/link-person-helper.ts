@@ -4,7 +4,7 @@ import { ApiComparators, LifespanUtil } from '../utils';
 import { PersonService } from './person.service';
 
 export class LinkPersonHelper {
-  constructor(private personService: PersonService) {}
+  constructor(private readonly personService: PersonService) {}
 
   onLinkChildDialogOpen(dialogComponent: any, component: LinkCheck) {
     this.personService.getAll(dialogComponent.data.dataset).subscribe(

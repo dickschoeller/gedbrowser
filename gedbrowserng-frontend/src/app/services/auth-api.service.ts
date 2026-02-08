@@ -23,7 +23,7 @@ export class AuthApiService {
         'Content-Type': 'application/json'
     });
 
-    constructor(@Inject(HttpClient) private http: HttpClient) { }
+    constructor(@Inject(HttpClient) private readonly http: HttpClient) { }
 
     get(path: string, args?: any): Observable<any> {
         const options = {

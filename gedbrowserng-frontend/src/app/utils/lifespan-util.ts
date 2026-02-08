@@ -1,7 +1,7 @@
 import { ApiLifespan } from '../models';
 
 export class LifespanUtil {
-  constructor(private lifespan: ApiLifespan) {}
+  constructor(private readonly lifespan: ApiLifespan) {}
 
   lifespanDateString() {
     if (this.lifespan.birthDate || this.lifespan.deathDate) {

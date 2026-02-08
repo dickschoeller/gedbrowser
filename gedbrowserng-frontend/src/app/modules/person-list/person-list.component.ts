@@ -99,9 +99,9 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
   datasource: MatTableDataSource<ApiPerson> = new MatTableDataSource<ApiPerson>([]);
 
   constructor(
-    @Inject(Router) private router: Router,
-    @Inject(PersonService) public personService: PersonService,
-    @Inject(MatDialog) public dialog: MatDialog
+    @Inject(Router) private readonly router: Router,
+    @Inject(PersonService) public readonly personService: PersonService,
+    @Inject(MatDialog) public readonly dialog: MatDialog
   ) {
     super(personService);
     // Make accessor null-safe in case lifespan or indexName are missing

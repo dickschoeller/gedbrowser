@@ -4,7 +4,7 @@ import { NewPersonHelper, UrlBuilder } from '../utils';
 import { PersonService } from '../services';
 
 export abstract class PersonCreator implements RefreshPerson {
-  constructor(public personService: PersonService) {}
+  constructor(public readonly personService: PersonService) {}
 
   createPerson(data: NewPersonDialogData): void {
     if (data != null) {

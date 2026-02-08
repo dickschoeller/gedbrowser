@@ -62,8 +62,8 @@ import { MatButton } from '@angular/material/button';
 })
 export class NewPersonDialogComponent {
   constructor(
-    @Inject(MatDialogRef) public dialogRef: MatDialogRef<NewPersonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: NewPersonDialogData
+    @Inject(MatDialogRef) public readonly dialogRef: MatDialogRef<NewPersonDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public readonly data: NewPersonDialogData
   ) {
   }
 

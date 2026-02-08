@@ -59,8 +59,8 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
     return this.person.surname;
   }
 
-  constructor(@Inject(PersonService) public personService: PersonService,
-    @Inject(UserService) private userService: UserService) {
+  constructor(@Inject(PersonService) public readonly personService: PersonService,
+    @Inject(UserService) private readonly userService: UserService) {
     super(personService);
   }
 

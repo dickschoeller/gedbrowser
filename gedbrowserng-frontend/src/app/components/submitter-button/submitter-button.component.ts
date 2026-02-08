@@ -31,8 +31,8 @@ export class SubmitterButtonComponent extends SubmitterCreator {
   @Input() dataset: string;
 
   constructor(
-    @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) public service: SubmitterService,
-    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
+    @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) public readonly service: SubmitterService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
   ) {
     super(service, dialog);
   }

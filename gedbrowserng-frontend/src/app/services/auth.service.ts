@@ -9,9 +9,9 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
     constructor(
-        @Inject(AuthApiService) private apiService: AuthApiService,
-        @Inject(UserService) private userService: UserService,
-        @Inject(ConfigService) private config: ConfigService,
+        @Inject(AuthApiService) private readonly apiService: AuthApiService,
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(ConfigService) private readonly config: ConfigService,
     ) { }
 
     login(user) {

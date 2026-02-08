@@ -10,8 +10,8 @@ export class UserService {
   currentUser: User;
 
   constructor(
-    @Inject(AuthApiService) private apiService: AuthApiService,
-    @Inject(ConfigService) private config: ConfigService
+    @Inject(AuthApiService) private readonly apiService: AuthApiService,
+    @Inject(ConfigService) private readonly config: ConfigService
   ) { }
 
   initUser(): Promise<any> {

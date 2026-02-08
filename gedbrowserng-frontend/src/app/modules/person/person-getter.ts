@@ -8,7 +8,7 @@ export abstract class PersonGetter implements RefreshPerson {
   person: ApiPerson;
   famMemberType: string;
 
-  constructor(private personService: PersonService) {}
+  constructor(private readonly personService: PersonService) {}
 
   abstract refreshPerson(): void;
   abstract familyString(): string;

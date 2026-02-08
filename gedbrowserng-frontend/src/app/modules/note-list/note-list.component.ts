@@ -91,9 +91,9 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   datasource: MatTableDataSource<ApiNote> = new MatTableDataSource<ApiNote>([]);
 
   constructor(
-    @Inject(Router) private router: Router,
-    @Inject(NoteService) public noteService: NoteService,
-    @Inject(MatDialog) public dialog: MatDialog,
+    @Inject(Router) private readonly router: Router,
+    @Inject(NoteService) public readonly noteService: NoteService,
+    @Inject(MatDialog) public readonly dialog: MatDialog,
   ) {
     super(noteService, dialog);
   }

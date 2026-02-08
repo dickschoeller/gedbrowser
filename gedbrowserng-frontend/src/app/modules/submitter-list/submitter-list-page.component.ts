@@ -16,9 +16,9 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
   dataset: string;
   submitters: Array<ApiSubmitter>;
 
-  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(SubmitterService) private submitterService: SubmitterService,
-    @Inject(Router) private router: Router
+  constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
+    @Inject(SubmitterService) private readonly submitterService: SubmitterService,
+    @Inject(Router) private readonly router: Router
   ) { }
 
   ngOnInit(): void {

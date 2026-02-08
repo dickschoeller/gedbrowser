@@ -11,7 +11,7 @@ import { PersonCreator } from './person-creator';
 export abstract class InitablePersonCreator extends PersonCreator implements OnInit, OnChanges {
   nph = new NewPersonHelper();
 
-  constructor(public personService: PersonService) {
+  constructor(public readonly personService: PersonService) {
     super(personService);
   }
 

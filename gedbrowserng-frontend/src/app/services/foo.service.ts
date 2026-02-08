@@ -6,8 +6,8 @@ import { ConfigService } from './config.service';
 export class FooService {
 
   constructor(
-    @Inject(AuthApiService) private apiService: AuthApiService,
-    @Inject(ConfigService) private config: ConfigService
+    @Inject(AuthApiService) private readonly apiService: AuthApiService,
+    @Inject(ConfigService) private readonly config: ConfigService
   ) { }
 
   getFoo() {

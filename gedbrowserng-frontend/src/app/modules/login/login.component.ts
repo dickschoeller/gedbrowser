@@ -70,14 +70,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     notification: DisplayMessage;
 
     returnUrl: string;
-    private ngUnsubscribe: Subject<void> = new Subject<void>();
+    private readonly ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(
-        @Inject(UserService) private userService: UserService,
-        @Inject(AuthService) private authService: AuthService,
-        @Inject(Router) private router: Router,
-        @Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(FormBuilder) private formBuilder: FormBuilder
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(AuthService) private readonly authService: AuthService,
+        @Inject(Router) private readonly router: Router,
+        @Inject(ActivatedRoute) private readonly route: ActivatedRoute,
+        @Inject(FormBuilder) private readonly formBuilder: FormBuilder
     ) {
 
     }

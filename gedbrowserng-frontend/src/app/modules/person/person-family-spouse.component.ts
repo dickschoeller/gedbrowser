@@ -46,7 +46,7 @@ export class PersonFamilySpouseComponent extends PersonGetter
     @Input() attribute: ApiAttribute;
 
     constructor(@Inject(PersonService) personService: PersonService,
-        @Inject(UserService) private userService: UserService) {
+        @Inject(UserService) private readonly userService: UserService) {
         super(personService);
         this.famMemberType = 'spouses';
     }

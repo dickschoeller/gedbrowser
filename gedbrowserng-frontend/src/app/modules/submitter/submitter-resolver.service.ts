@@ -10,7 +10,7 @@ import { ResolverHelper } from '../../utils';
 export class SubmitterResolverService implements Resolve<ApiSubmitter> {
   rh: ResolverHelper<ApiSubmitter> = new ResolverHelper<ApiSubmitter>();
 
-  constructor(@Inject(SubmitterService) private submitterService: SubmitterService, @Inject(Router) private route: Router) {}
+  constructor(@Inject(SubmitterService) private readonly submitterService: SubmitterService, @Inject(Router) private readonly route: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ApiSubmitter> {
     return this.rh.resolve(route, state, this.submitterService);

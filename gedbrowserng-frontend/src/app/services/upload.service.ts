@@ -11,7 +11,7 @@ import { UrlBuilder } from '../utils';
  */
 @Injectable({ providedIn: 'root' })
 export class UploadService {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   uploadGedFile(file: File): Observable<HttpEvent<Object>> {
     const ub = new UrlBuilder(undefined, '', '');

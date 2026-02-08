@@ -45,8 +45,8 @@ export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
     galleryOptions: NgxGalleryOptions[];
     dialogIndex = -1;
 
-    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) { }
+    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) { }
 
     ngOnInit() {
         this.galleryOptions = this.buildGalleryOptions();

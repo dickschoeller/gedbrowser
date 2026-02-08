@@ -27,7 +27,7 @@ export class MultimediaAddButtonComponent {
   @Input() parent: HasMultimedia;
   @Input() dataset: string;
 
-  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) { }
+  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog) { }
 
   create(data: MultimediaDialogData) {
     const attribute: ApiAttribute = MultimediaDialogHelper.buildMultimediaAttribute(data);

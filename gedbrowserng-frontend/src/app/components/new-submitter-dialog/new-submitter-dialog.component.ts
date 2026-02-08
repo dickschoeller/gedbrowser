@@ -30,8 +30,8 @@ import { MatButton } from '@angular/material/button';
 })
 export class NewSubmitterDialogComponent {
   constructor(
-    @Inject(MatDialogRef) public dialogRef: MatDialogRef<NewSubmitterDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: NewSubmitterDialogData
+    @Inject(MatDialogRef) public readonly dialogRef: MatDialogRef<NewSubmitterDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public readonly data: NewSubmitterDialogData
   ) {
   }
 

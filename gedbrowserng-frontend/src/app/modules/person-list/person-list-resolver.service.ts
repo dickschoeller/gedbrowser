@@ -10,7 +10,7 @@ import { ResolverHelper } from '../../utils';
 export class PersonListResolverService implements Resolve<Array<ApiPerson>> {
   rh: ResolverHelper<ApiPerson> = new ResolverHelper<ApiPerson>();
 
-  constructor(@Inject(PersonService) public personService: PersonService, @Inject(Router) public router: Router) {}
+  constructor(@Inject(PersonService) public readonly personService: PersonService, @Inject(Router) public readonly router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Array<ApiPerson>> {
     return this.rh.resolveAll(route, state, this.personService);

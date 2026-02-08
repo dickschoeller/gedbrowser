@@ -60,7 +60,7 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
   person: ApiPerson;
   attributes: Array<ApiAttribute>;
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
-  private _options: Array<SelectItem> = [
+  private readonly _options: Array<SelectItem> = [
       { value: 'Adoption', label: 'Adoption' },
       { value: 'Adult Baptism', label: 'Adult Baptism' },
       { value: 'Adult Christening', label: 'Adult Christening' },
@@ -132,9 +132,9 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
       { value: 'Text', label: 'Text' },
     ];
 
-  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(PersonService) private service: PersonService,
-    @Inject(Router) private router: Router
+  constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
+    @Inject(PersonService) private readonly service: PersonService,
+    @Inject(Router) private readonly router: Router
   ) {}
 
   ngOnInit() {

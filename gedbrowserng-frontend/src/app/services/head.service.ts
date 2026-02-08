@@ -9,7 +9,7 @@ import { UrlBuilder } from '../utils/urlbuilder';
 @Injectable()
 export class HeadService {
 
-  constructor(@Inject(HttpClient) private http: HttpClient) {}
+  constructor(@Inject(HttpClient) private readonly http: HttpClient) {}
 
   getOne(db: string): Observable<ApiHead> {
     return this.http.get<ApiHead>(this.url(db));

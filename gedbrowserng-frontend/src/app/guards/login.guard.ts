@@ -5,7 +5,7 @@ import { UserService } from '../services';
 @Injectable()
 export class LoginGuard implements CanActivate {
 
-    constructor(private router: Router, private userService: UserService) { }
+    constructor(private readonly router: Router, private readonly userService: UserService) { }
 
     canActivate(): boolean {
         if (this.userService.currentUser) {

@@ -47,7 +47,7 @@ export class PersonFamilyChildComponent extends PersonGetter
     @Input() index: number;
 
     constructor(@Inject(PersonService) personService: PersonService,
-        @Inject(UserService) private userService: UserService) {
+        @Inject(UserService) private readonly userService: UserService) {
         super(personService);
         this.famMemberType = 'children';
     }

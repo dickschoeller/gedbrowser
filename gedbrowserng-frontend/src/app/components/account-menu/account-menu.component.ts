@@ -15,9 +15,9 @@ export class AccountMenuComponent implements OnInit {
     user: User;
 
     constructor(
-        @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) private authService: AuthService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService,
-        @Inject(Router) @Inject(Router) @Inject(Router) private router: Router,
+        @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) private readonly authService: AuthService,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService,
+        @Inject(Router) @Inject(Router) @Inject(Router) private readonly router: Router,
     ) { }
 
     ngOnInit() {

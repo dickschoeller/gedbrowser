@@ -30,7 +30,7 @@ export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  constructor(@Inject(NoteService) @Inject(NoteService) @Inject(NoteService) @Inject(NoteService) public service: NoteService, @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) {
+  constructor(@Inject(NoteService) @Inject(NoteService) @Inject(NoteService) @Inject(NoteService) public readonly service: NoteService, @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog) {
     super(service, dialog);
   }
 
