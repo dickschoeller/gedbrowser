@@ -36,9 +36,9 @@ export class LinkPersonDialogComponent
   persons: Array<ApiPerson>;
   @ViewChild(MatSelectionList, {static: true}) selectionList: MatSelectionList;
 
-  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private readonly route: ActivatedRoute,
-    @Inject(MatDialogRef<LinkPersonDialogComponent>) @Inject(MatDialogRef<LinkPersonDialogComponent>) @Inject(MatDialogRef<LinkPersonDialogComponent>) public readonly dialogRef: MatDialogRef<LinkPersonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) @Inject(LinkPersonDialogData) @Inject(LinkPersonDialogData) @Inject(LinkPersonDialogData) public readonly data: LinkPersonDialogData) {
+  constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
+    @Inject(MatDialogRef) public readonly dialogRef: MatDialogRef<LinkPersonDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public readonly data: LinkPersonDialogData) {
   }
 
   ngOnInit() {
