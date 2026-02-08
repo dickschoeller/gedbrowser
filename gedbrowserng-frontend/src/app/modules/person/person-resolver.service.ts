@@ -13,7 +13,7 @@ import { ResolverHelper } from '../../utils';
 export class PersonResolverService implements Resolve<ApiPerson> {
   rh: ResolverHelper<ApiPerson> = new ResolverHelper<ApiPerson>();
 
-  constructor(@Inject(PersonService) private personService: PersonService, @Inject(Router) private router: Router) {}
+  constructor(@Inject(PersonService) private readonly personService: PersonService, @Inject(Router) private readonly router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ApiPerson> {
     return this.rh.resolve(route, state, this.personService);

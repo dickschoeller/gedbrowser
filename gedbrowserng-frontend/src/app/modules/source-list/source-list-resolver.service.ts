@@ -10,7 +10,7 @@ import { ResolverHelper } from '../../utils';
 export class SourceListResolverService implements Resolve<Array<ApiSource>> {
   rh: ResolverHelper<ApiSource> = new ResolverHelper<ApiSource>();
 
-  constructor(@Inject(SourceService) public sourceService: SourceService, @Inject(Router) public router: Router) {}
+  constructor(@Inject(SourceService) public readonly sourceService: SourceService, @Inject(Router) public readonly router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Array<ApiSource>> {
     return this.rh.resolveAll(route, state, this.sourceService);

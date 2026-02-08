@@ -31,8 +31,8 @@ export class SourceButtonComponent extends SourceCreator {
   @Input() dataset: string;
 
   constructor(
-    @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) public service: SourceService,
-    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog,
+    @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) public readonly service: SourceService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
   ) {
     super(service, dialog);
   }

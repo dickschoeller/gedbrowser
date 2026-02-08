@@ -74,7 +74,7 @@ export class AttributeListComponent extends HasAttributeDialog implements OnInit
     attributeDialogHelper = new AttributeDialogHelper(this);
     attributeUtil = new AttributeAnalyzer(this);
 
-    constructor(@Inject(MatDialog) public dialog: MatDialog,
+    constructor(@Inject(MatDialog) public readonly dialog: MatDialog,
         @Inject(UserService) private readonly userService: UserService) {
         super(dialog);
     }

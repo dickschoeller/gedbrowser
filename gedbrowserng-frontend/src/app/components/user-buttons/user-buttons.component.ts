@@ -43,9 +43,9 @@ import { AccountMenuComponent } from '../account-menu/account-menu.component';
 export class UserButtonsComponent {
 
     constructor(
-        @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) @Inject(AuthService) private authService: AuthService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService,
-        @Inject(Router) @Inject(Router) @Inject(Router) private router: Router
+        @Inject(AuthService) private readonly authService: AuthService,
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(Router) private readonly router: Router
     ) { }
 
     logout() {

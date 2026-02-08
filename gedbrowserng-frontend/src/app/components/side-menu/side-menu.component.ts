@@ -60,10 +60,10 @@ export class SideMenuComponent implements OnInit, OnChanges {
   public readonly uploadForm = new FormGroup({ files: this.filesControl });
 
   constructor(
-    @Inject(DatasetsService) private datasetService: DatasetsService,
-    @Inject(SaveService) private saveService: SaveService,
-    @Inject(UploadService) private uploadService: UploadService,
-    @Inject(UserService) private userService: UserService,
+    @Inject(DatasetsService) private readonly datasetService: DatasetsService,
+    @Inject(SaveService) private readonly saveService: SaveService,
+    @Inject(UploadService) private readonly uploadService: UploadService,
+    @Inject(UserService) private readonly userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -91,9 +91,9 @@ export class SideMenuComponent implements OnInit, OnChanges {
       const value: File = values.shift();
       // Some browsers (and .ged files) don't set a reliable MIME type. Check
       // the file extension first, and fall back to MIME type.
-      const name = (value && value.name) ? value.name.toLowerCase() : '';
+      const name = value?.name?.toLowerCase() ?? '';
       const ext = name.includes('.') ? name.substring(name.lastIndexOf('.') + 1) : '';
-      const mime = (value && value.type) ? value.type.toLowerCase() : '';
+      const mime = value?.type?.toLowerCase() ?? '';
       const isGedExt = (ext === 'ged' || ext === 'gedcom');
       const isGedMime = (mime === 'application/x-gedcom' || mime === 'application/gedcom' || mime === 'text/plain');
       if (!isGedExt && !isGedMime) {

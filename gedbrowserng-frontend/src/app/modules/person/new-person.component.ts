@@ -24,7 +24,7 @@ export class NewPersonComponent {
 
   nph = new NewPersonHelper();
 
-  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) {
+  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog) {
   }
 
   openDialog(): void {

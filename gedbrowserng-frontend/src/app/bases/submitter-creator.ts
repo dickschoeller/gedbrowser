@@ -10,8 +10,8 @@ export abstract class SubmitterCreator implements RefreshSubmitter {
   data: NewSubmitterDialogData;
 
   constructor(
-    public submitterService: SubmitterService,
-    public dialog: MatDialog,
+    public readonly submitterService: SubmitterService,
+    public readonly dialog: MatDialog,
   ) {}
 
   createSubmitter(data: NewSubmitterDialogData): void {

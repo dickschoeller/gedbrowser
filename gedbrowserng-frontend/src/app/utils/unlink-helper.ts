@@ -3,7 +3,7 @@ import { ApiAttribute, ApiObject, LinkItem, LinkDialogData } from '../models';
 import { LinkDialogActions } from './link-dialog-actions';
 
 export class UnlinkHelper extends LinkDialogActions {
-  constructor(public labelString, private comparator, private linkString) {
+  constructor(public readonly labelString, private readonly comparator, private readonly linkString) {
     super(labelString);
   }
 

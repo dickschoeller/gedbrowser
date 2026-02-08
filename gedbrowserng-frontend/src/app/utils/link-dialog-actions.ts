@@ -2,7 +2,7 @@ import { LinkDialogInterface } from '../interfaces';
 import { ApiObject, ApiAttribute, LinkItem, LinkDialogData } from '../models';
 
 export abstract class LinkDialogActions {
-  constructor(public labelString) { }
+  constructor(public readonly labelString) { }
 
   pushObject(index: number, dialog: LinkDialogInterface, obj: ApiObject) {
     dialog.data.items.push({

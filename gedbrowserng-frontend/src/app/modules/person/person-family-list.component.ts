@@ -69,8 +69,8 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
     childSex = 'M';
     _ub: UrlBuilder;
 
-    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public personService: PersonService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
+    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public readonly personService: PersonService,
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) {
         super(personService);
     }
 

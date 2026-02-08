@@ -10,8 +10,8 @@ export abstract class SourceCreator implements RefreshSource {
   data: NewSourceDialogData;
 
   constructor(
-    public sourceService: SourceService,
-    public dialog: MatDialog,
+    public readonly sourceService: SourceService,
+    public readonly dialog: MatDialog,
   ) {}
 
   createSource(data: NewSourceDialogData): void {

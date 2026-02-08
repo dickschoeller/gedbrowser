@@ -31,8 +31,8 @@ import { MatButton } from '@angular/material/button';
 })
 export class NewNoteDialogComponent {
   constructor(
-    @Inject(MatDialogRef) public dialogRef: MatDialogRef<NewNoteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: NewNoteDialogData) {
+    @Inject(MatDialogRef) public readonly dialogRef: MatDialogRef<NewNoteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public readonly data: NewNoteDialogData) {
   }
 
   onNoClick(): void {

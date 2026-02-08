@@ -33,8 +33,8 @@ export class LinkPersonComponent {
 
   lph: LinkPersonHelper;
 
-  constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) private personService: PersonService,
-    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) {
+  constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) private readonly personService: PersonService,
+    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog) {
         this.lph = new LinkPersonHelper(this.personService);
     }
 

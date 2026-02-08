@@ -5,7 +5,7 @@ import { ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
 import { NewAttributeDialogComponent } from '../attribute-dialog';
 
 export abstract class HasAttributeDialog implements HasAttributeList {
-  constructor(public dialog: MatDialog) { }
+  constructor(public readonly dialog: MatDialog) { }
 
   openAttributeDialog(callback: (result: AttributeDialogData) => void): void {
     const dialogRef = this.dialog.open(

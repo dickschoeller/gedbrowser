@@ -17,9 +17,9 @@ export class NoteListPageComponent implements OnInit, OnChanges, RefreshNote {
   dataset: string;
   notes: Array<ApiNote>;
 
-  constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(NoteService) private noteService: NoteService,
-    @Inject(Router) private router: Router) { }
+  constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
+    @Inject(NoteService) private readonly noteService: NoteService,
+    @Inject(Router) private readonly router: Router) { }
 
   ngOnInit(): void {
     this.init();

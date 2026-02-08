@@ -10,7 +10,7 @@ import { ResolverHelper } from '../../utils';
 export class NoteResolverService implements Resolve<ApiNote> {
   rh: ResolverHelper<ApiNote> = new ResolverHelper<ApiNote>();
 
-  constructor(@Inject(NoteService) private noteService: NoteService, @Inject(Router) private route: Router) {}
+  constructor(@Inject(NoteService) private readonly noteService: NoteService, @Inject(Router) private readonly route: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ApiNote> {
     return this.rh.resolve(route, state, this.noteService);

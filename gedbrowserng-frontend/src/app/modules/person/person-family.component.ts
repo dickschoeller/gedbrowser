@@ -101,7 +101,7 @@ export class PersonFamilyComponent extends InitablePersonCreator
     family: ApiFamily;
     attributes: Array<ApiAttribute>;
     initialized = false;
-    private _options: Array<SelectItem> = [
+    private readonly _options: Array<SelectItem> = [
         { value: 'Annulment', label: 'Annulment' },
         { value: 'Census', label: 'Census' },
         { value: 'Children Count', label: 'Children Count' },
@@ -125,9 +125,9 @@ export class PersonFamilyComponent extends InitablePersonCreator
     sex: string;
     surname: string;
 
-    constructor(@Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) private familyService: FamilyService,
-        @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public personService: PersonService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private userService: UserService) {
+    constructor(@Inject(FamilyService) private readonly familyService: FamilyService,
+        @Inject(PersonService) public readonly personService: PersonService,
+        @Inject(UserService) private readonly userService: UserService) {
         super(personService);
     }
 

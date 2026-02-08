@@ -7,7 +7,7 @@ import { UrlBuilder } from '../utils/urlbuilder';
 @Injectable()
 export class DatasetsService {
 
-  constructor(@Inject(HttpClient) private http: HttpClient) { }
+  constructor(@Inject(HttpClient) private readonly http: HttpClient) { }
 
   get(): Observable<Array<String>> {
     return this.http.get<Array<String>>(this.url());

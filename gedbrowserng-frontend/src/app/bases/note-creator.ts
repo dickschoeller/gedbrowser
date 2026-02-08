@@ -9,8 +9,8 @@ import { NoteService } from '../services';
 export abstract class NoteCreator implements RefreshNote {
   data: NewNoteDialogData;
 
-  constructor(public noteService: NoteService,
-    public dialog: MatDialog) {}
+  constructor(public readonly noteService: NoteService,
+    public readonly dialog: MatDialog) {}
 
   createNote(data: NewNoteDialogData): void {
     if (data != null && data !== undefined) {

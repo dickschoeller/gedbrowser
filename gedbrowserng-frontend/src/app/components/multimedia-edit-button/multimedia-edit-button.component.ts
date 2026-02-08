@@ -22,7 +22,7 @@ export class MultimediaEditButtonComponent {
   @Input() attributes: Array<ApiAttribute>;
   @Input() index;
 
-  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public dialog: MatDialog) { }
+  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog) { }
 
   edit(): void {
     const dialogRef = this.dialog.open(

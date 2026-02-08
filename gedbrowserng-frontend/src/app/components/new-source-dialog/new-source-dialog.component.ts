@@ -42,8 +42,8 @@ import { MatButton } from '@angular/material/button';
 })
 export class NewSourceDialogComponent {
   constructor(
-    @Inject(MatDialogRef) public dialogRef: MatDialogRef<NewSourceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: NewSourceDialogData) {
+    @Inject(MatDialogRef) public readonly dialogRef: MatDialogRef<NewSourceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public readonly data: NewSourceDialogData) {
   }
 
   onNoClick(): void {

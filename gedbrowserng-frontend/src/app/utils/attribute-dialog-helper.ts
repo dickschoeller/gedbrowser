@@ -2,7 +2,7 @@ import { ApiAttribute, AttributeDialogData } from '../models';
 import { StringUtil } from './string-util';
 
 export class AttributeDialogHelper {
-  constructor(public parent: any) {}
+  constructor(public readonly parent: any) {}
 
   public static dialogData(typeString: string): AttributeDialogData {
     return {

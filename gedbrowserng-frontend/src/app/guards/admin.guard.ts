@@ -4,7 +4,7 @@ import { UserService } from '../services';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-    constructor(private router: Router, private userService: UserService) { }
+    constructor(private readonly router: Router, private readonly userService: UserService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         if (this.userService.currentUser) {

@@ -99,18 +99,18 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
   datasource: MatTableDataSource<ApiPerson> = new MatTableDataSource<ApiPerson>([]);
 
   constructor(
-    @Inject(Router) private router: Router,
-    @Inject(PersonService) public personService: PersonService,
-    @Inject(MatDialog) public dialog: MatDialog
+    @Inject(Router) private readonly router: Router,
+    @Inject(PersonService) public readonly personService: PersonService,
+    @Inject(MatDialog) public readonly dialog: MatDialog
   ) {
     super(personService);
     // Make accessor null-safe in case lifespan or indexName are missing
     this.datasource.sortingDataAccessor = (item, property) => {
       switch (property) {
-        case 'birthdate': return this.dateCleanup(item && item.lifespan ? item.lifespan.birthDate : '');
-        case 'deathdate': return this.dateCleanup(item && item.lifespan ? item.lifespan.deathDate : '');
-        case 'indexName': return (item && item.indexName) ? item.indexName.replace('?', 'AAAAAAAAAAAAAAAAAAA').toLocaleUpperCase() : '';
-        default: return (item && item[property]) ? item[property] : '';
+        case 'birthdate': return this.dateCleanup(item?.lifespan?.birthDate ?? '');
+        case 'deathdate': return this.dateCleanup(item?.lifespan?.deathDate ?? '');
+        case 'indexName': return item?.indexName?.replace('?', 'AAAAAAAAAAAAAAAAAAA').toLocaleUpperCase() ?? '';
+        default: return item?.[property] ?? '';
       }
     };
   }

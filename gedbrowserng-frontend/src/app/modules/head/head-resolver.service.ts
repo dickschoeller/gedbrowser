@@ -10,7 +10,7 @@ import { ResolverHelper } from '../../utils';
 export class HeadResolverService implements Resolve<ApiHead> {
   rh: ResolverHelper<ApiHead> = new ResolverHelper<ApiHead>();
 
-  constructor(@Inject(HeadService) private headService: HeadService, @Inject(Router) private router: Router) {}
+  constructor(@Inject(HeadService) private readonly headService: HeadService, @Inject(Router) private readonly router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ApiHead> {
     return this.rh.resolve(route, state, this.headService);

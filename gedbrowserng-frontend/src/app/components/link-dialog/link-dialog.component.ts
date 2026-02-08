@@ -35,9 +35,9 @@ export class LinkDialogComponent
   @Input() titleString: string;
   objects: Array<any>;
 
-  constructor(@Inject(ActivatedRoute) @Inject(ActivatedRoute) @Inject(ActivatedRoute) private route: ActivatedRoute,
-    @Inject(MatDialogRef<LinkDialogComponent>) @Inject(MatDialogRef<LinkDialogComponent>) @Inject(MatDialogRef<LinkDialogComponent>) public dialogRef: MatDialogRef<LinkDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) @Inject(LinkDialogData) @Inject(LinkDialogData) @Inject(LinkDialogData) public data: LinkDialogData) {
+  constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
+    @Inject(MatDialogRef) public readonly dialogRef: MatDialogRef<LinkDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public readonly data: LinkDialogData) {
   }
 
   onNoClick(): void {

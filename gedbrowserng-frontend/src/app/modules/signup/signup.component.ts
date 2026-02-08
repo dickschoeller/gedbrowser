@@ -83,14 +83,14 @@ export class SignupComponent implements OnInit, OnDestroy {
     notification: DisplayMessage;
 
     returnUrl: string;
-    private ngUnsubscribe: Subject<void> = new Subject<void>();
+    private readonly ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(
-        @Inject(AuthService) private authService: AuthService,
-        @Inject(UserService) private userService: UserService,
-        @Inject(ActivatedRoute) private route: ActivatedRoute,
-        @Inject(Router) private router: Router,
-        @Inject(FormBuilder) private formBuilder: FormBuilder
+        @Inject(AuthService) private readonly authService: AuthService,
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(ActivatedRoute) private readonly route: ActivatedRoute,
+        @Inject(Router) private readonly router: Router,
+        @Inject(FormBuilder) private readonly formBuilder: FormBuilder
     ) {
 
     }

@@ -4,7 +4,7 @@ import { NameUtil } from './name-util';
 import { StringUtil } from './string-util';
 
 export class AttributeAnalyzer {
-  constructor(private parent: any) {}
+  constructor(private readonly parent: any) {}
 
   label() {
     if (this.parent.attribute.type === 'attribute') {

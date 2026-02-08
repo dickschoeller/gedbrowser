@@ -91,9 +91,9 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
   datasource: MatTableDataSource<ApiSubmitter> = new MatTableDataSource<ApiSubmitter>([]);
 
   constructor(
-    @Inject(Router) private router: Router,
-    @Inject(SubmitterService) public submitterService: SubmitterService,
-    @Inject(MatDialog) public dialog: MatDialog,
+    @Inject(Router) private readonly router: Router,
+    @Inject(SubmitterService) public readonly submitterService: SubmitterService,
+    @Inject(MatDialog) public readonly dialog: MatDialog,
   ) {
     super(submitterService, dialog);
   }

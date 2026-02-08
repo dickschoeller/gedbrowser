@@ -8,7 +8,7 @@ import { UrlBuilder } from '../utils/urlbuilder';
 
 @Injectable()
 export abstract class ServiceBase<T extends ApiObject> implements ApiService<T> {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   abstract url(db: string);
 
