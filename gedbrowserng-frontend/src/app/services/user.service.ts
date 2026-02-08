@@ -20,7 +20,7 @@ export class UserService {
       // unreachable. If the refresh completes later it will still update currentUser.
       const refreshPromise = this.apiService.get(this.config.refresh_token_url).toPromise()
           .then(res => {
-              if (res && res.accessToken !== undefined && res.accessToken !== null) {
+              if (res?.accessToken != null) {
                   return this.getMyInfo().toPromise().then((user: User) => this.currentUser = user );
               }
               return null;
