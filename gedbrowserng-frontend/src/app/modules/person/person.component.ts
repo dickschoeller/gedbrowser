@@ -44,7 +44,9 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
       </div>
     </mat-card-content>
     <mat-card-footer>
-      <div><b>{{ person?.refns[0].string }}:&nbsp;</b> {{ person?.refns[0].tail }}</div>
+      @if (person?.refns[0]) {
+        <div><b>{{ person.refns[0].string }}:&nbsp;</b> {{ person.refns[0].tail }}</div>
+      }
       @if (person?.changes[0]) {
         <div><b>{{ person?.changes[0]?.string }}:&nbsp;</b> {{ person?.changes[0]?.attributes[0].string }}</div>
       }
