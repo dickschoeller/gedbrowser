@@ -4,15 +4,8 @@
 html, body, app-root, .body, .mat-drawer-container {
   height: 100%;
   min-height: 100vh;
-  font-family: 
 }
 
-@font-face {
-  font-family: 'Noto Sans';
-  src: url('/assets/fonts/NotoSans-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
 body {
   margin: 0;
   padding: 0;
@@ -100,7 +93,8 @@ div.ui-orderlist-controls {
 
 .mat-drawer-container * .mat-toolbar {
   font-weight: 500;
-  font-size: 14px/22px;
+  font-size: 14px;
+  line-height: 22px;
 }
 
 .mat-drawer-container * .mat-toolbar a,

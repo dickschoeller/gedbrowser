@@ -53,26 +53,6 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
   <br/>
 </app-main-layout>`,
     styles: [`
-button[icon="fa-angle-up"] {
-  display: none !important;
-}
-
-button[icon="fa-angle-down"] {
-  display: none !important;
-}
-
-button[icon="fa-angle-double-up"] {
-    display: none !important;
-}
-
-button[ng-reflect-icon="fa-angle-double-up"] {
-    display: none !important;
-}
-
-div.ui-orderlist-controls {
-    display: none !important;
-}
-
 mat-card-footer {
   padding-left: 20px;
   padding-top: 10px;

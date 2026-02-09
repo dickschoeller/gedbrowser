@@ -24,26 +24,6 @@ import { AttributeListComponent } from '../../components/attribute-list/attribut
   </mat-card>
 </app-main-layout>`,
     styles: [`
-button[icon="fa-angle-up"] {
-  display: none !important;
-}
-
-button[icon="fa-angle-down"] {
-  display: none !important;
-}
-
-button[icon="fa-angle-double-up"] {
-    display: none !important;
-}
-
-button[ng-reflect-icon="fa-angle-double-up"] {
-    display: none !important;
-}
-
-div.ui-orderlist-controls {
-    display: none !important;
-}
-
 .mat-card-footer {
   margin: 24px;
 }
