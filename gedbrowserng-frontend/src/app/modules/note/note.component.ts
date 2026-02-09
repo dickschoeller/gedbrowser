@@ -15,7 +15,7 @@ import { AttributeListComponent } from '../../components/attribute-list/attribut
     standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
-    <mat-card-title><mat-icon>comment</mat-icon> {{ truncateNote(70) }}</mat-card-title>
+    <mat-card-title><mat-icon inline=true>comment</mat-icon> {{ truncateNote(70) }}</mat-card-title>
     <mat-card-subtitle>{{ note?.string }}</mat-card-subtitle>
     <mat-card-content>
       <p class="multi_lines_text">{{ note?.tail }}</p>
@@ -23,7 +23,55 @@ import { AttributeListComponent } from '../../components/attribute-list/attribut
     </mat-card-content>
   </mat-card>
 </app-main-layout>`,
-    styles: [],
+    styles: [`
+button[icon="fa-angle-up"] {
+  display: none !important;
+}
+
+button[icon="fa-angle-down"] {
+  display: none !important;
+}
+
+button[icon="fa-angle-double-up"] {
+    display: none !important;
+}
+
+button[ng-reflect-icon="fa-angle-double-up"] {
+    display: none !important;
+}
+
+div.ui-orderlist-controls {
+    display: none !important;
+}
+
+.mat-card-footer {
+  margin: 24px;
+}
+
+mat-card-title {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+mat-card-title mat-icon {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+mat-card-subtitle {
+  padding-left: 60px;
+  padding-bottom: 10px;
+  padding-right: 0;
+  padding-top: 0;
+}
+
+.mat-icon {
+    vertical-align: top;
+    font-size: 1.25em;
+}
+    `],
     imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent]
 })
 export class NoteComponent implements OnInit, HasAttributeList {
