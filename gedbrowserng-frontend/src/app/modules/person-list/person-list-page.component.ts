@@ -49,8 +49,6 @@ export class PersonListPageComponent implements OnInit, OnChanges {
       return false;
     };
 
-    const currentUrl = this.router.url + '?';
-
     this.personService.getAll(this.dataset).subscribe(
       (persons: Array<ApiPerson>) => {
         this.persons = persons

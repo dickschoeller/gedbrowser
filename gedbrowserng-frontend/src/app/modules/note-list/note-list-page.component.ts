@@ -46,8 +46,6 @@ export class NoteListPageComponent implements OnInit, OnChanges, RefreshNote {
       return false;
     };
 
-    const currentUrl = this.router.url + '?';
-
     this.noteService.getAll(this.dataset).subscribe(
       (notes: Array<ApiNote>) => {
         this.notes = notes.toSorted(ApiComparators.compareNotes);

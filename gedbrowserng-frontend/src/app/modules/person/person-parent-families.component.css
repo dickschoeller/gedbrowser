@@ -20,17 +20,6 @@
 .mat-toolbar a {
   text-decoration: none;
 }
-.mat-card {
-  padding: 0;
-}
-
-.mat-card-content {
-  margin: 24px;
-  padding-bottom: 24px;
-}
-
-.family-list {
-}
 
 .family-box {
   cursor: move;

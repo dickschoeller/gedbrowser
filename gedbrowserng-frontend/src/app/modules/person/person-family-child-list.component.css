@@ -6,17 +6,6 @@
   margin: 24px;
   padding-bottom: 24px;
 }
-.mat-card {
-  padding: 0;
-}
-
-.mat-card-content {
-  margin: 24px;
-  padding-bottom: 24px;
-}
-
-.child-list {
-}
 
 .child-box {
   cursor: move;

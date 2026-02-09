@@ -19,7 +19,7 @@ export class LinkDialogLauncher {
     });
 
     dialogRef.afterClosed().subscribe((result: LinkDialogData) => {
-      if (!result || !result.selected) {
+      if (!result?.selected) {
         return;
       }
       lh.onOK(result, that.parent.attributes, () => that.parent.save());

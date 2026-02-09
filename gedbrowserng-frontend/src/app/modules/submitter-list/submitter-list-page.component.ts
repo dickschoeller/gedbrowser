@@ -46,8 +46,6 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
       return false;
     };
 
-    const currentUrl = this.router.url + '?';
-
     this.submitterService.getAll(this.dataset).subscribe(
       (submitters: Array<ApiSubmitter>) => {
         this.submitters = submitters.toSorted(ApiComparators.compareSubmitters);

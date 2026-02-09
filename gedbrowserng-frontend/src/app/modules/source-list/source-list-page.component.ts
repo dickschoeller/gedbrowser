@@ -46,8 +46,6 @@ export class SourceListPageComponent implements OnInit, OnChanges, RefreshSource
       return false;
     };
 
-    const currentUrl = this.router.url + '?';
-
     this.sourceService.getAll(this.dataset).subscribe(
       (sources: Array<ApiSource>) => {
         this.sources = sources.toSorted(ApiComparators.compareSources);

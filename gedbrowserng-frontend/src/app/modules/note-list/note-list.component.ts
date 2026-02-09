@@ -189,8 +189,7 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
     });
   }
 
-  formatNoteTail(tail?: string): string {
-    const safeTail = tail ?? '';
-    return safeTail.slice(0, 80).replaceAll('\n', ' ');
+  formatNoteTail(tail: string = ''): string {
+    return tail.slice(0, 80).replaceAll('\n', ' ');
   }
 }

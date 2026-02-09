@@ -50,7 +50,6 @@ XMLHttpRequest.prototype.setRequestHeader = function(header: string, value: stri
 XMLHttpRequest.prototype.send = function(body?: any) {
   const metadata = xhrMetadata.get(this);
   const url = metadata?.originalUrl || '';
-  const method = metadata?.originalMethod || '';
   const self = this as any;
   
   // For template/stylesheet requests in tests, return empty content

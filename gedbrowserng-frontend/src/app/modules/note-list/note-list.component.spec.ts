@@ -41,7 +41,7 @@ class StubParent {
 describe('NoteListComponent', () => {
   it('formatNoteTail handles undefined and newlines', () => {
     const comp = new NoteListComponent(new StubRouter() as any, new StubNoteService() as any, new StubDialog() as any);
-    expect(comp.formatNoteTail(undefined)).toBe('');
+    expect(comp.formatNoteTail()).toBe('');
     const tail = 'Line1\nLine2';
     expect(comp.formatNoteTail(tail)).toBe('Line1 Line2');
   });
