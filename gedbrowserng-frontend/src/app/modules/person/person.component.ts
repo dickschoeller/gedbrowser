@@ -24,7 +24,7 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
     standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
-    <mat-card-title><mat-icon>person</mat-icon> {{ person?.indexName }}</mat-card-title>
+    <mat-card-title><mat-icon inline=true>person</mat-icon> {{ person?.indexName }}</mat-card-title>
     <mat-card-subtitle>{{ lifespanDateString() }} : {{ person?.string }}</mat-card-subtitle>
     <mat-card-content>
       <div class="ui-g">
@@ -52,7 +52,31 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
   </mat-card>
   <br/>
 </app-main-layout>`,
-    styles: [],
+    styles: [`
+button[icon="fa-angle-up"] {
+  display: none !important;
+}
+
+button[icon="fa-angle-down"] {
+  display: none !important;
+}
+
+button[icon="fa-angle-double-up"] {
+    display: none !important;
+}
+
+button[ng-reflect-icon="fa-angle-double-up"] {
+    display: none !important;
+}
+
+div.ui-orderlist-controls {
+    display: none !important;
+}
+
+.mat-card-footer {
+  margin: 24px;
+}
+    `],
     imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent, PersonFamilyListComponent, PersonParentFamiliesComponent, MatCardFooter]
 })
 export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Saveable {

@@ -25,7 +25,7 @@ import { MatTooltip } from '@angular/material/tooltip';
     selector: 'app-note-list',
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
-    <mat-card-title><div class="with-icon"><mat-icon matListIcon>comment</mat-icon> Notes</div></mat-card-title>
+    <mat-card-title><div class="with-icon"><mat-icon inline=true matListIcon>comment</mat-icon> Notes</div></mat-card-title>
     <mat-card-content>
       <div class="ui-g">
         <div class="ui-g-12">
@@ -75,7 +75,50 @@ import { MatTooltip } from '@angular/material/tooltip';
     </mat-card-content>
   </mat-card>
 </app-main-layout>`,
-    styles: [],
+    styles: [`
+.inner-card {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card-title {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+mat-card-title mat-icon {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.inner-card mat-card-header {
+  flex-shrink: 0;
+  background-color: transparent;
+}
+
+.inner-card mat-card-header mat-toolbar {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  margin: 0;
+}
+
+.inner-card mat-card-content {
+  flex: 1;
+  overflow: auto;
+}
+
+mat-form-field {
+  margin-top: 20px;
+}
+
+.mat-icon {
+    vertical-align: top;
+    font-size: 1.25em;
+}
+    `],
     imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardContent, MatCardHeader, MatToolbar, MatFormField, MatInput, MatIconButton, MatTooltip, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
 export class NoteListComponent extends NoteCreator implements AfterViewInit, OnChanges, OnInit, ListPage<ApiNote> {
