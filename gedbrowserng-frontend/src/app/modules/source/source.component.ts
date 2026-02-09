@@ -30,7 +30,35 @@ import { MultimediaGalleryComponent } from '../../components/multimedia-gallery/
     </mat-card-content>
   </mat-card>
 </app-main-layout>`,
-    styles: [],
+    styles: [`
+.mat-card-footer {
+  margin: 24px;
+}
+
+mat-card-title {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+mat-card-title mat-icon {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+mat-card-subtitle {
+  padding-left: 60px;
+  padding-bottom: 10px;
+  padding-right: 0;
+  padding-top: 0;
+}
+
+.mat-icon {
+    vertical-align: top;
+    font-size: 1.25em;
+}
+    `],
     imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent]
 })
 export class SourceComponent implements OnInit, HasAttributeList {

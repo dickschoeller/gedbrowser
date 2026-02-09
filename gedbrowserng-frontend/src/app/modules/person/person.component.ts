@@ -44,7 +44,9 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
       </div>
     </mat-card-content>
     <mat-card-footer>
-      <div><b>{{ person?.refns[0].string }}:&nbsp;</b> {{ person?.refns[0].tail }}</div>
+      @if (person?.refns[0]) {
+        <div><b>{{ person.refns[0].string }}:&nbsp;</b> {{ person.refns[0].tail }}</div>
+      }
       @if (person?.changes[0]) {
         <div><b>{{ person?.changes[0]?.string }}:&nbsp;</b> {{ person?.changes[0]?.attributes[0].string }}</div>
       }
@@ -53,28 +55,34 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
   <br/>
 </app-main-layout>`,
     styles: [`
-button[icon="fa-angle-up"] {
-  display: none !important;
+mat-card-footer {
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-button[icon="fa-angle-down"] {
-  display: none !important;
+mat-card-title {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 0;
+  padding-bottom: 0;
 }
 
-button[icon="fa-angle-double-up"] {
-    display: none !important;
+mat-card-title mat-icon {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-button[ng-reflect-icon="fa-angle-double-up"] {
-    display: none !important;
+mat-card-subtitle {
+  padding-left: 60px;
+  padding-bottom: 10px;
+  padding-right: 0;
+  padding-top: 0;
 }
 
-div.ui-orderlist-controls {
-    display: none !important;
-}
-
-.mat-card-footer {
-  margin: 24px;
+.mat-icon {
+    vertical-align: top;
+    font-size: 1.25em;
 }
     `],
     imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent, PersonFamilyListComponent, PersonParentFamiliesComponent, MatCardFooter]

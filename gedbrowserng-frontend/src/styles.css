@@ -9,6 +9,7 @@ html, body, app-root, .body, .mat-drawer-container {
 body {
   margin: 0;
   padding: 0;
+  font-family: "Noto Sans", "Roboto", "Helvetica Neue", sans-serif;
 }
 
 .label {
@@ -91,7 +92,9 @@ div.ui-orderlist-controls {
 }
 
 .mat-drawer-container * .mat-toolbar {
-  font: 500 14px/22px Roboto,"Helvetica Neue",sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
 }
 
 .mat-drawer-container * .mat-toolbar a,
