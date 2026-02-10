@@ -10,10 +10,9 @@ import { WelcomeComponent } from './app/welcome.component';
 import { LoginComponent } from './app/modules/login/login.component';
 import { SignupComponent } from './app/modules/signup/signup.component';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule } from './app/modules';
 import { AppComponent } from './app/app.component';
 
@@ -30,7 +29,8 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(rootRouting, BrowserModule, BrowserAnimationsModule, CdkTableModule, FormsModule, ReactiveFormsModule, HttpClientModule, HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule),
+        provideHttpClient(),
+        importProvidersFrom(rootRouting, BrowserModule, CdkTableModule, FormsModule, ReactiveFormsModule, HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule),
         AuthApiService,
         AuthService,
         ConfigService,
