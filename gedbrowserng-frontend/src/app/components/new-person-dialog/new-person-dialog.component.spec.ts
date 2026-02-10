@@ -6,7 +6,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { NewPersonDialogComponent } from './new-person-dialog.component';
 
@@ -19,7 +18,6 @@ describe('NewPersonDialogComponent', () => {
     schemas: [NO_ERRORS_SCHEMA],
     imports: [MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, NewPersonDialogComponent],
     providers: [
-      provideAnimations(),
       { provide: MatDialogRef, useValue: {} },
       {
         provide: MAT_DIALOG_DATA,

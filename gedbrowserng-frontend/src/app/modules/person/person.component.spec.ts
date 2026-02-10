@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
@@ -103,7 +102,6 @@ describe('PersonComponent', () => {
       provideRouter([]),
       provideHttpClient(),
       provideHttpClientTesting(),
-      provideAnimations(),
       PersonService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
       { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
@@ -174,7 +172,6 @@ describe('PersonComponent', () => {
       provideRouter([]),
       provideHttpClient(),
       provideHttpClientTesting(),
-      provideAnimations(),
       PersonService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
       { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },

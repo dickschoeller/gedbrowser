@@ -9,7 +9,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { MultimediaDialogComponent } from './multimedia-dialog.component';
 import { UserService, AuthApiService, ConfigService } from '../../services';
@@ -25,7 +24,6 @@ describe('MultimediaDialogComponent', () => {
     providers: [
       provideHttpClient(),
       provideHttpClientTesting(),
-      provideAnimations(),
       { provide: MatDialogRef, useValue: {} },
         {
             provide: MAT_DIALOG_DATA,

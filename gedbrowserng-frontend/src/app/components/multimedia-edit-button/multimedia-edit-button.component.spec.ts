@@ -1,7 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { of } from 'rxjs';
 import * as utils from '../../utils';
@@ -25,7 +24,6 @@ describe('MultimediaEditButtonComponent', () => {
     schemas: [NO_ERRORS_SCHEMA],
     imports: [MatDialogModule, MultimediaEditButtonComponent],
     providers: [
-      provideAnimations(),
       { provide: MatDialog, useValue: mockDialog }
     ]
 }).compileComponents();

@@ -8,7 +8,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
@@ -183,7 +182,6 @@ export function setupPersonComponentTest<T>(
       provideRouter([]),
       provideHttpClient(),
       provideHttpClientTesting(),
-      provideAnimations(),
       { provide: PersonService, useValue: mockPersonService },
       { provide: FamilyService, useValue: mockFamilyService },
       { provide: UserService, useValue: mockUserService },

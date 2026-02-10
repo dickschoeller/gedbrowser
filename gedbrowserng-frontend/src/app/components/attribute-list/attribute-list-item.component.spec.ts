@@ -5,7 +5,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -84,7 +83,6 @@ describe('AttributeListItemComponent', () => {
         MockSourceButtonComponent
     ],
     providers: [
-        provideAnimations(),
         { provide: UserService, useValue: mockUserService },
         { provide: MatDialog, useValue: mockMatDialog }
     ]

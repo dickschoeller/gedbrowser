@@ -13,7 +13,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -68,7 +67,6 @@ const STANDARD_PROVIDERS = [
   provideRouter([]),
   provideHttpClient(),
   provideHttpClientTesting(),
-  provideAnimations(),
   { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
   { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
   { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
