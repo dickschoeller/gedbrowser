@@ -146,20 +146,6 @@
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>${spotbugs-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>spotbugs</id>
-            <phase>test</phase>
-            <goals>
-              <goal>spotbugs</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <failOnError>true</failOnError>
-          <maxRank>17</maxRank>
-          <includeTests>true</includeTests>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -286,6 +272,11 @@
               </goals>
             </execution>
           </executions>
+          <configuration>
+            <failOnError>true</failOnError>
+            <maxRank>17</maxRank>
+            <includeTests>true</includeTests>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
