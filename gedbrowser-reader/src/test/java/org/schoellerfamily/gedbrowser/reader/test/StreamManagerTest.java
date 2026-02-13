@@ -20,7 +20,6 @@ import org.schoellerfamily.gedbrowser.reader.StreamManager;
  */
 class StreamManagerTest {
 
-    /** */
     @Test
     void testNullFilename() throws FileNotFoundException {
         final StreamManager streamManager = new StreamManager(null);
@@ -28,7 +27,6 @@ class StreamManagerTest {
         assertNull(is, "Null filename should return null input stream");
     }
 
-    /** */
     @ParameterizedTest
     @ValueSource(strings = {
         "../../../etc/passwd",
@@ -44,7 +42,6 @@ class StreamManagerTest {
         assertThrows(IllegalArgumentException.class, streamManager::getInputStream);
     }
 
-    /** */
     @ParameterizedTest
     @ValueSource(strings = {
         "charset",
@@ -61,7 +58,6 @@ class StreamManagerTest {
         assertThrows(FileNotFoundException.class, streamManager::getInputStream);
     }
 
-    /** */
     @Test
     void testFilePathWithSrcDirectory() throws IOException {
         // Tests paths containing "src/"
@@ -73,7 +69,6 @@ class StreamManagerTest {
         }
     }
 
-    /** */
     @Test
     void testValidRelativeFilePath() throws IOException {
         // Tests a valid relative file path - use absolute path instead to avoid

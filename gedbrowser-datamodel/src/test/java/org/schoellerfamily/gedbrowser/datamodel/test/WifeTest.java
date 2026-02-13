@@ -2,10 +2,14 @@ package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -55,58 +59,73 @@ final class WifeTest {
         assertFalse(wife.getMother().isSet(), "Should not be set");
     }
 
-    /** */
-    @Test
-    void testGetMother1() {
-        assertEquals(person2, wife1.getMother(), "Person's mother doesn't match");
+    /**
+     * Parameterized mother equality checks.
+     *
+     * @param wifeIndex           which wife to test (1=wife1,2=wife2a,3=wife2b)
+     * @param expectedMotherIndex expected value of getMother() for the wife
+     *                            (0=null,2=person2,3=person3)
+     */
+    @ParameterizedTest(name = "mother[{index}] wife{0} => person{1}")
+    @MethodSource("motherCases")
+    void testGetMotherParameterized(final int wifeIndex, final int expectedMotherIndex) {
+        final Wife target = getWifeByIndex(wifeIndex);
+        final Person expected = getPersonByIndex(expectedMotherIndex);
+        assertEquals(expected, target.getMother(), "Person's mother doesn't match");
     }
 
-    /** */
-    @Test
-    void testGetMother2a() {
-        assertEquals(person2, wife2a.getMother(), "Person's mother doesn't match");
+    @SuppressWarnings("magicnumber")
+    static Stream<Arguments> motherCases() {
+        return Stream.of(
+                Arguments.of(1, 2),
+                Arguments.of(2, 2),
+                Arguments.of(3, 3)
+        );
     }
 
-    /** */
-    @Test
-    void testGetMother2b() {
-        assertEquals(person3, wife2b.getMother(), "Person's mother doesn't match");
+    /**
+     * Parameterized spouse isSet checks.
+     * @param wifeIndex which wife to test (1=wife1,2=wife2a,3=wife2b)
+     * @param expectedIsSet expected value of isSet() for the spouse of the wife
+     */
+    @ParameterizedTest(name = "spouseIsSet[{index}] wife{0} => isSet={1}")
+    @MethodSource("spouseIsSetCases")
+    void testGetSpouseIsSetParameterized(final int wifeIndex, final boolean expectedIsSet) {
+        final Wife target = getWifeByIndex(wifeIndex);
+        assertEquals(expectedIsSet, target.getSpouse().isSet(),
+            "Person's spouse set-state mismatch");
     }
 
-    /** */
-    @Test
-    void testGetSpouse1Set() {
-        assertTrue(wife1.getSpouse().isSet(), "Person's spouse isn't set");
+    @SuppressWarnings("magicnumber")
+    static Stream<Arguments> spouseIsSetCases() {
+        return Stream.of(
+                Arguments.of(1, true),
+                Arguments.of(2, true),
+                Arguments.of(3, true)
+        );
     }
 
-    /** */
-    @Test
-    void testGetSpouse2aSet() {
-        assertTrue(wife2a.getSpouse().isSet(), "Person's spouse isn't set");
+    /**
+     * Parameterized spouse equality checks.
+     *
+     * @param wifeIndex           which wife to test (1=wife1,2=wife2a,3=wife2b)
+     * @param expectedSpouseIndex expected value of getSpouse() for the wife
+     */
+    @ParameterizedTest(name = "spouse[{index}] wife{0} => person{1}")
+    @MethodSource("spouseCases")
+    void testGetSpouseParameterized(final int wifeIndex, final int expectedSpouseIndex) {
+        final Wife target = getWifeByIndex(wifeIndex);
+        final Person expected = getPersonByIndex(expectedSpouseIndex);
+        assertEquals(expected, target.getSpouse(), "Person's spouse doesn't match");
     }
 
-    /** */
-    @Test
-    void testGetSpouse2bSet() {
-        assertTrue(wife2b.getSpouse().isSet(), "Person's spouse isn't set");
-    }
-
-    /** */
-    @Test
-    void testGetSpouse1() {
-        assertEquals(person2, wife1.getSpouse(), "Person's spouse doesn't match");
-    }
-
-    /** */
-    @Test
-    void testGetSpouse2a() {
-        assertEquals(person2, wife2a.getSpouse(), "Person's spouse doesn't match");
-    }
-
-    /** */
-    @Test
-    void testGetSpouse2b() {
-        assertEquals(person3, wife2b.getSpouse(), "Person's spouse doesn't match");
+    @SuppressWarnings("magicnumber")
+    static Stream<Arguments> spouseCases() {
+        return Stream.of(
+                Arguments.of(1, 2),
+                Arguments.of(2, 2),
+                Arguments.of(3, 3)
+        );
     }
 
     /** */
@@ -134,5 +153,46 @@ final class WifeTest {
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
         assertFalse(wife.getMother().isSet(), "Mother should not be set");
+    }
+
+    /**
+     * Helper to map an index to one of the wife fields set up in @BeforeEach.
+     *
+     * @param idx 1-based index of the wife
+     * @return corresponding Wife instance
+     */
+    @SuppressWarnings("magicnumber")
+    private Wife getWifeByIndex(final int idx) {
+        switch (idx) {
+        case 1:
+            return wife1;
+        case 2:
+            return wife2a;
+        case 3:
+            return wife2b;
+        default:
+            throw new IllegalArgumentException("Invalid wife index: " + idx);
+        }
+    }
+
+    /**
+     * Helper to map an index to the persons set up in @BeforeEach.
+     * 0 for null, 2->person2, 3->person3
+     *
+     * @param idx index code
+     * @return corresponding Person or null
+     */
+    @SuppressWarnings("magicnumber")
+    private Person getPersonByIndex(final int idx) {
+        switch (idx) {
+        case 0:
+            return null;
+        case 2:
+            return person2;
+        case 3:
+            return person3;
+        default:
+            throw new IllegalArgumentException("Invalid person index: " + idx);
+        }
     }
 }

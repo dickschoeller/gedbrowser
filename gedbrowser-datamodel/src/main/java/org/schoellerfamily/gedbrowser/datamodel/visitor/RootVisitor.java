@@ -17,22 +17,12 @@ public final class RootVisitor implements GedObjectVisitor {
     /** */
     private final List<Person> persons = new ArrayList<>();
 
-//    /** */
-//    private final List<Family> families = new ArrayList<>();
-
     /**
      * @return the persons found in the scanned root
      */
     public List<Person> getPersons() {
         return persons;
     }
-
-//    /**
-//     * @return the families found in the scanned root
-//     */
-//    public List<Family> getFamilies() {
-//        return families;
-//    }
 
     @Override
     public void visit(final Family family) {
