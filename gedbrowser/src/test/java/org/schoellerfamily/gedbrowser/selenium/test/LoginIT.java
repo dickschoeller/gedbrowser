@@ -132,6 +132,9 @@ class LoginIT {
                     + "SESSION ID IS NULL IN SETUP"
                     + " *********************");
         }
+        final DefaultExpectations expectationsUtil = new DefaultExpectations();
+        factory = new PageFactory(driver, waiter,
+                expectationsUtil.create());
     }
 
     /**
