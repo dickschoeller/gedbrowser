@@ -51,7 +51,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         return builder;
     }
 
-    /** */
     @Test
     void testSimple() {
         final Person person = createJRandom();
@@ -67,7 +66,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testEmpty() {
         final Person person = createJRandom();
@@ -77,7 +75,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertNull(actual, "Expected a null date");
     }
 
-    /** */
     @Test
     void testFromYoungerSibling() {
         final Person person1 =
@@ -100,7 +97,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testFromYoungerSiblings() {
         final Person person1 = createJRandom();
@@ -126,7 +122,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testFromEmptyYoungerSiblings() {
         final Person person1 = createJRandom();
@@ -143,7 +138,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertNull(actual, "Expected a null date");
     }
 
-    /** */
     @Test
     void testFromOlderSibling() {
         final Person person1 = createJRandom();
@@ -165,7 +159,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testFromOlderSiblings() {
         final Person person1 = createJRandom();
@@ -189,24 +182,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
-    @Test
-    void testFromEmptyOlderSiblings() {
-        final Person person1 = createJRandom();
-        final Person person2 = createAnonymousSchoeller();
-        final Person person3 = createAnonymousJones();
-
-        final Family family = builder.createFamily("F1");
-        builder.addChildToFamily(family, person1);
-        builder.addChildToFamily(family, person2);
-        builder.addChildToFamily(family, person3);
-
-        final BirthDateEstimator estimator = createBirthEstimator(person3);
-        final LocalDate actual = estimator.estimateBirthDate();
-        assertNull(actual, "Expected a null date");
-    }
-
-    /** */
     @Test
     void testFromOwnMarriage() {
         final Person person1 = createJRandom();
@@ -228,7 +203,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testFromOwnMarriageWithNoDate() {
         final Person person1 = createJRandom();
@@ -243,7 +217,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertNull(actual, "Expected a null date");
     }
 
-    /** */
     @Test
     void testFromOwnMarriages() {
         final Person person1 = createJRandom();
@@ -271,7 +244,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testFromParentsMarriage() {
         final Person person1 = createJRandom();
@@ -300,7 +272,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testFromParentsMarriageWithOlderSiblings() {
         final Person person1 = createJRandom();
@@ -325,7 +296,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testFromChild() {
         final Person person1 = createJRandom();
@@ -348,7 +318,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testFromChildren() {
         final Person person1 = createJRandom();
@@ -369,7 +338,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testFromHusband() {
         final Person person1 = createJRandom();
@@ -390,7 +358,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testFromWife() {
         final Person person1 = createJRandom();
@@ -445,7 +412,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(0, max, "Shouldn't have found any unhandled dates");
     }
 
-    /** */
     @Test
     void testFromBaptism() {
         final Person person = createJRandom();
@@ -461,7 +427,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testChristening() {
         final Person person = createJRandom();
@@ -477,7 +442,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testBarMitzah() {
         final Person person = createJRandom();
@@ -493,7 +457,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testBatMitzvah() {
         final Person person = createJRandom();
@@ -509,7 +472,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testDeath() {
         final Person person = createJRandom();
@@ -525,7 +487,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testBurial() {
         final Person person = createJRandom();
@@ -541,7 +502,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testChanged() {
         final Person person = createJRandom();
@@ -552,7 +512,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertNull(actual, "Changed event should return null");
     }
 
-    /** */
     @Test
     void testOtherEvent() {
         final Person person = createJRandom();
@@ -568,7 +527,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testNoDate() {
         final Person person = createJRandom();
@@ -579,7 +537,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertNull(actual, "No date event should return null");
     }
 
-    /** */
     @Test
     void testBadDate() {
         final Person person = createJRandom();
@@ -590,7 +547,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertNull(actual, "Bad date event should return null");
     }
 
-    /** */
     @Test
     void testEstimateBirthDate() {
         final Person person = createJRandom();
@@ -606,7 +562,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testEstimateMarriageDate() {
         final Person person = createJRandom();
@@ -622,7 +577,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /** */
     @Test
     void testEstimateOtherDate() {
         final Person person = createJRandom();

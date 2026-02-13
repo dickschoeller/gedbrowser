@@ -266,7 +266,7 @@ final class GedObjectTest {
     @Test
     void testFindInParentBySurnameNullParent() {
         gob = new GedObjectWrapper(null, GOB_TAG);
-        assertNull(gob.findInParentBySurname("FOO"), "Should not have found anything");
+        assertTrue(gob.findInParentBySurname("FOO").isEmpty(), "Should not have found anything");
     }
 
     /** */
