@@ -145,6 +145,7 @@ public final class LivingEstimator {
         final Period p = new Period(date, today);
         final int age = p.getYears();
         final int bucket = (age / AGE_BUCKET_SIZE) * AGE_BUCKET_SIZE;
+        @SuppressWarnings("unused")
         final Set<Person> persons =
             buckets.computeIfAbsent(bucket, k -> new TreeSet<Person>(new BucketComparator()));
         persons.add(person);

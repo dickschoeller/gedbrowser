@@ -227,7 +227,7 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
         if (construction == null) {
             construction = Construction.ATTRIBUTE;
         }
-        GedObject gob;
+        final GedObject gob;
         switch (construction) {
         case ATTRIBUTE:
             gob = factory.create(parent, "", string, tail);

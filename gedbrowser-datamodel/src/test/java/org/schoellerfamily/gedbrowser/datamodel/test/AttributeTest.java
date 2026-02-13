@@ -2,8 +2,13 @@ package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
@@ -65,7 +70,6 @@ final class AttributeTest {
         final Date dummyDate = new Date(dummy, POTTER_DAY);
         dummy.insert(dummyDate);
         final Attribute birth = new Attribute(person1, "Birth");
-        new Date(birth, POTTER_DAY);
         final GetDateVisitor visitor = new GetDateVisitor("Birth");
         birth.accept(visitor);
         assertEquals("", visitor.getDate(), "Expected empty string");
@@ -156,43 +160,38 @@ final class AttributeTest {
         assertEquals("", visitor.getDate(), "Expected empty date string");
     }
 
-    /** */
-    @Test
-    void testSetGetTail() {
-        Attribute attribute;
-        attribute = new Attribute(null, null, null);
-        attribute.setTail("test 1");
-        assertMatch(attribute, null, "", "test 1");
+    /**
+     * Parameterized test replacing several similar tail tests.
+     * Arguments are: initialTail, doSecondSet, secondTail, expectedTail
+     *
+     * @param initialTail initial tail value to set
+     * @param doSecondSet whether to set the tail a second time
+     * @param secondTail second tail value to set (may be null)
+     * @param expectedTail expected final tail value
+     */
+    @ParameterizedTest
+    @MethodSource("tailCases")
+    void testTailVariants(final String initialTail, final boolean doSecondSet,
+            final String secondTail, final String expectedTail) {
+        final Attribute attribute = new Attribute(null, null, null);
+        attribute.setTail(initialTail);
+        if (doSecondSet) {
+            attribute.setTail(secondTail);
+        }
+        assertMatch(attribute, null, "", expectedTail);
     }
 
-    /** */
-    @Test
-    void testResetGetTail() {
-        Attribute attribute;
-        attribute = new Attribute(null, null, null);
-        attribute.setTail("test 1");
-        attribute.setTail("test 2");
-        assertMatch(attribute, null, "", "test 2");
-    }
-
-    /** */
-    @Test
-    void testResetToNullGetTail() {
-        Attribute attribute;
-        attribute = new Attribute(null, null, null);
-        attribute.setTail("test 1");
-        attribute.setTail(null);
-        assertMatch(attribute, null, "", "");
-    }
-
-    /** */
-    @Test
-    void testResetToEmptyGetTail() {
-        Attribute attribute;
-        attribute = new Attribute(null, null, null);
-        attribute.setTail("test 1");
-        attribute.setTail("");
-        assertMatch(attribute, null, "", "");
+    static Stream<Arguments> tailCases() {
+        return Stream.of(
+                // Only set once
+                Arguments.of("test 1", false, null, "test 1"),
+                // Reset to a new string
+                Arguments.of("test 1", true, "test 2", "test 2"),
+                // Reset explicitly to null => expect empty string
+                Arguments.of("test 1", true, null, ""),
+                // Reset to empty string => expect empty string
+                Arguments.of("test 1", true, "", "")
+        );
     }
 
     /**

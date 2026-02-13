@@ -24,7 +24,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.TooManyStaticImports", "PMD.ExcessivePublicCount" })
+@SuppressWarnings({ "PMD.TooManyStaticImports" })
 final class GedObjectTest {
     /** */
     private static final int HASH_CODE_1 = 79247288;
@@ -266,7 +266,7 @@ final class GedObjectTest {
     @Test
     void testFindInParentBySurnameNullParent() {
         gob = new GedObjectWrapper(null, GOB_TAG);
-        assertNull(gob.findInParentBySurname("FOO"), "Should not have found anything");
+        assertTrue(gob.findInParentBySurname("FOO").isEmpty(), "Should not have found anything");
     }
 
     /** */
@@ -365,7 +365,8 @@ final class GedObjectTest {
     @SuppressWarnings("PMD.EqualsNull")
     void testEqualsNull() {
         gob = new GedObjectWrapper(null, GOB_TAG);
-        assertFalse(gob.equals(null), "Expected not equals");
+        final boolean actual = gob.equals(null);
+        assertFalse(actual, "Expected not equals");
     }
 
     /** */

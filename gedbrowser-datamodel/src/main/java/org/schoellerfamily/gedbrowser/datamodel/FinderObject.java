@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 
@@ -83,10 +84,9 @@ public interface FinderObject
      * @param surname the surname of persons being sought.
      * @return collection of matches.
      */
-    default Collection<Person> findInParentBySurname(
-            final String surname) {
+    default Collection<Person> findInParentBySurname(final String surname) {
         if (getParent() == null) {
-            return null;
+            return List.of();
         }
 
         return getParent().findBySurname(surname);
