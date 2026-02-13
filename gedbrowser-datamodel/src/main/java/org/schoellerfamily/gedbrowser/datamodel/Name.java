@@ -99,7 +99,7 @@ public final class Name extends GedObject implements Nameable {
         final boolean hasSuffix = !suffix.isEmpty();
 
         // Use standard method to get surname first.
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         if (surname.isEmpty()) {
             buffer.append('?');
         } else {

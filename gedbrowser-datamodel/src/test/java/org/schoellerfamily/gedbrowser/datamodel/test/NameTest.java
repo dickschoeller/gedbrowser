@@ -2,8 +2,13 @@ package org.schoellerfamily.gedbrowser.datamodel.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -68,130 +73,124 @@ final class NameTest {
         assertEquals(name1, person.getName(), "Name string mismatch");
     }
 
-    /** */
-    @Test
-    void testGetIndexName1() {
-        assertEquals("Schoeller, Karl, Jr.", name1.getIndexName(), "Index name string mismatch");
+    /**
+     * Parameterized test for getIndexName across multiple name cases.
+     *
+     * @param idx name index (1-based)
+     * @param expected expected index name string
+     */
+    @ParameterizedTest(name = "indexName[{index}] name{0} => {1}")
+    @MethodSource("indexNameCases")
+    void testGetIndexNameParameterized(final int idx, final String expected) {
+        final Name target = getNameByIndex(idx);
+        assertEquals(expected, target.getIndexName(), "Index name string mismatch");
     }
 
-    /** */
-    @Test
-    void testGetIndexName2() {
-        assertEquals("Schoeller, Karl", name2.getIndexName(), "Index name string mismatch");
+    @SuppressWarnings("magicnumber")
+    static Stream<Arguments> indexNameCases() {
+        return Stream.of(
+                Arguments.of(1, "Schoeller, Karl, Jr."),
+                Arguments.of(2, "Schoeller, Karl"),
+                Arguments.of(3, "?, Wingnut"),
+                Arguments.of(4, "Noodle, ?"),
+                Arguments.of(5, "Wang Foo")
+        );
     }
 
-    /** */
-    @Test
-    void testGetIndexName3() {
-        assertEquals("?, Wingnut", name3.getIndexName(), "Index name string mismatch");
+    /**
+     * Parameterized test for getSurname across multiple name cases.
+     *
+     * @param idx name index (1-based)
+     * @param expected expected surname
+     */
+    @ParameterizedTest(name = "surname[{index}] name{0} => {1}")
+    @MethodSource("surnameCases")
+    void testGetSurnameParameterized(final int idx, final String expected) {
+        final Name target = getNameByIndex(idx);
+        assertEquals(expected, target.getSurname(), "Surname string mismatch");
     }
 
-    /** */
-    @Test
-    void testGetIndexName4() {
-        assertEquals("Noodle, ?", name4.getIndexName(), "Index name string mismatch");
+    @SuppressWarnings("magicnumber")
+    static Stream<Arguments> surnameCases() {
+        return Stream.of(
+                Arguments.of(1, "Schoeller"),
+                Arguments.of(2, "Schoeller"),
+                Arguments.of(3, "?"),
+                Arguments.of(4, "Noodle"),
+                Arguments.of(5, "Wang")
+        );
     }
 
-    /** */
-    @Test
-    void testGetIndexName5() {
-        assertEquals("Wang Foo", name5.getIndexName(), "Index name string mismatch");
+    /**
+     * Parameterized test for getPrefix across multiple name cases.
+     *
+     * @param idx name index (1-based)
+     * @param expected expected prefix
+     */
+    @ParameterizedTest(name = "prefix[{index}] name{0} => {1}")
+    @MethodSource("prefixCases")
+    void testGetPrefixParameterized(final int idx, final String expected) {
+        final Name target = getNameByIndex(idx);
+        assertEquals(expected, target.getPrefix(), "Prefix string mismatch");
     }
 
-    /** */
-    @Test
-    void testGetSurname1() {
-        assertEquals("Schoeller", name1.getSurname(), "Surname string mismatch");
+    @SuppressWarnings("magicnumber")
+    static Stream<Arguments> prefixCases() {
+        return Stream.of(
+                Arguments.of(1, "Karl"),
+                Arguments.of(2, "Karl"),
+                Arguments.of(3, "Wingnut"),
+                Arguments.of(4, ""),
+                Arguments.of(5, "")
+        );
     }
 
-    /** */
-    @Test
-    void testGetSurname2() {
-        assertEquals("Schoeller", name2.getSurname(), "Surname string mismatch");
+    /**
+     * Parameterized test for getSuffix across multiple name cases.
+     *
+     * @param idx name index (1-based)
+     * @param expected expected suffix
+     */
+    @ParameterizedTest(name = "suffix[{index}] name{0} => {1}")
+    @MethodSource("suffixCases")
+    void testGetSuffixParameterized(final int idx, final String expected) {
+        final Name target = getNameByIndex(idx);
+        assertEquals(expected, target.getSuffix(), "Suffix string mismatch");
     }
 
-    /** */
-    @Test
-    void testGetSurname3() {
-        assertEquals("?", name3.getSurname(), "Surname string mismatch");
+    @SuppressWarnings("magicnumber")
+    static Stream<Arguments> suffixCases() {
+        return Stream.of(
+                Arguments.of(1, "Jr."),
+                Arguments.of(2, ""),
+                Arguments.of(3, ""),
+                Arguments.of(4, ""),
+                Arguments.of(5, "Foo")
+        );
     }
 
-    /** */
-    @Test
-    void testGetSurname4() {
-        assertEquals("Noodle", name4.getSurname(), "Surname string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetSurname5() {
-        assertEquals("Wang", name5.getSurname(), "Surname string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetPrefix1() {
-        assertEquals("Karl", name1.getPrefix(), "Prefix string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetPrefix2() {
-        assertEquals("Karl", name2.getPrefix(), "Prefix string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetPrefix3() {
-        assertEquals("Wingnut", name3.getPrefix(), "Prefix string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetPrefix4() {
-        assertEquals("", name4.getPrefix(), "Prefix string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetPrefix5() {
-        assertEquals("", name5.getPrefix(), "Prefix string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetSuffix() {
-        assertEquals("Jr.", name1.getSuffix(), "Suffix string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetSuffix1() {
-        assertEquals("", name2.getSuffix(), "Suffix string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetSuffix2() {
-        assertEquals("", name3.getSuffix(), "Suffix string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetSuffix3() {
-        assertEquals("", name4.getSuffix(), "Suffix string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetSuffix4() {
-        assertEquals("", name4.getSuffix(), "Suffix string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetSuffix5() {
-        assertEquals("Foo", name5.getSuffix(), "Suffix string mismatch");
+    /**
+     * Helper to map an index to one of the name fields set up in @BeforeEach.
+     *
+     * @param idx 1-based index of the name
+     * @return corresponding Name instance
+     */
+    @SuppressWarnings("magicnumber")
+    private Name getNameByIndex(final int idx) {
+        switch (idx) {
+        case 1:
+            return name1;
+        case 2:
+            return name2;
+        case 3:
+            return name3;
+        case 4:
+            return name4;
+        case 5:
+            return name5;
+        default:
+            throw new IllegalArgumentException("Invalid name index: " + idx);
+        }
     }
 
     /** */

@@ -128,6 +128,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
      * @param place the place
      * @return the set for the place from the map
      */
+    @SuppressWarnings("unused")
     private Set<PersonRenderer> personRendererSet(
             final Map<String, Set<PersonRenderer>> aMap, final String place) {
         return aMap.computeIfAbsent(place, k -> new TreeSet<>(new PersonRendererComparator()));
