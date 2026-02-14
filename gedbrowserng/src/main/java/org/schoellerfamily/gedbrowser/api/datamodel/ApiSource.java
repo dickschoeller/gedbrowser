@@ -22,9 +22,7 @@ public final class ApiSource extends ApiHasImages {
      */
     private final String title;
 
-    /**
-     * @param visitor the visitor
-     */
+    @Override
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }

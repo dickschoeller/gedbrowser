@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class FamilyCrud
-    extends OperationsEnabler<Family, FamilyDocument>
+    extends OperationsEnabler<Family>
     implements CrudOperations<Family, FamilyDocument, ApiFamily>,
         ObjectCrud<ApiFamily> {
 

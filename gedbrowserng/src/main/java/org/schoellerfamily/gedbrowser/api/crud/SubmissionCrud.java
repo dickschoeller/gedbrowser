@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class SubmissionCrud
-    extends OperationsEnabler<Submission, SubmissionDocument>
+    extends OperationsEnabler<Submission>
     implements CrudOperations<Submission, SubmissionDocument, ApiSubmission>,
         ObjectCrud<ApiSubmission> {
 

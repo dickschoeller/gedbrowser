@@ -61,10 +61,10 @@ public interface UpdateOperations<X extends GedObject,
      */
     @SuppressWarnings("unchecked")
     default Y update(final X gob) {
-        Y document = (Y) getConverter().createGedDocument(gob);
+        final Y document = (Y) getConverter().createGedDocument(gob);
         try {
             final FindableDocument<X, Y> repo = getRepository();
-            Y oldDoc = repo.findByFileAndString(
+            final Y oldDoc = repo.findByFileAndString(
                     gob.getFilename(), gob.getString());
             document.setIdString(oldDoc.getIdString());
             return ((CrudRepository<Y, String>) repo)

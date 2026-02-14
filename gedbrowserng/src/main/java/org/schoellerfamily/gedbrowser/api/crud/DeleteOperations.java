@@ -50,7 +50,7 @@ public interface DeleteOperations<
     @SuppressWarnings("unchecked")
     default Z delete(final RootDocument root, final String id) {
         final FindableDocument<X, Y> repo = getRepository();
-        Y oldDoc = repo.findByRootAndString(root, id);
+        final Y oldDoc = repo.findByRootAndString(root, id);
         if (oldDoc == null) {
             final String type = getGedClass().getSimpleName().toLowerCase(Locale.ENGLISH);
             throw new ObjectNotFoundException("Object %s of type %s not found".formatted(id, type),

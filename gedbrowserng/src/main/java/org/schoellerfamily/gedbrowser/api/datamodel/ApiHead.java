@@ -18,9 +18,7 @@ import tools.jackson.databind.annotation.JsonDeserialize;
 @Jacksonized
 @JsonDeserialize(builder = ApiHead.ApiHeadBuilderImpl.class)
 public final class ApiHead extends ApiObject {
-    /**
-     * @param visitor the visitor
-     */
+    @Override
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }

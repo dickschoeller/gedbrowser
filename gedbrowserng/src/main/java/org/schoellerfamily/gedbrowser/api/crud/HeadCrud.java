@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class HeadCrud
-    extends OperationsEnabler<Head, HeadDocument>
+    extends OperationsEnabler<Head>
     implements CrudOperations<Head, HeadDocument, ApiHead>,
         ObjectCrud<ApiHead> {
 

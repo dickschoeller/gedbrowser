@@ -21,7 +21,7 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
      * @param toDocConverter the document converter
      * @param repositoryManager the repository manager
      */
-    public RelationsCrud(final GedObjectFileLoader loader,
+    protected RelationsCrud(final GedObjectFileLoader loader,
             final GedObjectToGedDocumentMongoConverter toDocConverter,
             final RepositoryManagerMongo repositoryManager) {
         super(loader, toDocConverter, repositoryManager);

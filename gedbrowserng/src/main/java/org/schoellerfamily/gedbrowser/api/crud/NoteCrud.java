@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class NoteCrud
-    extends OperationsEnabler<Note, NoteDocument>
+    extends OperationsEnabler<Note>
     implements CrudOperations<Note, NoteDocument, ApiNote>,
         ObjectCrud<ApiNote> {
 

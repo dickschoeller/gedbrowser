@@ -48,7 +48,7 @@ public class PersonController extends GeoDataController {
      * @param keyManager        enable interacting with google
      * @param gedbrowserHome    location of data files for initialization
      */
-    @SuppressWarnings("checkstyle:parameternumber")
+    @SuppressWarnings({ "checkstyle:parameternumber", "java:S107" })
     public PersonController(final ApplicationInfo appInfo, final Users<? extends User> users,
         final GedObjectFileLoader loader, final CalendarProvider provider,
         final RepositoryManagerMongo repositoryManager, final GeoServiceClient client,

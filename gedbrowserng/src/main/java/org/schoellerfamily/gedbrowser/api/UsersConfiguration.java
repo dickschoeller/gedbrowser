@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * @author Dick Schoeller
+ */
 @Configuration
 @RequiredArgsConstructor
 public class UsersConfiguration {

@@ -77,10 +77,10 @@ public interface CreateOperations<X extends GedObject,
      */
     @SuppressWarnings("unchecked")
     default Y save(final X gob) {
-        Y document = (Y) getConverter().createGedDocument(gob);
+        final Y document = (Y) getConverter().createGedDocument(gob);
         try {
             final FindableDocument<X, Y> repo = getRepository();
-            Y oldDoc = repo.findByFileAndString(
+            final Y oldDoc = repo.findByFileAndString(
                     gob.getFilename(), gob.getString());
             if (oldDoc != null) {
                 document.setIdString(oldDoc.getIdString());
