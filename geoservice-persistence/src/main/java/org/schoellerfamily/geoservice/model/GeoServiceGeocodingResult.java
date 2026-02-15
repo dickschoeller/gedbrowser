@@ -95,8 +95,7 @@ public final class GeoServiceGeocodingResult {
         if (addressComponents == null) {
             this.addressComponents = null;
         } else {
-            this.addressComponents = Arrays.copyOf(addressComponents,
-                    addressComponents.length);
+            this.addressComponents = Arrays.copyOf(addressComponents, addressComponents.length);
         }
     }
 
@@ -197,6 +196,7 @@ public final class GeoServiceGeocodingResult {
      * @return the partialMatch
      */
     @Transient
+    @SuppressWarnings({ "PMD.SimplifyBooleanReturns" })
     public boolean isPartialMatch() {
         final Feature location = getLocation();
         if (location == null) {

@@ -45,7 +45,7 @@ public final class StubGeoCoder implements GeoCoder {
                 || "Blah Blah".equals(placeName)) {
             return new GeocodingResult[0];
         }
-        GeocodingResult[] results = new GeocodingResult[1];
+        final GeocodingResult[] results = new GeocodingResult[1];
         results[0] = new GeocodingResult();
         results[0].formattedAddress = placeName;
         results[0].geometry = new Geometry();
