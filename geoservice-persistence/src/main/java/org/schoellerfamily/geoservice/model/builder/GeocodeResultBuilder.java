@@ -35,8 +35,8 @@ public final class GeocodeResultBuilder
             return null;
         }
         return new GeoCodeItem(gsItem.getPlaceName(),
-                gsItem.getModernPlaceName(),
-                toGeocodingResult(gsItem.getResult()));
+            gsItem.getModernPlaceName(),
+            toGeocodingResult(gsItem.getResult()));
     }
 
     /**
@@ -45,19 +45,16 @@ public final class GeocodeResultBuilder
      * @param gsResult the GeoServiceGeocodingResult
      * @return the GeocodingResult
      */
-    public GeocodingResult toGeocodingResult(
-            final GeoServiceGeocodingResult gsResult) {
+    public GeocodingResult toGeocodingResult(final GeoServiceGeocodingResult gsResult) {
         if (gsResult == null) {
             return null;
         }
         final GeocodingResult result = new GeocodingResult();
-        final AddressComponent[] addressComponents =
-                gsResult.getAddressComponents();
+        final AddressComponent[] addressComponents = gsResult.getAddressComponents();
         if (addressComponents == null) {
             result.addressComponents = null;
         } else {
-            result.addressComponents =
-                    new AddressComponent[addressComponents.length];
+            result.addressComponents = new AddressComponent[addressComponents.length];
             for (int i = 0; i < addressComponents.length; i++) {
                 result.addressComponents[i] = copy(addressComponents[i]);
             }
@@ -99,8 +96,7 @@ public final class GeocodeResultBuilder
             return null;
         }
         final Geometry geometry = new Geometry();
-        final Feature location =
-                populateBoundaries(geometry, featureCollection);
+        final Feature location = populateBoundaries(geometry, featureCollection);
         populateLocation(geometry, location);
         return geometry;
     }
@@ -112,34 +108,28 @@ public final class GeocodeResultBuilder
      */
     private Feature populateBoundaries(final Geometry geometry,
             final FeatureCollection featureCollection) {
-        Feature location;
         if (featureCollection.getFeatures().isEmpty()) {
-            location = null;
             geometry.bounds = toBounds(null);
             geometry.viewport = toBounds(null);
-        } else {
-            location = featureCollection.getFeatures().get(0);
-            geometry.bounds = toBounds(featureCollection.getFeatures().get(1));
-            geometry.viewport =
-                    toBounds(featureCollection.getFeatures().get(2));
+            return null;
         }
-        return location;
+        geometry.bounds = toBounds(featureCollection.getFeatures().get(1));
+        geometry.viewport = toBounds(featureCollection.getFeatures().get(2));
+        return featureCollection.getFeatures().get(0);
     }
 
     /**
      * @param geometry geometry object to  fill in
      * @param location the location to fill it with
      */
-    private void populateLocation(final Geometry geometry,
-            final Feature location) {
+    private void populateLocation(final Geometry geometry, final Feature location) {
         if (location == null) {
             geometry.location = null;
             geometry.locationType = null;
-        } else {
-            geometry.location = toLatLng((Point) location.getGeometry());
-            geometry.locationType =
-                    toLocationType(location.getProperty("locationType"));
+            return;
         }
+        geometry.location = toLatLng((Point) location.getGeometry());
+        geometry.locationType = toLocationType(location.getProperty("locationType"));
     }
 
     /**

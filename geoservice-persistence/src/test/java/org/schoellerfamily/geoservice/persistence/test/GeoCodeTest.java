@@ -166,13 +166,31 @@ final class GeoCodeTest {
         assertNotNull(entry.getGeocodingResult(), "Should have found 3341 Chaucer Lane");
     }
 
-    /** */
-    @Test
-    void testCacheStupid() {
-        log.info("Entering testCacheStupid");
+    /**
+     * Provides location strings to test cache consistency.
+     *
+     * @return stream of arguments containing location string
+     */
+    private static Stream<Arguments> cacheConsistencyProvider() {
+        return Stream.of(
+            Arguments.of("XYZZY"),
+            Arguments.of("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA"),
+            Arguments.of("3341 Chaucer Lane, Bethlehem, PA, USA")
+        );
+    }
+
+    /**
+     * Test that finding the same location twice returns equal cached results.
+     *
+     * @param location the location to search for
+     */
+    @ParameterizedTest
+    @MethodSource("cacheConsistencyProvider")
+    void testCacheConsistency(final String location) {
+        log.info("Entering testCacheConsistency with {}", location);
         gcc.clear();
-        final GeoCodeItem entry1 = gcc.find("XYZZY");
-        final GeoCodeItem entry2 = gcc.find("XYZZY");
+        final GeoCodeItem entry1 = gcc.find(location);
+        final GeoCodeItem entry2 = gcc.find(location);
         assertEquals(entry1, entry2, "Should be equal");
     }
 
@@ -198,16 +216,6 @@ final class GeoCodeTest {
 
     /** */
     @Test
-    void testCacheFound() {
-        log.info("Entering testCacheFound");
-        gcc.clear();
-        final GeoCodeItem entry1 = gcc.find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
-        final GeoCodeItem entry2 = gcc.find("3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
-        assertEquals(entry1, entry2, "Should be equal");
-    }
-
-    /** */
-    @Test
     void testCacheRefind() {
         log.info("Entering testCacheReplace");
         gcc.clear();
@@ -216,16 +224,6 @@ final class GeoCodeTest {
             "3341 Chaucer Lane, Bethlehem, Pennsylvania, USA");
         final GeoCodeItem entry3 = gcc.find("XYZZY");
         assertEquals(entry2, entry3, "Should be equal");
-    }
-
-    /** */
-    @Test
-    void testCacheOldHome() {
-        log.info("Entering testCacheOldHome");
-        gcc.clear();
-        final GeoCodeItem entry1 = gcc.find("3341 Chaucer Lane, Bethlehem, PA, USA");
-        final GeoCodeItem entry2 = gcc.find("3341 Chaucer Lane, Bethlehem, PA, USA");
-        assertEquals(entry1, entry2, "Should be equal");
     }
 
     /** */

@@ -140,7 +140,12 @@ public abstract class GeoCodeBasic implements GeoCode {
     }
 
     @Override
+    @SuppressWarnings({ "java:S106", "PMD.SystemPrintln" })
     public final void dump() {
+        // Dump the cache as a string, one location per line. The format is:
+        // place name|modern place name|lat, lng|formatted address
+        // Only the place name is required to be present. All of the separators
+        // will be present.
         System.out.println(toString());
     }
 
