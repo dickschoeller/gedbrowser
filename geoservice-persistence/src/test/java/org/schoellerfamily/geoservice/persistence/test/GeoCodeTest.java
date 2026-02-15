@@ -11,10 +11,15 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
@@ -372,158 +377,128 @@ final class GeoCodeTest {
             "there was a result, but the lat/long was wrong");
     }
 
-    /** */
-    @Test
-    void testNotFounds() {
-        log.info("Entering testNotFounds");
+    /**
+     * Provides data loading strategies for parameterized tests.
+     *
+     * @return stream of arguments containing description and loading action
+     */
+    private static Stream<Arguments> loadingStrategyProvider() {
+        return Stream.of(
+            Arguments.of("direct load",
+                    (Consumer<GeoCodeTest>) test ->
+                        test.testFixture.loadTestAddresses(test.gcc)),
+            Arguments.of("from stream",
+                    (Consumer<GeoCodeTest>) test ->
+                        test.loader.load(test.getTestFileAsStream())),
+            Arguments.of("from file",
+                    (Consumer<GeoCodeTest>) test ->
+                        test.loader.load(test.getTestFileName()))
+        );
+    }
+
+    /**
+     * Test that not found keys are correctly identified.
+     *
+     * @param description describes the loading strategy
+     * @param loadingStrategy the strategy to load test data
+     */
+    @ParameterizedTest
+    @MethodSource("loadingStrategyProvider")
+    void testNotFounds(final String description, final Consumer<GeoCodeTest> loadingStrategy) {
+        log.info("Entering testNotFounds with {}", description);
         gcc.clear();
-        testFixture.loadTestAddresses(gcc);
+        loadingStrategy.accept(this);
         final List<String> expectList = Arrays.asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
         assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
     }
 
-    /** */
-    @Test
-    void testNotFoundsFromStream() {
-        log.info("Entering testNotFounds");
-        gcc.clear();
-        loader.load(getTestFileAsStream());
-        final List<String> expectList = Arrays.asList(testFixture.expectedNotFound());
-        final Collection<String> expected = new HashSet<>(expectList);
-        final Collection<String> actual = gcc.notFoundKeys();
-        assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
+    /**
+     * Provides file loading strategies for parameterized tests.
+     *
+     * @return stream of arguments containing description and loading action
+     */
+    private static Stream<Arguments> fileLoadingStrategyProvider() {
+        return Stream.of(
+            Arguments.of("from stream",
+                    (Consumer<GeoCodeTest>) test ->
+                        test.loader.load(test.getTestFileAsStream())),
+            Arguments.of("from file",
+                    (Consumer<GeoCodeTest>) test ->
+                        test.loader.load(test.getTestFileName()))
+        );
     }
 
-    /** */
-    @Test
-    void testNotFoundsFromFile() {
-        log.info("Entering testNotFounds");
+    /**
+     * Test that parsing works correctly.
+     *
+     * @param description describes the loading strategy
+     * @param loadingStrategy the strategy to load test data
+     */
+    @ParameterizedTest
+    @MethodSource("fileLoadingStrategyProvider")
+    void testNotParsing(final String description, final Consumer<GeoCodeTest> loadingStrategy) {
+        log.info("Entering testNotParsing with {}", description);
         gcc.clear();
-        loader.load(getTestFileName());
-        final List<String> expectList = Arrays.asList(testFixture.expectedNotFound());
-        final Collection<String> expected = new HashSet<>(expectList);
-        final Collection<String> actual = gcc.notFoundKeys();
-        assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
-    }
-
-    /** */
-    @Test
-    void testNotParsingFromStream() {
-        log.info("Entering testNotFounds");
-        gcc.clear();
-        loader.load(getTestFileAsStream());
+        loadingStrategy.accept(this);
         final GeoCodeItem item = gcc.get("At Sea");
         assertEquals("Atlantic Ocean", item.getModernPlaceName(),
             "Failure indicates a parsing problem");
     }
 
-    /** */
-    @Test
-    void testNotParsingFromFile() {
-        log.info("Entering testNotFounds");
+    /**
+     * Test that count of not found items is within expected bounds.
+     *
+     * @param description describes the loading strategy
+     * @param loadingStrategy the strategy to load test data
+     */
+    @ParameterizedTest
+    @MethodSource("loadingStrategyProvider")
+    void testCountNotFoundsLowBound(final String description,
+            final Consumer<GeoCodeTest> loadingStrategy) {
+        log.info("Entering testCountNotFoundsLowBound with {}", description);
         gcc.clear();
-        loader.load(getTestFileName());
-        final GeoCodeItem item = gcc.get("At Sea");
-        assertEquals("Atlantic Ocean", item.getModernPlaceName(),
-            "Failure indicates a parsing problem");
-    }
-
-    /** */
-    @Test
-    void testCountNotFoundsLowBound() {
-        log.info("Entering testCountNotFounds");
-        gcc.clear();
-        testFixture.loadTestAddresses(gcc);
+        loadingStrategy.accept(this);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue(count >= testFixture.expectedLowBound(), "Count too low at: " + count);
+        assertTrue(count >= testFixture.expectedLowBound(),
+            "Count too low at: " + count);
     }
 
-    /** */
-    @Test
-    void testCountNotFoundsHighBound() {
-        log.info("Entering testCountNotFounds");
+    /**
+     * Test that count of not found items is within expected bounds.
+     *
+     * @param description describes the loading strategy
+     * @param loadingStrategy the strategy to load test data
+     */
+    @ParameterizedTest
+    @MethodSource("loadingStrategyProvider")
+    void testCountNotFoundsHighBound(final String description,
+            final Consumer<GeoCodeTest> loadingStrategy) {
+        log.info("Entering testCountNotFoundsHighBound with {}", description);
         gcc.clear();
-        testFixture.loadTestAddresses(gcc);
+        loadingStrategy.accept(this);
         final int count = gcc.countNotFound();
         // Count does not seem to be deterministic with Google's APIs.
-        assertTrue(count <= testFixture.expectedHighBound(), "Count too high at: " + count);
+        assertTrue(count <= testFixture.expectedHighBound(),
+            "Count too high at: " + count);
     }
 
-    /** */
-    @Test
-    void testCountNotFoundsFromStreamLowBound() {
-        log.info("Entering testCountNotFounds");
+    /**
+     * Test that size is correct after loading.
+     *
+     * @param description describes the loading strategy
+     * @param loadingStrategy the strategy to load test data
+     */
+    @ParameterizedTest
+    @MethodSource("loadingStrategyProvider")
+    void testSize(final String description, final Consumer<GeoCodeTest> loadingStrategy) {
+        log.info("Entering testSize with {}", description);
         gcc.clear();
-        loader.load(getTestFileAsStream());
-        final int count = gcc.countNotFound();
-        // Count does not seem to be deterministic with Google's APIs.
-        assertTrue(count >= testFixture.expectedLowBound(), "Count too low at: " + count);
-    }
-
-    /** */
-    @Test
-    void testCountNotFoundsFromFileLowBound() {
-        log.info("Entering testCountNotFounds");
-        gcc.clear();
-        loader.load(getTestFileName());
-        final int count = gcc.countNotFound();
-        // Count does not seem to be deterministic with Google's APIs.
-        assertTrue(count >= testFixture.expectedLowBound(), "Count too low at: " + count);
-    }
-
-    /** */
-    @Test
-    void testCountNotFoundsFromStreamHighBound() {
-        log.info("Entering testCountNotFounds");
-        gcc.clear();
-        loader.load(getTestFileAsStream());
-        final int count = gcc.countNotFound();
-        // Count does not seem to be deterministic with Google's APIs.
-        assertTrue(count <= testFixture.expectedHighBound(), "Count too high at: " + count);
-    }
-
-    /** */
-    @Test
-    void testCountNotFoundsFromFileHighBound() {
-        log.info("Entering testCountNotFounds");
-        gcc.clear();
-        loader.load(getTestFileName());
-        final int count = gcc.countNotFound();
-        // Count does not seem to be deterministic with Google's APIs.
-        assertTrue(count <= testFixture.expectedHighBound(), "Count too high at: " + count);
-    }
-
-    /** */
-    @Test
-    void testSize() {
-        log.info("Entering testSize");
-        gcc.clear();
-        testFixture.loadTestAddresses(gcc);
+        loadingStrategy.accept(this);
         final int expected = 19;
-        assertEquals(expected, gcc.size(), "Should match known table size of 19");
-    }
-
-    /** */
-    @Test
-    void testSizeFromStream() {
-        log.info("Entering testSizeFromFile");
-        gcc.clear();
-        loader.load(getTestFileAsStream());
-        final int expected = 19;
-        assertEquals(expected, gcc.size(), "Should match known file size of 19");
-    }
-
-    /** */
-    @Test
-    void testSizeFromFile() {
-        log.info("Entering testSizeFromFile");
-        gcc.clear();
-        loader.load(getTestFileName());
-        final int expected = 19;
-        assertEquals(expected, gcc.size(), "Should match known file size of 19");
+        assertEquals(expected, gcc.size(), "Should match known size of 19");
     }
 
     /** */
@@ -548,59 +523,46 @@ final class GeoCodeTest {
             "Should be 0 because of file not found, was: " + gcc.size());
     }
 
-    /** */
-    @Test
-    void testDump() {
-        log.info("Entering testDump");
-        gcc.clear();
-        testFixture.loadTestAddresses(gcc);
-        gcc.dump();
-        final int expected = 19;
-        assertEquals(expected, gcc.size(), "Should match known table size of 19");
+    /**
+     * Provides loading strategies including loadAndFind for parameterized tests.
+     *
+     * @return stream of arguments containing description and loading action
+     */
+    private static Stream<Arguments> dumpLoadingStrategyProvider() {
+        return Stream.of(
+            Arguments.of("direct load",
+                    (Consumer<GeoCodeTest>) test ->
+                        test.testFixture.loadTestAddresses(test.gcc)),
+            Arguments.of("from stream",
+                    (Consumer<GeoCodeTest>) test ->
+                        test.loader.load(test.getTestFileAsStream())),
+            Arguments.of("from file",
+                    (Consumer<GeoCodeTest>) test ->
+                        test.loader.load(test.getTestFileName())),
+            Arguments.of("from stream after find",
+                    (Consumer<GeoCodeTest>) test ->
+                        test.loader.loadAndFind(test.getTestFileAsStream())),
+            Arguments.of("from file after find",
+                    (Consumer<GeoCodeTest>) test ->
+                        test.loader.loadAndFind(test.getTestFileName()))
+        );
     }
 
-    /** */
-    @Test
-    void testDumpFromStream() {
-        log.info("Entering testDumpFile");
+    /**
+     * Test that dump works correctly.
+     *
+     * @param description describes the loading strategy
+     * @param loadingStrategy the strategy to load test data
+     */
+    @ParameterizedTest
+    @MethodSource("dumpLoadingStrategyProvider")
+    void testDump(final String description, final Consumer<GeoCodeTest> loadingStrategy) {
+        log.info("Entering testDump with {}", description);
         gcc.clear();
-        loader.load(getTestFileAsStream());
+        loadingStrategy.accept(this);
         gcc.dump();
         final int expected = 19;
-        assertEquals(expected, gcc.size(), "Should match known file size of 19");
-    }
-
-    /** */
-    @Test
-    void testDumpFromFile() {
-        log.info("Entering testDumpFile");
-        gcc.clear();
-        loader.load(getTestFileName());
-        gcc.dump();
-        final int expected = 19;
-        assertEquals(expected, gcc.size(), "Should match known file size of 19");
-    }
-
-    /** */
-    @Test
-    void testDumpFromStreamAfterFind() {
-        log.info("Entering testDumpFile");
-        gcc.clear();
-        loader.loadAndFind(getTestFileAsStream());
-        gcc.dump();
-        final int expected = 19;
-        assertEquals(expected, gcc.size(), "Should match known file size of 19");
-    }
-
-    /** */
-    @Test
-    void testDumpFromFileAfterFind() {
-        log.info("Entering testDumpFile");
-        gcc.clear();
-        loader.loadAndFind(getTestFileName());
-        gcc.dump();
-        final int expected = 19;
-        assertEquals(expected, gcc.size(), "Should match known file size of 19");
+        assertEquals(expected, gcc.size(), "Should match known size of 19");
     }
 
     /**

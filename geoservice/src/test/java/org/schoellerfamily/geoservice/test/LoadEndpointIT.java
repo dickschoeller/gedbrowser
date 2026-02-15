@@ -2,9 +2,11 @@ package org.schoellerfamily.geoservice.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.geoservice.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
@@ -22,7 +24,6 @@ import org.springframework.test.web.servlet.client.RestTestClient;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 @SuppressWarnings({"PMD.JUnitTestsShouldIncludeAssert"})
-@TestMethodOrder(MethodOrderer.MethodName.class)
 @AutoConfigureRestTestClient
 class LoadEndpointIT {
     /**
@@ -37,55 +38,38 @@ class LoadEndpointIT {
     @Autowired
     private RestTestClient restTestClient;
 
-    /** */
-    @Test
-    void testAReturn200WhenSendingRequestToClearEndpoint() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri("http://localhost:" + this.mgt + "/actuator/clear")
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getResponseBody()).contains("Load complete")
-                .contains("0 locations in the cache");
+    /**
+     * Provides test parameters for actuator endpoints.
+     *
+     * @return stream of arguments containing endpoint path and expected cache message
+     */
+    private static Stream<Arguments> actuatorEndpointProvider() {
+        return Stream.of(
+            Arguments.of("clear", "0 locations in the cache"),
+            Arguments.of("load", "917 locations in the cache"),
+            Arguments.of("clear", "0 locations in the cache"),
+            Arguments.of("loadAndFind", "917 locations in the cache")
+        );
     }
 
-    /** */
-    @Test
-    void testBReturn200WhenSendingRequestToLoadEndpoint() {
+    /**
+     * Test that actuator endpoints return 200 and expected cache messages.
+     *
+     * @param endpoint the actuator endpoint to test
+     * @param expectedCacheMessage the expected cache message in response
+     */
+    @ParameterizedTest
+    @MethodSource("actuatorEndpointProvider")
+    void testActuatorEndpointReturns200AndExpectedMessage(
+            final String endpoint, final String expectedCacheMessage) {
         final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri("http://localhost:" + this.mgt + "/actuator/load")
+                .uri("http://localhost:" + this.mgt + "/actuator/" + endpoint)
                 .exchange()
                 .returnResult(String.class);
 
-        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getResponseBody()).contains("Load complete")
-                .contains("917 locations in the cache");
-    }
-
-    /** */
-    @Test
-    void testCReturn200WhenSendingRequestToClearEndpoint() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri("http://localhost:" + this.mgt + "/actuator/clear")
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getResponseBody()).contains("Load complete")
-                .contains("0 locations in the cache");
-    }
-
-    /** */
-    @Test
-    void testDReturn200WhenSendingRequestToLoadAndFindEndpoint() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri("http://localhost:" + this.mgt + "/actuator/loadAndFind")
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getResponseBody()).contains("Load complete")
-                .contains("917 locations in the cache");
+        assertThat(entity).satisfies(e -> {
+            assertThat(e.getStatus()).isEqualTo(HttpStatus.OK);
+            assertThat(e.getResponseBody()).contains("Load complete", expectedCacheMessage);
+        });
     }
 }
