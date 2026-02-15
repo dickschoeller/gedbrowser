@@ -87,13 +87,13 @@ public final class GeoServiceGeocodingResult {
         }
 
         if (types == null) {
-            this.types =  new AddressType[0];
+            this.types = null;
         } else {
             this.types = Arrays.copyOf(types, types.length);
         }
 
         if (addressComponents == null) {
-            this.addressComponents = new AddressComponent[0];
+            this.addressComponents = null;
         } else {
             this.addressComponents = Arrays.copyOf(addressComponents, addressComponents.length);
         }
@@ -106,6 +106,9 @@ public final class GeoServiceGeocodingResult {
      * @return the array of components
      */
     public AddressComponent[] getAddressComponents() {
+        if (addressComponents == null) {
+            return null;
+        }
         return Arrays.copyOf(addressComponents, addressComponents.length);
     }
 
@@ -142,7 +145,7 @@ public final class GeoServiceGeocodingResult {
     public String[] getPostcodeLocalities() {
         final Feature location = getLocation();
         if (location == null) {
-            return new String[0];
+            return null;
         }
         return location.getProperty(POSTCODE_LOCALITIES);
     }
@@ -168,7 +171,9 @@ public final class GeoServiceGeocodingResult {
      * @return the types
      */
     public AddressType[] getTypes() {
-
+        if (types == null) {
+            return null;
+        }
         return Arrays.copyOf(types, types.length);
     }
 

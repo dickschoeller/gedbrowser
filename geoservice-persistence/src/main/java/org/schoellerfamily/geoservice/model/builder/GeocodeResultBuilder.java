@@ -113,6 +113,10 @@ public final class GeocodeResultBuilder
             geometry.viewport = toBounds(null);
             return null;
         }
+        if (featureCollection.getFeatures().size() < 3) {
+            throw new IllegalArgumentException(
+                    "Feature collection must contain at least 3 features (location, bounds, viewport)");
+        }
         geometry.bounds = toBounds(featureCollection.getFeatures().get(1));
         geometry.viewport = toBounds(featureCollection.getFeatures().get(2));
         return featureCollection.getFeatures().get(0);
