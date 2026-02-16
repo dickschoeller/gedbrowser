@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -63,17 +64,17 @@ final class NameListItemRendererTest {
         renderListItem(nameValue, newLine, pad, expected);
     }
 
-    private static Stream<org.junit.jupiter.params.provider.Arguments> renderListItemCases() {
+    private static Stream<Arguments> renderListItemCases() {
         return Stream.of(
-            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick /Schoeller/Jr.", false, 0,
+            Arguments.of("Karl Frederick /Schoeller/Jr.", false, 0,
                 "Karl Frederick Schoeller Jr."),
-            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick /Schoeller/Jr.", false, 1, ""),
-            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick /Schoeller/Jr.", true, 0,
+            Arguments.of("Karl Frederick /Schoeller/Jr.", false, 1, ""),
+            Arguments.of("Karl Frederick /Schoeller/Jr.", true, 0,
                 "\nKarl Frederick Schoeller Jr."),
-            org.junit.jupiter.params.provider.Arguments.of("/Schoeller/", false, 0, "Schoeller"),
-            org.junit.jupiter.params.provider.Arguments.of("", false, 0, "?"),
-            org.junit.jupiter.params.provider.Arguments.of(null, false, 0, "?"),
-            org.junit.jupiter.params.provider.Arguments.of("Foo//Bar", false, 0, "Foo ? Bar"));
+            Arguments.of("/Schoeller/", false, 0, "Schoeller"),
+            Arguments.of("", false, 0, "?"),
+            Arguments.of(null, false, 0, "?"),
+            Arguments.of("Foo//Bar", false, 0, "Foo ? Bar"));
     }
 
     private void renderListItem(final String nameValue, final boolean newLine, final int pad,

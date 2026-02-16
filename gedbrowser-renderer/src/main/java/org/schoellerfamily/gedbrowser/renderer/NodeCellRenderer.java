@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Cell for a person in the table that represents the ancestor
  * tree.
@@ -26,22 +28,16 @@ public final class NodeCellRenderer implements CellRenderer {
         return personRenderer;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getNameHtml() {
         String nameHtml = personRenderer.getNameHtml();
-        if (nameHtml == null || nameHtml.equals("")) {
+        if (StringUtils.isBlank(nameHtml)) {
             nameHtml = "&nbsp;&nbsp;&nbsp;";
         }
         return "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
                 + nameHtml + "</td></tr></table>";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getCellClass() {
         return "";

@@ -2,9 +2,12 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.geojson.LngLatAlt;
 
+import lombok.Getter;
+
 /**
  * @author Dick Schoeller
  */
+@Getter
 public final class PlaceInfo {
 
     /**
@@ -35,8 +38,8 @@ public final class PlaceInfo {
     public PlaceInfo(final String placeName, final Double latitude,
             final Double longitude) {
         this.placeName = placeName;
-        Double lat;
-        Double lng;
+        final Double lat;
+        final Double lng;
         if (latitude == null) {
             lat = Double.NaN;
         } else {
@@ -53,10 +56,8 @@ public final class PlaceInfo {
             northeast = new LngLatAlt(Double.NaN, Double.NaN);
         } else {
             final double confidence = .01;
-            southwest = new LngLatAlt(longitude - confidence,
-                    latitude - confidence);
-            northeast = new LngLatAlt(longitude + confidence,
-                    latitude + confidence);
+            southwest = new LngLatAlt(longitude - confidence, latitude - confidence);
+            northeast = new LngLatAlt(longitude + confidence, latitude + confidence);
         }
     }
 
@@ -74,37 +75,6 @@ public final class PlaceInfo {
         this.northeast = northeast;
     }
 
-    /**
-     * @return the place name
-     */
-    public String getPlaceName() {
-        return placeName;
-    }
-
-    /**
-     * @return the location
-     */
-    public LngLatAlt getLocation() {
-        return location;
-    }
-
-    /**
-     * @return the southwest corner of the viewport
-     */
-    public LngLatAlt getSouthwest() {
-        return southwest;
-    }
-
-    /**
-     * @return the northeast corner of the viewport
-     */
-    public LngLatAlt getNortheast() {
-        return northeast;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         if (placeName == null) {

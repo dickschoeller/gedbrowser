@@ -11,7 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
@@ -657,23 +659,19 @@ final class AnonymousPersonRendererTest {
     @ParameterizedTest
     @MethodSource("motherNameHtmlCases")
     void testRenderMotherNameHtml(final String personId) throws IOException {
-        renderAndCheckMotherNameHtml(personId);
-    }
-
-    private static Stream<org.junit.jupiter.params.provider.Arguments> motherNameHtmlCases() {
-        return Stream.of(
-            org.junit.jupiter.params.provider.Arguments.of("I5266"),
-            org.junit.jupiter.params.provider.Arguments.of("I5"),
-            org.junit.jupiter.params.provider.Arguments.of("I9"));
-    }
-
-    private void renderAndCheckMotherNameHtml(final String personId) throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find(personId);
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
-            anonymousContext);
+                anonymousContext);
         final String actual = personRenderer.getParents().getMotherNameHtml();
         assertTrue(actual.isEmpty(), "Expected empty string for " + personId);
+    }
+
+    private static Stream<Arguments> motherNameHtmlCases() {
+        return Stream.of(
+            Arguments.of("I5266"),
+            Arguments.of("I5"),
+            Arguments.of("I9"));
     }
 
     /**
@@ -809,33 +807,26 @@ final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             anonymousContext);
-        final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
+        final List<GedRenderer<GedObject>> attributes = personRenderer.getAttributes();
         assertTrue(attributes.isEmpty(), "Expected empty attributes list");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @ParameterizedTest
     @MethodSource("emptyAttributesCases")
     void testRenderEmptyAttributes(final String personId) throws IOException {
-        renderAndCheckEmptyAttributes(personId);
-    }
-
-    private static Stream<org.junit.jupiter.params.provider.Arguments> emptyAttributesCases() {
-        return Stream.of(
-            org.junit.jupiter.params.provider.Arguments.of("I4"),
-            org.junit.jupiter.params.provider.Arguments.of("I1"),
-            org.junit.jupiter.params.provider.Arguments.of("I5"));
-    }
-
-    private void renderAndCheckEmptyAttributes(final String personId) throws IOException {
         final Root root = reader.readBigTestSource();
         final Person person = (Person) root.find(personId);
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
-            anonymousContext);
-        final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
+                anonymousContext);
+        final List<GedRenderer<GedObject>> attributes = personRenderer.getAttributes();
         assertTrue(attributes.isEmpty(), "Expected empty attributes list for " + personId);
+    }
+
+    private static Stream<Arguments> emptyAttributesCases() {
+        return Stream.of(
+            Arguments.of("I4"),
+            Arguments.of("I1"),
+            Arguments.of("I5"));
     }
 
     /**
@@ -848,7 +839,7 @@ final class AnonymousPersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(arnold, new GedRendererFactory(),
             anonymousContext);
         final int expect = 8;
-        final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
+        final List<GedRenderer<GedObject>> attributes = personRenderer.getAttributes();
         assertEquals(expect, attributes.size(), "Expected 8 attributes");
     }
 

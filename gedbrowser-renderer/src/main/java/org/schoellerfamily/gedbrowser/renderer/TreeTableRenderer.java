@@ -26,10 +26,8 @@ public final class TreeTableRenderer {
      * @return the 2D array of cells.
      */
     public CellRow[] getTreeRows() {
-        CellRow[] treeCellRenderers;
-        final TreeNode<PersonRenderer> treeNode = buildTree(top, 0,
-                generations - 1, 0);
-        treeCellRenderers = new CellRow[treeNode.getHighestRowInTree() + 1];
+        final TreeNode<PersonRenderer> treeNode = buildTree(top, 0, generations - 1, 0);
+        final CellRow[] treeCellRenderers = new CellRow[treeNode.getHighestRowInTree() + 1];
         for (int i = 0; i < treeCellRenderers.length; i++) {
             treeCellRenderers[i] = createCellRow();
         }
