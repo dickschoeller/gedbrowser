@@ -28,6 +28,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfiguration.class)
+@SuppressWarnings({ "PMD.TooManyMethods" })
 final class PlaceListRendererTest {
     /** */
     @Autowired
@@ -57,7 +58,7 @@ final class PlaceListRendererTest {
      * @author Dick Schoeller
      */
     @Configuration
-    static class ContextConfiguration {
+    public static class ContextConfiguration {
     }
 
     /** */

@@ -70,7 +70,8 @@ final class AnonymousModePersonNameHtmlRendererTest {
     void testGetNameHtml(final String nameValue) {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person testPerson = builder.createPerson("I1");
-        final Name name = nameValue.isEmpty() ? new Name(testPerson) : new Name(testPerson, nameValue);
+        final Name name =
+            nameValue.isEmpty() ? new Name(testPerson) : new Name(testPerson, nameValue);
         testPerson.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(testPerson,
             new GedRendererFactory(), renderingContext);

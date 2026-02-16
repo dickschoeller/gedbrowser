@@ -48,7 +48,6 @@ final class PersonAttributeListOpenRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -56,7 +55,6 @@ final class PersonAttributeListOpenRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetAttributeListOpenNull() {
         final Name name = new Name(person);
@@ -72,7 +70,6 @@ final class PersonAttributeListOpenRendererTest {
         assertEquals("\n" + HORIZONTAL + HEAD_3, string, "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetAttributeListOpenEmpty() {
         final Name name = new Name(person, "");
@@ -88,7 +85,6 @@ final class PersonAttributeListOpenRendererTest {
         assertEquals("\n" + HORIZONTAL + HEAD_3, string, "Rendered html doesn't match expectation");
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("attributeListOpenCases")
     void testGetAttributeListOpen(final String nameValue) {
@@ -105,16 +101,14 @@ final class PersonAttributeListOpenRendererTest {
         assertEquals("\n" + HORIZONTAL + HEAD_3, string, "Rendered html doesn't match expectation");
     }
 
-    /** */
     private static Stream<Arguments> attributeListOpenCases() {
         return Stream.of(
-                Arguments.of("/Schoeller/"),
-                Arguments.of("Richard/Schoeller/"),
-                Arguments.of("/Deng/Shao Ping"),
-                Arguments.of("Karl Frederick/Schoeller/Sr."));
+            Arguments.of("/Schoeller/"),
+            Arguments.of("Richard/Schoeller/"),
+            Arguments.of("/Deng/Shao Ping"),
+            Arguments.of("Karl Frederick/Schoeller/Sr."));
     }
 
-    /** */
     @Test
     void testGetAttributeListOpenPersonUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -37,13 +38,11 @@ final class NameListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderSimple() {
         final Name name = new Name(null, "Richard /Schoeller/");
@@ -55,28 +54,9 @@ final class NameListItemRendererTest {
         assertEquals("Richard Schoeller", builder.toString(), UNEXPECTED_STRING);
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("renderListItemCases")
     void testRenderListItem(final String nameValue, final boolean newLine, final int pad,
-        final String expected) {
-        renderListItem(nameValue, newLine, pad, expected);
-    }
-
-    private static Stream<org.junit.jupiter.params.provider.Arguments> renderListItemCases() {
-        return Stream.of(
-            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick /Schoeller/Jr.", false, 0,
-                "Karl Frederick Schoeller Jr."),
-            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick /Schoeller/Jr.", false, 1, ""),
-            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick /Schoeller/Jr.", true, 0,
-                "\nKarl Frederick Schoeller Jr."),
-            org.junit.jupiter.params.provider.Arguments.of("/Schoeller/", false, 0, "Schoeller"),
-            org.junit.jupiter.params.provider.Arguments.of("", false, 0, "?"),
-            org.junit.jupiter.params.provider.Arguments.of(null, false, 0, "?"),
-            org.junit.jupiter.params.provider.Arguments.of("Foo//Bar", false, 0, "Foo ? Bar"));
-    }
-
-    private void renderListItem(final String nameValue, final boolean newLine, final int pad,
         final String expected) {
         final Name name = nameValue == null ? new Name(null) : new Name(null, nameValue);
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
@@ -86,5 +66,18 @@ final class NameListItemRendererTest {
         nlir.renderAsListItem(builder, newLine, pad);
         assertEquals(expected, builder.toString(),
             pad > 0 ? EXPECT_EMPTY : UNEXPECTED_STRING);
+    }
+
+    private static Stream<Arguments> renderListItemCases() {
+        return Stream.of(
+            Arguments.of("Karl Frederick /Schoeller/Jr.", false, 0,
+                "Karl Frederick Schoeller Jr."),
+            Arguments.of("Karl Frederick /Schoeller/Jr.", false, 1, ""),
+            Arguments.of("Karl Frederick /Schoeller/Jr.", true, 0,
+                "\nKarl Frederick Schoeller Jr."),
+            Arguments.of("/Schoeller/", false, 0, "Schoeller"),
+            Arguments.of("", false, 0, "?"),
+            Arguments.of(null, false, 0, "?"),
+            Arguments.of("Foo//Bar", false, 0, "Foo ? Bar"));
     }
 }

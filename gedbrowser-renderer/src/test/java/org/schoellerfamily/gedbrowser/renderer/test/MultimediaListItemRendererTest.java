@@ -101,7 +101,6 @@ final class MultimediaListItemRendererTest {
         assertEquals(expected, builder.toString(), "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testRenderAsListItem() {
         @SuppressWarnings("java:S6126")
@@ -116,11 +115,10 @@ final class MultimediaListItemRendererTest {
         assertEquals(expected, builder.toString(), "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testGetListItemContentsEmpty() {
-        @SuppressWarnings("java:S6126")
-        final String expected = "<span class=\"label\">Multimedia:</span> Title 1<br/>\n" + "<a href=\"file1.jpg\">"
+        final String expected =
+            "<span class=\"label\">Multimedia:</span> Title 1<br/>\n<a href=\"file1.jpg\">"
             + "<img height=\"300px\" src=\"file1.jpg\" title=\"Title 1\"/>" + "</a>";
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
             new GedRendererFactory(), anonymousContext);
@@ -130,11 +128,10 @@ final class MultimediaListItemRendererTest {
         assertEquals(expected, contents, "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testGetListItemContentsString() {
-        @SuppressWarnings("java:S6126")
-        final String expected = "<span class=\"label\">Multimedia:</span> " + "<a href=\"file2.html\">Title 2</a>";
+        final String expected =
+            "<span class=\"label\">Multimedia:</span> <a href=\"file2.html\">Title 2</a>";
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
@@ -143,11 +140,10 @@ final class MultimediaListItemRendererTest {
         assertEquals(expected, contents, "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testGetListItemContents() {
-        @SuppressWarnings("java:S6126")
-        final String expected = "<span class=\"label\">Multimedia:</span>" + " <a href=\"file3.html\">Title 3</a>";
+        final String expected =
+            "<span class=\"label\">Multimedia:</span> <a href=\"file3.html\">Title 3</a>";
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer

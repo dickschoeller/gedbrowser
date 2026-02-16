@@ -38,7 +38,6 @@ class GedDocumentFileLoaderCoverageTest {
         final Class<?>[] classes = {
             RootDocumentRepositoryMongo.class
         };
-        @SuppressWarnings("unused")
         final RootDocumentRepositoryMongo repositoryProxy =
             (RootDocumentRepositoryMongo) Proxy.newProxyInstance(
                 RootDocumentRepositoryMongo.class.getClassLoader(),
@@ -75,7 +74,6 @@ class GedDocumentFileLoaderCoverageTest {
      * Test subclass to expose protected methods.
      */
     private static final class TestLoader extends GedDocumentFileLoader {
-        @SuppressWarnings("unused")
         private TestLoader() {
             super(null, null, new GedObjectToGedDocumentMongoConverter(),
                 (RootDocumentRepositoryMongo) Proxy.newProxyInstance(

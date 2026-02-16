@@ -19,7 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 class RendererContextRendererTest {
-    /** */
     @Test
     void testEscapeStringAmpersand() {
         final String expected = "foo&amp;foo";
@@ -27,7 +26,6 @@ class RendererContextRendererTest {
         assertEquals(expected, actual, "Escaping html didn't work");
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("escapeStringCases")
     void testEscapeString(final String input, final String expected) {
@@ -35,7 +33,6 @@ class RendererContextRendererTest {
                 "Escaping html didn't work");
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("escapeStringDelimitedCases")
     void testEscapeStringDelimited(final String delimiter, final String input,
@@ -45,22 +42,18 @@ class RendererContextRendererTest {
                 "Escaping html didn't work");
     }
 
-    /** */
     private static Stream<Arguments> escapeStringCases() {
         return Stream.of(
-                Arguments.of("foo<foo", "foo&lt;foo"),
-                Arguments.of("foo>foo", "foo&gt;foo"),
-                Arguments.of("foo>bar<bat&xyzzy",
-                        "foo&gt;bar&lt;bat&amp;xyzzy"));
+            Arguments.of("foo<foo", "foo&lt;foo"),
+            Arguments.of("foo>foo", "foo&gt;foo"),
+            Arguments.of("foo>bar<bat&xyzzy", "foo&gt;bar&lt;bat&amp;xyzzy"));
     }
 
-    /** */
     private static Stream<Arguments> escapeStringDelimitedCases() {
         return Stream.of(
-                Arguments.of(" ", "foo&foo", " foo&amp;foo"),
-                Arguments.of("X", "foo<foo", "Xfoo&lt;foo"),
-                Arguments.of("Y", "foo>foo", "Yfoo&gt;foo"),
-                Arguments.of("plugh", "foo>bar<bat&xyzzy",
-                        "plughfoo&gt;bar&lt;bat&amp;xyzzy"));
+            Arguments.of(" ", "foo&foo", " foo&amp;foo"),
+            Arguments.of("X", "foo<foo", "Xfoo&lt;foo"),
+            Arguments.of("Y", "foo>foo", "Yfoo&gt;foo"),
+            Arguments.of("plugh", "foo>bar<bat&xyzzy", "plughfoo&gt;bar&lt;bat&amp;xyzzy"));
     }
 }

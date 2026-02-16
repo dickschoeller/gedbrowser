@@ -128,7 +128,6 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
      * @param place the place
      * @return the set for the place from the map
      */
-    @SuppressWarnings("unused")
     private Set<PersonRenderer> personRendererSet(
             final Map<String, Set<PersonRenderer>> aMap, final String place) {
         return aMap.computeIfAbsent(place, k -> new TreeSet<>(new PersonRendererComparator()));
@@ -145,10 +144,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
         final PersonConfidentialVisitor visitor =
                 new PersonConfidentialVisitor();
         person.accept(visitor);
-        if (visitor.isConfidential()) {
-            return true;
-        }
-        return !getRenderingContext().isUser();
+        return visitor.isConfidential() || !getRenderingContext().isUser();
     }
 
     /**

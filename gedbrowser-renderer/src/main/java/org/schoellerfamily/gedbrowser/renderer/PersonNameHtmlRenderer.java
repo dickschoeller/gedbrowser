@@ -61,12 +61,9 @@ public class PersonNameHtmlRenderer implements NameHtmlRenderer {
         person.accept(deathVisitor);
         final String deathYear = deathVisitor.getYear();
 
-        String spanString;
         if (birthYear.isEmpty() && deathYear.isEmpty()) {
-            spanString = "";
-        } else {
-            spanString = " (" + birthYear + "-" + deathYear + ")";
+            return "";
         }
-        return spanString;
+        return " (" + birthYear + "-" + deathYear + ")";
     }
 }
