@@ -17,7 +17,7 @@ import com.google.maps.model.AddressType;
  *
  * @author Dick Schoeller
  */
-@SuppressWarnings("PMD.CommentSize")
+@SuppressWarnings({ "PMD.CommentSize", "java:S1168" })
 public final class GeoServiceGeocodingResult {
     /** */
     private static final String POSTCODE_LOCALITIES = "postcodeLocalities";
@@ -107,6 +107,9 @@ public final class GeoServiceGeocodingResult {
      */
     public AddressComponent[] getAddressComponents() {
         if (addressComponents == null) {
+            // Null is a valid value for this field, and we want to preserve it if it is
+            // null. But if it is not null, we want to return a copy of the array to avoid
+            // mutability issues.
             return null;
         }
         return Arrays.copyOf(addressComponents, addressComponents.length);
@@ -145,6 +148,9 @@ public final class GeoServiceGeocodingResult {
     public String[] getPostcodeLocalities() {
         final Feature location = getLocation();
         if (location == null) {
+            // Null is a valid value for this field, and we want to preserve it if it is
+            // null. But if it is not null, we want to return a copy of the array to avoid
+            // mutability issues.
             return null;
         }
         return location.getProperty(POSTCODE_LOCALITIES);
@@ -172,6 +178,9 @@ public final class GeoServiceGeocodingResult {
      */
     public AddressType[] getTypes() {
         if (types == null) {
+            // Null is a valid value for this field, and we want to preserve it if it is
+            // null. But if it is not null, we want to return a copy of the array to avoid
+            // mutability issues.
             return null;
         }
         return Arrays.copyOf(types, types.length);

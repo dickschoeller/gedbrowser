@@ -154,8 +154,9 @@ class NoteCrudIT {
     @Test
     void testReadNotesGl120368Xyzzy() {
         log.info("Beginning testReadNotesGl120368N1932");
+        final String db = helper.getDb();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.readOne(helper.getDb(), "Xyzzy"))
+            .isThrownBy(() -> crud.readOne(db, "Xyzzy"))
             .withMessage("Object Xyzzy of type note not found");
     }
 
@@ -177,17 +178,18 @@ class NoteCrudIT {
     @Test
     void testDeleteNote() {
         log.info("Beginning testDeleteNote");
+        final String db = helper.getDb();
         final ApiNote reqNote = ApiNote.builder()
             .type("note")
             .string("")
             .tail("this is a note")
             .attributes(List.of())
             .build();
-        final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
+        final ApiNote resNote = crud.createOne(db, reqNote);
         final String id = resNote.getString();
-        final ApiNote deletedNote = crud.deleteOne(helper.getDb(), id);
+        final ApiNote deletedNote = crud.deleteOne(db, id);
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.readOne(helper.getDb(), deletedNote.getString()))
+            .isThrownBy(() -> crud.readOne(db, deletedNote.getString()))
             .withMessage("Object " + id + " of type note not found");
     }
 
@@ -195,8 +197,9 @@ class NoteCrudIT {
     @Test
     void testDeleteNoteNotFound() {
         log.info("Beginning testDeleteNoteNotFound");
+        final String db = helper.getDb();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.readOne(helper.getDb(), "XXXXXXX"))
+            .isThrownBy(() -> crud.readOne(db, "XXXXXXX"))
             .withMessage("Object XXXXXXX of type note not found");
     }
 
@@ -213,6 +216,7 @@ class NoteCrudIT {
     @Test
     void testUpdateNoteWithNote() {
         log.info("Beginning testUpdateNoteWithNote");
+        final String db = helper.getDb();
         final ApiNote reqNote = ApiNote.builder()
             .type("note")
             .string("")
@@ -220,7 +224,7 @@ class NoteCrudIT {
                 ApiAttribute.builder().type("attribute").string("Note").tail("first note").build())
             .tail("Top level note")
             .build();
-        final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
+        final ApiNote resNote = crud.createOne(db, reqNote);
         assertThat(resNote).returns(reqNote.getType(), o -> o.getType());
 
         final ApiNote modNote = resNote.toBuilder()
@@ -231,7 +235,7 @@ class NoteCrudIT {
                 .build())
             .build();
 
-        final ApiNote updatedNote = crud.updateOne(helper.getDb(), modNote.getString(), modNote);
+        final ApiNote updatedNote = crud.updateOne(db, modNote.getString(), modNote);
         assertEquals(ApiAttribute.builder()
             .type("attribute")
             .string("Note")

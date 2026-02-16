@@ -22,7 +22,7 @@ class ApiObjectTest {
         final ApiObject o = ApiObject.builder()
             .type("")
             .string("")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         assertEquals("", o.getType(), "type mismatch");
     }
@@ -33,7 +33,7 @@ class ApiObjectTest {
         final ApiObject o = ApiObject.builder()
             .type("")
             .string("")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         assertEquals("", o.getString(), "string mismatch");
     }
@@ -44,7 +44,7 @@ class ApiObjectTest {
         final ApiObject o = ApiObject.builder()
             .type("")
             .string("")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
@@ -55,7 +55,7 @@ class ApiObjectTest {
         final ApiObject o = ApiObject.builder()
             .type("type")
             .string("string")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         assertEquals("type", o.getType(), "type mismatch");
     }
@@ -66,7 +66,7 @@ class ApiObjectTest {
         final ApiObject o = ApiObject.builder()
             .type("type")
             .string("string")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         assertEquals("string", o.getString(), "string mismatch");
     }
@@ -77,18 +77,7 @@ class ApiObjectTest {
         final ApiObject o = ApiObject.builder()
             .type("type")
             .string("string")
-            .attributes(java.util.List.of())
-            .build();
-        assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
-    }
-
-    /** */
-    @Test
-    void testConstructorNullAttributes() {
-        final ApiObject o = ApiObject.builder()
-            .type("type")
-            .string("string")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
@@ -100,7 +89,7 @@ class ApiObjectTest {
             .type("attribute")
             .string("a string")
             .tail("")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build());
         final ApiObject o = ApiObject.builder()
             .type("type")
@@ -116,7 +105,7 @@ class ApiObjectTest {
         final ApiObject o = ApiObject.builder()
             .type("type")
             .string("string")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         assertTrue(o.isType("type"), "isType mismatch");
     }
@@ -127,7 +116,7 @@ class ApiObjectTest {
         final ApiObject o = ApiObject.builder()
             .type("type")
             .string("string")
-            .attributes(java.util.List.of())
+            .attributes(List.of())
             .build();
         final ApiTestVisitor visitor = new ApiTestVisitor();
         o.accept(visitor);

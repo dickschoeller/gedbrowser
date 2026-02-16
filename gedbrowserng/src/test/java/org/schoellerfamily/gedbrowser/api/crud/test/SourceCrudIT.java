@@ -173,8 +173,9 @@ class SourceCrudIT {
         final String id = resSource.getString();
         final ApiSource deletedSource = crud.deleteOne(helper.getDb(), id);
 
+        final String source = deletedSource.getString();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.readOne("mini-schoeller", deletedSource.getString()))
+            .isThrownBy(() -> crud.readOne("mini-schoeller", source))
             .withMessage("Object " + deletedSource.getString() + " of type source not found");
     }
 
@@ -182,8 +183,9 @@ class SourceCrudIT {
     @Test
     void testDeleteSourceNotFound() {
         log.info("Beginning testDeleteSourceNotFound");
+        final String db = helper.getDb();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.deleteOne(helper.getDb(), "XXXXXXX"))
+            .isThrownBy(() -> crud.deleteOne(db, "XXXXXXX"))
             .withMessage("Object XXXXXXX of type source not found");
     }
 

@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
-@SuppressWarnings({"PMD.JUnitTestsShouldIncludeAssert"})
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "java:S5976", "java:S4144" })
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @AutoConfigureRestTestClient
 class LoadEndpointIT {

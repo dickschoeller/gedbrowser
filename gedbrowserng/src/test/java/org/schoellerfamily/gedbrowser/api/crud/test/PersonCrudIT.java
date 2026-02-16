@@ -180,16 +180,17 @@ class PersonCrudIT {
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeletePerson() {
         log.info("Beginning testDeletePerson");
+        final String db = helper.getDb();
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
+        final ApiPerson resPerson = crud.createOne(db, reqPerson);
         final String id = resPerson.getString();
-        crud.readOne(helper.getDb(), id);
-        final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), id);
+        crud.readOne(db, id);
+        final ApiPerson deletedPerson = crud.deleteOne(db, id);
 
         assertThat(deletedPerson)
             .returns(id, p -> p.getString());
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.readOne(helper.getDb(), id))
+            .isThrownBy(() -> crud.readOne(db, id))
             .withMessage("Object " + id + " of type person not found");
     }
 
@@ -197,33 +198,34 @@ class PersonCrudIT {
     @Test
     void testDeleteSpouseLinkedPerson() {
         log.info("Beginning testDeleteSpouseLinkedPerson");
+        final String db = helper.getDb();
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
+        final ApiPerson resPerson = crud.createOne(db, reqPerson);
         final String id = resPerson.getString();
         final ApiPerson childReqPerson = helper.createAlexander();
         final ChildCrud childCrud = new ChildCrud(loader, toDocConverter, repositoryManager);
-        final ApiPerson child = childCrud.createChild(helper.getDb(), id, childReqPerson);
+        final ApiPerson child = childCrud.createChild(db, id, childReqPerson);
         final String fam = child.getFamcs().get(0).getString();
         final ApiPerson p2 = helper.createAlexandra();
         final SpouseCrud spouseCrud = new SpouseCrud(loader, toDocConverter, repositoryManager);
-        final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
+        final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(db, fam, p2);
 
         assertThat(gotP2)
             .returns(fam, p -> p.getFamss().get(0).getString());
 
-        final ApiPerson readPerson = crud.readOne(helper.getDb(), id);
+        final ApiPerson readPerson = crud.readOne(db, id);
         assertThat(readPerson)
             .returns(id, p -> p.getString());
 
-        final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), id);
+        final ApiPerson deletedPerson = crud.deleteOne(db, id);
         assertThat(deletedPerson)
             .returns(id, p -> p.getString());
 
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.readOne(helper.getDb(), id))
+            .isThrownBy(() -> crud.readOne(db, id))
             .withMessage("Object " + id + " of type person not found");
 
-        final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
+        final ApiFamily readFamily = familyCrud.readOne(db, fam);
         assertThat(readFamily)
             .returns(1, f -> f.getSpouses().size())
             .returns(gotP2.getString(), f -> f.getSpouses().get(0).getString());
@@ -234,30 +236,31 @@ class PersonCrudIT {
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeleteChildLinkedPerson() {
         log.info("Beginning testDeleteChildLinkedPerson");
+        final String db = helper.getDb();
         final ApiPerson reqPerson = createRJS();
-        final ApiPerson resPerson = crud.createOne(helper.getDb(), reqPerson);
+        final ApiPerson resPerson = crud.createOne(db, reqPerson);
         final String id = resPerson.getString();
         final ApiPerson childReqPerson = helper.createAlexander();
         final ChildCrud childCrud = new ChildCrud(loader, toDocConverter, repositoryManager);
-        final ApiPerson child = childCrud.createChild(helper.getDb(), id, childReqPerson);
+        final ApiPerson child = childCrud.createChild(db, id, childReqPerson);
         final String fam = child.getFamcs().get(0).getString();
         final String childId = child.getString();
         final ApiPerson p2 = helper.createAlexandra();
         final SpouseCrud spouseCrud = new SpouseCrud(loader, toDocConverter, repositoryManager);
-        final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(helper.getDb(), fam, p2);
+        final ApiPerson gotP2 = spouseCrud.createSpouseInFamily(db, fam, p2);
 
         assertThat(gotP2)
             .returns(fam, p -> p.getFamss().get(0).getString());
 
-        final ApiPerson deletedPerson = crud.deleteOne(helper.getDb(), childId);
+        final ApiPerson deletedPerson = crud.deleteOne(db, childId);
         assertThat(deletedPerson)
             .returns(childId, p -> p.getString());
 
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.readOne(helper.getDb(), childId))
+            .isThrownBy(() -> crud.readOne(db, childId))
             .withMessage("Object " + childId + " of type person not found");
 
-        final ApiFamily readFamily = familyCrud.readOne(helper.getDb(), fam);
+        final ApiFamily readFamily = familyCrud.readOne(db, fam);
         assertThat(readFamily)
             .returns(0, f -> f.getChildren().size());
     }
@@ -267,8 +270,9 @@ class PersonCrudIT {
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeletePersonNotFound() {
         log.info("Beginning testDeletePersonNotFound");
+        final String db = helper.getDb();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.deleteOne(helper.getDb(), "XXXXXXX"))
+            .isThrownBy(() -> crud.deleteOne(db, "XXXXXXX"))
             .withMessage("Object XXXXXXX of type person not found");
     }
 
@@ -286,8 +290,9 @@ class PersonCrudIT {
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testUpdatePersonWithNote() {
         log.info("Beginning testUpdatePersonWithNote");
+        final String db = helper.getDb();
         final ApiPerson reqPerson = createRJS();
-        final ApiPersonBuilder<?, ?> resPerson = crud.createOne(helper.getDb(), reqPerson)
+        final ApiPersonBuilder<?, ?> resPerson = crud.createOne(db, reqPerson)
             .toBuilder();
 
         assertThat(resPerson)
@@ -299,7 +304,7 @@ class PersonCrudIT {
             .tail("this is a note")
             .build();
         resPerson.attribute(aNote);
-        final ApiPerson updatedPerson = crud.updateOne(helper.getDb(), resPerson.getString(),
+        final ApiPerson updatedPerson = crud.updateOne(db, resPerson.getString(),
             resPerson.build());
         assertEquals(aNote, updatedPerson.getAttributes().get(2), "attribute should be present");
     }
