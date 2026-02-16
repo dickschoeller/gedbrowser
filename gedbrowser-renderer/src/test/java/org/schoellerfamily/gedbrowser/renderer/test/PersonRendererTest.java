@@ -143,33 +143,42 @@ final class PersonRendererTest {
     /**
      * @throws IOException when there is a read error.
      */
-    @Test
-    void testRenderMelissaFatherNameHtml() throws IOException {
+    @ParameterizedTest
+    @MethodSource("fatherNameHtmlCases")
+    void testRenderFatherNameHtml(final String personId, final boolean isAdmin,
+            final String expected, final String message) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I1");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I2\" class=\"name\">" + "Richard John"
-                + " <span class=\"surname\">Schoeller</span>" + " (1958-) [I2]</a>",
-            personRenderer.getParents().getFatherNameHtml(),
-            "Rendered html doesn't match expectation");
+        final Person person = (Person) root.find(personId);
+        final RenderingContext context = isAdmin ? adminContext : userContext;
+        final PersonRenderer personRenderer = new PersonRenderer(person,
+            new GedRendererFactory(), context);
+        assertEquals(expected, personRenderer.getParents().getFatherNameHtml(),
+            message);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderCiciFatherNameHtmlAdmin() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5266");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            adminContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I4248\" class=\"name\">" + "Sabino"
-                + " <span class=\"surname\">Figliuolo</span> [I4248]</a>",
-            personRenderer.getParents().getFatherNameHtml(),
-            "Rendered html doesn't match expectation");
+    /** */
+    private static Stream<Arguments> fatherNameHtmlCases() {
+        return Stream.of(
+                Arguments.of("I1", false,
+                        "<a href=\"person?db=null&amp;id=I2\" class=\"name\">"
+                                + "Richard John"
+                                + " <span class=\"surname\">Schoeller</span>"
+                                + " (1958-) [I2]</a>",
+                        "Rendered html doesn't match expectation"),
+                Arguments.of("I5266", true,
+                        "<a href=\"person?db=null&amp;id=I4248\" class=\"name\">"
+                                + "Sabino"
+                                + " <span class=\"surname\">Figliuolo</span>"
+                                + " [I4248]</a>",
+                        "Rendered html doesn't match expectation"),
+                Arguments.of("I5", true,
+                        "<a href=\"person?db=null&amp;id=I4\" class=\"name\">"
+                                + "John Vincent"
+                                + " <span class=\"surname\">Schoeller</span>"
+                                + " (1934-) [I4]</a>",
+                        "Rendered html doesn't match expectation"),
+                Arguments.of("I5", false, "", "Expected empty string"),
+                Arguments.of("I9", false, "", "Expected empty string"));
     }
 
     /**
@@ -188,73 +197,42 @@ final class PersonRendererTest {
     /**
      * @throws IOException when there is a read error.
      */
-    @Test
-    void testRenderVivianFatherNameHtmlAdmin() throws IOException {
+    @ParameterizedTest
+    @MethodSource("motherNameHtmlCases")
+    void testRenderMotherNameHtml(final String personId, final boolean isAdmin,
+            final String expected, final String message) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            adminContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I4\" class=\"name\">" + "John Vincent"
-                + " <span class=\"surname\">Schoeller</span>" + " (1934-) [I4]</a>",
-            personRenderer.getParents().getFatherNameHtml(),
-            "Rendered html doesn't match expectation");
+        final Person person = (Person) root.find(personId);
+        final RenderingContext context = isAdmin ? adminContext : userContext;
+        final PersonRenderer personRenderer = new PersonRenderer(person,
+            new GedRendererFactory(), context);
+        assertEquals(expected, personRenderer.getParents().getMotherNameHtml(),
+            message);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderVivianFatherNameHtmlAnon() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("", personRenderer.getParents().getFatherNameHtml(), "Expected empty string");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeFatherNameHtml() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("", personRenderer.getParents().getFatherNameHtml(), "Expected empty string");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderMelissaMotherNameHtml() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I1");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I3\" class=\"name\">" + "Lisa Hope"
-                + " <span class=\"surname\">Robinson</span>" + " (1960-) [I3]</a>",
-            personRenderer.getParents().getMotherNameHtml(),
-            "Rendered html doesn't match expectation");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderCiciMotherNameHtmlAdmin() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5266");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            adminContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I5\" class=\"name\">" + "Vivian Grace"
-                + " <span class=\"surname\">Schoeller</span>" + " (1960-) [I5]</a>",
-            personRenderer.getParents().getMotherNameHtml(),
-            "Rendered html doesn't match expectation");
+    /** */
+    private static Stream<Arguments> motherNameHtmlCases() {
+        return Stream.of(
+                Arguments.of("I1", false,
+                        "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
+                                + "Lisa Hope"
+                                + " <span class=\"surname\">Robinson</span>"
+                                + " (1960-) [I3]</a>",
+                        "Rendered html doesn't match expectation"),
+                Arguments.of("I5266", true,
+                        "<a href=\"person?db=null&amp;id=I5\" class=\"name\">"
+                                + "Vivian Grace"
+                                + " <span class=\"surname\">Schoeller</span>"
+                                + " (1960-) [I5]</a>",
+                        "Rendered html doesn't match expectation"),
+                Arguments.of("I5", true,
+                        "<a href=\"person?db=null&amp;id=I6\" class=\"name\">"
+                                + "Patricia Ruth"
+                                + " <span class=\"surname\">Hayes</span>"
+                                + " (1937-) [I6]</a>",
+                        "Rendered html doesn't match expectation"),
+                Arguments.of("I5", false, "", "Expected empty string"),
+                Arguments.of("I9", false, "", "Expected empty string"));
     }
 
     /**
@@ -268,46 +246,6 @@ final class PersonRendererTest {
             userContext);
         assertEquals("Confidential", personRenderer.getParents().getMotherNameHtml(),
             "Rendered html doesn't match expectation");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderVivianMotherNameHtmlAdmin() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            adminContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I6\" class=\"name\">" + "Patricia Ruth"
-                + " <span class=\"surname\">Hayes</span>" + " (1937-) [I6]</a>",
-            personRenderer.getParents().getMotherNameHtml(),
-            "Rendered html doesn't match expectation");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderVivianMotherNameHtmlAnon() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("", personRenderer.getParents().getMotherNameHtml(), "Expected empty string");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeMotherNameHtml() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("", personRenderer.getParents().getMotherNameHtml(), "Expected empty string");
     }
 
     /**
