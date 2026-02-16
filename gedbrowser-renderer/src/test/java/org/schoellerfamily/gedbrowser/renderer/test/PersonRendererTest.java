@@ -5,10 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -115,40 +119,25 @@ final class PersonRendererTest {
     /**
      * @throws IOException when there is a read error.
      */
-    @Test
-    void testRenderSabinoWholeName() throws IOException {
+    @ParameterizedTest
+    @MethodSource("wholeNameCases")
+    void testRenderWholeName(final String personId, final boolean isAdmin,
+            final String expected) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I4248");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            adminContext);
-        assertEquals("Sabino Figliuolo", personRenderer.getWholeName(),
+        final Person person = (Person) root.find(personId);
+        final RenderingContext context = isAdmin ? adminContext : userContext;
+        final PersonRenderer personRenderer = new PersonRenderer(person,
+            new GedRendererFactory(), context);
+        assertEquals(expected, personRenderer.getWholeName(),
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderSabinoWholeNameUser() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I4248");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("Confidential", personRenderer.getWholeName(),
-            "Rendered html doesn't match expectation");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeWholeNameUser() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("George Steven Sacerdote", personRenderer.getWholeName(),
-            "Rendered html doesn't match expectation");
+    /** */
+    private static Stream<Arguments> wholeNameCases() {
+        return Stream.of(
+                Arguments.of("I4248", true, "Sabino Figliuolo"),
+                Arguments.of("I4248", false, "Confidential"),
+                Arguments.of("I9", false, "George Steven Sacerdote"));
     }
 
     /**
