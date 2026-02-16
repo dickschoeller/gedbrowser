@@ -39,7 +39,6 @@ final class NameNameHtmlRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -47,7 +46,6 @@ final class NameNameHtmlRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetNameHtmlNull() {
         final Name name = new Name(person);
@@ -59,7 +57,6 @@ final class NameNameHtmlRendererTest {
             "Rendered string mismatch");
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("nameHtmlCases")
     void testGetNameHtml(final String nameValue, final String expected) {

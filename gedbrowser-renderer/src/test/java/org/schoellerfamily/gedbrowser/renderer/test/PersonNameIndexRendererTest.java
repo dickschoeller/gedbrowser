@@ -38,7 +38,6 @@ final class PersonNameIndexRendererTest {
     /** */
     private transient RenderingContext userContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -46,7 +45,6 @@ final class PersonNameIndexRendererTest {
         userContext = RenderingContext.user(appInfo);
     }
 
-    /** */
     @Test
     void testGetNameHtmlNull() {
         final Name name = new Name(person);
@@ -61,7 +59,6 @@ final class PersonNameIndexRendererTest {
             pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetNameHtmlEmpty() {
         final Name name = new Name(person, "");
@@ -76,7 +73,6 @@ final class PersonNameIndexRendererTest {
             pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("nameHtmlCases")
     void testGetNameHtml(final String nameValue, final String expected) {
@@ -89,25 +85,22 @@ final class PersonNameIndexRendererTest {
         assertEquals(expected, pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
-    /** */
     private static Stream<Arguments> nameHtmlCases() {
         return Stream.of(
-                Arguments.of("/Schoeller/",
-                        "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                                + " <span class=\"surname\">Schoeller</span> (I1)</a>"),
-                Arguments.of("Richard/Schoeller/",
-                        "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                                + " <span class=\"surname\">Schoeller</span>, Richard (I1)</a>"),
-                Arguments.of("/Deng/Shao Ping",
-                        "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                                + " <span class=\"surname\">Deng</span>, Shao Ping (I1)</a>"),
-                Arguments.of("Karl Frederick/Schoeller/Sr.",
-                        "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                                + " <span class=\"surname\">Schoeller</span>, Karl Frederick,"
-                                + " Sr. (I1)</a>"));
+            Arguments.of("/Schoeller/",
+                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                + " <span class=\"surname\">Schoeller</span> (I1)</a>"),
+            Arguments.of("Richard/Schoeller/",
+                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                + " <span class=\"surname\">Schoeller</span>, Richard (I1)</a>"),
+            Arguments.of("/Deng/Shao Ping",
+                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                    + " <span class=\"surname\">Deng</span>, Shao Ping (I1)</a>"),
+            Arguments.of("Karl Frederick/Schoeller/Sr.",
+                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                + " <span class=\"surname\">Schoeller</span>, Karl Frederick, Sr. (I1)</a>"));
     }
 
-    /** */
     @Test
     void testGetNameHtmlPersonUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();

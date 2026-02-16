@@ -34,7 +34,6 @@ final class NullListItemRendererTest {
     /** */
     private transient NullListItemRenderer nsr;
 
-    /** */
     @BeforeEach
     void setUp() {
         final RenderingContext anonymousContext = RenderingContext.anonymous(appInfo);
@@ -43,9 +42,6 @@ final class NullListItemRendererTest {
         nsr = (NullListItemRenderer) renderer.getListItemRenderer();
     }
 
-    /**
-     * @return an anonymous subclass of GedObject for testing
-     */
     private GedObject createGedObject() {
         return new GedObject() {
             @Override
@@ -55,7 +51,6 @@ final class NullListItemRendererTest {
         };
     }
 
-    /** */
     @Test
     void testRenderAsListItemFalse0() {
         final StringBuilder builder = new StringBuilder();
@@ -63,7 +58,6 @@ final class NullListItemRendererTest {
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("renderAsListItemCases")
     void testRenderAsListItem(final boolean newLine, final int pad) {
@@ -72,11 +66,10 @@ final class NullListItemRendererTest {
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
     private static Stream<Arguments> renderAsListItemCases() {
         return Stream.of(
-                Arguments.of(false, 2),
-                Arguments.of(true, 0),
-                Arguments.of(true, 2));
+            Arguments.of(false, 2),
+            Arguments.of(true, 0),
+            Arguments.of(true, 2));
     }
 }

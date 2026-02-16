@@ -35,13 +35,11 @@ final class NameNameIndexRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("renderIndexNameCases")
     void testRenderIndexName(final String nameValue, final String expected) {
@@ -52,7 +50,6 @@ final class NameNameIndexRendererTest {
         assertEquals(expected, nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
-    /** */
     private static Stream<Arguments> renderIndexNameCases() {
         return Stream.of(
             Arguments.of("Richard/Schoeller/",

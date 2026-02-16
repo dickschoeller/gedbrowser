@@ -30,8 +30,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.ExcessiveClassLength",
-    "PMD.ExcessiveImports" })
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.ExcessiveImports" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 final class PersonRendererTest {
@@ -64,9 +63,6 @@ final class PersonRendererTest {
         adminContext = new RenderingContext(adminUser, appInfo, provider);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderSabinoTitleAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -77,9 +73,6 @@ final class PersonRendererTest {
             personRenderer.getTitleName(), "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaTitleUser() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -90,9 +83,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderGeorgeTitle() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -103,9 +93,6 @@ final class PersonRendererTest {
             personRenderer.getTitleName(), "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaWholeName() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -116,9 +103,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @ParameterizedTest
     @MethodSource("wholeNameCases")
     void testRenderWholeName(final String personId, final boolean isAdmin,
@@ -132,17 +116,13 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /** */
     private static Stream<Arguments> wholeNameCases() {
         return Stream.of(
-                Arguments.of("I4248", true, "Sabino Figliuolo"),
-                Arguments.of("I4248", false, "Confidential"),
-                Arguments.of("I9", false, "George Steven Sacerdote"));
+            Arguments.of("I4248", true, "Sabino Figliuolo"),
+            Arguments.of("I4248", false, "Confidential"),
+            Arguments.of("I9", false, "George Steven Sacerdote"));
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @ParameterizedTest
     @MethodSource("fatherNameHtmlCases")
     void testRenderFatherNameHtml(final String personId, final boolean isAdmin,
@@ -156,34 +136,30 @@ final class PersonRendererTest {
             message);
     }
 
-    /** */
     private static Stream<Arguments> fatherNameHtmlCases() {
         return Stream.of(
-                Arguments.of("I1", false,
-                        "<a href=\"person?db=null&amp;id=I2\" class=\"name\">"
-                                + "Richard John"
-                                + " <span class=\"surname\">Schoeller</span>"
-                                + " (1958-) [I2]</a>",
-                        "Rendered html doesn't match expectation"),
-                Arguments.of("I5266", true,
-                        "<a href=\"person?db=null&amp;id=I4248\" class=\"name\">"
-                                + "Sabino"
-                                + " <span class=\"surname\">Figliuolo</span>"
-                                + " [I4248]</a>",
-                        "Rendered html doesn't match expectation"),
-                Arguments.of("I5", true,
-                        "<a href=\"person?db=null&amp;id=I4\" class=\"name\">"
-                                + "John Vincent"
-                                + " <span class=\"surname\">Schoeller</span>"
-                                + " (1934-) [I4]</a>",
-                        "Rendered html doesn't match expectation"),
-                Arguments.of("I5", false, "", "Expected empty string"),
-                Arguments.of("I9", false, "", "Expected empty string"));
+            Arguments.of("I1", false,
+                "<a href=\"person?db=null&amp;id=I2\" class=\"name\">"
+                + "Richard John"
+                + " <span class=\"surname\">Schoeller</span>"
+                + " (1958-) [I2]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5266", true,
+                "<a href=\"person?db=null&amp;id=I4248\" class=\"name\">"
+                + "Sabino"
+                + " <span class=\"surname\">Figliuolo</span>"
+                + " [I4248]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5", true,
+                "<a href=\"person?db=null&amp;id=I4\" class=\"name\">"
+                + "John Vincent"
+                + " <span class=\"surname\">Schoeller</span>"
+                + " (1934-) [I4]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5", false, "", "Expected empty string"),
+            Arguments.of("I9", false, "", "Expected empty string"));
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderCiciFatherNameHtmlAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -194,9 +170,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @ParameterizedTest
     @MethodSource("motherNameHtmlCases")
     void testRenderMotherNameHtml(final String personId, final boolean isAdmin,
@@ -210,34 +183,30 @@ final class PersonRendererTest {
             message);
     }
 
-    /** */
     private static Stream<Arguments> motherNameHtmlCases() {
         return Stream.of(
-                Arguments.of("I1", false,
-                        "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
-                                + "Lisa Hope"
-                                + " <span class=\"surname\">Robinson</span>"
-                                + " (1960-) [I3]</a>",
-                        "Rendered html doesn't match expectation"),
-                Arguments.of("I5266", true,
-                        "<a href=\"person?db=null&amp;id=I5\" class=\"name\">"
-                                + "Vivian Grace"
-                                + " <span class=\"surname\">Schoeller</span>"
-                                + " (1960-) [I5]</a>",
-                        "Rendered html doesn't match expectation"),
-                Arguments.of("I5", true,
-                        "<a href=\"person?db=null&amp;id=I6\" class=\"name\">"
-                                + "Patricia Ruth"
-                                + " <span class=\"surname\">Hayes</span>"
-                                + " (1937-) [I6]</a>",
-                        "Rendered html doesn't match expectation"),
-                Arguments.of("I5", false, "", "Expected empty string"),
-                Arguments.of("I9", false, "", "Expected empty string"));
+            Arguments.of("I1", false,
+                "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
+                + "Lisa Hope"
+                + " <span class=\"surname\">Robinson</span>"
+                + " (1960-) [I3]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5266", true,
+                "<a href=\"person?db=null&amp;id=I5\" class=\"name\">"
+                + "Vivian Grace"
+                + " <span class=\"surname\">Schoeller</span>"
+                + " (1960-) [I5]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5", true,
+                "<a href=\"person?db=null&amp;id=I6\" class=\"name\">"
+                + "Patricia Ruth"
+                + " <span class=\"surname\">Hayes</span>"
+                + " (1937-) [I6]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5", false, "", "Expected empty string"),
+            Arguments.of("I9", false, "", "Expected empty string"));
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderCiciMotherNameHtmlAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -248,9 +217,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaFatherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -265,9 +231,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderGeorgeFatherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -281,9 +244,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaMotherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -298,9 +258,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderGeorgeMotherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -314,9 +271,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickLifeSpan() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -327,9 +281,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaLifeSpan() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -340,9 +291,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickFamilies() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -353,9 +301,6 @@ final class PersonRendererTest {
         assertEquals("F1", families.get(0).getString(), "Expected family string F1");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaFamilies() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -365,9 +310,6 @@ final class PersonRendererTest {
         assertEquals(0, personRenderer.getFamilies().size(), "Person should have 0 families");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickAttributes() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -378,9 +320,6 @@ final class PersonRendererTest {
         assertEquals(expect, personRenderer.getAttributes().size(), "Expected 8 attributes");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaAttributes() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -391,9 +330,6 @@ final class PersonRendererTest {
         assertEquals(expect, personRenderer.getAttributes().size(), "Expected 7 attributes");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickIdString() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -403,9 +339,6 @@ final class PersonRendererTest {
         assertEquals("I2", personRenderer.getIdString(), "Expected person ID string I2");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaIdString() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -415,9 +348,6 @@ final class PersonRendererTest {
         assertEquals("I1", personRenderer.getIdString(), "Expected person ID string I1");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaIndexHref() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -428,9 +358,6 @@ final class PersonRendererTest {
             "Rendered string mismatch");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianSurnameLetterAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -440,9 +367,6 @@ final class PersonRendererTest {
         assertEquals("?", personRenderer.getSurnameLetter(), "Rendered string mismatch");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianSurnameLetterAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -452,9 +376,6 @@ final class PersonRendererTest {
         assertEquals("S", personRenderer.getSurnameLetter(), "Rendered string mismatch");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianSurnameAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -464,9 +385,6 @@ final class PersonRendererTest {
         assertEquals("?", personRenderer.getSurname(), "Rendered string mismatch");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianSurnameAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -476,9 +394,6 @@ final class PersonRendererTest {
         assertEquals("Schoeller", personRenderer.getSurname(), "Rendered string mismatch");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianLifespanAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -488,9 +403,6 @@ final class PersonRendererTest {
         assertEquals("", personRenderer.getLifeSpanString(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianLifespanAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -501,9 +413,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianFamiliesAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -513,9 +422,6 @@ final class PersonRendererTest {
         assertEquals(0, personRenderer.getFamilies().size(), "Expected empty family list");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianFamiliesAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -525,9 +431,6 @@ final class PersonRendererTest {
         assertEquals(1, personRenderer.getFamilies().size(), "Expected 1 family in family list");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianAttributesAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -537,9 +440,6 @@ final class PersonRendererTest {
         assertEquals(0, personRenderer.getAttributes().size(), "Expected 0 attributes");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianAttributesAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -551,11 +451,6 @@ final class PersonRendererTest {
             "Attribute list size mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testHeaderMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -566,11 +461,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -581,11 +471,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -596,11 +481,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -614,11 +494,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -629,11 +504,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -644,11 +514,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -660,11 +525,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testPlacesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();

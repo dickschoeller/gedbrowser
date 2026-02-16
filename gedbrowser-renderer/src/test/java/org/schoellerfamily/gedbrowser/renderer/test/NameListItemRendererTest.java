@@ -38,13 +38,11 @@ final class NameListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderSimple() {
         final Name name = new Name(null, "Richard /Schoeller/");
@@ -56,12 +54,18 @@ final class NameListItemRendererTest {
         assertEquals("Richard Schoeller", builder.toString(), UNEXPECTED_STRING);
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("renderListItemCases")
     void testRenderListItem(final String nameValue, final boolean newLine, final int pad,
         final String expected) {
-        renderListItem(nameValue, newLine, pad, expected);
+        final Name name = nameValue == null ? new Name(null) : new Name(null, nameValue);
+        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
+            anonymousContext);
+        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
+        final StringBuilder builder = new StringBuilder();
+        nlir.renderAsListItem(builder, newLine, pad);
+        assertEquals(expected, builder.toString(),
+            pad > 0 ? EXPECT_EMPTY : UNEXPECTED_STRING);
     }
 
     private static Stream<Arguments> renderListItemCases() {
@@ -75,17 +79,5 @@ final class NameListItemRendererTest {
             Arguments.of("", false, 0, "?"),
             Arguments.of(null, false, 0, "?"),
             Arguments.of("Foo//Bar", false, 0, "Foo ? Bar"));
-    }
-
-    private void renderListItem(final String nameValue, final boolean newLine, final int pad,
-        final String expected) {
-        final Name name = nameValue == null ? new Name(null) : new Name(null, nameValue);
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, newLine, pad);
-        assertEquals(expected, builder.toString(),
-            pad > 0 ? EXPECT_EMPTY : UNEXPECTED_STRING);
     }
 }
