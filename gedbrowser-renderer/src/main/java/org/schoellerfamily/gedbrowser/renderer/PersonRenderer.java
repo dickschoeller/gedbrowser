@@ -139,7 +139,7 @@ public final class PersonRenderer extends GedRenderer<Person>
      * @return whether the current person is hidden due to living status.
      */
     public boolean isHiddenLiving() {
-        return !getRenderingContext().isUser() || le.estimate();
+        return !getRenderingContext().isUser() && le.estimate();
     }
 
     @Override
