@@ -2,9 +2,13 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NameListItemRenderer;
@@ -52,86 +56,35 @@ final class NameListItemRendererTest {
     }
 
     /** */
-    @Test
-    void testRenderHarder() {
-        final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("Karl Frederick Schoeller Jr.", builder.toString(), UNEXPECTED_STRING);
+    @ParameterizedTest
+    @MethodSource("renderListItemCases")
+    void testRenderListItem(final String nameValue, final boolean newLine, final int pad,
+        final String expected) {
+        renderListItem(nameValue, newLine, pad, expected);
     }
 
-    /** */
-    @Test
-    void testRenderNonZeroPad() {
-        final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 1);
-        assertEquals("", builder.toString(), EXPECT_EMPTY);
+    private static Stream<org.junit.jupiter.params.provider.Arguments> renderListItemCases() {
+        return Stream.of(
+            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick /Schoeller/Jr.", false, 0,
+                "Karl Frederick Schoeller Jr."),
+            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick /Schoeller/Jr.", false, 1, ""),
+            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick /Schoeller/Jr.", true, 0,
+                "\nKarl Frederick Schoeller Jr."),
+            org.junit.jupiter.params.provider.Arguments.of("/Schoeller/", false, 0, "Schoeller"),
+            org.junit.jupiter.params.provider.Arguments.of("", false, 0, "?"),
+            org.junit.jupiter.params.provider.Arguments.of(null, false, 0, "?"),
+            org.junit.jupiter.params.provider.Arguments.of("Foo//Bar", false, 0, "Foo ? Bar"));
     }
 
-    /** */
-    @Test
-    void testRenderNewLine() {
-        final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
+    private void renderListItem(final String nameValue, final boolean newLine, final int pad,
+        final String expected) {
+        final Name name = nameValue == null ? new Name(null) : new Name(null, nameValue);
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
             anonymousContext);
         final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, true, 0);
-        assertEquals("\nKarl Frederick Schoeller Jr.", builder.toString(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderNoPrefix() {
-        final Name name = new Name(null, "/Schoeller/");
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("Schoeller", builder.toString(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderEmpty() {
-        final Name name = new Name(null, "");
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("?", builder.toString(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderNull() {
-        final Name name = new Name(null);
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("?", builder.toString(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderPrefixSuffix() {
-        final Name name = new Name(null, "Foo//Bar");
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("Foo ? Bar", builder.toString(), UNEXPECTED_STRING);
+        nlir.renderAsListItem(builder, newLine, pad);
+        assertEquals(expected, builder.toString(),
+            pad > 0 ? EXPECT_EMPTY : UNEXPECTED_STRING);
     }
 }
