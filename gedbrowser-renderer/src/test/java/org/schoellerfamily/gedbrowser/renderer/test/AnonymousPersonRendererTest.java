@@ -575,27 +575,26 @@ final class AnonymousPersonRendererTest {
     /**
      * @throws IOException when there is a read error.
      */
-    @Test
-    void testRenderSabinoWholeNameAnonymous() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I4248");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final String actual = personRenderer.getWholeName();
-        assertEquals("Confidential", actual, "Mismatched rendered string");
+    @ParameterizedTest
+    @MethodSource("wholeNameCases")
+    void testRenderWholeName(final String personId, final String expected) throws IOException {
+        renderAndCheckWholeName(personId, expected);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeWholeName() throws IOException {
+    private static Stream<org.junit.jupiter.params.provider.Arguments> wholeNameCases() {
+        return Stream.of(
+            org.junit.jupiter.params.provider.Arguments.of("I4248", "Confidential"),
+            org.junit.jupiter.params.provider.Arguments.of("I9", "Living"));
+    }
+
+    private void renderAndCheckWholeName(final String personId, final String expected)
+        throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
+        final Person person = (Person) root.find(personId);
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
             anonymousContext);
         final String actual = personRenderer.getWholeName();
-        assertEquals("Living", actual, "Mismatched rendered string");
+        assertEquals(expected, actual, "Mismatched rendered string for " + personId);
     }
 
     /**
