@@ -229,7 +229,7 @@ final class PlaceListRendererTest {
         attr.setTail("confidential");
 
         final PlaceListRenderer plr = new PlaceListRenderer(person, client,
-            RenderingContext.user(appInfo));
+            RenderingContext.anonymous(appInfo));
         final List<PlaceInfo> list = plr.render();
         assertEquals(0, list.size(), "Should have one result");
     }
