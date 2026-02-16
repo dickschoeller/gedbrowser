@@ -5,10 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
@@ -837,14 +840,26 @@ final class AnonymousPersonRendererTest {
     /**
      * @throws IOException when there is a read error.
      */
-    @Test
-    void testRenderJohnSchoellerAttributes() throws IOException {
+    @ParameterizedTest
+    @MethodSource("emptyAttributesCases")
+    void testRenderEmptyAttributes(final String personId) throws IOException {
+        renderAndCheckEmptyAttributes(personId);
+    }
+
+    private static Stream<org.junit.jupiter.params.provider.Arguments> emptyAttributesCases() {
+        return Stream.of(
+            org.junit.jupiter.params.provider.Arguments.of("I4"),
+            org.junit.jupiter.params.provider.Arguments.of("I1"),
+            org.junit.jupiter.params.provider.Arguments.of("I5"));
+    }
+
+    private void renderAndCheckEmptyAttributes(final String personId) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I4");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
+        final Person person = (Person) root.find(personId);
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
             anonymousContext);
         final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
-        assertTrue(attributes.isEmpty(), "Expected empty attributes list");
+        assertTrue(attributes.isEmpty(), "Expected empty attributes list for " + personId);
     }
 
     /**
@@ -859,19 +874,6 @@ final class AnonymousPersonRendererTest {
         final int expect = 8;
         final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
         assertEquals(expect, attributes.size(), "Expected 8 attributes");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderMelissaAttributes() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I1");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
-        assertTrue(attributes.isEmpty(), "Expected empty attributes list");
     }
 
     /**
@@ -964,19 +966,6 @@ final class AnonymousPersonRendererTest {
             anonymousContext);
         final List<FamilyRenderer> families = personRenderer.getFamilies();
         assertTrue(families.isEmpty(), "Expected empty families list");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testVivianAttributesAnon() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person person = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
-            anonymousContext);
-        final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
-        assertTrue(attributes.isEmpty(), "Expected empty attributes list");
     }
 
     // TODO test renderAsSection and renderAsListItem
