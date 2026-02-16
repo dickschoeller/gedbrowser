@@ -59,16 +59,11 @@ public final class GeoServiceClientStub extends GeoServiceClient {
     private Feature createBox() {
         final double confidence = .01;
         final Polygon polygon = new Polygon(
-                new LngLatAlt(-71.2377548 - confidence,
-                        42.2809285 - confidence),
-                new LngLatAlt(-71.2377548 - confidence,
-                        42.2809285 + confidence),
-                new LngLatAlt(-71.2377548 + confidence,
-                        42.2809285 + confidence),
-                new LngLatAlt(-71.2377548 + confidence,
-                        42.2809285 - confidence),
-                new LngLatAlt(-71.2377548 - confidence,
-                        42.2809285 - confidence));
+            new LngLatAlt(-71.2377548 - confidence, 42.2809285 - confidence),
+            new LngLatAlt(-71.2377548 - confidence, 42.2809285 + confidence),
+            new LngLatAlt(-71.2377548 + confidence, 42.2809285 + confidence),
+            new LngLatAlt(-71.2377548 + confidence, 42.2809285 - confidence),
+            new LngLatAlt(-71.2377548 - confidence, 42.2809285 - confidence));
         final Feature feature = new Feature();
         feature.setGeometry(polygon);
         return feature;
