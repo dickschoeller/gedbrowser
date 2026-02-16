@@ -2,9 +2,13 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -55,74 +59,28 @@ final class NameNameHtmlRendererTest {
     }
 
     /** */
-    @Test
-    void testGetNameHtmlEmpty() {
-        final Name name = new Name(person, "");
-        person.addAttribute(name);
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(nameRenderer);
-        assertEquals(" <span class=\"surname\">?</span>", nameHtmlRenderer.getNameHtml(),
-            "Rendered string mismatch");
+    @ParameterizedTest
+    @MethodSource("nameHtmlCases")
+    void testGetNameHtml(final String nameValue, final String expected) {
+        renderNameHtml(nameValue, expected);
     }
 
-    /** */
-    @Test
-    void testGetNameHtmlSurnameOnly() {
-        final Name name = new Name(person, "/Schoeller/");
-        person.addAttribute(name);
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(nameRenderer);
-        assertEquals(" <span class=\"surname\">Schoeller</span>", nameHtmlRenderer.getNameHtml(),
-            "Rendered string mismatch");
+    private static Stream<org.junit.jupiter.params.provider.Arguments> nameHtmlCases() {
+        return Stream.of(
+            org.junit.jupiter.params.provider.Arguments.of("", " <span class=\"surname\">?</span>"),
+            org.junit.jupiter.params.provider.Arguments.of("/Schoeller/", " <span class=\"surname\">Schoeller</span>"),
+            org.junit.jupiter.params.provider.Arguments.of("Richard/Schoeller/", "Richard <span class=\"surname\">Schoeller</span>"),
+            org.junit.jupiter.params.provider.Arguments.of("/Deng/Shao Ping", " <span class=\"surname\">Deng</span> Shao Ping"),
+            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick/Schoeller/Sr.", "Karl Frederick <span class=\"surname\">Schoeller</span> Sr."),
+            org.junit.jupiter.params.provider.Arguments.of("//", " <span class=\"surname\">?</span>"));
     }
 
-    /** */
-    @Test
-    void testGetNameHtmlSurnameLast() {
-        final Name name = new Name(person, "Richard/Schoeller/");
+    private void renderNameHtml(final String nameValue, final String expected) {
+        final Name name = new Name(person, nameValue);
         person.addAttribute(name);
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
             anonymousContext);
         final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(nameRenderer);
-        assertEquals("Richard <span class=\"surname\">Schoeller</span>",
-            nameHtmlRenderer.getNameHtml(), "Rendered string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetNameHtmlSurnameFirst() {
-        final Name name = new Name(person, "/Deng/Shao Ping");
-        person.addAttribute(name);
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(nameRenderer);
-        assertEquals(" <span class=\"surname\">Deng</span> Shao Ping",
-            nameHtmlRenderer.getNameHtml(), "Rendered string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetNameHtmlSurnameMiddle() {
-        final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
-        person.addAttribute(name);
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(nameRenderer);
-        assertEquals("Karl Frederick <span class=\"surname\">Schoeller</span> Sr.",
-            nameHtmlRenderer.getNameHtml(), "Rendered string mismatch");
-    }
-
-    /** */
-    @Test
-    void testGetNameHtmlWeirdEmpty() {
-        final Name name = new Name(person, "//");
-        person.addAttribute(name);
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(nameRenderer);
-        assertEquals(" <span class=\"surname\">?</span>", nameHtmlRenderer.getNameHtml(),
-            "Rendered string mismatch");
+        assertEquals(expected, nameHtmlRenderer.getNameHtml(), "Rendered string mismatch");
     }
 }
