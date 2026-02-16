@@ -614,40 +614,26 @@ final class AnonymousPersonRendererTest {
     /**
      * @throws IOException when there is a read error.
      */
-    @Test
-    void testRenderCiciFatherNameHtmlAnon() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5266");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final String actual = personRenderer.getParents().getFatherNameHtml();
-        assertTrue(actual.isEmpty(), "Expected empty string");
+    @ParameterizedTest
+    @MethodSource("fatherNameHtmlCases")
+    void testRenderFatherNameHtml(final String personId) throws IOException {
+        renderAndCheckFatherNameHtml(personId);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderVivianFatherNameHtmlAnon() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final String actual = personRenderer.getParents().getFatherNameHtml();
-        assertTrue(actual.isEmpty(), "Expected empty string");
+    private static Stream<org.junit.jupiter.params.provider.Arguments> fatherNameHtmlCases() {
+        return Stream.of(
+            org.junit.jupiter.params.provider.Arguments.of("I5266"),
+            org.junit.jupiter.params.provider.Arguments.of("I5"),
+            org.junit.jupiter.params.provider.Arguments.of("I9"));
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeFatherNameHtml() throws IOException {
+    private void renderAndCheckFatherNameHtml(final String personId) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
+        final Person person = (Person) root.find(personId);
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
             anonymousContext);
         final String actual = personRenderer.getParents().getFatherNameHtml();
-        assertTrue(actual.isEmpty(), "Expected empty string");
+        assertTrue(actual.isEmpty(), "Expected empty string for " + personId);
     }
 
     /**
