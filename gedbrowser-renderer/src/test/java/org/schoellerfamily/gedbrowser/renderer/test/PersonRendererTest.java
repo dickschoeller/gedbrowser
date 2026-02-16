@@ -257,10 +257,11 @@ final class PersonRendererTest {
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             userContext);
-        assertEquals("\n<p class=\"parent\">\n <span class=\"parent label\">Father:"
+        @SuppressWarnings("java:S6126")
+        final String expected = "\n<p class=\"parent\">\n <span class=\"parent label\">Father:"
             + "</span> <a href=\"person?db=null&amp;id=I2\" class=\"name\">"
-            + "Richard John <span class=\"surname\">Schoeller</span>" + " (1958-) [I2]</a>\n</p>",
-            personRenderer.getParents().getFatherRendition(),
+            + "Richard John <span class=\"surname\">Schoeller</span>" + " (1958-) [I2]</a>\n</p>";
+        assertEquals(expected, personRenderer.getParents().getFatherRendition(),
             "Rendered html doesn't match expectation");
     }
 
@@ -273,9 +274,10 @@ final class PersonRendererTest {
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             userContext);
-        assertEquals(
-            "\n<p class=\"parent\">\n <span class=\"parent label\">Father:" + "</span> \n</p>",
-            personRenderer.getParents().getFatherRendition(),
+        @SuppressWarnings("java:S6126")
+        final String expected = "\n<p class=\"parent\">\n <span class=\"parent label\">Father:"
+            + "</span> \n</p>";
+        assertEquals(expected, personRenderer.getParents().getFatherRendition(),
             "Rendered html doesn't match expectation");
     }
 
@@ -288,11 +290,11 @@ final class PersonRendererTest {
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             userContext);
-        assertEquals(
-            "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:"
-                + "</span> <a href=\"person?db=null&amp;id=I3\" class=\"name\">"
-                + "Lisa Hope <span class=\"surname\">Robinson</span>" + " (1960-) [I3]</a>\n</p>",
-            personRenderer.getParents().getMotherRendition(),
+        @SuppressWarnings("java:S6126")
+        final String expected = "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:"
+            + "</span> <a href=\"person?db=null&amp;id=I3\" class=\"name\">"
+            + "Lisa Hope <span class=\"surname\">Robinson</span>" + " (1960-) [I3]</a>\n</p>";
+        assertEquals(expected, personRenderer.getParents().getMotherRendition(),
             "Rendered html doesn't match expectation");
     }
 
@@ -305,9 +307,10 @@ final class PersonRendererTest {
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             userContext);
-        assertEquals(
-            "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:" + "</span> \n</p>",
-            personRenderer.getParents().getMotherRendition(),
+        @SuppressWarnings("java:S6126")
+        final String expected = "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:"
+            + "</span> \n</p>";
+        assertEquals(expected, personRenderer.getParents().getMotherRendition(),
             "Rendered html doesn't match expectation");
     }
 
