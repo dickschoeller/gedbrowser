@@ -48,19 +48,17 @@ class RendererContextRendererTest {
     /** */
     private static Stream<Arguments> escapeStringCases() {
         return Stream.of(
-                Arguments.of("foo<foo", "foo&lt;foo"),
-                Arguments.of("foo>foo", "foo&gt;foo"),
-                Arguments.of("foo>bar<bat&xyzzy",
-                        "foo&gt;bar&lt;bat&amp;xyzzy"));
+            Arguments.of("foo<foo", "foo&lt;foo"),
+            Arguments.of("foo>foo", "foo&gt;foo"),
+            Arguments.of("foo>bar<bat&xyzzy", "foo&gt;bar&lt;bat&amp;xyzzy"));
     }
 
     /** */
     private static Stream<Arguments> escapeStringDelimitedCases() {
         return Stream.of(
-                Arguments.of(" ", "foo&foo", " foo&amp;foo"),
-                Arguments.of("X", "foo<foo", "Xfoo&lt;foo"),
-                Arguments.of("Y", "foo>foo", "Yfoo&gt;foo"),
-                Arguments.of("plugh", "foo>bar<bat&xyzzy",
-                        "plughfoo&gt;bar&lt;bat&amp;xyzzy"));
+            Arguments.of(" ", "foo&foo", " foo&amp;foo"),
+            Arguments.of("X", "foo<foo", "Xfoo&lt;foo"),
+            Arguments.of("Y", "foo>foo", "Yfoo&gt;foo"),
+            Arguments.of("plugh", "foo>bar<bat&xyzzy", "plughfoo&gt;bar&lt;bat&amp;xyzzy"));
     }
 }

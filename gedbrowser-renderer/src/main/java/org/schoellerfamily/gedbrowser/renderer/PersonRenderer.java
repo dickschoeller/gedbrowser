@@ -1,7 +1,5 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.schoellerfamily.gedbrowser.analytics.LivingEstimator;
@@ -77,14 +75,13 @@ public final class PersonRenderer extends GedRenderer<Person>
      */
     public List<FamilyRenderer> getFamilies() {
         if (isConfidential() || isHiddenLiving()) {
-            return Collections.emptyList();
+            return List.of();
         }
 
         final List<Family> families = navigator.getFamilies();
-        final List<FamilyRenderer> rendererList = families.stream()
+        return families.stream()
             .map(family -> (FamilyRenderer) createGedRenderer(family))
             .toList();
-        return rendererList;
     }
 
     /**
@@ -92,21 +89,16 @@ public final class PersonRenderer extends GedRenderer<Person>
      *
      * @return the list of attribute renderers.
      */
-    @SuppressWarnings("java:S1452")
-    public List<GedRenderer<?>> getAttributes() {
+    @SuppressWarnings({ "unchecked" })
+    public List<GedRenderer<GedObject>> getAttributes() {
         if (isConfidential() || isHiddenLiving()) {
             return List.of();
         }
         final Person person = getGedObject();
-        final List<GedRenderer<?>> rendererList = new ArrayList<GedRenderer<?>>();
-        for (final GedObject attribute : person.getAttributes()) {
-            final GedRenderer<?> attributeRenderer =
-                    createGedRenderer(attribute);
-            if (!attributeRenderer.getListItemContents().isEmpty()) {
-                rendererList.add(attributeRenderer);
-            }
-        }
-        return rendererList;
+        return person.getAttributes().stream()
+            .map(a -> (GedRenderer<GedObject>) createGedRenderer(a))
+            .filter(renderer -> !renderer.getListItemContents().isEmpty())
+            .toList();
     }
 
     /**
@@ -115,7 +107,7 @@ public final class PersonRenderer extends GedRenderer<Person>
      */
     public CellRow[] getTreeRows(final int generations) {
         final TreeTableRenderer ttr = new TreeTableRenderer(this,
-                confidentialGenCount(generations));
+            confidentialGenCount(generations));
         return ttr.getTreeRows();
     }
 
@@ -144,18 +136,13 @@ public final class PersonRenderer extends GedRenderer<Person>
     }
 
     /**
-     * @return whether the current person is confidential.
+     * @return whether the current person is hidden due to living status.
      */
     public boolean isHiddenLiving() {
-        if (getRenderingContext().isUser()) {
-            return false;
-        }
-        return le.estimate();
+        return !getRenderingContext().isUser() || le.estimate();
     }
 
-    /**
-     * @return the href string to the index page containing this person.
-     */
+    @Override
     public String getIndexHref() {
         final String surnameLetter = getSurnameLetter();
         final String surname = getSurname();

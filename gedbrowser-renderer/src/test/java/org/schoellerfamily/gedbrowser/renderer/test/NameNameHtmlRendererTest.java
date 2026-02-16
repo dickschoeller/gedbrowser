@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -62,25 +63,22 @@ final class NameNameHtmlRendererTest {
     @ParameterizedTest
     @MethodSource("nameHtmlCases")
     void testGetNameHtml(final String nameValue, final String expected) {
-        renderNameHtml(nameValue, expected);
-    }
-
-    private static Stream<org.junit.jupiter.params.provider.Arguments> nameHtmlCases() {
-        return Stream.of(
-            org.junit.jupiter.params.provider.Arguments.of("", " <span class=\"surname\">?</span>"),
-            org.junit.jupiter.params.provider.Arguments.of("/Schoeller/", " <span class=\"surname\">Schoeller</span>"),
-            org.junit.jupiter.params.provider.Arguments.of("Richard/Schoeller/", "Richard <span class=\"surname\">Schoeller</span>"),
-            org.junit.jupiter.params.provider.Arguments.of("/Deng/Shao Ping", " <span class=\"surname\">Deng</span> Shao Ping"),
-            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick/Schoeller/Sr.", "Karl Frederick <span class=\"surname\">Schoeller</span> Sr."),
-            org.junit.jupiter.params.provider.Arguments.of("//", " <span class=\"surname\">?</span>"));
-    }
-
-    private void renderNameHtml(final String nameValue, final String expected) {
         final Name name = new Name(person, nameValue);
         person.addAttribute(name);
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
+                anonymousContext);
         final NameHtmlRenderer nameHtmlRenderer = new NameNameHtmlRenderer(nameRenderer);
         assertEquals(expected, nameHtmlRenderer.getNameHtml(), "Rendered string mismatch");
+    }
+
+    private static Stream<Arguments> nameHtmlCases() {
+        return Stream.of(
+            Arguments.of("", " <span class=\"surname\">?</span>"),
+            Arguments.of("/Schoeller/", " <span class=\"surname\">Schoeller</span>"),
+            Arguments.of("Richard/Schoeller/", "Richard <span class=\"surname\">Schoeller</span>"),
+            Arguments.of("/Deng/Shao Ping", " <span class=\"surname\">Deng</span> Shao Ping"),
+            Arguments.of("Karl Frederick/Schoeller/Sr.", "Karl Frederick <span class=\"surname\">"
+                + "Schoeller</span> Sr."),
+            Arguments.of("//", " <span class=\"surname\">?</span>"));
     }
 }

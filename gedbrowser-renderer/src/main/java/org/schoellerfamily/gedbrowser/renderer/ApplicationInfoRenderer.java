@@ -14,55 +14,37 @@ public abstract class ApplicationInfoRenderer implements Renderer {
      *
      * @param applicationInfo the application info
      */
-    public ApplicationInfoRenderer(final ApplicationInfo applicationInfo) {
+    protected ApplicationInfoRenderer(final ApplicationInfo applicationInfo) {
         this.applicationInfo = applicationInfo;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getApplicationName() {
         return applicationInfo.getApplicationName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getApplicationURL() {
         return applicationInfo.getApplicationURL();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String getHomeUrl() {
+    public final String getHomeUrl() {
         return applicationInfo.getHomeURL();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String getMaintainerEmail() {
+    public final String getMaintainerEmail() {
         return applicationInfo.getMaintainerEmail();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String getMaintainerName() {
+    public final String getMaintainerName() {
         return applicationInfo.getMaintainerName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String getVersion() {
+    public final String getVersion() {
         return applicationInfo.getVersion();
     }
 }
