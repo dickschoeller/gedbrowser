@@ -444,6 +444,7 @@ final class AnonymousPersonRendererTest {
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
         personRenderer.getParents().renderFather(builder, 2, navigator.getFather());
+        @SuppressWarnings("java:S6126")
         final String expected = "\n" + START_PARENT
             + "   <span class=\"parent label\">Father:</span> \n" + END_PARAG;
         final String actual = builder.toString();
@@ -493,6 +494,7 @@ final class AnonymousPersonRendererTest {
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
         personRenderer.getParents().renderMother(builder, 2, navigator.getMother());
+        @SuppressWarnings("java:S6126")
         final String expected = "\n" + START_PARENT
             + "   <span class=\"parent label\">Mother:</span> \n" + END_PARAG;
         final String actual = builder.toString();
@@ -511,6 +513,7 @@ final class AnonymousPersonRendererTest {
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(sabino);
         personRenderer.getParents().renderMother(builder, 2, navigator.getMother());
+        @SuppressWarnings("java:S6126")
         final String expected = "\n" + START_PARENT
             + "   <span class=\"parent label\">Mother:</span> \n" + END_PARAG;
         final String actual = builder.toString();
@@ -695,6 +698,7 @@ final class AnonymousPersonRendererTest {
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             anonymousContext);
+        @SuppressWarnings("java:S6126")
         final String expected = "\n<p class=\"parent\">\n <span class=\"par"
             + "ent label\">Father:</span> \n</p>";
         final String actual = personRenderer.getParents().getFatherRendition();
@@ -723,6 +727,7 @@ final class AnonymousPersonRendererTest {
         final Person george = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(george, new GedRendererFactory(),
             anonymousContext);
+        @SuppressWarnings("java:S6126")
         final String expected = "\n<p class=\"parent\">\n" + " <span class=\"parent label\">Mother:"
             + "</span> \n</p>";
         final String actual = personRenderer.getParents().getMotherRendition();
