@@ -188,8 +188,9 @@ class NoteCrudIT {
         final ApiNote resNote = crud.createOne(db, reqNote);
         final String id = resNote.getString();
         final ApiNote deletedNote = crud.deleteOne(db, id);
+        final String deletedNoteString = deletedNote.getString();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.readOne(db, deletedNote.getString()))
+            .isThrownBy(() -> crud.readOne(db, deletedNoteString))
             .withMessage("Object " + id + " of type note not found");
     }
 
