@@ -40,8 +40,7 @@ final class PersonAttributeListOpenRendererTest {
     /**
      * Boiler plate for a heading.
      */
-    private static final String HEAD_3 =
-            "<h3 class=\"attributes\">Attributes</h3>\n" + "<ul>\n";
+    private static final String HEAD_3 = "<h3 class=\"attributes\">Attributes</h3>\n<ul>\n";
 
     /** */
     private transient Person person;
