@@ -8,11 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
+import org.schoellerfamily.gedbrowser.renderer.NameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonNameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -45,7 +47,6 @@ final class AnonymousModePersonNameHtmlRendererTest {
     /** */
     private transient RenderingContext renderingContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -53,7 +54,6 @@ final class AnonymousModePersonNameHtmlRendererTest {
         renderingContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetNameHtmlNull() {
         final Name name = new Name(person);
@@ -65,43 +65,36 @@ final class AnonymousModePersonNameHtmlRendererTest {
         assertEquals("Living", pnhr.getNameHtml(), "Expected Living");
     }
 
-    /** */
     @ParameterizedTest
     @MethodSource("nameHtmlCases")
     void testGetNameHtml(final String nameValue) {
-        renderAndCheckNameHtml(nameValue);
-    }
-
-    private static Stream<org.junit.jupiter.params.provider.Arguments> nameHtmlCases() {
-        return Stream.of(
-            org.junit.jupiter.params.provider.Arguments.of(""),
-            org.junit.jupiter.params.provider.Arguments.of("/Schoeller/"),
-            org.junit.jupiter.params.provider.Arguments.of("Richard/Schoeller/"),
-            org.junit.jupiter.params.provider.Arguments.of("/Deng/Shao Ping"),
-            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick/Schoeller/Sr."));
-    }
-
-    private void renderAndCheckNameHtml(final String nameValue) {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person testPerson = builder.createPerson("I1");
         final Name name = nameValue.isEmpty() ? new Name(testPerson) : new Name(testPerson, nameValue);
         testPerson.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(testPerson,
-                new GedRendererFactory(), renderingContext);
-        final PersonNameHtmlRenderer pnhr =
-                (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
+            new GedRendererFactory(), renderingContext);
+        final NameHtmlRenderer pnhr = personRenderer.getNameHtmlRenderer();
         assertEquals("Living", pnhr.getNameHtml(), "Expected Living");
     }
 
-    /** */
+    private static Stream<Arguments> nameHtmlCases() {
+        return Stream.of(
+            Arguments.of(""),
+            Arguments.of("/Schoeller/"),
+            Arguments.of("Richard/Schoeller/"),
+            Arguments.of("/Deng/Shao Ping"),
+            Arguments.of("Karl Frederick/Schoeller/Sr."));
+    }
+
     @Test
     void testGetNameHtmlPersonUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final PersonRenderer personRenderer = new PersonRenderer(
-                builder.createPerson(),
-                new GedRendererFactory(), renderingContext);
-        final PersonNameHtmlRenderer pnhr =
-                (PersonNameHtmlRenderer) personRenderer.getNameHtmlRenderer();
+            builder.createPerson(),
+            new GedRendererFactory(),
+            renderingContext);
+        final NameHtmlRenderer pnhr = personRenderer.getNameHtmlRenderer();
         assertEquals("", pnhr.getNameHtml(), "Expected empty name");
     }
 }
