@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 import java.net.URI;
 import java.util.List;
 
-import org.apache.commons.lang3.Strings;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
