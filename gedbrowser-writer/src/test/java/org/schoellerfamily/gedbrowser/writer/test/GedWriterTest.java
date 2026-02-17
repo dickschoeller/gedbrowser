@@ -147,6 +147,6 @@ class GedWriterTest {
      * @throws IOException because reader might throw.
      */
     private AbstractGedLine readFileTestSource() throws IOException {
-        return TestResourceReader.readFileTestSource("", inputFilename);
+        return TestResourceReader.readFileTestSource(inputFilename);
     }
 }

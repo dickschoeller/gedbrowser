@@ -96,8 +96,9 @@ class SubmitterControllerIT {
             .exchange()
             .returnResult(String.class);
 
-        assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus);
+        assertThat(entity).returns(
+            HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
+            EntityExchangeResult::getStatus);
     }
 
     /**
@@ -140,8 +141,9 @@ class SubmitterControllerIT {
             .exchange()
             .returnResult(ApiSubmitter.class);
 
-        assertThat(submitterEntity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus);
+        assertThat(submitterEntity).returns(
+            HttpStatusCode.valueOf(HttpStatus.OK.value()),
+            EntityExchangeResult::getStatus);
         // Capture information about new submitter.
         final ApiSubmitter resBody = submitterEntity.getResponseBody();
         final String id = resBody.getString();
@@ -153,22 +155,25 @@ class SubmitterControllerIT {
             .exchange()
             .returnResult(ApiSubmitter.class);
 
-        assertThat(preDeleteEntity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus);
+        assertThat(preDeleteEntity).returns(
+            HttpStatusCode.valueOf(HttpStatus.OK.value()),
+            EntityExchangeResult::getStatus);
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .exchange()
             .returnResult(String.class);
 
-        assertThat(deleteEntity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus);
+        assertThat(deleteEntity).returns(
+            HttpStatusCode.valueOf(HttpStatus.OK.value()),
+            EntityExchangeResult::getStatus);
         final EntityExchangeResult<ApiSubmitter> postDeleteEntity = restTestClient.get()
             .uri(URI.create(deleteUrl))
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSubmitter.class);
-        assertThat(postDeleteEntity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus);
+        assertThat(postDeleteEntity).returns(
+            HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
+            EntityExchangeResult::getStatus);
     }
 
     /**
@@ -186,14 +191,16 @@ class SubmitterControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSubmitter.class);
-        assertThat(preDeleteEntity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus);
+        assertThat(preDeleteEntity).returns(
+            HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
+            EntityExchangeResult::getStatus);
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .exchange()
             .returnResult(String.class);
-        assertThat(deleteEntity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus);
+        assertThat(deleteEntity).returns(
+            HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
+            EntityExchangeResult::getStatus);
     }
 
     /**
@@ -211,14 +218,16 @@ class SubmitterControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(ApiSubmitter.class);
-        assertThat(preDeleteEntity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus);
+        assertThat(preDeleteEntity).returns(
+            HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
+            EntityExchangeResult::getStatus);
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .exchange()
             .returnResult(String.class);
-        assertThat(deleteEntity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus);
+        assertThat(deleteEntity).returns(
+            HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
+            EntityExchangeResult::getStatus);
     }
 
     /**

@@ -10,18 +10,23 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfoFacade;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Keep track of the user context that we are rendering under.
  *
  * @author Dick Schoeller
  */
+@RequiredArgsConstructor
+@Getter
 public final class RenderingContext
         implements ApplicationInfoFacade, CalendarProviderFacade, UserFacade {
     /** User detail object for use in rendering. */
     private final User user;
 
     /** */
-    private final ApplicationInfo appInfo;
+    private final ApplicationInfo applicationInfo;
 
     /** */
     private final CalendarProvider calendarProvider;
@@ -71,59 +76,16 @@ public final class RenderingContext
     }
 
     /**
-     * Constructor with authorities.
-     * @param user the user detail object
-     * @param appInfo provides common strings about the application
-     * @param calendarProvider the calendar provider to use
-     */
-    public RenderingContext(final User user, final ApplicationInfo appInfo,
-            final CalendarProvider calendarProvider) {
-        this.user = user;
-        this.appInfo = appInfo;
-        this.calendarProvider = calendarProvider;
-    }
-
-    /**
      * @return true if it is an identified user
      */
     public boolean isUser() {
-        if (user == null) {
-            return false;
-        }
-        return user.hasRole(UserRoleName.USER);
+        return user != null && user.hasRole(UserRoleName.USER);
     }
 
     /**
      * @return true if the user is an administrator
      */
     public boolean isAdmin() {
-        if (user == null) {
-            return false;
-        }
-        return user.hasRole(UserRoleName.ADMIN);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CalendarProvider getCalendarProvider() {
-        return calendarProvider;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ApplicationInfo getApplicationInfo() {
-        return appInfo;
+        return user != null && user.hasRole(UserRoleName.ADMIN);
     }
 }

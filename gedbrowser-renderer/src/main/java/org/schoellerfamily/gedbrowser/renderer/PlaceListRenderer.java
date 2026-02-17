@@ -112,10 +112,7 @@ public final class PlaceListRenderer {
      * @return whether the current person is hidden because living.
      */
     private boolean isHiddenLiving() {
-        if (renderingContext.isUser()) {
-            return false;
-        }
-        return le.estimate();
+        return !renderingContext.isUser() && le.estimate();
     }
 
     /**

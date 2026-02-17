@@ -14,7 +14,7 @@ public abstract class AbstractLinkRenderer<T extends AbstractLink> extends
      * @param rendererFactory the factory to get additional renderers
      * @param renderingContext the context that we are rendering in
      */
-    public AbstractLinkRenderer(final T gedObject,
+    protected AbstractLinkRenderer(final T gedObject,
             final GedRendererFactory rendererFactory,
             final RenderingContext renderingContext) {
         super(gedObject, rendererFactory, renderingContext);

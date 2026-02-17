@@ -48,7 +48,7 @@ final class LivingEstimatorTest {
     @Test
     void testFactoryGedFile() throws IOException {
         final AbstractGedLine top =
-                TestResourceReader.readFileTestSource(this, "gl120368.ged");
+                TestResourceReader.readFileTestSource("gl120368.ged");
         final Root root = g2g.create(top);
         final List<Person> living = new ArrayList<>();
         final Map<Integer, Set<Person>> buckets = new HashMap<>();

@@ -80,7 +80,7 @@ class ReaderWriterTest {
      */
     private static AbstractGedLine readFileTestSource() throws IOException {
         return TestResourceReader.readFileTestSource(
-                "", FILE_NAME);
+                FILE_NAME);
     }
 
     /**
@@ -92,7 +92,7 @@ class ReaderWriterTest {
     private static Stream<String> readFileTestSourceAsStrings()
             throws IOException {
         return TestResourceReader.readFileTestSourceAsStrings(
-                "", FILE_NAME);
+                FILE_NAME);
     }
 
     /**
