@@ -157,4 +157,33 @@ public final class ControllerTestHelper {
             .returnResult(ApiPerson.class);
         return entity.getResponseBody();
     }
+
+    /**
+     * Check that the input string contains all of the expected strings.
+     *
+     * @param input the input string
+     * @param expected the expected substrings
+     * @return {@code true} if all non-null expected substrings are found in the input
+     *         string; {@code false} if {@code input} is {@code null}, {@code expected}
+     *         is {@code null}, or any non-null expected substring is not found. Null
+     *         elements in {@code expected} are silently ignored.
+     */
+    public static boolean containsAll(final String input, final String... expected) {
+        if (input == null) {
+            return false;
+        }
+        if (expected == null) {
+            return false;
+        }
+        for (final String s : expected) {
+            if (s == null) {
+                continue;
+            }
+            if (!input.contains(s)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

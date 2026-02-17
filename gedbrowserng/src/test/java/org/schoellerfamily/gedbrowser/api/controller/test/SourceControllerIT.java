@@ -30,7 +30,8 @@ import org.springframework.web.client.RestClientException;
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "PMD.TooManyMethods",
+    "PMD.UnitTestContainsTooManyAsserts" })
 @AutoConfigureRestTestClient
 class SourceControllerIT {
     /**
