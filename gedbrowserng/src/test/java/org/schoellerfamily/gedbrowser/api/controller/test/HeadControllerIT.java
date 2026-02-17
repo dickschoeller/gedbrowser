@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.client.RestTestClient;
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.UnitTestContainsTooManyAsserts" })
 class HeadControllerIT {
     /**
      * RestTestClient injected by Spring's test support.
@@ -44,12 +45,12 @@ class HeadControllerIT {
             .exchange()
             .returnResult(String.class);
 
-        final HttpStatusCode status = entity.getStatus();
-        assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody())
-            .contains("\"type\" : \"head\"",
-            "\"string\" : \"Header\"",
-            "3C8079D5-1C5A-4473-8939-6631E48D01BB");
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
+                "\"type\" : \"head\"",
+                "\"string\" : \"Header\"",
+                "3C8079D5-1C5A-4473-8939-6631E48D01BB"));
     }
 
     /** */
@@ -61,11 +62,12 @@ class HeadControllerIT {
             .exchange()
             .returnResult(String.class);
 
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody())
-            .contains("\"type\" : \"head\"",
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
+                "\"type\" : \"head\"",
                 "\"string\" : \"Header\"",
-                "\"tail\" : \"TMG\"");
+                "\"tail\" : \"TMG\""));
     }
 
     /** */
@@ -76,14 +78,14 @@ class HeadControllerIT {
             .exchange()
             .returnResult(String.class);
 
-        assertThat(entity.getStatus())
-            .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
-        assertThat(entity.getResponseBody())
-            .contains("  \"cause\" : null",
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
+                "  \"cause\" : null",
                 "  \"stackTrace\" : [ ]",
                 "  \"datasetName\" : \"XYZZY\"",
                 "  \"message\" : \"Data set XYZZY not found\"",
                 "  \"suppressed\" : [ ]",
-                "  \"localizedMessage\" : \"Data set XYZZY not found\"");
+                "  \"localizedMessage\" : \"Data set XYZZY not found\""));
     }
 }

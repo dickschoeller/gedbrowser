@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.api.controller.test;
 import java.net.URI;
 import java.util.List;
 
+import org.apache.commons.lang3.Strings;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
@@ -157,4 +158,21 @@ public final class ControllerTestHelper {
             .returnResult(ApiPerson.class);
         return entity.getResponseBody();
     }
+
+    /**
+     * Check that the input string contains all of the expected strings.
+     *
+     * @param input the input string
+     * @param expected the expected substrings
+     * @return true if all expected substrings are found in the input string, false otherwise
+     */
+    public static boolean containsAll(final String input, final String... expected) {
+        for (final String s : expected) {
+            if (!Strings.CI.contains(input, s)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

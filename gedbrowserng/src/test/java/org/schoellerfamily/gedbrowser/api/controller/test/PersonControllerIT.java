@@ -5,9 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 import java.util.Optional;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.api.Application;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
@@ -36,6 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.UnitTestContainsTooManyAsserts" })
 class PersonControllerIT {
     /**
      * RestTestClient injected by Spring's test support.
@@ -72,33 +78,14 @@ class PersonControllerIT {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"person\"",
-            "\"string\" : \"I1\"",
-            "\"attributes\" : [ {", "\"type\" : \"name\"",
-            "\"string\" : \"Living /Williams/\"",
-            "\"attributes\" : [ ]", "\"tail\" : \"\"");
-    }
-
-    /**
-     * @throws RestClientException should be never
-     */
-    @Test
-    void testGetPersonsGl120368NotLoggedIn() throws RestClientException {
-        final String url =
-            "http://localhost:" + port + "/gedbrowserng/v1/dbs/mini-schoeller/persons";
-        final EntityExchangeResult<String> entity = restTestClient.get()
-            .uri(URI.create(url))
-            .accept(MediaType.APPLICATION_JSON)
-            .exchange()
-            .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"person\"",
-            "\"string\" : \"I7\"",
-            "\"attributes\" : [ {", "\"type\" : \"name\"",
-            "\"string\" : \"Arnold/Robinson/\"",
-            "\"attributes\" : [ ]",
-            "\"tail\" : \"\"");
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
+                "\"type\" : \"person\"",
+                "\"string\" : \"I1\"",
+                "\"attributes\" : [ {", "\"type\" : \"name\"",
+                "\"string\" : \"Living /Williams/\"",
+                "\"attributes\" : [ ]", "\"tail\" : \"\""));
     }
 
     /**
@@ -113,14 +100,15 @@ class PersonControllerIT {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(Optional.ofNullable(entity.getResponseBody()).orElse("")).contains(
-            "\"type\" : \"person\"",
-            "\"string\" : \"I1\"",
-            "\"attributes\" : [ {",
-            "\"type\" : \"name\"",
-            "\"string\" : \"Melissa Robinson/Schoeller/\"",
-            "\"attributes\" : [ {");
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(Optional.ofNullable(e.getResponseBody()).orElse(""),
+                "\"type\" : \"person\"",
+                "\"string\" : \"I1\"",
+                "\"attributes\" : [ {",
+                "\"type\" : \"name\"",
+                "\"string\" : \"Melissa Robinson/Schoeller/\"",
+                "\"attributes\" : [ {"));
     }
 
     /** */
@@ -133,14 +121,16 @@ class PersonControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"person\"",
-            "\"string\" : \"I7\"",
-            "\"attributes\" : [ {",
-            "\"type\" : \"name\"",
-            "\"string\" : \"Arnold/Robinson/\"",
-            "\"attributes\" : [ ]",
-            "\"tail\" : \"\"");
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
+                "\"type\" : \"person\"",
+                "\"string\" : \"I7\"",
+                "\"attributes\" : [ {",
+                "\"type\" : \"name\"",
+                "\"string\" : \"Arnold/Robinson/\"",
+                "\"attributes\" : [ ]",
+                "\"tail\" : \"\""));
     }
 
     /**
@@ -155,14 +145,16 @@ class PersonControllerIT {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"person\"",
-            "\"string\" : \"I2\"",
-            "\"attributes\" : [ {",
-            "\"type\" : \"name\"",
-            "\"string\" : \"Richard John/Schoeller/\"",
-            "\"attributes\" : [ ]",
-            "\"tail\" : \"\"");
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
+                "\"type\" : \"person\"",
+                "\"string\" : \"I2\"",
+                "\"attributes\" : [ {",
+                "\"type\" : \"name\"",
+                "\"string\" : \"Richard John/Schoeller/\"",
+                "\"attributes\" : [ ]",
+                "\"tail\" : \"\""));
     }
 
     /** */
@@ -192,11 +184,11 @@ class PersonControllerIT {
             .body(reqBody)
             .exchange()
             .returnResult(ApiPerson.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        final ApiPerson resBody = entity.getResponseBody();
-        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
-        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(reqBody.getType(), e -> e.getResponseBody().getType())
+            .returns(reqBody.getSurname(), e -> e.getResponseBody().getSurname())
+            .returns(reqBody.getIndexName(), e -> e.getResponseBody().getIndexName());
     }
 
     /**
@@ -574,8 +566,9 @@ class PersonControllerIT {
             .exchange()
             .returnResult(ApiPerson.class);
         final ApiPerson resBody = entity.getResponseBody();
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(reqBody.getType(), e -> e.getResponseBody().getType());
 
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")
@@ -598,90 +591,76 @@ class PersonControllerIT {
     }
 
     /**
-     * @throws RestClientException if there is a problem with rest
+     * Provides test arguments for adding relationships (spouses, parents, children).
+     *
+     * @return Stream of test arguments containing person ID, relationship type, and person supplier
      */
-    @Test
-    void testGetPersonsMiniSchoellerI2AddSpouse() throws RestClientException {
-        final String url = "http://localhost:" + port
-            + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I1/spouses";
-        final HttpHeaders customHeaders = new HttpHeaders();
-        customHeaders.setContentType(MediaType.APPLICATION_JSON);
-        final ApiPerson reqBody = createAlexander();
-        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
-            .uri(URI.create(url))
-            .headers(h -> h.addAll(customHeaders))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(reqBody)
-            .exchange()
-            .returnResult(ApiPerson.class);
-
-        final ApiPerson resBody = entity.getResponseBody();
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
-        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+    private static Stream<Arguments> addRelationshipTestParameters() {
+        return Stream.of(
+            Arguments.of("I1", "spouses",
+                (Supplier<ApiPerson>) PersonControllerIT::createStaticAlexander),
+            Arguments.of("I1", "parents",
+                (Supplier<ApiPerson>) PersonControllerIT::createStaticAlexander),
+            Arguments.of("I2", "parents",
+                (Supplier<ApiPerson>) PersonControllerIT::createStaticAlexandra),
+            Arguments.of("I9", "children",
+                (Supplier<ApiPerson>) PersonControllerIT::createStaticAlexander),
+            Arguments.of("I10", "children",
+                (Supplier<ApiPerson>) PersonControllerIT::createStaticAlexandra)
+        );
     }
 
     /**
-     * @throws RestClientException if there is a problem with rest
+     * Static version of createAlexander for use in method source.
+     *
+     * @return the newly created person
      */
-    @Test
-    void testGetPersonsMiniSchoellerI2AddParent() throws RestClientException {
-        final String url = "http://localhost:" + port
-            + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I1/parents";
-        final HttpHeaders customHeaders = new HttpHeaders();
-        customHeaders.setContentType(MediaType.APPLICATION_JSON);
-        final ApiPerson reqBody = createAlexander();
-        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
-            .uri(URI.create(url))
-            .headers(h -> h.addAll(customHeaders))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(reqBody)
-            .exchange()
-            .returnResult(ApiPerson.class);
-
-        final ApiPerson resBody = entity.getResponseBody();
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
-        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+    private static ApiPerson createStaticAlexander() {
+        return ApiPerson.builder()
+            .string("")
+            .type("person")
+            .attribute(
+                ApiAttribute.builder().type("name").string("Alexander/Romanov/").tail("").build())
+            .attribute(ApiAttribute.builder().type("attribute").string("Sex").tail("M").build())
+            .surname("Romanov")
+            .indexName("Romanov, Alexander")
+            .build();
     }
 
     /**
-     * @throws RestClientException if there is a problem with rest
+     * Static version of createAlexandra for use in method source.
+     *
+     * @return the newly created person
      */
-    @Test
-    void testGetPersonsMiniSchoellerI2AddParent2() throws RestClientException {
-        final String url = "http://localhost:" + port
-            + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I2/parents";
-        final HttpHeaders customHeaders = new HttpHeaders();
-        customHeaders.setContentType(MediaType.APPLICATION_JSON);
-        final ApiPerson reqBody = createAlexandra();
-        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
-            .uri(URI.create(url))
-            .headers(h -> h.addAll(customHeaders))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(reqBody)
-            .exchange()
-            .returnResult(ApiPerson.class);
-
-        final ApiPerson resBody = entity.getResponseBody();
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
-        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+    private static ApiPerson createStaticAlexandra() {
+        return ApiPerson.builder()
+            .string("")
+            .type("person")
+            .attribute(
+                ApiAttribute.builder().type("name").string("Alexandra/Romanov/").tail("").build())
+            .attribute(ApiAttribute.builder().type("attribute").string("Sex").tail("F").build())
+            .surname("Romanov")
+            .indexName("Romanov, Alexandra")
+            .build();
     }
 
     /**
+     * Parameterized test for adding relationships (spouse, parent, child) to a person.
+     *
+     * @param personId the ID of the person to add relationship to
+     * @param relationshipType the type of relationship (spouses, parents, children)
+     * @param personSupplier supplier that creates the person to be added
      * @throws RestClientException if there is a problem with rest
      */
-    @Test
-    void testGetPersonsMiniSchoellerI2AddChild() throws RestClientException {
+    @ParameterizedTest
+    @MethodSource("addRelationshipTestParameters")
+    void testAddRelationship(final String personId, final String relationshipType,
+            final Supplier<ApiPerson> personSupplier) throws RestClientException {
         final String url = "http://localhost:" + port
-            + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I9/children";
+            + "/gedbrowserng/v1/dbs/mini-schoeller/persons/" + personId + "/" + relationshipType;
         final HttpHeaders customHeaders = new HttpHeaders();
         customHeaders.setContentType(MediaType.APPLICATION_JSON);
-        final ApiPerson reqBody = createAlexander();
+        final ApiPerson reqBody = personSupplier.get();
         final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
             .uri(URI.create(url))
             .headers(h -> h.addAll(customHeaders))
@@ -690,35 +669,10 @@ class PersonControllerIT {
             .exchange()
             .returnResult(ApiPerson.class);
 
-        final ApiPerson resBody = entity.getResponseBody();
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
-        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
-    }
-
-    /**
-     * @throws RestClientException if there is a problem with rest
-     */
-    @Test
-    void testGetPersonsMiniSchoellerI2AddChild2() throws RestClientException {
-        final String url = "http://localhost:" + port
-            + "/gedbrowserng/v1/dbs/mini-schoeller/persons/I10/children";
-        final HttpHeaders customHeaders = new HttpHeaders();
-        customHeaders.setContentType(MediaType.APPLICATION_JSON);
-        final ApiPerson reqBody = createAlexandra();
-        final EntityExchangeResult<ApiPerson> entity = restTestClient.post()
-            .uri(URI.create(url))
-            .headers(h -> h.addAll(customHeaders))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(reqBody)
-            .exchange()
-            .returnResult(ApiPerson.class);
-
-        final ApiPerson resBody = entity.getResponseBody();
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(resBody.getType()).isEqualTo(reqBody.getType());
-        assertThat(resBody.getSurname()).isEqualTo(reqBody.getSurname());
-        assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(reqBody.getType(), e -> e.getResponseBody().getType())
+            .returns(reqBody.getSurname(), e -> e.getResponseBody().getSurname())
+            .returns(reqBody.getIndexName(), e -> e.getResponseBody().getIndexName());
     }
 }

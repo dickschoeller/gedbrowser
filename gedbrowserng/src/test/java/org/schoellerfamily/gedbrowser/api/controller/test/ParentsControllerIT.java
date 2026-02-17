@@ -31,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.UnitTestContainsTooManyAsserts" })
 class ParentsControllerIT {
 
     /**

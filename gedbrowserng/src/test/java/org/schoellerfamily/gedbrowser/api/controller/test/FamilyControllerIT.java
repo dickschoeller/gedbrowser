@@ -36,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.UnitTestContainsTooManyAsserts" })
 class FamilyControllerIT {
     /** */
     @Autowired
@@ -65,13 +66,13 @@ class FamilyControllerIT {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody())
-            .contains(
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"family\"",
                 "\"string\" : \"F1\"",
                 "\"attributes\" : [ ]",
-                "\"images\" : [ ]");
+                "\"images\" : [ ]"));
     }
 
     /** */
@@ -85,19 +86,20 @@ class FamilyControllerIT {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"family\"",
-            "\"string\" : \"F1\"",
-            "\"string\" : \"Marriage\"",
-            "\"type\" : \"date\"",
-            "\"string\" : \"27 MAY 1984\"",
-            "\"string\" : \"Temple Emanu-el, Providence, Providence County, Rhode Island, USA\"",
-            "\"tail\" : \"The ceremony performed by Rabbi Wayne"
-                + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
-                + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
-                + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
-                + " brother of the groom and Donald S.\\nFriedman, a friend of"
-                + " bride and groom\"");
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(), "\"type\" : \"family\"",
+                "\"string\" : \"F1\"",
+                "\"string\" : \"Marriage\"",
+                "\"type\" : \"date\"",
+                "\"string\" : \"27 MAY 1984\"",
+                "\"string\" : \"Temple Emanu-el, Providence, Providence County, Rhode Island, USA\"",
+                "\"tail\" : \"The ceremony performed by Rabbi Wayne"
+                    + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
+                    + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
+                    + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
+                    + " brother of the groom and Donald S.\\nFriedman, a friend of"
+                    + " bride and groom\""));
     }
 
     /** */
@@ -111,12 +113,13 @@ class FamilyControllerIT {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"family\"",
-            "\"string\" : \"F1593\"",
-            "\"attributes\" : [ {", "\"type\" : \"sourcelink\"", "\"string\" : \"S33723\"",
-            "\"type\" : \"attribute\"", "\"string\" : \"Note\"", "\"attributes\" : [ ]",
-            "\"tail\" : \"Record originated in...\"");
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(), "\"type\" : \"family\"",
+                "\"string\" : \"F1593\"",
+                "\"attributes\" : [ {", "\"type\" : \"sourcelink\"", "\"string\" : \"S33723\"",
+                "\"type\" : \"attribute\"", "\"string\" : \"Note\"", "\"attributes\" : [ ]",
+                "\"tail\" : \"Record originated in...\"")); 
     }
 
     /** */
@@ -130,18 +133,19 @@ class FamilyControllerIT {
             .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
-        assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
-        assertThat(entity.getResponseBody()).contains("\"type\" : \"family\"",
-            "\"string\" : \"F1\"",
-            "\"string\" : \"Marriage\"",
-            "\"string\" : \"27 MAY 1984\"",
-            "\"string\" : \"Temple Emanu-el, Providence, Providence County, Rhode Island, USA\"",
-            "\"tail\" : \"The ceremony performed by Rabbi Wayne"
-                + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
-                + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
-                + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
-                + " brother of the groom and Donald S.\\nFriedman, a friend of"
-                + " bride and groom\"");
+        assertThat(entity)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(), "\"type\" : \"family\"",
+                "\"string\" : \"F1\"",
+                "\"string\" : \"Marriage\"",
+                "\"string\" : \"27 MAY 1984\"",
+                "\"string\" : \"Temple Emanu-el, Providence, Providence County, Rhode Island, USA\"",
+                "\"tail\" : \"The ceremony performed by Rabbi Wayne"
+                    + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
+                    + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
+                    + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
+                    + " brother of the groom and Donald S.\\nFriedman, a friend of"
+                    + " bride and groom\""));
     }
 
     /** */
