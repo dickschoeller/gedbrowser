@@ -163,8 +163,10 @@ public final class ControllerTestHelper {
      *
      * @param input the input string
      * @param expected the expected substrings
-     * @return true if all expected substrings are found in the input string, false otherwise
-     * @throws IllegalArgumentException if input is null, expected is null, or any expected element is null
+     * @return {@code true} if all non-null expected substrings are found in the input
+     *         string; {@code false} if {@code input} is {@code null}, {@code expected}
+     *         is {@code null}, or any non-null expected substring is not found. Null
+     *         elements in {@code expected} are silently ignored.
      */
     public static boolean containsAll(final String input, final String... expected) {
         if (input == null) {
