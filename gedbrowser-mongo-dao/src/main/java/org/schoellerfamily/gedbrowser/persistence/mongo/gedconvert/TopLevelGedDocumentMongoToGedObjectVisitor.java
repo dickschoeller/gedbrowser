@@ -40,7 +40,7 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
     /**
      * @param parent the parent of the object we are going to create
      */
-    public TopLevelGedDocumentMongoToGedObjectVisitor(final GedObject parent) {
+    protected TopLevelGedDocumentMongoToGedObjectVisitor(final GedObject parent) {
         this.parent = parent;
     }
 

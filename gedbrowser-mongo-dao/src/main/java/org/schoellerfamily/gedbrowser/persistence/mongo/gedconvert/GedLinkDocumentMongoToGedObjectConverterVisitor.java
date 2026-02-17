@@ -31,7 +31,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
     /**
      * @param parent the parent object of the one being created by visiting
      */
-    public GedLinkDocumentMongoToGedObjectConverterVisitor(
+    protected GedLinkDocumentMongoToGedObjectConverterVisitor(
             final GedObject parent) {
         super(parent);
     }

@@ -166,8 +166,6 @@ public class GedDocumentFileLoader {
      */
     protected RootDocument loadRepository(final RepositoryManagerMongo repositoryManager,
         final String dbName) {
-        Root root;
-
         final String filename = buildFileName(dbName);
         final String charset = new CharsetScanner().charset(filename);
         final File file = new File(filename);
@@ -176,13 +174,12 @@ public class GedDocumentFileLoader {
             BufferedReader bufferedReader = new BufferedReader(reader);) {
             final GedFile gedFile = new GedFile(filename, dbName, finder, bufferedReader);
             gedFile.readToNext();
-            root = createRoot(dbName, filename, gedFile);
+            return save(createRoot(dbName, filename, gedFile));
         } catch (IOException e) {
             log.warn("Could not read file: {}", filename);
             return null;
         }
 
-        return save(root);
     }
 
     /**
