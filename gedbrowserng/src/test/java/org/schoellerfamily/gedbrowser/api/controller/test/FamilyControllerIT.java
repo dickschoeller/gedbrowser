@@ -119,7 +119,7 @@ class FamilyControllerIT {
                 "\"string\" : \"F1593\"",
                 "\"attributes\" : [ {", "\"type\" : \"sourcelink\"", "\"string\" : \"S33723\"",
                 "\"type\" : \"attribute\"", "\"string\" : \"Note\"", "\"attributes\" : [ ]",
-                "\"tail\" : \"Record originated in...\"")); 
+                "\"tail\" : \"Record originated in...\""));
     }
 
     /** */
