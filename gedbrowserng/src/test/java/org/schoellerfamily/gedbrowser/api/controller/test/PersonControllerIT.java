@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -41,6 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.UnitTestContainsTooManyAsserts" })
 class PersonControllerIT {
     /**
@@ -595,53 +597,19 @@ class PersonControllerIT {
      *
      * @return Stream of test arguments containing person ID, relationship type, and person supplier
      */
-    private static Stream<Arguments> addRelationshipTestParameters() {
+    private Stream<Arguments> addRelationshipTestParameters() {
         return Stream.of(
             Arguments.of("I1", "spouses",
-                (Supplier<ApiPerson>) PersonControllerIT::createStaticAlexander),
+                (Supplier<ApiPerson>) this::createAlexander),
             Arguments.of("I1", "parents",
-                (Supplier<ApiPerson>) PersonControllerIT::createStaticAlexander),
+                (Supplier<ApiPerson>) this::createAlexander),
             Arguments.of("I2", "parents",
-                (Supplier<ApiPerson>) PersonControllerIT::createStaticAlexandra),
+                (Supplier<ApiPerson>) this::createAlexandra),
             Arguments.of("I9", "children",
-                (Supplier<ApiPerson>) PersonControllerIT::createStaticAlexander),
+                (Supplier<ApiPerson>) this::createAlexander),
             Arguments.of("I10", "children",
-                (Supplier<ApiPerson>) PersonControllerIT::createStaticAlexandra)
+                (Supplier<ApiPerson>) this::createAlexandra)
         );
-    }
-
-    /**
-     * Static version of createAlexander for use in method source.
-     *
-     * @return the newly created person
-     */
-    private static ApiPerson createStaticAlexander() {
-        return ApiPerson.builder()
-            .string("")
-            .type("person")
-            .attribute(
-                ApiAttribute.builder().type("name").string("Alexander/Romanov/").tail("").build())
-            .attribute(ApiAttribute.builder().type("attribute").string("Sex").tail("M").build())
-            .surname("Romanov")
-            .indexName("Romanov, Alexander")
-            .build();
-    }
-
-    /**
-     * Static version of createAlexandra for use in method source.
-     *
-     * @return the newly created person
-     */
-    private static ApiPerson createStaticAlexandra() {
-        return ApiPerson.builder()
-            .string("")
-            .type("person")
-            .attribute(
-                ApiAttribute.builder().type("name").string("Alexandra/Romanov/").tail("").build())
-            .attribute(ApiAttribute.builder().type("attribute").string("Sex").tail("F").build())
-            .surname("Romanov")
-            .indexName("Romanov, Alexandra")
-            .build();
     }
 
     /**
