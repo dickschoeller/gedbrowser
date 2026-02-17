@@ -168,7 +168,7 @@ public final class ControllerTestHelper {
      */
     public static boolean containsAll(final String input, final String... expected) {
         for (final String s : expected) {
-            if (!Strings.CI.contains(input, s)) {
+            if (!input.contains(s)) {
                 return false;
             }
         }
