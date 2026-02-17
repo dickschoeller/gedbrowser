@@ -57,15 +57,14 @@ class SubmitterControllerIT {
             .returnResult(String.class);
         assertThat(entity)
             .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
-            .satisfies(e -> {
-                final String body = e.getResponseBody();
-                assertThat(body).contains("\"type\" : \"submitter\"",
-                    "\"string\" : \"U1\"",
-                    "\"string\" : \"Phil Williams\"",
-                    "\"name\" : \"Phil Williams\"");
-            });
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
+                "\"type\" : \"submitter\"",
+                "\"string\" : \"U1\"",
+                "\"string\" : \"Phil Williams\"",
+                "\"name\" : \"Phil Williams\""));
     }
 
+    }
     /** */
     @Test
     @SuppressWarnings({ "java:S6126" })
