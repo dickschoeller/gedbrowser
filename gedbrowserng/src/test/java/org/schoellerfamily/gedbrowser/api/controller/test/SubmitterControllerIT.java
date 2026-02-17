@@ -64,6 +64,7 @@ class SubmitterControllerIT {
 
     /** */
     @Test
+    @SuppressWarnings({ "java:S6126" })
     void testGetSubmittersGl120368U1() {
         final String url = "http://localhost:" + port
             + "/gedbrowserng/v1/dbs/gl120368/submitters/U1";

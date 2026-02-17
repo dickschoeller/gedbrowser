@@ -106,10 +106,7 @@ public class FamilyCrud
      * @return true if the family has spouses or children
      */
     private boolean isLinked(final ApiFamily family) {
-        if (!family.getChildren().isEmpty()) {
-            return true;
-        }
-        return !family.getSpouses().isEmpty();
+        return !family.getChildren().isEmpty() || !family.getSpouses().isEmpty();
     }
 
     /**

@@ -54,6 +54,7 @@ class SubmissionControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "[ {\n" + "  \"type\" : \"submission\",\n"
             + "  \"string\" : \"B1\",\n" + "  \"attributes\" : [ {\n"
             + "    \"type\" : \"attribute\",\n"
@@ -90,6 +91,7 @@ class SubmissionControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "{\n" + "  \"type\" : \"submission\",\n"
             + "  \"string\" : \"B1\",\n" + "  \"attributes\" : [ {\n"
             + "    \"type\" : \"attribute\",\n"

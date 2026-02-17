@@ -31,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@SuppressWarnings({ "java:S6833" })
 public class SaveController {
 
     /** */

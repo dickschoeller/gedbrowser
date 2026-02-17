@@ -25,6 +25,7 @@ public final class RootVisitor implements GedObjectVisitor {
     }
 
     @Override
+    @SuppressWarnings({ "java:S125" })
     public void visit(final Family family) {
 // Currently commented out.
 // Keep around because we may want to gather these too.

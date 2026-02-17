@@ -98,7 +98,7 @@ public class WebSecurityConfig {
      */
     @Bean
     public AuthenticationManager authenticationManager(
-        final AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        final AuthenticationConfiguration authenticationConfiguration)  {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
@@ -109,7 +109,7 @@ public class WebSecurityConfig {
      * @return the security filter chain
      */
     @Bean
-    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(final HttpSecurity http) {
         // Apply CSRF configuration first (may disable in test profile)
         final HttpSecurity configured = configureCsrf(http);
 
@@ -142,10 +142,9 @@ public class WebSecurityConfig {
      *
      * @param http the http security object
      * @return the http security object
-     * @throws Exception if there is a problem
      */
     @SuppressWarnings({ "java:S4502", "java:S3330" })
-    private HttpSecurity configureCsrf(final HttpSecurity http) throws Exception {
+    private HttpSecurity configureCsrf(final HttpSecurity http) {
         // Warning suppressed because CSRF is disabled only in test profile.
         if ("test".equals(activeProfile)) {
             // Disable CSRF using the lambda-based CsrfConfigurer

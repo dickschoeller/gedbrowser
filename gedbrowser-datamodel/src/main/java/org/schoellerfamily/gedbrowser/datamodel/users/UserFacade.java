@@ -109,9 +109,6 @@ public interface UserFacade extends User {
 
     @Override
     default boolean hasRole(final UserRoleName role) {
-        if (getUser() == null) {
-            return false;
-        }
-        return getUser().hasRole(role);
+        return getUser() != null && getUser().hasRole(role);
     }
 }

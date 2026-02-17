@@ -76,6 +76,7 @@ class NoteCrudIT {
 
     /** */
     @Test
+    @SuppressWarnings({ "java:S6126" })
     void testReadNotesGl120368N13() {
         log.info("Beginning testReadNotesGl120368N13");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N13");

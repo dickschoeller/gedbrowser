@@ -54,6 +54,7 @@ class SourceControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "[ {\n" + "  \"type\" : \"source\",\n"
             + "  \"string\" : \"S1688\",\n" + "  \"attributes\" : [ {\n"
             + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Author\",\n"
@@ -87,6 +88,7 @@ class SourceControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "[ {\n" + "  \"type\" : \"source\",\n"
             + "  \"string\" : \"S2\",\n" + "  \"attributes\" : [ {\n"
             + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Title\",\n"
@@ -113,6 +115,7 @@ class SourceControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "{\n" + "  \"type\" : \"source\",\n"
             + "  \"string\" : \"S2\",\n" + "  \"attributes\" : [ {\n"
             + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Title\",\n"
