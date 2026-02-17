@@ -64,7 +64,6 @@ class SubmitterControllerIT {
                 "\"name\" : \"Phil Williams\""));
     }
 
-    }
     /** */
     @Test
     @SuppressWarnings({ "java:S6126" })
