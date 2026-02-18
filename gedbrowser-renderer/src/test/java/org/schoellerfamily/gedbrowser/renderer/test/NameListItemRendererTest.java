@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -43,17 +42,6 @@ final class NameListItemRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    @Test
-    void testRenderSimple() {
-        final Name name = new Name(null, "Richard /Schoeller/");
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameListItemRenderer nlir = (NameListItemRenderer) nameRenderer.getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("Richard Schoeller", builder.toString(), UNEXPECTED_STRING);
-    }
-
     @ParameterizedTest
     @MethodSource("renderListItemCases")
     void testRenderListItem(final String nameValue, final boolean newLine, final int pad,
@@ -70,6 +58,7 @@ final class NameListItemRendererTest {
 
     private static Stream<Arguments> renderListItemCases() {
         return Stream.of(
+            Arguments.of("Richard /Schoeller/", false, 0, "Richard Schoeller"),
             Arguments.of("Karl Frederick /Schoeller/Jr.", false, 0,
                 "Karl Frederick Schoeller Jr."),
             Arguments.of("Karl Frederick /Schoeller/Jr.", false, 1, ""),

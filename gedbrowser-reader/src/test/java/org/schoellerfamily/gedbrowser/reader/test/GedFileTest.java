@@ -137,7 +137,7 @@ final class GedFileTest {
      */
     private AbstractGedLine readFileTestSource() throws IOException {
         return TestResourceReader.readFileTestSource(
-                this, "mini-schoeller.ged");
+                "mini-schoeller.ged");
     }
 
     /** */

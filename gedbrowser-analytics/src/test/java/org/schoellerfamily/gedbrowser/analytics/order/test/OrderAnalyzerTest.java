@@ -257,7 +257,7 @@ final class OrderAnalyzerTest implements AnalyzerTest {
      */
     @Test
     void testFactoryGedFile() throws IOException {
-        final AbstractGedLine top = TestResourceReader.readFileTestSource(this, "gl120368.ged");
+        final AbstractGedLine top = TestResourceReader.readFileTestSource("gl120368.ged");
         final Root root = g2g.create(top);
         for (final String letter : root.findSurnameInitialLetters()) {
             for (final String surname : root.findBySurnamesBeginWith(letter)) {

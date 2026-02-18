@@ -17,6 +17,7 @@ import org.schoellerfamily.gedbrowser.reader.StreamManager;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.TestClassWithoutTestCases" })
 public final class TestResourceReader {
     /**
      * Constructor.
@@ -26,13 +27,12 @@ public final class TestResourceReader {
 
     /**
      * Read data for tests available to prepare data for tests.
-     *
-     * @param caller   the object doing the calling allows us to get at resources
      * @param filename the name of the file
+     *
      * @return a populated GedLine parse tree.
      * @throws IOException because reader might throw.
      */
-    public static AbstractGedLine readFileTestSource(final Object caller, final String filename)
+    public static AbstractGedLine readFileTestSource(final String filename)
         throws IOException {
         final String shortname;
         if (filename.charAt(0) == '/') {
@@ -49,14 +49,13 @@ public final class TestResourceReader {
 
     /**
      * Read data for tests available to prepare data for tests.
-     *
-     * @param caller   the object doing the calling allows us to get at resources
      * @param filename the name of the file
+     *
      * @return the strings of the file
      * @throws IOException because reader might throw.
      */
-    public static Stream<String> readFileTestSourceAsStrings(final Object caller,
-        final String filename) throws IOException {
+    public static Stream<String> readFileTestSourceAsStrings(final String filename)
+        throws IOException {
         return openBufferedReader(filename).lines();
     }
 

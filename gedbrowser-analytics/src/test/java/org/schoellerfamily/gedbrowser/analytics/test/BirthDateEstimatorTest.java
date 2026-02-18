@@ -611,6 +611,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
      * @throws IOException because reader might throw.
      */
     private AbstractGedLine readFileTestSource() throws IOException {
-        return TestResourceReader.readFileTestSource(this, "gl120368.ged");
+        return TestResourceReader.readFileTestSource("gl120368.ged");
     }
 }
