@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
