@@ -363,7 +363,7 @@ final class RepositoryFinderIT {
     @Test
     void testFinderFindAllBadClass() {
         final Collection<GedObject> find = finder.find(root, GedObject.class);
-        assertNull(find, "Should be null because asking for bogus class");
+        assertTrue(find.isEmpty(), "Should be empty because asking for bogus class");
     }
 
     @Test
