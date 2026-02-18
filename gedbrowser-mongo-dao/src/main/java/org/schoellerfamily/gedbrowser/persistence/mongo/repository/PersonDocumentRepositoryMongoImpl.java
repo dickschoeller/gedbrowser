@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
@@ -72,7 +73,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     public Collection<PersonDocument> findByFileAndSurname(
             final String filename, final String surname) {
         if (filename == null || surname == null) {
-            return Collections.emptyList();
+            return List.of();
         }
         final Query searchQuery =
                 new Query(Criteria.where(SURNAME).is(surname)
@@ -87,7 +88,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     public Collection<PersonDocument> findByRootAndSurname(
             final RootDocument rootDocument, final String surname) {
         if (rootDocument == null || surname == null) {
-            return Collections.emptyList();
+            return List.of();
         }
         final Collection<PersonDocument> personDocuments = findByFileAndSurname(
                 rootDocument.getFilename(), surname);
@@ -102,11 +103,10 @@ public final class PersonDocumentRepositoryMongoImpl implements
     public Collection<PersonDocument> findByFileAndSurnameBeginsWith(
             final String filename, final String beginsWith) {
         if (filename == null) {
-            return Collections.emptyList();
+            return List.of();
         }
         final List<PersonDocumentMongo> personDocuments;
-        if (beginsWith == null || beginsWith.equals("")
-                || beginsWith.equals("?")) {
+        if (StringUtils.isEmpty(beginsWith) || "?".equals(beginsWith)) {
             personDocuments = queryUnknownSurname(filename);
         } else {
             personDocuments = querySurnameBeginsWith(filename, beginsWith);
@@ -146,7 +146,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
             final RootDocument rootDocument, final String beginsWith) {
         log.debug("Starting findByRootAndSurnameBeginsWith");
         if (rootDocument == null) {
-            return Collections.emptyList();
+            return List.of();
         }
         final Collection<PersonDocument> personDocuments =
                 findByFileAndSurnameBeginsWith(
@@ -220,7 +220,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     @Override
     public Iterable<PersonDocument> findAll(final RootDocument rootDocument) {
         if (rootDocument == null) {
-            return Collections.emptyList();
+            return List.of();
         }
         final Iterable<PersonDocument> personDocuments =
                 findAll(rootDocument.getFilename());

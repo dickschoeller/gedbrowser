@@ -298,9 +298,10 @@ final class RootRepositoryIT {
     /** */
     @Test
     void testFindByRoot() {
+        final String rootString = root.getString();
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> rootDocumentRepository
-                .findByRootAndString(rootDocument, root.getString()));
+                .findByRootAndString(rootDocument, rootString));
     }
 
     /** */

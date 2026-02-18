@@ -328,10 +328,11 @@ final class RepositoryFinderIT {
 
     @Test
     void testWithWrongGedObjectForRoot() {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person person = builder.createPerson();
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> {
-                final GedObjectBuilder builder = new GedObjectBuilder();
-                finder.find(builder.createPerson(), "foo");
+                finder.find(person, "foo");
             })
             .withMessage("Owner must be root");
     }
@@ -351,10 +352,10 @@ final class RepositoryFinderIT {
 
     @Test
     void testFinderFindAllPersonsNotRoot() {
+        final GedObjectBuilder builder = new GedObjectBuilder(root);
+        final Person person = builder.createPerson();
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> {
-                final GedObjectBuilder builder = new GedObjectBuilder(root);
-                final Person person = builder.createPerson();
                 finder.find(person, Person.class);
             });
     }
