@@ -186,7 +186,7 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         final FindableDocument<? extends GedObject, ? extends GedDocument<?>> repo =
             repositoryManager.get(clazz);
         if (repo == null) {
-            return null;
+            return List.of();
         }
         final RootDocumentMongo rootDocument = (RootDocumentMongo) toDocConverter
             .createGedDocument((Root) owner);

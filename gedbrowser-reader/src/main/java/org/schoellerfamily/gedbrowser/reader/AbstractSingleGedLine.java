@@ -4,6 +4,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * This class represents the basic information read from a line of GEDCOM.
@@ -14,6 +15,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Accessors(makeFinal = true)
 public abstract class AbstractSingleGedLine implements GedObjectHolder {
     /** */
     private final transient int lineNumber;
