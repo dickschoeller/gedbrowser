@@ -73,7 +73,7 @@
     <junit-jupiter.version>6.0.3</junit-jupiter.version>
     <junit-platform.version>6.0.3</junit-platform.version>
     <saucebindings-junit5.version>1.5.0</saucebindings-junit5.version>
-    <selenium.version>4.40.0</selenium.version>
+    <selenium.version>4.41.0</selenium.version>
     <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
 
     <geojson-jackson.version>3.0</geojson-jackson.version>
