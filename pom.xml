@@ -85,6 +85,7 @@
     <assertj.version>3.27.7</assertj.version>
     <awaitility.version>4.2.2</awaitility.version>
     <mockito.version>5.11.0</mockito.version>
+    <spotbugs-annotations.version>4.7.3</spotbugs-annotations.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.14</jacoco-plugin.version>
@@ -758,6 +759,12 @@
         <version>2.3.0</version>
       </dependency -->
       <!-- end of working forward on google-maps-services -->
+      <dependency>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-annotations</artifactId>
+        <version>${spotbugs-annotations.version}</version>
+        <scope>provided</scope>
+      </dependency>
 
       <dependency>
         <groupId>org.assertj</groupId>
