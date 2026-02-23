@@ -264,6 +264,8 @@ final class GedObjectTest {
     void testEqualsWithAttributesNotInserted() {
         final GedObject gob = new GedObjectWrapper(null, GOB_TAG);
         final GedObject gob1 = new GedObjectWrapper(null, GOB_TAG);
+        final Attribute attr1 = new Attribute(gob, "A");
+        final Attribute attr2 = new Attribute(gob1, "A");
         assertEquals(gob, gob1, "Objects should be equal");
     }
 
