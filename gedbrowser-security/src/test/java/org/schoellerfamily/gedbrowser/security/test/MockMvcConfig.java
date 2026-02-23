@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.security.test;
 
 import org.schoellerfamily.gedbrowser.security.auth.TokenAuthenticationFilter;
 import org.springframework.context.annotation.Configuration;
-// import org.springframework.core.env.Environment;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;

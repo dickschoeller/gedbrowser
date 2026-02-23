@@ -38,7 +38,7 @@ public final class RemotePageWaiter implements PageWaiter {
     }
 
     @Override
-    public void waitForPageLoaded(final WebDriver driver, final int multiplier) {
+    public void waitForPageLoaded(final WebDriver driver, final long multiplier) {
         log.debug("Waiting for readyState");
         final ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
             /**
@@ -46,10 +46,8 @@ public final class RemotePageWaiter implements PageWaiter {
              */
             @Override
             public Boolean apply(final WebDriver d) {
-                final boolean done = ((JavascriptExecutor) d)
-                    .executeScript("return document.readyState")
-                    .equals("complete");
-                return done;
+                return "complete".equals(
+                    ((JavascriptExecutor) d).executeScript("return document.readyState"));
             }
         };
         final Wait<WebDriver> wait = new WebDriverWait(driver,

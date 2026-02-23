@@ -15,7 +15,7 @@ import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
  */
 public class PageBase {
     /** Ten seconds for passing to sleep for some known longish waits. */
-    private static final int MEDIUM_SLEEP = 10000;
+    private static final long MEDIUM_SLEEP = 10000L;
 
     /** The base page URL. */
     private final String baseUrl;
@@ -198,7 +198,7 @@ public class PageBase {
      *
      * @param multiplier timeout multiplier
      */
-    public final void waitForPageLoaded(final int multiplier) {
+    public final void waitForPageLoaded(final long multiplier) {
         getPageWaiter().waitForPageLoaded(getDriver(), multiplier);
     }
 
@@ -245,7 +245,7 @@ public class PageBase {
      * Sleep for a bit to allow slow stuff to happen.
      */
     protected void sleep() {
-        sleep(1);
+        sleep(1L);
     }
 
     /**
@@ -253,7 +253,8 @@ public class PageBase {
      *
      * @param multiplier number of times the basic amount to sleep
      */
-    protected void sleep(final int multiplier) {
+    @SuppressWarnings({ "PMD.AvoidThreadSleep", "java:S2925" })
+    protected void sleep(final long multiplier) {
         try {
             Thread.sleep(MEDIUM_SLEEP * multiplier);
         } catch (InterruptedException e) {

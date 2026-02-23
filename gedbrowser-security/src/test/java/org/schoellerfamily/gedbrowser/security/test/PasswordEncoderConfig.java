@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * @author Dick Schoeller
+ */
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class PasswordEncoderConfig {
@@ -13,7 +16,8 @@ public class PasswordEncoderConfig {
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
+        // This should be replaced with BCryptPasswordEncoder or similar in production,
+        // but for testing we want to be able to easily verify the password.
         return new PasswordEncoder() {
 
             @Override

@@ -2,31 +2,20 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.apache.commons.lang3.StringUtils;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Cell for a person in the table that represents the ancestor
  * tree.
  *
  * @author Dick Schoeller
  */
+@RequiredArgsConstructor
+@Getter
 public final class NodeCellRenderer implements CellRenderer {
     /** */
     private final transient PersonRenderer personRenderer;
-
-    /**
-     * Constructor.
-     *
-     * @param personRenderer the render associated with this location.
-     */
-    public NodeCellRenderer(final PersonRenderer personRenderer) {
-        this.personRenderer = personRenderer;
-    }
-
-    /**
-     * @return the person renderer.
-     */
-    public PersonRenderer getPersonRenderer() {
-        return personRenderer;
-    }
 
     @Override
     public String getNameHtml() {

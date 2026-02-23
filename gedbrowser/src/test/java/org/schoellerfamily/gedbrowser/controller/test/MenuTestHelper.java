@@ -8,6 +8,7 @@ public interface MenuTestHelper {
     /**
      * The text of the menu.
      */
+    @SuppressWarnings("java:S6126")
     String MENU =
             "        <span class=\"left\">\n"
             + "            <span><a"
@@ -49,7 +50,6 @@ public interface MenuTestHelper {
      * @return the menu string contents
      */
     default String getMenu(final String dataset, final String indexParameter) {
-        return String.format(MENU, dataset, dataset, indexParameter, dataset,
-                dataset);
+        return MENU.formatted(dataset, dataset, indexParameter, dataset, dataset);
     }
 }

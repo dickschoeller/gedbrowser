@@ -83,6 +83,9 @@
     <commons-lang3.version>3.20.0</commons-lang3.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
     <assertj.version>3.27.7</assertj.version>
+    <awaitility.version>4.2.2</awaitility.version>
+    <mockito.version>5.11.0</mockito.version>
+    <spotbugs-annotations.version>4.7.3</spotbugs-annotations.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.14</jacoco-plugin.version>
@@ -756,11 +759,29 @@
         <version>2.3.0</version>
       </dependency -->
       <!-- end of working forward on google-maps-services -->
+      <dependency>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-annotations</artifactId>
+        <version>${spotbugs-annotations.version}</version>
+        <scope>provided</scope>
+      </dependency>
 
       <dependency>
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
         <version>${assertj.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.awaitility</groupId>
+        <artifactId>awaitility</artifactId>
+        <version>${awaitility.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
