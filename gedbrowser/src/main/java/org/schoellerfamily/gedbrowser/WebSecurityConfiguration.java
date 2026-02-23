@@ -65,10 +65,9 @@ public class WebSecurityConfiguration {
      * Configure the in-memory authentication manager.
      *
      * @param auth the authentication manager builder
-     * @throws Exception if there is a problem
      */
     @Autowired
-    public final void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
+    public final void configureGlobal(final AuthenticationManagerBuilder auth) {
         final InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> configurer = auth
             .inMemoryAuthentication();
         for (final User user : users) {

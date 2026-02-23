@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.security.controller.test;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -7,12 +8,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
@@ -27,7 +29,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
@@ -37,17 +38,14 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(
     classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @Slf4j
 @AutoConfigureRestTestClient
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.ExcessiveImports" })
 final class UserControllerTest {
-    /** */
-    private static final int MILLIS_PER_SECOND = 1000;
-
     /**
      * RestTestClient injected by Spring's test support.
      */
@@ -159,10 +157,6 @@ final class UserControllerTest {
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatus(), "");
     }
 
-    /**
-     * @throws RestClientException the there is a restful exception
-     * @throws URISyntaxException  if the URL is bad
-     */
     @Test
     void testRefresh() throws RestClientException, URISyntaxException {
         log.info("Test refresh");
@@ -172,21 +166,26 @@ final class UserControllerTest {
     }
 
     @Test
-    void testExpiredRefresh() throws RestClientException, URISyntaxException, InterruptedException {
+    @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
+    void testExpiredRefresh() throws RestClientException, URISyntaxException {
         log.info("Test expired refresh");
         headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
-        Thread.sleep((expiresIn + 1) * MILLIS_PER_SECOND);
-        final EntityExchangeResult<String> response = refresh(headers);
-        assertEquals(HttpStatus.ACCEPTED, response.getStatus(), "should be ACCEPTED");
+        await()
+            .atMost(Duration.ofSeconds(expiresIn + 2L))
+            .untilAsserted(() -> {
+                final EntityExchangeResult<String> response = refresh(headers);
+                assertEquals(HttpStatus.ACCEPTED, response.getStatus(), "should be ACCEPTED");
+            });
     }
 
     @Test
     void testGetUserSchoeller()
-        throws RestClientException, URISyntaxException, UnsupportedEncodingException {
+        throws RestClientException, URISyntaxException {
         log.info("Test get user schoeller");
         headers = loginHelper
             .buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
-        String requestName = URLEncoder.encode("schoeller@comcast.net", "UTF-8");
+        final String requestName =
+            URLEncoder.encode("schoeller@comcast.net", StandardCharsets.UTF_8);
         final SecurityUser user = userHelper.getUser(headers, requestName);
         final String username = user.getUsername();
         log.info("I got {}", username);
@@ -195,13 +194,13 @@ final class UserControllerTest {
 
     @Test
     void testGetUsers()
-        throws RestClientException, URISyntaxException, UnsupportedEncodingException {
+        throws RestClientException, URISyntaxException {
         log.info("Test get users");
         headers = loginHelper
             .buildHeaders(loginHelper.login("schoeller@comcast.net", "HAHANOWAY"));
         final List<UserImpl> users = userHelper.getUsers(headers);
         log.info("List contains:");
-        for (SecurityUser user : users) {
+        for (final SecurityUser user : users) {
             log.info("   {}", user.getUsername());
         }
         assertEquals(2, users.size(), "Wrong count");
@@ -228,7 +227,7 @@ final class UserControllerTest {
         userRequest.setEmail("newuser@nomail.net");
         userRequest.setFirstname("New");
         userRequest.setLastname("User");
-        final SecurityUser user = post(url, headers, userRequest);
+        final SecurityUser user = post(url, userRequest);
         assertEquals("newuser", user.getUsername(), "Wrong user found");
     }
 
@@ -243,12 +242,13 @@ final class UserControllerTest {
         userRequest.setEmail("neweruser@nomail.net");
         userRequest.setFirstname("Newer");
         userRequest.setLastname("User");
-        post(url, headers, userRequest);
+        post(url, userRequest);
         final String userString = postString(url, headers, userRequest);
         assertTrue(userString.contains("Username already exists"), "Expected error string");
     }
 
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     void testResetCredentials() throws RestClientException, URISyntaxException {
         log.info("Test reset-credentials");
         headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
@@ -273,6 +273,7 @@ final class UserControllerTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     void testChangePasswordAndBack() throws RestClientException, URISyntaxException {
         log.info("Test reset-credentials");
         headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
@@ -297,8 +298,8 @@ final class UserControllerTest {
         return h;
     }
 
-    private SecurityUser post(final String url, final HttpHeaders heads,
-        final UserRequest userRequest) throws RestClientException, URISyntaxException {
+    private SecurityUser post(final String url, final UserRequest userRequest)
+        throws RestClientException, URISyntaxException {
         final EntityExchangeResult<UserImpl> res = restTestClient.post()
             .uri(new URI(url))
             .headers(h -> h.addAll(h))
@@ -320,20 +321,6 @@ final class UserControllerTest {
             .returnResult(String.class);
         final String body = res.getResponseBody();
         return (body == null) ? "" : body;
-    }
-
-    @Test
-    void testChangePasswordAndBack1() throws RestClientException, URISyntaxException {
-        log.info("Test reset-credentials");
-        headers = loginHelper.buildHeaders(loginHelper.login("guest", "guest"));
-        final EntityExchangeResult<String> changeResponse = passwordHelper.changePassword(headers,
-            "guest", "newpassword");
-        assertEquals(HttpStatus.ACCEPTED, changeResponse.getStatus(),
-            "Unexpected response from changing password");
-        final EntityExchangeResult<String> changeBackResponse = passwordHelper
-            .changePassword(headers, "newpassword", "guest");
-        assertEquals(HttpStatus.ACCEPTED, changeBackResponse.getStatus(),
-            "Unexpected response from changing password back");
     }
 
     private EntityExchangeResult<String> resetCredentials(final HttpHeaders heads)

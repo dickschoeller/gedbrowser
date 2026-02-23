@@ -21,7 +21,7 @@ public interface PageWaiter {
      * @param driver the driver
      * @param multiplier timeout multiplier
      */
-    void waitForPageLoaded(WebDriver driver, int multiplier);
+    void waitForPageLoaded(WebDriver driver, long multiplier);
 
     /**
      * Wait for the page to load. Different implementations for different

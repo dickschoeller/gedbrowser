@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.security.util;
 import java.security.Principal;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
@@ -13,23 +14,13 @@ import org.schoellerfamily.gedbrowser.security.service.UserService;
 /**
  * @author Dick Schoeller
  */
+@RequiredArgsConstructor
 public final class RequestUserUtil implements UserFacade {
     /** Hold the request. */
     private final Principal principal;
 
     /** Hold the service. */
     private final UserService userService;
-
-    /**
-     * Constructor. This constructor only for test use.
-     *
-     * @param principal the user principal that we're working with
-     * @param userService the suer service to get the user from
-     */
-    public RequestUserUtil(final Principal principal, final UserService userService) {
-        this.principal = principal;
-        this.userService = userService;
-    }
 
     /**
      * Constructor.
@@ -41,9 +32,6 @@ public final class RequestUserUtil implements UserFacade {
         this(request.getUserPrincipal(), userService);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public User getUser() {
         if (principal == null) {
@@ -62,10 +50,8 @@ public final class RequestUserUtil implements UserFacade {
      * @return true if has user
      */
     public boolean hasUser() {
-        if (getUser() == null) {
-            return false;
-        }
-        return getUser().hasRole(UserRoleName.USER);
+        final User user = getUser();
+        return user != null && user.hasRole(UserRoleName.USER);
     }
 
     /**
@@ -74,9 +60,7 @@ public final class RequestUserUtil implements UserFacade {
      * @return true if has admin
      */
     public boolean hasAdmin() {
-        if (getUser() == null) {
-            return false;
-        }
-        return getUser().hasRole(UserRoleName.ADMIN);
+        final User user = getUser();
+        return user != null && user.hasRole(UserRoleName.ADMIN);
     }
 }

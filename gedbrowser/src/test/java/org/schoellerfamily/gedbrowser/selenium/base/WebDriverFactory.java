@@ -3,13 +3,9 @@ package org.schoellerfamily.gedbrowser.selenium.base;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.logging.Level;
 
 import org.apache.commons.lang3.StringUtils;
-
 import org.openqa.selenium.MutableCapabilities;
-import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,11 +44,7 @@ public class WebDriverFactory {
      * @throws MalformedURLException if there is a bogus URL
      */
     public RemoteWebDriver webDriver(final String testName) throws MalformedURLException {
-        final RemoteWebDriver remoteWebDriver = new RemoteWebDriver(getRemoteUrl(),
-            getCapabilities(testName));
-        // RemoteWebDriver does not expose setLogLevel; logging preferences
-        // are applied via capabilities above.
-        return remoteWebDriver;
+        return new RemoteWebDriver(getRemoteUrl(), getCapabilities(testName));
     }
 
     /**
@@ -117,12 +109,6 @@ public class WebDriverFactory {
             capabilities.setCapability("sauce:options", sauceOptions);
         }
 
-        final LoggingPreferences prefs = new LoggingPreferences();
-        prefs.enable(LogType.CLIENT, Level.OFF);
-        // Use the W3C-compatible key for Chrome logging prefs.
-        // CapabilityType.LOGGING_PREFS
-        // may not be present in all Selenium 4 distributions, so set the string key.
-        capabilities.setCapability("goog:loggingPrefs", prefs);
         return capabilities;
     }
 

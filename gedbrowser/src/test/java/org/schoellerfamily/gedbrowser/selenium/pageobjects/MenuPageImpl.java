@@ -4,30 +4,26 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * This implementation of MenuPage methods. Designed for use behind a Java 8
  * mixin facade.
  *
  * @author Dick Schoeller
  */
+@RequiredArgsConstructor
 public final class MenuPageImpl implements MenuPage {
     /**
      * The page that facades for this class.
      */
     private final PageBase page;
 
-    /**
-     * @param page the page that facades for this class
-     */
-    MenuPageImpl(final PageBase page) {
-        this.page = page;
-    }
-
     @Override
     public IndexPage clickIndex() {
         final WebElement element = getMenu("index");
         element.click();
-        final int multiplier = 4;
+        final long multiplier = 4;
         page.sleep(multiplier);
         page.waitForPageLoaded(multiplier);
         return page.getFactory().createIndexPage(page, page.getBaseUrl(),

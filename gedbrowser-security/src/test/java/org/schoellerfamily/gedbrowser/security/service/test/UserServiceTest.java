@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
+import org.apache.logging.log4j.core.internal.annotation.SuppressFBWarnings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,12 +43,14 @@ final class UserServiceTest extends AbstractTest {
     }
 
     @Test
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     void testFindAllWithoutUser() throws AccessDeniedException {
         assertThatExceptionOfType(AccessDeniedException.class)
             .isThrownBy(() -> userService.findAll());
     }
 
     @Test
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     void testFindAllWithUser() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestUser());
         assertThatExceptionOfType(AccessDeniedException.class)
@@ -57,14 +60,14 @@ final class UserServiceTest extends AbstractTest {
     @Test
     void testFindAllWithAdmin() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestAdmin());
-        UserRequest request = new UserRequest();
+        final UserRequest request = new UserRequest();
         request.setUsername("dummy");
         request.setFirstname("John");
         request.setLastname("Dummy");
         request.setPassword("password");
         userService.save(request);
         final List<SecurityUser> list = userService.findAll();
-        for (SecurityUser u : list) {
+        for (final SecurityUser u : list) {
             if ("dummy".equals(u.getUsername())) {
                 return;
             }
@@ -112,7 +115,7 @@ final class UserServiceTest extends AbstractTest {
     @Test
     void testCreateWithAdmin() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestAdmin());
-        UserRequest request = new UserRequest();
+        final UserRequest request = new UserRequest();
         request.setUsername("user");
         request.setFirstname("John");
         request.setLastname("User");

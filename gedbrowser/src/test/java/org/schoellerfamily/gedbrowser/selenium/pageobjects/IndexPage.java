@@ -84,7 +84,7 @@ public final class IndexPage extends PageBase implements MenuPageFacade {
     public IndexPage clickLetter(final String newLetter) {
         final WebElement element = getLetter(newLetter);
         element.click();
-        final int multiplier = 4;
+        final long multiplier = 4L;
         sleep(multiplier);
         waitForPageLoaded(multiplier);
         return getFactory().createIndexPage(this, getBaseUrl(), newLetter);

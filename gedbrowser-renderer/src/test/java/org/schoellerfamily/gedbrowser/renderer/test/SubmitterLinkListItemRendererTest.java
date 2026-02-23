@@ -2,9 +2,13 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -36,7 +40,6 @@ final class SubmitterLinkListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final Root root = new Root("Root");
@@ -52,48 +55,26 @@ final class SubmitterLinkListItemRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
-    @Test
-    void testRenderAsListItem() {
+    @ParameterizedTest(name = "should render list item for newline={0}, pad={1}")
+    @MethodSource("listItemCases")
+    void testRenderAsListItem(final boolean newLine, final int pad) {
         final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
             new GedRendererFactory(), anonymousContext);
         final SubmitterLinkListItemRenderer lir = (SubmitterLinkListItemRenderer) slr
             .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
-        lir.renderAsListItem(builder, false, 0);
+        lir.renderAsListItem(builder, newLine, pad);
         assertEquals(
             "<span class=\"label\">Submitter:</span> <a class=\"name\""
                 + " href=\"submitter?db=null&amp;id=S1\">" + "Richard Schoeller [S1]</a>",
             builder.toString(), "Rendered html doesn't match expectation");
     }
 
-    /** */
-    @Test
-    void testRenderAsListItemNewLine() {
-        final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
-            new GedRendererFactory(), anonymousContext);
-        final SubmitterLinkListItemRenderer lir = (SubmitterLinkListItemRenderer) slr
-            .getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        lir.renderAsListItem(builder, true, 0);
-        assertEquals(
-            "<span class=\"label\">Submitter:</span> <a class=\"name\""
-                + " href=\"submitter?db=null&amp;id=S1\">" + "Richard Schoeller [S1]</a>",
-            builder.toString(), "Rendered html doesn't match expectation");
-    }
-
-    /** */
-    @Test
-    void testRenderAsListItemPad() {
-        final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,
-            new GedRendererFactory(), anonymousContext);
-        final SubmitterLinkListItemRenderer lir = (SubmitterLinkListItemRenderer) slr
-            .getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        lir.renderAsListItem(builder, false, 2);
-        assertEquals(
-            "<span class=\"label\">Submitter:</span> <a class=\"name\""
-                + " href=\"submitter?db=null&amp;id=S1\">" + "Richard Schoeller [S1]</a>",
-            builder.toString(), "Rendered html doesn't match expectation");
+    private static Stream<Arguments> listItemCases() {
+        return Stream.of(
+            Arguments.of(false, 0),
+            Arguments.of(true, 0),
+            Arguments.of(false, 2)
+        );
     }
 }
