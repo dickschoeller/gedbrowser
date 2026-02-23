@@ -26,40 +26,36 @@ if (environment.production) {
 //  Production mode is disabled for now
 }
 
-async function bootstrap() {
-  try {
-    await bootstrapApplication(AppComponent, {
-      providers: [
-        provideHttpClient(),
-        importProvidersFrom(rootRouting, BrowserModule, CdkTableModule, FormsModule, ReactiveFormsModule, HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule),
-        AuthApiService,
-        AuthService,
-        ConfigService,
-        DatasetsService,
-        HeadService,
-        NoteService,
-        FamilyService,
-        FooService,
-        PersonService,
-        SourceService,
-        SubmitterService,
-        SaveService,
-        UploadService,
-        UserService,
-        LoginGuard,
-        GuestGuard,
-        AdminGuard,
-        {
-          'provide': APP_INITIALIZER,
-          'useFactory': initUserFactory,
-          'deps': [UserService],
-          'multi': true
-        }
-      ]
-    });
-  } catch (err) {
-    console.log(err);
-  }
+try {
+  await bootstrapApplication(AppComponent, {
+    providers: [
+      provideHttpClient(),
+      importProvidersFrom(rootRouting, BrowserModule, CdkTableModule, FormsModule, ReactiveFormsModule, HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule),
+      AuthApiService,
+      AuthService,
+      ConfigService,
+      DatasetsService,
+      HeadService,
+      NoteService,
+      FamilyService,
+      FooService,
+      PersonService,
+      SourceService,
+      SubmitterService,
+      SaveService,
+      UploadService,
+      UserService,
+      LoginGuard,
+      GuestGuard,
+      AdminGuard,
+      {
+        'provide': APP_INITIALIZER,
+        'useFactory': initUserFactory,
+        'deps': [UserService],
+        'multi': true
+      }
+    ]
+  });
+} catch (err) {
+  console.log(err);
 }
-
-void bootstrap();
