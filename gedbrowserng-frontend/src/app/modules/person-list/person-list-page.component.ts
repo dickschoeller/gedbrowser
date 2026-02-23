@@ -51,11 +51,17 @@ export class PersonListPageComponent implements OnInit, OnChanges {
 
     this.personService.getAll(this.dataset).subscribe(
       (persons: Array<ApiPerson>) => {
-        this.persons = persons
-          ? (persons.toSorted
-              ? persons.toSorted(ApiComparators.comparePersons)
-              : [...persons].sort(ApiComparators.comparePersons))
-          : [];
+        if (!persons) {
+          this.persons = [];
+          return;
+        }
+
+        if (persons.toSorted) {
+          this.persons = persons.toSorted(ApiComparators.comparePersons);
+          return;
+        }
+
+        this.persons = [...persons].sort(ApiComparators.comparePersons);
       }
     );
   }

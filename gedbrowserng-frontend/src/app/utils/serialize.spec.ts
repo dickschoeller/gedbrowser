@@ -1,6 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { serialize } from './serialize';
 
+function TestClass(this: { own: string }) {
+  this.own = 'value';
+}
+
+TestClass.prototype.inherited = 'ignored';
+
 describe('serialize', () => {
   it('returns empty params for null or undefined', () => {
     expect(serialize(null)).toEqual({});
@@ -69,10 +75,6 @@ describe('serialize', () => {
   });
 
   it('ignores prototype properties', () => {
-    function TestClass() {
-      this.own = 'value';
-    }
-    TestClass.prototype.inherited = 'ignored';
     const instance = new TestClass();
     const result = serialize(instance);
     expect(result).toEqual({ own: 'value' });

@@ -1,20 +1,21 @@
 import { describe, it, expect } from 'vitest';
 import { AttributeAnalyzer } from './attribute-analyzer';
 
+function createMockParent(attributeType: string, attributeString = '', attributeTail = '', dataset = 'test') {
+  return {
+    attribute: {
+      type: attributeType,
+      string: attributeString,
+      tail: attributeTail
+    },
+    attributes: [
+      { type: attributeType, string: attributeString, tail: attributeTail }
+    ],
+    dataset
+  };
+}
+
 describe('AttributeAnalyzer', () => {
-  function createMockParent(attributeType: string, attributeString = '', attributeTail = '', dataset = 'test') {
-    return {
-      attribute: {
-        type: attributeType,
-        string: attributeString,
-        tail: attributeTail
-      },
-      attributes: [
-        { type: attributeType, string: attributeString, tail: attributeTail }
-      ],
-      dataset
-    };
-  }
 
   describe('label()', () => {
     it.each([
