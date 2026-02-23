@@ -102,7 +102,7 @@ describe('LinkPersonComponent', () => {
 
   it('does not emit when dialog closes undefined', () => {
     const emitted: LinkPersonDialogData[] = [];
-    dialogRefMock = dialogRefBase({ dataset: 'fromDialog' }, undefined);
+    dialogRefMock = dialogRefBase({ dataset: 'fromDialog' });
     component.emitOK.subscribe((val) => emitted.push(val));
 
     component.openDialog();

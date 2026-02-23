@@ -29,7 +29,7 @@ export class ApiComparators {
     if (a === undefined) {
       return '';
     }
-    const punctRE = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g;
+    const punctRE = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^_`{|}~-]/g;
     return a.replaceAll(punctRE, ' ').replaceAll(/(\s){2,}/g, ' ').trim();
   }
 }
