@@ -285,8 +285,8 @@ describe('AttributeDialogHelper', () => {
 
       helper.populateParentAttribute(data);
 
-  const dateAttr = mockParent.attribute.attributes.find((a: any) => a.type === 'date');
-  expect(dateAttr).toBeUndefined();
+      const dateAttr = mockParent.attribute.attributes.find((a: any) => a.type === 'date');
+      expect(dateAttr).toBeUndefined();
     });
 
     it('updates existing date attribute', () => {
