@@ -19,8 +19,7 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
     template: `<mat-card>
   <mat-card-title>
     <mat-toolbar color="primary">
-      @for (spouse of family?.spouses; track $index) {
-        <mat-toolbar-row>
+      @for (spouse of family?.spouses; track $index) {<mat-toolbar-row>
           <app-person-parent [dataset]="dataset" [parent]="this"
               [attribute]="spouse"></app-person-parent>
           <span class="example-fill-remaining-space"></span>
@@ -34,18 +33,15 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
                   (emitOK)="linkPerson($event)"></app-link-person>
             </span>
           }
-        </mat-toolbar-row>
-      }
-      @if (family?.spouses.length == 0) {
-        <mat-toolbar-row>
+        </mat-toolbar-row>}
+      @if (family?.spouses.length == 0) {<mat-toolbar-row>
             <app-new-person
                 [sex]="sex" [surname]="surname" [label]="'Create parent'"
                 (emitOK)="createPerson($event)"></app-new-person>
             <app-link-person
                 [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
                 (emitOK)="linkPerson($event)"></app-link-person>
-        </mat-toolbar-row>
-      }
+        </mat-toolbar-row>}
     </mat-toolbar>
   </mat-card-title>
   <mat-card-content>
