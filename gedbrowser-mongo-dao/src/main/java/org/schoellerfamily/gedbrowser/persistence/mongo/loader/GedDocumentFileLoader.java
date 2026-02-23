@@ -83,7 +83,7 @@ public class GedDocumentFileLoader {
      * @return the derived filename
      * @throws IllegalArgumentException if dbName contains path traversal sequences
      */
-    protected String buildFileName(final String dbName) {
+    public String buildFileName(final String dbName) {
         validateDatabaseName(dbName);
         return Paths.get(gedbrowserHome, dbName + ".ged").toString();
     }

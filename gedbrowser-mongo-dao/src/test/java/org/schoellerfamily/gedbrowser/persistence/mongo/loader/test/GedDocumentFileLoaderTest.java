@@ -1,4 +1,4 @@
-package org.schoellerfamily.gedbrowser.persistence.mongo.loader;
+package org.schoellerfamily.gedbrowser.persistence.mongo.loader.test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
+import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 
 /**
@@ -21,15 +22,16 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentR
 public class GedDocumentFileLoaderTest {
 
     private GedDocumentFileLoader createLoader() {
-        FinderStrategy finder = Mockito.mock(FinderStrategy.class);
-        GedLineToGedObjectTransformer g2g = Mockito.mock(GedLineToGedObjectTransformer.class);
-        GedObjectToGedDocumentMongoConverter conv = Mockito
+        final FinderStrategy finder = Mockito.mock(FinderStrategy.class);
+        final GedLineToGedObjectTransformer g2g = Mockito.mock(GedLineToGedObjectTransformer.class);
+        final GedObjectToGedDocumentMongoConverter conv = Mockito
                 .mock(GedObjectToGedDocumentMongoConverter.class);
-        RootDocumentRepositoryMongo repo = Mockito.mock(RootDocumentRepositoryMongo.class);
+        final RootDocumentRepositoryMongo repo = Mockito.mock(RootDocumentRepositoryMongo.class);
         return new GedDocumentFileLoader(finder, g2g, conv, repo, "/tmp");
     }
 
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     void testNormalizedPathHasParentThrows() {
         final GedDocumentFileLoader loader = createLoader();
         final String dbName = "validname";
@@ -50,6 +52,7 @@ public class GedDocumentFileLoaderTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     void testFileNamePathNullThrows() {
         final GedDocumentFileLoader loader = createLoader();
         final String dbName = "validname";
@@ -69,6 +72,7 @@ public class GedDocumentFileLoaderTest {
     }
 
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     void testFileNameMismatchThrows() {
         final GedDocumentFileLoader loader = createLoader();
         final String dbName = "validname";
