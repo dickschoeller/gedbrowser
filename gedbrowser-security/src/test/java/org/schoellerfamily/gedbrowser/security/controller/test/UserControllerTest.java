@@ -302,7 +302,7 @@ final class UserControllerTest {
         throws RestClientException, URISyntaxException {
         final EntityExchangeResult<UserImpl> res = restTestClient.post()
             .uri(new URI(url))
-            .headers(h -> h.addAll(h))
+            .headers(h -> h.addAll(buildHeaders()))
             .body(userRequest)
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
