@@ -272,7 +272,6 @@ final class GedObjectTest {
         assertEquals(gob, gob1, "Objects should be equal");
     }
 
-    /** */
     @Test
     void testEqualsWithAttributesInserted() {
         final GedObject gob = new GedObjectWrapper(null, GOB_TAG);
@@ -284,7 +283,6 @@ final class GedObjectTest {
         assertEquals(gob, gob1, "Objects should be equal");
     }
 
-    /** */
     @Test
     void testEqualsWithAttributesDifferentAttributes() {
         final GedObject gob = new GedObjectWrapper(null, GOB_TAG);
@@ -300,7 +298,6 @@ final class GedObjectTest {
         assertTrue(equals, "Expected the objects to be equal");
     }
 
-    /** */
     @Test
     void testEqualsWithAttributesAfterRemove() {
         final GedObject gob = new GedObjectWrapper(null, GOB_TAG);
@@ -315,7 +312,6 @@ final class GedObjectTest {
         assertEquals(gob, gob1, "Objects should be equal");
     }
 
-    /** */
     @Test
     void testNotEqualsWithDifferentParent() {
         final GedObject gob = new GedObjectWrapper(null, GOB_TAG);
@@ -331,7 +327,6 @@ final class GedObjectTest {
         assertNotEquals(gob, gob1, "Expected mismatch with different parents");
     }
 
-    /** */
     @Test
     @SuppressWarnings("PMD.EqualsNull")
     void testEqualsNull() {
@@ -340,7 +335,6 @@ final class GedObjectTest {
         assertFalse(actual, "Expected not equals");
     }
 
-    /** */
     @Test
     void testNotEquals() {
         final GedObject gob = new GedObjectWrapper(new GedObjectWrapper(null, "bar"), GOB_TAG);
@@ -348,7 +342,6 @@ final class GedObjectTest {
         assertNotEquals(gob, gob1, "Expected not equals");
     }
 
-    /** */
     @Test
     void testNotEqualsOrder1() {
         final GedObject gob = new GedObjectWrapper(new GedObjectWrapper(null, "bar"), null);
@@ -356,7 +349,6 @@ final class GedObjectTest {
         assertNotEquals(gob, gob1);
     }
 
-    /** */
     @Test
     void testNotEqualsOrder2() {
         final GedObject gob = new GedObjectWrapper(new GedObjectWrapper(null, "bar"), null);
@@ -364,21 +356,18 @@ final class GedObjectTest {
         assertNotEquals(gob1, gob);
     }
 
-    /** */
     @Test
     void testFindMostlyEmpty() {
         final GedObject gob = new GedObjectWrapper(root);
         assertNull(gob.find(GOB_TAG), "Expected null result");
     }
 
-    /** */
     @Test
     void testFindUnaffectedBySetString() {
         final GedObject gob = new GedObjectWrapper(root, GOB_TAG);
         assertNull(gob.find(GOB_TAG), "Expected null result");
     }
 
-    /** */
     @Test
     void testFindAfterInsert() {
         final GedObject gob = new GedObjectWrapper(root, GOB_TAG);
@@ -386,7 +375,6 @@ final class GedObjectTest {
         assertEquals(gob, gob.find(GOB_TAG), "Object mismatch");
     }
 
-    /** */
     @Test
     void testFindPersonWithProperId() {
         final GedObject gob = new GedObjectWrapper(root);
@@ -395,7 +383,6 @@ final class GedObjectTest {
         assertEquals(person, gob.find("I1"), "Person mismatch");
     }
 
-    /** */
     @Test
     void testFindNullWithNullParent() {
         final GedObject gob = new GedObjectWrapper(null);
@@ -404,14 +391,12 @@ final class GedObjectTest {
         assertNull(gob.find(GOB_TAG), "Expected null");
     }
 
-    /** */
     @Test
     void testGetFilenameNullOnBasicCreation() {
         final GedObject gob = new GedObjectWrapper(root);
         assertNull(gob.getFilename(), "Expected null");
     }
 
-    /** */
     @Test
     void testGetFilenameAfterSet() {
         final GedObject gob = new GedObjectWrapper(root);
@@ -419,21 +404,18 @@ final class GedObjectTest {
         assertEquals("filename.ged", gob.getFilename(), "filename mismatch");
     }
 
-    /** */
     @Test
     void testGetDbName() {
         root.setDbName("filename");
         assertEquals("filename", root.getDbName(), "db name mismatch");
     }
 
-    /** */
     @Test
     void testGetFilenameNullOnNullParent() {
         final GedObject gob = new GedObjectWrapper(null);
         assertNull(gob.getFilename(), "expected null");
     }
 
-    /** */
     @Test
     void testGetAttributesOnNormalCreation() {
         final GedObject gob = new GedObjectWrapper(root, GOB_TAG);
