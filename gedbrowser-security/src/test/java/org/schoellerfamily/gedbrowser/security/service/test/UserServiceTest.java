@@ -43,18 +43,25 @@ final class UserServiceTest extends AbstractTest {
     }
 
     @Test
-    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     void testFindAllWithoutUser() throws AccessDeniedException {
         assertThatExceptionOfType(AccessDeniedException.class)
-            .isThrownBy(() -> userService.findAll());
+        .isThrownBy(() -> findAllIgnoreAnswer());
     }
 
     @Test
-    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     void testFindAllWithUser() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestUser());
         assertThatExceptionOfType(AccessDeniedException.class)
-            .isThrownBy(() -> userService.findAll());
+            .isThrownBy(() -> findAllIgnoreAnswer());
+    }
+
+    /**
+     * Using this to test the findAll method without caring about the return value,
+     * just whether it throws a runtime exception or not.
+     */
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
+    private void findAllIgnoreAnswer() {
+        userService.findAll();
     }
 
     @Test

@@ -264,8 +264,8 @@ final class GedObjectTest {
     void testEqualsWithAttributesNotInserted() {
         final GedObject gob = new GedObjectWrapper(null, GOB_TAG);
         final GedObject gob1 = new GedObjectWrapper(null, GOB_TAG);
-        final Attribute attr1 = new Attribute(gob, "A");
-        final Attribute attr2 = new Attribute(gob1, "A");
+        new Attribute(gob, "A");
+        new Attribute(gob1, "A");
         assertEquals(gob, gob1, "Objects should be equal");
     }
 
@@ -395,10 +395,9 @@ final class GedObjectTest {
     /** */
     @Test
     void testFindNullWithNullParent() {
-        GedObject gob = new GedObjectWrapper(root);
+        final GedObject gob = new GedObjectWrapper(null);
         final Person person = new Person(root, new ObjectId("I1"));
         root.insert(person);
-        gob = new GedObjectWrapper(null);
         assertNull(gob.find(GOB_TAG), "Expected null");
     }
 
