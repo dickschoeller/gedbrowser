@@ -14,14 +14,6 @@ public interface UserService {
      */
     void resetCredentials();
 
-//    /**
-//     * Find a user by ID.
-//     *
-//     * @param id the user ID
-//     * @return the user
-//     */
-//    User findById(Long id);
-
     /**
      * Find a user by name.
      *

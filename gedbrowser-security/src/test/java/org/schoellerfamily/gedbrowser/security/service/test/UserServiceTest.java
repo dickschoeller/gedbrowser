@@ -82,23 +82,6 @@ final class UserServiceTest extends AbstractTest {
         fail("should have found dummy");
     }
 
-//    @Test(expected = AccessDeniedException.class)
-//    void testFindByIdWithoutUser() throws AccessDeniedException {
-//      userService.findById(1L);
-//    }
-//
-//    @Test(expected = AccessDeniedException.class)
-//    void testFindByIdWithUser() throws AccessDeniedException {
-//      mockAuthenticatedUser(buildTestUser());
-//      userService.findById(1L);
-//    }
-//
-//    @Test
-//    void testFindByIdWithAdmin() throws AccessDeniedException {
-//      mockAuthenticatedUser(buildTestAdmin());
-//      userService.findById(1L);
-//    }
-
     @Test
     void testFindByUsernameWithoutUser() throws AccessDeniedException {
         final SecurityUser user = userService.findByUsername("guest");

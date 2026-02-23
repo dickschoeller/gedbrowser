@@ -54,16 +54,6 @@ public class UserServiceImpl implements UserService {
         return users.get(username);
     }
 
-    // /**
-    // * {@inheritDoc}
-    // */
-    // @PreAuthorize("hasRole('ADMIN')")
-    // @Override
-    // public final User findById(final Long id) throws AccessDeniedException {
-    // final User u = users.findOne(id);
-    // return u;
-    // }
-
     /**
      * Final all users.
      *

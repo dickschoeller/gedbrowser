@@ -21,9 +21,6 @@ public class AuthorityServiceImpl implements AuthorityService {
 //    @Autowired
 //    private AuthorityRepository authorityRepository;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final List<Authority> findById(final Long id) {
 //      Authority auth = this.authorityRepository.findOne(id);
@@ -35,9 +32,6 @@ public class AuthorityServiceImpl implements AuthorityService {
       return auths;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final List<Authority> findByname(final String name) {
 //      Authority auth = this.authorityRepository.findByName(name);

@@ -11,7 +11,7 @@ public final class TokenBasedAuthentication
     /** */
     private static final long serialVersionUID = 1L;
     /** */
-    private String token;
+    private final String token;
     /** */
     private final UserDetails principle;
 
@@ -19,45 +19,24 @@ public final class TokenBasedAuthentication
      * Constructor.
      *
      * @param principle the details about the user
-     */
-    public TokenBasedAuthentication(final UserDetails principle) {
-        super(principle.getAuthorities());
-        this.principle = principle;
-    }
-
-    /**
-     * @return the token
-     */
-    public String getToken() {
-        return token;
-    }
-
-    /**
      * @param token the new token
      */
-    public void setToken(final String token) {
+    public TokenBasedAuthentication(final UserDetails principle, final String token) {
+        super(principle.getAuthorities());
+        this.principle = principle;
         this.token = token;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isAuthenticated() {
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object getCredentials() {
         return token;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public UserDetails getPrincipal() {
         return principle;

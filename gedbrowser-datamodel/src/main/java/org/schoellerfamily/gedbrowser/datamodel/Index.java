@@ -71,7 +71,6 @@ public final class Index {
      * @param surname surname to search
      * @return the associated map
      */
-    @SuppressWarnings("unused")
     private SortedMap<String, SortedSet<String>> findNamesPerSurname(final String surname) {
         return surnameIndex.computeIfAbsent(surname, k -> new TreeMap<>());
     }
@@ -83,7 +82,6 @@ public final class Index {
      * @param names the map of full names to sets of IDs
      * @return the set of ID strings
      */
-    @SuppressWarnings("unused")
     private SortedSet<String> findIdsPerName(final String indexName,
             final SortedMap<String, SortedSet<String>> names) {
         return names.computeIfAbsent(indexName, k -> new TreeSet<>());
