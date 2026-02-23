@@ -21,6 +21,8 @@ import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.finder.ParentFinder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * @author Dick Schoeller
  */
@@ -261,6 +263,7 @@ final class GedObjectTest {
     }
 
     @Test
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     void testEqualsWithAttributesNotInserted() {
         final GedObject gob = new GedObjectWrapper(null, GOB_TAG);
         final GedObject gob1 = new GedObjectWrapper(null, GOB_TAG);
