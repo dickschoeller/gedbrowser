@@ -84,7 +84,7 @@
     <commons-collections4.version>4.5.0</commons-collections4.version>
     <assertj.version>3.27.7</assertj.version>
     <awaitility.version>4.3.0</awaitility.version>
-    <mockito.version>5.11.0</mockito.version>
+    <mockito.version>5.21.0</mockito.version>
     <spotbugs-annotations.version>4.9.8</spotbugs-annotations.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
