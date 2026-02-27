@@ -51,12 +51,14 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dickschoeller_gedbrowser
 
-    - name: Publish to coveralls.io
-      uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2
-      with:
-        files: "*/target/site/jacoco/jacoco.xml */coverage/lcov.info"
-        github-token: ${{ github.token }}
+# Disable coveralls until the site is back up
+#    - name: Publish to coveralls.io
+#      uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2
+#      with:
+#        files: "*/target/site/jacoco/jacoco.xml */coverage/lcov.info"
+#        github-token: ${{ github.token }}
 
+# Disable publishing JARs until I work out the authentication
 #    - name: Publish to GitHub Packages Apache Maven
 #      run: mvn -B deploy -s $GITHUB_WORKSPACE/config/settings.xml -Dskip.integration.tests=true -DskipDocker=true -DskipIT=true -DskipTests=true -Djacoco.skip=true -Dpmd.skip=true -Dcheckstyle.skip=true -Dspotbugs.skip=true -Dcpd.skip=true
 #
