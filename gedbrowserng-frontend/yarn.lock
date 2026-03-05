@@ -2994,10 +2994,10 @@
     "@sigstore/core" "^3.1.0"
     "@sigstore/protobuf-specs" "^0.5.0"
 
-"@snyk/protect@1.1303.0":
-  version "1.1303.0"
-  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.1303.0.tgz#78dbac6687e69df88fa4c004350c982f42536f89"
-  integrity sha512-uwqJ9+7GvhhHdgxhR2Ohx1Z/I5lJNp3onTr5jw8alrMPjsYPZ7O9Rsd5Bm4cIMoIdGoU0tc69KXzBbhlKRMRXw==
+"@snyk/protect@1.1303.1":
+  version "1.1303.1"
+  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.1303.1.tgz#368e7fa28d1e590928c582453a2834c3cae2dd32"
+  integrity sha512-e0NgkjxnKF4rIxcNvDgpka+0eWy3gbgViWXIK4uNJnFJqAveUXWQTBcHhNA8yVxv6KZYoUYJgwUXJceTY8JPsQ==
 
 "@standard-schema/spec@^1.0.0":
   version "1.1.0"
@@ -8151,10 +8151,10 @@ smart-buffer@^4.2.0:
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-snyk@1.1303.0:
-  version "1.1303.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1303.0.tgz#17a399baf01ec5d931dcb096a75f213be2508b2c"
-  integrity sha512-6xJzpdL0Olhtcsda7xrG1P/QPCamjIZdYAa9qpdgcodd3IctOajLxBYI1OmxHke6XOSt9zKWCxkqTYqixmSWvA==
+snyk@1.1303.1:
+  version "1.1303.1"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1303.1.tgz#a6bc96254e977cfad40b90a24c97f0899f530e17"
+  integrity sha512-VJzv3rgdb9MNM/d6BlJFWrnxNaskUyHbOrWaujoXhnpTAccDgkF6G60v5VIrjey3KHLpwZxMA2akoyB1zvfFVw==
   dependencies:
     "@sentry/node" "^7.36.0"
     global-agent "^3.0.0"
