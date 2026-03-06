@@ -6,6 +6,7 @@
 const express = require('express');
 const path = require('path');
 const puppeteer = require('puppeteer');
+const RateLimit = require('express-rate-limit');
 
 const PORT = process.env.PORT || 4200;
 const HOST = 'http://localhost:' + PORT;
@@ -15,6 +16,11 @@ const pagesToTest = ['persons', 'notes', 'sources', 'submitters'];
 
 async function run() {
   const app = express();
+  const limiter = RateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 1000, // limit each IP to 1000 requests per windowMs
+  });
+  app.use(limiter);
   app.use(express.static(ROOT));
   // fallback to index.html
   app.get('*', (req, res) => res.sendFile(path.join(ROOT, 'index.html')));
