@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -37,13 +36,15 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports", "PMD.CommentSize" })
+@SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
 final class GedObjectBuilderEventByNameTest {
     /** */
     private static GedObjectBuilder builder = new GedObjectBuilder();
     /** */
+    @SuppressWarnings("PMD.SingularField")
     private static Root root = builder.getRoot();
     /** */
+    @SuppressWarnings("PMD.SingularField")
     private static Person person = builder.createPerson("I99999", "Name/Me/");
 
     /** */
@@ -82,26 +83,13 @@ final class GedObjectBuilderEventByNameTest {
         { person, "submitterlink", "SUB1", "", SubmitterLink.class, "Submitter", "SUB1" },
         { person, "submissionlink", "SUBN", "", SubmissionLink.class, "Submission", "SUBN" }, };
 
-//        CONSTRUCTION_MAP.put("link", Construction.reference);
-//        CONSTRUCTION_MAP.put("multimedia", Construction.value);
-//        CONSTRUCTION_MAP.put("note", Construction.note);
-
     /**
      * Provide parameter combinations: (visited, type).
      *
      * @return stream of arguments
      */
-    @SuppressWarnings("PMD.MethodReturnsInternalArray")
-    static Stream<Arguments> params() {
+    private static Stream<Arguments> params() {
         return Arrays.stream(PARAMETERS).map(Arguments::of);
-    }
-
-    /** */
-    @BeforeAll
-    static void init() {
-        builder = new GedObjectBuilder();
-        root = builder.getRoot();
-        person = builder.createPerson(null, "Name/Me/");
     }
 
     @ParameterizedTest

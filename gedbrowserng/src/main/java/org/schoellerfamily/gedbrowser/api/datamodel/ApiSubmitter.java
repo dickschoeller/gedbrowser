@@ -22,9 +22,7 @@ public final class ApiSubmitter extends ApiObject {
      */
     private final String name;
 
-    /**
-     * @param visitor the visitor
-     */
+    @Override
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }

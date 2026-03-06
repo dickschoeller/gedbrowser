@@ -36,10 +36,8 @@ public class ApiFamily extends ApiHasImages {
     @Singular
     private final List<ApiAttribute> spouses;
 
-    /**
-     * @param visitor the visitor
-     */
-    public void accept(final ApiObjectVisitor visitor) {
+    @Override
+    public final void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -123,7 +121,7 @@ public class ApiFamily extends ApiHasImages {
      * should use the same approach.
      */
     @Override
-    public boolean canEqual(final Object other) {
+    public final boolean canEqual(final Object other) {
         return other.getClass() == ApiFamily.class;
     }
 }

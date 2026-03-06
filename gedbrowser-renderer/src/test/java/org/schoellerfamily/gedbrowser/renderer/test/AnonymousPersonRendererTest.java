@@ -5,10 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
@@ -34,7 +39,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.ExcessiveClassLength" })
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.TooManyMethods" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 final class AnonymousPersonRendererTest {
@@ -266,16 +271,11 @@ final class AnonymousPersonRendererTest {
     /** */
     private transient RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final PersonRenderer renderer = createRenderer();
@@ -284,10 +284,6 @@ final class AnonymousPersonRendererTest {
             "Mismatched renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final PersonRenderer renderer = createRenderer();
@@ -295,10 +291,6 @@ final class AnonymousPersonRendererTest {
             "Mismatched renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final PersonRenderer renderer = createRenderer();
@@ -306,10 +298,6 @@ final class AnonymousPersonRendererTest {
             "Mismatched renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final PersonRenderer renderer = createRenderer();
@@ -317,10 +305,6 @@ final class AnonymousPersonRendererTest {
             "Mismatched renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final PersonRenderer renderer = createRenderer();
@@ -337,9 +321,6 @@ final class AnonymousPersonRendererTest {
         return new PersonRenderer(person, new GedRendererFactory(), anonymousContext);
     }
 
-    /**
-     * @throws IOException because the reader can.
-     */
     @Test
     void testRenderMelissaTreeAnonymous() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -372,9 +353,6 @@ final class AnonymousPersonRendererTest {
         assertEquals(treeCells[i], nameHtml, "cell " + i + " mismatch");
     }
 
-    /**
-     * @throws IOException because the reader can.
-     */
     @Test
     void testRenderGeorgeTree() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -393,9 +371,6 @@ final class AnonymousPersonRendererTest {
         }
     }
 
-    /**
-     * @throws IOException because the reader can.
-     */
     @Test
     void testRenderArnoldTree() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -414,9 +389,6 @@ final class AnonymousPersonRendererTest {
         }
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderNullFather() throws IOException {
         final Root root = reader.readSmallTestSource();
@@ -429,9 +401,6 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderFather() throws IOException {
         final Root root = reader.readSmallTestSource();
@@ -441,15 +410,13 @@ final class AnonymousPersonRendererTest {
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
         personRenderer.getParents().renderFather(builder, 2, navigator.getFather());
+        @SuppressWarnings("java:S6126")
         final String expected = "\n" + START_PARENT
             + "   <span class=\"parent label\">Father:</span> \n" + END_PARAG;
         final String actual = builder.toString();
         assertEquals(expected, actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderNullMother() throws IOException {
         final Root root = reader.readSmallTestSource();
@@ -462,9 +429,6 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaFather() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -478,9 +442,6 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMother() throws IOException {
         final Root root = reader.readSmallTestSource();
@@ -490,15 +451,13 @@ final class AnonymousPersonRendererTest {
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(melissa);
         personRenderer.getParents().renderMother(builder, 2, navigator.getMother());
+        @SuppressWarnings("java:S6126")
         final String expected = "\n" + START_PARENT
             + "   <span class=\"parent label\">Mother:</span> \n" + END_PARAG;
         final String actual = builder.toString();
         assertEquals(expected, actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMotherConfidentialAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -508,15 +467,13 @@ final class AnonymousPersonRendererTest {
         final StringBuilder builder = new StringBuilder();
         final PersonNavigator navigator = new PersonNavigator(sabino);
         personRenderer.getParents().renderMother(builder, 2, navigator.getMother());
+        @SuppressWarnings("java:S6126")
         final String expected = "\n" + START_PARENT
             + "   <span class=\"parent label\">Mother:</span> \n" + END_PARAG;
         final String actual = builder.toString();
         assertEquals(expected, actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaMother() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -530,9 +487,6 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaTitleAnonymous() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -543,9 +497,6 @@ final class AnonymousPersonRendererTest {
         assertEquals("Confidential", actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderGeorgeTitle() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -556,9 +507,6 @@ final class AnonymousPersonRendererTest {
         assertEquals("Living", actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaWholeName() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -569,35 +517,22 @@ final class AnonymousPersonRendererTest {
         assertEquals("Living", actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderSabinoWholeNameAnonymous() throws IOException {
+    @ParameterizedTest
+    @MethodSource("wholeNameCases")
+    void testRenderWholeName(final String personId, final String expected) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I4248");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
+        final Person person = (Person) root.find(personId);
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
+                anonymousContext);
         final String actual = personRenderer.getWholeName();
-        assertEquals("Confidential", actual, "Mismatched rendered string");
+        assertEquals(expected, actual, "Mismatched rendered string for " + personId);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeWholeName() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final String actual = personRenderer.getWholeName();
-        assertEquals("Living", actual, "Mismatched rendered string");
+    private static Stream<org.junit.jupiter.params.provider.Arguments> wholeNameCases() {
+        return Stream.of(
+            org.junit.jupiter.params.provider.Arguments.of("I4248", "Confidential"),
+            org.junit.jupiter.params.provider.Arguments.of("I9", "Living"));
     }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaFatherNameHtml() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -608,48 +543,24 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderCiciFatherNameHtmlAnon() throws IOException {
+    @ParameterizedTest
+    @MethodSource("fatherNameHtmlCases")
+    void testRenderFatherNameHtml(final String personId) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5266");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
+        final Person person = (Person) root.find(personId);
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
+                anonymousContext);
         final String actual = personRenderer.getParents().getFatherNameHtml();
-        assertTrue(actual.isEmpty(), "Expected empty string");
+        assertTrue(actual.isEmpty(), "Expected empty string for " + personId);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderVivianFatherNameHtmlAnon() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final String actual = personRenderer.getParents().getFatherNameHtml();
-        assertTrue(actual.isEmpty(), "Expected empty string");
+    private static Stream<org.junit.jupiter.params.provider.Arguments> fatherNameHtmlCases() {
+        return Stream.of(
+            org.junit.jupiter.params.provider.Arguments.of("I5266"),
+            org.junit.jupiter.params.provider.Arguments.of("I5"),
+            org.junit.jupiter.params.provider.Arguments.of("I9"));
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeFatherNameHtml() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final String actual = personRenderer.getParents().getFatherNameHtml();
-        assertTrue(actual.isEmpty(), "Expected empty string");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaMotherNameHtml() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -660,48 +571,24 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderCiciMotherNameHtml() throws IOException {
+    @ParameterizedTest
+    @MethodSource("motherNameHtmlCases")
+    void testRenderMotherNameHtml(final String personId) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5266");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
+        final Person person = (Person) root.find(personId);
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
+                anonymousContext);
         final String actual = personRenderer.getParents().getMotherNameHtml();
-        assertTrue(actual.isEmpty(), "Expected empty string");
+        assertTrue(actual.isEmpty(), "Expected empty string for " + personId);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderVivianMotherNameHtmlAnon() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final String actual = personRenderer.getParents().getMotherNameHtml();
-        assertTrue(actual.isEmpty(), "Expected empty string");
+    private static Stream<Arguments> motherNameHtmlCases() {
+        return Stream.of(
+            Arguments.of("I5266"),
+            Arguments.of("I5"),
+            Arguments.of("I9"));
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeMotherNameHtml() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final String actual = personRenderer.getParents().getMotherNameHtml();
-        assertTrue(actual.isEmpty(), "Expected empty string");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaFatherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -712,24 +599,19 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderGeorgeFatherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             anonymousContext);
+        @SuppressWarnings("java:S6126")
         final String expected = "\n<p class=\"parent\">\n <span class=\"par"
             + "ent label\">Father:</span> \n</p>";
         final String actual = personRenderer.getParents().getFatherRendition();
         assertEquals(expected, actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaMotherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -740,24 +622,19 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderGeorgeMotherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person george = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(george, new GedRendererFactory(),
             anonymousContext);
+        @SuppressWarnings("java:S6126")
         final String expected = "\n<p class=\"parent\">\n" + " <span class=\"parent label\">Mother:"
             + "</span> \n</p>";
         final String actual = personRenderer.getParents().getMotherRendition();
         assertEquals(expected, actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickLifeSpan() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -768,9 +645,6 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderArnoldLifeSpan() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -782,9 +656,6 @@ final class AnonymousPersonRendererTest {
         assertEquals(expected, actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaLifeSpan() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -795,9 +666,6 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickFamilies() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -808,9 +676,6 @@ final class AnonymousPersonRendererTest {
         assertTrue(families.isEmpty(), "Expected empty families list");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaFamilies() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -821,35 +686,34 @@ final class AnonymousPersonRendererTest {
         assertTrue(families.isEmpty(), "Expected empty families list");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickAttributes() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             anonymousContext);
-        final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
+        final List<GedRenderer<GedObject>> attributes = personRenderer.getAttributes();
         assertTrue(attributes.isEmpty(), "Expected empty attributes list");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderJohnSchoellerAttributes() throws IOException {
+    @ParameterizedTest
+    @MethodSource("emptyAttributesCases")
+    void testRenderEmptyAttributes(final String personId) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I4");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
-        assertTrue(attributes.isEmpty(), "Expected empty attributes list");
+        final Person person = (Person) root.find(personId);
+        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
+                anonymousContext);
+        final List<GedRenderer<GedObject>> attributes = personRenderer.getAttributes();
+        assertTrue(attributes.isEmpty(), "Expected empty attributes list for " + personId);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
+    private static Stream<Arguments> emptyAttributesCases() {
+        return Stream.of(
+            Arguments.of("I4"),
+            Arguments.of("I1"),
+            Arguments.of("I5"));
+    }
+
     @Test
     void testRenderArnoldAttributes() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -857,26 +721,10 @@ final class AnonymousPersonRendererTest {
         final PersonRenderer personRenderer = new PersonRenderer(arnold, new GedRendererFactory(),
             anonymousContext);
         final int expect = 8;
-        final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
+        final List<GedRenderer<GedObject>> attributes = personRenderer.getAttributes();
         assertEquals(expect, attributes.size(), "Expected 8 attributes");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderMelissaAttributes() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I1");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            anonymousContext);
-        final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
-        assertTrue(attributes.isEmpty(), "Expected empty attributes list");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickIdString() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -887,9 +735,6 @@ final class AnonymousPersonRendererTest {
         assertEquals("I2", actual, "Mismatched ID string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaIdString() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -900,9 +745,6 @@ final class AnonymousPersonRendererTest {
         assertEquals("I1", actual, "Mismatched ID string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaIndexHref() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -914,9 +756,6 @@ final class AnonymousPersonRendererTest {
         assertEquals(expected, actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianSurnameLetterAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -927,9 +766,6 @@ final class AnonymousPersonRendererTest {
         assertEquals("?", actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianSurnameAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -940,9 +776,6 @@ final class AnonymousPersonRendererTest {
         assertEquals("?", actual, "Mismatched rendered string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianLifespanAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -953,9 +786,6 @@ final class AnonymousPersonRendererTest {
         assertTrue(actual.isEmpty(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianFamiliesAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -964,19 +794,6 @@ final class AnonymousPersonRendererTest {
             anonymousContext);
         final List<FamilyRenderer> families = personRenderer.getFamilies();
         assertTrue(families.isEmpty(), "Expected empty families list");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testVivianAttributesAnon() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person person = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
-            anonymousContext);
-        final List<GedRenderer<?>> attributes = personRenderer.getAttributes();
-        assertTrue(attributes.isEmpty(), "Expected empty attributes list");
     }
 
     // TODO test renderAsSection and renderAsListItem

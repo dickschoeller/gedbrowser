@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,50 +45,42 @@ final class UserServiceTest extends AbstractTest {
     @Test
     void testFindAllWithoutUser() throws AccessDeniedException {
         assertThatExceptionOfType(AccessDeniedException.class)
-            .isThrownBy(() -> userService.findAll());
+        .isThrownBy(() -> findAllIgnoreAnswer());
     }
 
     @Test
     void testFindAllWithUser() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestUser());
         assertThatExceptionOfType(AccessDeniedException.class)
-            .isThrownBy(() -> userService.findAll());
+            .isThrownBy(() -> findAllIgnoreAnswer());
+    }
+
+    /**
+     * Using this to test the findAll method without caring about the return value,
+     * just whether it throws a runtime exception or not.
+     */
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
+    private void findAllIgnoreAnswer() {
+        userService.findAll();
     }
 
     @Test
     void testFindAllWithAdmin() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestAdmin());
-        UserRequest request = new UserRequest();
+        final UserRequest request = new UserRequest();
         request.setUsername("dummy");
         request.setFirstname("John");
         request.setLastname("Dummy");
         request.setPassword("password");
         userService.save(request);
         final List<SecurityUser> list = userService.findAll();
-        for (SecurityUser u : list) {
+        for (final SecurityUser u : list) {
             if ("dummy".equals(u.getUsername())) {
                 return;
             }
         }
         fail("should have found dummy");
     }
-
-//    @Test(expected = AccessDeniedException.class)
-//    void testFindByIdWithoutUser() throws AccessDeniedException {
-//      userService.findById(1L);
-//    }
-//
-//    @Test(expected = AccessDeniedException.class)
-//    void testFindByIdWithUser() throws AccessDeniedException {
-//      mockAuthenticatedUser(buildTestUser());
-//      userService.findById(1L);
-//    }
-//
-//    @Test
-//    void testFindByIdWithAdmin() throws AccessDeniedException {
-//      mockAuthenticatedUser(buildTestAdmin());
-//      userService.findById(1L);
-//    }
 
     @Test
     void testFindByUsernameWithoutUser() throws AccessDeniedException {
@@ -112,7 +105,7 @@ final class UserServiceTest extends AbstractTest {
     @Test
     void testCreateWithAdmin() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestAdmin());
-        UserRequest request = new UserRequest();
+        final UserRequest request = new UserRequest();
         request.setUsername("user");
         request.setFirstname("John");
         request.setLastname("User");

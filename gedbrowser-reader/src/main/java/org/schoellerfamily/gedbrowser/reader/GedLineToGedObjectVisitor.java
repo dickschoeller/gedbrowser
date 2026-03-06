@@ -4,9 +4,12 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Dick Schoeller
  */
+@RequiredArgsConstructor
 public class GedLineToGedObjectVisitor implements GedLineVisitor {
     /** */
     private final GedObjectFactory factory;
@@ -20,18 +23,6 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
      * This contains the root of the result.
      */
     private GedObject gedObject;
-
-    /**
-     * Constructor.
-     *
-     * @param factory the object factory to use
-     * @param parent the parent object in the hierarchy
-     */
-    public GedLineToGedObjectVisitor(final GedObjectFactory factory,
-            final AbstractGedLine parent) {
-        this.factory = factory;
-        this.parent = parent;
-    }
 
     /**
      * @return the gedObject that we created
@@ -56,7 +47,7 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
      */
     @Override
     public void visit(final GedFile gedfile) {
-        Root root;
+        final Root root;
         if (gedfile.getFinder() == null) {
             root = new Root();
         } else {
@@ -72,13 +63,10 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
      * @return get the parent GedObject
      */
     private GedObject parentGob() {
-        GedObject parentGob;
         if (parent == null) {
-            parentGob = null;
-        } else {
-            parentGob = parent.getGedObject();
+            return null;
         }
-        return parentGob;
+        return parent.getGedObject();
     }
 
     /**

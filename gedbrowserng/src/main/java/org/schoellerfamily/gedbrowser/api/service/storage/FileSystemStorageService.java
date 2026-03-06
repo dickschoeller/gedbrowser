@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.service.storage;
 
+import static org.springframework.util.StringUtils.cleanPath;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -7,10 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.gedbrowser.api.GedbrowserPropertiesService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
@@ -55,10 +56,10 @@ public class FileSystemStorageService implements StorageService {
      */
     private String validateFile(final MultipartFile file) {
         final String originalFilename = file.getOriginalFilename();
-        if (ObjectUtils.isEmpty(originalFilename)) {
+        if (StringUtils.isEmpty(originalFilename)) {
             throw new StorageException("Failed to store file with empty name");
         }
-        final String filename = StringUtils.cleanPath(originalFilename);
+        final String filename = cleanPath(originalFilename);
         if (file.isEmpty()) {
             throw new StorageException("Failed to store empty file %s".formatted(filename));
         }
@@ -70,17 +71,4 @@ public class FileSystemStorageService implements StorageService {
         }
         return filename;
     }
-//
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    public void init() {
-//        final Path rootLocation = Paths.get(config.gedbrowserHome());
-//        try {
-//            Files.createDirectories(rootLocation);
-//        } catch (IOException e) {
-//            throw new StorageException("Could not initialize storage", e);
-//        }
-//    }
 }

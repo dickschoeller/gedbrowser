@@ -2,9 +2,13 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -34,228 +38,83 @@ final class SimpleNameListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
-    @Test
-    void testRenderSimple() {
-        final Name name = new Name(null, "Richard /Schoeller/");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
+    @ParameterizedTest
+    @MethodSource("renderAsListItemCases")
+    void testRenderAsListItem(final String nameValue, final boolean newLine,
+        final int pad, final String expected, final String message) {
+        final Name name = nameValue == null ? new Name(null) : new Name(null, nameValue);
+        final SimpleNameRenderer nameRenderer =
+            new SimpleNameRenderer(name, new GedRendererFactory(), anonymousContext);
         final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
+            (SimpleNameListItemRenderer) nameRenderer.getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("Richard Schoeller", builder.toString(), UNEXPECTED_STRING);
+        nlir.renderAsListItem(builder, newLine, pad);
+        assertEquals(expected, builder.toString(), message);
     }
 
-    /** */
-    @Test
-    void testRenderHarder() {
-        final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
+    private static Stream<Arguments> renderAsListItemCases() {
+        return Stream.of(
+            Arguments.of("Richard /Schoeller/", false, 0,
+                "Richard Schoeller", UNEXPECTED_STRING),
+            Arguments.of("Karl Frederick /Schoeller/Jr.", false, 0,
+                "Karl Frederick Schoeller Jr.", UNEXPECTED_STRING),
+            Arguments.of("Karl Frederick /Schoeller/Jr.", false, 1, "", EXPECT_EMPTY),
+            Arguments.of("Karl Frederick /Schoeller/Jr.", true, 0,
+                "\nKarl Frederick Schoeller Jr.", UNEXPECTED_STRING),
+            Arguments.of("/Schoeller/", false, 0, "Schoeller", UNEXPECTED_STRING),
+            Arguments.of("", false, 0, "", UNEXPECTED_STRING),
+            Arguments.of(null, false, 0, "", UNEXPECTED_STRING),
+            Arguments.of("Foo//Bar", false, 0, "Foo Bar", UNEXPECTED_STRING));
+    }
+
+    @ParameterizedTest
+    @MethodSource("listItemContentsCases")
+    void testListItemContents(final String nameValue, final String expected,
+            final String message) {
+        assertEquals(expected, getListItemContents(nameValue), message);
+    }
+
+    private static Stream<Arguments> listItemContentsCases() {
+        return Stream.of(
+            Arguments.of("Richard /Schoeller/",
+                "<span class=\"label\">Name:</span> Richard Schoeller",
+                UNEXPECTED_STRING),
+            Arguments.of("Karl Frederick /Schoeller/Jr.",
+                "<span class=\"label\">Name:</span> Karl Frederick Schoeller Jr.",
+                UNEXPECTED_STRING),
+            Arguments.of("Karl Frederick /Schoeller/Jr.",
+                "<span class=\"label\">Name:</span> Karl Frederick Schoeller Jr.",
+                EXPECT_EMPTY),
+            Arguments.of("Karl Frederick /Schoeller/Jr.",
+                "<span class=\"label\">Name:</span> Karl Frederick Schoeller Jr.",
+                UNEXPECTED_STRING),
+            Arguments.of("/Schoeller/",
+                "<span class=\"label\">Name:</span> Schoeller",
+                UNEXPECTED_STRING),
+            Arguments.of("",
+                "<span class=\"label\">Name:</span> ",
+                UNEXPECTED_STRING),
+            Arguments.of(null,
+                "<span class=\"label\">Name:</span> ",
+                UNEXPECTED_STRING),
+            Arguments.of("Foo//Bar",
+                "<span class=\"label\">Name:</span> Foo Bar",
+                UNEXPECTED_STRING));
+    }
+
+    private String getListItemContents(final String nameValue) {
+        final Name name = nameValue == null ? new Name(null)
+                : new Name(null, nameValue);
         final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
                 new GedRendererFactory(), anonymousContext);
         final SimpleNameListItemRenderer nlir =
                 (SimpleNameListItemRenderer) nameRenderer
                     .getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("Karl Frederick Schoeller Jr.", builder.toString(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderNonZeroPad() {
-        final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 1);
-        assertEquals("", builder.toString(), EXPECT_EMPTY);
-    }
-
-    /** */
-    @Test
-    void testRenderNewLine() {
-        final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, true, 0);
-        assertEquals("\nKarl Frederick Schoeller Jr.", builder.toString(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderNoPrefix() {
-        final Name name = new Name(null, "/Schoeller/");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("Schoeller", builder.toString(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderEmpty() {
-        final Name name = new Name(null, "");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("", builder.toString(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderNull() {
-        final Name name = new Name(null);
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("", builder.toString(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderPrefixSuffix() {
-        final Name name = new Name(null, "Foo//Bar");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        final StringBuilder builder = new StringBuilder();
-        nlir.renderAsListItem(builder, false, 0);
-        assertEquals("Foo Bar", builder.toString(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testListItemContentsSimple() {
-        final Name name = new Name(null, "Richard /Schoeller/");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        assertEquals("<span class=\"label\">Name:</span> Richard Schoeller",
-                nlir.getListItemContents(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testListItemContentsHarder() {
-        final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        assertEquals("<span class=\"label\">Name:</span>"
-                + " Karl Frederick Schoeller Jr.", nlir.getListItemContents(),
-                UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testListItemContentsNonZeroPad() {
-        final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        assertEquals("<span class=\"label\">Name:</span>"
-                + " Karl Frederick Schoeller Jr.", nlir.getListItemContents(),
-                EXPECT_EMPTY);
-    }
-
-    /** */
-    @Test
-    void testListItemContentsNewLine() {
-        final Name name = new Name(null, "Karl Frederick /Schoeller/Jr.");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        assertEquals("<span class=\"label\">Name:</span>"
-                + " Karl Frederick Schoeller Jr.", nlir.getListItemContents(),
-                UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testListItemContentsNoPrefix() {
-        final Name name = new Name(null, "/Schoeller/");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        assertEquals("<span class=\"label\">Name:</span> Schoeller",
-                nlir.getListItemContents(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testListItemContentsEmpty() {
-        final Name name = new Name(null, "");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        assertEquals("<span class=\"label\">Name:</span> ",
-                nlir.getListItemContents(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testListItemContentsNull() {
-        final Name name = new Name(null);
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        assertEquals("<span class=\"label\">Name:</span> ",
-                nlir.getListItemContents(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testListItemContentsPrefixSuffix() {
-        final Name name = new Name(null, "Foo//Bar");
-        final SimpleNameRenderer nameRenderer = new SimpleNameRenderer(name,
-                new GedRendererFactory(), anonymousContext);
-        final SimpleNameListItemRenderer nlir =
-                (SimpleNameListItemRenderer) nameRenderer
-                    .getListItemRenderer();
-        assertEquals("<span class=\"label\">Name:</span> Foo Bar",
-                nlir.getListItemContents(), UNEXPECTED_STRING);
+        return nlir.getListItemContents();
     }
 }

@@ -11,15 +11,15 @@ public final class Name extends GedObject implements Nameable {
     /**
      * Holds the surname, which was parsed from the input string.
      */
-    private transient String surname = "";
+    private String surname = "";
     /**
      * Holds any part of the name before the surname.
      */
-    private transient String prefix = "";
+    private String prefix = "";
     /**
      * Holds any part of the name after the surname.
      */
-    private transient String suffix = "";
+    private String suffix = "";
 
     /**
      * Default constructor.
@@ -99,7 +99,7 @@ public final class Name extends GedObject implements Nameable {
         final boolean hasSuffix = !suffix.isEmpty();
 
         // Use standard method to get surname first.
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         if (surname.isEmpty()) {
             buffer.append('?');
         } else {

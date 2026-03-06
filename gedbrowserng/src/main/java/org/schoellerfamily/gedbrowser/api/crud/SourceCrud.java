@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class SourceCrud
-    extends OperationsEnabler<Source, SourceDocument>
+    extends OperationsEnabler<Source>
     implements CrudOperations<Source, SourceDocument, ApiSource>,
         ObjectCrud<ApiSource>,
         LinkCrud {
@@ -124,7 +124,7 @@ public class SourceCrud
     @Override
     public boolean isTheLinkWeAreLookingFor(final ApiAttribute attribute,
             final String id) {
-        return attribute.getType().equals("sourcelink")
+        return "sourcelink".equals(attribute.getType())
                 && attribute.getString().equals(id);
     }
 }

@@ -3,12 +3,15 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
+import lombok.Getter;
+
 /**
  * Some base rendering behaviors outside of the context of GedObject rendering.
  * This provides methods that can be used in the context of error pages, etc.
  *
  * @author Dick Schoeller
  */
+@Getter
 public abstract class RenderingContextRenderer implements Renderer {
 
     /** */
@@ -19,60 +22,35 @@ public abstract class RenderingContextRenderer implements Renderer {
      *
      * @param renderingContext the context that we are rendering in
      */
-    public RenderingContextRenderer(final RenderingContext renderingContext) {
+    protected RenderingContextRenderer(final RenderingContext renderingContext) {
         this.renderingContext = renderingContext;
     }
 
-    /**
-     * @return the user context we are rendering in
-     */
-    public final RenderingContext getRenderingContext() {
-        return renderingContext;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getApplicationName() {
         return renderingContext.getApplicationName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getApplicationURL() {
         return renderingContext.getApplicationURL();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getHomeUrl() {
         return renderingContext.getHomeURL();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getMaintainerEmail() {
         return renderingContext.getMaintainerEmail();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getMaintainerName() {
         return renderingContext.getMaintainerName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String getVersion() {
         return renderingContext.getVersion();

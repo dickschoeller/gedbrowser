@@ -18,7 +18,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.util.RequestUserUtil;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public class PersonsController {
@@ -71,7 +70,6 @@ public class PersonsController {
      * @return the person as created
      */
     @PostMapping(value = "/v1/dbs/{db}/persons")
-    @ResponseBody
     public ApiPerson create(
             final HttpServletRequest request,
             @PathVariable final String db,
@@ -89,7 +87,6 @@ public class PersonsController {
      * @return the list of persons
      */
     @GetMapping(value = "/v1/dbs/{db}/persons")
-    @ResponseBody
     public List<ApiPerson> read(final HttpServletRequest request,
             @PathVariable final String db) {
         final List<PersonDocument> allPersons = ((PersonCrud) crud()).read(repositoryManager, db);
@@ -102,7 +99,7 @@ public class PersonsController {
         final RequestUserUtil requestUserUtil = new RequestUserUtil(request, userService);
         final boolean hasUser = requestUserUtil.hasUser();
         final boolean hasAdmin = requestUserUtil.hasAdmin();
-        final OperationsEnabler<?, ?> enabler = (OperationsEnabler<?, ?>) crud();
+        final OperationsEnabler<?> enabler = (OperationsEnabler<?>) crud();
         final List<ApiPerson> list = allPersons.stream()
             .filter(doc -> {
                 final Person person = doc.getGedObject();
@@ -122,7 +119,6 @@ public class PersonsController {
      * @return the person
      */
     @GetMapping(value = "/v1/dbs/{db}/persons/{id}")
-    @ResponseBody
     public ApiPerson read(
             final HttpServletRequest request,
             @PathVariable final String db,
@@ -174,7 +170,6 @@ public class PersonsController {
      * @return the person as created
      */
     @PutMapping(value = "/v1/dbs/{db}/persons/{id}")
-    @ResponseBody
     public ApiPerson update(
             final HttpServletRequest request,
             @PathVariable final String db,
@@ -195,7 +190,6 @@ public class PersonsController {
      * @return the deleted person object
      */
     @DeleteMapping(value = "/v1/dbs/{db}/persons/{id}")
-    @ResponseBody
     public ApiPerson delete(
             final HttpServletRequest request,
             @PathVariable final String db,

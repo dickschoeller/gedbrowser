@@ -49,12 +49,12 @@ public interface LastId<T extends GedDocumentMongo<?>> {
             final Class<T> clazz,
             final String filename,
             final String baseId) {
-        String last = lastId(mongoTemplate, clazz, filename, baseId);
-        String number = last.replace(baseId, "");
+        final String last = lastId(mongoTemplate, clazz, filename, baseId);
+        final String number = last.replace(baseId, "");
         if (number.isEmpty()) {
             return baseId + "1";
         }
-        int newNumber = Integer.parseInt(number) + 1;
+        final int newNumber = Integer.parseInt(number) + 1;
         return baseId + newNumber;
     }
 }

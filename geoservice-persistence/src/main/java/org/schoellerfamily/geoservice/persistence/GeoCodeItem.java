@@ -4,11 +4,14 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.Geometry;
 import com.google.maps.model.LatLng;
 
+import lombok.Getter;
+
 /**
  * This class implements a single entry in the geocode cache.
  *
  * @author Dick Schoeller
  */
+@Getter
 public final class GeoCodeItem {
     /** The historical place name. */
     private final String placeName;
@@ -56,28 +59,6 @@ public final class GeoCodeItem {
         this.modernPlaceName = modernPlaceName;
         this.geocodingResult = null;
     }
-
-    /**
-     * @return the historical place name
-     */
-    public String getPlaceName() {
-        return placeName;
-    }
-
-    /**
-     * @return the modern place name to use for geo-coding
-     */
-    public String getModernPlaceName() {
-        return modernPlaceName;
-    }
-
-    /**
-     * @return the geo-coding result
-     */
-    public GeocodingResult getGeocodingResult() {
-        return geocodingResult;
-    }
-
 
     /**
      * {@inheritDoc}
@@ -161,6 +142,7 @@ public final class GeoCodeItem {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings({ "PMD.SimplifyBooleanReturns" })
     public boolean equals(final Object obj) {
         // Suppressed all typical problems that go with an equals method
         if (this == obj) {
@@ -189,7 +171,7 @@ public final class GeoCodeItem {
      * @param other the item to compare
      * @return returns true if they seem equal
      */
-    @SuppressWarnings({ "PMD.CompareObjectsWithEquals" })
+    @SuppressWarnings({ "PMD.CompareObjectsWithEquals", "PMD.SimplifyBooleanReturns" })
     private static boolean equals(final GeocodingResult result,
             final GeocodingResult other) {
         // Suppressed all typical problems that go with an equals method
@@ -210,6 +192,7 @@ public final class GeoCodeItem {
      * @param other the compared geometry
      * @return true if they match
      */
+    @SuppressWarnings({ "PMD.SimplifyBooleanReturns" })
     private static boolean geometryCompare(final Geometry result,
             final Geometry other) {
         if (result == null) {

@@ -2,12 +2,16 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
-import org.schoellerfamily.gedbrowser.renderer.NameNameIndexRenderer;
+import org.schoellerfamily.gedbrowser.renderer.NameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NameRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
@@ -31,90 +35,32 @@ final class NameNameIndexRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
-    @Test
-    void testRenderSimple() {
-        final Name name = new Name(null, "Richard/Schoeller/");
+    @ParameterizedTest
+    @MethodSource("renderIndexNameCases")
+    void testRenderIndexName(final String nameValue, final String expected) {
+        final Name name = nameValue == null ? new Name(null) : new Name(null, nameValue);
         final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
-            .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">Schoeller</span>, Richard", nnir.getIndexName(),
-            UNEXPECTED_STRING);
+                anonymousContext);
+        final NameIndexRenderer nnir = nameRenderer.getNameIndexRenderer();
+        assertEquals(expected, nnir.getIndexName(), UNEXPECTED_STRING);
     }
 
-    /** */
-    @Test
-    void testRenderHarder() {
-        final Name name = new Name(null, "Karl Frederick/Schoeller/Jr.");
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
-            .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">Schoeller</span>," + " Karl Frederick, Jr.",
-            nnir.getIndexName(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderNoPrefix() {
-        final Name name = new Name(null, "/Schoeller/");
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
-            .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">Schoeller</span>", nnir.getIndexName(),
-            UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderEmpty() {
-        final Name name = new Name(null, "");
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
-            .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">?</span>", nnir.getIndexName(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderNull() {
-        final Name name = new Name(null);
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
-            .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">?</span>", nnir.getIndexName(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderUnset() {
-        final Name name = new Name();
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
-            .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">?</span>", nnir.getIndexName(), UNEXPECTED_STRING);
-    }
-
-    /** */
-    @Test
-    void testRenderPrefixSuffix() {
-        final Name name = new Name(null, "Foo//Bar");
-        final NameRenderer nameRenderer = new NameRenderer(name, new GedRendererFactory(),
-            anonymousContext);
-        final NameNameIndexRenderer nnir = (NameNameIndexRenderer) nameRenderer
-            .getNameIndexRenderer();
-        assertEquals(" <span class=\"surname\">?</span>, Foo, Bar", nnir.getIndexName(),
-            UNEXPECTED_STRING);
+    private static Stream<Arguments> renderIndexNameCases() {
+        return Stream.of(
+            Arguments.of("Richard/Schoeller/",
+                " <span class=\"surname\">Schoeller</span>, Richard"),
+            Arguments.of("Karl Frederick/Schoeller/Jr.",
+                " <span class=\"surname\">Schoeller</span>, Karl Frederick, Jr."),
+            Arguments.of("/Schoeller/",
+                " <span class=\"surname\">Schoeller</span>"),
+            Arguments.of("", " <span class=\"surname\">?</span>"),
+            Arguments.of(null, " <span class=\"surname\">?</span>"),
+            Arguments.of("Foo//Bar",
+                " <span class=\"surname\">?</span>, Foo, Bar"));
     }
 }

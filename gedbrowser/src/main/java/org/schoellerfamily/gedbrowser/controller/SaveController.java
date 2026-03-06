@@ -9,10 +9,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.writer.GedWriter;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Dick Schoeller
  */
-@Controller
+@RestController
 @Slf4j
 public class SaveController extends AbstractController {
 
@@ -51,7 +50,6 @@ public class SaveController extends AbstractController {
      * @return a string identifying which HTML template to use.
      */
     @GetMapping(value = "/save")
-    @ResponseBody
     public final String save(
             @RequestParam(value = "db",
                 required = false,

@@ -7,10 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public final class DatasetsController {
@@ -32,7 +31,6 @@ public final class DatasetsController {
      * @return a list of the names of the data sets
      */
     @GetMapping(value = "/v1/dbs")
-    @ResponseBody
     public List<String> dbs() {
         log.info("Gettting list of DBs");
         final Iterable<RootDocumentMongo> all =

@@ -7,29 +7,26 @@ import java.io.IOException;
  */
 public final class ArraySource extends AbstractGedLineSource {
     /** */
-    private final String[] arraySource;
+    private final String[] stringArray;
 
     /**
      * Constructor.
      *
-     * @param arraySource array of strings containing the gedcom content
+     * @param stringArray array of strings containing the gedcom content
      */
     @SuppressWarnings("PMD.UseVarargs")
-    public ArraySource(final String[] arraySource) {
-        this.arraySource = arraySource.clone();
+    public ArraySource(final String[] stringArray) {
+        this.stringArray = stringArray.clone();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public AbstractGedLine createGedLine(final AbstractGedLine parent)
             throws IOException {
         final int lineNumber = nextLineNumber();
-        if (lineNumber >= arraySource.length) {
+        if (lineNumber >= stringArray.length) {
             return null;
         }
-        final String line = arraySource[lineNumber];
+        final String line = stringArray[lineNumber];
         return createGedLine(parent, line);
     }
 }

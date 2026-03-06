@@ -318,7 +318,8 @@ final class GedDocumentMongoToGedObjectConverterTest {
             }
         };
         gmd.setString("Foo");
+        final Root root = new Root();
         assertThatExceptionOfType(PersistenceException.class)
-            .isThrownBy(() -> toObjConverter.createGedObject(new Root(), gmd));
+            .isThrownBy(() -> toObjConverter.createGedObject(root, gmd));
     }
 }

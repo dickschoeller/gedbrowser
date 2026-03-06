@@ -2,9 +2,14 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.function.Function;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NameListItemRenderer;
@@ -32,70 +37,42 @@ final class NameRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
-    @Test
-    void testAttributeListOpenRenderer() {
-        final NameRenderer renderer = new NameRenderer(new Name(null), new GedRendererFactory(),
-            anonymousContext);
-        assertTrue(
-            renderer.getAttributeListOpenRenderer() instanceof SimpleAttributeListOpenRenderer,
+    @ParameterizedTest
+    @MethodSource("rendererTypeCases")
+    void testRendererTypes(final Function<NameRenderer, Object> accessor,
+            final Class<?> expectedType) {
+        final NameRenderer renderer = new NameRenderer(new Name(null),
+            new GedRendererFactory(), anonymousContext);
+        assertTrue(expectedType.isInstance(accessor.apply(renderer)),
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
-    @Test
-    void testListItemRenderer() {
-        final NameRenderer renderer = new NameRenderer(new Name(null), new GedRendererFactory(),
-            anonymousContext);
-        assertTrue(renderer.getListItemRenderer() instanceof NameListItemRenderer,
-            "Wrong renderer type");
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
-    @Test
-    void testNameHtmlRenderer() {
-        final NameRenderer renderer = new NameRenderer(new Name(null), new GedRendererFactory(),
-            anonymousContext);
-        assertTrue(renderer.getNameHtmlRenderer() instanceof NameNameHtmlRenderer,
-            "Wrong renderer type");
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
-    @Test
-    void testNameIndexRenderer() {
-        final NameRenderer renderer = new NameRenderer(new Name(null), new GedRendererFactory(),
-            anonymousContext);
-        assertTrue(renderer.getNameIndexRenderer() instanceof NameNameIndexRenderer,
-            "Wrong renderer type");
-    }
-
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
-    @Test
-    void testPhraseRenderer() {
-        final NameRenderer renderer = new NameRenderer(new Name(null), new GedRendererFactory(),
-            anonymousContext);
-        assertTrue(renderer.getPhraseRenderer() instanceof NamePhraseRenderer,
-            "Wrong renderer type");
+    private static Stream<Arguments> rendererTypeCases() {
+        return Stream.of(
+            Arguments.of(
+                (Function<NameRenderer, Object>)
+                    NameRenderer::getAttributeListOpenRenderer,
+                SimpleAttributeListOpenRenderer.class),
+            Arguments.of(
+                (Function<NameRenderer, Object>)
+                    NameRenderer::getListItemRenderer,
+                NameListItemRenderer.class),
+            Arguments.of(
+                (Function<NameRenderer, Object>)
+                    NameRenderer::getNameHtmlRenderer,
+                NameNameHtmlRenderer.class),
+            Arguments.of(
+                (Function<NameRenderer, Object>)
+                    NameRenderer::getNameIndexRenderer,
+                NameNameIndexRenderer.class),
+            Arguments.of(
+                (Function<NameRenderer, Object>)
+                    NameRenderer::getPhraseRenderer,
+                NamePhraseRenderer.class));
     }
 }

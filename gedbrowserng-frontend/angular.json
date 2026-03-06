@@ -23,6 +23,9 @@
             "styles": [
               "src/styles.css"
             ],
+            "allowedCommonJsDependencies": [
+              "file-saver"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -113,7 +116,6 @@
       }
     }
   },
-  "defaultProject": "gedbrowserng-frontend",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

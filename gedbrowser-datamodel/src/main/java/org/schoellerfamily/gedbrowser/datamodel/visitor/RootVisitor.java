@@ -17,9 +17,6 @@ public final class RootVisitor implements GedObjectVisitor {
     /** */
     private final List<Person> persons = new ArrayList<>();
 
-//    /** */
-//    private final List<Family> families = new ArrayList<>();
-
     /**
      * @return the persons found in the scanned root
      */
@@ -27,14 +24,8 @@ public final class RootVisitor implements GedObjectVisitor {
         return persons;
     }
 
-//    /**
-//     * @return the families found in the scanned root
-//     */
-//    public List<Family> getFamilies() {
-//        return families;
-//    }
-
     @Override
+    @SuppressWarnings({ "java:S125" })
     public void visit(final Family family) {
 // Currently commented out.
 // Keep around because we may want to gather these too.

@@ -72,7 +72,7 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
      */
     public static AbstractGedLine createGedLine(
             final AbstractGedLine parent, final String inLine) {
-        GedLineSource sour;
+        final GedLineSource sour;
         if (parent == null) {
             sour = new NullSource();
         } else {

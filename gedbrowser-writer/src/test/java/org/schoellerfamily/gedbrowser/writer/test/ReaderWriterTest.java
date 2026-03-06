@@ -25,11 +25,10 @@ class ReaderWriterTest {
     /**
      * The file name to use in the test.
      */
-    private static final String FILE_NAME =
-            "mini-schoeller.ged";
-// Tests can be done with these others.
-//            "/var/lib/gedbrowser/schoeller.ged";
-//            "gl120368.ged";);
+    private static final String FILE_NAME = "mini-schoeller.ged";
+            // Tests can be done with these others.
+            //   /var/lib/gedbrowser/schoeller.ged
+            //   gl120368.ged
 
     /**
      * Build the list of expected/actual pairs.
@@ -39,11 +38,9 @@ class ReaderWriterTest {
      */
     public static List<String[]> data() throws IOException {
         final AbstractGedLine top = readFileTestSource();
-        final GedLineToGedObjectTransformer g2g =
-                new GedLineToGedObjectTransformer();
+        final GedLineToGedObjectTransformer g2g = new GedLineToGedObjectTransformer();
         final Root root = g2g.create(top);
-        final GedObjectToGedWriterVisitor gedLineVisitor =
-                new GedObjectToGedWriterVisitor();
+        final GedObjectToGedWriterVisitor gedLineVisitor = new GedObjectToGedWriterVisitor();
         root.accept(gedLineVisitor);
         final List<GedWriterLine> lines = gedLineVisitor.getLines();
         final List<String[]> parameters = new ArrayList<>();
@@ -79,8 +76,7 @@ class ReaderWriterTest {
      * @throws IOException because reader might throw.
      */
     private static AbstractGedLine readFileTestSource() throws IOException {
-        return TestResourceReader.readFileTestSource(
-                "", FILE_NAME);
+        return TestResourceReader.readFileTestSource(FILE_NAME);
     }
 
     /**
@@ -89,10 +85,8 @@ class ReaderWriterTest {
      * @return a stream of strings
      * @throws IOException because reader might throw.
      */
-    private static Stream<String> readFileTestSourceAsStrings()
-            throws IOException {
-        return TestResourceReader.readFileTestSourceAsStrings(
-                "", FILE_NAME);
+    private static Stream<String> readFileTestSourceAsStrings() throws IOException {
+        return TestResourceReader.readFileTestSourceAsStrings(FILE_NAME);
     }
 
     /**

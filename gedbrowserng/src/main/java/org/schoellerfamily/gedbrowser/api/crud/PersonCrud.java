@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class PersonCrud
-    extends OperationsEnabler<Person, PersonDocument>
+    extends OperationsEnabler<Person>
     implements CrudOperations<Person, PersonDocument, ApiPerson>,
         ObjectCrud<ApiPerson> {
 

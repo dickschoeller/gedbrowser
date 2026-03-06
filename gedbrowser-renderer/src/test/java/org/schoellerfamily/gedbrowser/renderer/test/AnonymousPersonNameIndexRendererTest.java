@@ -2,13 +2,18 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
+import org.schoellerfamily.gedbrowser.renderer.NameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonNameIndexRenderer;
 import org.schoellerfamily.gedbrowser.renderer.PersonRenderer;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
@@ -33,7 +38,6 @@ final class AnonymousPersonNameIndexRendererTest {
     /** */
     private transient RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -41,7 +45,6 @@ final class AnonymousPersonNameIndexRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetNameHtmlNull() {
         final Name name = new Name(person);
@@ -53,75 +56,36 @@ final class AnonymousPersonNameIndexRendererTest {
         assertEquals("Living", pnhr.getIndexName(), "Rendered string doesn't match expectation");
     }
 
-    /** */
-    @Test
-    void testGetNameHtmlEmpty() {
-        final Name name = new Name(person, "");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext);
-        final PersonNameIndexRenderer pnhr =
-                (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
+    @ParameterizedTest
+    @MethodSource("nameIndexCases")
+    void testGetNameHtml(final String nameValue) {
+        final GedObjectBuilder builder = new GedObjectBuilder();
+        final Person testPerson = builder.createPerson("I1");
+        final Name name =
+            nameValue.isEmpty() ? new Name(testPerson) : new Name(testPerson, nameValue);
+        testPerson.addAttribute(name);
+        final PersonRenderer personRenderer = new PersonRenderer(testPerson,
+            new GedRendererFactory(), anonymousContext);
+        final NameIndexRenderer pnhr = personRenderer.getNameIndexRenderer();
         assertEquals("Living", pnhr.getIndexName(), "Rendered string doesn't match expectation");
     }
 
-    /** */
-    @Test
-    void testGetNameHtmlSurnameOnly() {
-        final Name name = new Name(person, "/Schoeller/");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext);
-        final PersonNameIndexRenderer pnhr =
-                (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Living", pnhr.getIndexName(), "Rendered string doesn't match expectation");
+    private static Stream<org.junit.jupiter.params.provider.Arguments> nameIndexCases() {
+        return Stream.of(
+            org.junit.jupiter.params.provider.Arguments.of(""),
+            org.junit.jupiter.params.provider.Arguments.of("/Schoeller/"),
+            org.junit.jupiter.params.provider.Arguments.of("Richard/Schoeller/"),
+            org.junit.jupiter.params.provider.Arguments.of("/Deng/Shao Ping"),
+            org.junit.jupiter.params.provider.Arguments.of("Karl Frederick/Schoeller/Sr."));
     }
 
-    /** */
-    @Test
-    void testGetNameHtmlSurnameLast() {
-        final Name name = new Name(person, "Richard/Schoeller/");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext);
-        final PersonNameIndexRenderer pnhr =
-                (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Living", pnhr.getIndexName(), "Rendered string doesn't match expectation");
-    }
-
-    /** */
-    @Test
-    void testGetNameHtmlSurnameFirst() {
-        final Name name = new Name(person, "/Deng/Shao Ping");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext);
-        final PersonNameIndexRenderer pnhr =
-                (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Living", pnhr.getIndexName(), "Rendered string doesn't match expectation");
-    }
-
-    /** */
-    @Test
-    void testGetNameHtmlSurnameMiddle() {
-        final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext);
-        final PersonNameIndexRenderer pnhr =
-                (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
-        assertEquals("Living", pnhr.getIndexName(), "Rendered string doesn't match expectation");
-    }
-
-    /** */
     @Test
     void testGetNameHtmlPersonUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final PersonRenderer personRenderer = new PersonRenderer(
                 builder.createPerson(),
                 new GedRendererFactory(), anonymousContext);
-        final PersonNameIndexRenderer pnhr =
-                (PersonNameIndexRenderer) personRenderer.getNameIndexRenderer();
+        final NameIndexRenderer pnhr = personRenderer.getNameIndexRenderer();
         assertEquals("", pnhr.getIndexName(), "Expected empty string");
     }
 

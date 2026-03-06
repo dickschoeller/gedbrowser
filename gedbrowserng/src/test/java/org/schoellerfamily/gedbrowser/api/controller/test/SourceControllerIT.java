@@ -30,7 +30,8 @@ import org.springframework.web.client.RestClientException;
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
-@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
+@SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "PMD.TooManyMethods",
+    "PMD.UnitTestContainsTooManyAsserts" })
 @AutoConfigureRestTestClient
 class SourceControllerIT {
     /**
@@ -54,6 +55,7 @@ class SourceControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "[ {\n" + "  \"type\" : \"source\",\n"
             + "  \"string\" : \"S1688\",\n" + "  \"attributes\" : [ {\n"
             + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Author\",\n"
@@ -87,6 +89,7 @@ class SourceControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "[ {\n" + "  \"type\" : \"source\",\n"
             + "  \"string\" : \"S2\",\n" + "  \"attributes\" : [ {\n"
             + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Title\",\n"
@@ -113,6 +116,7 @@ class SourceControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "{\n" + "  \"type\" : \"source\",\n"
             + "  \"string\" : \"S2\",\n" + "  \"attributes\" : [ {\n"
             + "    \"type\" : \"attribute\",\n" + "    \"string\" : \"Title\",\n"

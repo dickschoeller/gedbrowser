@@ -185,7 +185,7 @@ public final class TestDataReader {
      * @throws IOException because the file reader might throw.
      */
     public Root readFileTestSource(final String filename) throws IOException {
-        final AbstractGedLine top = TestResourceReader.readFileTestSource(this, filename);
+        final AbstractGedLine top = TestResourceReader.readFileTestSource(filename);
         top.readToNext();
         return g2g.create(top);
     }

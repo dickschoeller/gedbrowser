@@ -2,9 +2,14 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -35,8 +40,7 @@ final class PersonAttributeListOpenRendererTest {
     /**
      * Boiler plate for a heading.
      */
-    private static final String HEAD_3 =
-            "<h3 class=\"attributes\">Attributes</h3>\n" + "<ul>\n";
+    private static final String HEAD_3 = "<h3 class=\"attributes\">Attributes</h3>\n<ul>\n";
 
     /** */
     private transient Person person;
@@ -44,7 +48,6 @@ final class PersonAttributeListOpenRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -52,7 +55,6 @@ final class PersonAttributeListOpenRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetAttributeListOpenNull() {
         final Name name = new Name(person);
@@ -68,7 +70,6 @@ final class PersonAttributeListOpenRendererTest {
         assertEquals("\n" + HORIZONTAL + HEAD_3, string, "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetAttributeListOpenEmpty() {
         final Name name = new Name(person, "");
@@ -84,10 +85,10 @@ final class PersonAttributeListOpenRendererTest {
         assertEquals("\n" + HORIZONTAL + HEAD_3, string, "Rendered html doesn't match expectation");
     }
 
-    /** */
-    @Test
-    void testGetAttributeListOpenSurnameOnly() {
-        final Name name = new Name(person, "/Schoeller/");
+    @ParameterizedTest
+    @MethodSource("attributeListOpenCases")
+    void testGetAttributeListOpen(final String nameValue) {
+        final Name name = new Name(person, nameValue);
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person,
                 new GedRendererFactory(), anonymousContext);
@@ -100,55 +101,14 @@ final class PersonAttributeListOpenRendererTest {
         assertEquals("\n" + HORIZONTAL + HEAD_3, string, "Rendered html doesn't match expectation");
     }
 
-    /** */
-    @Test
-    void testGetAttributeListOpenSurnameLast() {
-        final Name name = new Name(person, "Richard/Schoeller/");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext);
-        final PersonAttributeListOpenRenderer pnhr =
-                (PersonAttributeListOpenRenderer) personRenderer
-                .getAttributeListOpenRenderer();
-        final StringBuilder builder = new StringBuilder();
-        pnhr.renderAttributeListOpen(builder, 0, person);
-        final String string = builder.toString();
-        assertEquals("\n" + HORIZONTAL + HEAD_3, string, "Rendered html doesn't match expectation");
+    private static Stream<Arguments> attributeListOpenCases() {
+        return Stream.of(
+            Arguments.of("/Schoeller/"),
+            Arguments.of("Richard/Schoeller/"),
+            Arguments.of("/Deng/Shao Ping"),
+            Arguments.of("Karl Frederick/Schoeller/Sr."));
     }
 
-    /** */
-    @Test
-    void testGetAttributeListOpenSurnameFirst() {
-        final Name name = new Name(person, "/Deng/Shao Ping");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext);
-        final PersonAttributeListOpenRenderer pnhr =
-                (PersonAttributeListOpenRenderer) personRenderer
-                .getAttributeListOpenRenderer();
-        final StringBuilder builder = new StringBuilder();
-        pnhr.renderAttributeListOpen(builder, 0, person);
-        final String string = builder.toString();
-        assertEquals("\n" + HORIZONTAL + HEAD_3, string, "Rendered html doesn't match expectation");
-    }
-
-    /** */
-    @Test
-    void testGetAttributeListOpenSurnameMiddle() {
-        final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person,
-                new GedRendererFactory(), anonymousContext);
-        final PersonAttributeListOpenRenderer pnhr =
-                (PersonAttributeListOpenRenderer) personRenderer
-                .getAttributeListOpenRenderer();
-        final StringBuilder builder = new StringBuilder();
-        pnhr.renderAttributeListOpen(builder, 0, person);
-        final String string = builder.toString();
-        assertEquals("\n" + HORIZONTAL + HEAD_3, string, "Rendered html doesn't match expectation");
-    }
-
-    /** */
     @Test
     void testGetAttributeListOpenPersonUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();

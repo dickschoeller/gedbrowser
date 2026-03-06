@@ -94,16 +94,19 @@ public final class GetDateVisitor implements GedObjectVisitor {
     @Override
     public void visit(final Date date) {
         dateString = date.getDate();
+        final StringBuilder sb = new StringBuilder(dateString);
+        dateString = date.getDate();
         yearString = date.getYear();
         sortDateString = date.getSortDate();
         final GetTimeVisitor timeVisitor = new GetTimeVisitor();
         for (final GedObject gob : date.getAttributes()) {
             gob.accept(timeVisitor);
             if (!timeVisitor.getTimeString().isEmpty()) {
-                dateString += " " + timeVisitor.getTimeString();
+                sb.append(" ").append(timeVisitor.getTimeString());
                 break;
             }
         }
+        dateString = sb.toString();
     }
 
     /**

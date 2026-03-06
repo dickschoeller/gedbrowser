@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 @Endpoint(id = "restore")
 public class RestoreEndpoint extends BaseBackupEndpoint {
     /** */
-    private GeoCodeBackup backupManager;
+    private final GeoCodeBackup backupManager;
 
     /**
      * Constructor.

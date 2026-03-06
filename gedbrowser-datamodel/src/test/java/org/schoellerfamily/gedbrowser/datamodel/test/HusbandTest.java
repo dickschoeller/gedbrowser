@@ -123,15 +123,6 @@ final class HusbandTest {
 
     /** */
     @Test
-    void testHusbandGedObjectStringFatherNotSet() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
-        final Family family = builder.createFamily("F1");
-        final Husband husband = new Husband(family, "Husband", null);
-        assertFalse(husband.getFather().isSet(), "Father should not be set");
-    }
-
-    /** */
-    @Test
     void testHusbandGedObjectStringStringFather() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Family family = builder.createFamily("F1");

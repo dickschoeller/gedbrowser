@@ -94,8 +94,7 @@ public final class IndexRenderer extends GedRenderer<Root>
         if (getRenderingContext().isUser()) {
             return false;
         }
-        final LivingEstimator le = new LivingEstimator(person,
-                getRenderingContext());
+        final LivingEstimator le = new LivingEstimator(person, getRenderingContext());
         return le.estimate();
     }
 
@@ -123,9 +122,7 @@ public final class IndexRenderer extends GedRenderer<Root>
         return indexLetters;
     }
 
-    /**
-     * @return the href string to the same page were we are now
-     */
+    @Override
     public String getIndexHref() {
         return "surnames?db=" + getGedObject().getDbName() + "&letter=" + base;
     }

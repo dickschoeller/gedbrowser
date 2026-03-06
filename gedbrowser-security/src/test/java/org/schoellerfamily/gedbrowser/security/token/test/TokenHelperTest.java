@@ -1,6 +1,9 @@
 package org.schoellerfamily.gedbrowser.security.token.test;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.awaitility.Awaitility.await;
+
+import java.time.Duration;
 
 import org.joda.time.DateTimeUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +19,8 @@ public class TokenHelperTest {
     /** */
     private static final String KEY = "mySecret";
     /** */
+    private static final int TOKEN_EXPIRY_TIMEOUT_SECONDS = 3;
+    /** */
     private TokenHelper tokenHelper;
 
     /**
@@ -30,15 +35,14 @@ public class TokenHelperTest {
 
     /**
      * Test expired token.
-     *
-     * @throws InterruptedException won't happen
      */
     @Test
-    void testGenerateTokenExpired() throws InterruptedException {
+    @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
+    void testGenerateTokenExpired() {
         final String token = tokenHelper.generateToken("fanjin");
-        final int twoSecondsInMillis = 2000;
-        Thread.sleep(twoSecondsInMillis);
-        assertThatExceptionOfType(ExpiredJwtException.class)
-            .isThrownBy(() -> tokenHelper.parseClaimsOrThrow(token));
+        await()
+            .atMost(Duration.ofSeconds(TOKEN_EXPIRY_TIMEOUT_SECONDS))
+            .untilAsserted(() -> assertThatExceptionOfType(ExpiredJwtException.class)
+                .isThrownBy(() -> tokenHelper.parseClaimsOrThrow(token)));
     }
 }

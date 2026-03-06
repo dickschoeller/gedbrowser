@@ -32,9 +32,9 @@ public class CrudHelper {
      */
     private boolean sex(final ApiPersonBuilder<?, ?> person, final String sex) {
         for (final ApiAttribute attr : person.getAttributes()) {
-            if (attr.getType().equals("attribute")
-                    && attr.getString().equals("Sex")
-                    && attr.getTail().equals(sex)) {
+            if ("attribute".equals(attr.getType())
+                    && "Sex".equals(attr.getString())
+                    && sex.equals(attr.getTail())) {
                 return true;
             }
         }

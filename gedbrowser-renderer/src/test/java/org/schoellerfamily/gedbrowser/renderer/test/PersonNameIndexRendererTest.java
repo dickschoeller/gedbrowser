@@ -2,9 +2,14 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
@@ -33,7 +38,6 @@ final class PersonNameIndexRendererTest {
     /** */
     private transient RenderingContext userContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -41,7 +45,6 @@ final class PersonNameIndexRendererTest {
         userContext = RenderingContext.user(appInfo);
     }
 
-    /** */
     @Test
     void testGetNameHtmlNull() {
         final Name name = new Name(person);
@@ -56,7 +59,6 @@ final class PersonNameIndexRendererTest {
             pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetNameHtmlEmpty() {
         final Name name = new Name(person, "");
@@ -71,67 +73,34 @@ final class PersonNameIndexRendererTest {
             pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
-    /** */
-    @Test
-    void testGetNameHtmlSurnameOnly() {
-        final Name name = new Name(person, "/Schoeller/");
+    @ParameterizedTest
+    @MethodSource("nameHtmlCases")
+    void testGetNameHtml(final String nameValue, final String expected) {
+        final Name name = new Name(person, nameValue);
         person.addAttribute(name);
         final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
             userContext);
         final PersonNameIndexRenderer pnhr = (PersonNameIndexRenderer) personRenderer
             .getNameIndexRenderer();
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                + " <span class=\"surname\">Schoeller</span> (I1)</a>",
-            pnhr.getIndexName(), "Rendered html doesn't match expectation");
+        assertEquals(expected, pnhr.getIndexName(), "Rendered html doesn't match expectation");
     }
 
-    /** */
-    @Test
-    void testGetNameHtmlSurnameLast() {
-        final Name name = new Name(person, "Richard/Schoeller/");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
-            userContext);
-        final PersonNameIndexRenderer pnhr = (PersonNameIndexRenderer) personRenderer
-            .getNameIndexRenderer();
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                + " <span class=\"surname\">Schoeller</span>, Richard (I1)</a>",
-            pnhr.getIndexName(), "Rendered html doesn't match expectation");
+    private static Stream<Arguments> nameHtmlCases() {
+        return Stream.of(
+            Arguments.of("/Schoeller/",
+                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                + " <span class=\"surname\">Schoeller</span> (I1)</a>"),
+            Arguments.of("Richard/Schoeller/",
+                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                + " <span class=\"surname\">Schoeller</span>, Richard (I1)</a>"),
+            Arguments.of("/Deng/Shao Ping",
+                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                    + " <span class=\"surname\">Deng</span>, Shao Ping (I1)</a>"),
+            Arguments.of("Karl Frederick/Schoeller/Sr.",
+                "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
+                + " <span class=\"surname\">Schoeller</span>, Karl Frederick, Sr. (I1)</a>"));
     }
 
-    /** */
-    @Test
-    void testGetNameHtmlSurnameFirst() {
-        final Name name = new Name(person, "/Deng/Shao Ping");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
-            userContext);
-        final PersonNameIndexRenderer pnhr = (PersonNameIndexRenderer) personRenderer
-            .getNameIndexRenderer();
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                + " <span class=\"surname\">Deng</span>, Shao Ping (I1)</a>",
-            pnhr.getIndexName(), "Rendered html doesn't match expectation");
-    }
-
-    /** */
-    @Test
-    void testGetNameHtmlSurnameMiddle() {
-        final Name name = new Name(person, "Karl Frederick/Schoeller/Sr.");
-        person.addAttribute(name);
-        final PersonRenderer personRenderer = new PersonRenderer(person, new GedRendererFactory(),
-            userContext);
-        final PersonNameIndexRenderer pnhr = (PersonNameIndexRenderer) personRenderer
-            .getNameIndexRenderer();
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I1\" class=\"name\">"
-                + " <span class=\"surname\">Schoeller</span>, Karl Frederick," + " Sr. (I1)</a>",
-            pnhr.getIndexName(), "Rendered html doesn't match expectation");
-    }
-
-    /** */
     @Test
     void testGetNameHtmlPersonUnset() {
         final GedObjectBuilder builder = new GedObjectBuilder();

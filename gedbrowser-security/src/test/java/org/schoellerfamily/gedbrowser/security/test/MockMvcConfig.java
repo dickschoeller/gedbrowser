@@ -2,13 +2,13 @@ package org.schoellerfamily.gedbrowser.security.test;
 
 import org.schoellerfamily.gedbrowser.security.auth.TokenAuthenticationFilter;
 import org.springframework.context.annotation.Configuration;
-// import org.springframework.core.env.Environment;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.restassured.RestAssured;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import jakarta.annotation.PostConstruct;
@@ -42,13 +42,14 @@ public class MockMvcConfig {
     private MockMvc mockMvc() {
         final DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(wac);
         return builder.addFilter(filter, "", "")
-                .build();
+            .build();
     }
 
     /**
      * Stuff to do after construction.
      */
     @PostConstruct
+    @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     protected void restAssured() {
         RestAssuredMockMvc.mockMvc(mockMvc());
         RestAssured.port = PORT;

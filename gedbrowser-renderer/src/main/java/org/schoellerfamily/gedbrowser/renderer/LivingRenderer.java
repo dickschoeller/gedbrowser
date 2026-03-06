@@ -18,6 +18,7 @@ import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -76,8 +77,7 @@ public final class LivingRenderer extends GedRenderer<Root>
     private Bucket createBucket(final Map<Integer, Set<Person>> buckets,
             final int lower) {
         final int upper = lower + AGE_BUCKET_SIZE - 1;
-        final List<PersonRenderer> persons = createPersonRenderers(buckets,
-                lower);
+        final List<PersonRenderer> persons = createPersonRenderers(buckets, lower);
         return new Bucket(lower, upper, persons);
     }
 
@@ -101,13 +101,14 @@ public final class LivingRenderer extends GedRenderer<Root>
     /**
      * @author Dick Schoeller
      */
+    @Getter
     public static final class Bucket {
         /** Lower bound for this bucket. */
         private final Integer lower;
         /** Upper bound for this bucket. */
         private final Integer upper;
         /** List of persons in this bucket. */
-        private final List<PersonRenderer> persons = new ArrayList<>();
+        private final List<PersonRenderer> persons;
 
         /**
          * Constructor.
@@ -120,28 +121,7 @@ public final class LivingRenderer extends GedRenderer<Root>
                 final Collection<PersonRenderer> persons) {
             this.lower = lower;
             this.upper = upper;
-            this.persons.addAll(persons);
-        }
-
-        /**
-         * @return the lower bound for this bucket
-         */
-        public Integer getLower() {
-            return lower;
-        }
-
-        /**
-         * @return the upper bound for this bucket
-         */
-        public Integer getUpper() {
-            return upper;
-        }
-
-        /**
-         * @return the list of persons in this bucket
-         */
-        public List<PersonRenderer> getPersons() {
-            return persons;
+            this.persons = persons.stream().toList();
         }
     }
 }

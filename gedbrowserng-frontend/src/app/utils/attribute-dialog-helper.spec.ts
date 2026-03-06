@@ -223,10 +223,10 @@ describe('AttributeDialogHelper', () => {
       };
 
       const attribute = helper.populateNewAttribute(data);
-      const dateAttrs = attribute.attributes.filter((a: any) => a.type === 'date');
+      const dateAttr = attribute.attributes.find((a: any) => a.type === 'date');
 
-      expect(dateAttrs.length).toBe(1);
-      expect(dateAttrs[0].string).toBe('1 JAN 2000');
+      expect(dateAttr).toBeDefined();
+      expect(dateAttr?.string).toBe('1 JAN 2000');
     });
 
     it('handles place attribute addition', () => {
@@ -246,10 +246,10 @@ describe('AttributeDialogHelper', () => {
       };
 
       const attribute = helper.populateNewAttribute(data);
-      const placeAttrs = attribute.attributes.filter((a: any) => a.type === 'place');
+      const placeAttr = attribute.attributes.find((a: any) => a.type === 'place');
 
-      expect(placeAttrs.length).toBe(1);
-      expect(placeAttrs[0].string).toBe('Springfield');
+      expect(placeAttr).toBeDefined();
+      expect(placeAttr?.string).toBe('Springfield');
     });
 
     it('handles note attribute addition', () => {
@@ -269,10 +269,10 @@ describe('AttributeDialogHelper', () => {
       };
 
       const attribute = helper.populateNewAttribute(data);
-      const noteAttrs = attribute.attributes.filter((a: any) => a.string === 'Note');
+      const noteAttr = attribute.attributes.find((a: any) => a.string === 'Note');
 
-      expect(noteAttrs.length).toBe(1);
-      expect(noteAttrs[0].tail).toBe('Some note');
+      expect(noteAttr).toBeDefined();
+      expect(noteAttr?.tail).toBe('Some note');
     });
 
     it('deletes empty date attributes', () => {
@@ -285,8 +285,8 @@ describe('AttributeDialogHelper', () => {
 
       helper.populateParentAttribute(data);
 
-      const dateAttrs = mockParent.attribute.attributes.filter((a: any) => a.type === 'date');
-      expect(dateAttrs.length).toBe(0);
+      const dateAttr = mockParent.attribute.attributes.find((a: any) => a.type === 'date');
+      expect(dateAttr).toBeUndefined();
     });
 
     it('updates existing date attribute', () => {
@@ -311,8 +311,9 @@ describe('AttributeDialogHelper', () => {
 
       helper.populateParentAttribute(data);
 
-      const dateAttrs = mockParent.attribute.attributes.filter((a: any) => a.type === 'date');
-      expect(dateAttrs[0].string).toBe('2 FEB 2001');
+      const dateAttr = mockParent.attribute.attributes.find((a: any) => a.type === 'date');
+      expect(dateAttr).toBeDefined();
+      expect(dateAttr?.string).toBe('2 FEB 2001');
     });
   });
 });

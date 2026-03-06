@@ -35,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 @Slf4j
+@SuppressWarnings("PMD.TooManyMethods")
 final class OrderAnalyzerTest implements AnalyzerTest {
 
     /** */
@@ -57,7 +58,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         return builder;
     }
 
-    /** */
     @Test
     void testEmptyPersonIsOK() {
         final Person person = personBuilder().createPerson();
@@ -65,7 +65,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected good order when there are no events");
     }
 
-    /** */
     @Test
     void testPersonWithOnlyUndatedEventIsOK() {
         final Person person = createJRandom();
@@ -74,7 +73,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected good order when there are only undated events");
     }
 
-    /** */
     @Test
     void testPersonWithOnlyOneEventIsOK() {
         final Person person = createJRandom();
@@ -83,7 +81,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected good order when there is only 1 event");
     }
 
-    /** */
     @Test
     void testPersonWithOnlyTwoEventsSameDayIsOK() {
         final Person person = createJRandom();
@@ -93,7 +90,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected good order when events are same date");
     }
 
-    /** */
     @Test
     void testPersonWithOnlyTwoEventsOutOfOrderIsNotOK() {
         final Person person = createJRandom();
@@ -103,7 +99,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertFalse(result.isCorrect(), "Expected bad order when events are out of order");
     }
 
-    /** */
     @Test
     void testPersonWithOnlyTwoEventsInOrderIsOK() {
         final Person person = createJRandom();
@@ -113,7 +108,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected good order when events are in order");
     }
 
-    /** */
     @Test
     void testPersonWithOnlyTwoEventsOutOfOrderHasMismatchEntry() {
         final Person person = createJRandom();
@@ -124,7 +118,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
             "Expected mismatch strings when events are out of order");
     }
 
-    /** */
     @Test
     void testPersonWithTwoEventsOutOfOrderHasExpectedTextInMismatch() {
         final Person person = createJRandom();
@@ -137,7 +130,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertEquals(expected, actual, "Expected mismatch strings when events are out of order");
     }
 
-    /** */
     @Test
     void testPersonWithBirthBeforeNonBirthMatch() {
         final Person person = createJRandom();
@@ -147,7 +139,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct when birth events before others");
     }
 
-    /** */
     @ParameterizedTest
     @ValueSource(strings = {
         "Baptism",
@@ -163,7 +154,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
     }
 
-    /** */
     @Test
     void testPersonWithBirthAfterNonBirthMismatchString() {
         final Person person = createJRandom();
@@ -176,7 +166,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertEquals(expected, actual, "Expected mismatch string with birth events after others");
     }
 
-    /** */
     @Test
     void testPersonWithBirthAfterBaptismMismatch() {
         final Person person = createJRandom();
@@ -186,7 +175,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertFalse(result.isCorrect(), "Expected incorrect with birth events are after others");
     }
 
-    /** */
     @Test
     void testPersonWithBirthBaptismNamingMatch() {
         final Person person = createJRandom();
@@ -197,7 +185,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with birth, baptism, naming");
     }
 
-    /** */
     @Test
     void testPersonWithBirthBirthNamingMatch() {
         final Person person = createJRandom();
@@ -208,7 +195,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with birth, baptism, naming");
     }
 
-    /** */
     @Test
     void testPersonWithNullNonnullNullDateMatch() {
         final Person person = createJRandom();
@@ -219,19 +205,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with birth, birth date, naming");
     }
 
-    // /** */
-    // @Test
-    // void testPersonWithNonDeathAfterDeathMismatchString() {
-    // final Person person = builder.createPerson1();
-    // builder.createPersonEvent(person, "Education");
-    // builder.createPersonEvent(person, "Birth");
-    // final OrderAnalyzer orderAnalyzer = new OrderAnalyzer(person);
-    // final OrderAnalyzerResult result = orderAnalyzer.analyze();
-    // final String actual = result.getMismatches().get(0);
-    // assertTrue("Expected mismatch string with birth events after others",
-    // actual.contains("after non birth events"));
-    // }
-    /** */
     @Test
     void testMinDateFirstNull() {
         final int year = 2017;
@@ -240,7 +213,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertEquals(date2, minDate, "Date should match");
     }
 
-    /** */
     @Test
     void testMinDateSecondNull() {
         final int year = 2017;
@@ -249,14 +221,12 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertEquals(date1, minDate, "Date should match");
     }
 
-    /** */
     @Test
     void testMinDateBothNull() {
         final LocalDate minDate = OrderAnalyzer.minDate(null, null);
         assertNull(minDate, "Date should be null");
     }
 
-    /** */
     @Test
     void testMinDateFirstIsMin() {
         final int year = 2017;
@@ -266,7 +236,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         assertEquals(date1, minDate, "Date should match");
     }
 
-    /** */
     @Test
     void testMinDateSecondIsMin() {
         final int year = 2017;
@@ -289,7 +258,7 @@ final class OrderAnalyzerTest implements AnalyzerTest {
      */
     @Test
     void testFactoryGedFile() throws IOException {
-        final AbstractGedLine top = TestResourceReader.readFileTestSource(this, "gl120368.ged");
+        final AbstractGedLine top = TestResourceReader.readFileTestSource("gl120368.ged");
         final Root root = g2g.create(top);
         for (final String letter : root.findSurnameInitialLetters()) {
             for (final String surname : root.findBySurnamesBeginWith(letter)) {

@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.security.test;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.schoellerfamily.gedbrowser.security.auth.AnonAuthentication;
 import org.schoellerfamily.gedbrowser.security.auth.TokenBasedAuthentication;
@@ -13,15 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import tools.jackson.databind.ObjectMapper;
 
 /**
  * @author Dick Schoeller
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { Application.class, TestConfiguration.class, WebSecurityConfig.class })
+@SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 public abstract class AbstractTest {
     /** */
     @Autowired
@@ -34,18 +32,16 @@ public abstract class AbstractTest {
     /** */
     private SecurityContext securityContext;
 
-    /** */
     @BeforeEach
-    protected final void setUpBase() {
+    final void setUpBase() {
         securityContext = Mockito.mock(SecurityContext.class);
         SecurityContextHolder.setContext(securityContext);
         Mockito.when(securityContext.getAuthentication())
                 .thenReturn(new AnonAuthentication());
     }
 
-    /** */
     @AfterEach
-    protected final void tearDownBase() {
+    final void tearDownBase() {
         SecurityContextHolder.clearContext();
     }
 
@@ -53,7 +49,7 @@ public abstract class AbstractTest {
      * @param user the user
      */
     protected void mockAuthenticatedUser(final SecurityUser user) {
-        mockAuthentication(new TokenBasedAuthentication(user));
+        mockAuthentication(new TokenBasedAuthentication(user, null));
     }
 
     /**

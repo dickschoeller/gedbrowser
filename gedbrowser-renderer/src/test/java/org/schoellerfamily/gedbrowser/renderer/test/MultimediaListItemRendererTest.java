@@ -73,85 +73,82 @@ final class MultimediaListItemRendererTest {
     /** */
     @Test
     void testRenderAsListItemEmpty() {
+        @SuppressWarnings("java:S6126")
+        final String expected = "<li><span class=\"label\">Multimedia:</span> Title 1<br/>\n"
+            + "<a href=\"file1.jpg\">"
+            + "<img height=\"300px\" src=\"file1.jpg\" title=\"Title 1\"/>" + "</a></li>\n";
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
             .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, false, 0);
-        assertEquals(
-            "<li><span class=\"label\">Multimedia:</span> Title 1<br/>\n" + "<a href=\"file1.jpg\">"
-                + "<img height=\"300px\" src=\"file1.jpg\" title=\"Title 1\"/>" + "</a></li>\n",
-            builder.toString(), "Rendered string mismatch");
+        assertEquals(expected, builder.toString(), "Rendered string mismatch");
     }
 
     /** */
     @Test
     void testRenderAsListItemString() {
+        @SuppressWarnings("java:S6126")
+        final String expected = "<li><span class=\"label\">Multimedia:</span> "
+            + "<a href=\"file2.html\">Title 2</a></li>\n";
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
             .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, false, 2);
-        assertEquals(
-            "<li><span class=\"label\">Multimedia:</span> "
-                + "<a href=\"file2.html\">Title 2</a></li>\n",
-            builder.toString(), "Rendered string mismatch");
+        assertEquals(expected, builder.toString(), "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testRenderAsListItem() {
+        @SuppressWarnings("java:S6126")
+        final String expected = "<li><span class=\"label\">Multimedia:</span>"
+            + " <a href=\"file3.html\">Title 3</a></li>\n";
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
             .getListItemRenderer();
         final StringBuilder builder = new StringBuilder();
         apr.renderAsListItem(builder, true, 0);
-        assertEquals(
-            "<li><span class=\"label\">Multimedia:</span>"
-                + " <a href=\"file3.html\">Title 3</a></li>\n",
-            builder.toString(), "Rendered string mismatch");
+        assertEquals(expected, builder.toString(), "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testGetListItemContentsEmpty() {
+        final String expected =
+            "<span class=\"label\">Multimedia:</span> Title 1<br/>\n<a href=\"file1.jpg\">"
+            + "<img height=\"300px\" src=\"file1.jpg\" title=\"Title 1\"/>" + "</a>";
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
             .getListItemRenderer();
         final String contents = apr.getListItemContents();
-        assertEquals(
-            "<span class=\"label\">Multimedia:</span> Title 1<br/>\n" + "<a href=\"file1.jpg\">"
-                + "<img height=\"300px\" src=\"file1.jpg\" title=\"Title 1\"/>" + "</a>",
-            contents, "Rendered string mismatch");
+        assertEquals(expected, contents, "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testGetListItemContentsString() {
+        final String expected =
+            "<span class=\"label\">Multimedia:</span> <a href=\"file2.html\">Title 2</a>";
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
             .getListItemRenderer();
         final String contents = apr.getListItemContents();
-        assertEquals(
-            "<span class=\"label\">Multimedia:</span> " + "<a href=\"file2.html\">Title 2</a>",
-            contents, "Rendered string mismatch");
+        assertEquals(expected, contents, "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testGetListItemContents() {
+        final String expected =
+            "<span class=\"label\">Multimedia:</span> <a href=\"file3.html\">Title 3</a>";
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,
             new GedRendererFactory(), anonymousContext);
         final MultimediaListItemRenderer apr = (MultimediaListItemRenderer) aRenderer
             .getListItemRenderer();
         final String contents = apr.getListItemContents();
-        assertEquals(
-            "<span class=\"label\">Multimedia:</span>" + " <a href=\"file3.html\">Title 3</a>",
-            contents, "Rendered string mismatch");
+        assertEquals(expected, contents, "Rendered string mismatch");
     }
 }

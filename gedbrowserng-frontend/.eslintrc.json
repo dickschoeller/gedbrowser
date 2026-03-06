@@ -12,8 +12,7 @@
       "extends": ["plugin:@angular-eslint/recommended"],
       "parserOptions": {
         "project": [
-          "src/tsconfig.app.json",
-          "src/tsconfig.spec.json"
+          "src/tsconfig.eslint.json"
         ],
         "createDefaultProgram": true
       },

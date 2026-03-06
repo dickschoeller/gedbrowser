@@ -1,5 +1,4 @@
 import { APP_INITIALIZER, ModuleWithProviders, importProvidersFrom } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { initUserFactory } from './app/app.module';
 import { environment } from './environments/environment';
@@ -27,33 +26,36 @@ if (environment.production) {
 //  Production mode is disabled for now
 }
 
-bootstrapApplication(AppComponent, {
+try {
+  await bootstrapApplication(AppComponent, {
     providers: [
-        provideHttpClient(),
-        importProvidersFrom(rootRouting, BrowserModule, CdkTableModule, FormsModule, ReactiveFormsModule, HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule),
-        AuthApiService,
-        AuthService,
-        ConfigService,
-        DatasetsService,
-        HeadService,
-        NoteService,
-        FamilyService,
-        FooService,
-        PersonService,
-        SourceService,
-        SubmitterService,
-        SaveService,
-        UploadService,
-        UserService,
-        LoginGuard,
-        GuestGuard,
-        AdminGuard,
-        {
-            'provide': APP_INITIALIZER,
-            'useFactory': initUserFactory,
-            'deps': [UserService],
-            'multi': true
-        }
+      provideHttpClient(),
+      importProvidersFrom(rootRouting, BrowserModule, CdkTableModule, FormsModule, ReactiveFormsModule, HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule),
+      AuthApiService,
+      AuthService,
+      ConfigService,
+      DatasetsService,
+      HeadService,
+      NoteService,
+      FamilyService,
+      FooService,
+      PersonService,
+      SourceService,
+      SubmitterService,
+      SaveService,
+      UploadService,
+      UserService,
+      LoginGuard,
+      GuestGuard,
+      AdminGuard,
+      {
+        'provide': APP_INITIALIZER,
+        'useFactory': initUserFactory,
+        'deps': [UserService],
+        'multi': true
+      }
     ]
-})
-  .catch(err => console.log(err));
+  });
+} catch (err) {
+  console.log(err);
+}

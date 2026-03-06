@@ -106,8 +106,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                     userDetailsService.loadUserByUsername(username);
             // create authentication
             final TokenBasedAuthentication authentication =
-                    new TokenBasedAuthentication(userDetails);
-            authentication.setToken(authToken);
+                new TokenBasedAuthentication(userDetails, authToken);
             SecurityContextHolder.getContext()
                     .setAuthentication(authentication);
         } catch (Exception e) {

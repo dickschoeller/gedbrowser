@@ -11,6 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -52,6 +53,7 @@ public final class TokenHelper {
      *
      * @return the signing key
      */
+    @SuppressFBWarnings("REC_CATCH_EXCEPTION")
     private SecretKey getSigningKey() {
         try {
             byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
@@ -117,6 +119,7 @@ public final class TokenHelper {
      * @param token the token
      * @return the claims
      */
+    @SuppressWarnings("java:S1168")
     private Claims getClaimsFromToken(final String token) {
         try {
             return Jwts.parser()

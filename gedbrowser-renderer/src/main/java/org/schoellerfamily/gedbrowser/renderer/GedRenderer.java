@@ -28,7 +28,7 @@ public abstract class GedRenderer<G extends GedObject>
      *        attributes
      * @param renderingContext the context that we are rendering in
      */
-    public GedRenderer(final G gedObject,
+    protected GedRenderer(final G gedObject,
             final GedRendererFactory rendererFactory,
             final RenderingContext renderingContext) {
         super(renderingContext);
@@ -56,19 +56,6 @@ public abstract class GedRenderer<G extends GedObject>
     public final G getGedObject() {
         return gedObject;
     }
-//
-//    /**
-//     * Render the GedObject as an item in a list.
-//     *
-//     * @param builder Buffer for holding the rendition
-//     * @param newLine put in a new line for each line.
-//     * @param pad Minimum number spaces for padding each line of the output
-//     * @return the builder
-//     */
-//    public final StringBuilder renderAsListItem(final StringBuilder builder,
-//            final boolean newLine, final int pad) {
-//        return listItemRenderer.renderAsListItem(builder, newLine, pad);
-//    }
 
     /**
      * @param builder Buffer for holding the rendition

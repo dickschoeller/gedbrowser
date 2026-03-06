@@ -157,8 +157,9 @@ final class SpouseCrudIT {
         final ApiPerson gotP1 = helper.getPerson(p1);
         assertThat(gotP1).returns(1, o -> o.getFamss().size());
 
+        final String db = helper.getDb();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.unlinkSpouseInFamily(helper.getDb(), fam, "XXXXX"))
+            .isThrownBy(() -> crud.unlinkSpouseInFamily(db, fam, "XXXXX"))
             .withMessage("Object XXXXX of type person not found");
     }
 

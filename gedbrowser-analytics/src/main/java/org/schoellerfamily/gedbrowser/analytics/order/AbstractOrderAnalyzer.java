@@ -210,13 +210,7 @@ public abstract class AbstractOrderAnalyzer {
      */
     protected final boolean isNamingEvent(final Attribute attribute) {
         final String type = attribute.getString();
-        if ("Baptism".equals(type)) {
-            return true;
-        }
-        if ("Christening".equals(type)) {
-            return true;
-        }
-        return ("Naming".equals(type));
+        return "Baptism".equals(type) || "Christening".equals(type) || "Naming".equals(type);
     }
 
     /**

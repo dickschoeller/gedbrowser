@@ -17,9 +17,7 @@ import tools.jackson.databind.annotation.JsonDeserialize;
 @Jacksonized
 @JsonDeserialize(builder = ApiSubmission.ApiSubmissionBuilderImpl.class)
 public final class ApiSubmission extends ApiObject {
-    /**
-     * @param visitor the visitor
-     */
+    @Override
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }

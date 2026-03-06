@@ -42,7 +42,7 @@ public abstract class GeoDataController extends DatedDataController {
      * @param client enable interaction with geoservice
      * @param keyManager enable interacting with google
      */
-    public GeoDataController(final ApplicationInfo appInfo,
+    protected GeoDataController(final ApplicationInfo appInfo,
             final Users<? extends User> users,
             final GedObjectFileLoader loader,
             final CalendarProvider provider,

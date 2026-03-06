@@ -17,9 +17,7 @@ import tools.jackson.databind.annotation.JsonDeserialize;
 @Jacksonized
 @JsonDeserialize(builder = ApiNote.ApiNoteBuilderImpl.class)
 public final class ApiNote extends ApiTail {
-    /**
-     * @param visitor the visitor
-     */
+    @Override
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }

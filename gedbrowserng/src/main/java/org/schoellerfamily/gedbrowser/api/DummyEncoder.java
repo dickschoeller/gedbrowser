@@ -3,6 +3,9 @@ package org.schoellerfamily.gedbrowser.api;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Dick Schoeller
+ */
 @Component
 public class DummyEncoder implements PasswordEncoder {
     /**

@@ -49,7 +49,6 @@ class GedDocumentFileLoaderIT {
     @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private transient String gedbrowserHome;
 
-    /** */
     @Test
     void testReset() {
         loader.loadDocument(repositoryManager, "mini-schoeller");
@@ -57,14 +56,12 @@ class GedDocumentFileLoaderIT {
         assertRepositoryEmpty();
     }
 
-    /** */
     @Test
     void testLoad() {
         loader.reset(repositoryManager);
         assertJustThisOne(loader.loadDocument(repositoryManager, "mini-schoeller"));
     }
 
-    /** */
     @Test
     void testBadLoad() {
         loader.reset(repositoryManager);
@@ -97,9 +94,6 @@ class GedDocumentFileLoaderIT {
             .isThrownBy(() -> loader.loadDocument(repositoryManager, databaseName));
     }
 
-    /**
-     * Test that valid database names with hyphens, underscores, and digits pass validation.
-     */
     @ParameterizedTest
     @ValueSource(strings = {
         "my-database",
@@ -114,7 +108,6 @@ class GedDocumentFileLoaderIT {
             .doesNotThrowAnyException();
     }
 
-    /** */
     @Test
     void testReloadAll() {
         loader.reset(repositoryManager);
@@ -123,8 +116,6 @@ class GedDocumentFileLoaderIT {
         assertRepositoryHasOne();
     }
 
-    /** */
-    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     @Test
     void testDetails() {
         loader.reset(repositoryManager);
@@ -133,8 +124,6 @@ class GedDocumentFileLoaderIT {
         assertDetails(details);
     }
 
-    /** */
-    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     @Test
     void testAllDetails() {
         loader.reset(repositoryManager);
@@ -159,7 +148,6 @@ class GedDocumentFileLoaderIT {
         assertEquals(expectedSourceCount, details.get("sources"), "sources count mismatch");
     }
 
-    /** */
     @Test
     void testReload() {
         loader.reset(repositoryManager);

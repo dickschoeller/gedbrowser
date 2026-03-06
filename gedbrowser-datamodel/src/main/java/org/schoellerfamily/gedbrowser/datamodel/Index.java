@@ -25,14 +25,13 @@ public final class Index {
      * This allows us to organize by surname and then surname,given and finally
      * the set of IDs that have the same surname,given.
      */
-    private final transient SortedMap<String,
-            SortedMap<String, SortedSet<String>>> surnameIndex =
-            new TreeMap<String, SortedMap<String, SortedSet<String>>>();
+    private final SortedMap<String,
+            SortedMap<String, SortedSet<String>>> surnameIndex = new TreeMap<>();
 
     /**
      * The root object that this index is associated with.
      */
-    private final transient Root mRoot;
+    private final Root mRoot;
 
     /**
      * @param root the root object for this index.

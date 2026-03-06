@@ -97,26 +97,24 @@ public interface Renderer {
         final java.util.Date javaDate = new java.util.Date();
         final String timeString = DateFormat.getDateInstance(DateFormat.LONG,
                 Locale.getDefault()).format(javaDate);
-        final String retVal =
-        "\n    <hr class=\"final\"/>"
-        + menuInsertions(omit)
-        + "\n    <hr class=\"final\"/>"
-        + "\n    <table class=\"buttonrow\">"
-        + "\n    <tr class=\"buttonrow\">\n    <td class=\"brleft\">"
-        + "\n    <p class=\"maintainer\">\n    Maintained by <a href=\"mailto:"
-        + getMaintainerEmail() + "\">" + getMaintainerName()
-        + "</a>.<br>\n    Created with <a href=\"" + getHomeUrl()
-        + "software/gedbrowser.html"
-        + "\">GEDbrowser</a>, version " + getVersion() + " on " + timeString
-        + "\n    </p>\n    </td>\n    <td class=\"brright\">"
-        + "\n    <p class=\"maintainer\">"
-        + "\n<a href=\"http://validator.w3.org/check/referer\">"
-        + "<img src=\"/gedbrowser/valid-html401.gif\" "
-        + "class=\"button\" alt=\"[ Valid HTML 4.01! ]\" "
-        + "height=\"31\" width=\"88\"></a>"
-        + "\n    </p>\n    </td>\n    </tr>\n    </table>\n    <p>\n  </body>"
-        + "\n</html>\n";
-        return retVal;
+        return "\n    <hr class=\"final\"/>"
+            + menuInsertions(omit)
+            + "\n    <hr class=\"final\"/>"
+            + "\n    <table class=\"buttonrow\">"
+            + "\n    <tr class=\"buttonrow\">\n    <td class=\"brleft\">"
+            + "\n    <p class=\"maintainer\">\n    Maintained by <a href=\"mailto:"
+            + getMaintainerEmail() + "\">" + getMaintainerName()
+            + "</a>.<br>\n    Created with <a href=\"" + getHomeUrl()
+            + "software/gedbrowser.html"
+            + "\">GEDbrowser</a>, version " + getVersion() + " on " + timeString
+            + "\n    </p>\n    </td>\n    <td class=\"brright\">"
+            + "\n    <p class=\"maintainer\">"
+            + "\n<a href=\"http://validator.w3.org/check/referer\">"
+            + "<img src=\"/gedbrowser/valid-html401.gif\" "
+            + "class=\"button\" alt=\"[ Valid HTML 4.01! ]\" "
+            + "height=\"31\" width=\"88\"></a>"
+            + "\n    </p>\n    </td>\n    </tr>\n    </table>\n    <p>\n  </body>"
+            + "\n</html>\n";
     }
 
     /**

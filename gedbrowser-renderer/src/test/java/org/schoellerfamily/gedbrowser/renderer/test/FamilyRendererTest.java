@@ -130,6 +130,10 @@ final class FamilyRendererTest {
      */
     @Test
     void testSpouseConstructUsedInPersonTemplate() throws IOException {
+        @SuppressWarnings("java:S6126")
+        final String expected = "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
+            + "Lisa Hope <span class=\"surname\">Robinson</span>"
+            + " (1960-) [I3]</a>";
         final Root root = reader.readBigTestSource();
         final Person dick = (Person) root.find("I2");
         final PersonRenderer personRenderer = new PersonRenderer(dick, new GedRendererFactory(),
@@ -137,10 +141,7 @@ final class FamilyRendererTest {
         final PersonNavigator navigator = new PersonNavigator(dick);
         final Family family = navigator.getFamilies().get(0);
         final FamilyRenderer familyRenderer = createFamilyRenderer(family, userContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
-                + "Lisa Hope <span class=\"surname\">Robinson</span>" + " (1960-) [I3]</a>",
-            familyRenderer.getSpouse(personRenderer).getNameHtml(),
+        assertEquals(expected, familyRenderer.getSpouse(personRenderer).getNameHtml(),
             "Rendered html doesn't match expectation");
     }
 
@@ -178,17 +179,19 @@ final class FamilyRendererTest {
      */
     @Test
     void testRenderF1Attributes() throws IOException {
+        @SuppressWarnings("java:S6126")
+        final String expected = "<span class=\"label\">Marriage:</span>"
+            + " 27 MAY 1984, Temple Emanu-el, Providence, Providence"
+            + " County, Rhode Island, USA, The ceremony performed by"
+            + " Rabbi Wayne Franklin and Cantor Ivan<br/>\n"
+            + "Perlman.  The best man and matron of honor were Dale"
+            + " Matcovitch<br/>\n"
+            + "and Carol Robinson Sacerdote.," + "  [<a href=\"source?db=null&amp;id=S4\">S4</a>]";
         final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam, new GedRendererFactory(),
             anonymousContext);
         final List<GedRenderer<?>> attributes = familyRenderer.getAttributes();
-        final String expected = "<span class=\"label\">Marriage:</span>"
-            + " 27 MAY 1984, Temple Emanu-el, Providence, Providence"
-            + " County, Rhode Island, USA, The ceremony performed by"
-            + " Rabbi Wayne Franklin and Cantor Ivan<br/>\n"
-            + "Perlman.  The best man and matron of honor were Dale" + " Matcovitch<br/>\n"
-            + "and Carol Robinson Sacerdote.," + "  [<a href=\"source?db=null&amp;id=S4\">S4</a>]";
         assertEquals(expected, attributes.get(0).getListItemContents(),
             "Rendered html doesn't match expectation");
     }
@@ -198,14 +201,15 @@ final class FamilyRendererTest {
      */
     @Test
     void testRenderF1Children() throws IOException {
+        @SuppressWarnings("java:S6126")
+        final String expected = "<a href=\"person?db=null&amp;id=I1\""
+            + " class=\"name\">Melissa Robinson <span class=\"surname\">"
+            + "Schoeller</span> [I1]</a>";
         final Root root = reader.readBigTestSource();
         final Family fam = (Family) root.find("F1");
         final FamilyRenderer familyRenderer = new FamilyRenderer(fam, new GedRendererFactory(),
             userContext);
         final List<PersonRenderer> children = familyRenderer.getChildren();
-        final String expected = "<a href=\"person?db=null&amp;id=I1\""
-            + " class=\"name\">Melissa Robinson <span class=\"surname\">"
-            + "Schoeller</span> [I1]</a>";
         assertEquals(expected, children.get(0).getNameHtml(),
             "Rendered html doesn't match expectation");
     }

@@ -8,7 +8,6 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiNote;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +24,7 @@ import lombok.RequiredArgsConstructor;
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class NotesController {
     /** */
@@ -34,7 +33,7 @@ public class NotesController {
     /** */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
-    /** */
+        /** */
     private final RepositoryManagerMongo repositoryManager;
 
     /**
@@ -50,7 +49,6 @@ public class NotesController {
      * @return the note as created
      */
     @PostMapping(value = "/v1/dbs/{db}/notes")
-    @ResponseBody
     public ApiNote create(
             @PathVariable final String db,
             @RequestBody final ApiNote note) {
@@ -62,7 +60,6 @@ public class NotesController {
      * @return the list of notes
      */
     @GetMapping(value = "/v1/dbs/{db}/notes")
-    @ResponseBody
     public List<ApiNote> read(
             @PathVariable final String db) {
         return crud().readAll(db);
@@ -74,7 +71,6 @@ public class NotesController {
      * @return the note
      */
     @GetMapping(value = "/v1/dbs/{db}/notes/{id}")
-    @ResponseBody
     public ApiNote read(
             @PathVariable final String db,
             @PathVariable final String id) {
@@ -88,7 +84,6 @@ public class NotesController {
      * @return the note as created
      */
     @PutMapping(value = "/v1/dbs/{db}/notes/{id}")
-    @ResponseBody
     public ApiNote update(
             @PathVariable final String db,
             @PathVariable final String id,
@@ -102,7 +97,6 @@ public class NotesController {
      * @return the deleted object
      */
     @DeleteMapping(value = "/v1/dbs/{db}/notes/{id}")
-    @ResponseBody
     public ApiNote delete(
             @PathVariable final String db,
             @PathVariable final String id) {

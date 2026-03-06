@@ -82,8 +82,8 @@ public class ApiPerson extends ApiExtraLists {
             return ApiAttribute.builder()
                 .type("attribute")
                 .string("Reference Number")
-                .tail(string.replaceAll("[A-Za-z]", ""))
-                .build();
+                    .tail(string.replaceAll("[A-Za-z]", ""))
+                    .build();
         }
     }
 
@@ -92,7 +92,7 @@ public class ApiPerson extends ApiExtraLists {
      *
      * @return the surname
      */
-    public String getSurname() {
+    public final String getSurname() {
         if (surname.isBlank()) {
             return "?";
         }
@@ -104,17 +104,15 @@ public class ApiPerson extends ApiExtraLists {
      *
      * @return the index name
      */
-    public String getIndexName() {
+    public final String getIndexName() {
         if (indexName.isBlank()) {
             return "?, ?";
         }
         return indexName;
     }
 
-    /**
-     * @param visitor the visitor
-     */
-    public void accept(final ApiObjectVisitor visitor) {
+    @Override
+    public final void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -123,7 +121,7 @@ public class ApiPerson extends ApiExtraLists {
      * should use the same approach.
      */
     @Override
-    public boolean canEqual(final Object other) {
+    public final boolean canEqual(final Object other) {
         return other.getClass() == ApiPerson.class;
     }
 }

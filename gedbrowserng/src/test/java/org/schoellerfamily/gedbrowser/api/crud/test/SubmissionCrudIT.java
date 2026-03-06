@@ -103,8 +103,9 @@ class SubmissionCrudIT {
     @Test
     void testGetSubmissionsGl120368Xyzzy() {
         log.info("Beginning testGetSubmissionsGl120368Xyzzy");
+        final String db = helper.getDb();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.readOne(helper.getDb(), "Xyzzy"))
+            .isThrownBy(() -> crud.readOne(db, "Xyzzy"))
             .withMessage("Object Xyzzy of type submission not found");
     }
 
@@ -141,8 +142,9 @@ class SubmissionCrudIT {
     @Test
     void testDeleteSubmissionNotFound() {
         log.info("Beginning testDeleteSubmissionNotFound");
+        final String db = helper.getDb();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.deleteOne(helper.getDb(), "XXXXXXX"))
+            .isThrownBy(() -> crud.deleteOne(db, "XXXXXXX"))
             .withMessage("Object XXXXXXX of type submission not found");
     }
 

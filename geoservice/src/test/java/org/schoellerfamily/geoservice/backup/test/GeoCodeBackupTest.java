@@ -48,9 +48,9 @@ final class GeoCodeBackupTest {
      */
     @Configuration
     @RequiredArgsConstructor
-    static class ContextConfiguration {
+    public static class ContextConfiguration {
         /** */
-        private transient GeoCoder geoCoder = null;
+        private GeoCoder geoCoder;
 
         /**
          * @return the persistence manager
@@ -84,7 +84,7 @@ final class GeoCodeBackupTest {
         final File test = new File("test.json");
         backupManager.recover(test);
         assertTrue(gcd.allKeys().contains("3341 Chaucer Lane, Bethlehem, PA"),
-                "Should contain expected entry");
+            "Should contain expected entry");
         if (!test.delete()) {
             throw new IOException("Couldn't delete file test.json");
         }
@@ -102,7 +102,7 @@ final class GeoCodeBackupTest {
         final File test = new File("test.json");
         backupManager.recover(test);
         assertEquals(gci, gcd.get("3341 Chaucer Lane, Bethlehem, PA"),
-                "Should have a good item");
+            "Should have a good item");
         if (!test.delete()) {
             throw new IOException("Couldn't delete file test.json");
         }

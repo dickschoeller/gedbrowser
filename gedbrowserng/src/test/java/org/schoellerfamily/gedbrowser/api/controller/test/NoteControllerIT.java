@@ -32,6 +32,7 @@ import org.springframework.web.client.RestClientException;
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = { "management.port=0" })
 @AutoConfigureRestTestClient
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.UnitTestContainsTooManyAsserts" })
 class NoteControllerIT {
     /**
      * RestTestClient injected by Spring's test support.
@@ -54,6 +55,7 @@ class NoteControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "[ {\n" + "  \"type\" : \"note\",\n"
             + "  \"string\" : \"N1\",\n" + "  \"attributes\" : [ ],\n"
             + "  \"tail\" : \"_P_CCINFO 1-1319\"\n" + "}, {\n" + "  \"type\" : \"note\",\n"
@@ -73,6 +75,7 @@ class NoteControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "{\n" + "  \"type\" : \"note\",\n" + "  \"string\" : \"N13\",\n"
             + "  \"attributes\" : [ ],\n" + "  \"tail\" : \"_P_CCINFO 1-1319\\n"
             + "Suffolk County Record Office, Parish Register, St Mary"
@@ -94,6 +97,7 @@ class NoteControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "{\n" + "  \"type\" : \"note\",\n" + "  \"string\" : \"N66\",\n"
             + "  \"attributes\" : [ {\n" + "    \"type\" : \"attribute\",\n"
             + "    \"string\" : \"Changed\",\n" + "    \"attributes\" : [ {\n"
@@ -117,6 +121,7 @@ class NoteControllerIT {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .returnResult(String.class);
+        @SuppressWarnings({ "java:S6126" })
         final String bodyFragment = "{\n" + "  \"type\" : \"note\",\n"
             + "  \"string\" : \"N1932\",\n" + "  \"attributes\" : [ {\n"
             + "    \"type\" : \"sourcelink\",\n" + "    \"string\" : \"S33734\",\n"

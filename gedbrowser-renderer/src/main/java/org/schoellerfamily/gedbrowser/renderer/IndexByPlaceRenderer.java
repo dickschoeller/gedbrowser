@@ -144,10 +144,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
         final PersonConfidentialVisitor visitor =
                 new PersonConfidentialVisitor();
         person.accept(visitor);
-        if (visitor.isConfidential()) {
-            return true;
-        }
-        return !getRenderingContext().isUser();
+        return visitor.isConfidential() || !getRenderingContext().isUser();
     }
 
     /**

@@ -5,10 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -26,8 +30,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 /**
  * @author Dick Schoeller
  */
-@SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.ExcessiveClassLength",
-    "PMD.ExcessiveImports" })
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.ExcessiveImports" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
 final class PersonRendererTest {
@@ -60,9 +63,6 @@ final class PersonRendererTest {
         adminContext = new RenderingContext(adminUser, appInfo, provider);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderSabinoTitleAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -73,9 +73,6 @@ final class PersonRendererTest {
             personRenderer.getTitleName(), "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaTitleUser() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -86,9 +83,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderGeorgeTitle() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -99,9 +93,6 @@ final class PersonRendererTest {
             personRenderer.getTitleName(), "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaWholeName() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -112,80 +103,63 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderSabinoWholeName() throws IOException {
+    @ParameterizedTest
+    @MethodSource("wholeNameCases")
+    void testRenderWholeName(final String personId, final boolean isAdmin,
+            final String expected) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I4248");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            adminContext);
-        assertEquals("Sabino Figliuolo", personRenderer.getWholeName(),
+        final Person person = (Person) root.find(personId);
+        final RenderingContext context = isAdmin ? adminContext : userContext;
+        final PersonRenderer personRenderer = new PersonRenderer(person,
+            new GedRendererFactory(), context);
+        assertEquals(expected, personRenderer.getWholeName(),
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderSabinoWholeNameUser() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I4248");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("Confidential", personRenderer.getWholeName(),
-            "Rendered html doesn't match expectation");
+    private static Stream<Arguments> wholeNameCases() {
+        return Stream.of(
+            Arguments.of("I4248", true, "Sabino Figliuolo"),
+            Arguments.of("I4248", false, "Confidential"),
+            Arguments.of("I9", false, "George Steven Sacerdote"));
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeWholeNameUser() throws IOException {
+    @ParameterizedTest
+    @MethodSource("fatherNameHtmlCases")
+    void testRenderFatherNameHtml(final String personId, final boolean isAdmin,
+            final String expected, final String message) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("George Steven Sacerdote", personRenderer.getWholeName(),
-            "Rendered html doesn't match expectation");
+        final Person person = (Person) root.find(personId);
+        final RenderingContext context = isAdmin ? adminContext : userContext;
+        final PersonRenderer personRenderer = new PersonRenderer(person,
+            new GedRendererFactory(), context);
+        assertEquals(expected, personRenderer.getParents().getFatherNameHtml(),
+            message);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderMelissaFatherNameHtml() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I1");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I2\" class=\"name\">" + "Richard John"
-                + " <span class=\"surname\">Schoeller</span>" + " (1958-) [I2]</a>",
-            personRenderer.getParents().getFatherNameHtml(),
-            "Rendered html doesn't match expectation");
+    private static Stream<Arguments> fatherNameHtmlCases() {
+        return Stream.of(
+            Arguments.of("I1", false,
+                "<a href=\"person?db=null&amp;id=I2\" class=\"name\">"
+                + "Richard John"
+                + " <span class=\"surname\">Schoeller</span>"
+                + " (1958-) [I2]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5266", true,
+                "<a href=\"person?db=null&amp;id=I4248\" class=\"name\">"
+                + "Sabino"
+                + " <span class=\"surname\">Figliuolo</span>"
+                + " [I4248]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5", true,
+                "<a href=\"person?db=null&amp;id=I4\" class=\"name\">"
+                + "John Vincent"
+                + " <span class=\"surname\">Schoeller</span>"
+                + " (1934-) [I4]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5", false, "", "Expected empty string"),
+            Arguments.of("I9", false, "", "Expected empty string"));
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderCiciFatherNameHtmlAdmin() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5266");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            adminContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I4248\" class=\"name\">" + "Sabino"
-                + " <span class=\"surname\">Figliuolo</span> [I4248]</a>",
-            personRenderer.getParents().getFatherNameHtml(),
-            "Rendered html doesn't match expectation");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderCiciFatherNameHtmlAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -196,81 +170,43 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderVivianFatherNameHtmlAdmin() throws IOException {
+    @ParameterizedTest
+    @MethodSource("motherNameHtmlCases")
+    void testRenderMotherNameHtml(final String personId, final boolean isAdmin,
+            final String expected, final String message) throws IOException {
         final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            adminContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I4\" class=\"name\">" + "John Vincent"
-                + " <span class=\"surname\">Schoeller</span>" + " (1934-) [I4]</a>",
-            personRenderer.getParents().getFatherNameHtml(),
-            "Rendered html doesn't match expectation");
+        final Person person = (Person) root.find(personId);
+        final RenderingContext context = isAdmin ? adminContext : userContext;
+        final PersonRenderer personRenderer = new PersonRenderer(person,
+            new GedRendererFactory(), context);
+        assertEquals(expected, personRenderer.getParents().getMotherNameHtml(),
+            message);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderVivianFatherNameHtmlAnon() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("", personRenderer.getParents().getFatherNameHtml(), "Expected empty string");
+    private static Stream<Arguments> motherNameHtmlCases() {
+        return Stream.of(
+            Arguments.of("I1", false,
+                "<a href=\"person?db=null&amp;id=I3\" class=\"name\">"
+                + "Lisa Hope"
+                + " <span class=\"surname\">Robinson</span>"
+                + " (1960-) [I3]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5266", true,
+                "<a href=\"person?db=null&amp;id=I5\" class=\"name\">"
+                + "Vivian Grace"
+                + " <span class=\"surname\">Schoeller</span>"
+                + " (1960-) [I5]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5", true,
+                "<a href=\"person?db=null&amp;id=I6\" class=\"name\">"
+                + "Patricia Ruth"
+                + " <span class=\"surname\">Hayes</span>"
+                + " (1937-) [I6]</a>",
+                "Rendered html doesn't match expectation"),
+            Arguments.of("I5", false, "", "Expected empty string"),
+            Arguments.of("I9", false, "", "Expected empty string"));
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeFatherNameHtml() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("", personRenderer.getParents().getFatherNameHtml(), "Expected empty string");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderMelissaMotherNameHtml() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I1");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I3\" class=\"name\">" + "Lisa Hope"
-                + " <span class=\"surname\">Robinson</span>" + " (1960-) [I3]</a>",
-            personRenderer.getParents().getMotherNameHtml(),
-            "Rendered html doesn't match expectation");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderCiciMotherNameHtmlAdmin() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5266");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            adminContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I5\" class=\"name\">" + "Vivian Grace"
-                + " <span class=\"surname\">Schoeller</span>" + " (1960-) [I5]</a>",
-            personRenderer.getParents().getMotherNameHtml(),
-            "Rendered html doesn't match expectation");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderCiciMotherNameHtmlAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -281,112 +217,60 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderVivianMotherNameHtmlAdmin() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            adminContext);
-        assertEquals(
-            "<a href=\"person?db=null&amp;id=I6\" class=\"name\">" + "Patricia Ruth"
-                + " <span class=\"surname\">Hayes</span>" + " (1937-) [I6]</a>",
-            personRenderer.getParents().getMotherNameHtml(),
-            "Rendered html doesn't match expectation");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderVivianMotherNameHtmlAnon() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I5");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("", personRenderer.getParents().getMotherNameHtml(), "Expected empty string");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
-    @Test
-    void testRenderGeorgeMotherNameHtml() throws IOException {
-        final Root root = reader.readBigTestSource();
-        final Person melissa = (Person) root.find("I9");
-        final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
-            userContext);
-        assertEquals("", personRenderer.getParents().getMotherNameHtml(), "Expected empty string");
-    }
-
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaFatherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             userContext);
-        assertEquals("\n<p class=\"parent\">\n <span class=\"parent label\">Father:"
+        @SuppressWarnings("java:S6126")
+        final String expected = "\n<p class=\"parent\">\n <span class=\"parent label\">Father:"
             + "</span> <a href=\"person?db=null&amp;id=I2\" class=\"name\">"
-            + "Richard John <span class=\"surname\">Schoeller</span>" + " (1958-) [I2]</a>\n</p>",
-            personRenderer.getParents().getFatherRendition(),
+            + "Richard John <span class=\"surname\">Schoeller</span>" + " (1958-) [I2]</a>\n</p>";
+        assertEquals(expected, personRenderer.getParents().getFatherRendition(),
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderGeorgeFatherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             userContext);
-        assertEquals(
-            "\n<p class=\"parent\">\n <span class=\"parent label\">Father:" + "</span> \n</p>",
-            personRenderer.getParents().getFatherRendition(),
+        @SuppressWarnings("java:S6126")
+        final String expected = "\n<p class=\"parent\">\n <span class=\"parent label\">Father:"
+            + "</span> \n</p>";
+        assertEquals(expected, personRenderer.getParents().getFatherRendition(),
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaMotherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I1");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             userContext);
-        assertEquals(
-            "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:"
-                + "</span> <a href=\"person?db=null&amp;id=I3\" class=\"name\">"
-                + "Lisa Hope <span class=\"surname\">Robinson</span>" + " (1960-) [I3]</a>\n</p>",
-            personRenderer.getParents().getMotherRendition(),
+        @SuppressWarnings("java:S6126")
+        final String expected = "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:"
+            + "</span> <a href=\"person?db=null&amp;id=I3\" class=\"name\">"
+            + "Lisa Hope <span class=\"surname\">Robinson</span>" + " (1960-) [I3]</a>\n</p>";
+        assertEquals(expected, personRenderer.getParents().getMotherRendition(),
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderGeorgeMotherRendition() throws IOException {
         final Root root = reader.readBigTestSource();
         final Person melissa = (Person) root.find("I9");
         final PersonRenderer personRenderer = new PersonRenderer(melissa, new GedRendererFactory(),
             userContext);
-        assertEquals(
-            "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:" + "</span> \n</p>",
-            personRenderer.getParents().getMotherRendition(),
+        @SuppressWarnings("java:S6126")
+        final String expected = "\n<p class=\"parent\">\n <span class=\"parent label\">Mother:"
+            + "</span> \n</p>";
+        assertEquals(expected, personRenderer.getParents().getMotherRendition(),
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickLifeSpan() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -397,9 +281,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaLifeSpan() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -410,9 +291,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickFamilies() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -423,9 +301,6 @@ final class PersonRendererTest {
         assertEquals("F1", families.get(0).getString(), "Expected family string F1");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaFamilies() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -435,9 +310,6 @@ final class PersonRendererTest {
         assertEquals(0, personRenderer.getFamilies().size(), "Person should have 0 families");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickAttributes() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -448,9 +320,6 @@ final class PersonRendererTest {
         assertEquals(expect, personRenderer.getAttributes().size(), "Expected 8 attributes");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaAttributes() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -461,9 +330,6 @@ final class PersonRendererTest {
         assertEquals(expect, personRenderer.getAttributes().size(), "Expected 7 attributes");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderDickIdString() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -473,9 +339,6 @@ final class PersonRendererTest {
         assertEquals("I2", personRenderer.getIdString(), "Expected person ID string I2");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaIdString() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -485,9 +348,6 @@ final class PersonRendererTest {
         assertEquals("I1", personRenderer.getIdString(), "Expected person ID string I1");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderMelissaIndexHref() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -498,9 +358,6 @@ final class PersonRendererTest {
             "Rendered string mismatch");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianSurnameLetterAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -510,9 +367,6 @@ final class PersonRendererTest {
         assertEquals("?", personRenderer.getSurnameLetter(), "Rendered string mismatch");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianSurnameLetterAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -522,9 +376,6 @@ final class PersonRendererTest {
         assertEquals("S", personRenderer.getSurnameLetter(), "Rendered string mismatch");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianSurnameAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -534,9 +385,6 @@ final class PersonRendererTest {
         assertEquals("?", personRenderer.getSurname(), "Rendered string mismatch");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianSurnameAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -546,9 +394,6 @@ final class PersonRendererTest {
         assertEquals("Schoeller", personRenderer.getSurname(), "Rendered string mismatch");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianLifespanAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -558,9 +403,6 @@ final class PersonRendererTest {
         assertEquals("", personRenderer.getLifeSpanString(), "Expected empty string");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianLifespanAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -571,9 +413,6 @@ final class PersonRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianFamiliesAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -583,9 +422,6 @@ final class PersonRendererTest {
         assertEquals(0, personRenderer.getFamilies().size(), "Expected empty family list");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianFamiliesAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -595,9 +431,6 @@ final class PersonRendererTest {
         assertEquals(1, personRenderer.getFamilies().size(), "Expected 1 family in family list");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianAttributesAnon() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -607,9 +440,6 @@ final class PersonRendererTest {
         assertEquals(0, personRenderer.getAttributes().size(), "Expected 0 attributes");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testVivianAttributesAdmin() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -621,11 +451,6 @@ final class PersonRendererTest {
             "Attribute list size mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testHeaderMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -636,11 +461,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -651,11 +471,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -666,11 +481,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -684,11 +494,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -699,11 +504,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -714,11 +514,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -730,11 +525,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testPlacesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();

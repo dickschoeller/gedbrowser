@@ -3,7 +3,12 @@ package org.schoellerfamily.geoservice.persistence.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 
 import com.google.maps.model.GeocodingResult;
@@ -24,6 +29,7 @@ final class GeoCodeItemTest {
 
     /** */
     @Test
+    @SuppressWarnings("java:S3415")
     void testNotEqualsNull() {
         final GeoCodeItem gcce = new GeoCodeItem("temp");
         assertNotEquals(gcce, null, "Test of equals should not match null");
@@ -111,11 +117,9 @@ final class GeoCodeItemTest {
 
     /** */
     @Test
-    @SuppressWarnings("PMD.UnnecessaryFullyQualifiedName")
+    @SuppressWarnings("java:S3415")
     void testNotEqualsClassMismatch() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp");
-        // Necessary to be fully qualified to exercise the non-matching
-        // data types.
         assertNotEquals(gcce0, "tamp", "Items of different types should not match");
     }
 
@@ -175,37 +179,33 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with name should not match empty (order 1)");
     }
 
-    /** */
-    @Test
-    void testNotEqualsPlaceModernAndUnlikeResultString() {
-        final GeocodingResult gr0 = new GeocodingResult();
-        gr0.formattedAddress = "Tempe";
-        final GeocodingResult gr1 = new GeocodingResult();
-        gr1.formattedAddress = "Tampe";
-        final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "temp", gr0);
-        final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp", gr1);
-        assertNotEquals(gcce0, gcce1, "Differences in the geo result should make not match");
+    /**
+     * Provides test data for formatted address inequality tests.
+     *
+     * @return stream of arguments containing two formatted addresses
+     */
+    private static Stream<Arguments> formattedAddressProvider() {
+        return Stream.of(
+            Arguments.of("Tempe", "Tampe"),
+            Arguments.of(null, "Tampe"),
+            Arguments.of("Tempe", null)
+        );
     }
 
-    /** */
-    @Test
-    void testNotEqualsPlaceModernAndNullResultString0() {
+    /**
+     * Test that geocode items with different formatted addresses are not equal.
+     *
+     * @param address0 the formatted address for the first geocoding result
+     * @param address1 the formatted address for the second geocoding result
+     */
+    @ParameterizedTest
+    @MethodSource("formattedAddressProvider")
+    void testNotEqualsPlaceModernAndDifferentResultString(
+            final String address0, final String address1) {
         final GeocodingResult gr0 = new GeocodingResult();
-        gr0.formattedAddress = null;
+        gr0.formattedAddress = address0;
         final GeocodingResult gr1 = new GeocodingResult();
-        gr1.formattedAddress = "Tampe";
-        final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "temp", gr0);
-        final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp", gr1);
-        assertNotEquals(gcce0, gcce1, "Differences in the geo result should not match");
-    }
-
-    /** */
-    @Test
-    void testNotEqualsPlaceModernAndNullResultString1() {
-        final GeocodingResult gr0 = new GeocodingResult();
-        gr0.formattedAddress = "Tempe";
-        final GeocodingResult gr1 = new GeocodingResult();
-        gr1.formattedAddress = null;
+        gr1.formattedAddress = address1;
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "temp", gr0);
         final GeoCodeItem gcce1 = new GeoCodeItem("tamp", "temp", gr1);
         assertNotEquals(gcce0, gcce1, "Differences in the geo result should not match");

@@ -2,9 +2,14 @@ package org.schoellerfamily.gedbrowser.renderer.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.DefaultRenderer;
@@ -29,7 +34,6 @@ final class NullListItemRendererTest {
     /** */
     private transient NullListItemRenderer nsr;
 
-    /** */
     @BeforeEach
     void setUp() {
         final RenderingContext anonymousContext = RenderingContext.anonymous(appInfo);
@@ -38,9 +42,6 @@ final class NullListItemRendererTest {
         nsr = (NullListItemRenderer) renderer.getListItemRenderer();
     }
 
-    /**
-     * @return an anonymous subclass of GedObject for testing
-     */
     private GedObject createGedObject() {
         return new GedObject() {
             @Override
@@ -50,7 +51,6 @@ final class NullListItemRendererTest {
         };
     }
 
-    /** */
     @Test
     void testRenderAsListItemFalse0() {
         final StringBuilder builder = new StringBuilder();
@@ -58,27 +58,18 @@ final class NullListItemRendererTest {
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
-    @Test
-    void testRenderAsListItemFalse2() {
+    @ParameterizedTest
+    @MethodSource("renderAsListItemCases")
+    void testRenderAsListItem(final boolean newLine, final int pad) {
         final StringBuilder builder = new StringBuilder();
-        final String string = nsr.renderAsListItem(builder, false, 2).toString();
+        final String string = nsr.renderAsListItem(builder, newLine, pad).toString();
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
-    @Test
-    void testRenderAsListItemTrue0() {
-        final StringBuilder builder = new StringBuilder();
-        final String string = nsr.renderAsListItem(builder, true, 0).toString();
-        assertEquals("", string, "Expected empty string");
-    }
-
-    /** */
-    @Test
-    void testRenderAsListItemTrue2() {
-        final StringBuilder builder = new StringBuilder();
-        final String string = nsr.renderAsListItem(builder, true, 2).toString();
-        assertEquals("", string, "Expected empty string");
+    private static Stream<Arguments> renderAsListItemCases() {
+        return Stream.of(
+            Arguments.of(false, 2),
+            Arguments.of(true, 0),
+            Arguments.of(true, 2));
     }
 }
