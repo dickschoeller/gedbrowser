@@ -72,6 +72,7 @@
     "@vitest/ui": "^4.0.0",
     "eslint": "9.39.3",
     "express": "^5.0.0",
+    "express-rate-limit": "8.3.0",
     "jsdom": "28.1.0",
     "puppeteer": "24.38.0",
     "ts-node": "~10.9.0",
