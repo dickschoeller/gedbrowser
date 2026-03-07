@@ -23,7 +23,7 @@ import { LinkPersonComponent } from './link-person.component';
     selector: 'app-person-family-list',
     template: `<mat-card>
   <mat-card-title>
-    <mat-toolbar>Spouses and Children</mat-toolbar>
+        <mat-toolbar><span class="list-toolbar-title">Spouses and Children</span></mat-toolbar>
   </mat-card-title>
   <mat-card-content>
     <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
@@ -37,26 +37,34 @@ import { LinkPersonComponent } from './link-person.component';
       }
     </div>
     @if (hasSignedIn()) {
-      <app-new-person
-          [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
-          color="primary"
-          (emitOK)="createSpouse($event)"></app-new-person>
-      <app-link-person
-          [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link spouse'"
-          color="primary"
-          (emitOK)="linkSpouse($event)"></app-link-person>
-      <app-new-person
-          [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
-          color="primary"
-          (emitOK)="createChild($event)"></app-new-person>
-      <app-link-person
-          [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link children'"
-          color="primary"
-          (emitOK)="linkChildren($event)"></app-link-person>
+      <div class="family-action-buttons">
+        <app-new-person
+            [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
+            color="primary"
+            (emitOK)="createSpouse($event)"></app-new-person>
+        <app-link-person
+            [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link spouse'"
+            color="primary"
+            (emitOK)="linkSpouse($event)"></app-link-person>
+        <app-new-person
+            [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
+            color="primary"
+            (emitOK)="createChild($event)"></app-new-person>
+        <app-link-person
+            [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link children'"
+            color="primary"
+            (emitOK)="linkChildren($event)"></app-link-person>
+      </div>
     }
   </mat-card-content>
 </mat-card>`,
-    styles: [],
+    styles: [`
+.family-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+`],
     imports: [MatCard, MatCardTitle, MatToolbar, MatCardContent, CdkDropList, CdkDrag, PersonFamilyComponent, NewPersonComponent, LinkPersonComponent]
 })
 export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {

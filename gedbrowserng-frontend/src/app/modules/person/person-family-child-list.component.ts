@@ -28,7 +28,7 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
     <mat-card>
       <mat-card-title>
         <mat-toolbar>
-          Children
+                    <span class="list-toolbar-title">Children</span>
           <span class="example-fill-remaining-space"></span>
                     @if (hasSignedIn()) {
                         <span>

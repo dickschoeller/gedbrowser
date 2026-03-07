@@ -17,7 +17,7 @@ import { SourceButtonComponent } from '../source-button/source-button.component'
 @Component({
     selector: 'app-attribute-list-item',
     template: `<div class="parent">
-    <b>{{ attributeUtil.label() }}:&nbsp;</b>
+    <b class="attribute-label">{{ attributeUtil.label() }}:&nbsp;</b>
     @if (attributeUtil.contents()) {
         <span>
             @if (href()) {

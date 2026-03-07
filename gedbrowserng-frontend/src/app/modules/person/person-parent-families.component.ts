@@ -18,7 +18,7 @@ import { PersonParentFamilyComponent } from './person-parent-family.component';
     template: `<mat-card>
   <mat-card-title>
     <mat-toolbar>
-    Parents and Siblings
+    <span class="list-toolbar-title">Parents and Siblings</span>
     <span class="example-fill-remaining-space"></span>
     @if (!person.famcs.length && hasSignedIn()) {
       <span>

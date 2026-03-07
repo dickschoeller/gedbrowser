@@ -23,12 +23,124 @@ body {
   flex: 1 1 auto;
 }
 
+.list-toolbar-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.attribute-label {
+  font-size: 16px;
+  font-weight: 700;
+}
+
 .hidden {
   visibility: hidden;
 }
 
+a,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+}
+
 .parent:hover .hidden {
   visibility: visible;
+}
+
+app-attribute-list-item .hidden .mat-icon-button,
+app-attribute-list-item .hidden .mat-mdc-icon-button {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+app-attribute-list-item .hidden .mat-icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+app-person-family-child .hidden .mat-icon-button,
+app-person-family-child .hidden .mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 16px;
+  --mat-icon-button-state-layer-size: 16px;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+app-person-family-child .hidden .mat-mdc-icon-button .mat-mdc-button-touch-target {
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+app-person-family-child .hidden .mat-icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.mat-mdc-icon-button.mat-mdc-button-base {
+  --mdc-icon-button-state-layer-size: 18px;
+  --mat-icon-button-state-layer-size: 18px;
+  width: var(--mat-icon-button-state-layer-size);
+  height: var(--mat-icon-button-state-layer-size);
+  padding: 0;
+}
+
+app-attribute-list mat-toolbar .mat-icon-button,
+app-attribute-list mat-toolbar .mat-mdc-icon-button,
+app-multimedia-gallery mat-toolbar .mat-icon-button,
+app-multimedia-gallery mat-toolbar .mat-mdc-icon-button,
+app-person-family-child-list mat-toolbar .mat-icon-button,
+app-person-family-child-list mat-toolbar .mat-mdc-icon-button {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+app-attribute-list mat-toolbar .mat-mdc-icon-button,
+app-multimedia-gallery mat-toolbar .mat-mdc-icon-button,
+app-person-family-child-list mat-toolbar .mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 18px;
+}
+
+app-attribute-list mat-toolbar .mat-mdc-icon-button .mat-mdc-button-touch-target,
+app-multimedia-gallery mat-toolbar .mat-mdc-icon-button .mat-mdc-button-touch-target,
+app-person-family-child-list mat-toolbar .mat-mdc-icon-button .mat-mdc-button-touch-target {
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+app-attribute-list mat-toolbar .mat-icon,
+app-multimedia-gallery mat-toolbar .mat-icon,
+app-person-family-child-list mat-toolbar .mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+  line-height: 18px;
+  margin: 0;
+  padding: 0;
 }
 
 ngx-gallery-arrows.ngx-gallery-image-size-contain .fa {
@@ -139,6 +251,27 @@ span.parent {
   min-width: 352px;
 }
 
+.ngx-gallery {
+  display: inline-block;
+}
+
 .mat-form-field {
   min-width: 352px;
+}
+
+app-attribute-list > mat-card,
+app-multimedia-gallery > mat-card,
+app-person-family-list > mat-card,
+app-person-parent-families > mat-card {
+  border: 2px solid var(--mat-sys-outline, rgba(0, 0, 0, 0.24));
+}
+
+mat-card-content > div + div {
+  margin-top: 6px;
+}
+
+.mat-mdc-card-content .ui-g {
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
 }

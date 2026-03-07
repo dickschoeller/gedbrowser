@@ -24,8 +24,10 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
     standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
-    <mat-card-title><mat-icon inline=true>person</mat-icon> {{ person?.indexName }}</mat-card-title>
-    <mat-card-subtitle>{{ lifespanDateString() }} : {{ person?.string }}</mat-card-subtitle>
+        <div class="card-header-line">
+          <mat-card-title><mat-icon inline=true>person</mat-icon> {{ person?.indexName }}</mat-card-title>
+          <mat-card-subtitle>{{ lifespanDateString() }} : {{ person?.string }}</mat-card-subtitle>
+        </div>
     <mat-card-content>
       <div class="ui-g">
         <div class="ui-g-12">
@@ -35,11 +37,13 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
         <div class="ui-g-12">
           <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="person?.images"></app-multimedia-gallery>
         </div>
-        <div class="ui-g-6">
-          <app-person-family-list [dataset]="dataset" [person]="person" [parent]="this"></app-person-family-list>
-        </div>
-        <div class="ui-g-6">
-          <app-person-parent-families [dataset]="dataset" [person]="person" [parent]="this"></app-person-parent-families>
+        <div class="ui-g-12 family-sections-row">
+          <div class="family-section-column">
+            <app-person-family-list [dataset]="dataset" [person]="person" [parent]="this"></app-person-family-list>
+          </div>
+          <div class="family-section-column">
+            <app-person-parent-families [dataset]="dataset" [person]="person" [parent]="this"></app-person-parent-families>
+          </div>
         </div>
       </div>
     </mat-card-content>
@@ -61,28 +65,55 @@ mat-card-footer {
   padding-bottom: 10px;
 }
 
+.card-header-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 10px 0 10px;
+}
+
 mat-card-title {
-  padding-left: 10px;
-  padding-top: 10px;
-  padding-right: 0;
-  padding-bottom: 0;
+  margin: 0;
+  padding: 0;
 }
 
 mat-card-title mat-icon {
-  margin-left: 10px;
   margin-right: 10px;
 }
 
 mat-card-subtitle {
-  padding-left: 60px;
-  padding-bottom: 10px;
-  padding-right: 0;
-  padding-top: 0;
+  align-self: center;
+  margin: 0;
+  padding: 0;
 }
 
 .mat-icon {
     vertical-align: top;
     font-size: 1.25em;
+}
+
+.family-sections-row {
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.family-section-column {
+  width: 100%;
+}
+
+@media (min-width: 960px) {
+  .family-sections-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 16px;
+  }
+
+  .family-section-column {
+    width: auto;
+    min-width: 0;
+  }
 }
     `],
     imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent, PersonFamilyListComponent, PersonParentFamiliesComponent, MatCardFooter]
