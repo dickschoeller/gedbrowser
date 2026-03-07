@@ -33,6 +33,14 @@ body {
   font-weight: 700;
 }
 
+.card-header-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 10px 0 10px;
+}
+
 .hidden {
   visibility: hidden;
 }
@@ -79,27 +87,12 @@ app-person-family-child .hidden .mat-mdc-icon-button {
   padding: 0;
 }
 
-app-person-family-child .hidden .mat-mdc-icon-button .mat-mdc-button-touch-target {
-  width: 0;
-  height: 0;
-  margin: 0;
-  padding: 0;
-}
-
 app-person-family-child .hidden .mat-icon {
   width: 16px;
   height: 16px;
   font-size: 16px;
   line-height: 16px;
   margin: 0;
-  padding: 0;
-}
-
-.mat-mdc-icon-button.mat-mdc-button-base {
-  --mdc-icon-button-state-layer-size: 18px;
-  --mat-icon-button-state-layer-size: 18px;
-  width: var(--mat-icon-button-state-layer-size);
-  height: var(--mat-icon-button-state-layer-size);
   padding: 0;
 }
 
@@ -126,8 +119,8 @@ app-person-family-child-list mat-toolbar .mat-mdc-icon-button {
 app-attribute-list mat-toolbar .mat-mdc-icon-button .mat-mdc-button-touch-target,
 app-multimedia-gallery mat-toolbar .mat-mdc-icon-button .mat-mdc-button-touch-target,
 app-person-family-child-list mat-toolbar .mat-mdc-icon-button .mat-mdc-button-touch-target {
-  width: 0;
-  height: 0;
+  width: 24px;
+  height: 24px;
   margin: 0;
   padding: 0;
 }
