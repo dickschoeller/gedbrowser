@@ -4,3 +4,10 @@
     align-items: center;
 }
 
+.title {
+    margin-left: 8px;
+    align-self: flex-end;
+    line-height: 1;
+    padding-bottom: 14px;
+}
+

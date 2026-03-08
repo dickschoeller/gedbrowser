@@ -22,7 +22,7 @@ import { MultimediaGalleryComponent } from '../../components/multimedia-gallery/
         </div>
     <mat-card-content>
       <div class="ui-g">
-        <div class="ui-g-12">
+        <div class="ui-g-12 attributes-section">
           <app-attribute-list [dataset]="dataset" [attributes]="source?.attributes" [parent]="this" [showSources]="false" [showSubmitters]="false"></app-attribute-list>
         </div>
         <div class="ui-g-12">
@@ -55,6 +55,10 @@ mat-card-subtitle {
 .mat-icon {
     vertical-align: top;
     font-size: 1.25em;
+}
+
+.attributes-section {
+  margin-top: 10px;
 }
     `],
     imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent]

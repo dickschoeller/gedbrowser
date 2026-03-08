@@ -41,8 +41,14 @@ import { AttributeListItemComponent } from './attribute-list-item.component';
                     }
                 </span>
             }
+            <button mat-icon-button
+                    [attr.aria-label]="showAttributes ? 'Collapse attributes' : 'Expand attributes'"
+                    (click)="showAttributes = !showAttributes">
+                <mat-icon>{{ showAttributes ? 'expand_less' : 'expand_more' }}</mat-icon>
+            </button>
     </mat-toolbar>
   </mat-card-title>
+    @if (showAttributes) {
   <mat-card-content>
         <div cdkDropList class="attribute-list" (cdkDropListDropped)="drop($event)"
                 [cdkDropListDisabled]="!hasSignedIn()">
@@ -55,6 +61,7 @@ import { AttributeListItemComponent } from './attribute-list-item.component';
             }
         </div>
   </mat-card-content>
+    }
 </mat-card>`,
     styles: [],
     imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatTooltip, MatIcon, NoteButtonComponent, SourceButtonComponent, SubmitterButtonComponent, MatCardContent, CdkDropList, CdkDrag, AttributeListItemComponent]
@@ -69,6 +76,7 @@ export class AttributeListComponent extends HasAttributeDialog implements OnInit
     @Input() showNotes = true;
     @Input() showSources = true;
     @Input() showSubmitters = true;
+    showAttributes = true;
 
     index;
     attributeDialogHelper = new AttributeDialogHelper(this);

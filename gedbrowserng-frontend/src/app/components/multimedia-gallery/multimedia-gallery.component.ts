@@ -9,6 +9,8 @@ import { MultimediaDialogComponent, } from '../multimedia-dialog';
 import { UserService } from '../../services';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedia-add-button.component';
 
 @Component({
@@ -23,8 +25,14 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
                     <app-multimedia-add-button [parent]="this" [dataset]="dataset"></app-multimedia-add-button>
                 </span>
             }
+            <button mat-icon-button
+                    [attr.aria-label]="showMultimedia ? 'Collapse multimedia' : 'Expand multimedia'"
+                    (click)="showMultimedia = !showMultimedia">
+                <mat-icon>{{ showMultimedia ? 'expand_less' : 'expand_more' }}</mat-icon>
+            </button>
     </mat-toolbar>
   </mat-card-title>
+        @if (showMultimedia) {
     @if (galleryImages().length) {
         <mat-card-content>
             <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
@@ -33,9 +41,10 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
     @if (!galleryImages().length) {
         <mat-card-content></mat-card-content>
     }
+    }
 </mat-card>`,
     styles: [],
-    imports: [MatCard, MatCardTitle, MatToolbar, MultimediaAddButtonComponent, MatCardContent, NgxGalleryModule]
+    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, MultimediaAddButtonComponent, MatCardContent, NgxGalleryModule]
 })
 export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
     @Input() dataset: string;
@@ -44,6 +53,7 @@ export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
     @Input() styleClass: string;
     galleryOptions: NgxGalleryOptions[];
     dialogIndex = -1;
+    showMultimedia = true;
 
     constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
         @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) { }

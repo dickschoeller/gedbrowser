@@ -30,7 +30,7 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
         </div>
     <mat-card-content>
       <div class="ui-g">
-        <div class="ui-g-12">
+        <div class="ui-g-12 attributes-section">
           <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="attributes"
                   [toggleable]="true"></app-attribute-list>
         </div>
@@ -83,6 +83,10 @@ mat-card-subtitle {
 .mat-icon {
     vertical-align: top;
     font-size: 1.25em;
+}
+
+.attributes-section {
+  margin-top: 10px;
 }
 
 .family-sections-row {
