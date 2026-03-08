@@ -8,6 +8,8 @@ import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { PersonService, UserService } from '../../services';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { PersonFamilyComponent } from './person-family.component';
 import { NewPersonComponent } from './new-person.component';
 import { LinkPersonComponent } from './link-person.component';
@@ -23,8 +25,17 @@ import { LinkPersonComponent } from './link-person.component';
     selector: 'app-person-family-list',
     template: `<mat-card>
   <mat-card-title>
-        <mat-toolbar><span class="list-toolbar-title">Spouses and Children</span></mat-toolbar>
+                <mat-toolbar>
+                    <span class="list-toolbar-title">Spouses and Children</span>
+                    <span class="example-fill-remaining-space"></span>
+                    <button mat-icon-button
+                            [attr.aria-label]="showSpousesAndChildren ? 'Collapse spouses and children' : 'Expand spouses and children'"
+                            (click)="showSpousesAndChildren = !showSpousesAndChildren">
+                        <mat-icon>{{ showSpousesAndChildren ? 'expand_less' : 'expand_more' }}</mat-icon>
+                    </button>
+                </mat-toolbar>
   </mat-card-title>
+    @if (showSpousesAndChildren) {
   <mat-card-content>
     <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
@@ -57,6 +68,7 @@ import { LinkPersonComponent } from './link-person.component';
       </div>
     }
   </mat-card-content>
+    }
 </mat-card>`,
     styles: [`
 .family-action-buttons {
@@ -65,7 +77,7 @@ import { LinkPersonComponent } from './link-person.component';
   gap: 4px;
 }
 `],
-    imports: [MatCard, MatCardTitle, MatToolbar, MatCardContent, CdkDropList, CdkDrag, PersonFamilyComponent, NewPersonComponent, LinkPersonComponent]
+    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, MatCardContent, CdkDropList, CdkDrag, PersonFamilyComponent, NewPersonComponent, LinkPersonComponent]
 })
 export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {
     @Input() dataset: string;
@@ -75,6 +87,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
     childSurname: string;
     partnerSex: string;
     childSex = 'M';
+    showSpousesAndChildren = true;
     _ub: UrlBuilder;
 
     constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public readonly personService: PersonService,

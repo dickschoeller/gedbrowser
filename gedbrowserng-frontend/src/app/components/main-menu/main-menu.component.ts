@@ -6,15 +6,8 @@ import { UserButtonsComponent } from '../user-buttons/user-buttons.component';
 
 @Component({
     selector: 'app-main-menu',
-    template: `<mat-toolbar color="primary">
-  <div class="ui-toolbar-group-left with-icon">
-    <button mat-icon-button (click)="toggle()"><mat-icon>menu</mat-icon></button>
-    <span class="title"> &nbsp; {{ title }}</span>
-  </div>
-  <span class="example-fill-remaining-space"></span>
-  <app-user-buttons></app-user-buttons>
-</mat-toolbar>`,
-    styles: [],
+    templateUrl: './main-menu.component.html',
+    styleUrls: ['./main-menu.component.css'],
     imports: [MatToolbar, MatIconButton, MatIcon, UserButtonsComponent]
 })
 export class MainMenuComponent implements OnInit, OnChanges {

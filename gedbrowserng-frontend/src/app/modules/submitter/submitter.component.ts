@@ -21,7 +21,9 @@ import { AttributeListComponent } from '../../components/attribute-list/attribut
           <mat-card-subtitle>{{ submitter?.string }}</mat-card-subtitle>
         </div>
     <mat-card-content>
-      <app-attribute-list [dataset]="dataset" [attributes]="submitter?.attributes" [parent]="this" [showSources]="false" [showSubmitters]="false"></app-attribute-list>
+      <div class="attributes-section">
+        <app-attribute-list [dataset]="dataset" [attributes]="submitter?.attributes" [parent]="this" [showSources]="false" [showSubmitters]="false"></app-attribute-list>
+      </div>
     </mat-card-content>
   </mat-card>
 </app-main-layout>`,
@@ -48,6 +50,10 @@ mat-card-subtitle {
 .mat-icon {
     vertical-align: top;
     font-size: 1.25em;
+}
+
+.attributes-section {
+  margin-top: 10px;
 }
     `],
     imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent]

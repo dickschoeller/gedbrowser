@@ -8,6 +8,8 @@ import { PersonService, UserService } from '../../services';
 import { UrlBuilder } from '../../utils';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { NewPersonComponent } from './new-person.component';
 import { LinkPersonComponent } from './link-person.component';
 import { PersonParentFamilyComponent } from './person-parent-family.component';
@@ -32,8 +34,14 @@ import { PersonParentFamilyComponent } from './person-parent-family.component';
             (emitOK)="linkPerson($event)"></app-link-person>
       </span>
     }
+    <button mat-icon-button
+        [attr.aria-label]="showParentsAndSiblings ? 'Collapse parents and siblings' : 'Expand parents and siblings'"
+        (click)="showParentsAndSiblings = !showParentsAndSiblings">
+      <mat-icon>{{ showParentsAndSiblings ? 'expand_less' : 'expand_more' }}</mat-icon>
+    </button>
     </mat-toolbar>
   </mat-card-title>
+  @if (showParentsAndSiblings) {
   <mat-card-content>
     <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
@@ -45,9 +53,10 @@ import { PersonParentFamilyComponent } from './person-parent-family.component';
       }
     </div>
   </mat-card-content>
+  }
 </mat-card>`,
     styles: [],
-    imports: [MatCard, MatCardTitle, MatToolbar, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, CdkDrag, PersonParentFamilyComponent]
+    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, CdkDrag, PersonParentFamilyComponent]
 })
 export class PersonParentFamiliesComponent extends InitablePersonCreator
   implements HasLifespan, HasPerson, RefreshPerson, Saveable {
@@ -55,6 +64,7 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
   @Input() parent: HasPerson & HasLifespan & Saveable;
   @Input() person: ApiPerson;
   sex = 'M';
+  showParentsAndSiblings = true;
   get surname(): string {
     return this.person.surname;
   }

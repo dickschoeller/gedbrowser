@@ -25,7 +25,7 @@ import { AccountMenuComponent } from '../account-menu/account-menu.component';
   }
   @if (hasSignedIn()) {
     <button class="greeting-button" mat-button mat-ripple [matMenuTriggerFor]="accountMenu">
-      <span>{{ userName() }}</span>
+      <span class="user-title">{{ userName() }}</span>
     </button>
   }
   @if (hasSignedIn()) {
@@ -37,7 +37,14 @@ import { AccountMenuComponent } from '../account-menu/account-menu.component';
     <app-account-menu></app-account-menu>
   </mat-menu>
 </div>`,
-    styles: [],
+    styles: [`
+  .user-title {
+    margin-left: 8px;
+    display: inline-block;
+    line-height: 1;
+    transform: translateY(-4px);
+  }
+  `],
     imports: [MatButton, RouterLinkActive, RouterLink, MatMenuTrigger, MatIconButton, MatIcon, MatMenu, AccountMenuComponent]
 })
 export class UserButtonsComponent {
