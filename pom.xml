@@ -666,6 +666,11 @@
         <version>${jackson-core.version}</version>
       </dependency>
       <dependency>
+        <groupId>tools.jackson.jaxrs</groupId>
+        <artifactId>jackson-jaxrs-json-provider</artifactId>
+        <version>${jackson-core.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
         <version>${jackson-annotations.version}</version>
