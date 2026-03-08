@@ -37,14 +37,6 @@ import { MultimediaGalleryComponent } from '../../components/multimedia-gallery/
   margin: 24px;
 }
 
-.card-header-line {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 10px 10px 0 10px;
-}
-
 mat-card-title {
   margin: 0;
   padding: 0;
