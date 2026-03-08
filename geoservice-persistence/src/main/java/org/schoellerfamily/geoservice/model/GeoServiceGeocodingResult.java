@@ -88,7 +88,7 @@ public final class GeoServiceGeocodingResult {
                 if (postcodeLocalities == null) {
                     fg.setProperty(POSTCODE_LOCALITIES, null);
                 } else {
-                fg.setProperty(POSTCODE_LOCALITIES, Arrays
+                    fg.setProperty(POSTCODE_LOCALITIES, Arrays
                         .copyOf(postcodeLocalities, postcodeLocalities.length));
                 }
             }
