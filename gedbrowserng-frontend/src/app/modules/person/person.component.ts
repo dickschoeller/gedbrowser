@@ -85,10 +85,6 @@ mat-card-subtitle {
     font-size: 1.25em;
 }
 
-.attributes-section {
-  margin-top: 10px;
-}
-
 .family-sections-row {
   gap: 16px;
   display: flex;

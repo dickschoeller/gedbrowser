@@ -13,7 +13,7 @@
   }
   @if (hasSignedIn()) {
     <button class="greeting-button" mat-button mat-ripple [matMenuTriggerFor]="accountMenu">
-      <span class="title">{{ userName() }}</span>
+      <span class="user-title">{{ userName() }}</span>
     </button>
   }
   @if (hasSignedIn()) {

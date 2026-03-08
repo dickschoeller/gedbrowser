@@ -28,8 +28,10 @@ import { AttributeListItemComponent } from './attribute-list-item.component';
       <span class="example-fill-remaining-space"></span>
             @if (hasSignedIn()) {
                 <span>
-                    <button (click)="openCreateAttributeDialog()" mat-icon-button color="primary"
-                            matTooltip="Add attribute"><mat-icon>add_box</mat-icon></button>
+                    @if (showAdd) {
+                        <button (click)="openCreateAttributeDialog()" mat-icon-button color="primary"
+                                matTooltip="Add attribute"><mat-icon>add_box</mat-icon></button>
+                    }
                     @if (showNotes) {
                         <app-note-button [parent]="this" [dataset]="dataset"></app-note-button>
                     }
@@ -41,11 +43,13 @@ import { AttributeListItemComponent } from './attribute-list-item.component';
                     }
                 </span>
             }
-            <button mat-icon-button
-                    [attr.aria-label]="showAttributes ? 'Collapse attributes' : 'Expand attributes'"
-                    (click)="showAttributes = !showAttributes">
-                <mat-icon>{{ showAttributes ? 'expand_less' : 'expand_more' }}</mat-icon>
-            </button>
+            @if (toggleable) {
+                <button mat-icon-button
+                        [attr.aria-label]="showAttributes ? 'Collapse attributes' : 'Expand attributes'"
+                        (click)="showAttributes = !showAttributes">
+                    <mat-icon>{{ showAttributes ? 'expand_less' : 'expand_more' }}</mat-icon>
+                </button>
+            }
     </mat-toolbar>
   </mat-card-title>
     @if (showAttributes) {
@@ -78,6 +82,13 @@ export class AttributeListComponent extends HasAttributeDialog implements OnInit
     @Input() showSubmitters = true;
     showAttributes = true;
 
+    ngOnInit() {
+        // When toggleable is true, the section starts collapsed; toggle button is shown.
+        // When toggleable is false (default), the section is always expanded; no toggle button.
+        this.showAttributes = !this.toggleable;
+        this.index = this.attributeUtil.lastIndex();
+    }
+
     index;
     attributeDialogHelper = new AttributeDialogHelper(this);
     attributeUtil = new AttributeAnalyzer(this);
@@ -85,10 +96,6 @@ export class AttributeListComponent extends HasAttributeDialog implements OnInit
     constructor(@Inject(MatDialog) public readonly dialog: MatDialog,
         @Inject(UserService) private readonly userService: UserService) {
         super(dialog);
-    }
-
-    ngOnInit() {
-        this.index = this.attributeUtil.lastIndex();
     }
 
     ngOnChanges() {

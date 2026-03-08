@@ -9,42 +9,8 @@ import { AccountMenuComponent } from '../account-menu/account-menu.component';
 @Component({
     selector: 'app-user-buttons',
     standalone: true,
-    template: `<!-- div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-end center" -->
-<div>
-  @if (!hasSignedIn()) {
-    <button [routerLink]="['/signup', { returnUrl: currentUrl() } ]"
-            routerLinkActive="router-link-active" mat-button mat-ripple>
-      <span>Sign up</span>
-    </button>
-  }
-  @if (!hasSignedIn()) {
-    <button [routerLink]="['/login', { returnUrl: currentUrl() } ]"
-            routerLinkActive="router-link-active" mat-button mat-ripple>
-      <span>Login</span>
-    </button>
-  }
-  @if (hasSignedIn()) {
-    <button class="greeting-button" mat-button mat-ripple [matMenuTriggerFor]="accountMenu">
-      <span class="user-title">{{ userName() }}</span>
-    </button>
-  }
-  @if (hasSignedIn()) {
-    <button class="greeting-hamburger" mat-icon-button mat-ripple [matMenuTriggerFor]="accountMenu">
-      <mat-icon>menu</mat-icon>
-    </button>
-  }
-  <mat-menu #accountMenu class="app-header-accountMenu" yposition="below" [overlapTrigger]="false">
-    <app-account-menu></app-account-menu>
-  </mat-menu>
-</div>`,
-    styles: [`
-  .user-title {
-    margin-left: 8px;
-    display: inline-block;
-    line-height: 1;
-    transform: translateY(-4px);
-  }
-  `],
+    templateUrl: './user-buttons.component.html',
+    styleUrls: ['./user-buttons.component.css'],
     imports: [MatButton, RouterLinkActive, RouterLink, MatMenuTrigger, MatIconButton, MatIcon, MatMenu, AccountMenuComponent]
 })
 export class UserButtonsComponent {

@@ -1,0 +1,6 @@
+.user-title {
+  margin-left: 8px;
+  display: inline-block;
+  line-height: 1;
+  transform: translateY(-4px);
+}

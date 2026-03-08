@@ -56,10 +56,6 @@ mat-card-subtitle {
     vertical-align: top;
     font-size: 1.25em;
 }
-
-.attributes-section {
-  margin-top: 10px;
-}
     `],
     imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent]
 })

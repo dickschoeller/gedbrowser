@@ -268,3 +268,7 @@ mat-card-content > div + div {
   display: flex;
   flex-direction: column;
 }
+
+.attributes-section {
+  margin-top: 10px;
+}
