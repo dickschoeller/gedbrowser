@@ -11,9 +11,6 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 /**
  * @author Dick Schoeller
  */
@@ -52,8 +49,7 @@ public class BackupEndpoint extends BaseBackupEndpoint {
     }
 
     @Override
-    public final void action(final File backupFile)
-            throws JsonParseException, JsonMappingException, IOException {
+    public final void action(final File backupFile) throws IOException {
         backupManager.backup(backupFile);
     }
 }

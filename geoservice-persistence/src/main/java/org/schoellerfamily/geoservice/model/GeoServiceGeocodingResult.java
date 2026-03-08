@@ -73,17 +73,32 @@ public final class GeoServiceGeocodingResult {
                 && geometry.getFeatures() != null
                 && !geometry.getFeatures().isEmpty()) {
             final Feature fg = geometry.getFeatures().get(0);
-            fg.setProperty("formattedAddress", formattedAddress);
-            fg.setProperty("partialMatch", Boolean.valueOf(partialMatch));
-            fg.setProperty("placeId", placeId);
-            if (postcodeLocalities == null) {
-                fg.setProperty(POSTCODE_LOCALITIES, null);
-            } else {
+            if (formattedAddress != null
+                    || fg.getProperty("formattedAddress") == null) {
+                fg.setProperty("formattedAddress", formattedAddress);
+            }
+            if (partialMatch || fg.getProperty("partialMatch") == null) {
+                fg.setProperty("partialMatch", Boolean.valueOf(partialMatch));
+            }
+            if (placeId != null || fg.getProperty("placeId") == null) {
+                fg.setProperty("placeId", placeId);
+            }
+            if (postcodeLocalities != null
+                    || fg.getProperty(POSTCODE_LOCALITIES) == null) {
+                if (postcodeLocalities == null) {
+                    fg.setProperty(POSTCODE_LOCALITIES, null);
+                } else {
                 fg.setProperty(POSTCODE_LOCALITIES, Arrays
                         .copyOf(postcodeLocalities, postcodeLocalities.length));
+                }
             }
-            fg.setProperty("types", types);
-            fg.setProperty("addressComponents", addressComponents);
+            if (types != null || fg.getProperty("types") == null) {
+                fg.setProperty("types", types);
+            }
+            if (addressComponents != null
+                    || fg.getProperty("addressComponents") == null) {
+                fg.setProperty("addressComponents", addressComponents);
+            }
         }
 
         if (types == null) {
