@@ -36,7 +36,22 @@ import { MatIcon } from '@angular/material/icon';
             <mat-icon matListIcon>link_off</mat-icon></button>
     </span>
 }`,
-    styles: [],
+        styles: [`
+:host {
+    display: inline-flex;
+    align-items: center;
+}
+
+:host .parent {
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+}
+
+:host .name {
+    line-height: inherit;
+}
+`],
     imports: [RouterLink, MatIconButton, MatTooltip, MatIcon]
 })
 export class PersonFamilySpouseComponent extends PersonGetter

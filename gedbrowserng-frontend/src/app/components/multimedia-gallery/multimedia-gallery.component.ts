@@ -16,7 +16,7 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
     template: `<mat-card>
   <mat-card-title>
     <mat-toolbar>
-      Multimedia
+            <span class="list-toolbar-title">Multimedia</span>
       <span class="example-fill-remaining-space"></span>
             @if (hasSignedIn()) {
                 <span>

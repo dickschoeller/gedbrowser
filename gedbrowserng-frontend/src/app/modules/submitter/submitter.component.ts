@@ -15,9 +15,11 @@ import { AttributeListComponent } from '../../components/attribute-list/attribut
     standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
-    <mat-card-title><mat-icon inline=true>contact_mail</mat-icon> {{ submitter?.name }}
-    </mat-card-title>
-    <mat-card-subtitle>{{ submitter?.string }}</mat-card-subtitle>
+        <div class="card-header-line">
+          <mat-card-title><mat-icon inline=true>contact_mail</mat-icon> {{ submitter?.name }}
+          </mat-card-title>
+          <mat-card-subtitle>{{ submitter?.string }}</mat-card-subtitle>
+        </div>
     <mat-card-content>
       <app-attribute-list [dataset]="dataset" [attributes]="submitter?.attributes" [parent]="this" [showSources]="false" [showSubmitters]="false"></app-attribute-list>
     </mat-card-content>
@@ -29,22 +31,18 @@ import { AttributeListComponent } from '../../components/attribute-list/attribut
 }
 
 mat-card-title {
-  padding-left: 10px;
-  padding-top: 10px;
-  padding-right: 0;
-  padding-bottom: 0;
+  margin: 0;
+  padding: 0;
 }
 
 mat-card-title mat-icon {
-  margin-left: 10px;
   margin-right: 10px;
 }
 
 mat-card-subtitle {
-  padding-left: 60px;
-  padding-bottom: 10px;
-  padding-right: 0;
-  padding-top: 0;
+  align-self: center;
+  margin: 0;
+  padding: 0;
 }
 
 .mat-icon {

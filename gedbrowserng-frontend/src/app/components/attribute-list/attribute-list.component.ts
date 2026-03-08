@@ -24,7 +24,7 @@ import { AttributeListItemComponent } from './attribute-list-item.component';
     template: `<mat-card>
   <mat-card-title>
     <mat-toolbar>
-      Attributes
+            <span class="list-toolbar-title">Attributes</span>
       <span class="example-fill-remaining-space"></span>
             @if (hasSignedIn()) {
                 <span>
