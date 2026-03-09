@@ -31,7 +31,9 @@ export class MultimediaAddButtonComponent {
 
   create(data: MultimediaDialogData) {
     const attribute: ApiAttribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
+    this.parent.multimedia = this.parent.multimedia ?? [];
     this.parent.multimedia.push(attribute);
+    this.parent.refreshMultimedia?.();
     this.parent.save();
   }
 

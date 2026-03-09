@@ -1,4 +1,4 @@
-import { Component, OnInit, Input , Inject } from '@angular/core';
+import { Component, OnInit, Input , Inject, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAction, NgxGalleryModule } from 'ngx-gallery-15';
 
@@ -33,12 +33,12 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
     </mat-toolbar>
   </mat-card-title>
         @if (showMultimedia) {
-    @if (galleryImages().length) {
+    @if (galleryImagesList.length) {
         <mat-card-content>
-            <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImagesList"></ngx-gallery>
         </mat-card-content>
     }
-    @if (!galleryImages().length) {
+    @if (!galleryImagesList.length) {
         <mat-card-content></mat-card-content>
     }
     }
@@ -46,27 +46,34 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
     styles: [],
     imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, MultimediaAddButtonComponent, MatCardContent, NgxGalleryModule]
 })
-export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
+export class MultimediaGalleryComponent implements OnInit, OnChanges, HasMultimedia {
     @Input() dataset: string;
     @Input() parent: Saveable;
     @Input() multimedia: Array<ApiAttribute>;
     @Input() styleClass: string;
     galleryOptions: NgxGalleryOptions[];
+    galleryImagesList: Array<NgxGalleryImage> = [];
     dialogIndex = -1;
     showMultimedia = true;
 
     constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) { }
+        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService,
+        private readonly cdr: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.galleryOptions = this.buildGalleryOptions();
+        this.refreshGalleryImages();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.multimedia) {
+            this.refreshGalleryImages();
+        }
     }
 
     galleryImages(): Array<NgxGalleryImage> {
-        if (this.multimedia === undefined || this.multimedia == null || this.multimedia.length === 0) {
-            return new Array<NgxGalleryImage>();
-        }
-        return ImageUtil.galleryImages(this.multimedia);
+        this.refreshGalleryImages();
+        return this.galleryImagesList;
     }
 
     galleryImageActions() {
@@ -109,6 +116,7 @@ export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
 
     deleteButtonClicked(event, i) {
         this.multimedia.splice(i, 1);
+        this.forceViewRefresh();
         this.save();
     }
 
@@ -158,11 +166,34 @@ export class MultimediaGalleryComponent implements OnInit, HasMultimedia {
     }
 
     update(data: MultimediaDialogData) {
-        this.multimedia.splice(this.dialogIndex, 1, MultimediaDialogHelper.buildMultimediaAttribute(data));
+        const updatedAttribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
+        this.multimedia.splice(this.dialogIndex, 1, updatedAttribute);
+        this.forceViewRefresh();
         this.save();
+    }
+
+    refreshMultimedia(): void {
+        this.forceViewRefresh();
     }
 
     hasSignedIn() {
         return !!this.userService.currentUser;
+    }
+
+    private refreshGalleryImages(): void {
+        if (!this.multimedia || this.multimedia.length === 0) {
+            this.galleryImagesList = [];
+            return;
+        }
+        try {
+            this.galleryImagesList = ImageUtil.galleryImages(this.multimedia);
+        } catch {
+            this.galleryImagesList = [];
+        }
+    }
+
+    private forceViewRefresh(): void {
+        this.refreshGalleryImages();
+        queueMicrotask(() => this.cdr?.detectChanges());
     }
 }
