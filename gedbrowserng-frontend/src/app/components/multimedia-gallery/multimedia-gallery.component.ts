@@ -40,7 +40,7 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
             <mat-card-content>
                 <lightgallery [settings]="lightGallerySettings" [onInit]="onGalleryInit" [onBeforeSlide]="onBeforeSlide">
                     @for (image of galleryImagesList; track image.url; let i = $index) {
-                        <a [attr.data-src]="image.mediaType === 'video' ? null : image.url" [attr.data-poster]="image.mediaType === 'video' ? image.small : null" [attr.data-sub-html]="image.description || 'Image'" [attr.data-gallery-index]="i" [attr.data-video]="image.mediaType === 'video' ? image.videoData : null" class="multimedia-thumb-wrapper">
+                        <a [href]="image.url" [attr.data-src]="image.mediaType === 'video' ? null : image.url" [attr.data-poster]="image.mediaType === 'video' ? image.small : null" [attr.data-sub-html]="escapeHtml(image.description) || 'Image'" [attr.data-gallery-index]="i" [attr.data-video]="image.mediaType === 'video' ? image.videoData : null" class="multimedia-thumb-wrapper">
                             <img [src]="image.small" [alt]="image.description || 'Image'" class="multimedia-thumb multimedia-video-preview" />
                             @if (image.mediaType === 'video' || image.mediaType === 'youtube') {
                                 <div class="multimedia-video-play">
@@ -72,8 +72,8 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
         '.multimedia-thumb { width: 120px; height: 90px; object-fit: cover; border-radius: 4px; display: block; }',
         '.multimedia-video-preview { pointer-events: none; background: #111; }',
         '.multimedia-video-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); pointer-events: none; }',
-        '.multimedia-thumb-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 4px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; opacity: 0; transition: opacity 0.2s; pointer-events: none; }',
-        '.multimedia-thumb-wrapper:hover .multimedia-thumb-overlay { opacity: 1; pointer-events: auto; }',
+        '.multimedia-thumb-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 4px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; pointer-events: none; }',
+        '.multimedia-thumb-wrapper:hover .multimedia-thumb-overlay, .multimedia-thumb-wrapper:focus-within .multimedia-thumb-overlay { opacity: 1; visibility: visible; pointer-events: auto; }',
         '.multimedia-thumb-action { color: white !important; width: 32px; height: 32px; min-width: 32px; min-height: 32px; background: rgba(0, 0, 0, 0.7) !important; }',
         '.multimedia-thumb-action:hover { background: rgba(0, 0, 0, 0.9) !important; }',
         '.multimedia-thumb-action .fa { font-size: 16px; }'
@@ -179,6 +179,19 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, AfterViewC
 
     hasSignedIn(): boolean {
         return !!this.userService.currentUser;
+    }
+
+    /**
+     * Escapes HTML special characters in user-supplied text to prevent XSS
+     * when content is injected into HTML attributes (e.g. data-sub-html).
+     */
+    escapeHtml(text: string | null | undefined): string {
+        return (text || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
 
     private refreshGalleryImages(): void {

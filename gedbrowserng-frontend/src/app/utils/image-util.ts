@@ -37,7 +37,7 @@ export class ImageUtil {
 
   public static isMediaWrapper(attr: ApiAttribute): boolean {
     for (const attribute of attr.attributes) {
-      if (this.isImage(attribute) || this.isVideo(attribute) || this.isMediaWrapper(attribute)) {
+      if (this.isImage(attribute) || this.isVideo(attribute) || this.isYouTube(attribute) || this.isMediaWrapper(attribute)) {
         return true;
       }
     }

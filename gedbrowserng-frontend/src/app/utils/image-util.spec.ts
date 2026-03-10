@@ -111,6 +111,12 @@ describe('ImageUtil', () => {
       const wrapper = createWrapper(innerVideo);
       expect(ImageUtil.isImageWrapper(wrapper)).toBe(true);
     });
+
+    it('should return true for wrapper containing YouTube URL', () => {
+      const innerYouTube = createAttribute('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      const wrapper = createWrapper(innerYouTube);
+      expect(ImageUtil.isImageWrapper(wrapper)).toBe(true);
+    });
   });
 
   describe('galleryImages', () => {

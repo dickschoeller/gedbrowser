@@ -159,4 +159,20 @@ describe('MultimediaGalleryComponent', () => {
     component.onBeforeSlide({ index: 2 } as any);
     expect(component.selectedImageIndex).toBe(2);
   });
+
+  it('should escape HTML special characters in description', () => {
+    expect(component.escapeHtml('<script>alert("xss")</script>')).toBe('&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;');
+  });
+
+  it('should escape ampersands in description', () => {
+    expect(component.escapeHtml('Tom & Jerry')).toBe('Tom &amp; Jerry');
+  });
+
+  it('should return empty string for undefined description', () => {
+    expect(component.escapeHtml(undefined)).toBe('');
+  });
+
+  it('should return empty string for null description', () => {
+    expect(component.escapeHtml(null)).toBe('');
+  });
 });
