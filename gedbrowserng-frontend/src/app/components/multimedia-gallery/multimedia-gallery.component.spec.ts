@@ -160,6 +160,64 @@ describe('MultimediaGalleryComponent', () => {
     expect(component.selectedImageIndex).toBe(2);
   });
 
+  it('should initialize lightGallery instance from onGalleryInit', () => {
+    const lightGallery = { refresh: vi.fn() } as any;
+    component.onGalleryInit({ instance: lightGallery } as any);
+
+    (component as any).needGalleryRefresh = true;
+    component.ngAfterViewChecked();
+
+    expect(lightGallery.refresh).toHaveBeenCalled();
+    expect((component as any).needGalleryRefresh).toBe(false);
+  });
+
+  it('should refresh on multimedia input change', () => {
+    const refreshSpy = vi.spyOn(component as any, 'refreshGalleryImages');
+    component.ngOnChanges({ multimedia: { currentValue: [], previousValue: null, firstChange: false, isFirstChange: () => false } as any });
+    expect(refreshSpy).toHaveBeenCalled();
+  });
+
+  it('should not refresh on unrelated input change', () => {
+    const refreshSpy = vi.spyOn(component as any, 'refreshGalleryImages');
+    component.ngOnChanges({ dataset: { currentValue: 'a', previousValue: 'b', firstChange: false, isFirstChange: () => false } as any });
+    expect(refreshSpy).not.toHaveBeenCalled();
+  });
+
+  it('should refresh multimedia when refreshMultimedia is called', () => {
+    const forceViewRefreshSpy = vi.spyOn(component as any, 'forceViewRefresh');
+    component.refreshMultimedia();
+    expect(forceViewRefreshSpy).toHaveBeenCalled();
+  });
+
+  it('should update multimedia when edit dialog returns data', () => {
+    component.multimedia = [{ name: 'photo.jpg', attributes: [] } as ApiAttribute];
+    const event = new Event('click');
+    const preventSpy = vi.spyOn(event, 'preventDefault');
+    const stopSpy = vi.spyOn(event, 'stopPropagation');
+    const result = { title: 'Updated', files: [{ fileUrl: 'new.jpg' }] } as any;
+
+    mockDialog.open.mockReturnValue({ afterClosed: () => of(result) });
+    const updateSpy = vi.spyOn(component, 'update').mockImplementation(() => undefined);
+
+    component.editButtonClicked(event, 0);
+
+    expect(preventSpy).toHaveBeenCalled();
+    expect(stopSpy).toHaveBeenCalled();
+    expect(updateSpy).toHaveBeenCalledWith(result);
+  });
+
+  it('should handle errors while building gallery images', () => {
+    component.multimedia = [{ name: 'broken' } as ApiAttribute];
+    vi.spyOn(utils.ImageUtil, 'galleryImages').mockImplementation(() => {
+      throw new Error('bad data');
+    });
+
+    const images = component.galleryImages();
+
+    expect(images).toEqual([]);
+    expect(component.selectedImageIndex).toBe(0);
+  });
+
   it('should escape HTML special characters in description', () => {
     expect(component.escapeHtml('<script>alert("xss")</script>')).toBe('&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;');
   });

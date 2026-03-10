@@ -67,4 +67,38 @@ describe('MultimediaAddButtonComponent', () => {
     expect(component.parent.multimedia.length).toBe(1);
     expect(component.parent.save).toHaveBeenCalled();
   });
+
+  it('should call create when dialog returns result', () => {
+    const result = { title: 'From dialog', files: [{ fileUrl: 'x' }] } as any;
+    mockDialog.open.mockReturnValue({ afterClosed: () => of(result) });
+    const createSpy = vi.spyOn(component, 'create').mockImplementation(() => undefined);
+
+    component.openMultimediaDialog();
+
+    expect(createSpy).toHaveBeenCalledWith(result);
+  });
+
+  it('should initialize multimedia array when parent multimedia is undefined', () => {
+    component.parent = { save: vi.fn() } as any;
+    vi.spyOn(utils.MultimediaDialogHelper, 'buildMultimediaAttribute').mockReturnValue({} as any);
+
+    component.create({ title: 'x', files: [{ fileUrl: 'x' }] } as any);
+
+    expect(component.parent.multimedia).toBeDefined();
+    expect(component.parent.multimedia.length).toBe(1);
+  });
+
+  it('should call optional refreshMultimedia callback', () => {
+    const refreshMultimedia = vi.fn();
+    component.parent = {
+      multimedia: [],
+      save: vi.fn(),
+      refreshMultimedia,
+    } as any;
+    vi.spyOn(utils.MultimediaDialogHelper, 'buildMultimediaAttribute').mockReturnValue({} as any);
+
+    component.create({ title: 'x', files: [{ fileUrl: 'x' }] } as any);
+
+    expect(refreshMultimedia).toHaveBeenCalled();
+  });
 });
