@@ -249,7 +249,7 @@ describe('ImageUtil', () => {
       ['clip.mpeg', 'video/mpeg'],
       ['clip.mp4', 'video/mp4'],
       ['clipmp4', 'video/mp4']
-    ])('should set mime type %s for %s videos', (fileName, expectedMime) => {
+    ])('should set mime type for %s videos to %s', (fileName, expectedMime) => {
       const wrapper = createWrapper(createAttribute(fileName));
       const image = ImageUtil.galleryImages([wrapper])[0];
       const parsed = parseVideoData(image.videoData);
