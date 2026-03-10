@@ -49,7 +49,94 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     </mat-card>
   </div>
 </div>`,
-    styleUrls: ['./login.component.css'],
+        styles: [`
+:host {
+    display: block;
+    min-height: 100vh;
+}
+
+.content {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+mat-card {
+    width: min(100%, 400px);
+    max-width: 400px;
+    text-align: center;
+    animation: fadein 1s;
+    -o-animation: fadein 1s;
+    -moz-animation: fadein 1s;
+    -webkit-animation: fadein 1s;
+
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+mat-form-field {
+    display: block !important;
+    width: 100%;
+}
+
+.mat-mdc-form-field {
+    display: block !important;
+    width: 100%;
+}
+
+mat-input-container {
+    display: block;
+}
+
+mat-spinner {
+    width: 25px;
+    height: 25px;
+    margin: 20px auto 0 auto;
+}
+
+button {
+    display: block;
+    width: 100%;
+}
+
+.error {
+    color: #D50000;
+}
+
+.success {
+    color: #8BC34A;
+}
+
+
+@media screen and (max-width: 599px) {
+
+    .content {
+        min-height: 100vh;
+        display: flex !important;
+    }
+
+    mat-card {
+        display: block !important;
+        max-width: 999px;
+    }
+
+}
+
+a {
+    text-decoration: none;
+    cursor: auto;
+    color: #FFFFFF;
+}
+`],
     imports: [MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatButton, MatProgressSpinner]
 })
 export class LoginComponent implements OnInit, OnDestroy {
