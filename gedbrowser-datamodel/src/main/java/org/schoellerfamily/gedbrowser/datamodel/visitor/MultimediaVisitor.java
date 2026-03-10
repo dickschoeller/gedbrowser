@@ -39,7 +39,10 @@ public final class MultimediaVisitor implements GedObjectVisitor {
         return "jpg".equalsIgnoreCase(form)
                 || "gif".equalsIgnoreCase(form)
                 || "png".equalsIgnoreCase(form)
-                || "tif".equalsIgnoreCase(form);
+                || "tif".equalsIgnoreCase(form)
+                || "avi".equalsIgnoreCase(form)
+                || "mp4".equalsIgnoreCase(form)
+	        || "youtube".equalsIgnoreCase(form);
     }
 
     /**

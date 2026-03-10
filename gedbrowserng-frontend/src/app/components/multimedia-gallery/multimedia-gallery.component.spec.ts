@@ -1,7 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { NgxGalleryModule } from 'ngx-gallery-15';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -30,18 +29,17 @@ describe('MultimediaGalleryComponent', () => {
     };
 
     TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [MatDialogModule, NgxGalleryModule, MultimediaGalleryComponent],
-    providers: [
-      provideHttpClient(),
-      provideHttpClientTesting(),
-      { provide: UserService, useValue: mockUserService },
-      { provide: MatDialog, useValue: mockDialog },
-      AuthApiService,
-      ConfigService
-    ]
-})
-    .compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [MatDialogModule, MultimediaGalleryComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: UserService, useValue: mockUserService },
+        { provide: MatDialog, useValue: mockDialog },
+        AuthApiService,
+        ConfigService
+      ]
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -56,20 +54,21 @@ describe('MultimediaGalleryComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize gallery options on ngOnInit', () => {
+  it('should initialize lightgallery settings', () => {
     component.ngOnInit();
-    expect(component.galleryOptions).toBeDefined();
-    expect(component.galleryOptions.length).toBe(3);
+    expect(component.lightGallerySettings).toBeDefined();
+    expect(component.lightGallerySettings.thumbnail).toBe(true);
+    expect(component.lightGallerySettings.download).toBe(false);
   });
 
   it('should return empty array for undefined multimedia', () => {
-    component.multimedia = undefined;
+    component.multimedia = undefined as any;
     const images = component.galleryImages();
     expect(images).toEqual([]);
   });
 
   it('should return empty array for null multimedia', () => {
-    component.multimedia = null;
+    component.multimedia = null as any;
     const images = component.galleryImages();
     expect(images).toEqual([]);
   });
@@ -86,55 +85,14 @@ describe('MultimediaGalleryComponent', () => {
       { name: 'photo2.jpg', value: 'data:image/jpeg;base64,def456' } as ApiAttribute
     ];
     component.multimedia = mockMultimedia;
-    
+
     vi.spyOn(utils.ImageUtil, 'galleryImages').mockReturnValue([
-      { big: 'url1', small: 'url1', medium: 'url1', description: 'photo1.jpg' },
-      { big: 'url2', small: 'url2', medium: 'url2', description: 'photo2.jpg' }
+      { big: 'url1', small: 'url1', medium: 'url1', description: 'photo1.jpg', url: 'url1' },
+      { big: 'url2', small: 'url2', medium: 'url2', description: 'photo2.jpg', url: 'url2' }
     ]);
-    
+
     const images = component.galleryImages();
     expect(images.length).toBeGreaterThan(0);
-  });
-
-  it('should return undefined gallery image actions when not signed in', () => {
-    mockUserService.currentUser = null;
-    const actions = component.galleryImageActions();
-    expect(actions).toBeUndefined();
-  });
-
-  it('should return gallery image actions when signed in', () => {
-    mockUserService.currentUser = { id: 'user123' };
-    component.multimedia = [{ name: 'photo.jpg' } as ApiAttribute];
-    
-    const actions = component.galleryImageActions();
-    expect(actions).toBeDefined();
-    expect(actions.length).toBe(2);
-    expect(actions[0].icon).toContain('pencil');
-    expect(actions[1].icon).toContain('trash');
-  });
-
-  it('should call buildGalleryOptions with correct screen widths', () => {
-    component.ngOnInit();
-    
-    // Check that we have options for different breakpoints
-    const defaultOption = component.galleryOptions[0];
-    const mediumOption = component.galleryOptions[1];
-    const narrowOption = component.galleryOptions[2];
-    
-    expect(defaultOption).toBeDefined();
-    expect(mediumOption.breakpoint).toBe(500);
-    expect(narrowOption.breakpoint).toBe(300);
-  });
-
-  it('should set correct gallery options for default width', () => {
-    component.ngOnInit();
-    const defaultOption = component.galleryOptions[0];
-    
-    expect(defaultOption.image).toBe(false);
-    expect(defaultOption.preview).toBe(true);
-    expect(defaultOption.previewCloseOnClick).toBe(true);
-    expect(defaultOption.previewFullscreen).toBe(true);
-    expect(defaultOption.thumbnailsColumns).toBe(6);
   });
 
   it('should delete multimedia item at index', () => {
@@ -142,9 +100,9 @@ describe('MultimediaGalleryComponent', () => {
       { name: 'photo1.jpg' } as ApiAttribute,
       { name: 'photo2.jpg' } as ApiAttribute
     ];
-    
-    component.deleteButtonClicked(null, 0);
-    
+
+    component.deleteButtonClicked(new Event('click'), 0);
+
     expect(component.multimedia.length).toBe(1);
     expect(component.multimedia[0].name).toBe('photo2.jpg');
     expect(component.parent.save).toHaveBeenCalled();
@@ -153,14 +111,14 @@ describe('MultimediaGalleryComponent', () => {
   it('should open dialog on edit button click', () => {
     component.multimedia = [{ name: 'photo.jpg', attributes: [] } as ApiAttribute];
     mockUserService.currentUser = { id: 'user123' };
-    
+
     const mockDialogRef = {
       afterClosed: () => of(undefined)
     };
     mockDialog.open.mockReturnValue(mockDialogRef);
-    
-    component.editButtonClicked(null, 0);
-    
+
+    component.editButtonClicked(new Event('click'), 0);
+
     expect(mockDialog.open).toHaveBeenCalled();
     expect(component.dialogIndex).toBe(0);
   });
@@ -169,14 +127,15 @@ describe('MultimediaGalleryComponent', () => {
     const originalMultimedia = { name: 'photo.jpg', value: 'old' } as ApiAttribute;
     component.multimedia = [originalMultimedia];
     component.parent = { save: vi.fn() };
-    
+    component.dialogIndex = 0;
+
     vi.spyOn(utils.MultimediaDialogHelper, 'buildMultimediaAttribute').mockReturnValue({
       name: 'photo.jpg',
       value: 'new'
     } as ApiAttribute);
-    
+
     component.update({ value: 'new' } as any);
-    
+
     expect(component.multimedia[0].value).toBe('new');
     expect(component.parent.save).toHaveBeenCalled();
   });
@@ -196,66 +155,8 @@ describe('MultimediaGalleryComponent', () => {
     expect(component.hasSignedIn()).toBe(false);
   });
 
-  it('should handle multiple multimedia items', () => {
-    const multimedia = [
-      { name: 'photo1.jpg' } as ApiAttribute,
-      { name: 'photo2.jpg' } as ApiAttribute,
-      { name: 'photo3.jpg' } as ApiAttribute
-    ];
-    component.multimedia = multimedia;
-    
-    const images = component.galleryImages();
-    expect(images).toBeDefined();
-  });
-
-  it('should properly bind edit button clicked method', () => {
-    mockUserService.currentUser = { id: 'user123' };
-    
-    const actions = component.galleryImageActions();
-    
-    // Verify the edit action is bound
-    expect(actions[0].onClick).toBeDefined();
-  });
-
-  it('should properly bind delete button clicked method', () => {
-    mockUserService.currentUser = { id: 'user123' };
-    
-    const actions = component.galleryImageActions();
-    
-    // Verify the delete action is bound
-    expect(actions[1].onClick).toBeDefined();
-  });
-
-  it('should initialize dialogIndex to -1', () => {
-    fixture.detectChanges();
-    expect(component.dialogIndex).toBe(-1);
-  });
-
-  it('should set dialogIndex when edit button clicked', () => {
-    component.multimedia = [{ name: 'photo.jpg', attributes: [] } as ApiAttribute];
-    mockUserService.currentUser = { id: 'user123' };
-    mockDialog.open.mockReturnValue({ afterClosed: () => of(undefined) });
-    
-    component.editButtonClicked(null, 0);
-    
-    expect(component.dialogIndex).toBe(0);
-  });
-
-  it('should handle gallery options for medium width breakpoint', () => {
-    component.ngOnInit();
-    const mediumOption = component.galleryOptions[1];
-    
-    expect(mediumOption.breakpoint).toBe(500);
-    expect(mediumOption.width).toBe('300px');
-    expect(mediumOption.thumbnailsColumns).toBe(3);
-  });
-
-  it('should handle gallery options for narrow width breakpoint', () => {
-    component.ngOnInit();
-    const narrowOption = component.galleryOptions[2];
-    
-    expect(narrowOption.breakpoint).toBe(300);
-    expect(narrowOption.width).toBe('100%');
-    expect(narrowOption.thumbnailsColumns).toBe(2);
+  it('should update selected image index on slide event', () => {
+    component.onBeforeSlide({ index: 2 } as any);
+    expect(component.selectedImageIndex).toBe(2);
   });
 });

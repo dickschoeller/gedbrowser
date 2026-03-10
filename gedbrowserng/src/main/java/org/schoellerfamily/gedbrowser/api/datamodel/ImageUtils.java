@@ -26,7 +26,7 @@ public class ImageUtils {
     public boolean isImage(final ApiAttribute attribute) {
         final String[] types = {
                 "bmp", "gif", "ico", "jpg", "jpeg", "png", "tiff",
-                "tif", "svg" };
+                "tif", "svg", "avi", "m4v", "mpg", "mp4", "mov", "youtube" };
         for (final String t : types) {
             if (attribute.getTail().toLowerCase(Locale.ENGLISH).endsWith(t)) {
                 return true;
