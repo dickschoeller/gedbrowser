@@ -32,7 +32,7 @@ public final class MultimediaVisitor implements GedObjectVisitor {
     }
 
     /**
-     * @return whether the type is an image type
+     * @return whether the type is an image type (not video or YouTube)
      */
     public boolean isImage() {
         final String form = getFormat();
@@ -40,6 +40,34 @@ public final class MultimediaVisitor implements GedObjectVisitor {
                 || "gif".equalsIgnoreCase(form)
                 || "png".equalsIgnoreCase(form)
                 || "tif".equalsIgnoreCase(form);
+    }
+
+    /**
+     * @return whether the type is a video type
+     */
+    public boolean isVideo() {
+        final String form = getFormat();
+        return "avi".equalsIgnoreCase(form)
+                || "mp4".equalsIgnoreCase(form)
+                || "mov".equalsIgnoreCase(form)
+                || "m4v".equalsIgnoreCase(form)
+                || "mpg".equalsIgnoreCase(form)
+                || "mpeg".equalsIgnoreCase(form)
+                || "webm".equalsIgnoreCase(form);
+    }
+
+    /**
+     * @return whether the type is a YouTube link
+     */
+    public boolean isYouTube() {
+        return "youtube".equalsIgnoreCase(getFormat());
+    }
+
+    /**
+     * @return whether the type is any supported media type (image, video, or YouTube)
+     */
+    public boolean isMedia() {
+        return isImage() || isVideo() || isYouTube();
     }
 
     /**

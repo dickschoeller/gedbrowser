@@ -31,6 +31,21 @@ describe('ImageUtil', () => {
     });
   });
 
+  describe('isVideo', () => {
+    it.each(['mp4', 'mov', 'avi', 'm4v', 'mpg', 'webm'])(
+      'should identify %s as video',
+      (extension) => {
+        const attr = createAttribute(`clip.${extension}`);
+        expect(ImageUtil.isVideo(attr)).toBe(true);
+      }
+    );
+
+    it('should not identify non-video file', () => {
+      const attr = createAttribute('document.pdf');
+      expect(ImageUtil.isVideo(attr)).toBe(false);
+    });
+  });
+
   describe('imageFormat', () => {
     it.each([
       ['photo.jpg', 'jpg'],
@@ -90,6 +105,18 @@ describe('ImageUtil', () => {
       const wrapper = createWrapper(innerImage);
       expect(ImageUtil.isImageWrapper(wrapper)).toBe(true);
     });
+
+    it('should return true for wrapper containing video', () => {
+      const innerVideo = createAttribute('clip.mp4');
+      const wrapper = createWrapper(innerVideo);
+      expect(ImageUtil.isImageWrapper(wrapper)).toBe(true);
+    });
+
+    it('should return true for wrapper containing YouTube URL', () => {
+      const innerYouTube = createAttribute('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      const wrapper = createWrapper(innerYouTube);
+      expect(ImageUtil.isImageWrapper(wrapper)).toBe(true);
+    });
   });
 
   describe('galleryImages', () => {
@@ -119,6 +146,15 @@ describe('ImageUtil', () => {
       const result = ImageUtil.galleryImages([wrapper]);
       expect(result.length).toBe(1);
       expect(result[0]).toBeDefined();
+    });
+
+    it('should convert wrapper with video to gallery images', () => {
+      const innerVideo = createAttribute('clip.mp4');
+      const wrapper = createWrapper(innerVideo);
+      const result = ImageUtil.galleryImages([wrapper]);
+      expect(result.length).toBe(1);
+      expect(result[0].mediaType).toBe('video');
+      expect(result[0].videoData).toContain('video/mp4');
     });
   });
 });
