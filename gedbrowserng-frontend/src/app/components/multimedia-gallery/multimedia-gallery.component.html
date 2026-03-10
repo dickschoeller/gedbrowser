@@ -10,12 +10,35 @@
       }
     </mat-toolbar>
   </mat-card-title>
-  @if (galleryImages().length) {
-    <mat-card-content>
-      <ngx-gallery [options]="galleryOptions" [images]="galleryImages()"></ngx-gallery>
-    </mat-card-content>
-  }
-  @if (!galleryImages().length) {
-    <mat-card-content></mat-card-content>
+  @if (showMultimedia) {
+    @if (galleryImagesList.length) {
+      <mat-card-content>
+        <lightgallery [settings]="lightGallerySettings" [onInit]="onGalleryInit" [onBeforeSlide]="onBeforeSlide">
+          @for (image of galleryImagesList; track image.url; let i = $index) {
+            <a [attr.data-src]="image.mediaType === 'video' ? null : image.url" [attr.data-poster]="image.mediaType === 'video' ? image.small : null" [attr.data-sub-html]="image.description || 'Image'" [attr.data-gallery-index]="i" [attr.data-video]="image.mediaType === 'video' ? image.videoData : null" class="multimedia-thumb-wrapper">
+              <img [src]="image.small" [alt]="image.description || 'Image'" class="multimedia-thumb multimedia-video-preview" />
+              @if (image.mediaType === 'video' || image.mediaType === 'youtube') {
+                <div class="multimedia-video-play">
+                  <i class="fa fa-play-circle"></i>
+                </div>
+              }
+              @if (hasSignedIn()) {
+                <div class="multimedia-thumb-overlay">
+                  <button mat-icon-button class="multimedia-thumb-action" (click)="editButtonClicked($event, i)" [attr.aria-label]="'Edit image ' + (i + 1)">
+                    <i class="fa fa-pencil"></i>
+                  </button>
+                  <button mat-icon-button class="multimedia-thumb-action" (click)="deleteButtonClicked($event, i)" [attr.aria-label]="'Delete image ' + (i + 1)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              }
+            </a>
+          }
+        </lightgallery>
+      </mat-card-content>
+    }
+    @if (!galleryImagesList.length) {
+      <mat-card-content></mat-card-content>
+    }
   }
 </mat-card>

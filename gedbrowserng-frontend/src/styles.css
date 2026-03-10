@@ -1,5 +1,8 @@
 @import '~font-awesome/css/font-awesome.min.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~lightgallery/css/lightgallery.css';
+@import '~lightgallery/css/lg-thumbnail.css';
+@import '~lightgallery/css/lg-video.css';
 
 html, body, app-root, .body, .mat-drawer-container {
   height: 100%;
@@ -136,16 +139,6 @@ app-person-family-child-list mat-toolbar .mat-icon {
   padding: 0;
 }
 
-ngx-gallery-arrows.ngx-gallery-image-size-contain .fa {
-    background: white;
-    padding: 5px;
-    color: black;
-}
-
-.ngx-gallery-icon {
-    color: white;
-}
-
 div.ui-orderlist-controls {
     display: none !important;
 }
@@ -244,8 +237,9 @@ span.parent {
   min-width: 352px;
 }
 
-.ngx-gallery {
-  display: inline-block;
+.lg-outer .lg-thumb-item.active,
+.lg-outer .lg-thumb-item:hover {
+  border-color: #1976d2;
 }
 
 .mat-form-field {

@@ -1,11 +1,16 @@
-import { Component, OnInit, Input , Inject, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Inject, ChangeDetectorRef, OnChanges, SimpleChanges, AfterViewChecked } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAction, NgxGalleryModule } from 'ngx-gallery-15';
+import { LightgalleryModule } from 'lightgallery/angular';
+import { LightGallerySettings } from 'lightgallery/lg-settings';
+import { BeforeSlideDetail, InitDetail } from 'lightgallery/lg-events';
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import lgVideo from 'lightgallery/plugins/video';
+import type { LightGallery } from 'lightgallery/lightgallery';
 
 import { HasMultimedia, Saveable } from '../../interfaces';
-import { ApiAttribute, MultimediaDialogData, MultimediaFileData, MultimediaFormat } from '../../models';
-import { ImageUtil, StringUtil, MultimediaDialogHelper, ArrayUtil } from '../../utils';
-import { MultimediaDialogComponent, } from '../multimedia-dialog';
+import { ApiAttribute, MultimediaDialogData } from '../../models';
+import { ImageUtil, MultimediaDialogHelper, GalleryImage } from '../../utils';
+import { MultimediaDialogComponent } from '../multimedia-dialog';
 import { UserService } from '../../services';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -16,52 +21,101 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
 @Component({
     selector: 'app-multimedia-gallery',
     template: `<mat-card>
-  <mat-card-title>
-    <mat-toolbar>
+    <mat-card-title>
+        <mat-toolbar>
             <span class="list-toolbar-title">Multimedia</span>
-      <span class="example-fill-remaining-space"></span>
+            <span class="example-fill-remaining-space"></span>
             @if (hasSignedIn()) {
                 <span>
                     <app-multimedia-add-button [parent]="this" [dataset]="dataset"></app-multimedia-add-button>
                 </span>
             }
-            <button mat-icon-button
-                    [attr.aria-label]="showMultimedia ? 'Collapse multimedia' : 'Expand multimedia'"
-                    (click)="showMultimedia = !showMultimedia">
+            <button mat-icon-button [attr.aria-label]="showMultimedia ? 'Collapse multimedia' : 'Expand multimedia'" (click)="showMultimedia = !showMultimedia">
                 <mat-icon>{{ showMultimedia ? 'expand_less' : 'expand_more' }}</mat-icon>
             </button>
-    </mat-toolbar>
-  </mat-card-title>
-        @if (showMultimedia) {
-    @if (galleryImagesList.length) {
-        <mat-card-content>
-            <ngx-gallery [options]="galleryOptions" [images]="galleryImagesList"></ngx-gallery>
-        </mat-card-content>
-    }
-    @if (!galleryImagesList.length) {
-        <mat-card-content></mat-card-content>
-    }
+        </mat-toolbar>
+    </mat-card-title>
+    @if (showMultimedia) {
+        @if (galleryImagesList.length) {
+            <mat-card-content>
+                <lightgallery [settings]="lightGallerySettings" [onInit]="onGalleryInit" [onBeforeSlide]="onBeforeSlide">
+                    @for (image of galleryImagesList; track image.url; let i = $index) {
+                        <a [attr.data-src]="image.mediaType === 'video' ? null : image.url" [attr.data-poster]="image.mediaType === 'video' ? image.small : null" [attr.data-sub-html]="image.description || 'Image'" [attr.data-gallery-index]="i" [attr.data-video]="image.mediaType === 'video' ? image.videoData : null" class="multimedia-thumb-wrapper">
+                            <img [src]="image.small" [alt]="image.description || 'Image'" class="multimedia-thumb multimedia-video-preview" />
+                            @if (image.mediaType === 'video' || image.mediaType === 'youtube') {
+                                <div class="multimedia-video-play">
+                                    <i class="fa fa-play-circle"></i>
+                                </div>
+                            }
+                            @if (hasSignedIn()) {
+                                <div class="multimedia-thumb-overlay">
+                                    <button mat-icon-button class="multimedia-thumb-action" (click)="editButtonClicked($event, i)" [attr.aria-label]="'Edit image ' + (i + 1)">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button mat-icon-button class="multimedia-thumb-action" (click)="deleteButtonClicked($event, i)" [attr.aria-label]="'Delete image ' + (i + 1)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            }
+                        </a>
+                    }
+                </lightgallery>
+            </mat-card-content>
+        }
+        @if (!galleryImagesList.length) {
+            <mat-card-content></mat-card-content>
+        }
     }
 </mat-card>`,
-    styles: [],
-    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, MultimediaAddButtonComponent, MatCardContent, NgxGalleryModule]
+    styles: [
+        '.multimedia-thumb-wrapper { position: relative; display: inline-block; width: 120px; height: 90px; margin: 0 6px 6px 0; }',
+        '.multimedia-thumb { width: 120px; height: 90px; object-fit: cover; border-radius: 4px; display: block; }',
+        '.multimedia-video-preview { pointer-events: none; background: #111; }',
+        '.multimedia-video-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); pointer-events: none; }',
+        '.multimedia-thumb-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 4px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; opacity: 0; transition: opacity 0.2s; pointer-events: none; }',
+        '.multimedia-thumb-wrapper:hover .multimedia-thumb-overlay { opacity: 1; pointer-events: auto; }',
+        '.multimedia-thumb-action { color: white !important; width: 32px; height: 32px; min-width: 32px; min-height: 32px; background: rgba(0, 0, 0, 0.7) !important; }',
+        '.multimedia-thumb-action:hover { background: rgba(0, 0, 0, 0.9) !important; }',
+        '.multimedia-thumb-action .fa { font-size: 16px; }'
+    ],
+    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, MultimediaAddButtonComponent, MatCardContent, LightgalleryModule]
 })
-export class MultimediaGalleryComponent implements OnInit, OnChanges, HasMultimedia {
+export class MultimediaGalleryComponent implements OnInit, OnChanges, AfterViewChecked, HasMultimedia {
     @Input() dataset: string;
     @Input() parent: Saveable;
     @Input() multimedia: Array<ApiAttribute>;
     @Input() styleClass: string;
-    galleryOptions: NgxGalleryOptions[];
-    galleryImagesList: Array<NgxGalleryImage> = [];
+
+    galleryImagesList: Array<GalleryImage> = [];
+    selectedImageIndex = 0;
     dialogIndex = -1;
     showMultimedia = true;
+    lightGallerySettings: LightGallerySettings = {
+        plugins: [lgThumbnail, lgVideo],
+        thumbnail: true,
+        download: false,
+        counter: true,
+        selector: 'a'
+    };
 
-    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService,
-        private readonly cdr: ChangeDetectorRef) { }
+    onBeforeSlide = (detail: BeforeSlideDetail): void => {
+        this.selectedImageIndex = detail.index;
+    };
 
-    ngOnInit() {
-        this.galleryOptions = this.buildGalleryOptions();
+    onGalleryInit = (detail: InitDetail): void => {
+        this.lightGallery = detail.instance;
+    };
+
+    private lightGallery?: LightGallery;
+    private needGalleryRefresh = false;
+
+    constructor(
+        @Inject(MatDialog) public readonly dialog: MatDialog,
+        @Inject(UserService) private readonly userService: UserService,
+        private readonly cdr: ChangeDetectorRef
+    ) {}
+
+    ngOnInit(): void {
         this.refreshGalleryImages();
     }
 
@@ -71,41 +125,26 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, HasMultime
         }
     }
 
-    galleryImages(): Array<NgxGalleryImage> {
+    ngAfterViewChecked(): void {
+        if (this.needGalleryRefresh && this.lightGallery) {
+            this.lightGallery.refresh();
+            this.needGalleryRefresh = false;
+        }
+    }
+
+    galleryImages(): Array<GalleryImage> {
         this.refreshGalleryImages();
         return this.galleryImagesList;
     }
 
-    galleryImageActions() {
-        if (!this.hasSignedIn()) {
-            return;
-        }
-        this.editButtonClicked = this.editButtonClicked.bind(this);
-        this.deleteButtonClicked = this.deleteButtonClicked.bind(this);
-
-        const editAction = <NgxGalleryAction>{
-            icon: 'fa fa-pencil',
-            titleText: 'Edit',
-            onClick: this.editButtonClicked
-        };
-
-        const deleteAction = <NgxGalleryAction>{
-            icon: 'fa fa-trash',
-            titleText: 'Delete',
-            onClick: this.deleteButtonClicked
-        };
-
-        return [editAction, deleteAction];
-    }
-
-    editButtonClicked(event, i) {
+    editButtonClicked(event: Event, i: number): void {
+        event.preventDefault();
+        event.stopPropagation();
         this.dialogIndex = i;
         this.update = this.update.bind(this);
-        const dialogRef = this.dialog.open(
-            MultimediaDialogComponent,
-            {
-                data: MultimediaDialogHelper.buildMultimediaDialogData(this.multimedia, this.dialogIndex)
-            });
+        const dialogRef = this.dialog.open(MultimediaDialogComponent, {
+            data: MultimediaDialogHelper.buildMultimediaDialogData(this.multimedia, this.dialogIndex)
+        });
 
         dialogRef.afterClosed().subscribe((result: MultimediaDialogData) => {
             if (result !== undefined) {
@@ -114,58 +153,20 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, HasMultime
         });
     }
 
-    deleteButtonClicked(event, i) {
+    deleteButtonClicked(event: Event, i: number): void {
+        event.preventDefault();
+        event.stopPropagation();
         this.multimedia.splice(i, 1);
+        this.selectedImageIndex = Math.max(0, Math.min(this.selectedImageIndex, this.multimedia.length - 1));
         this.forceViewRefresh();
         this.save();
-    }
-
-    buildGalleryOptions(): Array<NgxGalleryOptions> {
-        return [
-            this.galleryOptionsDefault(),
-            this.galleryOptionsMediumWidth(),
-            this.galleryOptionsNarrow()
-        ];
-    }
-
-    private galleryOptionsDefault(): NgxGalleryOptions {
-        return {
-            image: false,
-            preview: true,
-            previewCloseOnClick: true,
-            previewCloseOnEsc: true,
-            previewKeyboardNavigation: true,
-            previewFullscreen: true,
-            height: '200px',
-            width: '800px',
-            thumbnailsColumns: 6,
-            thumbnailActions: this.galleryImageActions(),
-            imageActions: this.galleryImageActions(),
-        };
-    }
-
-    private galleryOptionsMediumWidth(): NgxGalleryOptions {
-        return {
-            preview: true,
-            breakpoint: 500,
-            width: '300px',
-            thumbnailsColumns: 3,
-        };
-    }
-
-    private galleryOptionsNarrow(): NgxGalleryOptions {
-        return {
-            breakpoint: 300,
-            width: '100%',
-            thumbnailsColumns: 2,
-        };
     }
 
     save(): void {
         this.parent.save();
     }
 
-    update(data: MultimediaDialogData) {
+    update(data: MultimediaDialogData): void {
         const updatedAttribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
         this.multimedia.splice(this.dialogIndex, 1, updatedAttribute);
         this.forceViewRefresh();
@@ -176,20 +177,26 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, HasMultime
         this.forceViewRefresh();
     }
 
-    hasSignedIn() {
+    hasSignedIn(): boolean {
         return !!this.userService.currentUser;
     }
 
     private refreshGalleryImages(): void {
         if (!this.multimedia || this.multimedia.length === 0) {
             this.galleryImagesList = [];
+            this.selectedImageIndex = 0;
+            this.needGalleryRefresh = true;
             return;
         }
+
         try {
             this.galleryImagesList = ImageUtil.galleryImages(this.multimedia);
+            this.selectedImageIndex = Math.min(this.selectedImageIndex, Math.max(0, this.galleryImagesList.length - 1));
         } catch {
             this.galleryImagesList = [];
+            this.selectedImageIndex = 0;
         }
+        this.needGalleryRefresh = true;
     }
 
     private forceViewRefresh(): void {
