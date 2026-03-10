@@ -62,7 +62,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     </mat-card>
   </div>
 </div>`,
-    styles: [],
+    styleUrls: ['./signup.component.css'],
     imports: [MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton, MatProgressSpinner]
 })
 export class SignupComponent implements OnInit, OnDestroy {
