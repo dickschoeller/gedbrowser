@@ -6,19 +6,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { vi } from 'vitest';
 
 import { NewPersonDialogComponent } from './new-person-dialog.component';
 
 describe('NewPersonDialogComponent', () => {
   let component: NewPersonDialogComponent;
   let fixture: ComponentFixture<NewPersonDialogComponent>;
+  let mockDialogRef: any;
 
   beforeEach(() => {
+    mockDialogRef = { close: vi.fn() };
+
     TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
     imports: [MatDialogModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, NewPersonDialogComponent],
     providers: [
-      { provide: MatDialogRef, useValue: {} },
+      { provide: MatDialogRef, useValue: mockDialogRef },
       {
         provide: MAT_DIALOG_DATA,
         useValue: {
@@ -39,5 +43,10 @@ describe('NewPersonDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should close dialog on cancel', () => {
+    component.onNoClick();
+    expect(mockDialogRef.close).toHaveBeenCalled();
   });
 });
