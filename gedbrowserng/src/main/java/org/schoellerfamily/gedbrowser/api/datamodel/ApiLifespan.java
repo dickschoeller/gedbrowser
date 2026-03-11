@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * Represents the lifespan of a person to support easier rendering, without checking the whole
@@ -17,7 +17,6 @@ import tools.jackson.databind.annotation.JsonDeserialize;
 @Builder(toBuilder = true)
 @Getter
 @EqualsAndHashCode
-@Jacksonized
 @JsonDeserialize(builder = ApiLifespan.ApiLifespanBuilder.class)
 @JsonPropertyOrder({ "birthDate", "deathDate", "birthYear", "deathYear" })
 public final class ApiLifespan {
@@ -40,4 +39,11 @@ public final class ApiLifespan {
      * Holds the death year, null means unknown.
      */
     private final String deathYear;
+
+    /**
+     * Builder metadata for Jackson.
+     */
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ApiLifespanBuilder {
+    }
 }
