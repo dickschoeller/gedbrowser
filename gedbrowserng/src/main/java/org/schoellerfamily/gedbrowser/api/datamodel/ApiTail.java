@@ -46,6 +46,7 @@ public class ApiTail extends ApiObject {
          * @return new tail builder instance
          */
         @JsonCreator
+        @SuppressWarnings("java:S1452")
         public static ApiTailBuilder<?, ?> create() {
             return ApiTail.builder();
         }

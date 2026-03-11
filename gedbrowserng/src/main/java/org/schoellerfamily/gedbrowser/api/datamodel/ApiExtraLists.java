@@ -68,6 +68,7 @@ public class ApiExtraLists extends ApiHasImages {
          * @return new extra-lists builder instance
          */
         @JsonCreator
+        @SuppressWarnings("java:S1452")
         public static ApiExtraListsBuilder<?, ?> create() {
             return ApiExtraLists.builder();
         }

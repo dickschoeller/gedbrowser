@@ -35,6 +35,7 @@ public final class ApiAttribute extends ApiTail {
          * @return new attribute builder instance
          */
         @JsonCreator
+        @SuppressWarnings("java:S1452")
         public static ApiAttributeBuilder<?, ?> create() {
             return ApiAttribute.builder();
         }

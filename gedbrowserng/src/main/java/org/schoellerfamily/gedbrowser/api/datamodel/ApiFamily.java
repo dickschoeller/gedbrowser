@@ -57,6 +57,7 @@ public class ApiFamily extends ApiHasImages {
          * @return new family builder instance
          */
         @JsonCreator
+        @SuppressWarnings("java:S1452")
         public static ApiFamilyBuilder<?, ?> create() {
             return ApiFamily.builder();
         }

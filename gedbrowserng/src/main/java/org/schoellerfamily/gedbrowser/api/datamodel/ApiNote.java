@@ -35,6 +35,7 @@ public final class ApiNote extends ApiTail {
          * @return new note builder instance
          */
         @JsonCreator
+        @SuppressWarnings("java:S1452")
         public static ApiNoteBuilder<?, ?> create() {
             return ApiNote.builder();
         }

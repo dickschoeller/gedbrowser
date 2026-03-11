@@ -35,6 +35,7 @@ public final class ApiSubmission extends ApiObject {
          * @return new submission builder instance
          */
         @JsonCreator
+        @SuppressWarnings("java:S1452")
         public static ApiSubmissionBuilder<?, ?> create() {
             return ApiSubmission.builder();
         }

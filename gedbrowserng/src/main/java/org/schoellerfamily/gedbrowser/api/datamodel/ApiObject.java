@@ -108,6 +108,7 @@ public class ApiObject implements GetString {
          * @return new object builder instance
          */
         @JsonCreator
+        @SuppressWarnings("java:S1452")
         public static ApiObjectBuilder<?, ?> create() {
             return ApiObject.builder();
         }

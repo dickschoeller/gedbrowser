@@ -36,6 +36,7 @@ public final class ApiHead extends ApiObject {
          * @return new head builder instance
          */
         @JsonCreator
+        @SuppressWarnings("java:S1452")
         public static ApiHeadBuilder<?, ?> create() {
             return ApiHead.builder();
         }

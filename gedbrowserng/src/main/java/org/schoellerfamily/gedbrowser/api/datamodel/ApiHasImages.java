@@ -46,6 +46,7 @@ public class ApiHasImages extends ApiObject {
          * @return new has-images builder instance
          */
         @JsonCreator
+        @SuppressWarnings("java:S1452")
         public static ApiHasImagesBuilder<?, ?> create() {
             return ApiHasImages.builder();
         }

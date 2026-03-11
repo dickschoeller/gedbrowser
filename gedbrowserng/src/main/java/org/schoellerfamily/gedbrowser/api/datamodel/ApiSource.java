@@ -40,6 +40,7 @@ public final class ApiSource extends ApiHasImages {
          * @return new source builder instance
          */
         @JsonCreator
+        @SuppressWarnings("java:S1452")
         public static ApiSourceBuilder<?, ?> create() {
             return ApiSource.builder();
         }
