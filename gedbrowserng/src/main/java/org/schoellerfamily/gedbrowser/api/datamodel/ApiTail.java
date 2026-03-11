@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Builder;
@@ -7,8 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
 /**
  * An object that has a tail string.
@@ -18,8 +19,7 @@ import tools.jackson.databind.annotation.JsonDeserialize;
 @SuperBuilder(toBuilder = true)
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@Jacksonized
-@JsonDeserialize(builder = ApiTail.ApiTailBuilderImpl.class)
+@JsonDeserialize(builder = ApiTail.ApiTailBuilder.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiTail extends ApiObject {
     /**
@@ -28,6 +28,28 @@ public class ApiTail extends ApiObject {
     @Builder.Default
     @NonNull
     private final String tail = "";
+
+    /**
+     * The Builder for ApiTail.
+     *
+     * @param <C> the class to be built
+     * @param <B> the type of the builder
+     */
+    @JsonPOJOBuilder(withPrefix = "")
+    public abstract static class ApiTailBuilder<
+            C extends ApiTail,
+            B extends ApiTailBuilder<C, B>>
+        extends ApiObjectBuilder<C, B> {
+        /**
+         * Jackson creator to obtain a concrete Lombok builder implementation.
+         *
+         * @return new tail builder instance
+         */
+        @JsonCreator
+        public static ApiTailBuilder<?, ?> create() {
+            return ApiTail.builder();
+        }
+    }
 
     /**
      * Is the other object of exactly the same type as this one? All overrides

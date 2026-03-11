@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.api.datamodel;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.Builder;
@@ -9,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -21,8 +21,7 @@ import tools.jackson.databind.annotation.JsonPOJOBuilder;
 @SuperBuilder(toBuilder = true)
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@Jacksonized
-@JsonDeserialize(builder = ApiPerson.ApiPersonBuilderImpl.class)
+@JsonDeserialize(builder = ApiPerson.ApiPersonBuilder.class)
 @JsonPropertyOrder({ "indexName", "surname", "lifeSpan" })
 public class ApiPerson extends ApiExtraLists {
     /**
@@ -55,6 +54,16 @@ public class ApiPerson extends ApiExtraLists {
             C extends ApiPerson,
             B extends ApiPersonBuilder<C, B>>
         extends ApiExtraListsBuilder<C, B> {
+        /**
+         * Jackson creator to obtain a concrete Lombok builder implementation.
+         *
+         * @return new person builder instance
+         */
+        @JsonCreator
+        public static ApiPersonBuilder<?, ?> create() {
+            return ApiPerson.builder();
+        }
+
         /**
          * Sets the string field and also extracts the reference number
          * attribute from it.

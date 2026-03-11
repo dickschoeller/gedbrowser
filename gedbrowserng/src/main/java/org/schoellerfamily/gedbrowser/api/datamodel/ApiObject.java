@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.GetString;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -14,7 +15,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -26,8 +26,7 @@ import tools.jackson.databind.annotation.JsonPOJOBuilder;
 @SuperBuilder(toBuilder = true)
 @Getter
 @EqualsAndHashCode
-@Jacksonized
-@JsonDeserialize(builder = ApiObject.ApiObjectBuilderImpl.class)
+@JsonDeserialize(builder = ApiObject.ApiObjectBuilder.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "type", "string", "attributes" })
 public class ApiObject implements GetString {
@@ -102,6 +101,16 @@ public class ApiObject implements GetString {
     public abstract static class ApiObjectBuilder<
         C extends ApiObject,
         B extends ApiObjectBuilder<C, B>> {
+
+        /**
+         * Jackson creator to obtain a concrete Lombok builder implementation.
+         *
+         * @return new object builder instance
+         */
+        @JsonCreator
+        public static ApiObjectBuilder<?, ?> create() {
+            return ApiObject.builder();
+        }
 
         /**
          * Get the type value.
