@@ -12,8 +12,8 @@ describe('SignupComponent', () => {
   let component: SignupComponent;
   let fixture: ComponentFixture<SignupComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
     imports: [ReactiveFormsModule, FormsModule, SignupComponent],
     providers: [
@@ -26,7 +26,7 @@ describe('SignupComponent', () => {
       ConfigService
     ]
 })
-    .compileComponents();
+  .compileComponents();
   });
 
   beforeEach(() => {

@@ -7,7 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { provideRouter } from '@angular/router';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import { SideMenuComponent } from './side-menu.component';
@@ -112,93 +112,92 @@ describe('SideMenuComponent', () => {
     expect(component.uploadForm.get('files')).toBe(component.filesControl);
   });
 
-  it('should handle file upload success', (done) => {
+  it('should handle file upload success', async () => {
     vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of({ success: true }));
     vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
     
     const file = new File(['test content'], 'test.ged', { type: 'application/x-gedcom' });
     component.filesControl.setValue([file], { emitEvent: true });
     component.filesControl.updateValueAndValidity({ emitEvent: true });
-    
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
-      done();
-    });
+
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
   });
 
-  it('should reject non-ged file uploads', (done) => {
+  it('should reject non-ged file uploads', async () => {
     const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
-    const file = new File(['test content'], 'test.txt', { type: 'text/plain' });
+    const uploadSpy = vi.spyOn(mockUploadService, 'uploadGedFile');
+    const file = new File(['test content'], 'test.txt', { type: 'application/pdf' });
     component.filesControl.setValue([file], { emitEvent: true });
     component.filesControl.updateValueAndValidity({ emitEvent: true });
-    
+
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(alertSpy).toHaveBeenCalledWith(expect.stringContaining('unsupported file type'));
-      done();
-    });
+    await fixture.whenStable();
+    expect(alertSpy).toHaveBeenCalledWith(expect.stringContaining('unsupported file type'));
+    expect(uploadSpy).not.toHaveBeenCalled();
   });
 
-  it('should accept .ged file extension', (done) => {
+  it('should accept .ged file extension', async () => {
     vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of({ success: true }));
     vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
     
     const file = new File(['test content'], 'family.ged', { type: 'text/plain' });
     component.filesControl.setValue([file], { emitEvent: true });
     component.filesControl.updateValueAndValidity({ emitEvent: true });
-    
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
-      done();
-    });
+
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
   });
 
-  it('should accept .gedcom file extension', (done) => {
+  it('should accept .gedcom file extension', async () => {
     vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of({ success: true }));
     vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
     
     const file = new File(['test content'], 'family.gedcom', { type: 'text/plain' });
     component.filesControl.setValue([file], { emitEvent: true });
     component.filesControl.updateValueAndValidity({ emitEvent: true });
-    
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
-      done();
-    });
+
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
   });
 
-  it('should accept application/x-gedcom MIME type', (done) => {
+  it('should accept application/x-gedcom MIME type', async () => {
     vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of({ success: true }));
     vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
     
     const file = new File(['test content'], 'family.ged', { type: 'application/x-gedcom' });
     component.filesControl.setValue([file], { emitEvent: true });
     component.filesControl.updateValueAndValidity({ emitEvent: true });
-    
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
-      done();
-    });
+
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(mockUploadService.uploadGedFile).toHaveBeenCalled();
   });
 
-  it('should handle upload error gracefully', (done) => {
-    vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(of(new Error('Upload failed')));
+  it('should handle upload error gracefully', async () => {
+    vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(throwError(() => new Error('Upload failed')));
     const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
     vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
-    
+
     const file = new File(['test content'], 'test.ged', { type: 'application/x-gedcom' });
     component.filesControl.setValue([file], { emitEvent: true });
     component.filesControl.updateValueAndValidity({ emitEvent: true });
-    
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(alertSpy).toHaveBeenCalled();
-      done();
-    });
+
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(alertSpy).toHaveBeenCalledWith(expect.stringContaining('Error, unable to upload'));
+  });
+
+  it('should ignore empty file list changes', async () => {
+    const uploadSpy = vi.spyOn(mockUploadService, 'uploadGedFile');
+    component.filesControl.setValue([], { emitEvent: true });
+    component.filesControl.updateValueAndValidity({ emitEvent: true });
+
+    await fixture.whenStable();
+    expect(uploadSpy).not.toHaveBeenCalled();
   });
 
   it('should set title on init', () => {

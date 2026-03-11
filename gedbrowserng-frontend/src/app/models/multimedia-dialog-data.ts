@@ -29,6 +29,7 @@ export enum MultimediaFormat {
   mpg = 'mpg',
   mp4 = 'mp4',
   mov = 'mov',
+  youtube = 'youtube',
   // Document formats
   doc = 'doc',
   docx = 'docx',

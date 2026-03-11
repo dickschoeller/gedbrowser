@@ -88,6 +88,107 @@ class ImageUtilsTest {
         assertFalse(imageUtils.isImage(multimedia), "Should not be image");
     }
 
+    /**
+     * Parameterized test for video file extensions.
+     *
+     * @param ext the file extension to test
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"avi", "m4v", "mov", "mp4", "mpg", "mpeg", "webm"})
+    void testIsVideo(final String ext) {
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("clip." + ext)
+            .attributes(java.util.List.of())
+            .build();
+        assertTrue(imageUtils.isVideo(file), "Should be a video: " + ext);
+    }
+
+    /** */
+    @Test
+    void testIsNotVideo() {
+        final ApiAttribute multimedia = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("photo.jpg")
+            .attributes(java.util.List.of())
+            .build();
+        assertFalse(imageUtils.isVideo(multimedia), "jpg should not be a video");
+    }
+
+    /** */
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "https://youtu.be/dQw4w9WgXcQ"
+    })
+    void testIsYouTube(final String url) {
+        final ApiAttribute attr = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail(url)
+            .attributes(java.util.List.of())
+            .build();
+        assertTrue(imageUtils.isYouTube(attr), "Should be a YouTube URL: " + url);
+    }
+
+    /** */
+    @Test
+    void testIsNotYouTube() {
+        final ApiAttribute attr = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("clip.mp4")
+            .attributes(java.util.List.of())
+            .build();
+        assertFalse(imageUtils.isYouTube(attr), "mp4 should not be a YouTube URL");
+    }
+
+    /** */
+    @Test
+    void testVideoIsNotImage() {
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("clip.mp4")
+            .attributes(java.util.List.of())
+            .build();
+        assertFalse(imageUtils.isImage(file), "mp4 should not be an image");
+    }
+
+    /** */
+    @Test
+    void testWrapperWithVideoIsWrapper() {
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("clip.mp4")
+            .build();
+        final ApiAttribute multimedia = ApiAttribute.builder()
+            .type("multimedia")
+            .string("Multimedia")
+            .attribute(file)
+            .build();
+        assertTrue(imageUtils.isImageWrapper(multimedia), "Should be a media wrapper for video");
+    }
+
+    /** */
+    @Test
+    void testWrapperWithYouTubeIsWrapper() {
+        final ApiAttribute file = ApiAttribute.builder()
+            .type("attribute")
+            .string("File")
+            .tail("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+            .build();
+        final ApiAttribute multimedia = ApiAttribute.builder()
+            .type("multimedia")
+            .string("Multimedia")
+            .attribute(file)
+            .build();
+        assertTrue(imageUtils.isImageWrapper(multimedia), "Should be a media wrapper for YouTube");
+    }
+
     /** */
     @Test
     void testIsNotWrapper() {

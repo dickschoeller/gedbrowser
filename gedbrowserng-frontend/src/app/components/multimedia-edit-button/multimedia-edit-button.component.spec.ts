@@ -73,4 +73,25 @@ describe('MultimediaEditButtonComponent', () => {
     vi,
     utils
   );
+
+  it('should call update when dialog returns a result', () => {
+    const result = { title: 'Updated', files: [{ fileUrl: 'photo2.jpg' }] } as any;
+    mockDialog.open.mockReturnValue({
+      afterClosed: () => of(result)
+    });
+    const updateSpy = vi.spyOn(component, 'update').mockImplementation(() => undefined);
+
+    component.edit();
+
+    expect(updateSpy).toHaveBeenCalledWith(result);
+  });
+
+  it('should not call update when dialog returns undefined', () => {
+    mockDialog.open.mockReturnValue({ afterClosed: () => of(undefined) });
+    const updateSpy = vi.spyOn(component, 'update');
+
+    component.edit();
+
+    expect(updateSpy).not.toHaveBeenCalled();
+  });
 });

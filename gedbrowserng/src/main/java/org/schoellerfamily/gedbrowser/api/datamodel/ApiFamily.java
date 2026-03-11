@@ -2,13 +2,13 @@ package org.schoellerfamily.gedbrowser.api.datamodel;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -20,8 +20,7 @@ import tools.jackson.databind.annotation.JsonPOJOBuilder;
 @SuperBuilder(toBuilder = true)
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@Jacksonized
-@JsonDeserialize(builder = ApiFamily.ApiFamilyBuilderImpl.class)
+@JsonDeserialize(builder = ApiFamily.ApiFamilyBuilder.class)
 @JsonPropertyOrder({ "children", "spouses" })
 public class ApiFamily extends ApiHasImages {
     /**
@@ -52,6 +51,17 @@ public class ApiFamily extends ApiHasImages {
             C extends ApiFamily,
             B extends ApiFamilyBuilder<C, B>>
         extends ApiHasImagesBuilder<C, B> {
+        /**
+         * Jackson creator to obtain a concrete Lombok builder implementation.
+         *
+         * @return new family builder instance
+         */
+        @JsonCreator
+        @SuppressWarnings("java:S1452")
+        public static ApiFamilyBuilder<?, ?> create() {
+            return ApiFamily.builder();
+        }
+
         /**
          * Add an attribute to the correct list based on its type.
          *

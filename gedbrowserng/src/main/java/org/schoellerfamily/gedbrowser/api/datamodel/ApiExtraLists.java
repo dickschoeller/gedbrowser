@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.api.datamodel;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -9,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -21,8 +21,7 @@ import tools.jackson.databind.annotation.JsonPOJOBuilder;
 @SuperBuilder(toBuilder = true)
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@Jacksonized
-@JsonDeserialize(builder = ApiExtraLists.ApiExtraListsBuilderImpl.class)
+@JsonDeserialize(builder = ApiExtraLists.ApiExtraListsBuilder.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "famss", "famcs", "refns", "changes" })
 public class ApiExtraLists extends ApiHasImages {
@@ -62,6 +61,17 @@ public class ApiExtraLists extends ApiHasImages {
             C extends ApiExtraLists,
             B extends ApiExtraLists.ApiExtraListsBuilder<C, B>>
         extends ApiExtraLists.ApiHasImagesBuilder<C, B> {
+
+        /**
+         * Jackson creator to obtain a concrete Lombok builder implementation.
+         *
+         * @return new extra-lists builder instance
+         */
+        @JsonCreator
+        @SuppressWarnings("java:S1452")
+        public static ApiExtraListsBuilder<?, ?> create() {
+            return ApiExtraLists.builder();
+        }
 
         /**
          * Add a list of attributes.
