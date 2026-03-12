@@ -4,6 +4,15 @@ import { of } from 'rxjs';
 import { PersonListComponent } from './person-list.component';
 import { ApiPerson } from '../../models';
 
+import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+
+import {PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService} from '../../services';
+import {PersonListResolverService} from './person-list-resolver.service';
+
 class StubRouter {
   navigated: string[] | null = null;
   navigate(path: string[]) { this.navigated = path; }
@@ -94,15 +103,6 @@ describe('PersonListComponent', () => {
     expect(svc.deleted).toBe(true);
   });
 });
-import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
-
-import {PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService} from '../../services';
-import {PersonListComponent} from './person-list.component';
-import {PersonListResolverService} from './person-list-resolver.service';
 
 // Mock component to replace the child app-main-layout
 @Component({
