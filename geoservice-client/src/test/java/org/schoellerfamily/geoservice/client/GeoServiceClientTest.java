@@ -451,11 +451,13 @@ final class GeoServiceClientTest {
             throws ReflectiveOperationException {
         final GeoServiceClient client = newClient();
 
-        assertNull(invokePrivate(
-            client,
-            "parseAddressTypes",
-            JsonNode.class,
-            OBJECT_MAPPER.createObjectNode()));
+        final AddressType[] notArrayTypes = invokePrivate(
+          client,
+          "parseAddressTypes",
+          JsonNode.class,
+          OBJECT_MAPPER.createObjectNode());
+        assertNotNull(notArrayTypes);
+        assertEquals(0, notArrayTypes.length);
 
         final JsonNode invalidTypesNode = OBJECT_MAPPER.readTree(
             """
@@ -468,7 +470,8 @@ final class GeoServiceClientTest {
             JsonNode.class,
             invalidTypesNode);
 
-        assertNull(addressTypes);
+        assertNotNull(addressTypes);
+        assertEquals(0, addressTypes.length);
     }
 
     @Test
@@ -476,22 +479,26 @@ final class GeoServiceClientTest {
             throws ReflectiveOperationException {
         final GeoServiceClient client = newClient();
 
-        assertNull(invokePrivate(
-            client,
-            "parseStringArray",
-            JsonNode.class,
-            OBJECT_MAPPER.createObjectNode()));
+        final String[] notArrayStrings = invokePrivate(
+          client,
+          "parseStringArray",
+          JsonNode.class,
+          OBJECT_MAPPER.createObjectNode());
+        assertNotNull(notArrayStrings);
+        assertEquals(0, notArrayStrings.length);
 
         final JsonNode invalidStringsNode = OBJECT_MAPPER.readTree(
             """
             [null, "   "]
             """);
 
-        assertNull(invokePrivate(
-            client,
-            "parseStringArray",
-            JsonNode.class,
-            invalidStringsNode));
+        final String[] invalidStrings = invokePrivate(
+          client,
+          "parseStringArray",
+          JsonNode.class,
+          invalidStringsNode);
+        assertNotNull(invalidStrings);
+        assertEquals(0, invalidStrings.length);
 
         assertNull(invokePrivate(client, "textValue", JsonNode.class, null));
         assertNull(invokePrivate(client, "textValue", JsonNode.class, OBJECT_MAPPER.nullNode()));

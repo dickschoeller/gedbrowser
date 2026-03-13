@@ -19,7 +19,7 @@ describe('GoogleMapComponent', () => {
     const LatLngBounds = vi.fn(function(this: any) {
       this.extend = vi.fn();
     });
-    const Map = vi.fn(function(this: any) {
+    const GoogleMap = vi.fn(function(this: any) {
       this.fitBounds = fitBounds;
     });
     const Marker = vi.fn(function(this: any, options: any) {
@@ -27,14 +27,14 @@ describe('GoogleMapComponent', () => {
       this.setMap = markerSetMap;
     });
 
-    (window as any).google = {
+    (globalThis as any).google = {
       maps: {
         MapTypeId: {
           ROADMAP: 'ROADMAP'
         },
         LatLng,
         LatLngBounds,
-        Map,
+        Map: GoogleMap,
         Marker
       }
     };
@@ -51,8 +51,8 @@ describe('GoogleMapComponent', () => {
 
   afterEach(() => {
     vi.clearAllMocks();
-    delete (window as any).google;
-    delete (window as any).GOOGLE_MAPS_API_KEY;
+    delete (globalThis as any).google;
+    delete (globalThis as any).GOOGLE_MAPS_API_KEY;
   });
 
   it('should create', () => {
@@ -85,8 +85,8 @@ describe('GoogleMapComponent', () => {
 
     const card = fixture.nativeElement.querySelector('.map-card');
     expect(card).toBeTruthy();
-    expect((window as any).google.maps.Map).toHaveBeenCalledTimes(1);
-    expect((window as any).google.maps.Marker).toHaveBeenCalledTimes(1);
+    expect((globalThis as any).google.maps.Map).toHaveBeenCalledTimes(1);
+    expect((globalThis as any).google.maps.Marker).toHaveBeenCalledTimes(1);
     expect(fitBounds).toHaveBeenCalledTimes(1);
   });
 
@@ -105,21 +105,21 @@ describe('GoogleMapComponent', () => {
     await fixture.whenStable();
     await new Promise(resolve => setTimeout(resolve, 0));
 
-    expect((window as any).google.maps.Marker).toHaveBeenCalledTimes(1);
+    expect((globalThis as any).google.maps.Marker).toHaveBeenCalledTimes(1);
     expect(fitBounds).toHaveBeenCalledTimes(1);
   });
 
   it('rejects loading when no API key is available', async () => {
-    delete (window as any).google;
+    delete (globalThis as any).google;
     component.apiKey = '';
-    (window as any).GOOGLE_MAPS_API_KEY = '';
+    (globalThis as any).GOOGLE_MAPS_API_KEY = '';
 
     await expect((component as any).ensureGoogleMapsLoaded()).rejects.toThrow('Google Maps API key is missing');
   });
 
   it('resolves API key from window when input key is empty', () => {
     component.apiKey = '';
-    (window as any).GOOGLE_MAPS_API_KEY = 'window-key';
+    (globalThis as any).GOOGLE_MAPS_API_KEY = 'window-key';
 
     const key = (component as any).resolveApiKey();
     expect(key).toBe('window-key');
@@ -144,7 +144,7 @@ describe('GoogleMapComponent', () => {
     await new Promise(resolve => setTimeout(resolve, 0));
 
     expect(markerSetMap).toHaveBeenCalledWith(null);
-    expect((window as any).google.maps.Marker).toHaveBeenCalledTimes(2);
+    expect((globalThis as any).google.maps.Marker).toHaveBeenCalledTimes(2);
   });
 
   it('does not fit bounds when all place locations are invalid', async () => {
@@ -157,7 +157,7 @@ describe('GoogleMapComponent', () => {
     await fixture.whenStable();
     await new Promise(resolve => setTimeout(resolve, 0));
 
-    expect((window as any).google.maps.Marker).toHaveBeenCalledTimes(0);
+    expect((globalThis as any).google.maps.Marker).toHaveBeenCalledTimes(0);
     expect(fitBounds).toHaveBeenCalledTimes(0);
   });
 });

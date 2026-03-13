@@ -103,20 +103,30 @@ public final class PlaceListRenderer {
         final LngLatAlt location = locationPoint.getCoordinates();
 
         final Polygon viewportPolygon = firstPolygon(features);
-        if (viewportPolygon != null) {
-            final List<List<LngLatAlt>> viewportRings = viewportPolygon.getCoordinates();
-            if (viewportRings != null && !viewportRings.isEmpty()) {
-                final List<LngLatAlt> viewportOutline = viewportRings.get(0);
-                if (viewportOutline != null && viewportOutline.size() > 2) {
-                    final LngLatAlt southwest = viewportOutline.get(0);
-                    final LngLatAlt northeast = viewportOutline.get(2);
-                    return new PlaceInfo(item.getPlaceName(), location, southwest,
-                            northeast);
-                }
-            }
+        final PlaceInfo bounded = buildBoundedPlaceInfo(
+                item.getPlaceName(), location, viewportPolygon);
+        if (bounded != null) {
+            return bounded;
         }
         return new PlaceInfo(item.getPlaceName(), location.getLatitude(),
                 location.getLongitude());
+    }
+
+    private PlaceInfo buildBoundedPlaceInfo(final String placeName,
+            final LngLatAlt location, final Polygon viewportPolygon) {
+        if (viewportPolygon == null) {
+            return null;
+        }
+        final List<List<LngLatAlt>> viewportRings = viewportPolygon.getCoordinates();
+        if (viewportRings == null || viewportRings.isEmpty()) {
+            return null;
+        }
+        final List<LngLatAlt> viewportOutline = viewportRings.get(0);
+        if (viewportOutline == null || viewportOutline.size() <= 2) {
+            return null;
+        }
+        return new PlaceInfo(placeName, location,
+                viewportOutline.get(0), viewportOutline.get(2));
     }
 
     private Point firstPoint(final List<Feature> features) {

@@ -3,6 +3,8 @@ package org.schoellerfamily.gedbrowser.api.crud.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.schoellerfamily.gedbrowser.api.crud.CrudHelper;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
@@ -14,42 +16,17 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 final class CrudHelperTest {
 
     /** */
-    @Test
-    void testSpouseAttributeReturnsHusbandForMale() {
+    @ParameterizedTest
+    @CsvSource({"M, husband", "F, wife", "X, husband"})
+    void testSpouseAttributeType(final String sex, final String expectedType) {
         final CrudHelper helper = new CrudHelper();
         final ApiPerson.ApiPersonBuilder<?, ?> person = ApiPerson.builder()
             .string("I1")
-            .attribute(ApiAttribute.builder().type("attribute").string("Sex").tail("M").build());
+            .attribute(ApiAttribute.builder().type("attribute").string("Sex").tail(sex).build());
 
         final ApiAttribute spouse = helper.spouseAttribute(person);
 
-        assertEquals("husband", spouse.getType());
-    }
-
-    /** */
-    @Test
-    void testSpouseAttributeReturnsWifeForFemale() {
-        final CrudHelper helper = new CrudHelper();
-        final ApiPerson.ApiPersonBuilder<?, ?> person = ApiPerson.builder()
-            .string("I2")
-            .attribute(ApiAttribute.builder().type("attribute").string("Sex").tail("F").build());
-
-        final ApiAttribute spouse = helper.spouseAttribute(person);
-
-        assertEquals("wife", spouse.getType());
-    }
-
-    /** */
-    @Test
-    void testSpouseAttributeDefaultsToHusbandWhenSexUnknown() {
-        final CrudHelper helper = new CrudHelper();
-        final ApiPerson.ApiPersonBuilder<?, ?> person = ApiPerson.builder()
-            .string("I3")
-            .attribute(ApiAttribute.builder().type("attribute").string("Sex").tail("X").build());
-
-        final ApiAttribute spouse = helper.spouseAttribute(person);
-
-        assertEquals("husband", spouse.getType());
+        assertEquals(expectedType, spouse.getType());
     }
 
     /** */

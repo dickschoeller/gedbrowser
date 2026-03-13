@@ -82,8 +82,8 @@ export class GoogleMapComponent implements AfterViewInit, OnChanges {
       .then(() => {
         this.loadError = false;
         if (!this.map) {
-          this.map = new window.google.maps.Map(this.mapContainer?.nativeElement, {
-            mapTypeId: window.google.maps.MapTypeId.ROADMAP
+          this.map = new globalThis.google.maps.Map(this.mapContainer?.nativeElement, {
+            mapTypeId: globalThis.google.maps.MapTypeId.ROADMAP
           });
         }
         this.renderPlaces();
@@ -94,10 +94,10 @@ export class GoogleMapComponent implements AfterViewInit, OnChanges {
   }
 
   private ensureGoogleMapsLoaded(): Promise<void> {
-    if (window.google?.maps) {
+    if (globalThis.google?.maps) {
       return Promise.resolve();
     }
-    if (GoogleMapComponent.mapsScriptPromise) {
+    if (GoogleMapComponent.mapsScriptPromise !== null) {
       return GoogleMapComponent.mapsScriptPromise;
     }
 
@@ -110,7 +110,7 @@ export class GoogleMapComponent implements AfterViewInit, OnChanges {
       const existing = document.getElementById(GoogleMapComponent.scriptId) as HTMLScriptElement | null;
       if (existing) {
         existing.addEventListener('load', () => resolve(), { once: true });
-        existing.addEventListener('error', () => reject(), { once: true });
+        existing.addEventListener('error', () => reject(new Error('Script load failed')), { once: true });
         return;
       }
 
@@ -123,7 +123,7 @@ export class GoogleMapComponent implements AfterViewInit, OnChanges {
       script.src = `https://maps.googleapis.com/maps/api/js?loading=async${keyPart}`;
 
       script.onload = () => resolve();
-      script.onerror = () => reject();
+      script.onerror = () => reject(new Error('Script load failed'));
       document.head.appendChild(script);
     });
 
@@ -131,17 +131,18 @@ export class GoogleMapComponent implements AfterViewInit, OnChanges {
   }
 
   private resolveApiKey(): string {
-    return this.apiKey || window.GOOGLE_MAPS_API_KEY || (environment as any).googleMapsApiKey || '';
+    return this.apiKey || globalThis.GOOGLE_MAPS_API_KEY
+      || (environment as any).googleMapsApiKey || '';
   }
 
   private renderPlaces(): void {
-    if (!this.map || !window.google?.maps || !this.hasPlaces()) {
+    if (!this.map || !globalThis.google?.maps || !this.hasPlaces()) {
       return;
     }
 
     this.clearMarkers();
 
-    const bounds = new window.google.maps.LatLngBounds();
+    const bounds = new globalThis.google.maps.LatLngBounds();
     let visibleMarkers = 0;
 
     for (const place of this.places ?? []) {
@@ -150,8 +151,9 @@ export class GoogleMapComponent implements AfterViewInit, OnChanges {
         continue;
       }
 
-      const latLng = new window.google.maps.LatLng(markerLocation.latitude, markerLocation.longitude);
-      const marker = new window.google.maps.Marker({
+      const latLng = new globalThis.google.maps.LatLng(
+        markerLocation.latitude, markerLocation.longitude);
+      const marker = new globalThis.google.maps.Marker({
         position: latLng,
         map: this.map,
         title: place.placeName
@@ -162,12 +164,14 @@ export class GoogleMapComponent implements AfterViewInit, OnChanges {
 
       const southwest = this.parsePoint((place as any)?.southwest);
       if (southwest) {
-        bounds.extend(new window.google.maps.LatLng(southwest.latitude, southwest.longitude));
+        bounds.extend(new globalThis.google.maps.LatLng(
+          southwest.latitude, southwest.longitude));
       }
 
       const northeast = this.parsePoint((place as any)?.northeast);
       if (northeast) {
-        bounds.extend(new window.google.maps.LatLng(northeast.latitude, northeast.longitude));
+        bounds.extend(new globalThis.google.maps.LatLng(
+          northeast.latitude, northeast.longitude));
       }
     }
 
