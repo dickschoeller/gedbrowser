@@ -296,10 +296,10 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
       return false;
     }
 
-    const location = (place as any).location;
+    const location = place.location;
     return !!location
-      || Array.isArray((place as any).coordinates)
-      || Array.isArray((place as any).southwest)
-      || Array.isArray((place as any).northeast);
+      || Array.isArray(place.coordinates)
+      || Array.isArray(place.southwest)
+      || Array.isArray(place.northeast);
   }
 }

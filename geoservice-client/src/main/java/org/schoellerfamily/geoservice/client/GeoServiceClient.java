@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 
 import com.google.maps.model.AddressType;
 
@@ -69,7 +70,7 @@ public class GeoServiceClient {
                 .retrieve()
                 .toEntity(GeoServiceItem.class)
                 .getBody();
-        } catch (Exception rce) {
+        } catch (RestClientException rce) {
             final GeoServiceItem recovered = tryRecoverFromNullableFeatures(url);
             if (recovered != null) {
                 return recovered;
@@ -107,9 +108,11 @@ public class GeoServiceClient {
             final String modernPlaceName = textValue(root.path("modernPlaceName"));
 
             final JsonNode resultNode = root.path("result");
-            final FeatureCollection geometry = buildGeometry(resultNode.path("geometry").path("features"));
+            final FeatureCollection geometry = buildGeometry(
+                resultNode.path("geometry").path("features"));
             final AddressType[] types = parseAddressTypes(resultNode.path("types"));
-            final String[] postcodeLocalities = parseStringArray(resultNode.path("postcodeLocalities"));
+            final String[] postcodeLocalities = parseStringArray(
+                resultNode.path("postcodeLocalities"));
             final boolean partialMatch = resultNode.path("partialMatch").asBoolean(false);
             final String placeId = textValue(resultNode.path("placeId"));
             final String formattedAddress = textValue(resultNode.path("formattedAddress"));
@@ -133,19 +136,18 @@ public class GeoServiceClient {
 
     private FeatureCollection buildGeometry(final JsonNode featuresNode) {
         final FeatureCollection geometry = new FeatureCollection();
-        Feature location = null;
         if (featuresNode.isArray()) {
             for (final JsonNode featureNode : featuresNode) {
-                if (featureNode == null || featureNode.isNull()) {
-                    continue;
-                }
-                location = toLocationFeature(featureNode);
+                final Feature location = featureNode == null || featureNode.isNull()
+                    ? null
+                    : toLocationFeature(featureNode);
                 if (location != null) {
-                    break;
+                    // Only the first valid point feature is used as the primary location.
+                    geometry.add(location);
+                    return geometry;
                 }
             }
         }
-        geometry.add(location);
         return geometry;
     }
 
@@ -154,9 +156,17 @@ public class GeoServiceClient {
         if (!coordinates.isArray() || coordinates.size() < 2) {
             return null;
         }
+        final JsonNode lngNode = coordinates.get(0);
+        final JsonNode latNode = coordinates.get(1);
+        if (!lngNode.isNumber() || !latNode.isNumber()) {
+            return null;
+        }
+        final double lng = lngNode.asDouble(Double.NaN);
+        final double lat = latNode.asDouble(Double.NaN);
+        if (!Double.isFinite(lng) || !Double.isFinite(lat)) {
+            return null;
+        }
         final Feature feature = new Feature();
-        final double lng = coordinates.get(0).asDouble(Double.NaN);
-        final double lat = coordinates.get(1).asDouble(Double.NaN);
         feature.setGeometry(new Point(lng, lat));
 
         final String id = textValue(featureNode.path("id"));
@@ -172,7 +182,7 @@ public class GeoServiceClient {
 
     private AddressType[] parseAddressTypes(final JsonNode typesNode) {
         if (!typesNode.isArray()) {
-            return null;
+            return new AddressType[0];
         }
         final List<AddressType> values = new ArrayList<>();
         for (final JsonNode typeNode : typesNode) {
@@ -182,19 +192,16 @@ public class GeoServiceClient {
             }
             try {
                 values.add(AddressType.valueOf(value));
-            } catch (IllegalArgumentException ignored) {
+            } catch (IllegalArgumentException _) {
                 // Ignore unknown values from geoservice payloads.
             }
-        }
-        if (values.isEmpty()) {
-            return null;
         }
         return values.toArray(new AddressType[0]);
     }
 
     private String[] parseStringArray(final JsonNode node) {
         if (!node.isArray()) {
-            return null;
+            return new String[0];
         }
         final List<String> values = new ArrayList<>();
         for (final JsonNode valueNode : node) {
@@ -202,9 +209,6 @@ public class GeoServiceClient {
             if (value != null) {
                 values.add(value);
             }
-        }
-        if (values.isEmpty()) {
-            return null;
         }
         return values.toArray(new String[0]);
     }

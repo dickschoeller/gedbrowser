@@ -16,12 +16,8 @@ import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
-import org.schoellerfamily.gedbrowser.renderer.PlaceListRenderer;
-import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
-import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.util.RequestUserUtil;
-import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -62,10 +58,7 @@ public class PersonsController {
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
     /** */
-    private final GeoServiceClient geoServiceClient;
-
-    /** */
-    private final ApplicationInfo appInfo;
+    private final PersonGeoService personGeoService;
 
     /**
      * @return the CRUD object for manipulating persons
@@ -135,7 +128,9 @@ public class PersonsController {
             final HttpServletRequest request,
             @PathVariable final String db,
             @PathVariable final String id) {
-        final Person person = ((PersonCrud) crud()).read(repositoryManager, db, id).getGedObject();
+        final PersonCrud personCrud = (PersonCrud) crud();
+        final PersonDocument personDoc = personCrud.read(repositoryManager, db, id);
+        final Person person = personDoc.getGedObject();
         final RequestUserUtil util = new RequestUserUtil(request, userService);
         if (shouldHideConfidential(person, util.hasAdmin())) {
             throw new ObjectNotFoundException("person not found", "ApiPerson", db, id);
@@ -144,23 +139,9 @@ public class PersonsController {
             return createDummyLivingPerson(id);
         }
         log.info("entering read person: {}", id);
-        final ApiPerson apiPerson = crud().readOne(db, id);
-        final RenderingContext renderingContext = createRenderingContext(util);
-        final List<PlaceInfo> places = fetchPlaces(person, renderingContext);
+        final ApiPerson apiPerson = personCrud.getD2dm().convert(personDoc);
+        final List<PlaceInfo> places = personGeoService.fetchPlaces(person, util);
         return apiPerson.toBuilder().places(places).build();
-    }
-
-    /**
-     * Build rendering context for person details based on authenticated user.
-     *
-     * @param requestUserUtil utility to inspect current request user
-     * @return rendering context scoped to anonymous/user/admin
-     */
-    private RenderingContext createRenderingContext(final RequestUserUtil requestUserUtil) {
-        if (requestUserUtil.hasAdmin() || requestUserUtil.hasUser()) {
-            return new RenderingContext(requestUserUtil.getUser(), appInfo, provider);
-        }
-        return RenderingContext.anonymous(appInfo, provider);
     }
 
     private boolean shouldHideConfidential(final Person person, final boolean hasAdmin) {
@@ -188,20 +169,6 @@ public class PersonsController {
             .indexName("Living")
             .surname("")
             .build();
-    }
-
-    /**
-     * Fetch the places for a person and return them as a list.
-     *
-     * @param person the person to fetch places for
-     * @param renderingContext the rendering context for the operation
-     * @return the list of places
-     */
-    private List<PlaceInfo> fetchPlaces(final Person person,
-            final RenderingContext renderingContext) {
-        final PlaceListRenderer placeRenderer = new PlaceListRenderer(person,
-            geoServiceClient, renderingContext);
-        return placeRenderer.render();
     }
 
     /**
