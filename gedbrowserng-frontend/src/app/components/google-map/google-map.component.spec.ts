@@ -52,6 +52,7 @@ describe('GoogleMapComponent', () => {
   afterEach(() => {
     vi.clearAllMocks();
     delete (window as any).google;
+    delete (window as any).GOOGLE_MAPS_API_KEY;
   });
 
   it('should create', () => {
@@ -106,5 +107,57 @@ describe('GoogleMapComponent', () => {
 
     expect((window as any).google.maps.Marker).toHaveBeenCalledTimes(1);
     expect(fitBounds).toHaveBeenCalledTimes(1);
+  });
+
+  it('rejects loading when no API key is available', async () => {
+    delete (window as any).google;
+    component.apiKey = '';
+    (window as any).GOOGLE_MAPS_API_KEY = '';
+
+    await expect((component as any).ensureGoogleMapsLoaded()).rejects.toThrow('Google Maps API key is missing');
+  });
+
+  it('resolves API key from window when input key is empty', () => {
+    component.apiKey = '';
+    (window as any).GOOGLE_MAPS_API_KEY = 'window-key';
+
+    const key = (component as any).resolveApiKey();
+    expect(key).toBe('window-key');
+  });
+
+  it('clears old markers before rendering new ones', async () => {
+    component.apiKey = 'test-maps-key';
+    component.places = [
+      new PlaceInfo('Needham, Massachusetts, USA', new LngLat(-71.2377548, 42.2809285))
+    ];
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    component.places = [
+      { placeName: 'Ipswich', location: { lat: 52.05917, lng: 1.15545 } } as unknown as PlaceInfo
+    ];
+    component.ngOnChanges();
+
+    await fixture.whenStable();
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    expect(markerSetMap).toHaveBeenCalledWith(null);
+    expect((window as any).google.maps.Marker).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not fit bounds when all place locations are invalid', async () => {
+    component.apiKey = 'test-maps-key';
+    component.places = [
+      { placeName: 'Bad place', location: { latitude: 'nope', longitude: 'nope' } } as unknown as PlaceInfo
+    ];
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    expect((window as any).google.maps.Marker).toHaveBeenCalledTimes(0);
+    expect(fitBounds).toHaveBeenCalledTimes(0);
   });
 });

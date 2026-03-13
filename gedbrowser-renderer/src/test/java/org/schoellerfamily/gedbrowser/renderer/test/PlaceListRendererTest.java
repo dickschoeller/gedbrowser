@@ -193,6 +193,40 @@ final class PlaceListRendererTest {
 
     /** */
     @Test
+    void testNullGeoServiceItemIsFiltered() {
+        final Person person = createJRandom();
+        createBirth(person, "Null Item, USA");
+        createDeath(person, "Needham, Massachusetts, USA");
+
+        final PlaceListRenderer plr = createAdminRenderer(person);
+        final List<PlaceInfo> list = plr.render();
+        assertEquals(1, list.size(), "Should have one result");
+    }
+
+    /** */
+    @Test
+    void testNullGeometryResultIsFiltered() {
+        final Person person = createJRandom();
+        createBirth(person, "Geometry Null, USA");
+
+        final PlaceListRenderer plr = createAdminRenderer(person);
+        final List<PlaceInfo> list = plr.render();
+        assertTrue(list.isEmpty(), "Should be empty");
+    }
+
+    /** */
+    @Test
+    void testPolygonOnlyResultIsFiltered() {
+        final Person person = createJRandom();
+        createBirth(person, "Polygon Only, USA");
+
+        final PlaceListRenderer plr = createAdminRenderer(person);
+        final List<PlaceInfo> list = plr.render();
+        assertTrue(list.isEmpty(), "Should be empty");
+    }
+
+    /** */
+    @Test
     void testAdminCanSeeConfidential() {
         final Person person = createJRandom();
         createBirth(person, "PLUGH");

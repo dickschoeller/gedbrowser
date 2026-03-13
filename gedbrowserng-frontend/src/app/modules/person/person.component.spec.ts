@@ -208,4 +208,38 @@ describe('PersonComponent', () => {
     fixture2.detectChanges();
     expect(component2.attributes).toEqual([]);
   });
+
+  it('reads map key on init', () => {
+    expect(component.googleMapsApiKey).toBe('PLUGH');
+  });
+
+  it('normalizes a single place object into mapPlaces', () => {
+    const singlePlace = { placeName: 'Needham', location: { coordinates: [-71.2377548, 42.2809285] } };
+    const normalized = (component as any).normalizePlaces(singlePlace);
+    expect(normalized).toEqual([singlePlace]);
+  });
+
+  it('normalizes object map payload and filters non-place values', () => {
+    const payload = {
+      one: { placeName: 'A', southwest: [1, 2] },
+      two: { nope: true },
+      three: { placeName: 'B', northeast: [3, 4] }
+    };
+    const normalized = (component as any).normalizePlaces(payload);
+    expect(normalized.length).toBe(2);
+    expect(normalized[0].placeName).toBe('A');
+    expect(normalized[1].placeName).toBe('B');
+  });
+
+  it('returns empty list for null place payload', () => {
+    const normalized = (component as any).normalizePlaces(null);
+    expect(normalized).toEqual([]);
+  });
+
+  it('hasMapPlaces reflects mapPlaces length', () => {
+    component.mapPlaces = [];
+    expect(component.hasMapPlaces()).toBe(false);
+    component.mapPlaces = [{ placeName: 'Needham', location: [0, 0] }];
+    expect(component.hasMapPlaces()).toBe(true);
+  });
 });
