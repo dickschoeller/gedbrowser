@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author Dick Schoeller
  */
 @ComponentScan(basePackages = { "org.schoellerfamily.gedbrowser.api",
-        "org.schoellerfamily.gedbrowser.security" })
+        "org.schoellerfamily.gedbrowser.security", "org.schoellerfamily.geoservice.client" })
 @EnableAutoConfiguration
 public class Application {
     /** Sleep during shutdown to let everything finish. */

@@ -11,6 +11,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { GoogleMapComponent } from '../../components/google-map/google-map.component';
 
 
 
@@ -52,6 +53,7 @@ const personRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([
     MatIconModule,
     MatToolbarModule,
     MatTooltipModule,
+    GoogleMapComponent,
     LinkPersonComponent,
     NewPersonComponent,
     PersonComponent,

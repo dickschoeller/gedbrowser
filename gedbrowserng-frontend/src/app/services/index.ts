@@ -15,3 +15,4 @@ export * from './user.service';
 export * from './foo.service';
 export * from './auth.service';
 export * from './config.service';
+export * from './map-key.service';

@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 import { vi } from 'vitest';
 
 import { PersonComponent } from './person.component';
-import { PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
+import { PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService, MapKeyService } from '../../services';
 import { ApiPerson, ApiAttribute, ApiLifespan } from '../../models';
 
 // Mock component to replace the child app-main-layout
@@ -110,6 +110,7 @@ describe('PersonComponent', () => {
       { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
       { provide: AuthApiService, useValue: { request: () => {} } },
       { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      { provide: MapKeyService, useValue: { getMapKey: () => of('PLUGH') } },
       {
         provide: ActivatedRoute,
         useValue: {
@@ -180,6 +181,7 @@ describe('PersonComponent', () => {
       { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
       { provide: AuthApiService, useValue: { request: () => {} } },
       { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      { provide: MapKeyService, useValue: { getMapKey: () => of('PLUGH') } },
       {
         provide: ActivatedRoute,
         useValue: {

@@ -1,6 +1,9 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
+import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -9,6 +12,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
@@ -22,7 +26,7 @@ import tools.jackson.databind.annotation.JsonPOJOBuilder;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @JsonDeserialize(builder = ApiPerson.ApiPersonBuilder.class)
-@JsonPropertyOrder({ "indexName", "surname", "lifeSpan" })
+@JsonPropertyOrder({ "indexName", "surname", "lifeSpan", "places" })
 public class ApiPerson extends ApiExtraLists {
     /**
      * The name in a form that is usable for indexing.
@@ -42,6 +46,12 @@ public class ApiPerson extends ApiExtraLists {
      * The lifespan of this person.
      */
     private final ApiLifespan lifespan;
+
+    /**
+     * The list of places associated with this person.
+     */
+    @Singular(value = "place")
+    private final List<PlaceInfo> places;
 
     /**
      * The Builder for ApiPerson.

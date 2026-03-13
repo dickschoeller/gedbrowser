@@ -13,6 +13,7 @@ export * from './new-submitter-dialog';
 export * from './note-button';
 export * from './source-button';
 export * from './submitter-button';
+export * from './google-map';
 
 export * from './main-layout';
 export * from './side-menu';

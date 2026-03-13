@@ -61,6 +61,10 @@ describe('ConfigService', () => {
     it('should return signup_url', () => {
       expect(service.signup_url).toBe('/gedbrowserng/v1/signup');
     });
+
+    it('should return map_key_url', () => {
+      expect(service.map_key_url).toBe('/gedbrowserng/v1/map-key');
+    });
   });
 
   describe('URL consistency', () => {
@@ -74,7 +78,8 @@ describe('ConfigService', () => {
         service.logout_url,
         service.change_password_url,
         service.foo_url,
-        service.signup_url
+        service.signup_url,
+        service.map_key_url
       ];
 
       urls.forEach(url => {

@@ -16,6 +16,35 @@
     <script type="text/javascript" th:inline="javascript" th:if="${showMap}">
     /*<![CDATA[*/
     function loadMap() {
+        function parsePoint(point) {
+            if (!point) {
+                return null;
+            }
+            if (Array.isArray(point)) {
+                var lngArray = Number(point[0]);
+                var latArray = Number(point[1]);
+                if (!isFinite(latArray) || !isFinite(lngArray)) {
+                    return null;
+                }
+                return { latitude: latArray, longitude: lngArray };
+            }
+            if (Array.isArray(point.coordinates)) {
+                var lngCoordinates = Number(point.coordinates[0]);
+                var latCoordinates = Number(point.coordinates[1]);
+                if (!isFinite(latCoordinates) || !isFinite(lngCoordinates)) {
+                    return null;
+                }
+                return { latitude: latCoordinates, longitude: lngCoordinates };
+            }
+            var lat = Number(point.latitude !== undefined ? point.latitude : point.lat);
+            var lng = Number(point.longitude !== undefined ? point.longitude :
+                    (point.lng !== undefined ? point.lng : point.lon));
+            if (!isFinite(lat) || !isFinite(lng)) {
+                return null;
+            }
+            return { latitude: lat, longitude: lng };
+        }
+
         var myOptions = {
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
@@ -23,20 +52,30 @@
         var places1 = [[${places}]];
         var bounds = new google.maps.LatLngBounds();
         for (i = 0; i < places1.length; i++) {
-            var latlng = new google.maps.LatLng(places1[i].location.latitude,
-                    places1[i].location.longitude);
+            var location = parsePoint(places1[i].location);
+            if (!location) {
+                continue;
+            }
+            var latlng = new google.maps.LatLng(location.latitude,
+                    location.longitude);
             var marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
                 title: places1[i].placeName
               });
             bounds.extend(marker.getPosition());
-            var sw = new google.maps.LatLng(places1[i].southwest.latitude,
-                    places1[i].southwest.longitude);
-            bounds.extend(sw);
-            var ne = new google.maps.LatLng(places1[i].northeast.latitude,
-                    places1[i].northeast.longitude);
-            bounds.extend(ne);
+            var southwest = parsePoint(places1[i].southwest);
+            if (southwest) {
+                var sw = new google.maps.LatLng(southwest.latitude,
+                        southwest.longitude);
+                bounds.extend(sw);
+            }
+            var northeast = parsePoint(places1[i].northeast);
+            if (northeast) {
+                var ne = new google.maps.LatLng(northeast.latitude,
+                        northeast.longitude);
+                bounds.extend(ne);
+            }
         }
         map.fitBounds(bounds);
   }
