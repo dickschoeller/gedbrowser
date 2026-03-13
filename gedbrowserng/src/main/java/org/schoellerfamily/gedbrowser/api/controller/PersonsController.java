@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.util.RequestUserUtil;
 import org.springframework.security.access.AccessDeniedException;
@@ -55,6 +56,9 @@ public class PersonsController {
 
     /** */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
+
+    /** */
+    private final PersonGeoService personGeoService;
 
     /**
      * @return the CRUD object for manipulating persons
@@ -100,14 +104,15 @@ public class PersonsController {
         final boolean hasUser = requestUserUtil.hasUser();
         final boolean hasAdmin = requestUserUtil.hasAdmin();
         final OperationsEnabler<?> enabler = (OperationsEnabler<?>) crud();
-        final List<ApiPerson> list = allPersons.stream()
-            .filter(doc -> {
-                final Person person = doc.getGedObject();
-                return !shouldHideConfidential(person, hasAdmin)
-                    && !shouldHideLiving(person, hasUser);
-            })
-            .map(doc -> (ApiPerson) enabler.getD2dm().convert(doc))
-            .toList();
+        final List<ApiPerson> list = new java.util.ArrayList<>();
+        for (final PersonDocument doc : allPersons) {
+            final Person person = doc.getGedObject();
+            if (!shouldHideConfidential(person, hasAdmin)
+                    && !shouldHideLiving(person, hasUser)) {
+                final ApiPerson apiPerson = (ApiPerson) enabler.getD2dm().convert(doc);
+                list.add(apiPerson);
+            }
+        }
         log.info("Done hiding list of persons");
         return list;
     }
@@ -123,7 +128,9 @@ public class PersonsController {
             final HttpServletRequest request,
             @PathVariable final String db,
             @PathVariable final String id) {
-        final Person person = ((PersonCrud) crud()).read(repositoryManager, db, id).getGedObject();
+        final PersonCrud personCrud = (PersonCrud) crud();
+        final PersonDocument personDoc = personCrud.read(repositoryManager, db, id);
+        final Person person = personDoc.getGedObject();
         final RequestUserUtil util = new RequestUserUtil(request, userService);
         if (shouldHideConfidential(person, util.hasAdmin())) {
             throw new ObjectNotFoundException("person not found", "ApiPerson", db, id);
@@ -132,7 +139,9 @@ public class PersonsController {
             return createDummyLivingPerson(id);
         }
         log.info("entering read person: {}", id);
-        return crud().readOne(db, id);
+        final ApiPerson apiPerson = personCrud.getD2dm().convert(personDoc);
+        final List<PlaceInfo> places = personGeoService.fetchPlaces(person, util);
+        return apiPerson.toBuilder().places(places).build();
     }
 
     private boolean shouldHideConfidential(final Person person, final boolean hasAdmin) {

@@ -22,6 +22,9 @@ public final class GeoServiceClientStub extends GeoServiceClient {
 
     @Override
     public GeoServiceItem get(final String placeName) {
+        if ("Null Item, USA".equals(placeName)) {
+            return null;
+        }
         if ("Needham, Massachusetts, USA".equals(placeName)) {
             final FeatureCollection geometry = new FeatureCollection();
             geometry.add(createLocation()); // location
@@ -35,6 +38,20 @@ public final class GeoServiceClientStub extends GeoServiceClient {
         if ("Needham, MA, USA".equals(placeName)) {
             final FeatureCollection geometry = new FeatureCollection();
             geometry.add(createLocation());
+            final GeoServiceGeocodingResult result =
+                    new GeoServiceGeocodingResult(
+                            null, placeName, null, geometry, null, false, null);
+            return new GeoServiceItem(placeName, placeName, result);
+        }
+        if ("Geometry Null, USA".equals(placeName)) {
+            final GeoServiceGeocodingResult result =
+                    new GeoServiceGeocodingResult(
+                            null, placeName, null, null, null, false, null);
+            return new GeoServiceItem(placeName, placeName, result);
+        }
+        if ("Polygon Only, USA".equals(placeName)) {
+            final FeatureCollection geometry = new FeatureCollection();
+            geometry.add(createBox());
             final GeoServiceGeocodingResult result =
                     new GeoServiceGeocodingResult(
                             null, placeName, null, geometry, null, false, null);

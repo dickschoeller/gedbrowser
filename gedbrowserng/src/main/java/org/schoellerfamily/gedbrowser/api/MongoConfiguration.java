@@ -19,6 +19,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmissionDoc
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.SubmitterDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.TrailerDocumentRepositoryMongo;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
+import org.schoellerfamily.geoservice.keys.KeyManager;
+import org.schoellerfamily.geoservice.keys.KeyManagerImpl;
+import org.schoellerfamily.geoservice.keys.KeyManagerStub;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -63,6 +66,10 @@ public class MongoConfiguration {
     /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
     private final String gedbrowserHome;
+
+    /** */
+    @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
+    private final String keyfile;
 
     /**
      * Get a MongoDbFactory for accessing the gedbrowser database.
@@ -155,5 +162,18 @@ public class MongoConfiguration {
     @Bean
     public CalendarProvider calendarProvider() {
         return new CalendarProviderImpl();
+    }
+
+    /**
+     * Create the key manager bean.
+     *
+     * @return manager of Google geocoding/maps keys
+     */
+    @Bean
+    public KeyManager keyManager() {
+        if ("stub".equals(keyfile)) {
+            return new KeyManagerStub();
+        }
+        return new KeyManagerImpl(keyfile);
     }
 }

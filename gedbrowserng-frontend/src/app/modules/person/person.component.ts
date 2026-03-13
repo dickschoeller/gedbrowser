@@ -3,12 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { HasAttributeList, HasPerson, Saveable } from '../../interfaces';
 import { ApiPerson, ApiAttribute, AttributeDialogData, SelectItem } from '../../models';
-import { PersonService } from '../../services';
+import { MapKeyService, PersonService } from '../../services';
 import { AttributeDialogHelper, LifespanUtil } from '../../utils';
 import { MainLayoutComponent } from '../../components/main-layout/main-layout.component';
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardFooter } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { AttributeListComponent } from '../../components/attribute-list/attribute-list.component';
+import { GoogleMapComponent } from '../../components/google-map/google-map.component';
 import { MultimediaGalleryComponent } from '../../components/multimedia-gallery/multimedia-gallery.component';
 import { PersonFamilyListComponent } from './person-family-list.component';
 import { PersonParentFamiliesComponent } from './person-parent-families.component';
@@ -30,9 +31,16 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
         </div>
     <mat-card-content>
       <div class="ui-g">
-        <div class="ui-g-12 attributes-section">
-          <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="attributes"
-                  [toggleable]="true"></app-attribute-list>
+        <div class="ui-g-12 person-summary-row">
+          <div class="attributes-section">
+            <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="attributes"
+                    [toggleable]="true"></app-attribute-list>
+          </div>
+          @if (hasMapPlaces()) {
+            <div class="map-section">
+              <app-google-map [places]="mapPlaces" [apiKey]="googleMapsApiKey"></app-google-map>
+            </div>
+          }
         </div>
         <div class="ui-g-12">
           <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="person?.images"></app-multimedia-gallery>
@@ -87,6 +95,19 @@ mat-card-subtitle {
 
 .attributes-section {
   margin-top: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.person-summary-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.map-section {
+  flex: 1;
+  min-width: 0;
 }
 
 .family-sections-row {
@@ -100,6 +121,15 @@ mat-card-subtitle {
 }
 
 @media (min-width: 960px) {
+  .person-summary-row {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .map-section {
+    max-width: 520px;
+  }
+
   .family-sections-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -112,12 +142,14 @@ mat-card-subtitle {
   }
 }
     `],
-    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, MultimediaGalleryComponent, PersonFamilyListComponent, PersonParentFamiliesComponent, MatCardFooter]
+    imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent, GoogleMapComponent, MultimediaGalleryComponent, PersonFamilyListComponent, PersonParentFamiliesComponent, MatCardFooter]
 })
 export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Saveable {
   dataset: string;
   person: ApiPerson;
   attributes: Array<ApiAttribute>;
+  mapPlaces: Array<any> = [];
+  googleMapsApiKey = '';
   attributeDialogHelper: AttributeDialogHelper = new AttributeDialogHelper(this);
   private readonly _options: Array<SelectItem> = [
       { value: 'Adoption', label: 'Adoption' },
@@ -193,6 +225,7 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
 
   constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
     @Inject(PersonService) private readonly service: PersonService,
+    @Inject(MapKeyService) private readonly mapKeyService: MapKeyService,
     @Inject(Router) private readonly router: Router
   ) {}
 
@@ -205,8 +238,12 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
         this.person = data.person;
         this.person.attributes = this.person?.attributes || [];
         this.attributes = this.person.attributes;
+        this.mapPlaces = this.normalizePlaces((this.person as any)?.places);
       }
     );
+    this.mapKeyService.getMapKey().subscribe((key: string) => {
+      this.googleMapsApiKey = key;
+    });
   }
 
   lifespanDateString() {
@@ -227,5 +264,42 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
 
   defaultData(): AttributeDialogData {
     return AttributeDialogHelper.dialogData('Name');
+  }
+
+  hasMapPlaces(): boolean {
+    return this.mapPlaces.length > 0;
+  }
+
+  private normalizePlaces(places: any): Array<any> {
+    if (Array.isArray(places)) {
+      return places;
+    }
+    if (!places) {
+      return [];
+    }
+
+    // Some payloads can arrive as a single object instead of an array.
+    if (this.looksLikePlace(places)) {
+      return [places];
+    }
+
+    // Defensive support for map/object payloads where place entries are values.
+    if (typeof places === 'object') {
+      return Object.values(places).filter((item: any) => this.looksLikePlace(item));
+    }
+
+    return [];
+  }
+
+  private looksLikePlace(place: any): boolean {
+    if (!place || typeof place !== 'object') {
+      return false;
+    }
+
+    const location = place.location;
+    return !!location
+      || Array.isArray(place.coordinates)
+      || Array.isArray(place.southwest)
+      || Array.isArray(place.northeast);
   }
 }

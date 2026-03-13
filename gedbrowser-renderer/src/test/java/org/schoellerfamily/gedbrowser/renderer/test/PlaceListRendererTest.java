@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
@@ -171,16 +173,6 @@ final class PlaceListRendererTest {
 
     /** */
     @Test
-    void testOnePlaceIsNotFound() {
-        final Person person = createJRandom();
-        createBirth(person, "PLUGH");
-        final PlaceListRenderer plr = createAdminRenderer(person);
-        final List<PlaceInfo> list = plr.render();
-        assertTrue(list.isEmpty(), "Should be empty");
-    }
-
-    /** */
-    @Test
     void testOnePlaceIsNotFoundAnotherIs() {
         final Person person = createJRandom();
         createBirth(person, "PLUGH");
@@ -189,6 +181,29 @@ final class PlaceListRendererTest {
         final PlaceListRenderer plr = createAdminRenderer(person);
         final List<PlaceInfo> list = plr.render();
         assertEquals(1, list.size(), "Should have one result");
+    }
+
+    /** */
+    @Test
+    void testNullGeoServiceItemIsFiltered() {
+        final Person person = createJRandom();
+        createBirth(person, "Null Item, USA");
+        createDeath(person, "Needham, Massachusetts, USA");
+
+        final PlaceListRenderer plr = createAdminRenderer(person);
+        final List<PlaceInfo> list = plr.render();
+        assertEquals(1, list.size(), "Should have one result");
+    }
+
+    /** */
+    @ParameterizedTest
+    @ValueSource(strings = {"PLUGH", "Geometry Null, USA", "Polygon Only, USA"})
+    void testOnePlaceFilteredToEmpty(final String placeName) {
+        final Person person = createJRandom();
+        createBirth(person, placeName);
+        final PlaceListRenderer plr = createAdminRenderer(person);
+        final List<PlaceInfo> list = plr.render();
+        assertTrue(list.isEmpty(), "Should be empty");
     }
 
     /** */

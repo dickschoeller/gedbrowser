@@ -25,6 +25,8 @@ export class ConfigService {
 
     private readonly _foo_url = this._api_url + '/foo';
 
+    private readonly _map_key_url = this._api_url + '/map-key';
+
     private readonly _signup_url = this._api_url + '/signup';
 
     get reset_credentials_url(): string {
@@ -57,6 +59,10 @@ export class ConfigService {
 
     get foo_url(): string {
         return this._foo_url;
+    }
+
+    get map_key_url(): string {
+        return this._map_key_url;
     }
 
     get signup_url(): string {

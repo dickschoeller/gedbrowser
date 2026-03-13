@@ -2,7 +2,7 @@ import { APP_INITIALIZER, ModuleWithProviders, importProvidersFrom } from '@angu
 
 import { initUserFactory } from './app/app.module';
 import { environment } from './environments/environment';
-import { AuthApiService, AuthService, ConfigService, DatasetsService, HeadService, NoteService, FamilyService, FooService, PersonService, SourceService, SubmitterService, SaveService, UploadService, UserService } from './app/services';
+import { AuthApiService, AuthService, ConfigService, DatasetsService, HeadService, MapKeyService, NoteService, FamilyService, FooService, PersonService, SourceService, SubmitterService, SaveService, UploadService, UserService } from './app/services';
 import { LoginGuard, GuestGuard, AdminGuard } from './app/guards';
 import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from './app/welcome.component';
@@ -34,6 +34,7 @@ try {
       AuthApiService,
       AuthService,
       ConfigService,
+      MapKeyService,
       DatasetsService,
       HeadService,
       NoteService,

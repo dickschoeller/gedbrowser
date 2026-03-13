@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.renderer;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
@@ -72,8 +73,10 @@ public final class PlaceListRenderer {
     private List<PlaceInfo> geoCodePlaces(final Collection<String> places) {
         return places.stream()
                 .map(client::get)
+                .filter(Objects::nonNull)
                 .filter(item -> item.getResult() != null)
                 .map(this::createPlaceInfo)
+                .filter(Objects::nonNull)
                 .toList();
     }
 
@@ -83,29 +86,65 @@ public final class PlaceListRenderer {
      */
     private PlaceInfo createPlaceInfo(final GeoServiceItem item) {
         final GeoServiceGeocodingResult result = item.getResult();
+        if (result == null || result.getGeometry() == null) {
+            return null;
+        }
         final FeatureCollection featureCollection = result.getGeometry();
         final List<Feature> features = featureCollection.getFeatures();
-        final Feature locationFeature = features.get(0);
-        final Point locationPoint = (Point) locationFeature.getGeometry();
+        if (features == null || features.isEmpty()) {
+            return null;
+        }
+
+        final Point locationPoint = firstPoint(features);
+        if (locationPoint == null) {
+            log.debug("No location point feature for place: {}", item.getPlaceName());
+            return null;
+        }
         final LngLatAlt location = locationPoint.getCoordinates();
-        if (features.size() > 2) {
-            final Feature viewportFeature = features.get(2);
-            if (viewportFeature == null) {
-                log.info("Features size > 2 but viewport null for: {}", item.getPlaceName());
-            } else {
-                final Polygon viewportPolygon = (Polygon) viewportFeature
-                        .getGeometry();
-                final List<List<LngLatAlt>> viewportRings = viewportPolygon
-                        .getCoordinates();
-                final List<LngLatAlt> viewportOutline = viewportRings.get(0);
-                final LngLatAlt southwest = viewportOutline.get(0);
-                final LngLatAlt northeast = viewportOutline.get(2);
-                return new PlaceInfo(item.getPlaceName(), location, southwest,
-                        northeast);
-            }
+
+        final Polygon viewportPolygon = firstPolygon(features);
+        final PlaceInfo bounded = buildBoundedPlaceInfo(
+                item.getPlaceName(), location, viewportPolygon);
+        if (bounded != null) {
+            return bounded;
         }
         return new PlaceInfo(item.getPlaceName(), location.getLatitude(),
                 location.getLongitude());
+    }
+
+    private PlaceInfo buildBoundedPlaceInfo(final String placeName,
+            final LngLatAlt location, final Polygon viewportPolygon) {
+        if (viewportPolygon == null) {
+            return null;
+        }
+        final List<List<LngLatAlt>> viewportRings = viewportPolygon.getCoordinates();
+        if (viewportRings == null || viewportRings.isEmpty()) {
+            return null;
+        }
+        final List<LngLatAlt> viewportOutline = viewportRings.get(0);
+        if (viewportOutline == null || viewportOutline.size() <= 2) {
+            return null;
+        }
+        return new PlaceInfo(placeName, location,
+                viewportOutline.get(0), viewportOutline.get(2));
+    }
+
+    private Point firstPoint(final List<Feature> features) {
+        for (final Feature feature : features) {
+            if (feature != null && feature.getGeometry() instanceof Point point) {
+                return point;
+            }
+        }
+        return null;
+    }
+
+    private Polygon firstPolygon(final List<Feature> features) {
+        for (final Feature feature : features) {
+            if (feature != null && feature.getGeometry() instanceof Polygon polygon) {
+                return polygon;
+            }
+        }
+        return null;
     }
 
     /**

@@ -23,8 +23,12 @@ geoservice:
     keyfile: /var/lib/gedbrowser/google-geocoding-key
     backupfile: /var/lib/gedbrowser/geoservice-backup.json
 
+server:
+    port: 8082
+
 management:
-    port: 8081
+    server:
+        port: 8083
     security:
         enabled: false
     endpoints:
