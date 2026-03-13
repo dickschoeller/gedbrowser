@@ -68,6 +68,7 @@ final class GeoServiceClientTest {
         HOST,
         PORT,
         PROTOCOL);
+  client.initCache();
 
         final String place = "Primary Place";
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
@@ -108,6 +109,7 @@ final class GeoServiceClientTest {
         HOST,
         PORT,
         PROTOCOL);
+        client.initCache();
 
         final String place = "Fallback Place";
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
@@ -181,6 +183,7 @@ final class GeoServiceClientTest {
         HOST,
         PORT,
         PROTOCOL);
+        client.initCache();
 
         final String place = "Nowhere";
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
@@ -216,6 +219,7 @@ final class GeoServiceClientTest {
       HOST,
       PORT,
       PROTOCOL);
+    client.initCache();
 
     final String place = "Broken Payload";
     final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
@@ -251,6 +255,7 @@ final class GeoServiceClientTest {
       HOST,
       PORT,
       PROTOCOL);
+    client.initCache();
 
     final String place = "Missing Payload";
     final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
@@ -288,6 +293,7 @@ final class GeoServiceClientTest {
         HOST,
         PORT,
         PROTOCOL);
+      client.initCache();
 
       final String place = "Debug Payload";
       final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
@@ -532,7 +538,10 @@ final class GeoServiceClientTest {
     }
 
     private GeoServiceClient newClient() {
-      return new GeoServiceClient(RestClient.builder().build(), HOST, PORT, PROTOCOL);
+        final GeoServiceClient client =
+          new GeoServiceClient(RestClient.builder().build(), HOST, PORT, PROTOCOL);
+        client.initCache();
+        return client;
     }
 
     private ObjectNode featureNode(final double lng, final double lat) {

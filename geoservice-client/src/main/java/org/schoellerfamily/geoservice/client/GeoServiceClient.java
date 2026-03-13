@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.Point;
@@ -19,6 +20,7 @@ import org.springframework.web.client.RestClientException;
 
 import com.google.maps.model.AddressType;
 
+import jakarta.annotation.PostConstruct;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
@@ -53,6 +55,49 @@ public class GeoServiceClient {
     @Value("${geoservice.protocol:http}")
     private final String protocol;
 
+    /** Maximum number of entries in the geocode cache. */
+    @Value("${geoservice.cache.max-size:1000}")
+    private int cacheMaxSize = 1000;
+
+    /** Time-to-live for geocode cache entries in seconds. */
+    @Value("${geoservice.cache.ttl-seconds:3600}")
+    private long cacheTtlSeconds = 3600L;
+
+    /** Resilience executor, initialized by Spring in {@link #initCache()}. */
+    private GeoServiceCallExecutor callExecutor;
+
+    /** Geocode result cache keyed by place name, null until {@link #initCache()} runs. */
+    private PlaceCache geocodeCache;
+
+    /**
+     * Initialise the ehcache after Spring has injected all {@code @Value} fields.
+     * Not called when the client is constructed directly in tests, so all cache
+     * accesses are guarded by a null-check.
+     */
+    @PostConstruct
+    protected void initCache() {
+        callExecutor = createCallExecutor();
+        geocodeCache = createPlaceCache();
+    }
+
+    private GeoServiceCallExecutor createCallExecutor() {
+        try {
+            return new Resilience4jGeoServiceCallExecutor();
+        } catch (NoClassDefFoundError e) {
+            log.warn("resilience4j unavailable; using direct geoservice calls", e);
+            return ThrowingSupplier::get;
+        }
+    }
+
+    private PlaceCache createPlaceCache() {
+        try {
+            return new EhcachePlaceCache(cacheMaxSize, cacheTtlSeconds);
+        } catch (NoClassDefFoundError e) {
+            log.warn("ehcache unavailable; geoservice cache disabled", e);
+            return null;
+        }
+    }
+
     /**
      * Get an item that associates a place name with a canonical place name and coordinates.
      *
@@ -61,30 +106,66 @@ public class GeoServiceClient {
      */
     public GeoServiceItem get(final String placeName) {
         log.debug("Get: {}", placeName);
-        final String url = protocol + "://" + host + ":" + port
-                + "/geocode?name=" + URLEncoder.encode(placeName, StandardCharsets.UTF_8);
+
+        if (geocodeCache != null) {
+            final GeoServiceItem cached = geocodeCache.get(placeName);
+            if (cached != null) {
+                log.debug("Cache hit for: {}", placeName);
+                return cached;
+            }
+        }
+
+        final String url = buildUrl(placeName);
+
+        GeoServiceItem result;
         try {
-            return restClient.get()
+            if (callExecutor == null) {
+                result = fetchPrimary(url);
+            } else {
+                result = callExecutor.execute(() -> fetchPrimary(url));
+            }
+        } catch (Throwable t) {
+            result = handleFetchFailure(url, placeName, t);
+        }
+
+        if (geocodeCache != null && result != null) {
+            geocodeCache.put(placeName, result);
+        }
+
+        return result;
+    }
+
+    private String buildUrl(final String placeName) {
+        return protocol + "://" + host + ":" + port
+                + "/geocode?name=" + URLEncoder.encode(placeName, StandardCharsets.UTF_8);
+    }
+
+    private GeoServiceItem fetchPrimary(final String url) {
+        return restClient.get()
                 .uri(URI.create(url))
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .toEntity(GeoServiceItem.class)
                 .getBody();
-        } catch (RestClientException rce) {
+    }
+
+    private GeoServiceItem handleFetchFailure(final String url, final String placeName,
+            final Throwable t) {
+        if (callExecutor == null || !callExecutor.isCallNotPermitted(t)) {
             final GeoServiceItem recovered = tryRecoverFromNullableFeatures(url);
             if (recovered != null) {
                 return recovered;
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Unable to get geocode from geoservice at {}", url, rce);
-            } else {
-                log.error("Unable to get geocode from geoservice at {}", url);
-                log.error("host: {}", host);
-                log.error("port: {}", port);
-                log.error("protocol: {}", protocol);
-            }
-            return new GeoServiceItem(placeName, placeName, null);
         }
+        if (log.isDebugEnabled()) {
+            log.debug("Unable to get geocode from geoservice at {}", url, t);
+        } else {
+            log.error("Unable to get geocode from geoservice at {}", url);
+            log.error("host: {}", host);
+            log.error("port: {}", port);
+            log.error("protocol: {}", protocol);
+        }
+        return new GeoServiceItem(placeName, placeName, null);
     }
 
     /**
