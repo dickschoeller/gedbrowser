@@ -66,6 +66,17 @@ describe('MapKeyService', () => {
     req.flush('nope', { status: 503, statusText: 'Unavailable' });
   });
 
+  it('returns empty string when fallback payload has no key', () => {
+    vi.mocked(apiService.get as any).mockReturnValue(of({}));
+
+    service.getMapKey().subscribe((key) => {
+      expect(key).toBe('');
+    });
+
+    const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
+    req.flush('nope', { status: 500, statusText: 'Server Error' });
+  });
+
   it('returns empty string when response payload has no key', () => {
     service.getMapKey().subscribe((key) => {
       expect(key).toBe('');
