@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 
 import com.google.maps.model.AddressType;
 
@@ -69,7 +70,7 @@ public class GeoServiceClient {
                 .retrieve()
                 .toEntity(GeoServiceItem.class)
                 .getBody();
-        } catch (Exception rce) {
+        } catch (RestClientException rce) {
             final GeoServiceItem recovered = tryRecoverFromNullableFeatures(url);
             if (recovered != null) {
                 return recovered;
@@ -133,19 +134,19 @@ public class GeoServiceClient {
 
     private FeatureCollection buildGeometry(final JsonNode featuresNode) {
         final FeatureCollection geometry = new FeatureCollection();
-        Feature location = null;
         if (featuresNode.isArray()) {
             for (final JsonNode featureNode : featuresNode) {
                 if (featureNode == null || featureNode.isNull()) {
                     continue;
                 }
-                location = toLocationFeature(featureNode);
+                final Feature location = toLocationFeature(featureNode);
                 if (location != null) {
+                    // Only the first valid point feature is used as the primary location.
+                    geometry.add(location);
                     break;
                 }
             }
         }
-        geometry.add(location);
         return geometry;
     }
 
@@ -154,9 +155,17 @@ public class GeoServiceClient {
         if (!coordinates.isArray() || coordinates.size() < 2) {
             return null;
         }
+        final JsonNode lngNode = coordinates.get(0);
+        final JsonNode latNode = coordinates.get(1);
+        if (!lngNode.isNumber() || !latNode.isNumber()) {
+            return null;
+        }
+        final double lng = lngNode.asDouble(Double.NaN);
+        final double lat = latNode.asDouble(Double.NaN);
+        if (!Double.isFinite(lng) || !Double.isFinite(lat)) {
+            return null;
+        }
         final Feature feature = new Feature();
-        final double lng = coordinates.get(0).asDouble(Double.NaN);
-        final double lat = coordinates.get(1).asDouble(Double.NaN);
         feature.setGeometry(new Point(lng, lat));
 
         final String id = textValue(featureNode.path("id"));

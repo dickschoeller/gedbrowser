@@ -135,7 +135,9 @@ public class PersonsController {
             final HttpServletRequest request,
             @PathVariable final String db,
             @PathVariable final String id) {
-        final Person person = ((PersonCrud) crud()).read(repositoryManager, db, id).getGedObject();
+        final PersonCrud personCrud = (PersonCrud) crud();
+        final PersonDocument personDoc = personCrud.read(repositoryManager, db, id);
+        final Person person = personDoc.getGedObject();
         final RequestUserUtil util = new RequestUserUtil(request, userService);
         if (shouldHideConfidential(person, util.hasAdmin())) {
             throw new ObjectNotFoundException("person not found", "ApiPerson", db, id);
@@ -144,7 +146,7 @@ public class PersonsController {
             return createDummyLivingPerson(id);
         }
         log.info("entering read person: {}", id);
-        final ApiPerson apiPerson = crud().readOne(db, id);
+        final ApiPerson apiPerson = personCrud.getD2dm().convert(personDoc);
         final RenderingContext renderingContext = createRenderingContext(util);
         final List<PlaceInfo> places = fetchPlaces(person, renderingContext);
         return apiPerson.toBuilder().places(places).build();

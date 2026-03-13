@@ -27,7 +27,8 @@ server:
     port: 8082
 
 management:
-    port: 8083
+    server:
+        port: 8083
     security:
         enabled: false
     endpoints:
