@@ -302,10 +302,10 @@
   dependencies:
     "@angular-eslint/bundled-angular-compiler" "21.3.0"
 
-"@angular/animations@21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-21.2.2.tgz#371bae8c9e990eabc7b76c4b32b2e53e3b84622f"
-  integrity sha512-h+BKgBDI04Euu+SfEuvOOT/oFO31yg/DgFLvOBFTxab9dWoaeR3j4JsjMUTRJ+HmvAeo1jUm1F5vUf2Bn63Q+A==
+"@angular/animations@21.2.4":
+  version "21.2.4"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-21.2.4.tgz#2093e50006cec2cda43e76ae20f4e1a3972e14c2"
+  integrity sha512-hO1P7ks9n7lW3D31bzHohSuoAaj05xJUlK8rZgX8IkH5DLx4qhvfNh0t4bbLuBJLP2r1TaLsQ8KFcemCkFRO2w==
   dependencies:
     tslib "^2.3.0"
 
@@ -376,17 +376,17 @@
     yargs "18.0.0"
     zod "4.3.6"
 
-"@angular/common@21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-21.2.2.tgz#0c5989cc8ca6e4699f27bac9e385300c8e047735"
-  integrity sha512-xpVYV+MgqWzdjTCFxe3uJGpFOc84YrO4H4oX9HkzI5yQ5OLkQlndtq+OAUK8e330iacg4XHArft3SNDj1LaFfg==
+"@angular/common@21.2.4":
+  version "21.2.4"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-21.2.4.tgz#47242125fe5a3a94bf32cfdb722dd21807bb861c"
+  integrity sha512-NrP6qOuUpo3fqq14UJ1b2bIRtWsfvxh1qLqOyFV4gfBrHhXd0XffU1LUlUw1qp4w1uBSgPJ0/N5bSPUWrAguVg==
   dependencies:
     tslib "^2.3.0"
 
-"@angular/compiler-cli@21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-21.2.2.tgz#341917ff908b0426b3cf477037591f4227d86dd1"
-  integrity sha512-TFg2wXUZ1FdUikNyR27PxuCXuqqlJhL6Mr/cBYuc4HbtBfgKw5FLffbI/iLubBEs55W5ApuYpBVuXKGoZp9SRQ==
+"@angular/compiler-cli@21.2.4":
+  version "21.2.4"
+  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-21.2.4.tgz#8ea5410c176b07f55bbf450a54d4ae068ca6bce0"
+  integrity sha512-vGjd7DZo/Ox50pQCm5EycmBu91JclimPtZoyNXu/2hSxz3oAkzwiHCwlHwk2g58eheSSp+lYtYRLmHAqSVZLjg==
   dependencies:
     "@babel/core" "7.29.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
@@ -411,18 +411,18 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/forms@21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-21.2.2.tgz#33690afa0599c06edb1b0ee846ad89e14a340c6e"
-  integrity sha512-uiuL8uy4OpcbB0zRZ8TcvYXxe+GZC+XkCAptfrG+yAyzm4cOrqCilOZsMG6bVdOb2sjc2islk9CVDZZOju28/Q==
+"@angular/forms@21.2.4":
+  version "21.2.4"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-21.2.4.tgz#624a46d5b2e0d2fabcc40da8d139834219c3e004"
+  integrity sha512-1fOhctA9ADEBYjI3nPQUR5dHsK2+UWAjup37Ksldk/k0w8UpD5YsN7JVNvsDMZRFMucKYcGykPblU7pABtsqnQ==
   dependencies:
     "@standard-schema/spec" "^1.0.0"
     tslib "^2.3.0"
 
-"@angular/language-service@21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-21.2.2.tgz#dd2821f7c64d2b47438551c0d13b92a80344c777"
-  integrity sha512-86KVMs0rYsALTGOA5qNS73hJFKAoXNCPZuGw2Nk4ikZHlgn3fMLbKBp9nX0O4ZENYn6bWzbKfpBy5JH+2VKxqA==
+"@angular/language-service@21.2.4":
+  version "21.2.4"
+  resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-21.2.4.tgz#3c3251dd311e0650a4ff8d5b2fcfa326ee55166d"
+  integrity sha512-seWlXWhayTwuL62Cfz+Ky/Wv67oYLX+cXplYoIinDVJPgQaU9jXpakLfKq8RwdRXVmgTE0HQ5dyoTozuWgJ8Nw==
 
 "@angular/material@21.2.2":
   version "21.2.2"
@@ -431,24 +431,24 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/platform-browser-dynamic@21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-21.2.2.tgz#7c82b40f6fc642887066aca3e91db0365ad99f99"
-  integrity sha512-xhagOxT/2Z66DNR/2mXp94yRXod3AZCpeyeIgluiuUWyDyBzqn1dd7Kdkpae5FYkoDDbYqWvjbGgtoFrRhm0+A==
+"@angular/platform-browser-dynamic@21.2.4":
+  version "21.2.4"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-21.2.4.tgz#c59d525be9ab720f28cc1139f2b6930f2494470c"
+  integrity sha512-LRJLnGh4rdgD0+S5xuDd4YRm5bV8WP2e6F1Pe5rIr6N4V9ofgpB0/uOjYy9se99FJZjoyPnpxaKsp8+XA753Zg==
   dependencies:
     tslib "^2.3.0"
 
-"@angular/platform-browser@21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-21.2.2.tgz#1625da40a26dae4c9b91797d4385d0b563dc7772"
-  integrity sha512-6cHfHi/lRCUPNGO0eJeYRIpu8vM+CMMS2Wv/psOUwvl/5+RC92hfBEZxzQiF/5X9A170bJabaMFQC5fA7pkF2g==
+"@angular/platform-browser@21.2.4":
+  version "21.2.4"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-21.2.4.tgz#e9f386676662e54a5b65a5450e52bd50093931a2"
+  integrity sha512-1A9e/cQVu+3BkRCktLcO3RZGuw8NOTHw1frUUrpAz+iMyvIT4sDRFbL+U1g8qmOCZqRNC1Pi1HZfZ1kl6kvrcQ==
   dependencies:
     tslib "^2.3.0"
 
-"@angular/router@21.2.2":
-  version "21.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-21.2.2.tgz#551b5d289b8b8f649dd903182876fd758961f272"
-  integrity sha512-mpVPI6AiIlZ4z6sSM5WOzCMwTka9yQ9TEVj9+ZyfAs5U9RnKDa8DZIoQ6BFbh3h/v4DArvT5q1Ji8aIlabmWcQ==
+"@angular/router@21.2.4":
+  version "21.2.4"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-21.2.4.tgz#ae91c13fc43847a623d7d2f2abdf4a8234dd97f2"
+  integrity sha512-OjWze4XT8i2MThcBXMv7ru1k6/5L6QYZbcXuseqimFCHm2avEJ+mXPovY066fMBZJhqbXdjB82OhHAWkIHjglQ==
   dependencies:
     tslib "^2.3.0"
 
