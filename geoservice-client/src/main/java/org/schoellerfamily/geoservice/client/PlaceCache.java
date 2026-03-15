@@ -5,7 +5,7 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 /**
  * Minimal cache interface used by {@link GeoServiceClient}.
  * Keeping this interface free of ehcache API types allows
- * {@code GeoServiceClient} to load without ehcache on the classpath.
+ * {@code GeoServiceClient} later substitution of a different cache implementation.
  * Implementations that hold resources should override {@link #close()}.
  *
  * @author Dick Schoeller
