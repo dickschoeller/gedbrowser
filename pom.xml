@@ -88,7 +88,7 @@
     <awaitility.version>4.3.0</awaitility.version>
     <mockito.version>5.23.0</mockito.version>
     <spotbugs-annotations.version>4.9.8</spotbugs-annotations.version>
-    <resilience4j.version>2.3.0</resilience4j.version>
+    <resilience4j.version>2.4.0</resilience4j.version>
     <ehcache.version>3.11.1</ehcache.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
