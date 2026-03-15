@@ -21,6 +21,7 @@ import org.springframework.web.client.RestClientException;
 import com.google.maps.model.AddressType;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
@@ -78,6 +79,17 @@ public class GeoServiceClient {
     protected void initCache() {
         callExecutor = createCallExecutor();
         geocodeCache = createPlaceCache();
+    }
+
+    /**
+     * Closes the geocode cache and releases its resources when the
+     * application context is destroyed.
+     */
+    @PreDestroy
+    protected void destroyCache() {
+        if (geocodeCache != null) {
+            geocodeCache.close();
+        }
     }
 
     private GeoServiceCallExecutor createCallExecutor() {
