@@ -124,8 +124,10 @@ public class GeoServiceClient {
             } else {
                 result = callExecutor.execute(() -> fetchPrimary(url));
             }
-        } catch (Throwable t) {
-            result = handleFetchFailure(url, placeName, t);
+        } catch (Error e) {
+            throw e;
+        } catch (Exception e) {
+            result = handleFetchFailure(url, placeName, e);
         }
 
         if (geocodeCache != null && result != null) {
