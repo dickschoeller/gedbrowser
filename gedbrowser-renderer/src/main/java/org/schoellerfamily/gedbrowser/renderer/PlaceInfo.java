@@ -159,7 +159,7 @@ public final class PlaceInfo {
         if (value instanceof String text) {
             try {
                 return Double.parseDouble(text);
-            } catch (NumberFormatException ignored) {
+            } catch (NumberFormatException _) {
                 return null;
             }
         }
