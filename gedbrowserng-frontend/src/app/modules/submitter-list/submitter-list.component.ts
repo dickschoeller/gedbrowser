@@ -184,13 +184,13 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
     this.navigate(id);
   }
 
-  delete(source: ApiSubmitter) {
+  delete(submitter: ApiSubmitter) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { message: 'Are you sure you want to delete this submitter?' }
     });
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.submitterService.delete(this.dataset, source).subscribe((s: ApiSubmitter) => {
+        this.submitterService.delete(this.dataset, submitter).subscribe((s: ApiSubmitter) => {
           this.refreshSubmitter(s);
         });
       }
