@@ -121,6 +121,11 @@ public class DuplicateCleanupService {
                 continue;
             }
             final String key = buildKey(doc);
+            if (key == null) {
+                log.warn("Skipping document without valid filename/string in {}: id={}",
+                    collectionName, id);
+                continue;
+            }
             List<Object> ids = idsByKey.get(key);
             if (ids == null) {
                 ids = newIdList();
@@ -133,11 +138,15 @@ public class DuplicateCleanupService {
 
     /**
      * @param doc document from a top-level GED collection
-     * @return de-duplication key based on filename and string
+     * @return de-duplication key based on filename and string, or {@code null}
+     *         if either component is missing
      */
     private String buildKey(final Document doc) {
         final Object filename = doc.get("filename");
         final Object string = doc.get("string");
+        if (filename == null || string == null) {
+            return null;
+        }
         return String.valueOf(filename) + "\u0000" + String.valueOf(string);
     }
 
