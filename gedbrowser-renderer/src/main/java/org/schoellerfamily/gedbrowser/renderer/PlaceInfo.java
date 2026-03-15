@@ -118,13 +118,15 @@ public final class PlaceInfo {
     }
 
     private static LngLatAlt fromList(final List<?> coords) {
-        if (coords.size() < 2) {
-            return null;
+        if (coords == null || coords.size() < 2) {
+            // Not enough data to form coordinates; return sentinel
+            return new LngLatAlt(Double.NaN, Double.NaN);
         }
         final Double longitude = asDouble(coords.get(0));
         final Double latitude = asDouble(coords.get(1));
         if (longitude == null || latitude == null) {
-            return null;
+            // Invalid numeric values; return sentinel
+            return new LngLatAlt(Double.NaN, Double.NaN);
         }
         return new LngLatAlt(longitude, latitude);
     }
@@ -143,7 +145,8 @@ public final class PlaceInfo {
         if (coords instanceof Object[] arr) {
             return fromList(List.of(arr));
         }
-        return null;
+        // If we cannot parse coordinates from the map, return sentinel
+        return new LngLatAlt(Double.NaN, Double.NaN);
     }
 
     private static Double firstDouble(final Map<?, ?> map, final String... keys) {
