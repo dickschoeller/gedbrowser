@@ -89,7 +89,8 @@ public final class PlaceInfo {
 
     private static LngLatAlt toLngLatAlt(final Object value) {
         if (value == null) {
-            return null;
+            // Default to a non-null LngLatAlt with NaN coordinates to avoid NPEs
+            return new LngLatAlt(Double.NaN, Double.NaN);
         }
         if (value instanceof LngLatAlt lngLatAlt) {
             return lngLatAlt;
@@ -103,7 +104,8 @@ public final class PlaceInfo {
         if (value instanceof Map<?, ?> map) {
             return fromMap(map);
         }
-        return null;
+        // For unsupported payload shapes, also default to NaN coordinates
+        return new LngLatAlt(Double.NaN, Double.NaN);
     }
 
     private static LngLatAlt fromList(final List<?> coords) {
