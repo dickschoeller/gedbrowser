@@ -130,7 +130,7 @@ public class GeoServiceClient {
             result = handleFetchFailure(url, placeName, e);
         }
 
-        if (geocodeCache != null && result != null) {
+        if (geocodeCache != null && result != null && result.getResult() != null) {
             geocodeCache.put(placeName, result);
         }
 
