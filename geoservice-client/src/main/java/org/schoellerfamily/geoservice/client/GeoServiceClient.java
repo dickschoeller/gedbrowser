@@ -15,6 +15,7 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 
 import com.google.maps.model.AddressType;
@@ -63,6 +64,14 @@ public class GeoServiceClient {
     @Value("${geoservice.cache.ttl-seconds:3600}")
     private long cacheTtlSeconds = 3600L;
 
+    /** Maximum retry attempts for transient connectivity failures. */
+    @Value("${geoservice.retry.max-attempts:3}")
+    private int retryMaxAttempts = 3;
+
+    /** Wait duration in milliseconds between retry attempts. */
+    @Value("${geoservice.retry.wait-millis:500}")
+    private long retryWaitMillis = 500L;
+
     /** Resilience executor, initialized by Spring in {@link #initCache()}. */
     private GeoServiceCallExecutor callExecutor;
 
@@ -93,7 +102,7 @@ public class GeoServiceClient {
 
     private GeoServiceCallExecutor createCallExecutor() {
         try {
-            return new Resilience4jGeoServiceCallExecutor();
+            return new Resilience4jGeoServiceCallExecutor(retryMaxAttempts, retryWaitMillis);
         } catch (NoClassDefFoundError e) {
             log.warn("resilience4j unavailable; using direct geoservice calls", e);
             return ThrowingSupplier::get;
@@ -164,7 +173,7 @@ public class GeoServiceClient {
 
     private GeoServiceItem handleFetchFailure(final String url, final String placeName,
             final Throwable t) {
-        if (callExecutor == null || !callExecutor.isCallNotPermitted(t)) {
+        if (shouldAttemptFallbackRecovery(t)) {
             final GeoServiceItem recovered = tryRecoverFromNullableFeatures(url);
             if (recovered != null) {
                 return recovered;
@@ -179,6 +188,25 @@ public class GeoServiceClient {
             log.error("protocol: {}", protocol);
         }
         return new GeoServiceItem(placeName, placeName, null);
+    }
+
+    /**
+     * Returns true when the fallback raw-JSON parse should be attempted.
+     * The fallback is only useful for deserialization/conversion failures —
+     * connectivity errors (e.g. {@link ResourceAccessException}) and
+     * circuit-breaker rejections are excluded because re-fetching the URL
+     * would also fail.
+     *
+     * @param t the exception thrown during the primary fetch
+     * @return true when a recovery attempt makes sense
+     */
+    private boolean shouldAttemptFallbackRecovery(final Throwable t) {
+        return !isConnectivityError(t)
+                && (callExecutor == null || !callExecutor.isCallNotPermitted(t));
+    }
+
+    private boolean isConnectivityError(final Throwable t) {
+        return t instanceof ResourceAccessException;
     }
 
     /**

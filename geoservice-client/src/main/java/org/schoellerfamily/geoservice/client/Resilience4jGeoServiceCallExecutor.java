@@ -16,11 +16,34 @@ import io.github.resilience4j.retry.RetryConfig;
 public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallExecutor {
     private final CircuitBreaker circuitBreaker = CircuitBreaker.ofDefaults("geoservice");
 
-    private final Retry retry = Retry.of("geoservice", RetryConfig.custom()
-            .maxAttempts(3)
-            .waitDuration(Duration.ofMillis(500))
-            .retryOnException(e -> e instanceof ResourceAccessException)
-            .build());
+    private final Retry retry;
+
+    /**
+     * Creates an executor with the default retry policy (3 attempts, 500 ms wait).
+     */
+    public Resilience4jGeoServiceCallExecutor() {
+        this(3, 500L);
+    }
+
+    /**
+     * Creates an executor with a configurable retry policy.
+     *
+     * @param maxAttempts  maximum number of retry attempts (including the first call); must be &ge; 1
+     * @param waitMillis   fixed wait duration in milliseconds between retries; must be &ge; 0
+     */
+    public Resilience4jGeoServiceCallExecutor(final int maxAttempts, final long waitMillis) {
+        if (maxAttempts < 1) {
+            throw new IllegalArgumentException("maxAttempts must be at least 1, got: " + maxAttempts);
+        }
+        if (waitMillis < 0) {
+            throw new IllegalArgumentException("waitMillis must be non-negative, got: " + waitMillis);
+        }
+        this.retry = Retry.of("geoservice", RetryConfig.custom()
+                .maxAttempts(maxAttempts)
+                .waitDuration(Duration.ofMillis(waitMillis))
+                .retryOnException(e -> e instanceof ResourceAccessException)
+                .build());
+    }
 
     @Override
     public <T> T execute(final ThrowingSupplier<T> supplier) throws Throwable {
