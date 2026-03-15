@@ -96,22 +96,13 @@ public final class PlaceInfo {
             return lngLatAlt;
         }
         if (value instanceof List<?> list) {
-            final LngLatAlt fromListResult = fromList(list);
-            return (fromListResult != null)
-                    ? fromListResult
-                    : new LngLatAlt(Double.NaN, Double.NaN);
+            return fromList(list);
         }
         if (value instanceof Object[] arr) {
-            final LngLatAlt fromArrayResult = fromList(List.of(arr));
-            return (fromArrayResult != null)
-                    ? fromArrayResult
-                    : new LngLatAlt(Double.NaN, Double.NaN);
+            return fromList(List.of(arr));
         }
         if (value instanceof Map<?, ?> map) {
-            final LngLatAlt fromMapResult = fromMap(map);
-            return (fromMapResult != null)
-                    ? fromMapResult
-                    : new LngLatAlt(Double.NaN, Double.NaN);
+            return fromMap(map);
         }
         // For unsupported payload shapes, also default to NaN coordinates
         return new LngLatAlt(Double.NaN, Double.NaN);
@@ -150,7 +141,7 @@ public final class PlaceInfo {
     }
 
     private static Double firstDouble(final Map<?, ?> map, final String... keys) {
-        for (String key : keys) {
+        for (final String key : keys) {
             if (map.containsKey(key)) {
                 final Double value = asDouble(map.get(key));
                 if (value != null) {
@@ -168,7 +159,7 @@ public final class PlaceInfo {
         if (value instanceof String text) {
             try {
                 return Double.parseDouble(text);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException _) {
                 return null;
             }
         }

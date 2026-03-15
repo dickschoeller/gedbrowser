@@ -10,9 +10,9 @@ public interface GeoServiceCallExecutor {
      * @param supplier call to execute
      * @param <T>      return type
      * @return call result
-     * @throws Throwable when execution fails
+    * @throws GeoServiceCallException when execution fails
      */
-    <T> T execute(ThrowingSupplier<T> supplier) throws Throwable;
+    <T> T execute(ThrowingSupplier<T> supplier) throws GeoServiceCallException;
 
     /**
      * @param throwable failure thrown by execute

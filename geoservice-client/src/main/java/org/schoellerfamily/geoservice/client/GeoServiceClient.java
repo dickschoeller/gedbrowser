@@ -38,6 +38,30 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class GeoServiceClient {
 
+    /** Default cache size used when no property override is provided. */
+    private static final String DEFAULT_CACHE_MAX_SIZE = "1000";
+
+    /** Default cache entry TTL (seconds) used when no property override is provided. */
+    private static final String DEFAULT_CACHE_TTL_SECONDS = "3600";
+
+    /** Default retry attempt count used when no property override is provided. */
+    private static final String DEFAULT_RETRY_MAX_ATTEMPTS = "3";
+
+    /** Default retry wait (milliseconds) used when no property override is provided. */
+    private static final String DEFAULT_RETRY_WAIT_MILLIS = "500";
+
+    /** Parsed default cache max size. */
+    private static final int DEFAULT_CACHE_MAX_SIZE_INT = 1000;
+
+    /** Parsed default cache TTL seconds. */
+    private static final long DEFAULT_CACHE_TTL_SECONDS_LONG = 3600L;
+
+    /** Parsed default retry attempt count. */
+    private static final int DEFAULT_RETRY_MAX_ATTEMPTS_INT = 3;
+
+    /** Parsed default retry wait in milliseconds. */
+    private static final long DEFAULT_RETRY_WAIT_MILLIS_LONG = 500L;
+
     /** */
     private final RestClient restClient;
 
@@ -57,20 +81,24 @@ public class GeoServiceClient {
     private final String protocol;
 
     /** Maximum number of entries in the geocode cache. */
-    @Value("${geoservice.cache.max-size:1000}")
-    private int cacheMaxSize = 1000;
+    @SuppressWarnings("PMD.ImmutableField")
+    @Value("${geoservice.cache.max-size:" + DEFAULT_CACHE_MAX_SIZE + "}")
+    private int cacheMaxSize = DEFAULT_CACHE_MAX_SIZE_INT;
 
     /** Time-to-live for geocode cache entries in seconds. */
-    @Value("${geoservice.cache.ttl-seconds:3600}")
-    private long cacheTtlSeconds = 3600L;
+    @SuppressWarnings("PMD.ImmutableField")
+    @Value("${geoservice.cache.ttl-seconds:" + DEFAULT_CACHE_TTL_SECONDS + "}")
+    private long cacheTtlSeconds = DEFAULT_CACHE_TTL_SECONDS_LONG;
 
     /** Maximum retry attempts for transient connectivity failures. */
-    @Value("${geoservice.retry.max-attempts:3}")
-    private int retryMaxAttempts = 3;
+    @SuppressWarnings("PMD.ImmutableField")
+    @Value("${geoservice.retry.max-attempts:" + DEFAULT_RETRY_MAX_ATTEMPTS + "}")
+    private int retryMaxAttempts = DEFAULT_RETRY_MAX_ATTEMPTS_INT;
 
     /** Wait duration in milliseconds between retry attempts. */
-    @Value("${geoservice.retry.wait-millis:500}")
-    private long retryWaitMillis = 500L;
+    @SuppressWarnings("PMD.ImmutableField")
+    @Value("${geoservice.retry.wait-millis:" + DEFAULT_RETRY_WAIT_MILLIS + "}")
+    private long retryWaitMillis = DEFAULT_RETRY_WAIT_MILLIS_LONG;
 
     /** Resilience executor, initialized by Spring in {@link #initCache()}. */
     private GeoServiceCallExecutor callExecutor;
@@ -101,21 +129,11 @@ public class GeoServiceClient {
     }
 
     private GeoServiceCallExecutor createCallExecutor() {
-        try {
-            return new Resilience4jGeoServiceCallExecutor(retryMaxAttempts, retryWaitMillis);
-        } catch (NoClassDefFoundError e) {
-            log.warn("resilience4j unavailable; using direct geoservice calls", e);
-            return ThrowingSupplier::get;
-        }
+        return new Resilience4jGeoServiceCallExecutor(retryMaxAttempts, retryWaitMillis);
     }
 
     private PlaceCache createPlaceCache() {
-        try {
-            return new EhcachePlaceCache(cacheMaxSize, cacheTtlSeconds);
-        } catch (NoClassDefFoundError e) {
-            log.warn("ehcache unavailable; geoservice cache disabled", e);
-            return null;
-        }
+        return new EhcachePlaceCache(cacheMaxSize, cacheTtlSeconds);
     }
 
     /**
@@ -144,9 +162,7 @@ public class GeoServiceClient {
             } else {
                 result = callExecutor.execute(() -> fetchPrimary(url));
             }
-        } catch (Error e) {
-            throw e;
-        } catch (Throwable t) {
+        } catch (Exception t) {
             result = handleFetchFailure(url, placeName, t);
         }
 

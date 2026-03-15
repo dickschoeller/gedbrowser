@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+import java.util.Map;
+
 import org.geojson.LngLatAlt;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
@@ -159,5 +162,99 @@ final class PlaceInfoTest {
         final PlaceInfo pi = new PlaceInfo(null, null, null);
         assertEquals("{ \"placeName\":null," + " \"latitude\": NaN," + " \"longitude\": NaN }",
             pi.toString(), "input should match output");
+    }
+
+    /** */
+    @Test
+    void testObjectConstructorSupportsMapAndStringCoordinates() {
+        final PlaceInfo pi = new PlaceInfo(
+            "name",
+            Map.of("lng", "2.5", "lat", "1.5"),
+            Map.of("coordinates", List.of(2.4, 1.4)),
+            Map.of("coordinates", new Object[] {2.6, 1.6}));
+
+        assertEquals(1.5, pi.getLocation().getLatitude());
+        assertEquals(2.5, pi.getLocation().getLongitude());
+        assertEquals(1.4, pi.getSouthwest().getLatitude());
+        assertEquals(2.4, pi.getSouthwest().getLongitude());
+        assertEquals(1.6, pi.getNortheast().getLatitude());
+        assertEquals(2.6, pi.getNortheast().getLongitude());
+    }
+
+    /** */
+    @Test
+    void testObjectConstructorSupportsListCoordinates() {
+        final PlaceInfo pi = new PlaceInfo(
+            "name",
+            List.of(2.0, 1.0),
+            List.of(1.9, 0.9),
+            List.of(2.1, 1.1));
+
+        assertEquals(1.0, pi.getLocation().getLatitude());
+        assertEquals(2.0, pi.getLocation().getLongitude());
+        assertEquals(0.9, pi.getSouthwest().getLatitude());
+        assertEquals(1.9, pi.getSouthwest().getLongitude());
+        assertEquals(1.1, pi.getNortheast().getLatitude());
+        assertEquals(2.1, pi.getNortheast().getLongitude());
+    }
+
+    /** */
+    @Test
+    void testObjectConstructorSupportsObjectArrayCoordinates() {
+        final PlaceInfo pi = new PlaceInfo(
+            "name",
+            new Object[] {2.0, 1.0},
+            new Object[] {1.9, 0.9},
+            new Object[] {2.1, 1.1});
+
+        assertEquals(1.0, pi.getLocation().getLatitude());
+        assertEquals(2.0, pi.getLocation().getLongitude());
+        assertEquals(0.9, pi.getSouthwest().getLatitude());
+        assertEquals(1.9, pi.getSouthwest().getLongitude());
+        assertEquals(1.1, pi.getNortheast().getLatitude());
+        assertEquals(2.1, pi.getNortheast().getLongitude());
+    }
+
+    /** */
+    @Test
+    void testObjectConstructorHandlesShortOrUnsupportedCoordinates() {
+        final PlaceInfo shortCoords = new PlaceInfo(
+            "name",
+            Map.of("coordinates", List.of(2.0)),
+            Map.of("coordinates", "unsupported"),
+            null);
+
+        assertTrue(Double.isNaN(shortCoords.getLocation().getLatitude()));
+        assertTrue(Double.isNaN(shortCoords.getLocation().getLongitude()));
+        assertTrue(Double.isNaN(shortCoords.getSouthwest().getLatitude()));
+        assertTrue(Double.isNaN(shortCoords.getSouthwest().getLongitude()));
+        assertTrue(Double.isNaN(shortCoords.getNortheast().getLatitude()));
+        assertTrue(Double.isNaN(shortCoords.getNortheast().getLongitude()));
+    }
+
+    /** */
+    @Test
+    void testObjectConstructorHandlesInvalidMapNumericValues() {
+        final PlaceInfo badValues = new PlaceInfo(
+            "name",
+            Map.of("lng", "x", "lat", true),
+            null,
+            null);
+
+        assertTrue(Double.isNaN(badValues.getLocation().getLatitude()));
+        assertTrue(Double.isNaN(badValues.getLocation().getLongitude()));
+    }
+
+    /** */
+    @Test
+    void testObjectConstructorUsesNaNSentinelsForUnsupportedPayloads() {
+        final PlaceInfo pi = new PlaceInfo("name", "bad", Map.of("coordinates", List.of("x")), null);
+
+        assertTrue(Double.isNaN(pi.getLocation().getLatitude()));
+        assertTrue(Double.isNaN(pi.getLocation().getLongitude()));
+        assertTrue(Double.isNaN(pi.getSouthwest().getLatitude()));
+        assertTrue(Double.isNaN(pi.getSouthwest().getLongitude()));
+        assertTrue(Double.isNaN(pi.getNortheast().getLatitude()));
+        assertTrue(Double.isNaN(pi.getNortheast().getLongitude()));
     }
 }

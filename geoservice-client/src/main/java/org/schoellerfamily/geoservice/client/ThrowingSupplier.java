@@ -9,7 +9,7 @@ package org.schoellerfamily.geoservice.client;
 public interface ThrowingSupplier<T> {
     /**
      * @return supplied value
-     * @throws Throwable when supplier execution fails
+     * @throws GeoServiceCallException when supplier execution fails
      */
-    T get() throws Throwable;
+    T get() throws GeoServiceCallException;
 }
