@@ -86,6 +86,15 @@ describe('MapKeyService', () => {
     req.flush({});
   });
 
+  it('returns trimmed key when direct GET responds with raw string', () => {
+    service.getMapKey().subscribe((key) => {
+      expect(key).toBe('KEY');
+    });
+
+    const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
+    req.flush('  KEY  ');
+  });
+
   it('handles key field with surrounding whitespace', () => {
     service.getMapKey().subscribe((key) => {
       expect(key).toBe('RAW-KEY');

@@ -11,24 +11,6 @@ package org.schoellerfamily.geoservice.client;
  */
 @FunctionalInterface
 public interface ThrowingSupplier<T> {
-
-    /**
-     * Gets a result.
-     *
-     * @return the supplied result
-     * @throws GeoServiceCallException if obtaining the result fails
-     */
-    T get() throws GeoServiceCallException;
-}
-package org.schoellerfamily.geoservice.client;
-
-/**
- * Supplier that can throw checked or unchecked exceptions.
- *
- * @param <T> supplied type
- */
-@FunctionalInterface
-public interface ThrowingSupplier<T> {
     /**
      * @return supplied value
      * @throws GeoServiceCallException when supplier execution fails

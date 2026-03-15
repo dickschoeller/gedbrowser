@@ -42,6 +42,12 @@ export class MapKeyService {
         if (parsed && typeof parsed.key === 'string') {
           return parsed.key.trim();
         }
+        if (typeof parsed === 'string') {
+          return parsed.trim();
+        }
+        if (parsed && typeof parsed === 'object') {
+          return '';
+        }
       } catch {
         // Not JSON, fall through to return the trimmed string as-is.
       }
