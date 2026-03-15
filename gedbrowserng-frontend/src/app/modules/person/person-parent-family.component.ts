@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
@@ -89,15 +89,20 @@ export class PersonParentFamilyComponent extends InitablePersonCreator
 
     constructor(@Inject(PersonService) public readonly personService: PersonService,
         @Inject(FamilyService) private readonly service: FamilyService,
-        @Inject(UserService) private readonly userService: UserService) {
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(NgZone) private readonly zone: NgZone,
+        @Inject(ChangeDetectorRef) private readonly cdr: ChangeDetectorRef) {
         super(personService);
     }
 
     init(): void {
         this.service.getOne(this.dataset, this.attribute.string)
             .subscribe((family: ApiFamily) => {
-                this.family = family;
-                this.initialized = true;
+                this.zone.run(() => {
+                    this.family = family;
+                    this.initialized = true;
+                    this.cdr.markForCheck();
+                });
             });
     }
 
@@ -132,7 +137,12 @@ export class PersonParentFamilyComponent extends InitablePersonCreator
     drop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.family.children, event.previousIndex, event.currentIndex);
         this.service.put(this.dataset, this.family)
-            .subscribe((family: ApiFamily) => { this.family = family; });
+        .subscribe((family: ApiFamily) => {
+          this.zone.run(() => {
+            this.family = family;
+            this.cdr.markForCheck();
+          });
+        });
     }
 
     hasSignedIn() {

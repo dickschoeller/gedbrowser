@@ -154,6 +154,24 @@ final class ApiDeserializationTest {
 
     /** */
     @Test
+    void testApiPersonDeserializePlaces() throws Exception {
+        final String json = "{\"type\":\"person\",\"string\":\"I1\","
+            + "\"indexName\":\"Doe, John\",\"surname\":\"Doe\","
+            + "\"places\":[{"
+            + "\"placeName\":\"Needham, Massachusetts, USA\","
+            + "\"location\":{\"longitude\":-71.2377548,\"latitude\":42.2809285},"
+            + "\"southwest\":{\"longitude\":-71.2477548,\"latitude\":42.2709285},"
+            + "\"northeast\":{\"longitude\":-71.2277548,\"latitude\":42.2909285}"
+            + "}],\"attributes\":[]}";
+        final ApiPerson person = mapper.readValue(json, ApiPerson.class);
+        assertNotNull(person.getPlaces(), "places should deserialize");
+        assertEquals(1, person.getPlaces().size(), "places size mismatch");
+        assertEquals("Needham, Massachusetts, USA", person.getPlaces().get(0).getPlaceName(),
+            "placeName mismatch");
+    }
+
+    /** */
+    @Test
     void testApiFamilyDeserializeType() throws Exception {
         final String json = "{\"type\":\"family\",\"string\":\"F1\",\"attributes\":[]}";
         final ApiFamily family = mapper.readValue(json, ApiFamily.class);

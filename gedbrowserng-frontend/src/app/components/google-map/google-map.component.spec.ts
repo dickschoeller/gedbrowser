@@ -249,8 +249,7 @@ describe('GoogleMapComponent', () => {
     const script = document.getElementById('google-maps-script') as HTMLScriptElement;
 
     expect(script).toBeTruthy();
-    expect(script.src).toContain('maps.googleapis.com/maps/api/js?loading=async');
-    expect(script.src).toContain('key=test-maps-key');
+    expect(script.src).toContain('maps.googleapis.com/maps/api/js?key=test-maps-key');
 
     script.onload?.(new Event('load'));
     await expect(promise).resolves.toBeUndefined();

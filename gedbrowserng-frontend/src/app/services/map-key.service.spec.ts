@@ -85,4 +85,22 @@ describe('MapKeyService', () => {
     const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
     req.flush({});
   });
+
+  it('handles raw string payload by trimming whitespace', () => {
+    service.getMapKey().subscribe((key) => {
+      expect(key).toBe('RAW-KEY');
+    });
+
+    const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
+    req.flush('  RAW-KEY  ');
+  });
+
+  it('trims key field from object payload', () => {
+    service.getMapKey().subscribe((key) => {
+      expect(key).toBe('TRIM-ME');
+    });
+
+    const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
+    req.flush({ key: '  TRIM-ME  ' });
+  });
 });

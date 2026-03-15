@@ -19,11 +19,23 @@ export class MapKeyService {
 
     // Try a simple GET first to avoid unnecessary CORS preflight requirements.
     return this.http.get(mapKeyUrl).pipe(
-      map((response: any) => response?.key || ''),
+      map((response: any) => this.extractKey(response)),
       catchError(() => this.apiService.get(mapKeyUrl).pipe(
-        map((response: any) => response?.key || ''),
+        map((response: any) => this.extractKey(response)),
         catchError(() => of(''))
       ))
     );
+  }
+
+  private extractKey(response: any): string {
+    if (typeof response === 'string') {
+      return response.trim();
+    }
+
+    if (response && typeof response.key === 'string') {
+      return response.key.trim();
+    }
+
+    return '';
   }
 }
