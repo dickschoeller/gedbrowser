@@ -16,7 +16,7 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
  *
  * @author Dick Schoeller
  */
-public final class EhcachePlaceCache implements PlaceCache, AutoCloseable {
+public final class EhcachePlaceCache implements PlaceCache {
 
     /** Ehcache manager; closed when the application context is destroyed. */
     private final CacheManager cacheManager;
