@@ -23,6 +23,7 @@ import tools.jackson.databind.ObjectMapper;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.TooManyMethods" })
 final class ApiDeserializationTest {
 
     /** */
@@ -62,7 +63,8 @@ final class ApiDeserializationTest {
     @Test
     void testApiObjectDeserializeWithAttributes() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"I1\","
-            + "\"attributes\":[{\"type\":\"attribute\",\"string\":\"Name\",\"tail\":\"John Doe\"}]}";
+            + "\"attributes\":[{\"type\":\"attribute\",\"string\":\"Name\","
+            + "\"tail\":\"John Doe\"}]}";
         final ApiObject obj = mapper.readValue(json, ApiObject.class);
         assertEquals(1, obj.getAttributes().size(), "attributes size mismatch");
     }

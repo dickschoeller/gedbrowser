@@ -14,15 +14,14 @@ import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 /**
  * @author Dick Schoeller
  */
+@SuppressWarnings("PMD.TooManyMethods")
 final class PlaceInfoTest {
-    /** */
     @Test
     void testNormalName() {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
         assertEquals("name", pi.getPlaceName(), "input should match output");
     }
 
-    /** */
     @Test
     void testNormalLatitude() {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
@@ -30,7 +29,6 @@ final class PlaceInfoTest {
             "input should match output");
     }
 
-    /** */
     @Test
     void testNormalLongitude() {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
@@ -38,7 +36,6 @@ final class PlaceInfoTest {
             "input should match output");
     }
 
-    /** */
     @Test
     void testNormalToString() {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
@@ -49,7 +46,6 @@ final class PlaceInfoTest {
             pi.toString(), "input should match output");
     }
 
-    /** */
     @Test
     void testNormalNortheastLatitude() {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
@@ -58,7 +54,6 @@ final class PlaceInfoTest {
             Double.valueOf(pi.getNortheast().getLatitude()), "mismatch");
     }
 
-    /** */
     @Test
     void testNormalNortheastLongitude() {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
@@ -67,7 +62,6 @@ final class PlaceInfoTest {
             Double.valueOf(pi.getNortheast().getLongitude()), "mismatch");
     }
 
-    /** */
     @Test
     void testNormalSouthwestLatitude() {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
@@ -76,7 +70,6 @@ final class PlaceInfoTest {
             Double.valueOf(pi.getSouthwest().getLatitude()), "mismatch");
     }
 
-    /** */
     @Test
     void testNormalSouthwestLongitude() {
         final PlaceInfo pi = new PlaceInfo("name", 1.0, 2.0);
@@ -85,7 +78,6 @@ final class PlaceInfoTest {
             Double.valueOf(pi.getSouthwest().getLongitude()), "mismatch");
     }
 
-    /** */
     @Test
     void testFullConstructorNortheastLatitude() {
         final double confidence = .02;
@@ -97,7 +89,6 @@ final class PlaceInfoTest {
             Double.valueOf(pi.getNortheast().getLatitude()), "mismatch");
     }
 
-    /** */
     @Test
     void testFullConstructorNortheastLongitude() {
         final double confidence = .02;
@@ -109,7 +100,6 @@ final class PlaceInfoTest {
             Double.valueOf(pi.getNortheast().getLongitude()), "mismatch");
     }
 
-    /** */
     @Test
     void testFullConstructorSouthwestLatitude() {
         final double confidence = .02;
@@ -121,7 +111,6 @@ final class PlaceInfoTest {
             Double.valueOf(pi.getSouthwest().getLatitude()), "mismatch");
     }
 
-    /** */
     @Test
     void testFullConstructorSouthwestLongitude() {
         final double confidence = .02;
@@ -133,14 +122,12 @@ final class PlaceInfoTest {
             Double.valueOf(pi.getSouthwest().getLongitude()), "mismatch");
     }
 
-    /** */
     @Test
     void testAbnormalName() {
         final PlaceInfo pi = new PlaceInfo(null, null, null);
         assertNull(pi.getPlaceName(), "input should match output");
     }
 
-    /** */
     @Test
     void testAbnormalLatitude() {
         final PlaceInfo pi = new PlaceInfo(null, null, null);
@@ -148,7 +135,6 @@ final class PlaceInfoTest {
             "null input ends up with not a number");
     }
 
-    /** */
     @Test
     void testAbnormalLongitude() {
         final PlaceInfo pi = new PlaceInfo(null, null, null);
@@ -156,7 +142,6 @@ final class PlaceInfoTest {
             "null input ends up with not a number");
     }
 
-    /** */
     @Test
     void testAbormalToString() {
         final PlaceInfo pi = new PlaceInfo(null, null, null);
@@ -164,8 +149,8 @@ final class PlaceInfoTest {
             pi.toString(), "input should match output");
     }
 
-    /** */
     @Test
+    @SuppressWarnings("checkstyle:MagicNumber")
     void testObjectConstructorSupportsMapAndStringCoordinates() {
         final PlaceInfo pi = new PlaceInfo(
             "name",
@@ -181,8 +166,8 @@ final class PlaceInfoTest {
         assertEquals(2.6, pi.getNortheast().getLongitude());
     }
 
-    /** */
     @Test
+    @SuppressWarnings("checkstyle:MagicNumber")
     void testObjectConstructorSupportsListCoordinates() {
         final PlaceInfo pi = new PlaceInfo(
             "name",
@@ -198,8 +183,8 @@ final class PlaceInfoTest {
         assertEquals(2.1, pi.getNortheast().getLongitude());
     }
 
-    /** */
     @Test
+    @SuppressWarnings("checkstyle:MagicNumber")
     void testObjectConstructorSupportsObjectArrayCoordinates() {
         final PlaceInfo pi = new PlaceInfo(
             "name",
@@ -215,7 +200,6 @@ final class PlaceInfoTest {
         assertEquals(2.1, pi.getNortheast().getLongitude());
     }
 
-    /** */
     @Test
     void testObjectConstructorHandlesShortOrUnsupportedCoordinates() {
         final PlaceInfo shortCoords = new PlaceInfo(
@@ -232,7 +216,6 @@ final class PlaceInfoTest {
         assertTrue(Double.isNaN(shortCoords.getNortheast().getLongitude()));
     }
 
-    /** */
     @Test
     void testObjectConstructorHandlesInvalidMapNumericValues() {
         final PlaceInfo badValues = new PlaceInfo(
@@ -245,10 +228,10 @@ final class PlaceInfoTest {
         assertTrue(Double.isNaN(badValues.getLocation().getLongitude()));
     }
 
-    /** */
     @Test
     void testObjectConstructorUsesNaNSentinelsForUnsupportedPayloads() {
-        final PlaceInfo pi = new PlaceInfo("name", "bad", Map.of("coordinates", List.of("x")), null);
+        final PlaceInfo pi =
+            new PlaceInfo("name", "bad", Map.of("coordinates", List.of("x")), null);
 
         assertTrue(Double.isNaN(pi.getLocation().getLatitude()));
         assertTrue(Double.isNaN(pi.getLocation().getLongitude()));

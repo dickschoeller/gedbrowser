@@ -330,7 +330,7 @@ public class GeoServiceClient {
             }
             try {
                 values.add(AddressType.valueOf(value));
-            } catch (IllegalArgumentException _) {
+            } catch (IllegalArgumentException ignored) {
                 // Ignore unknown values from geoservice payloads.
             }
         }

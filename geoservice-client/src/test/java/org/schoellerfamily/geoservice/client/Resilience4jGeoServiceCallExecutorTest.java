@@ -44,7 +44,8 @@ final class Resilience4jGeoServiceCallExecutorTest {
         });
 
         assertEquals("recovered", result);
-        assertEquals(3, attempts.get());
+        final int expected = 3;
+        assertEquals(expected, attempts.get());
     }
 
     @Test
@@ -60,7 +61,8 @@ final class Resilience4jGeoServiceCallExecutorTest {
                     throw new IllegalStateException("unexpected");
                 }));
         assertInstanceOf(IllegalStateException.class, exception.getCause());
-        assertEquals(1, attempts.get());
+        final int expected = 1;
+        assertEquals(expected, attempts.get());
     }
 
     @Test
@@ -79,17 +81,17 @@ final class Resilience4jGeoServiceCallExecutorTest {
     void testIsCallNotPermittedRecognizesResilienceException()
             throws ReflectiveOperationException {
         final Resilience4jGeoServiceCallExecutor executor =
-                new Resilience4jGeoServiceCallExecutor();
+            new Resilience4jGeoServiceCallExecutor();
         final Field field = Resilience4jGeoServiceCallExecutor.class
-                .getDeclaredField("circuitBreaker");
+            .getDeclaredField("circuitBreaker");
         field.setAccessible(true);
         final CircuitBreaker circuitBreaker = (CircuitBreaker) field.get(executor);
         final CallNotPermittedException exception =
-                CallNotPermittedException.createCallNotPermittedException(circuitBreaker);
+            CallNotPermittedException.createCallNotPermittedException(circuitBreaker);
 
         assertTrue(executor.isCallNotPermitted(exception));
         assertTrue(executor.isCallNotPermitted(
-                new GeoServiceCallException("wrapped", exception)));
+            new GeoServiceCallException("wrapped", exception)));
         assertFalse(executor.isCallNotPermitted(new RuntimeException("other")));
     }
 
@@ -99,20 +101,20 @@ final class Resilience4jGeoServiceCallExecutorTest {
                 new Resilience4jGeoServiceCallExecutor(1, 0L);
 
         final GeoServiceCallException exception = assertThrows(
-                GeoServiceCallException.class,
-                () -> executor.execute(() -> {
-                    throw new GeoServiceCallException("inner", null);
-                }));
+            GeoServiceCallException.class,
+            () -> executor.execute(() -> {
+                throw new GeoServiceCallException("inner", null);
+            }));
         assertInstanceOf(GeoServiceCallException.class, exception.getCause());
     }
 
-        @Test
-        void testExecuteRethrowsErrors() {
-                final Resilience4jGeoServiceCallExecutor executor =
-                                new Resilience4jGeoServiceCallExecutor(1, 0L);
+    @Test
+    void testExecuteRethrowsErrors() {
+        final Resilience4jGeoServiceCallExecutor executor =
+            new Resilience4jGeoServiceCallExecutor(1, 0L);
 
-                assertThrows(AssertionError.class, () -> executor.execute(() -> {
-                        throw new AssertionError("fatal");
-                }));
-        }
+        assertThrows(AssertionError.class, () -> executor.execute(() -> {
+            throw new AssertionError("fatal");
+        }));
+    }
 }

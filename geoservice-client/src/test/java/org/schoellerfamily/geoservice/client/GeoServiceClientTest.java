@@ -39,7 +39,7 @@ import tools.jackson.databind.node.ObjectNode;
 /**
  * Tests for {@link GeoServiceClient}.
  */
-@SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
+@SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts", "PMD.TooManyMethods" })
 final class GeoServiceClientTest {
 
   /** */
@@ -666,7 +666,8 @@ final class GeoServiceClientTest {
     private Level setGeoServiceClientLogLevel(final Level level) {
       final LoggerContext context = (LoggerContext) LogManager.getContext(false);
       final Configuration configuration = context.getConfiguration();
-      final LoggerConfig loggerConfig = configuration.getLoggerConfig(GeoServiceClient.class.getName());
+      final LoggerConfig loggerConfig =
+          configuration.getLoggerConfig(GeoServiceClient.class.getName());
       final Level originalLevel = loggerConfig.getLevel();
 
       loggerConfig.setLevel(level);

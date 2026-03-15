@@ -17,13 +17,11 @@ class ImageUtilsTest {
     /** */
     private ImageUtils imageUtils;
 
-    /** */
     @BeforeEach
     void setUp() {
         this.imageUtils = new ImageUtils();
     }
 
-    /** */
     @Test
     void testWrapperIsWrapper() {
         final ApiAttribute file = ApiAttribute.builder()
@@ -39,7 +37,6 @@ class ImageUtilsTest {
         assertTrue(imageUtils.isImageWrapper(multimedia), "Should be an image wrapper");
     }
 
-    /** */
     @Test
     void testWrapperWrapperIsWrapper() {
         final ApiAttribute file = ApiAttribute.builder()
@@ -60,11 +57,6 @@ class ImageUtilsTest {
         assertTrue(imageUtils.isImageWrapper(multimedia), "Should be an image wrapper");
     }
 
-    /**
-     * Parameterized test for common image file extensions.
-     *
-     * @param ext the file extension to test
-     */
     @ParameterizedTest
     @ValueSource(strings = {"bmp", "gif", "ico", "jpg", "jpeg", "png", "tiff", "tif", "svg"})
     void testIsImage(final String ext) {
@@ -77,7 +69,6 @@ class ImageUtilsTest {
         assertTrue(imageUtils.isImage(file), "Should be an image: " + ext);
     }
 
-    /** */
     @Test
     void testIsNotImage() {
         final ApiAttribute multimedia = ApiAttribute.builder()
@@ -88,11 +79,6 @@ class ImageUtilsTest {
         assertFalse(imageUtils.isImage(multimedia), "Should not be image");
     }
 
-    /**
-     * Parameterized test for video file extensions.
-     *
-     * @param ext the file extension to test
-     */
     @ParameterizedTest
     @ValueSource(strings = {"avi", "m4v", "mov", "mp4", "mpg", "mpeg", "webm"})
     void testIsVideo(final String ext) {
@@ -105,7 +91,6 @@ class ImageUtilsTest {
         assertTrue(imageUtils.isVideo(file), "Should be a video: " + ext);
     }
 
-    /** */
     @Test
     void testIsNotVideo() {
         final ApiAttribute multimedia = ApiAttribute.builder()
@@ -117,7 +102,6 @@ class ImageUtilsTest {
         assertFalse(imageUtils.isVideo(multimedia), "jpg should not be a video");
     }
 
-    /** */
     @ParameterizedTest
     @ValueSource(strings = {
         "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -133,7 +117,6 @@ class ImageUtilsTest {
         assertTrue(imageUtils.isYouTube(attr), "Should be a YouTube URL: " + url);
     }
 
-    /** */
     @Test
     void testIsNotYouTube() {
         final ApiAttribute attr = ApiAttribute.builder()
@@ -145,7 +128,6 @@ class ImageUtilsTest {
         assertFalse(imageUtils.isYouTube(attr), "mp4 should not be a YouTube URL");
     }
 
-    /** */
     @Test
     void testVideoIsNotImage() {
         final ApiAttribute file = ApiAttribute.builder()
@@ -157,7 +139,6 @@ class ImageUtilsTest {
         assertFalse(imageUtils.isImage(file), "mp4 should not be an image");
     }
 
-    /** */
     @Test
     void testWrapperWithVideoIsWrapper() {
         final ApiAttribute file = ApiAttribute.builder()
@@ -173,7 +154,6 @@ class ImageUtilsTest {
         assertTrue(imageUtils.isImageWrapper(multimedia), "Should be a media wrapper for video");
     }
 
-    /** */
     @Test
     void testWrapperWithYouTubeIsWrapper() {
         final ApiAttribute file = ApiAttribute.builder()
@@ -189,7 +169,6 @@ class ImageUtilsTest {
         assertTrue(imageUtils.isImageWrapper(multimedia), "Should be a media wrapper for YouTube");
     }
 
-    /** */
     @Test
     void testIsNotWrapper() {
         final ApiAttribute multimedia = ApiAttribute.builder()

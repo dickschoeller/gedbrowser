@@ -30,14 +30,16 @@ public final class EhcachePlaceCache implements PlaceCache, AutoCloseable {
      */
     public EhcachePlaceCache(final int maxSize, final long ttlSeconds) {
         cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
-                .withCache("geocode",
-                        CacheConfigurationBuilder.newCacheConfigurationBuilder(
-                                        String.class, GeoServiceItem.class,
-                                        ResourcePoolsBuilder.heap(maxSize))
-                                .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(
-                                        Duration.ofSeconds(ttlSeconds)))
-                                .build())
-                .build(true);
+            .withCache("geocode",
+                CacheConfigurationBuilder.newCacheConfigurationBuilder(
+                    String.class,
+                    GeoServiceItem.class,
+                    ResourcePoolsBuilder.heap(maxSize))
+                    .withExpiry(
+                        ExpiryPolicyBuilder
+                            .timeToLiveExpiration(Duration.ofSeconds(ttlSeconds)))
+                            .build())
+            .build(true);
         cache = cacheManager.getCache("geocode", String.class, GeoServiceItem.class);
     }
 

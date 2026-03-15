@@ -63,7 +63,6 @@ final class PlaceListRendererTest {
     public static class ContextConfiguration {
     }
 
-    /** */
     @Test
     void testNullArgsUser() {
         final PlaceListRenderer plr = new PlaceListRenderer(null, null,
@@ -72,7 +71,6 @@ final class PlaceListRendererTest {
         assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
-    /** */
     @Test
     void testNullArgsAdmin() {
         final PlaceListRenderer plr = new PlaceListRenderer(null, null, createAdminContext());
@@ -80,7 +78,6 @@ final class PlaceListRendererTest {
         assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
-    /** */
     @Test
     void testNullClient() {
         final Person person = createJRandom();
@@ -90,7 +87,6 @@ final class PlaceListRendererTest {
         assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
-    /** */
     @Test
     void testNullClientAdmin() {
         final Person person = createJRandom();
@@ -99,7 +95,6 @@ final class PlaceListRendererTest {
         assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
-    /** */
     @Test
     void testNullPerson() {
         final PlaceListRenderer plr = createAdminRenderer(null);
@@ -107,7 +102,6 @@ final class PlaceListRendererTest {
         assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
-    /** */
     @Test
     void testNoAttributes() {
         final Person person = createJRandom();
@@ -116,7 +110,6 @@ final class PlaceListRendererTest {
         assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
-    /** */
     @Test
     void testNoPlaces() {
         final Person person = createJRandom();
@@ -126,7 +119,6 @@ final class PlaceListRendererTest {
         assertTrue(list.isEmpty(), "Should cleanly provide an empty list");
     }
 
-    /** */
     @Test
     void testOnePlace() {
         final Person person = createJRandom();
@@ -136,7 +128,6 @@ final class PlaceListRendererTest {
         assertEquals(1, list.size(), "Should contain 1 item");
     }
 
-    /** */
     @Test
     void testOnePlaceIsNeedham() {
         final Person person = createJRandom();
@@ -147,7 +138,6 @@ final class PlaceListRendererTest {
             "Should contain Needham");
     }
 
-    /** */
     @Test
     void testOnePlaceLatitudeIsNeedham() {
         final Person person = createJRandom();
@@ -159,7 +149,6 @@ final class PlaceListRendererTest {
         assertEquals(expected, actual, "Should contain Needham's latitude");
     }
 
-    /** */
     @Test
     void testOnePlaceLongitudeIsNeedham() {
         final Person person = createJRandom();
@@ -171,7 +160,6 @@ final class PlaceListRendererTest {
         assertEquals(expected, actual, "Should contain Needham's longitude");
     }
 
-    /** */
     @Test
     void testOnePlaceIsNotFoundAnotherIs() {
         final Person person = createJRandom();
@@ -183,7 +171,6 @@ final class PlaceListRendererTest {
         assertEquals(1, list.size(), "Should have one result");
     }
 
-    /** */
     @Test
     void testNullGeoServiceItemIsFiltered() {
         final Person person = createJRandom();
@@ -195,7 +182,6 @@ final class PlaceListRendererTest {
         assertEquals(1, list.size(), "Should have one result");
     }
 
-    /** */
     @ParameterizedTest
     @ValueSource(strings = {"PLUGH", "Geometry Null, USA", "Polygon Only, USA"})
     void testOnePlaceFilteredToEmpty(final String placeName) {
@@ -206,7 +192,6 @@ final class PlaceListRendererTest {
         assertTrue(list.isEmpty(), "Should be empty");
     }
 
-    /** */
     @Test
     void testAdminCanSeeConfidential() {
         final Person person = createJRandom();
@@ -220,7 +205,6 @@ final class PlaceListRendererTest {
         assertEquals(1, list.size(), "Should have one result");
     }
 
-    /** */
     @Test
     void testUserCanNotSeeConfidential() {
         final Person person = createJRandom();
@@ -235,7 +219,6 @@ final class PlaceListRendererTest {
         assertEquals(0, list.size(), "Should have one result");
     }
 
-    /** */
     @Test
     void testAnonCanNotSeeConfidential() {
         final Person person = createJRandom();
@@ -250,7 +233,6 @@ final class PlaceListRendererTest {
         assertEquals(0, list.size(), "Should have one result");
     }
 
-    /** */
     @Test
     void testAnonCanNotSeeLiving() {
         final Person person = createJRandom();
@@ -262,7 +244,6 @@ final class PlaceListRendererTest {
         assertEquals(0, list.size(), "Should have one result");
     }
 
-    /** */
     @Test
     void testAnonCanSeeDead() {
         final Person person = createJRandom();
@@ -275,7 +256,6 @@ final class PlaceListRendererTest {
         assertEquals(1, list.size(), "Should have one result");
     }
 
-    /** */
     @Test
     void testAnonCanSeeDeadAltConstruction() {
         final Person person = createJRandom();
@@ -288,35 +268,20 @@ final class PlaceListRendererTest {
         assertEquals(2, list.size(), "Should have one result");
     }
 
-    /**
-     * @param person the person to render
-     * @return the renderer
-     */
     private PlaceListRenderer createAdminRenderer(final Person person) {
         return new PlaceListRenderer(person, client, createAdminContext());
     }
 
-    /**
-     * @param person    the person
-     * @param placeName the place of birth
-     */
     private void createBirth(final Person person, final String placeName) {
         final Attribute birth = builder.createPersonEvent(person, "Birth", "20 JAN 2017");
         builder.addPlaceToEvent(birth, placeName);
     }
 
-    /**
-     * @param person    the person
-     * @param placeName the place of death
-     */
     private void createDeath(final Person person, final String placeName) {
         final Attribute death = builder.createPersonEvent(person, "Death", "20 JAN 2017");
         builder.addPlaceToEvent(death, placeName);
     }
 
-    /**
-     * @return a rendering context with admin privs
-     */
     private RenderingContext createAdminContext() {
         final UserImpl user = new UserImpl();
         user.setUsername("dick");
@@ -325,7 +290,6 @@ final class PlaceListRendererTest {
         return new RenderingContext(user, appInfo, provider);
     }
 
-    /** */
     @Test
     void testAnonCanSeeDeadMarriage() {
         final Person person = createJRandom();
