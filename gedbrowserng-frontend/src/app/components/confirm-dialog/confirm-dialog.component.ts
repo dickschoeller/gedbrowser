@@ -23,6 +23,7 @@ export interface ConfirmDialogData {
   <button mat-button (click)="onNoClick()">Cancel</button>
 </div>`,
     styles: [],
+    standalone: true,
     imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class ConfirmDialogComponent {
