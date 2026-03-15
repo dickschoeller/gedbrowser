@@ -59,6 +59,19 @@ describe('DatasetsService', () => {
       expect(result).toEqual([]);
     });
 
+    it('should deduplicate dataset names', async () => {
+      const datasets = ['schoeller', 'schoeller', 'mini'];
+
+      const result$ = service.get();
+      const promise = result$.toPromise();
+
+      const req = httpMock.expectOne('/gedbrowserng/v1/dbs');
+      req.flush(datasets);
+
+      const result = await promise;
+      expect(result).toEqual(['schoeller', 'mini']);
+    });
+
     it('should handle HTTP errors', async () => {
       const promise = service.get().toPromise();
 

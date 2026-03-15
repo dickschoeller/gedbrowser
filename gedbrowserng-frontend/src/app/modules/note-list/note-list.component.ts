@@ -6,7 +6,7 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
 import { NoteCreator } from '../../bases';
-import { NewNoteDialogComponent } from '../../components';
+import { NewNoteDialogComponent, ConfirmDialogComponent } from '../../components';
 import { NewNoteDialogData } from '../../models';
 import { ApiNote, NewPersonDialogData } from '../../models';
 import { NoteService } from '../../services';
@@ -184,8 +184,15 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   }
 
   delete(note: ApiNote) {
-    this.noteService.delete(this.dataset, note).subscribe((n: ApiNote) => {
-      this.refreshNote(n);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Are you sure you want to delete this note?' }
+    });
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.noteService.delete(this.dataset, note).subscribe((n: ApiNote) => {
+          this.refreshNote(n);
+        });
+      }
     });
   }
 

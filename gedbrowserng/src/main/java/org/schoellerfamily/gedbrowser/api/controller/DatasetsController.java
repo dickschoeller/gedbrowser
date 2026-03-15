@@ -38,6 +38,7 @@ public final class DatasetsController {
         final List<String> list =
             StreamSupport.stream(all.spliterator(), false)
                 .map(m -> m.getDbName())
+                .distinct()
                 .toList();
         log.info("length: {}", list.size());
         return list;

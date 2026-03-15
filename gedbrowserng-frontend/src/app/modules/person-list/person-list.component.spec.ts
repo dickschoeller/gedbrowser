@@ -94,7 +94,9 @@ describe('PersonListComponent', () => {
   it('navigate composes route path and delete refreshes', () => {
     const router = new StubRouter();
     const svc = new StubPersonService();
-    const comp = new PersonListComponent(router as any, svc as any, new StubDialog() as any);
+    const dlg = new StubDialog();
+    dlg.result = true;
+    const comp = new PersonListComponent(router as any, svc as any, dlg as any);
     comp.dataset = 'ds';
     comp.p = new StubParent() as any;
     comp.navigate('P1');

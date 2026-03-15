@@ -6,7 +6,7 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
 import { SubmitterCreator } from '../../bases/submitter-creator';
-import { NewSubmitterDialogComponent } from '../../components/';
+import { NewSubmitterDialogComponent, ConfirmDialogComponent } from '../../components/';
 import { NewSubmitterDialogData } from '../../models';
 import { ApiSubmitter } from '../../models';
 import { SubmitterService } from '../../services';
@@ -185,8 +185,15 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
   }
 
   delete(source: ApiSubmitter) {
-    this.submitterService.delete(this.dataset, source).subscribe((s: ApiSubmitter) => {
-      this.refreshSubmitter(s);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Are you sure you want to delete this submitter?' }
+    });
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.submitterService.delete(this.dataset, source).subscribe((s: ApiSubmitter) => {
+          this.refreshSubmitter(s);
+        });
+      }
     });
   }
 }

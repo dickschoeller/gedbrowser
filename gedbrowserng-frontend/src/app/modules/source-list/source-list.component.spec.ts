@@ -188,6 +188,7 @@ describe('SourceListComponent', () => {
     component.parent = { refreshSource: vi.fn() } as any;
 
     const deleteSpy = vi.spyOn(sourceService, 'delete').mockReturnValue(of(mockSources[0]));
+    vi.spyOn(dialog, 'open').mockReturnValue({ afterClosed: () => of(true) } as any);
 
     component.delete(mockSources[0]);
 

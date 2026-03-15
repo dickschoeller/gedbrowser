@@ -7,6 +7,7 @@ import { UserService } from '../../services';
 import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
 
 import { HasAttributeDialog } from './has-attribute-dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { AttributeListItemDetailListComponent } from './attribute-list-item-detail-list.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -89,9 +90,16 @@ export class AttributeListItemComponent extends HasAttributeDialog {
     }
 
     delete(): void {
-        const index = this.attributeList.indexOf(this.attribute);
-        this.attributeList.splice(index, 1);
-        this.parent.save();
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            data: { message: 'Are you sure you want to delete this attribute?' }
+        });
+        dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+            if (confirmed) {
+                const index = this.attributeList.indexOf(this.attribute);
+                this.attributeList.splice(index, 1);
+                this.parent.save();
+            }
+        });
     }
 
     href() {

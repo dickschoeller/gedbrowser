@@ -219,6 +219,12 @@ describe('SideMenuComponent', () => {
     expect(component.dbs[component.dbs.length - 1]).toBe('david');
   });
 
+  it('should deduplicate database entries in setupItems', () => {
+    const dbs = ['schoeller', 'mini', 'schoeller'];
+    component.setupItems(dbs);
+    expect(component.dbs).toEqual(['mini', 'schoeller']);
+  });
+
   it('should handle null file in upload', () => {
     // Null files are handled by the validator, so we just test that the form control exists
     expect(component.filesControl).toBeDefined();

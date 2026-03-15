@@ -10,6 +10,9 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.schoellerfamily.gedbrowser.api.endpoint.CleanupDuplicatesEndpoint;
+import org.schoellerfamily.gedbrowser.api.endpoint.DuplicateCleanupService;
+import org.schoellerfamily.gedbrowser.api.endpoint.LogDuplicatesEndpoint;
 import org.schoellerfamily.gedbrowser.api.endpoint.ApplicationHealthIndicator;
 import org.schoellerfamily.gedbrowser.api.endpoint.ApplicationInfoContributor;
 import org.schoellerfamily.gedbrowser.api.endpoint.RestoreEndpoint;
@@ -73,5 +76,55 @@ final class EndpointComponentsTest {
 
         verify(loader).reloadAll(manager);
         assertEquals("Reloaded 2 datasets", result.get(0));
+    }
+
+    /** */
+    @Test
+    void testCleanupDuplicatesEndpointReportsCounts() {
+        final int rootCount = 1;
+        final int personCount = 2;
+        final int sourceCount = 3;
+        final int submitterCount = 4;
+        final int totalCount = 10;
+        final DuplicateCleanupService cleanupService = Mockito.mock(DuplicateCleanupService.class);
+        when(cleanupService.cleanup()).thenReturn(Map.of(
+            "roots", rootCount,
+            "persons", personCount,
+            "sources", sourceCount,
+            "submitters", submitterCount,
+            "total", totalCount));
+
+        final CleanupDuplicatesEndpoint endpoint = new CleanupDuplicatesEndpoint(cleanupService);
+
+        final List<String> result = endpoint.invoke();
+
+        verify(cleanupService).cleanup();
+        assertEquals("Removed duplicates: roots=1, persons=2, sources=3, submitters=4, total=10",
+            result.get(0));
+    }
+
+    /** */
+    @Test
+    void testLogDuplicatesEndpointReportsCounts() {
+        final int rootCount = 1;
+        final int personCount = 2;
+        final int sourceCount = 3;
+        final int submitterCount = 4;
+        final int totalCount = 10;
+        final DuplicateCleanupService cleanupService = Mockito.mock(DuplicateCleanupService.class);
+        when(cleanupService.logDuplicates()).thenReturn(Map.of(
+            "roots", rootCount,
+            "persons", personCount,
+            "sources", sourceCount,
+            "submitters", submitterCount,
+            "total", totalCount));
+
+        final LogDuplicatesEndpoint endpoint = new LogDuplicatesEndpoint(cleanupService);
+
+        final List<String> result = endpoint.invoke();
+
+        verify(cleanupService).logDuplicates();
+        assertEquals("Logged duplicates: roots=1, persons=2, sources=3, submitters=4, total=10",
+            result.get(0));
     }
 }
