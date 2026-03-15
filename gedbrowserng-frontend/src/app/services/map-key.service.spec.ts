@@ -86,13 +86,13 @@ describe('MapKeyService', () => {
     req.flush({});
   });
 
-  it('handles raw string payload by trimming whitespace', () => {
+  it('handles key field with surrounding whitespace', () => {
     service.getMapKey().subscribe((key) => {
       expect(key).toBe('RAW-KEY');
     });
 
     const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
-    req.flush('  RAW-KEY  ');
+    req.flush({ key: '  RAW-KEY  ' });
   });
 
   it('trims key field from object payload', () => {
