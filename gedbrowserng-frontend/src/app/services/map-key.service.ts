@@ -18,12 +18,47 @@ export class MapKeyService {
     const mapKeyUrl = this.config.map_key_url;
 
     // Try a simple GET first to avoid unnecessary CORS preflight requirements.
-    return this.http.get(mapKeyUrl).pipe(
-      map((response: any) => response?.key || ''),
+    return this.http.get(mapKeyUrl, { responseType: 'text' }).pipe(
+      map((response: string) => this.extractKey(response)),
       catchError(() => this.apiService.get(mapKeyUrl).pipe(
-        map((response: any) => response?.key || ''),
+        map((response: any) => this.extractKey(response)),
         catchError(() => of(''))
       ))
     );
+  }
+
+  private extractKey(response: any): string {
+    if (typeof response === 'string') {
+      const trimmed = response.trim();
+
+      if (!trimmed) {
+        return '';
+      }
+
+      // If the response is JSON text (e.g. '{"key":"..."}' or '"..."'),
+      // attempt to parse it and extract a key property if present.
+      try {
+        const parsed: any = JSON.parse(trimmed);
+        if (parsed && typeof parsed.key === 'string') {
+          return parsed.key.trim();
+        }
+        if (typeof parsed === 'string') {
+          return parsed.trim();
+        }
+        if (parsed && typeof parsed === 'object') {
+          return '';
+        }
+      } catch {
+        // Not JSON, fall through to return the trimmed string as-is.
+      }
+
+      return trimmed;
+    }
+
+    if (response && typeof response.key === 'string') {
+      return response.key.trim();
+    }
+
+    return '';
   }
 }

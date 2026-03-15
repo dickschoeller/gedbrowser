@@ -1,4 +1,4 @@
-import { Component, OnInit , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit , Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { HasAttributeList, HasPerson, Saveable } from '../../interfaces';
@@ -36,7 +36,7 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
             <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="attributes"
                     [toggleable]="true"></app-attribute-list>
           </div>
-          @if (hasMapPlaces()) {
+          @if (canRenderMap()) {
             <div class="map-section">
               <app-google-map [places]="mapPlaces" [apiKey]="googleMapsApiKey"></app-google-map>
             </div>
@@ -226,7 +226,9 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
   constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
     @Inject(PersonService) private readonly service: PersonService,
     @Inject(MapKeyService) private readonly mapKeyService: MapKeyService,
-    @Inject(Router) private readonly router: Router
+    @Inject(Router) private readonly router: Router,
+    @Inject(NgZone) private readonly zone: NgZone,
+    @Inject(ChangeDetectorRef) private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -235,14 +237,22 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
     });
     this.route.data.subscribe(
       (data: {dataset: string, person: ApiPerson}) => {
-        this.person = data.person;
-        this.person.attributes = this.person?.attributes || [];
-        this.attributes = this.person.attributes;
-        this.mapPlaces = this.normalizePlaces((this.person as any)?.places);
+        // Some link clicks can originate from handlers that execute outside Angular.
+        // Re-enter the zone to ensure navigation-driven updates are rendered immediately.
+        this.zone.run(() => {
+          this.person = data.person;
+          this.person.attributes = this.person?.attributes || [];
+          this.attributes = this.person.attributes;
+          this.mapPlaces = this.normalizePlaces((this.person as any)?.places);
+          this.cdr.markForCheck();
+        });
       }
     );
     this.mapKeyService.getMapKey().subscribe((key: string) => {
-      this.googleMapsApiKey = key;
+      this.zone.run(() => {
+        this.googleMapsApiKey = key || '';
+        this.cdr.markForCheck();
+      });
     });
   }
 
@@ -268,6 +278,10 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
 
   hasMapPlaces(): boolean {
     return this.mapPlaces.length > 0;
+  }
+
+  canRenderMap(): boolean {
+    return this.hasMapPlaces() && !!this.googleMapsApiKey;
   }
 
   private normalizePlaces(places: any): Array<any> {

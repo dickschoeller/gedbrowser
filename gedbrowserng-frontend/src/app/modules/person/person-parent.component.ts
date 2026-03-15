@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit } from '@angular/core';
 
 import { ApiAttribute, ApiPerson } from '../../models';
 import { PersonService } from '../../services';
@@ -32,8 +32,10 @@ export class PersonParentComponent extends PersonGetter implements OnInit, OnCha
   @Input() parent: HasFamily & RefreshPerson;
   @Input() attribute: ApiAttribute;
 
-  constructor(@Inject(PersonService) personService: PersonService) {
-    super(personService);
+  constructor(@Inject(PersonService) personService: PersonService,
+    @Inject(NgZone) zone: NgZone,
+    @Inject(ChangeDetectorRef) cdr: ChangeDetectorRef) {
+    super(personService, zone, cdr);
     this.famMemberType = 'spouses';
   }
 

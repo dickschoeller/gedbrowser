@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit } from '@angular/core';
 
 import { ApiAttribute, ApiPerson } from '../../models';
 import { PersonService, UserService } from '../../services';
@@ -61,8 +61,10 @@ export class PersonFamilySpouseComponent extends PersonGetter
     @Input() attribute: ApiAttribute;
 
     constructor(@Inject(PersonService) personService: PersonService,
-        @Inject(UserService) private readonly userService: UserService) {
-        super(personService);
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(NgZone) zone: NgZone,
+        @Inject(ChangeDetectorRef) cdr: ChangeDetectorRef) {
+        super(personService, zone, cdr);
         this.famMemberType = 'spouses';
     }
 

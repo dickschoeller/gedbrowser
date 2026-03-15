@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { vi } from 'vitest';
 import { PersonFamilyChildComponent } from './person-family-child.component';
 import { UrlBuilder } from '../../utils';
@@ -83,6 +83,27 @@ describe('PersonFamilyChildComponent', () => {
       component.ngOnChanges();
 
       expect(mockPersonService.getOne).toHaveBeenCalledWith('testDataset', 'C2');
+    });
+
+    it('ignores stale responses when navigation changes quickly', () => {
+      const first = new Subject<any>();
+      const second = new Subject<any>();
+      vi.spyOn(mockPersonService, 'getOne')
+        .mockReturnValueOnce(first.asObservable())
+        .mockReturnValueOnce(second.asObservable());
+
+      component.child = { string: 'C1', type: 'child' } as any;
+      component.ngOnChanges();
+      component.child = { string: 'C2', type: 'child' } as any;
+      component.ngOnChanges();
+
+      second.next({ ...createTestPerson(), string: 'C2', indexName: 'Second Person' });
+      second.complete();
+      first.next({ ...createTestPerson(), string: 'C1', indexName: 'First Person' });
+      first.complete();
+
+      expect(component.person?.string).toBe('C2');
+      expect(component.person?.indexName).toBe('Second Person');
     });
   });
 

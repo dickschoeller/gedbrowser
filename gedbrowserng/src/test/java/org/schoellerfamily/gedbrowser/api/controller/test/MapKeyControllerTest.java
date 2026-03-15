@@ -8,6 +8,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.controller.MapKeyController;
 import org.schoellerfamily.geoservice.keys.KeyManager;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 final class MapKeyControllerTest {
@@ -29,8 +30,7 @@ final class MapKeyControllerTest {
         final MapKeyController controller = new MapKeyController(keyManager);
 
         final ResponseEntity<Map<String, String>> response = controller.readMapKey();
-
-        assertEquals(200, response.getStatusCode().value());
+        assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
         assertEquals("MAP-KEY", response.getBody().get("key"));
     }
 
@@ -52,7 +52,8 @@ final class MapKeyControllerTest {
 
         final ResponseEntity<Map<String, String>> response = controller.readMapKey();
 
-        assertEquals(500, response.getStatusCode().value());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            response.getStatusCode().value());
         assertNull(response.getBody());
     }
 }

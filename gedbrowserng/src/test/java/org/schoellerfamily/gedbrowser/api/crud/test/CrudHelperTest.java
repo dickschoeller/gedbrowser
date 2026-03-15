@@ -15,7 +15,6 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
  */
 final class CrudHelperTest {
 
-    /** */
     @ParameterizedTest
     @CsvSource({"M, husband", "F, wife", "X, husband"})
     void testSpouseAttributeType(final String sex, final String expectedType) {
@@ -29,7 +28,6 @@ final class CrudHelperTest {
         assertEquals(expectedType, spouse.getType());
     }
 
-    /** */
     @Test
     void testChildAttributeLinksPersonId() {
         final CrudHelper helper = new CrudHelper();
@@ -38,7 +36,6 @@ final class CrudHelperTest {
         assertEquals("I4", child.getString());
     }
 
-    /** */
     @Test
     void testFamcAttributeLinksFamilyId() {
         final CrudHelper helper = new CrudHelper();
@@ -47,7 +44,6 @@ final class CrudHelperTest {
         assertEquals("F1", famc.getString());
     }
 
-    /** */
     @Test
     void testFamsAttributeLinksFamilyId() {
         final CrudHelper helper = new CrudHelper();

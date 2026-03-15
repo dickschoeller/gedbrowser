@@ -49,14 +49,12 @@ class FamilyControllerIT {
     /** */
     private HttpHeaders headers;
 
-    /** */
     @BeforeEach
     void setUp() {
         final ControllerTestHelper helper = new ControllerTestHelper(port, restTestClient);
         headers = helper.getHeaders();
     }
 
-    /** */
     @Test
     void testGetFamiliesGl120368() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/families";
@@ -75,7 +73,6 @@ class FamilyControllerIT {
                 "\"images\" : [ ]"));
     }
 
-    /** */
     @Test
     void testGetFamiliesMiniSchoeller() {
         final String url = "http://localhost:" + port
@@ -88,21 +85,22 @@ class FamilyControllerIT {
             .returnResult(String.class);
         assertThat(entity)
             .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
-            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(), "\"type\" : \"family\"",
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
+                "\"type\" : \"family\"",
                 "\"string\" : \"F1\"",
                 "\"string\" : \"Marriage\"",
                 "\"type\" : \"date\"",
                 "\"string\" : \"27 MAY 1984\"",
-                "\"string\" : \"Temple Emanu-el, Providence, Providence County, Rhode Island, USA\"",
+                "\"string\" : \"Temple Emanu-el, Providence, Providence County,"
+                + " Rhode Island, USA\"",
                 "\"tail\" : \"The ceremony performed by Rabbi Wayne"
-                    + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
-                    + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
-                    + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
-                    + " brother of the groom and Donald S.\\nFriedman, a friend of"
-                    + " bride and groom\""));
+                + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
+                + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
+                + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
+                + " brother of the groom and Donald S.\\nFriedman, a friend of"
+                + " bride and groom\""));
     }
 
-    /** */
     @Test
     void testGetFamiliesGl120368F1593() {
         final String url = "http://localhost:" + port
@@ -115,14 +113,14 @@ class FamilyControllerIT {
             .returnResult(String.class);
         assertThat(entity)
             .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
-            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(), "\"type\" : \"family\"",
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
+                "\"type\" : \"family\"",
                 "\"string\" : \"F1593\"",
                 "\"attributes\" : [ {", "\"type\" : \"sourcelink\"", "\"string\" : \"S33723\"",
                 "\"type\" : \"attribute\"", "\"string\" : \"Note\"", "\"attributes\" : [ ]",
                 "\"tail\" : \"Record originated in...\""));
     }
 
-    /** */
     @Test
     void testGetFamiliesMiniSchoellerF1() {
         final String url = "http://localhost:" + port
@@ -135,20 +133,21 @@ class FamilyControllerIT {
             .returnResult(String.class);
         assertThat(entity)
             .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
-            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(), "\"type\" : \"family\"",
+            .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
+                "\"type\" : \"family\"",
                 "\"string\" : \"F1\"",
                 "\"string\" : \"Marriage\"",
                 "\"string\" : \"27 MAY 1984\"",
-                "\"string\" : \"Temple Emanu-el, Providence, Providence County, Rhode Island, USA\"",
+                "\"string\" : \"Temple Emanu-el, Providence, Providence County,"
+                + " Rhode Island, USA\"",
                 "\"tail\" : \"The ceremony performed by Rabbi Wayne"
-                    + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
-                    + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
-                    + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
-                    + " brother of the groom and Donald S.\\nFriedman, a friend of"
-                    + " bride and groom\""));
+                + " Franklin and Cantor Ivan\\nPerlman.  The best man and"
+                + " matron of honor were Dale Matcovitch\\nand Carol Robinson"
+                + " Sacerdote. The witnesses were Mark\\nA. Friedman, fraternity"
+                + " brother of the groom and Donald S.\\nFriedman, a friend of"
+                + " bride and groom\""));
     }
 
-    /** */
     @Test
     void testGetFamiliesMiniSchoellerXyzzy() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/mini-schoeller"
@@ -196,7 +195,6 @@ class FamilyControllerIT {
         assertThat(entity.getResponseBody().getType()).isEqualTo(reqBody.getType());
     }
 
-    /** */
     @Test
     void testDeleteFamily() {
         // Create a family.
@@ -240,7 +238,6 @@ class FamilyControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /** */
     @Test
     void testDeleteFamilyNotFound() {
         final String url = "http://localhost:" + port
@@ -261,7 +258,6 @@ class FamilyControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /** */
     @Test
     void testDeleteFamilyDatabaseNotFound() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/XYZZY/families/SUBM1";
@@ -281,7 +277,6 @@ class FamilyControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /** */
     @Test
     void testUpdateFamilyWithNote() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/families";
@@ -329,7 +324,6 @@ class FamilyControllerIT {
         assertEquals(aNote, attributesPutResponse.get(1), "attribute should be present");
     }
 
-    /** */
     @Test
     void testCreateSpouseInFamily() {
         final String url = "http://localhost:" + port
@@ -349,7 +343,6 @@ class FamilyControllerIT {
         assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
-    /** */
     @Test
     void testCreateSpouseInFamily2() {
         final String url = "http://localhost:" + port
@@ -369,7 +362,6 @@ class FamilyControllerIT {
         assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
-    /** */
     @Test
     void testCreateChildInFamily() {
         final String url = "http://localhost:" + port
@@ -389,7 +381,6 @@ class FamilyControllerIT {
         assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
-    /** */
     @Test
     void testCreateChildInFamily2() {
         final String url = "http://localhost:" + port
@@ -409,9 +400,6 @@ class FamilyControllerIT {
         assertThat(resBody.getIndexName()).isEqualTo(reqBody.getIndexName());
     }
 
-    /**
-     * @return the newly created person
-     */
     private ApiPerson createAlexander() {
         return ApiPerson.builder()
             .type("person")
@@ -424,9 +412,6 @@ class FamilyControllerIT {
             .build();
     }
 
-    /**
-     * @return the newly created person
-     */
     private ApiPerson createAlexandra() {
         return ApiPerson.builder()
             .type("person")
