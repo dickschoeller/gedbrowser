@@ -16,11 +16,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestClientException;
 
 import com.google.maps.model.AddressType;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
@@ -80,6 +80,17 @@ public class GeoServiceClient {
         geocodeCache = createPlaceCache();
     }
 
+    /**
+     * Closes the geocode cache and releases its resources when the
+     * application context is destroyed.
+     */
+    @PreDestroy
+    protected void destroyCache() {
+        if (geocodeCache != null) {
+            geocodeCache.close();
+        }
+    }
+
     private GeoServiceCallExecutor createCallExecutor() {
         try {
             return new Resilience4jGeoServiceCallExecutor();
@@ -126,8 +137,8 @@ public class GeoServiceClient {
             }
         } catch (Error e) {
             throw e;
-        } catch (RestClientException e) {
-            result = handleFetchFailure(url, placeName, e);
+        } catch (Throwable t) {
+            result = handleFetchFailure(url, placeName, t);
         }
 
         if (geocodeCache != null && result != null && result.getResult() != null) {

@@ -544,6 +544,37 @@ final class GeoServiceClientTest {
         return client;
     }
 
+    @Test
+    void testDestroyCacheClosesUnderlyingCacheWithoutThrowing() {
+        final GeoServiceClient client = newClient();
+        // Should close the EhcachePlaceCache without throwing.
+        client.destroyCache();
+    }
+
+    @Test
+    void testDestroyCacheInvokesCloseOnMockedGeocodeCache() throws ReflectiveOperationException {
+        final GeoServiceClient client =
+            new GeoServiceClient(RestClient.builder().build(), HOST, PORT, PROTOCOL);
+
+        final PlaceCache mockCache = Mockito.mock(PlaceCache.class);
+        final java.lang.reflect.Field field =
+            GeoServiceClient.class.getDeclaredField("geocodeCache");
+        field.setAccessible(true);
+        field.set(client, mockCache);
+
+        client.destroyCache();
+
+        Mockito.verify(mockCache).close();
+    }
+
+    @Test
+    void testDestroyCacheDoesNotThrowWhenCacheIsNull() throws ReflectiveOperationException {
+        final GeoServiceClient client =
+            new GeoServiceClient(RestClient.builder().build(), HOST, PORT, PROTOCOL);
+        // geocodeCache remains null (initCache not called); destroyCache should be safe.
+        client.destroyCache();
+    }
+
     private ObjectNode featureNode(final double lng, final double lat) {
         final ObjectNode featureNode = OBJECT_MAPPER.createObjectNode();
         final ObjectNode geometryNode = featureNode.putObject("geometry");
