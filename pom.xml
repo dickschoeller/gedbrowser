@@ -88,8 +88,8 @@
     <awaitility.version>4.3.0</awaitility.version>
     <mockito.version>5.23.0</mockito.version>
     <spotbugs-annotations.version>4.9.8</spotbugs-annotations.version>
-    <resilience4j.version>2.2.0</resilience4j.version>
-    <ehcache.version>3.10.8</ehcache.version>
+    <resilience4j.version>2.3.0</resilience4j.version>
+    <ehcache.version>3.11.1</ehcache.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.14</jacoco-plugin.version>
@@ -751,12 +751,18 @@
         <artifactId>commons-collections4</artifactId>
         <version>${commons-collections4.version}</version>
       </dependency>
-      <!-- related to working forward on google-maps-services -->
+      <!-- stuck with these because of google-maps-services -->
       <dependency>
         <groupId>com.squareup.okhttp3</groupId>
         <artifactId>okhttp</artifactId>
-        <version>5.3.2</version>
+        <version>4.10.0</version>
       </dependency>
+      <dependency>
+        <groupId>com.squareup.okio</groupId>
+        <artifactId>okio-jvm</artifactId>
+        <version>3.4.0</version>
+      </dependency>
+    <!-- done stuck with these because of google-maps-services -->
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-stdlib</artifactId>
@@ -862,6 +868,19 @@
         <groupId>org.ehcache</groupId>
         <artifactId>ehcache</artifactId>
         <version>${ehcache.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <!-- forced to old version by ehcache -->
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>2.3.9</version>
+        <scope>compile</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
