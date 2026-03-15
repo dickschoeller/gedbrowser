@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestClientException;
 
 import com.google.maps.model.AddressType;
 
@@ -138,8 +137,8 @@ public class GeoServiceClient {
             }
         } catch (Error e) {
             throw e;
-        } catch (RestClientException e) {
-            result = handleFetchFailure(url, placeName, e);
+        } catch (Throwable t) {
+            result = handleFetchFailure(url, placeName, t);
         }
 
         if (geocodeCache != null && result != null && result.getResult() != null) {
