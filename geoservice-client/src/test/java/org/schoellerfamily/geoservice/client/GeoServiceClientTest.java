@@ -343,6 +343,44 @@ final class GeoServiceClientTest {
   }
 
   @Test
+  void testGetReturnsDefaultItemWhenPrimaryBodyIsEmpty() {
+    final RestClient.Builder builder = RestClient.builder();
+    final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
+    final GeoServiceClient client = new GeoServiceClient(
+      builder.build(),
+      HOST,
+      PORT,
+      PROTOCOL);
+    client.initCache();
+
+    final String place = "Empty Primary";
+    final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
+    final String url = "http://localhost:8080/geocode?name=" + encoded;
+
+    final RequestMatcher requestToUrl = request -> {
+      assertEquals(url, request.getURI().toString());
+      assertEquals("GET", request.getMethod().name());
+    };
+
+    // Primary fetch returns HTTP 204, which yields a null body.
+    server.expect(requestToUrl)
+      .andRespond(withStatus(HttpStatus.NO_CONTENT));
+
+    // Fallback raw JSON fetch also has no body.
+    server.expect(requestToUrl)
+      .andRespond(withStatus(HttpStatus.NO_CONTENT));
+
+    final GeoServiceItem item = client.get(place);
+
+    assertNotNull(item);
+    assertEquals(place, item.getPlaceName());
+    assertEquals(place, item.getModernPlaceName());
+    assertNull(item.getResult());
+
+    server.verify();
+  }
+
+  @Test
   void testGetReturnsDefaultItemWhenDebugLoggingIsEnabled() {
     final Level originalLevel = setGeoServiceClientLogLevel(Level.DEBUG);
     try {

@@ -179,12 +179,17 @@ public class GeoServiceClient {
     }
 
     private GeoServiceItem fetchPrimary(final String url) {
-        return restClient.get()
+        final GeoServiceItem body = restClient.get()
                 .uri(URI.create(url))
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .toEntity(GeoServiceItem.class)
                 .getBody();
+
+        if (body == null) {
+            throw new IllegalStateException("Empty geoservice response body for " + url);
+        }
+        return body;
     }
 
     private GeoServiceItem handleFetchFailure(final String url, final String placeName,
