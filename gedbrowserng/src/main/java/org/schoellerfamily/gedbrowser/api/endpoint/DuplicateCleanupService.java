@@ -111,8 +111,13 @@ public class DuplicateCleanupService {
      * @return map of dedupe-key to list of document ids
      */
     private Map<String, List<Object>> groupedIdsByKey(final String collectionName) {
+        final Query query = new Query();
+        query.fields()
+            .include("_id")
+            .include("filename")
+            .include("string");
         final List<Document> documents =
-            mongoTemplate.findAll(Document.class, collectionName);
+            mongoTemplate.find(query, Document.class, collectionName);
         final Map<String, List<Object>> idsByKey =
             new LinkedHashMap<>();
         for (final Document doc : documents) {
