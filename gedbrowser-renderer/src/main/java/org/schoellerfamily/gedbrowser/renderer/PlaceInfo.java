@@ -96,13 +96,22 @@ public final class PlaceInfo {
             return lngLatAlt;
         }
         if (value instanceof List<?> list) {
-            return fromList(list);
+            final LngLatAlt fromListResult = fromList(list);
+            return (fromListResult != null)
+                    ? fromListResult
+                    : new LngLatAlt(Double.NaN, Double.NaN);
         }
         if (value instanceof Object[] arr) {
-            return fromList(List.of(arr));
+            final LngLatAlt fromArrayResult = fromList(List.of(arr));
+            return (fromArrayResult != null)
+                    ? fromArrayResult
+                    : new LngLatAlt(Double.NaN, Double.NaN);
         }
         if (value instanceof Map<?, ?> map) {
-            return fromMap(map);
+            final LngLatAlt fromMapResult = fromMap(map);
+            return (fromMapResult != null)
+                    ? fromMapResult
+                    : new LngLatAlt(Double.NaN, Double.NaN);
         }
         // For unsupported payload shapes, also default to NaN coordinates
         return new LngLatAlt(Double.NaN, Double.NaN);
