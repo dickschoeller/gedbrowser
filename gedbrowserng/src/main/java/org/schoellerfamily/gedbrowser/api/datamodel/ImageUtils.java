@@ -26,7 +26,7 @@ public class ImageUtils {
      */
     public boolean isImage(final ApiAttribute attribute) {
         final String[] types = {
-                "bmp", "gif", "ico", "jpg", "jpeg", "png", "tiff", "tif", "svg" };
+            "bmp", "gif", "ico", "jpg", "jpeg", "png", "tiff", "tif", "svg" };
         for (final String t : types) {
             if (attribute.getTail().toLowerCase(Locale.ENGLISH).endsWith(t)) {
                 return true;
@@ -40,7 +40,8 @@ public class ImageUtils {
      * @return true if it is a reference to a video file type
      */
     public boolean isVideo(final ApiAttribute attribute) {
-        final String[] types = { "avi", "m4v", "mov", "mp4", "mpg", "mpeg", "webm" };
+        final String[] types = {
+            "avi", "m4v", "mov", "mp4", "mpg", "mpeg", "webm" };
         for (final String t : types) {
             if (attribute.getTail().toLowerCase(Locale.ENGLISH).endsWith(t)) {
                 return true;

@@ -1,6 +1,13 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import java.util.List;
+import java.util.Map;
+
 import org.geojson.LngLatAlt;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 
@@ -8,6 +15,7 @@ import lombok.Getter;
  * @author Dick Schoeller
  */
 @Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class PlaceInfo {
 
     /**
@@ -67,12 +75,95 @@ public final class PlaceInfo {
      * @param southwest viewport southwest
      * @param northeast viewport northeast
      */
-    public PlaceInfo(final String placeName, final LngLatAlt location,
-            final LngLatAlt southwest, final LngLatAlt northeast) {
+    @JsonCreator
+    public PlaceInfo(
+            @JsonProperty("placeName") final String placeName,
+            @JsonProperty("location") final Object location,
+            @JsonProperty("southwest") final Object southwest,
+            @JsonProperty("northeast") final Object northeast) {
         this.placeName = placeName;
-        this.location = location;
-        this.southwest = southwest;
-        this.northeast = northeast;
+        this.location = toLngLatAlt(location);
+        this.southwest = toLngLatAlt(southwest);
+        this.northeast = toLngLatAlt(northeast);
+    }
+
+    private static LngLatAlt toLngLatAlt(final Object value) {
+        if (value == null) {
+            // Default to a non-null LngLatAlt with NaN coordinates to avoid NPEs
+            return new LngLatAlt(Double.NaN, Double.NaN);
+        }
+        if (value instanceof LngLatAlt lngLatAlt) {
+            return lngLatAlt;
+        }
+        if (value instanceof List<?> list) {
+            return fromList(list);
+        }
+        if (value instanceof Object[] arr) {
+            return fromList(List.of(arr));
+        }
+        if (value instanceof Map<?, ?> map) {
+            return fromMap(map);
+        }
+        // For unsupported payload shapes, also default to NaN coordinates
+        return new LngLatAlt(Double.NaN, Double.NaN);
+    }
+
+    private static LngLatAlt fromList(final List<?> coords) {
+        if (coords == null || coords.size() < 2) {
+            // Not enough data to form coordinates; return sentinel
+            return new LngLatAlt(Double.NaN, Double.NaN);
+        }
+        final Double longitude = asDouble(coords.get(0));
+        final Double latitude = asDouble(coords.get(1));
+        if (longitude == null || latitude == null) {
+            // Invalid numeric values; return sentinel
+            return new LngLatAlt(Double.NaN, Double.NaN);
+        }
+        return new LngLatAlt(longitude, latitude);
+    }
+
+    private static LngLatAlt fromMap(final Map<?, ?> map) {
+        final Double longitude = firstDouble(map, "longitude", "lng");
+        final Double latitude = firstDouble(map, "latitude", "lat");
+        if (longitude != null && latitude != null) {
+            return new LngLatAlt(longitude, latitude);
+        }
+
+        final Object coords = map.get("coordinates");
+        if (coords instanceof List<?> list) {
+            return fromList(list);
+        }
+        if (coords instanceof Object[] arr) {
+            return fromList(List.of(arr));
+        }
+        // If we cannot parse coordinates from the map, return sentinel
+        return new LngLatAlt(Double.NaN, Double.NaN);
+    }
+
+    private static Double firstDouble(final Map<?, ?> map, final String... keys) {
+        for (final String key : keys) {
+            if (map.containsKey(key)) {
+                final Double value = asDouble(map.get(key));
+                if (value != null) {
+                    return value;
+                }
+            }
+        }
+        return null;
+    }
+
+    private static Double asDouble(final Object value) {
+        if (value instanceof Number number) {
+            return number.doubleValue();
+        }
+        if (value instanceof String text) {
+            try {
+                return Double.parseDouble(text);
+            } catch (NumberFormatException _) {
+                return null;
+            }
+        }
+        return null;
     }
 
     @Override

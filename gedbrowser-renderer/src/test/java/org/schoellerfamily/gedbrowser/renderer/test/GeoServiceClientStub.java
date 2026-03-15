@@ -21,6 +21,12 @@ public final class GeoServiceClientStub extends GeoServiceClient {
     }
 
     @Override
+    protected void initCache() {
+        // No-op: avoid starting cache infrastructure (e.g., resilience4j/ehcache)
+        // during renderer tests.
+    }
+
+    @Override
     public GeoServiceItem get(final String placeName) {
         if ("Null Item, USA".equals(placeName)) {
             return null;

@@ -1,4 +1,4 @@
-import { Component, Input , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
@@ -90,9 +90,16 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
     showSpousesAndChildren = true;
     _ub: UrlBuilder;
 
-    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public readonly personService: PersonService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) {
+    constructor(@Inject(PersonService) public readonly personService: PersonService,
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(NgZone) private readonly zone: NgZone,
+        @Inject(ChangeDetectorRef) private readonly cdr: ChangeDetectorRef) {
         super(personService);
+    }
+
+    override ngOnChanges(): void {
+        this.init();
+        this.cdr.markForCheck();
     }
 
     init() {
@@ -115,10 +122,16 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
 
     refreshPerson(): void {
         this.personService.getOne(this.dataset, this.person.string).subscribe(
-            (person: ApiPerson) => this.updatePerson(person));
+            (person: ApiPerson) => {
+                this.zone.run(() => {
+                    this.updatePerson(person);
+                    this.cdr.markForCheck();
+                });
+            });
     }
 
     private updatePerson(person: ApiPerson) {
+        this.person = person;
         this.parent.person = person;
     }
 

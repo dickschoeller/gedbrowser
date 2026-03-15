@@ -1,4 +1,4 @@
-import { Component, Input , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
@@ -70,8 +70,15 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
   }
 
   constructor(@Inject(PersonService) public readonly personService: PersonService,
-    @Inject(UserService) private readonly userService: UserService) {
+    @Inject(UserService) private readonly userService: UserService,
+    @Inject(NgZone) private readonly zone: NgZone,
+    @Inject(ChangeDetectorRef) private readonly cdr: ChangeDetectorRef) {
     super(personService);
+  }
+
+  override ngOnChanges(): void {
+    this.init();
+    this.cdr.markForCheck();
   }
 
   init(): void {
@@ -88,7 +95,13 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
 
   refreshPerson() {
     this.personService.getOne(this.dataset, this.person.string).subscribe(
-      (data: ApiPerson) => this.parent.person = data);
+      (data: ApiPerson) => {
+        this.zone.run(() => {
+          this.person = data;
+          this.parent.person = data;
+          this.cdr.markForCheck();
+        });
+      });
   }
 
   spouseLinked(person: ApiPerson): boolean {

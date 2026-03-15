@@ -40,7 +40,7 @@ describe('MapKeyService', () => {
 
     const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
     expect(req.request.method).toBe('GET');
-    req.flush({ key: 'MAP-KEY' });
+    req.flush('{"key":"MAP-KEY"}');
   });
 
   it('falls back to AuthApiService GET when direct GET fails', () => {
@@ -83,6 +83,33 @@ describe('MapKeyService', () => {
     });
 
     const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
-    req.flush({});
+    req.flush('{}');
+  });
+
+  it('returns trimmed key when direct GET responds with raw string', () => {
+    service.getMapKey().subscribe((key) => {
+      expect(key).toBe('KEY');
+    });
+
+    const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
+    req.flush('  KEY  ');
+  });
+
+  it('handles key field with surrounding whitespace', () => {
+    service.getMapKey().subscribe((key) => {
+      expect(key).toBe('RAW-KEY');
+    });
+
+    const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
+    req.flush('{"key":"  RAW-KEY  "}');
+  });
+
+  it('trims key field from object payload', () => {
+    service.getMapKey().subscribe((key) => {
+      expect(key).toBe('TRIM-ME');
+    });
+
+    const req = httpMock.expectOne('/gedbrowserng/v1/map-key');
+    req.flush('{"key":"  TRIM-ME  "}');
   });
 });

@@ -1,4 +1,4 @@
-import { Component, Input , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone } from '@angular/core';
 
 import { ApiAttribute, ApiFamily, ApiPerson, AttributeDialogData, SelectItem } from '../../models';
 import { FamilyService, PersonService, UserService } from '../../services';
@@ -127,16 +127,21 @@ export class PersonFamilyComponent extends InitablePersonCreator
 
     constructor(@Inject(FamilyService) private readonly familyService: FamilyService,
         @Inject(PersonService) public readonly personService: PersonService,
-        @Inject(UserService) private readonly userService: UserService) {
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(NgZone) private readonly zone: NgZone,
+        @Inject(ChangeDetectorRef) private readonly cdr: ChangeDetectorRef) {
         super(personService);
     }
 
     init(): void {
         this.familyService.getOne(this.dataset, this.string)
             .subscribe((family: ApiFamily) => {
-                this.family = family;
-                this.attributes = family.attributes;
-                this.initialized = true;
+                this.zone.run(() => {
+                    this.family = family;
+                    this.attributes = family.attributes;
+                    this.initialized = true;
+                    this.cdr.markForCheck();
+                });
             });
         this.surname = '?';
         this.sex = NewPersonHelper.guessPartnerSex(this.person);
@@ -176,7 +181,12 @@ export class PersonFamilyComponent extends InitablePersonCreator
 
     save() {
         this.familyService.put(this.dataset, this.family).subscribe(
-            (data: ApiFamily) => this.family = data);
+            (data: ApiFamily) => {
+                this.zone.run(() => {
+                    this.family = data;
+                    this.cdr.markForCheck();
+                });
+            });
     }
 
     options(): Array<SelectItem> {
@@ -194,7 +204,12 @@ export class PersonFamilyComponent extends InitablePersonCreator
     unlink(): void {
         const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'spouses');
         this.personService.deleteLink(ub, this.family.string, this.person)
-            .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
+            .subscribe(() => {
+                this.zone.run(() => {
+                    this.parent.refreshPerson();
+                    this.cdr.markForCheck();
+                });
+            });
     }
 
     spouseLinked(person: ApiPerson): boolean {

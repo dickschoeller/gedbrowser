@@ -23,6 +23,7 @@ import tools.jackson.databind.ObjectMapper;
  *
  * @author Dick Schoeller
  */
+@SuppressWarnings({ "PMD.TooManyMethods" })
 final class ApiDeserializationTest {
 
     /** */
@@ -62,7 +63,8 @@ final class ApiDeserializationTest {
     @Test
     void testApiObjectDeserializeWithAttributes() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"I1\","
-            + "\"attributes\":[{\"type\":\"attribute\",\"string\":\"Name\",\"tail\":\"John Doe\"}]}";
+            + "\"attributes\":[{\"type\":\"attribute\",\"string\":\"Name\","
+            + "\"tail\":\"John Doe\"}]}";
         final ApiObject obj = mapper.readValue(json, ApiObject.class);
         assertEquals(1, obj.getAttributes().size(), "attributes size mismatch");
     }
@@ -150,6 +152,24 @@ final class ApiDeserializationTest {
         final String json = "{\"type\":\"person\",\"string\":\"\",\"attributes\":[]}";
         final ApiPerson person = mapper.readValue(json, ApiPerson.class);
         assertEquals("?", person.getSurname(), "surname should default to '?'");
+    }
+
+    /** */
+    @Test
+    void testApiPersonDeserializePlaces() throws Exception {
+        final String json = "{\"type\":\"person\",\"string\":\"I1\","
+            + "\"indexName\":\"Doe, John\",\"surname\":\"Doe\","
+            + "\"places\":[{"
+            + "\"placeName\":\"Needham, Massachusetts, USA\","
+            + "\"location\":{\"longitude\":-71.2377548,\"latitude\":42.2809285},"
+            + "\"southwest\":{\"longitude\":-71.2477548,\"latitude\":42.2709285},"
+            + "\"northeast\":{\"longitude\":-71.2277548,\"latitude\":42.2909285}"
+            + "}],\"attributes\":[]}";
+        final ApiPerson person = mapper.readValue(json, ApiPerson.class);
+        assertNotNull(person.getPlaces(), "places should deserialize");
+        assertEquals(1, person.getPlaces().size(), "places size mismatch");
+        assertEquals("Needham, Massachusetts, USA", person.getPlaces().get(0).getPlaceName(),
+            "placeName mismatch");
     }
 
     /** */

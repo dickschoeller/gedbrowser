@@ -110,7 +110,11 @@ export class GoogleMapComponent implements AfterViewInit, OnChanges {
       const existing = document.getElementById(GoogleMapComponent.scriptId) as HTMLScriptElement | null;
       if (existing) {
         existing.addEventListener('load', () => resolve(), { once: true });
-        existing.addEventListener('error', () => reject(new Error('Script load failed')), { once: true });
+        existing.addEventListener('error', () => {
+          GoogleMapComponent.mapsScriptPromise = null;
+          existing.remove();
+          reject(new Error('Script load failed'));
+        }, { once: true });
         return;
       }
 
@@ -119,11 +123,14 @@ export class GoogleMapComponent implements AfterViewInit, OnChanges {
       script.async = true;
       script.defer = true;
 
-      const keyPart = `&key=${encodeURIComponent(mapKey)}`;
-      script.src = `https://maps.googleapis.com/maps/api/js?loading=async${keyPart}`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(mapKey)}`;
 
       script.onload = () => resolve();
-      script.onerror = () => reject(new Error('Script load failed'));
+      script.onerror = () => {
+        GoogleMapComponent.mapsScriptPromise = null;
+        script.remove();
+        reject(new Error('Script load failed'));
+      };
       document.head.appendChild(script);
     });
 
