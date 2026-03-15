@@ -22,7 +22,8 @@ public final class GeoServiceClientStub extends GeoServiceClient {
 
     @Override
     protected void initCache() {
-        // No-op: resilience4j and ehcache are not on the test classpath.
+        // No-op: avoid starting cache infrastructure (e.g., resilience4j/ehcache)
+        // during renderer tests.
     }
 
     @Override
