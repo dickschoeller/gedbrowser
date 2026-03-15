@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Comparator;
 
 import org.bson.Document;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -75,6 +76,8 @@ public class DuplicateCleanupService {
             if (ids.size() <= 1) {
                 continue;
             }
+            // Ensure deterministic behavior: sort IDs before deciding which one to keep
+            ids.sort(Comparator.comparing(Object::toString));
             final List<Object> idsToDelete = ids.subList(1, ids.size());
             deletedCount += idsToDelete.size();
             final Query deleteQuery = Query.query(Criteria.where("_id").in(idsToDelete));
