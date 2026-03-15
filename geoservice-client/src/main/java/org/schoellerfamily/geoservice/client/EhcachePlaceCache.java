@@ -16,7 +16,7 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
  *
  * @author Dick Schoeller
  */
-public final class EhcachePlaceCache implements PlaceCache {
+public final class EhcachePlaceCache implements PlaceCache, AutoCloseable {
 
     /** Ehcache manager; closed when the application context is destroyed. */
     private final CacheManager cacheManager;
@@ -51,5 +51,14 @@ public final class EhcachePlaceCache implements PlaceCache {
     @Override
     public void put(final String placeName, final GeoServiceItem item) {
         cache.put(placeName, item);
+    }
+
+    /**
+     * Closes this cache and releases all resources held by the underlying
+     * {@link CacheManager}.
+     */
+    @Override
+    public void close() {
+        cacheManager.close();
     }
 }
