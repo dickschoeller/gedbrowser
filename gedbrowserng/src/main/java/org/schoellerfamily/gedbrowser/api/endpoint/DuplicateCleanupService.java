@@ -12,6 +12,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
+import com.mongodb.client.result.DeleteResult;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -79,9 +81,10 @@ public class DuplicateCleanupService {
             // Ensure deterministic behavior: sort IDs before deciding which one to keep
             ids.sort(Comparator.comparing(Object::toString));
             final List<Object> idsToDelete = ids.subList(1, ids.size());
-            deletedCount += idsToDelete.size();
             final Query deleteQuery = Query.query(Criteria.where("_id").in(idsToDelete));
-            mongoTemplate.remove(deleteQuery, collectionName);
+            final DeleteResult deleteResult =
+                mongoTemplate.remove(deleteQuery, collectionName);
+            deletedCount += (int) deleteResult.getDeletedCount();
         }
         return deletedCount;
     }
