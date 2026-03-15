@@ -126,7 +126,7 @@ public class GeoServiceClient {
             }
         } catch (Error e) {
             throw e;
-        } catch (Exception e) {
+        } catch (RestClientException e) {
             result = handleFetchFailure(url, placeName, e);
         }
 
