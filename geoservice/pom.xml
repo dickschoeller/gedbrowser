@@ -130,7 +130,7 @@
     </dependency>
     <dependency>
       <groupId>com.squareup.okio</groupId>
-      <artifactId>okio</artifactId>
+      <artifactId>okio-jvm</artifactId>
       <version>3.4.0</version>
     </dependency>
 
