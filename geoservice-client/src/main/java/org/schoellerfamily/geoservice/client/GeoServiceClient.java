@@ -222,7 +222,14 @@ public class GeoServiceClient {
     }
 
     private boolean isConnectivityError(final Throwable t) {
-        return t instanceof ResourceAccessException;
+        Throwable current = t;
+        while (current != null) {
+            if (current instanceof ResourceAccessException) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
     }
 
     /**
