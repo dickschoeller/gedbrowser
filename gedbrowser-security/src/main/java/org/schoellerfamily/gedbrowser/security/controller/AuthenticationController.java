@@ -64,6 +64,7 @@ public class AuthenticationController {
      * Executes refresh authentication token.
      *
      * @param request the request
+     * @param response the response
      * @return the resulting response entity
      */
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
@@ -102,7 +103,8 @@ public class AuthenticationController {
     /**
      * Executes change password.
      *
-     * @return the resulting string>>
+     * @param passwordChanger the password changer
+     * @return the resulting string
      */
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     @PreAuthorize("hasRole('USER')")

@@ -52,8 +52,10 @@ final class IndexTest {
         "I3 = Schoeller, Karl Frederick, Jr.", "I6 = Schoeller, Karl Frederick, Sr.",
         "I1 = Schoeller, Richard John", "I5 = Schoeller, Whosis, Jr." };
 
+    /** */
     private final Root root = new Root();
 
+    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder(root);
 
     @BeforeEach

@@ -25,7 +25,7 @@ final class LinkTest {
     private static final String LINK_TEST = "Link";
     /** */
     private transient Person person1;
-
+    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     @BeforeEach

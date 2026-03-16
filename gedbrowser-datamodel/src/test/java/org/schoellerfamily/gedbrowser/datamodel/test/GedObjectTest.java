@@ -44,6 +44,7 @@ final class GedObjectTest {
     /** */
     private transient Root root;
 
+    /** */
     private final FinderStrategy finder = new ParentFinder();
 
     /** */

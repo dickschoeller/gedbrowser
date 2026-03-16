@@ -83,6 +83,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
      */
     public static final String LOGOUT_MATCHER = "/auth/logout";
 
+    /** */
     private final List<String> pathsToSkip = List.of(
             ROOT_MATCHER,
             HTML_MATCHER,

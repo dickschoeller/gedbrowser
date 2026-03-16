@@ -27,6 +27,7 @@ public interface FinderStrategy {
      * @param <T> the type to return
      * @param owner the GedObject in whose context we are searching
      * @param str the ID string of the object being sought
+     * @param clazz the class of the type to return
      * @return the found object or null
      */
     <T extends GedObject> T find(FinderObject owner, String str,
@@ -45,6 +46,7 @@ public interface FinderStrategy {
      * Finds the by surnames begin with.
      *
      * @param owner the GedObject in whose context we are searching
+     * @param beginsWith the prefix string to match surnames against
      * @return a collection of matching surnames.
      */
     Collection<String> findBySurnamesBeginWith(FinderObject owner,
@@ -87,6 +89,7 @@ public interface FinderStrategy {
      *
      * @param <T> the type to return
      * @param owner the GedObject in whose context we are searching
+     * @param clazz the class of the type to return
      * @return a collection of objects of that type
      */
     <T extends GedObject> Collection<T> find(FinderObject owner,

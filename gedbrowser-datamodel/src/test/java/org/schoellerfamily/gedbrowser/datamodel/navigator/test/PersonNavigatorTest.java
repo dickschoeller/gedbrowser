@@ -32,6 +32,7 @@ final class PersonNavigatorTest {
     /** */
     private transient Person person7;
 
+    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     @BeforeEach

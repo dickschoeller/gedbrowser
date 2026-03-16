@@ -5,20 +5,18 @@ import java.util.Map;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Represents mapped repository manager mongo for persistence operations.
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public abstract class MappedRepositoryManagerMongo implements HasRepoMap {
     /**
-     * Creates a new MappedRepositoryManagerMongo.
-     */
-    public MappedRepositoryManagerMongo() {
-    }
-
-    /**
-     * This map manages the relationship between GedObject classes and their corresponding repositories.
+     * This map manages the relationship between GedObject classes and their corresponding
+     * repositories.
      */
     private final Map<Class<? extends GedObject>, Object>
         classToRepoMap = new HashMap<>();

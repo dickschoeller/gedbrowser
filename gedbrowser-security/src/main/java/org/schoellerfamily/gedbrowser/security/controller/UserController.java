@@ -45,6 +45,7 @@ public class UserController {
      * Load a user identified by the user name.
      *
      * @param request the http request
+     * @param username the user name
      * @return the user object
      */
     @RequestMapping(method = GET, value = "/users/{username:.+}")
@@ -81,6 +82,7 @@ public class UserController {
      * Add a new user.
      *
      * @param userRequest the description of the requested user
+     * @param ucBuilder the URI components builder
      * @return the new user
      */
     @RequestMapping(method = POST, value = "/signup")

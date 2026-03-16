@@ -42,9 +42,12 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  */
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
 final class GedObjectBuilderEventByNameTest {
+    /** */
     private static GedObjectBuilder builder = new GedObjectBuilder();
+    /** */
     @SuppressWarnings("PMD.SingularField")
     private static Root root = builder.getRoot();
+    /** */
     @SuppressWarnings("PMD.SingularField")
     private static Person person = builder.createPerson("I99999", "Name/Me/");
 

@@ -20,6 +20,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
  * @author Richard Schoeller
  */
 final class GedObjectBuilderFamilyTest {
+    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     private Person createJRandom() {

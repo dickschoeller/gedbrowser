@@ -188,9 +188,9 @@ final class MultimediaVisitorTest {
     @Test
     void testIsVideoRecognizesSupportedFormatsCaseInsensitive() {
         final MultimediaVisitor visitor = new MultimediaVisitor();
-        for (final String format : new String[] {"AVI", "mp4", "MOV", "m4v", "mpg", "mpeg", "webm"}) {
-            new Attribute(null, "Format", format).accept(visitor);
-            assertTrue(visitor.isVideo(), "Expected video type for " + format);
+        for (final String f : new String[] {"AVI", "mp4", "MOV", "m4v", "mpg", "mpeg", "webm"}) {
+            new Attribute(null, "Format", f).accept(visitor);
+            assertTrue(visitor.isVideo(), "Expected video type for " + f);
         }
     }
 

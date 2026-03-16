@@ -19,6 +19,7 @@ import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.
  */
 
 final class GedObjectFactoryTagsTest {
+    /** */
     private static final Root ROOT = new GedObjectBuilder().getRoot();
     /**
      * Parameters for testing.

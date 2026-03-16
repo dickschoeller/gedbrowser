@@ -44,7 +44,7 @@ final class PersonTest {
     private transient Person person6;
     /** */
     private transient Person person7;
-
+    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     @BeforeEach

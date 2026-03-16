@@ -22,6 +22,7 @@ final class SubmitterTest {
     private static final String TEST_STRUNG = "strung";
     /** */
     private static final String TEST_STRING = "string";
+    /** */
     private final transient Root root = new Root("Root");
 
     @Test

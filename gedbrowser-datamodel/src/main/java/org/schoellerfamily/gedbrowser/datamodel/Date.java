@@ -91,7 +91,7 @@ public final class Date extends AbstractAttribute {
     }
 
     /**
-     * Like sort date only we are starting in on correcting the problems with
+     * Like sort date only we are starting in on correcting the problems with.
      *
      * @return string in the form yyyymmdd
      */

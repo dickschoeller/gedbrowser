@@ -100,7 +100,8 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Get the family that is in this navigator. This can be useful when the constructor takes a non-Family parameter.
+     * Get the family that is in this navigator. This can be useful when the
+     * constructor takes a non-Family parameter.
      *
      * @return the family.
      */

@@ -45,6 +45,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class GedObjectVisitorTest {
+    /** */
     private final GedObjectVisitorStub visitor = new GedObjectVisitorStub();
 
     /**

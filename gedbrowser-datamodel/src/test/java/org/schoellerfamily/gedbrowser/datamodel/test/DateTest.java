@@ -21,6 +21,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 final class DateTest {
+    /** */
     private static final Root ROOT = new Root("Root");
 
     @Test
