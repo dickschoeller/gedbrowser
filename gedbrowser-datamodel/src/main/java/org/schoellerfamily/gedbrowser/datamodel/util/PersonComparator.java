@@ -16,11 +16,16 @@ public final class PersonComparator implements Comparator<Person>, Serializable 
     private static final long serialVersionUID = 1L;
 
     /**
-     * Executes compare.
+     * Compare two {@link Person} instances for ordering.
+     * <p>
+     * Persons are ordered by index name; if the index names are equal,
+     * the birth sort date is used; if those are also equal, the person's
+     * identifier string is used as a final tiebreaker.
      *
-     * @param p0 the p0
-     * @param p1 the p1
-     * @return the resulting int
+     * @param p0 the first person to compare
+     * @param p1 the second person to compare
+     * @return a negative integer, zero, or a positive integer as {@code p0}
+     *         is less than, equal to, or greater than {@code p1}
      */
     @Override
     public int compare(final Person p0, final Person p1) {
