@@ -33,10 +33,10 @@ public class DuplicateCleanupService {
      */
     public Map<String, Integer> cleanup() {
         final Map<String, Integer> deleted = new LinkedHashMap<>();
-        deleted.put("roots", cleanupCollection("roots"));
-        deleted.put("persons", cleanupCollection("persons"));
-        deleted.put("sources", cleanupCollection("sources"));
-        deleted.put("submitters", cleanupCollection("submitters"));
+        deleted.put("roots", Math.toIntExact(cleanupCollection("roots")));
+        deleted.put("persons", Math.toIntExact(cleanupCollection("persons")));
+        deleted.put("sources", Math.toIntExact(cleanupCollection("sources")));
+        deleted.put("submitters", Math.toIntExact(cleanupCollection("submitters")));
         final int total = deleted.get("roots")
             + deleted.get("persons")
             + deleted.get("sources")
@@ -71,10 +71,10 @@ public class DuplicateCleanupService {
      * @param collectionName the Mongo collection to clean
      * @return number of deleted documents
      */
-    private int cleanupCollection(final String collectionName) {
+    private long cleanupCollection(final String collectionName) {
         final Map<String, List<Object>> idsByKey = groupedIdsByKey(collectionName);
 
-        int deletedCount = 0;
+        long deletedCount = 0L;
         for (final List<Object> ids : idsByKey.values()) {
             if (ids.size() <= 1) {
                 continue;
@@ -85,7 +85,7 @@ public class DuplicateCleanupService {
             final Query deleteQuery = Query.query(Criteria.where("_id").in(idsToDelete));
             final DeleteResult deleteResult =
                 mongoTemplate.remove(deleteQuery, collectionName);
-            deletedCount += (int) deleteResult.getDeletedCount();
+            deletedCount += deleteResult.getDeletedCount();
         }
         return deletedCount;
     }
