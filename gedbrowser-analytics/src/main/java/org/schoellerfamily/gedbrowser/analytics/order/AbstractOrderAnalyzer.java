@@ -25,9 +25,9 @@ public abstract class AbstractOrderAnalyzer {
     private Attribute seenEvent;
 
     /**
-     * Executes abstract order analyzer.
+     * Creates a new abstract order analyzer.
      *
-     * @param result the result
+     * @param result the accumulated result of the analysis
      */
     protected AbstractOrderAnalyzer(final OrderAnalyzerResult result) {
         this.result = result;
