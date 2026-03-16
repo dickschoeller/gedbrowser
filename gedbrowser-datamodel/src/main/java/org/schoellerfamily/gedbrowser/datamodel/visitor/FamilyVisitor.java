@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +17,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class FamilyVisitor implements GedObjectVisitor {
-    /**
-     * Creates a new FamilyVisitor.
-     */
-    public FamilyVisitor() {
-    }
 
     /**
      * The wife found value.

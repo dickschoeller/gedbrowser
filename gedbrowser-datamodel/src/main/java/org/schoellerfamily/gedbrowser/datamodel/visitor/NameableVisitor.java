@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -10,12 +12,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class NameableVisitor implements GedObjectVisitor {
-    /**
-     * Creates a new NameableVisitor.
-     */
-    public NameableVisitor() {
-    }
 
     /**
      * Hold the name for the person.

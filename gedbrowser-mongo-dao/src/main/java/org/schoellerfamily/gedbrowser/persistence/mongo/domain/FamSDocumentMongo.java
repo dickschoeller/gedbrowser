@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
@@ -13,12 +15,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class FamSDocumentMongo extends GedDocumentMongo<FamS> implements FamSDocument {
-    /**
-     * Creates a new FamSDocumentMongo.
-     */
-    public FamSDocumentMongo() {
-    }
 
     /**
      * Gets the type.

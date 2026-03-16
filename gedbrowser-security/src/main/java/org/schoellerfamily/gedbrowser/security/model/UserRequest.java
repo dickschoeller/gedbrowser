@@ -1,16 +1,14 @@
 package org.schoellerfamily.gedbrowser.security.model;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Represents a request for user.
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public class UserRequest {
-    /**
-     * Creates a new UserRequest.
-     */
-    public UserRequest() {
-    }
 
     /**
      * The request ID.

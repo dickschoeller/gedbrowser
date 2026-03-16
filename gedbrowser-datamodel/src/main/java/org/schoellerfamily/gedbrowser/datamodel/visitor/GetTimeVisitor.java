@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 
 /**
@@ -7,12 +9,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class GetTimeVisitor implements GedObjectVisitor {
-    /**
-     * Creates a new GetTimeVisitor.
-     */
-    public GetTimeVisitor() {
-    }
 
     /**
      * Accumulates the best time information.

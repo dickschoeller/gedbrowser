@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
@@ -7,6 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Name extends GedObject implements Nameable {
     /**
      * Holds the surname, which was parsed from the input string.
@@ -21,12 +24,6 @@ public final class Name extends GedObject implements Nameable {
      */
     private String suffix = "";
 
-    /**
-     * Creates a new Name.
-     */
-    public Name() {
-        super();
-    }
 
     /**
      * Creates a new Name.

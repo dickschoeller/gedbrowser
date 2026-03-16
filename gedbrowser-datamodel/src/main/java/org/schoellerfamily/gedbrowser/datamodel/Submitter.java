@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 
@@ -8,13 +10,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Submitter extends AbstractSource implements Nameable {
-    /**
-     * Creates a new Submitter.
-     */
-    public Submitter() {
-        super();
-    }
 
     /**
      * Creates a new Submitter.

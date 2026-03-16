@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.users;
 
+import lombok.NoArgsConstructor;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,12 +15,8 @@ import lombok.extern.slf4j.Slf4j;
  * @author Richard Schoeller
  */
 @Slf4j
+@NoArgsConstructor
 public class HasRoles {
-    /**
-     * Creates a new HasRoles.
-     */
-    public HasRoles() {
-    }
 
     /**
      * Performs method.

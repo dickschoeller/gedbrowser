@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.util;
 
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -11,12 +13,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class PersonComparator implements Comparator<Person>, Serializable {
-    /**
-     * Creates a new PersonComparator.
-     */
-    public PersonComparator() {
-    }
 
     /**
      * The serial version u i d value.

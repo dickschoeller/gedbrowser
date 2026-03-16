@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
@@ -13,13 +15,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class ChildDocumentMongo extends GedDocumentMongo<Child>
         implements ChildDocument {
-    /**
-     * Creates a new ChildDocumentMongo.
-     */
-    public ChildDocumentMongo() {
-    }
 
     /**
      * Gets the type.

@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.util;
 
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -13,13 +15,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GetString;
  * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.CyclomaticComplexity")
+@NoArgsConstructor
 public final class GetStringComparator
         implements Comparator<GetString>, Serializable {
-    /**
-     * Creates a new GetStringComparator.
-     */
-    public GetStringComparator() {
-    }
 
     /**
      * The serial version u i d value.

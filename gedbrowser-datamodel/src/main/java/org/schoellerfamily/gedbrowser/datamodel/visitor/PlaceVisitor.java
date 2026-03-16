@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -16,12 +18,8 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class PlaceVisitor implements GedObjectVisitor {
-    /**
-     * Creates a new PlaceVisitor.
-     */
-    public PlaceVisitor() {
-    }
 
     /**
      * Performs method.

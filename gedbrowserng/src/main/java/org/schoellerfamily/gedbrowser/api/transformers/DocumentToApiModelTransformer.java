@@ -8,20 +8,15 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents document to api model transformer.
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public class DocumentToApiModelTransformer {
-    /**
-     * Creates a new DocumentToApiModelTransformer.
-     */
-    public DocumentToApiModelTransformer() {
-        super();
-    }
-
     /**
      * Executes convert.
      *

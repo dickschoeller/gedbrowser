@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
@@ -7,13 +9,8 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class SourceLink extends AbstractLink {
-    /**
-     * Creates a new SourceLink.
-     */
-    public SourceLink() {
-        super();
-    }
 
     /**
      * Creates a new SourceLink.

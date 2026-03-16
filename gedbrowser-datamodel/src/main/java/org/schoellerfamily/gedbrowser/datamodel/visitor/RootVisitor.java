@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -15,12 +17,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class RootVisitor implements GedObjectVisitor {
-    /**
-     * Creates a new RootVisitor.
-     */
-    public RootVisitor() {
-    }
 
     /**
      * Performs method.

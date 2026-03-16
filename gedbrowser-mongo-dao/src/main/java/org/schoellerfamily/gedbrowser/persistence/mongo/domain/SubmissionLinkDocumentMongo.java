@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
@@ -13,13 +15,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class SubmissionLinkDocumentMongo extends GedDocumentMongo<SubmissionLink>
     implements SubmissionLinkDocument {
-    /**
-     * Creates a new SubmissionLinkDocumentMongo.
-     */
-    public SubmissionLinkDocumentMongo() {
-    }
 
     /**
      * Gets the type.

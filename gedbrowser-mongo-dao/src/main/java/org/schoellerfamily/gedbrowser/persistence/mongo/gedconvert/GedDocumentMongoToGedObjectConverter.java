@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
@@ -13,12 +15,8 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public class GedDocumentMongoToGedObjectConverter {
-    /**
-     * Creates a new GedDocumentMongoToGedObjectConverter.
-     */
-    public GedDocumentMongoToGedObjectConverter() {
-    }
 
     /**
      * Creates the ged object.

@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
@@ -7,14 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Place extends AbstractAttribute
         implements Comparable<Place> {
-    /**
-     * Creates a new Place.
-     */
-    public Place() {
-        super();
-    }
 
     /**
      * Creates a new Place.

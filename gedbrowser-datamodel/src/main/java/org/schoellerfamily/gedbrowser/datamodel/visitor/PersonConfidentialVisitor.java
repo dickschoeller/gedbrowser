@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -9,12 +11,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class PersonConfidentialVisitor implements GedObjectVisitor {
-    /**
-     * Creates a new PersonConfidentialVisitor.
-     */
-    public PersonConfidentialVisitor() {
-    }
 
     /**
      * Has a confidential setting.

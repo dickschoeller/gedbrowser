@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
@@ -13,13 +15,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
         implements MultimediaDocument {
-    /**
-     * Creates a new MultimediaDocumentMongo.
-     */
-    public MultimediaDocumentMongo() {
-    }
 
     /**
      * The tail value.

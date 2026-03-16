@@ -1,16 +1,14 @@
 package org.schoellerfamily.gedbrowser.datamodel.users;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Represents user impl in the domain model.
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class UserImpl extends HasRoles implements User {
-    /**
-     * Creates a new UserImpl.
-     */
-    public UserImpl() {
-    }
 
     /**
      * The username value.

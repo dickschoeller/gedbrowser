@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
@@ -9,12 +11,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class MultimediaVisitor implements GedObjectVisitor {
-    /**
-     * Creates a new MultimediaVisitor.
-     */
-    public MultimediaVisitor() {
-    }
 
     /**
      * The file path value.

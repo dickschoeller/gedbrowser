@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.users;
 
+import lombok.NoArgsConstructor;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,12 +12,8 @@ import java.util.Map;
  * @author Richard Schoeller
  * @param <T> the contained type
  */
+@NoArgsConstructor
 public final class UsersImpl<T extends User> implements Users<T> {
-    /**
-     * Creates a new UsersImpl.
-     */
-    public UsersImpl() {
-    }
 
     /**
      * Performs method.
