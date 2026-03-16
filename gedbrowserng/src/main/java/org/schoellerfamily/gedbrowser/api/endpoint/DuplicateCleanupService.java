@@ -5,12 +5,12 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.bson.Document;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.util.CloseableIterator;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.client.result.DeleteResult;
@@ -124,27 +124,28 @@ public class DuplicateCleanupService {
             .include("filename")
             .include("string");
         final Map<String, List<Object>> idsByKey = new LinkedHashMap<>();
-        try (CloseableIterator<Document> documents =
+        try (Stream<Document> documents =
                 mongoTemplate.stream(query, Document.class, collectionName)) {
-            while (documents.hasNext()) {
-                final Document doc = documents.next();
+            documents.forEach(doc -> {
                 final Object id = doc.get("_id");
                 if (id == null) {
-                    continue;
+                    return;
                 }
                 final String key = buildKey(doc);
                 if (key == null) {
                     log.warn("Skipping document without valid filename/string in {}: id={}",
                         collectionName, id);
-                    continue;
+                    return;
                 }
                 List<Object> ids = idsByKey.get(key);
                 if (ids == null) {
-                    ids = newIdList();
-                    idsByKey.put(key, ids);
+                    final List<Object> newIds = newIdList();
+                    idsByKey.put(key, newIds);
+                    newIds.add(id);
+                } else {
+                    ids.add(id);
                 }
-                ids.add(id);
-            }
+            });
         }
         return idsByKey;
     }
