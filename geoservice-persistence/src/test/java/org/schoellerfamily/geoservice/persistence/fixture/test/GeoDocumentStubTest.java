@@ -9,7 +9,9 @@ import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoDocumentStub;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for geo document stub.
+ *
+ * @author Richard Schoeller
  */
 final class GeoDocumentStubTest {
     @Test

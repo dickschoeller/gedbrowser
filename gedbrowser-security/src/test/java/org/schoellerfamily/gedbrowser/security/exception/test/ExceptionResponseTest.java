@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.exception.ExceptionResponse;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for exception response.
+ *
+ * @author Richard Schoeller
  */
 class ExceptionResponseTest {
     @Test

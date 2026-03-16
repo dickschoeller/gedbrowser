@@ -3,10 +3,9 @@ package org.schoellerfamily.gedbrowser.datamodel.appender;
 import org.schoellerfamily.gedbrowser.datamodel.Tail;
 
 /**
- * Implements the means by which string are appended in attributes, which is to
- * the tail string.
+ * Represents tail appender in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class TailAppender implements AppenderStrategy {
     /**

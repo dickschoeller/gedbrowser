@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for finder strategy.
+ *
+ * @author Richard Schoeller
  */
 public interface FinderStrategy {
     /**

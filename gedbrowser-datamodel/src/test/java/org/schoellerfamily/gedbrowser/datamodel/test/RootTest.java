@@ -20,7 +20,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for root.
+ *
+ * @author Richard Schoeller
  */
 final class RootTest {
     /** */

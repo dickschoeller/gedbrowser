@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents source link in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class SourceLink extends AbstractLink {
     /**
      * Creates a new SourceLink.
-     *
      */
     public SourceLink() {
         super();

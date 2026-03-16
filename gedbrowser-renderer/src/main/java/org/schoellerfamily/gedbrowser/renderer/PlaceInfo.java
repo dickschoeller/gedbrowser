@@ -11,8 +11,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents place info.
+ *
+ * @author Richard Schoeller
  */
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)

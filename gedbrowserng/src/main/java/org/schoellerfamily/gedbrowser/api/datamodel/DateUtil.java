@@ -6,7 +6,9 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 /**
- * @author Dick Schoeller
+ * Represents date util in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public class DateUtil {
     /**

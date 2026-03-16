@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import java.util.Arrays;
 
 /**
- * Contains a few common methods used in complex renderers.
+ * Renders complex output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface ComplexRenderer {
     /**

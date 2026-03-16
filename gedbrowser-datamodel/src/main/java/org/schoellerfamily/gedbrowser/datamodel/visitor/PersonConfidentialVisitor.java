@@ -5,9 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * Visitor for determining a person's relationships.
+ * Visits person confidential elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class PersonConfidentialVisitor implements GedObjectVisitor {
     /**

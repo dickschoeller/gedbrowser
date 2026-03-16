@@ -10,8 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 
 /**
- * @author Dick Schoeller
+ * Reads users data from an external source.
  *
+ * @author Richard Schoeller
  * @param <T> the type of User implementation
  * @param <U> the type of Users implementation
  */

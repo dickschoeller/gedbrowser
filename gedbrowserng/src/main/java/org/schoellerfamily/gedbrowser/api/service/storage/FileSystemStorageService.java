@@ -16,11 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Implementation of StorageService that keeps the files in a known location on
- * the file system.
+ * Provides services for file system storage.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Service
 @RequiredArgsConstructor

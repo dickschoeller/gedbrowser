@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.api.service.storage;
 
 /**
- * @author Dick Schoeller
+ * Represents an error related to storage.
+ *
+ * @author Richard Schoeller
  */
 public class StorageException extends RuntimeException {
     /** */

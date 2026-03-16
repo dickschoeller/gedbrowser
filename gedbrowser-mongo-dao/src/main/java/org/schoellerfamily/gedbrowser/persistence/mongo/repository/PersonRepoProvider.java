@@ -4,9 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implements a mixin that provides the person repository.
+ * Provides person repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface PersonRepoProvider extends HasRepoMap {
     /**

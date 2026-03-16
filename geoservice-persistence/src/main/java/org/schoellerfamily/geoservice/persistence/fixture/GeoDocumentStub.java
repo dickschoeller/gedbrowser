@@ -6,7 +6,9 @@ import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 import com.google.maps.model.GeocodingResult;
 
 /**
- * @author Dick Schoeller
+ * Provides a stub implementation for geo document.
+ *
+ * @author Richard Schoeller
  */
 public final class GeoDocumentStub implements GeoDocument {
     /** */
@@ -14,7 +16,6 @@ public final class GeoDocumentStub implements GeoDocument {
 
     /**
      * Creates a new GeoDocumentStub.
-     *
      */
     public GeoDocumentStub() {
         item = null;

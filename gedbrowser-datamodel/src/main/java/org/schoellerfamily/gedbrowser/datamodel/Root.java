@@ -8,7 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.finder.RootFinder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents root in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Root extends AbstractSpecialObject {
     /** */
@@ -32,7 +34,6 @@ public final class Root extends AbstractSpecialObject {
 
     /**
      * Creates a new Root.
-     *
      */
     public Root() {
         this(new RootFinder());

@@ -11,11 +11,12 @@ import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Loads a GedObject from a file into a MongoDB database. Returns the root as a
- * GedObject.
+ * Represents ged object file loader.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class GedObjectFileLoader extends GedDocumentFileLoader {

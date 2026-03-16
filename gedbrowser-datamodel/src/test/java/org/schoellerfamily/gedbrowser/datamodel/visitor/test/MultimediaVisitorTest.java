@@ -33,7 +33,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for multimedia visitor.
+ *
+ * @author Richard Schoeller
  */
 final class MultimediaVisitorTest {
     @Test

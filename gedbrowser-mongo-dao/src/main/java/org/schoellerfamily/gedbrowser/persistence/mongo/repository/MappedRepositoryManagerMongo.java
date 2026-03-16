@@ -6,9 +6,9 @@ import java.util.Map;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * Implements getting the map for the various mapped repository managers.
+ * Represents mapped repository manager mongo for persistence operations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public abstract class MappedRepositoryManagerMongo implements HasRepoMap {
     /**

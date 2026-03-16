@@ -12,7 +12,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for root constructor.
+ *
+ * @author Richard Schoeller
  */
 final class RootConstructorTest {
     @SuppressWarnings("checkstyle:nowhitespaceafter")

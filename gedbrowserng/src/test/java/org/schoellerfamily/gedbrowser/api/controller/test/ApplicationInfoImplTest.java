@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.controller.ApplicationInfoImpl;
 
 /**
- * Tests for {@link ApplicationInfoImpl}.
+ * Contains tests for application info impl.
  */
 final class ApplicationInfoImplTest {
 

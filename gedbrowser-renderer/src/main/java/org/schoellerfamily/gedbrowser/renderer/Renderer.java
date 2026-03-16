@@ -4,7 +4,9 @@ import java.text.DateFormat;
 import java.util.Locale;
 
 /**
- * @author Dick Schoeller
+ * Renders renderer output for display.
+ *
+ * @author Richard Schoeller
  */
 public interface Renderer {
     /**

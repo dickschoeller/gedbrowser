@@ -28,7 +28,9 @@ import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for ged writer line.
+ *
+ * @author Richard Schoeller
  */
 class GedWriterLineTest {
     /** */

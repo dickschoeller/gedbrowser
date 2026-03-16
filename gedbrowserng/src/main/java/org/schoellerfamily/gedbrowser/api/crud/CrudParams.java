@@ -5,10 +5,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
 /**
- * This class manages sharing the basic configurations for CRUD behavior among
- * several cooperating CRUD processors.
+ * Represents crud params.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class CrudParams {
     /** */

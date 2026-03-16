@@ -2,10 +2,13 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
+
+
 /**
- * Base class for rendering GedObjects.
+ * Renders ged output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
+ *
  * @param <G> the GedObject type to render.
  */
 @SuppressWarnings({ "PMD.AbstractClassWithoutAbstractMethod" })

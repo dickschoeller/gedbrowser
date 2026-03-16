@@ -4,9 +4,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocume
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
- * Define a few methods for GedDocumentMongo derivatives to implement.
+ * Defines persistence operations for accepts.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface Accepts {
     /**

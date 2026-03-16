@@ -16,8 +16,12 @@ import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for users configuration.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class })
 public final class UsersConfigurationTest {

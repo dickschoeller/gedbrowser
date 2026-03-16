@@ -5,8 +5,12 @@ import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
+
+
 /**
- * @author Dick Schoeller
+ * Renders attributes output for display.
+ *
+ * @author Richard Schoeller
  *
  * @param <T> the data type being rendered
  */

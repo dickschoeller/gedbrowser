@@ -16,7 +16,9 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for person navigator.
+ *
+ * @author Richard Schoeller
  */
 final class PersonNavigatorTest {
     /** */

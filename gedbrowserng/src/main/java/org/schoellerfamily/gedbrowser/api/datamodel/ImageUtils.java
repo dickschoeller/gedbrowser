@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.api.datamodel;
 import java.util.Locale;
 
 /**
- * @author Dick Schoeller
+ * Represents image utils in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public class ImageUtils {
     /**

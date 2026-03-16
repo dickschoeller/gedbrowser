@@ -17,8 +17,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for head.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
 final class HeadTest {

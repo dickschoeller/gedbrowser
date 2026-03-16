@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.users;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for user.
+ *
+ * @author Richard Schoeller
  */
 public interface User {
     /**

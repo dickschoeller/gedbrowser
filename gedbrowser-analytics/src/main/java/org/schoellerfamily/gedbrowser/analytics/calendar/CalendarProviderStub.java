@@ -7,10 +7,12 @@ import org.joda.time.LocalDate;
 
 import lombok.NoArgsConstructor;
 
+
+
 /**
- * A version of CalendarProvider that always returns the same values for testing.
+ * Provides a stub implementation for calendar provider.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @NoArgsConstructor
 public final class CalendarProviderStub implements CalendarProvider {

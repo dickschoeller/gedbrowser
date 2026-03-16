@@ -57,8 +57,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocu
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents ged object to ged document mongo converter for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
 public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
@@ -96,7 +100,6 @@ public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
 
     /**
      * Creates a new GedObjectToGedDocumentMongoConverter.
-     *
      */
     public GedObjectToGedDocumentMongoConverter() {
         // Empty

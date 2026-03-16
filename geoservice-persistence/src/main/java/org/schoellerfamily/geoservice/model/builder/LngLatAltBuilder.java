@@ -5,7 +5,9 @@ import org.geojson.LngLatAlt;
 import com.google.maps.model.LatLng;
 
 /**
- * @author Dick Schoeller
+ * Builds lng lat alt instances.
+ *
+ * @author Richard Schoeller
  */
 public interface LngLatAltBuilder {
     /**

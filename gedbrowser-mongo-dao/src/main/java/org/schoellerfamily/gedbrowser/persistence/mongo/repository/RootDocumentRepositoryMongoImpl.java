@@ -15,9 +15,12 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents root document repository mongo impl for persistence operations.
  *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public class RootDocumentRepositoryMongoImpl implements

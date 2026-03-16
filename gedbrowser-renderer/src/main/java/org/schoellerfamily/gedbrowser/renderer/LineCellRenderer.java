@@ -1,11 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * Render a cell that is empty but has additional class text
- * for the table displays the ancestor tree.  The extra class
- * cells are used for line drawing.
+ * Renders line cell output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class LineCellRenderer implements CellRenderer {
     /** */

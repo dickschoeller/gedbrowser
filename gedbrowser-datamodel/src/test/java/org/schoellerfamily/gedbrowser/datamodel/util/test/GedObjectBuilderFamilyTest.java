@@ -15,7 +15,9 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object builder family.
+ *
+ * @author Richard Schoeller
  */
 final class GedObjectBuilderFamilyTest {
     private final GedObjectBuilder builder = new GedObjectBuilder();

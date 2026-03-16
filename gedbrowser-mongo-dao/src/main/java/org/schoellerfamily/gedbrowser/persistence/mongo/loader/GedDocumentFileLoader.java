@@ -32,8 +32,12 @@ import org.springframework.dao.DataAccessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents ged document file loader for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 @RequiredArgsConstructor

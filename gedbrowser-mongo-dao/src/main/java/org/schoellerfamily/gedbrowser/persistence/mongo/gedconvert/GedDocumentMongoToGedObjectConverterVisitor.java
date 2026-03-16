@@ -15,7 +15,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMong
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 
 /**
- * @author Dick Schoeller
+ * Visits ged document mongo to ged object converter elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public final class GedDocumentMongoToGedObjectConverterVisitor
         extends GedLinkDocumentMongoToGedObjectConverterVisitor {

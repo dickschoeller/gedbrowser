@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocume
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents date document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 public final class DateDocumentMongo extends GedDocumentMongo<Date>
         implements DateDocument {

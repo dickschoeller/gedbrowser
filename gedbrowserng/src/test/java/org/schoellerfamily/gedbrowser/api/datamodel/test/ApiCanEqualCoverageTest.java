@@ -12,8 +12,10 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiTail;
 
+
+
 /**
- * Additional canEqual coverage tests for API datamodel classes/builders.
+ * Contains tests for api can equal coverage.
  */
 @SuppressWarnings("PMD.TooManyMethods")
 final class ApiCanEqualCoverageTest {

@@ -31,7 +31,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import tools.jackson.databind.ObjectMapper;
 
+
+
 /**
+ * Contains integration tests for the upload controller.
+ *
  * @author Richard Schoeller
  */
 @ExtendWith(MockitoExtension.class)

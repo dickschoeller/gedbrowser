@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 
 /**
- * @author Dick Schoeller
+ * Visits date line elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface DateLineVisitor extends GedObjectLineVisitor {
     /**

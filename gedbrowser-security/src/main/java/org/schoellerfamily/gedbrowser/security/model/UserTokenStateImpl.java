@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.security.model;
 
 /**
- * Carries the state of a user's access token.
+ * Represents user token state impl.
  */
 public class UserTokenStateImpl implements UserTokenState {
     /**
@@ -16,7 +16,6 @@ public class UserTokenStateImpl implements UserTokenState {
 
     /**
      * Creates a new UserTokenStateImpl.
-     *
      */
     public UserTokenStateImpl() {
         this.accessToken = "";

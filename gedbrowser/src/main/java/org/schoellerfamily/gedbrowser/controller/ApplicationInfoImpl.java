@@ -7,11 +7,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Implementation of ApplicationInfo that gets its data from application
- * properties.
+ * Handles requests related to application info impl.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

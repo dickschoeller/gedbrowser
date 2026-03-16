@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 /**
- * Class represents the ID strings for 8 great-grandparents.
+ * Represents great grand parent ids.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GreatGrandParentIds {
     /** */

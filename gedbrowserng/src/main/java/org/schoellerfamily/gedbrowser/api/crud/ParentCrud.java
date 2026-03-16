@@ -10,8 +10,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents parent crud.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class ParentCrud extends RelationsCrud {

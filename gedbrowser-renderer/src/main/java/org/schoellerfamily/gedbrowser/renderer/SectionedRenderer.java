@@ -1,8 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders sectioned output for display.
  *
+ * @author Richard Schoeller
  */
 public class SectionedRenderer extends RenderingContextRenderer {
     /** */

@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * @author Dick Schoeller
+ * Renders attribute list open output for display.
+ *
+ * @author Richard Schoeller
  */
 public interface AttributeListOpenRenderer {
     /**

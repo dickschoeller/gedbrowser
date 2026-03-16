@@ -13,8 +13,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Visits save elements and applies visitor logic.
  *
+ * @author Richard Schoeller
  */
 public final class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
     /** */

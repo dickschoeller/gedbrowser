@@ -12,7 +12,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 
 /**
- * @author Dick Schoeller
+ * Visits ged object to ged writer elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
         RootLineVisitor, LinkLineVisitor, DateLineVisitor,

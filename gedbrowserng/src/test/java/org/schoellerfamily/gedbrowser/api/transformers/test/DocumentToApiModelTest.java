@@ -16,7 +16,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for document to api model.
+ *
+ * @author Richard Schoeller
  */
 class DocumentToApiModelTest {
     @Test
@@ -40,7 +42,7 @@ class DocumentToApiModelTest {
     }
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private final class GedDocumentStub implements GedDocument<GedObject> {
         /**
@@ -185,7 +187,6 @@ class DocumentToApiModelTest {
 
         /**
          * Executes clear attributes.
-         *
          */
         @Override
         public void clearAttributes() {

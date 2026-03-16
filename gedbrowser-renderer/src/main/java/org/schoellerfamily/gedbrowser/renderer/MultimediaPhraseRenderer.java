@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
 /**
- * @author Dick Schoeller
+ * Renders multimedia phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class MultimediaPhraseRenderer implements PhraseRenderer {
     /**

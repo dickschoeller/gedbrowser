@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Compares person values.
+ *
+ * @author Richard Schoeller
  */
 public final class PersonComparator implements Comparator<Person>, Serializable {
     /** */

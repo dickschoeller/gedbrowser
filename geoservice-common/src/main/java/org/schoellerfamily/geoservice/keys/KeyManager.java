@@ -1,7 +1,9 @@
 package org.schoellerfamily.geoservice.keys;
 
 /**
- * @author Dick Schoeller
+ * Manages key operations.
+ *
+ * @author Richard Schoeller
  */
 public interface KeyManager {
     /**

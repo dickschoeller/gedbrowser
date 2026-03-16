@@ -4,7 +4,7 @@ package org.schoellerfamily.gedbrowser.datamodel.users;
  * Roles. Any access without roles is read-only and limited data
  * visibility.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public enum UserRoleName {
     /**

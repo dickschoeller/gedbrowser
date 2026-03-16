@@ -6,7 +6,9 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
- * @author Dick Schoeller
+ * Represents anon authentication.
+ *
+ * @author Richard Schoeller
  */
 public final class AnonAuthentication extends AbstractAuthenticationToken {
     /** */
@@ -17,7 +19,6 @@ public final class AnonAuthentication extends AbstractAuthenticationToken {
 
     /**
      * Creates a new AnonAuthentication.
-     *
      */
     public AnonAuthentication() {
         super((Collection<? extends GrantedAuthority>) null);

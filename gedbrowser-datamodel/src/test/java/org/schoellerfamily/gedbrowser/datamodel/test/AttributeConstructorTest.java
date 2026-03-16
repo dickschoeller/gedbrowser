@@ -14,10 +14,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * Data driven tests of the permutations of calling the constructors of
- * Attribute.
+ * Contains tests for attribute constructor.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 final class AttributeConstructorTest {
 

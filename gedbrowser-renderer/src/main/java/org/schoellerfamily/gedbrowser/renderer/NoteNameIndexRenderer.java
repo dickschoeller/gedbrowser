@@ -3,8 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 
 /**
- * @author Dick Schoeller
+ * Renders note name index output for display.
  *
+ * @author Richard Schoeller
  */
 public class NoteNameIndexRenderer implements NameIndexRenderer {
     /** */

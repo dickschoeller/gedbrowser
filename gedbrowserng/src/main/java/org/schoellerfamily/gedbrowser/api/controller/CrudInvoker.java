@@ -6,8 +6,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests related to crud invoker.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 @RequiredArgsConstructor

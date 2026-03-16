@@ -7,7 +7,9 @@ import java.util.Map;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 
 /**
- * @author Dick Schoeller
+ * Represents security users.
+ *
+ * @author Richard Schoeller
  */
 public final class SecurityUsers implements Users<SecurityUser> {
     /** Holds the known users. */
@@ -62,7 +64,6 @@ public final class SecurityUsers implements Users<SecurityUser> {
 
     /**
      * Executes clear.
-     *
      */
     @Override
     public void clear() {

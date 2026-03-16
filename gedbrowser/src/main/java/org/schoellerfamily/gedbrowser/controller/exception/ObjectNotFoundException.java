@@ -4,9 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 
 /**
- * Exception thrown when an object is not found.
+ * Represents an error related to object not found.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class ObjectNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 3L;

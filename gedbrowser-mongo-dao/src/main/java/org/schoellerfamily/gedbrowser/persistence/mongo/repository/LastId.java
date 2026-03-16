@@ -9,8 +9,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 /**
+ * Defines persistence operations for last id.
+ *
  * @param <T> the GedDocumentMongo type we are dealing with
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface LastId<T extends GedDocumentMongo<?>> {
     /**

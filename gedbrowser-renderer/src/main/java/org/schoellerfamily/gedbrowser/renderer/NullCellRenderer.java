@@ -1,10 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * Render an empty location in the table that is used for
- * the ancestor tree.
+ * Renders null cell output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class NullCellRenderer implements CellRenderer {
     /**

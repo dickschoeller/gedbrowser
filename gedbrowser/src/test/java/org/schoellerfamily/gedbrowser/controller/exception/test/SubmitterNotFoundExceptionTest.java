@@ -12,7 +12,9 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for submitter not found exception.
+ *
+ * @author Richard Schoeller
  */
 class SubmitterNotFoundExceptionTest {
     /** */

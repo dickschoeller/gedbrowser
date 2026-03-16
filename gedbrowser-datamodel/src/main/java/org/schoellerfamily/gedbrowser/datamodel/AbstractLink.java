@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 /**
- * @author Dick Schoeller
+ * Represents abstract link in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public abstract class AbstractLink extends GedObject {
     /**
@@ -15,7 +17,6 @@ public abstract class AbstractLink extends GedObject {
 
     /**
      * Creates a new AbstractLink.
-     *
      */
     protected AbstractLink() {
         super();

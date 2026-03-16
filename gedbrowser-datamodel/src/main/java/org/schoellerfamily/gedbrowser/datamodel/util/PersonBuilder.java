@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
- * @author Dick Schoeller
+ * Builds person instances.
+ *
+ * @author Richard Schoeller
  */
 public interface PersonBuilder {
     /**

@@ -22,8 +22,10 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.health.contributor.Health;
 
+
+
 /**
- * Tests endpoint support components.
+ * Contains tests for endpoint components.
  */
 @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
 final class EndpointComponentsTest {

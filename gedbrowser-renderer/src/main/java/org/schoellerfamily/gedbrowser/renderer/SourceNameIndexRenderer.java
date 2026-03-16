@@ -3,8 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 
 /**
- * @author Dick Schoeller
+ * Renders source name index output for display.
  *
+ * @author Richard Schoeller
  */
 public class SourceNameIndexRenderer implements NameIndexRenderer {
     /** */

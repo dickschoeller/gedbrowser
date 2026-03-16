@@ -2,10 +2,12 @@ package org.schoellerfamily.gedbrowser.analytics;
 
 import lombok.NoArgsConstructor;
 
+
+
 /**
- * Encapsulates typical values used in age calculations.
+ * Represents standard typicals.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @NoArgsConstructor
 public final class StandardTypicals implements Typicals {

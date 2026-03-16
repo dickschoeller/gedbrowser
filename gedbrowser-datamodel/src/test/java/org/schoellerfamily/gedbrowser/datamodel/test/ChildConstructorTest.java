@@ -13,6 +13,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+/**
+ * Contains tests for child constructor.
+ */
+
 final class ChildConstructorTest {
 
     @SuppressWarnings("checkstyle:nowhitespaceafter")

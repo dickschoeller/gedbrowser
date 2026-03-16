@@ -16,9 +16,9 @@ import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
- * Render a Person.
+ * Renders person output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class PersonRenderer extends GedRenderer<Person>
         implements HeaderHrefRenderer<Person>, IndexHrefRenderer<Person>,

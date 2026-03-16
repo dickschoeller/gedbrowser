@@ -15,8 +15,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import tools.jackson.databind.ObjectMapper;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for abstract.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class, TestConfiguration.class, WebSecurityConfig.class })
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")

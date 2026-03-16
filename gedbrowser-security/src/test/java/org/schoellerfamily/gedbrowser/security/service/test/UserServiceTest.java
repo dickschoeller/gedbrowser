@@ -20,7 +20,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for the user service.
+ *
+ * @author Richard Schoeller
  */
 final class UserServiceTest extends AbstractTest {
 

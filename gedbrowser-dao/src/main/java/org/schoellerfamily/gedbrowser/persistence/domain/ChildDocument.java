@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of child.
+ *
+ * @author Richard Schoeller
  */
 public interface ChildDocument extends GedDocument<Child> {
     @Override

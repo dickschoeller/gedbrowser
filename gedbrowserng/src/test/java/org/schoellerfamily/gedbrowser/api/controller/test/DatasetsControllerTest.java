@@ -16,7 +16,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 
 /**
- * Tests for {@link DatasetsController}.
+ * Contains tests for the datasets controller.
  */
 final class DatasetsControllerTest {
 

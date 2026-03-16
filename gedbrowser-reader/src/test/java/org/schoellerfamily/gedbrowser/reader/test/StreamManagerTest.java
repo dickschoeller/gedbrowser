@@ -14,9 +14,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.schoellerfamily.gedbrowser.reader.StreamManager;
 
 /**
- * Test class for StreamManager path validation.
+ * Contains tests for stream manager.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 class StreamManagerTest {
 

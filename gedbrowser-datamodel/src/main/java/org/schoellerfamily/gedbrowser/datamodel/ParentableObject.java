@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for parentable object.
+ *
+ * @author Richard Schoeller
  */
 public interface ParentableObject {
     /**

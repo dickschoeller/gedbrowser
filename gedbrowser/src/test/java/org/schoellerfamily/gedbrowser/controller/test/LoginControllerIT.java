@@ -19,8 +19,12 @@ import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestTemplate;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the login controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(
     classes = { Application.class, TestConfiguration.class },

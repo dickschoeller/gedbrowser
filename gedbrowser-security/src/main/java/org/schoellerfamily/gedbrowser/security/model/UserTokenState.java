@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.security.model;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for user token state.
+ *
+ * @author Richard Schoeller
  */
 public interface UserTokenState {
 

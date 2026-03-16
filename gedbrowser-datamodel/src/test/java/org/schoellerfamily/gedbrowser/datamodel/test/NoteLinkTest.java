@@ -14,6 +14,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+/**
+ * Contains tests for note link.
+ */
+
 final class NoteLinkTest {
 
     @SuppressWarnings("checkstyle:nowhitespaceafter")

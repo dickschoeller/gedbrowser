@@ -12,8 +12,12 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Provides support for testing login test helper behavior.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public final class LoginTestHelper {
@@ -47,7 +51,7 @@ public final class LoginTestHelper {
     }
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     public static final class LoginResponse {
         /**
@@ -61,7 +65,6 @@ public final class LoginTestHelper {
 
         /**
          * Executes login response.
-         *
          */
         public LoginResponse() {
             this.accessToken = null;

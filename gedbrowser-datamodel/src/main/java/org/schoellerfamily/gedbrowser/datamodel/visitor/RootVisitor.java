@@ -11,7 +11,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
- * @author Dick Schoeller
+ * Visits root elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public final class RootVisitor implements GedObjectVisitor {
     /** */

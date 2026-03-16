@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.controller.exception.DataSetNotFoundException;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for data set not found exception.
+ *
+ * @author Richard Schoeller
  */
 class DataSetNotFoundExceptionTest {
     /** */

@@ -4,8 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.appender.TailAppender;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents note in the domain model.
  *
+ * @author Richard Schoeller
  */
 public final class Note extends GedObject implements Tail {
     /** */
@@ -13,7 +14,6 @@ public final class Note extends GedObject implements Tail {
 
     /**
      * Creates a new Note.
-     *
      */
     public Note() {
         super();

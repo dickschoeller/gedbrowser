@@ -12,7 +12,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * @author Dick Schoeller
+ * Visits place elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public final class PlaceVisitor implements GedObjectVisitor {
     /** */

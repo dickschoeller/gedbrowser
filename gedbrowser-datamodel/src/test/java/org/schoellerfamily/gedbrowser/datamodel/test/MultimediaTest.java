@@ -19,8 +19,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for multimedia.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.TooManyMethods")
 final class MultimediaTest {

@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents husband in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Husband extends AbstractLink implements Spouse {
     /**
      * Creates a new Husband.
-     *
      */
     public Husband() {
         super();

@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 
 /**
- * @author Dick Schoeller
+ * Renders note link name index output for display.
+ *
+ * @author Richard Schoeller
  */
 public class NoteLinkNameIndexRenderer implements NameIndexRenderer {
     /** */

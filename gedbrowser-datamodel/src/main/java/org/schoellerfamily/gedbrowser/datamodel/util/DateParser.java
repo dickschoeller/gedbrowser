@@ -8,7 +8,9 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
- * @author Dick Schoeller
+ * Parses date values from textual input.
+ *
+ * @author Richard Schoeller
  */
 public final class DateParser extends SimpleDateParser {
     /** */
@@ -23,7 +25,7 @@ public final class DateParser extends SimpleDateParser {
     private static final String FROM = "FROM";
     /** */
     private static final String BET = "BET";
-
+    /** */
     private static final List<Pair<String, Approximation>> LIST = List.of(
         new ImmutablePair<>(ABT, Approximation.ABOUT),
         new ImmutablePair<>(EST, Approximation.ABOUT),

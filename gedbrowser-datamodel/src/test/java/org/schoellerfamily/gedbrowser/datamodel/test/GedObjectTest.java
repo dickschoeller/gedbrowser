@@ -23,8 +23,12 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 final class GedObjectTest {

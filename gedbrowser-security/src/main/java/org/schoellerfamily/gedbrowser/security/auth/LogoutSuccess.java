@@ -13,8 +13,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import tools.jackson.databind.ObjectMapper;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents logout success.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

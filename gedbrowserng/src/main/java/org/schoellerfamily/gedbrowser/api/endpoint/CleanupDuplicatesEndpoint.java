@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Actuator endpoint to remove duplicate dataset documents.
+ * Exposes operations for the cleanup duplicates endpoint.
  */
 @Component
 @Endpoint(id = "cleanupduplicates")

@@ -3,7 +3,11 @@ package org.schoellerfamily.gedbrowser.api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+
+
 /**
+ * Provides services for mongo properties.
+ *
  * @author dick
  */
 @Service

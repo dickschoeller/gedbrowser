@@ -10,11 +10,12 @@ import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRe
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * This class implements the cache that allows applications to work with the
- * Google geocoding APIs, without running the queries per day limitations.
+ * Provides behavior related to geo code mongo.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.TooManyMethods" })
 @Slf4j
@@ -37,7 +38,6 @@ public final class GeoCodeMongo extends GeoCodeBasic {
 
     /**
      * Executes clear.
-     *
      */
     @Override
     public void clear() {

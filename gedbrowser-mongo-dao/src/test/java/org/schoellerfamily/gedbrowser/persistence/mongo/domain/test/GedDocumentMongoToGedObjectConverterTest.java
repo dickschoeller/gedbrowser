@@ -63,8 +63,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.test.MongoTes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged document mongo to ged object converter.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects", "PMD.TooManyMethods" })
 @ExtendWith(org.springframework.test.context.junit.jupiter.SpringExtension.class)

@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 
 /**
- * Render a SubmitterLink.
+ * Renders submitter link output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class SubmitterLinkRenderer extends
         AbstractLinkRenderer<SubmitterLink> {

@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
- * Render a Wife.
+ * Renders wife output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class WifeRenderer extends AbstractLinkRenderer<Wife> {
     /**

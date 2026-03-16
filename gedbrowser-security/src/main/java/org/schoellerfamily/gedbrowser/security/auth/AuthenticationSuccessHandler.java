@@ -18,8 +18,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import tools.jackson.databind.ObjectMapper;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents authentication success handler.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

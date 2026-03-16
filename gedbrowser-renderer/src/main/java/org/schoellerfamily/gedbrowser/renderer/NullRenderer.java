@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * Renders nothing, used when we don't know what to display.
+ * Renders null output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class NullRenderer extends GedRenderer<GedObject> {
     /**

@@ -3,8 +3,9 @@ package org.schoellerfamily.gedbrowser.datamodel.appender;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 
 /**
- * @author Dick Schoeller
+ * Represents multimedia appender in the domain model.
  *
+ * @author Richard Schoeller
  */
 public final class MultimediaAppender implements AppenderStrategy {
     /**

@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Renders date phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public class DatePhraseRenderer implements PhraseRenderer {
     /**

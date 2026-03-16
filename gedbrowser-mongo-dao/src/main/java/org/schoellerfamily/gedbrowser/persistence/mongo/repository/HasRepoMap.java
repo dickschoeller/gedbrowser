@@ -5,9 +5,9 @@ import java.util.Map;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * Describes getting the map for the various repository managers.
+ * Defines persistence operations for has repo map.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface HasRepoMap {
     /**

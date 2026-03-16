@@ -12,10 +12,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Add our own information to the health indicator.
+ * Reports status information for application health.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 
 /**
- * Render a SourceLink.
+ * Renders source link output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class SourceLinkRenderer extends AbstractLinkRenderer<SourceLink> {
     /**

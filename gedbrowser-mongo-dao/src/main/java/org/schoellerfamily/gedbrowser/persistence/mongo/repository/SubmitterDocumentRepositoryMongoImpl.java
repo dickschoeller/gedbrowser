@@ -16,8 +16,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents submitter document repository mongo impl for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

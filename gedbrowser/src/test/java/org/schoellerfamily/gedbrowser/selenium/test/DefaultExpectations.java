@@ -10,7 +10,9 @@ import org.schoellerfamily.gedbrowser.selenium.pageobjects.GreatGreatGrandParent
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.ParentIds;
 
 /**
- * @author Dick Schoeller
+ * Provides support for testing default expectations behavior.
+ *
+ * @author Richard Schoeller
  */
 public final class DefaultExpectations {
 

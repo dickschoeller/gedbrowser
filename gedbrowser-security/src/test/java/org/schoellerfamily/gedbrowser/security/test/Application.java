@@ -3,8 +3,12 @@ package org.schoellerfamily.gedbrowser.security.test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
+
 /**
- * @author Dick Schoeller
+ * Bootstraps the application.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootApplication
 public class Application {

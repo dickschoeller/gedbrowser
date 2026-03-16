@@ -5,8 +5,9 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily.ApiFamilyBuilder;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson.ApiPersonBuilder;
 
 /**
- * @author Dick Schoeller
+ * Represents crud helper.
  *
+ * @author Richard Schoeller
  */
 public class CrudHelper {
 

@@ -14,8 +14,12 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents person crud.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class PersonCrud

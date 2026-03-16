@@ -25,7 +25,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.TopLevelGedDocumentVisi
 import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
 
 /**
- * @author Dick Schoeller
+ * Visits top level document to api model elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public class TopLevelDocumentToApiModelVisitor
         implements TopLevelGedDocumentVisitor, LifespanBuilder,

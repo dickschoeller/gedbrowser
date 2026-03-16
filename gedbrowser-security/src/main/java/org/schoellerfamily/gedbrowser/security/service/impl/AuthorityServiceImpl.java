@@ -9,10 +9,12 @@ import org.schoellerfamily.gedbrowser.security.service.AuthorityService;
 // import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
 /**
- * TODO Currently not using AuthorityRepository. But probably should be.
+ * Provides behavior related to authority service impl.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Service
 @SuppressWarnings("java:S125")

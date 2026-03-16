@@ -9,8 +9,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for submitter.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.GodClass" })
 final class SubmitterTest {

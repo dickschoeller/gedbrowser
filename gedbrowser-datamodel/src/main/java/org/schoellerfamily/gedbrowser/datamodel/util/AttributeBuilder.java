@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
- * @author Dick Schoeller
+ * Builds attribute instances.
+ *
+ * @author Richard Schoeller
  */
 public interface AttributeBuilder {
     /**

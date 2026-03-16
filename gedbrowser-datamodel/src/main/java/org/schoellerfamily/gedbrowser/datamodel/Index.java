@@ -11,7 +11,9 @@ import java.util.TreeSet;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents index in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Index {
     // TODO It would be nice to organize the last by date, but to do that, we

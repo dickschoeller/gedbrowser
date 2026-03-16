@@ -22,8 +22,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents token authentication filter.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

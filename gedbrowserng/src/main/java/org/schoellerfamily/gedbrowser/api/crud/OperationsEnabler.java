@@ -7,8 +7,10 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
 /**
+ * Represents operations enabler.
+ *
  * @param <X> the data model type we are creating
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public abstract class OperationsEnabler<
     X extends GedObject> extends CrudParams {

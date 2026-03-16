@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Build the token table. Broken up into a bunch of steps to reduce complexity
- * scores.
+ * Represents token table initializer in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class TokenTableInitializer {
     /**
@@ -185,7 +184,6 @@ public final class TokenTableInitializer {
 
     /**
      * Creates a new TokenTableInitializer.
-     *
      */
     public TokenTableInitializer() {
         initAttributeTokens();

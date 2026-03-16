@@ -14,7 +14,9 @@ import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
 /**
- * @author Dick Schoeller
+ * Provides support for testing user test helper behavior.
+ *
+ * @author Richard Schoeller
  */
 public class UserTestHelper {
     /** */

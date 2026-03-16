@@ -12,12 +12,12 @@ import org.apache.commons.lang3.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Provides the means to pre-load the cache with some expected places. This is
- * the primary means by which we provide different modern place names for
- * places in the cache.
+ * Provides behavior related to geo code loader.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -91,7 +91,7 @@ public class GeoCodeLoader {
     }
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private interface Loader {
         GeoCodeItem load(String placeName, String modernPlaceName);

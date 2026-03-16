@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * @author Dick Schoeller
+ * Renders person name output for display.
+ *
+ * @author Richard Schoeller
  */
 public interface PersonNameRenderer {
     /**

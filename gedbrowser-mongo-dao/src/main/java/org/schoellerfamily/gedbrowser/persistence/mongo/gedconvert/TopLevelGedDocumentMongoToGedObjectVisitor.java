@@ -23,7 +23,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Visits top level ged document mongo to ged object elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
         implements TopLevelGedDocumentMongoVisitor {

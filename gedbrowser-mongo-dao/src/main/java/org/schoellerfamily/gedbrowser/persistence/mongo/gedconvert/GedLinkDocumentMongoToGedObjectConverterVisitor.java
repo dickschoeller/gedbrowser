@@ -23,7 +23,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Visits ged link document mongo to ged object converter elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         extends TopLevelGedDocumentMongoToGedObjectVisitor

@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 
 /**
- * @author Dick Schoeller
+ * Renders submitter name index output for display.
+ *
+ * @author Richard Schoeller
  */
 public class SubmitterNameIndexRenderer implements NameIndexRenderer {
     /** */

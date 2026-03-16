@@ -10,7 +10,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
 /**
- * @author Dick Schoeller
+ * Represents relations crud.
+ *
+ * @author Richard Schoeller
  */
 public abstract class RelationsCrud extends CrudParams implements LinkCrud {
     private final transient CrudHelper helper = new CrudHelper();

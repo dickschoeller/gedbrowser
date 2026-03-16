@@ -17,10 +17,9 @@ import com.google.maps.model.LatLng;
 import com.google.maps.model.LocationType;
 
 /**
- * Builder class to convert between our own geocoding results and
- * Google's types.
+ * Builds geocode result instances.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GeocodeResultBuilder
         implements BoundsBuilder, BoxBuilder, PointBuilder, FeatureBuilder {

@@ -10,12 +10,13 @@ import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 
 /**
- * @author Dick Schoeller
+ * Provides a stub implementation for geo service client.
+ *
+ * @author Richard Schoeller
  */
 public final class GeoServiceClientStub extends GeoServiceClient {
     /**
      * Creates a new GeoServiceClientStub.
-     *
      */
     public GeoServiceClientStub() {
         super(null, null, 0, null);
@@ -23,7 +24,6 @@ public final class GeoServiceClientStub extends GeoServiceClient {
 
     /**
      * Executes init cache.
-     *
      */
     @Override
     protected void initCache() {

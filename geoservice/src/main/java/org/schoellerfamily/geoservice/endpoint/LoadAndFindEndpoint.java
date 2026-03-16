@@ -11,8 +11,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Exposes operations for the load and find endpoint.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @Endpoint(id = "loadAndFind")
@@ -58,7 +62,6 @@ public class LoadAndFindEndpoint extends BaseGeoCodeEndpoint {
 
     /**
      * Executes geo code action.
-     *
      */
     @Override
     public void geoCodeAction() {

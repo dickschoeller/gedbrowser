@@ -12,7 +12,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for get string comparator.
+ *
+ * @author Richard Schoeller
  */
 final class GetStringComparatorTest {
     /** */

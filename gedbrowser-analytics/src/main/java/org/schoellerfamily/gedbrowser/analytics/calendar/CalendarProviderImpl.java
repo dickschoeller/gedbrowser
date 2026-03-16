@@ -6,10 +6,12 @@ import org.joda.time.LocalDate;
 
 import lombok.NoArgsConstructor;
 
+
+
 /**
- * The default implementation of CalendarProvider.
+ * Provides calendar values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @NoArgsConstructor
 public final class CalendarProviderImpl implements CalendarProvider {

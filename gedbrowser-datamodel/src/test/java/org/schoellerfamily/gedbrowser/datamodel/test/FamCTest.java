@@ -14,7 +14,9 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for fam c.
+ *
+ * @author Richard Schoeller
  */
 final class FamCTest {
     /** */

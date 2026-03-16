@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.analytics;
 
 /**
- * Interface describing how to get typical values used in age calculations.
+ * Defines the contract for typicals.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface Typicals {
 

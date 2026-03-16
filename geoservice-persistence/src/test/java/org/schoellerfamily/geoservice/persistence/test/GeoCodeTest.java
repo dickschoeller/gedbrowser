@@ -41,8 +41,12 @@ import com.google.maps.model.LatLng;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for geo code.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
@@ -73,7 +77,7 @@ final class GeoCodeTest {
     /**
      * Manage the configuration for testing the cache.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     @Configuration
     @RequiredArgsConstructor

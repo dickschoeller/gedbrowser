@@ -39,10 +39,12 @@ import com.mongodb.client.MongoClients;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Configuration class for MongoDB access.
+ * Configures components related to mongo.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableMongoRepositories(

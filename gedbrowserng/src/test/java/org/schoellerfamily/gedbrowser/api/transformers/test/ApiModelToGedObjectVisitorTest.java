@@ -25,7 +25,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for api model to ged object visitor.
+ *
+ * @author Richard Schoeller
  */
 class ApiModelToGedObjectVisitorTest {
     /** */

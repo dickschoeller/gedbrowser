@@ -36,15 +36,19 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object visitor.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class GedObjectVisitorTest {
     private final GedObjectVisitorStub visitor = new GedObjectVisitorStub();
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     @SuppressWarnings("PMD.TooManyMethods")
     private static final class GedObjectVisitorStub implements GedObjectVisitor {

@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 
 /**
- * @author Dick Schoeller
+ * Visits source elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public final class SourceVisitor implements GedObjectVisitor {
     /** */

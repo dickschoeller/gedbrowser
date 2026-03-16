@@ -4,10 +4,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+
+
 /**
- * Exception thrown when a submission cannot be found.
+ * Represents an error related to submission not found.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Submission not found")
 public final class SubmissionNotFoundException extends ObjectNotFoundException {

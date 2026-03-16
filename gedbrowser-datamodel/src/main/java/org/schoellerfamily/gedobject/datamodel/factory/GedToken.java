@@ -4,7 +4,7 @@ package org.schoellerfamily.gedobject.datamodel.factory;
  * Associates a GEDCOM token with a full string and a factory for GedObject
  * creation.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 /* default */ class GedToken {
     /** */

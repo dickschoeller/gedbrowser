@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.security.exception;
 
 /**
- * @author Dick Schoeller
+ * Represents an error related to resource conflict.
+ *
+ * @author Richard Schoeller
  */
 public final class ResourceConflictException extends RuntimeException {
     /** */

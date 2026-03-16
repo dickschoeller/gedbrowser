@@ -11,11 +11,12 @@ import org.apache.commons.collections4.CollectionUtils;
 import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressType;
 
+
+
 /**
- * A variant of Google's GeocodingResult that will work with Jackson
- * serialization to JSON.
+ * Represents the result of geo service geocoding processing.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "java:S1168" })
 public final class GeoServiceGeocodingResult {

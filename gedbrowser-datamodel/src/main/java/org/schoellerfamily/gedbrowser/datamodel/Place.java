@@ -3,13 +3,14 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents place in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Place extends AbstractAttribute
         implements Comparable<Place> {
     /**
      * Creates a new Place.
-     *
      */
     public Place() {
         super();

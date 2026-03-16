@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 
 /**
- * Render a Trailer.
+ * Renders trailer output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class TrailerRenderer extends GedRenderer<Trailer> {
     /**

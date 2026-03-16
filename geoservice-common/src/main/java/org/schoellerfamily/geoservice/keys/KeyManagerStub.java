@@ -1,9 +1,9 @@
 package org.schoellerfamily.geoservice.keys;
 
 /**
- * Stub implementation of managing goecoding keys.
+ * Provides a stub implementation for key manager.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class KeyManagerStub implements KeyManager {
     /**

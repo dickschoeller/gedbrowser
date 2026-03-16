@@ -14,9 +14,9 @@ import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
- * Render a Source.
+ * Renders source output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class SourceRenderer extends GedRenderer<Source>
         implements HeaderHrefRenderer<Source>, IndexHrefRenderer<Source>,

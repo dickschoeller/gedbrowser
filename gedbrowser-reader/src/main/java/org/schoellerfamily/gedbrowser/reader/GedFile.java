@@ -6,9 +6,9 @@ import java.io.IOException;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 
 /**
- * The file level object for parsing GEDCOM files into GedBrowser form.
+ * Represents ged file.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GedFile extends AbstractGedLine {
     /** */

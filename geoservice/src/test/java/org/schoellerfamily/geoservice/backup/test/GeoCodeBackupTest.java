@@ -25,9 +25,9 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Tests for backup manager for cached geocode lookups.
+ * Contains tests for geo code backup.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class,
@@ -44,7 +44,7 @@ final class GeoCodeBackupTest {
     /**
      * Setup the configurations for this test class.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     @Configuration
     @RequiredArgsConstructor

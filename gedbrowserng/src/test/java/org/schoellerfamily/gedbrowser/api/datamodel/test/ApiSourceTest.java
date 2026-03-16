@@ -13,7 +13,9 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for api source.
+ *
+ * @author Richard Schoeller
  */
 class ApiSourceTest {
     @Test

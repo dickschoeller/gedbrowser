@@ -11,8 +11,12 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Exposes operations for the restore endpoint.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @Endpoint(id = "restore")

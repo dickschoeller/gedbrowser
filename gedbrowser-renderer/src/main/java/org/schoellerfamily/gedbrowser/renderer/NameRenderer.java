@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
 /**
- * Render a Name.
+ * Renders name output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class NameRenderer extends GedRenderer<Name> {
     /**

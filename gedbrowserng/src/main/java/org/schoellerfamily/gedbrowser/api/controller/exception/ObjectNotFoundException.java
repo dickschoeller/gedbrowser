@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.api.controller.exception;
 
 /**
- * Exception thrown when an object is not found.
+ * Represents an error related to object not found.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class ObjectNotFoundException extends RuntimeException {
     /** */

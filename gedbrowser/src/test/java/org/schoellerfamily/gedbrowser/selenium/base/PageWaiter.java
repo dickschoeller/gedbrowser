@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.selenium.base;
 import org.openqa.selenium.WebDriver;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for page waiter.
+ *
+ * @author Richard Schoeller
  */
 public interface PageWaiter {
     /**

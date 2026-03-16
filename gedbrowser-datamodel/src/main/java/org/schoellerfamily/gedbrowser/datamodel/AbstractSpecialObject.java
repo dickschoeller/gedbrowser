@@ -1,12 +1,13 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 /**
- * @author Dick Schoeller
+ * Represents abstract special object in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public abstract class AbstractSpecialObject extends GedObject {
     /**
      * Creates a new AbstractSpecialObject.
-     *
      */
     protected AbstractSpecialObject() {
         super();

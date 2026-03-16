@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 
 /**
- * @author Dick Schoeller
+ * Visits multimedia elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public final class MultimediaVisitor implements GedObjectVisitor {
     /** */

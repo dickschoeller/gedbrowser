@@ -11,7 +11,7 @@ import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryConfig;
 
 /**
- * Resilience4j-backed {@link GeoServiceCallExecutor}.
+ * Provides behavior related to resilience4j geo service call executor.
  */
 public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallExecutor {
     /** Default retry attempts used by the no-arg constructor. */
@@ -36,7 +36,7 @@ public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallE
      * Creates an executor with a configurable retry policy.
      *
      * @param maxAttempts  maximum number of retry attempts
-     *                     (including the first call); must be &ge; 1
+     * (including the first call); must be &ge; 1
      * @param waitMillis   fixed wait duration in milliseconds between retries; must be &ge; 0
      */
     public Resilience4jGeoServiceCallExecutor(final int maxAttempts, final long waitMillis) {

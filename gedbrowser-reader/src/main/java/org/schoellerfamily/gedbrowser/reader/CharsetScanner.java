@@ -15,11 +15,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Reads the top of a GEDCOM file, looking for the CHAR tag to determine how
- * to read the file.
+ * Represents charset scanner.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 public class CharsetScanner {

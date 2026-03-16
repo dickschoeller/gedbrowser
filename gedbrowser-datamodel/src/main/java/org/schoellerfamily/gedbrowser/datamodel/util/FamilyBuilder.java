@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
- * @author Dick Schoeller
+ * Builds family instances.
+ *
+ * @author Richard Schoeller
  */
 public interface FamilyBuilder {
     /**

@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * @author Dick Schoeller
+ * Renders tree table output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class TreeTableRenderer {
     /** */

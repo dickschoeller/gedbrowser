@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
 /**
- * @author Dick Schoeller
+ * Renders application info output for display.
+ *
+ * @author Richard Schoeller
  */
 public abstract class ApplicationInfoRenderer implements Renderer {
     /** */

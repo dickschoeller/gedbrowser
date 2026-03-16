@@ -1,7 +1,9 @@
 package org.schoellerfamily.geoservice.model;
 
 /**
- * @author Dick Schoeller
+ * Provides behavior related to geo service item.
+ *
+ * @author Richard Schoeller
  */
 public final class GeoServiceItem {
     /** */

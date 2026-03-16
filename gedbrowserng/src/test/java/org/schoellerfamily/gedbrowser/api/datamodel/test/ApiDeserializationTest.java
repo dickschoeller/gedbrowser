@@ -18,10 +18,12 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 
 import tools.jackson.databind.ObjectMapper;
 
+
+
 /**
- * Tests JSON deserialization of API datamodel types using ObjectMapper.readValue.
+ * Contains tests for api deserialization.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 final class ApiDeserializationTest {

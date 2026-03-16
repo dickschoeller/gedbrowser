@@ -1,10 +1,11 @@
 package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
+
+
 /**
- * This class holds the expected values for a number of different
- * aspects of a person page.
+ * Represents expectations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
 public final class Expectations {

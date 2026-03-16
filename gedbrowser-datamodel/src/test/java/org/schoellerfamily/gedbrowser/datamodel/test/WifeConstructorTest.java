@@ -13,6 +13,11 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+/**
+ * Contains tests for wife constructor.
+ */
+
 final class WifeConstructorTest {
 
     @SuppressWarnings("checkstyle:nowhitespaceafter")

@@ -13,7 +13,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
- * @author Dick Schoeller
+ * Represents family builder impl in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class FamilyBuilderImpl implements FamilyBuilder {
     /** */

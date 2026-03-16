@@ -1,8 +1,9 @@
 package org.schoellerfamily.gedbrowser.persistence.domain;
 
-
 /**
- * @author Dick Schoeller
+ * Visits ged document elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface GedDocumentVisitor extends TopLevelGedDocumentVisitor {
     /**

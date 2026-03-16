@@ -3,8 +3,9 @@ package org.schoellerfamily.gedbrowser.datamodel.users;
 import java.util.Iterator;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for users.
  *
+ * @author Richard Schoeller
  * @param <T> the contained type
  */
 public interface Users<T extends User> extends Iterable<T> {

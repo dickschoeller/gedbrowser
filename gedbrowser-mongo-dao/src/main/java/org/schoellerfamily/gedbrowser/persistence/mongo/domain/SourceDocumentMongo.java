@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @author Dick Schoeller
+ * Represents source document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Document(collection = "sources")
 @CompoundIndexes({

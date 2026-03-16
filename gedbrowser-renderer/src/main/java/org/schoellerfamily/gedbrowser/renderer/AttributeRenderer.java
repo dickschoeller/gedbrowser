@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 
 /**
- * Render an Attribute.
+ * Renders attribute output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class AttributeRenderer extends GedRenderer<Attribute> {
     /**

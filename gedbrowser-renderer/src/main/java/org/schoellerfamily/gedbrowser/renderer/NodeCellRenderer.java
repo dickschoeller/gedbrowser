@@ -5,11 +5,12 @@ import org.apache.commons.lang3.StringUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Cell for a person in the table that represents the ancestor
- * tree.
+ * Renders node cell output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 @Getter

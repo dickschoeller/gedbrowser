@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 
 /**
- * @author Dick Schoeller
+ * Provides a simplified interface for source builder operations.
+ *
+ * @author Richard Schoeller
  */
 public interface SourceBuilderFacade extends SourceBuilder {
     /**

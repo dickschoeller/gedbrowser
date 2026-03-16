@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * @author Dick Schoeller
+ * Represents reader source.
  *
+ * @author Richard Schoeller
  */
 public final class ReaderSource extends AbstractGedLineSource {
     /** */

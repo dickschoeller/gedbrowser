@@ -8,11 +8,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
+
+
 /**
- * Encapsulates the estimation methods associated with look at a person's
- * ancestors.
+ * Represents birth date from ancestors estimator.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.TooManyMethods")
 public final class BirthDateFromAncestorsEstimator extends Estimator {

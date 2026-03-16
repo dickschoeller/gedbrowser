@@ -29,7 +29,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.FamilyVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for family visitor.
+ *
+ * @author Richard Schoeller
  */
 final class FamilyVisitorTest {
     @Test

@@ -3,8 +3,9 @@ package org.schoellerfamily.gedbrowser.reader;
 import java.io.IOException;
 
 /**
- * @author Dick Schoeller
+ * Represents null source.
  *
+ * @author Richard Schoeller
  */
 public class NullSource extends AbstractGedLineSource {
     /**

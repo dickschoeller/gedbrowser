@@ -6,11 +6,12 @@ import org.openqa.selenium.WebElement;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * This implementation of MenuPage methods. Designed for use behind a Java 8
- * mixin facade.
+ * Represents menu page impl.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public final class MenuPageImpl implements MenuPage {

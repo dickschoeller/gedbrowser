@@ -6,7 +6,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 
 /**
- * @author Dick Schoeller
+ * Visits nameable elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public final class NameableVisitor implements GedObjectVisitor {
     /**

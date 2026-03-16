@@ -8,11 +8,12 @@ import lombok.Getter;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
+
+
 /**
- * Represents the lifespan of a person to support easier rendering, without checking the whole
- * attribute list.
+ * Represents api lifespan in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Builder(toBuilder = true)
 @Getter

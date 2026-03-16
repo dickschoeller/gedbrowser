@@ -9,7 +9,9 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
 /**
- * @author Dick Schoeller
+ * Provides support for testing referer interceptor behavior.
+ *
+ * @author Richard Schoeller
  */
 public class RefererInterceptor implements ClientHttpRequestInterceptor {
     /** */

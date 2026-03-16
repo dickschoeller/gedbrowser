@@ -11,6 +11,11 @@ import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+
+/**
+ * Contains tests for the map key controller.
+ */
+
 final class MapKeyControllerTest {
 
     @Test

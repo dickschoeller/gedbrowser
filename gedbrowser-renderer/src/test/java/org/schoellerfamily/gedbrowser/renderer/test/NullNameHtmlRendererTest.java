@@ -8,7 +8,9 @@ import org.schoellerfamily.gedbrowser.renderer.NameHtmlRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NullNameHtmlRenderer;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for null name html renderer.
+ *
+ * @author Richard Schoeller
  */
 final class NullNameHtmlRendererTest {
     /** */

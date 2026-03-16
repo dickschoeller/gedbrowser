@@ -9,8 +9,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 
 /**
- * @author Dick Schoeller
+ * Represents ged document mongo to ged object converter for persistence operations.
  *
+ * @author Richard Schoeller
  */
 public class GedDocumentMongoToGedObjectConverter {
     /**

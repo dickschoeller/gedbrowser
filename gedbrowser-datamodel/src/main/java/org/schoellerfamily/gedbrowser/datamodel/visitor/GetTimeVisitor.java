@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.datamodel.visitor;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 
 /**
- * @author Dick Schoeller
+ * Visits get time elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public final class GetTimeVisitor implements GedObjectVisitor {
     /**

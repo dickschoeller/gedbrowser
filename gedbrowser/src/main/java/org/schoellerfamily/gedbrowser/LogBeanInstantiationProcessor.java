@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Bean post processor that logs the instantiation of each bean.
+ * Represents log bean instantiation processor.
  *
- * @author - Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @Slf4j

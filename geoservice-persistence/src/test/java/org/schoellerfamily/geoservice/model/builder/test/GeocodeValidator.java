@@ -21,7 +21,9 @@ import com.google.maps.model.LatLng;
 import com.google.maps.model.LocationType;
 
 /**
- * @author Dick Schoeller
+ * Validates geocode values for test expectations.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.SimplifyBooleanReturns", "PMD.UseVarargs",
     "PMD.UnusedPrivateMethod" })

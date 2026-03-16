@@ -14,8 +14,12 @@ import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to mock mvc.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @RequiredArgsConstructor

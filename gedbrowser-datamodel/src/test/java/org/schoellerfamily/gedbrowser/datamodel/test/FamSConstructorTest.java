@@ -14,9 +14,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * Data driven tests of the permutations of calling the constructors of FamS.
+ * Contains tests for fam s constructor.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 final class FamSConstructorTest {
 

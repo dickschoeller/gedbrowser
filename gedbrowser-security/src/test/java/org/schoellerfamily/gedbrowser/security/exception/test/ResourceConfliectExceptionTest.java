@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictException;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for resource confliect exception.
+ *
+ * @author Richard Schoeller
  */
 class ResourceConfliectExceptionTest {
     @Test

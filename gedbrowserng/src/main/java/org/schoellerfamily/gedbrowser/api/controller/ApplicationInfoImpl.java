@@ -7,8 +7,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests related to application info impl.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

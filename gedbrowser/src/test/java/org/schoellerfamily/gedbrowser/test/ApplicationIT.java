@@ -17,7 +17,11 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
+ * Contains integration tests for application.
+ *
  * @author Richard Schoeller
  */
 @SpringBootTest(classes = Application.class,

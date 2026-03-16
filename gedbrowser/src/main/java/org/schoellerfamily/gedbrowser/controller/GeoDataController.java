@@ -17,10 +17,12 @@ import org.schoellerfamily.geoservice.keys.KeyManager;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Base class for controllers that need geodata.
+ * Handles requests for geo data.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 @Slf4j

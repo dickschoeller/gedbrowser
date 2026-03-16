@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Dick Schoeller
+ * Represents cell row.
+ *
+ * @author Richard Schoeller
  */
 public final class CellRow {
     /** */

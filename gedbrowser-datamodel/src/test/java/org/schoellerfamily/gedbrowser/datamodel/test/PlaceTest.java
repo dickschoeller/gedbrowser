@@ -13,6 +13,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+/**
+ * Contains tests for place.
+ */
+
 final class PlaceTest {
 
     @SuppressWarnings("checkstyle:nowhitespaceafter")

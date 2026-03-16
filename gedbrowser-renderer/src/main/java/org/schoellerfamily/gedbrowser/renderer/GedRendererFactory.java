@@ -30,11 +30,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
+
+
 /**
- * Factory to create the appropriate type of renderer based on the type of the
- * GedObject.
+ * Creates ged renderer instances.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "java:S1452" })
 public final class GedRendererFactory {
@@ -95,7 +96,7 @@ public final class GedRendererFactory {
     /**
      * Interface for builders for the factory.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private interface RendererBuilder {
         GedRenderer<? extends GedObject> build(GedObject gedObject, GedRendererFactory factory,

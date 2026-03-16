@@ -20,10 +20,12 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Generates the collection of places for a provided person.
+ * Renders place list output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class PlaceListRenderer {

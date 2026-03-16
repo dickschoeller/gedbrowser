@@ -10,8 +10,12 @@ import org.schoellerfamily.geoservice.persistence.GeoCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Exposes operations for the base backup endpoint.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 @Slf4j

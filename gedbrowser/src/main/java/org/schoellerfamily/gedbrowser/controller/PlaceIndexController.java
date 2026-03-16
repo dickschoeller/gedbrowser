@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Listen for requests for the place index page.
+ * Handles requests for place index.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Controller
 @Slf4j

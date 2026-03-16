@@ -10,12 +10,16 @@ import org.schoellerfamily.gedbrowser.reader.CharsetScanner;
 import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
 import org.schoellerfamily.gedbrowser.writer.util.Backup;
 
+
+
 /**
+ * Writes ged data to an external destination.
+ *
  * @author Richard Schoeller
  */
 @Slf4j
 public class GedWriter {
-
+    /** */
     private final GedObjectToGedWriterVisitor visitor =
             new GedObjectToGedWriterVisitor();
 

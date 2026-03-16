@@ -29,8 +29,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for submission crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(
     classes = { Application.class, TestConfiguration.class },

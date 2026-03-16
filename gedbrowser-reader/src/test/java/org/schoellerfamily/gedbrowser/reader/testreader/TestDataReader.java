@@ -10,8 +10,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Reads test data data from an external source.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

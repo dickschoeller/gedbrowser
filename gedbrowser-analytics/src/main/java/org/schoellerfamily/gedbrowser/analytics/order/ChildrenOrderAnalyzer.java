@@ -9,9 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * Analyze the order of children for display for this person.
+ * Analyzes children order data and ordering behavior.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
     /** Format for child order problem message. */

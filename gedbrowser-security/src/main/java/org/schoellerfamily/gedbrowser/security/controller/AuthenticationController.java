@@ -22,8 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for authentication.
+ *
+ * @author Richard Schoeller
  */
 @RestController
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -104,7 +108,7 @@ public class AuthenticationController {
     /**
      * This will probably eventually be private or public, not default.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     /* default */ static final class PasswordChanger {
         /** */

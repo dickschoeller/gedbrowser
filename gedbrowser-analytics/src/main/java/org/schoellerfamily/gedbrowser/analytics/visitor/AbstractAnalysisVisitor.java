@@ -8,9 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * Implements behaviors shared by Person and Family analysis visitors.
+ * Visits abstract analysis elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
         implements GedObjectVisitor {
@@ -23,7 +23,6 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
 
     /**
      * Creates a new AbstractAnalysisVisitor.
-     *
      */
     protected AbstractAnalysisVisitor() {
         super();

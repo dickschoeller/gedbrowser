@@ -23,8 +23,12 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to web security.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)

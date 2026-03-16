@@ -23,8 +23,12 @@ import org.schoellerfamily.geoservice.model.GeoServiceItemComparator;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Renders index by place output for display.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class IndexByPlaceRenderer extends GedRenderer<Root>

@@ -8,10 +8,12 @@ import com.google.maps.model.GeocodingResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Wrapper around Google's Geocoding API.
+ * Provides behavior related to google geo coder.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 @RequiredArgsConstructor

@@ -5,8 +5,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * @author Dick Schoeller
+ * Represents users impl in the domain model.
  *
+ * @author Richard Schoeller
  * @param <T> the contained type
  */
 public final class UsersImpl<T extends User> implements Users<T> {
@@ -48,7 +49,6 @@ public final class UsersImpl<T extends User> implements Users<T> {
 
     /**
      * Executes clear.
-     *
      */
     @Override
     public void clear() {

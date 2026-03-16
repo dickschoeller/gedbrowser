@@ -26,10 +26,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Test GedLine.
+ * Contains tests for ged line.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })

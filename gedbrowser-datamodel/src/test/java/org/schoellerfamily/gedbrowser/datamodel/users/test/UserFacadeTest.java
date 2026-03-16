@@ -12,11 +12,13 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for user facade.
+ *
+ * @author Richard Schoeller
  */
 class UserFacadeTest {
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private static class UserFacadeImpl implements UserFacade {
         /** */

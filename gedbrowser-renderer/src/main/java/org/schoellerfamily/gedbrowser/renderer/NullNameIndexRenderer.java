@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders null name index output for display.
+ *
+ * @author Richard Schoeller
  */
 public class NullNameIndexRenderer implements NameIndexRenderer {
     /**

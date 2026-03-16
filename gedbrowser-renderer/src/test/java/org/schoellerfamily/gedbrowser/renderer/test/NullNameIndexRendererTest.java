@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.renderer.NullNameIndexRenderer;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for null name index renderer.
+ *
+ * @author Richard Schoeller
  */
 final class NullNameIndexRendererTest {
     @Test

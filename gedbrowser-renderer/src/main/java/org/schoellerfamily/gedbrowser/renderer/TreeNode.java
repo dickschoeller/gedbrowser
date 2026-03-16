@@ -1,8 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Represents tree node.
  *
+ * @author Richard Schoeller
  * @param <N> an object to contain in the tree.
  */
 public final class TreeNode<N> {

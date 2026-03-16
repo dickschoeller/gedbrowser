@@ -12,7 +12,9 @@ import org.schoellerfamily.gedbrowser.datamodel.util.PersonComparator;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for person comparator.
+ *
+ * @author Richard Schoeller
  */
 class PersonComparatorTest {
     /** */

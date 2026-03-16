@@ -7,8 +7,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Provides support for testing order analyzer test wrapper behavior.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class OrderAnalyzerTestWrapper {

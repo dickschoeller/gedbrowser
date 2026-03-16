@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object builder submission.
+ *
+ * @author Richard Schoeller
  */
 class GedObjectBuilderSubmissionTest {
     @Test

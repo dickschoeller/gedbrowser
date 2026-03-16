@@ -10,9 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * Analyze the order of family data for this person.
+ * Analyzes family order data and ordering behavior.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
     /** */

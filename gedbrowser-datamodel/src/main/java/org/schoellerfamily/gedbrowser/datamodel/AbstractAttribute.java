@@ -1,8 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
-
 /**
- * @author Dick Schoeller
+ * Represents abstract attribute in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public abstract class AbstractAttribute extends GedObject {
     /**

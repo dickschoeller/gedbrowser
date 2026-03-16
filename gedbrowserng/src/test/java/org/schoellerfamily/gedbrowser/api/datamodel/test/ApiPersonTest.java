@@ -11,7 +11,9 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for api person.
+ *
+ * @author Richard Schoeller
  */
 final class ApiPersonTest {
     @Test

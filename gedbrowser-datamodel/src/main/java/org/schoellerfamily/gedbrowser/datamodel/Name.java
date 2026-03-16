@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * Model a complex GEDCOM name.
+ * Represents name in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class Name extends GedObject implements Nameable {
     /**
@@ -23,7 +23,6 @@ public final class Name extends GedObject implements Nameable {
 
     /**
      * Creates a new Name.
-     *
      */
     public Name() {
         super();
@@ -103,7 +102,7 @@ public final class Name extends GedObject implements Nameable {
 
     /**
      * @return the suffix portion of the name. In western names this is usually
-     *         a generation modifier.
+     * a generation modifier.
      */
     public String getSuffix() {
         return suffix;

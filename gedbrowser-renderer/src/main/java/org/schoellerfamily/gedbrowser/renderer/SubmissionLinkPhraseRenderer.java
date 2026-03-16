@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders submission link phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public class SubmissionLinkPhraseRenderer implements PhraseRenderer {
     /**

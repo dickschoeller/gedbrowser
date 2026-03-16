@@ -9,9 +9,9 @@ import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
- * Render a Head.
+ * Renders head output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class HeadRenderer extends GedRenderer<Head>
         implements AttributesRenderer<Head>, HeaderHrefRenderer<Head>,

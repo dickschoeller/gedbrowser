@@ -8,8 +8,12 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import lombok.Getter;
 import lombok.Setter;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents ged document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  *
  * @param <G> the associated GedObject subclass
  */

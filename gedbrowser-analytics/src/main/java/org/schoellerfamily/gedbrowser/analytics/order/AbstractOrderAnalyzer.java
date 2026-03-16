@@ -10,9 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.util.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * Base class for order analysis.
+ * Analyzes abstract order data and ordering behavior.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public abstract class AbstractOrderAnalyzer {
     /** The accumulated result of the analysis. */

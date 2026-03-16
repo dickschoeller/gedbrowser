@@ -6,7 +6,9 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for finder object.
+ *
+ * @author Richard Schoeller
  */
 public interface FinderObject
     extends VisitableObject, ParentableObject, InsertableObject, StringObject {

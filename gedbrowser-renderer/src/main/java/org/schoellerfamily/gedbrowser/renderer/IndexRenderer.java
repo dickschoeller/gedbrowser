@@ -15,8 +15,12 @@ import org.schoellerfamily.gedbrowser.renderer.href.SaveHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
+
+
 /**
- * @author Dick Schoeller
+ * Renders index output for display.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class IndexRenderer extends GedRenderer<Root>

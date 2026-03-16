@@ -2,12 +2,10 @@ package org.schoellerfamily.gedbrowser.reader;
 
 import java.io.BufferedReader;
 
-
 /**
- * Models one read line from a GEDCOM file.  Connects that up with
- * the GedBrowser data model.
+ * Represents ged line.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GedLine extends AbstractGedLine {
     /**

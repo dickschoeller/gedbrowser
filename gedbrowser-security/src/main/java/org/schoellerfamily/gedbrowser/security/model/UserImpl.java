@@ -9,9 +9,9 @@ import org.springframework.security.core.GrantedAuthority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * A basic user record.
+ * Represents user impl.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class UserImpl extends HasRoles implements SecurityUser {
     /** */

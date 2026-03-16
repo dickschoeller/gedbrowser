@@ -29,7 +29,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for nameable visitor.
+ *
+ * @author Richard Schoeller
  */
 final class NameableVisitorTest {
     @Test

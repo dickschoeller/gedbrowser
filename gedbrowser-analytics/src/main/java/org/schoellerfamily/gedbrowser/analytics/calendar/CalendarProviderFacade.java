@@ -4,16 +4,12 @@ import java.util.Calendar;
 
 import org.joda.time.LocalDate;
 
+
+
 /**
- * Provides means for a class to be a facade for CalendarProvider. A class can
- * be a facade for CalendarProvider by doing the following:
- * <ul>
- * <li>implements CalendarProviderFacade</li>
- * <li>keeping an instance of a CalendarProvider</li>
- * <li>providing the method getCalendarProvider to get at it</li>
- * </ul>
+ * Provides a simplified interface for calendar provider operations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
 public interface CalendarProviderFacade extends CalendarProvider {

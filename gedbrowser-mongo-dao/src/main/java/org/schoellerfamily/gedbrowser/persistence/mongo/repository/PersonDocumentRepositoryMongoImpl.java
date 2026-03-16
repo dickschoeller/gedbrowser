@@ -23,8 +23,12 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents person document repository mongo impl for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor
@@ -202,7 +206,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
 
     /**
      * @param personDocuments
-     *            the list of person documents to create and associate.
+     * the list of person documents to create and associate.
      */
     private void createGedObjects(
             final List<PersonDocumentMongo> personDocuments) {
@@ -230,7 +234,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
     /**
      * Standard sorting of Persons.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private static final class PersonDocumentComparator implements
             Comparator<PersonDocument>, Serializable {

@@ -9,9 +9,9 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 
 /**
- * Helper class for building attribute lists. Manages order and aggregation.
+ * Represents attribute list helper.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class AttributeListHelper {
     /** */

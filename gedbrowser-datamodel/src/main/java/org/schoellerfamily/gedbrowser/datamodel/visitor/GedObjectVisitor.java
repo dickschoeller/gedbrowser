@@ -26,13 +26,12 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
+
+
 /**
- * This interface provides for using the visitor pattern to accumulate
- * information about a GedObject and its children. This has visitors for all
- * of the "standard" concrete objects and for the base GedObject. That last
- * would be the catch-all, which can be important for anonymous subclasses.
+ * Visits ged object elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.TooManyMethods")
 public interface GedObjectVisitor {

@@ -13,9 +13,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 
 /**
- * Visitor for determining a person's relationships.
+ * Visits person elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class PersonVisitor implements GedObjectVisitor {
     /**

@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 
 /**
- * @author Dick Schoeller
+ * Renders place phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public class PlacePhraseRenderer implements PhraseRenderer {
     /**

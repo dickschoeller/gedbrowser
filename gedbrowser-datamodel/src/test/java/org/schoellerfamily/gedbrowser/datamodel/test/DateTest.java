@@ -12,8 +12,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for date.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 final class DateTest {

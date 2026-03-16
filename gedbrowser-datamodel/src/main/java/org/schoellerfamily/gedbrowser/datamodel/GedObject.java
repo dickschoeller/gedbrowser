@@ -8,7 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.appender.GedAppender;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents ged object in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public abstract class GedObject extends AbstractFinderObject
         implements GetString {
@@ -44,7 +46,6 @@ public abstract class GedObject extends AbstractFinderObject
 
     /**
      * Creates a new GedObject.
-     *
      */
     protected GedObject() {
         this.set = false;

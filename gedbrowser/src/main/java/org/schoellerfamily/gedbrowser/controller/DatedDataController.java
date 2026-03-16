@@ -7,10 +7,12 @@ import org.schoellerfamily.gedbrowser.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
+
+
 /**
- * Base class for controllers that need dated data.
+ * Handles requests for dated data.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 public abstract class DatedDataController extends AbstractController {

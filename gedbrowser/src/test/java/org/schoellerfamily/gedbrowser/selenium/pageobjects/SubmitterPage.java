@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 /**
- * @author Dick Schoeller
+ * Represents submitter page.
+ *
+ * @author Richard Schoeller
  */
 public final class SubmitterPage extends PageBase implements MenuPageFacade {
     /** */

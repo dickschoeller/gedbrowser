@@ -12,10 +12,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * This does the work of reading getting geocode items from MongoDB.
+ * Provides behavior related to geo document repository mongo impl.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

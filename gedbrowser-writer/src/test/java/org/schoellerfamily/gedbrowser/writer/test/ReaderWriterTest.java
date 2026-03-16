@@ -17,8 +17,12 @@ import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for reader writer.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 class ReaderWriterTest {

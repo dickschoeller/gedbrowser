@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * Sort geoservice items by modern place name. Consider doing a sort
- * that includes country, state, etc.
+ * Compares geo service item values.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class GeoServiceItemComparator
         implements Comparator<GeoServiceItem>, Serializable {

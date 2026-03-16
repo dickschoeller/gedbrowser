@@ -3,8 +3,12 @@ package org.schoellerfamily.gedbrowser.api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+
+
 /**
- * @author Dick Schoeller
+ * Provides services for gedbrowser properties.
+ *
+ * @author Richard Schoeller
  */
 @Service
 public class GedbrowserPropertiesService {

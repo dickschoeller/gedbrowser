@@ -38,8 +38,12 @@ import com.mongodb.client.MongoClients;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to mongo.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableMongoRepositories(

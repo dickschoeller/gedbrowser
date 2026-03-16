@@ -4,8 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
+
+
 /**
- * @author Dick Schoeller
+ * Bootstraps the application.
+ *
+ * @author Richard Schoeller
  */
 @ComponentScan(basePackages = { "org.schoellerfamily.gedbrowser.api",
         "org.schoellerfamily.gedbrowser.security", "org.schoellerfamily.geoservice.client" })

@@ -3,8 +3,12 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents object id in the domain model.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 @Getter

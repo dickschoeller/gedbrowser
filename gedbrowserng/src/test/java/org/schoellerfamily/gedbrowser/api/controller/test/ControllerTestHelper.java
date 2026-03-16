@@ -13,7 +13,9 @@ import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
 /**
- * @author Dick Schoeller
+ * Provides support for testing controller test helper behavior.
+ *
+ * @author Richard Schoeller
  */
 public final class ControllerTestHelper {
     /** */
@@ -178,9 +180,9 @@ public final class ControllerTestHelper {
      * @param input the input string
      * @param expected the expected substrings
      * @return {@code true} if all non-null expected substrings are found in the input
-     *         string; {@code false} if {@code input} is {@code null}, {@code expected}
-     *         is {@code null}, or any non-null expected substring is not found. Null
-     *         elements in {@code expected} are silently ignored.
+     * string; {@code false} if {@code input} is {@code null}, {@code expected}
+     * is {@code null}, or any non-null expected substring is not found. Null
+     * elements in {@code expected} are silently ignored.
      */
     public static boolean containsAll(final String input, final String... expected) {
         if (input == null) {

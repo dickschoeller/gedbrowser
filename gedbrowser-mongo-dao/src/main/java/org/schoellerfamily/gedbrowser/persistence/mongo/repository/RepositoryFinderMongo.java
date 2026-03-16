@@ -31,8 +31,12 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents repository finder mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @SuppressWarnings("PMD.ExcessiveImports")

@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * Sort person renderers by index name.
+ * Compares person renderer values.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class PersonRendererComparator
         implements Comparator<PersonRenderer>, Serializable {

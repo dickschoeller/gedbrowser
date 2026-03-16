@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import com.google.maps.model.GeocodingResult;
 
 /**
- * This is the primary object in the DB model when using MongoDB.
+ * Provides behavior related to geo document mongo.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GeoDocumentMongo implements GeoDocument {
     /** */

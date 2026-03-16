@@ -4,7 +4,9 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * @author Dick Schoeller
+ * Represents token based authentication.
+ *
+ * @author Richard Schoeller
  */
 public final class TokenBasedAuthentication
         extends AbstractAuthenticationToken {

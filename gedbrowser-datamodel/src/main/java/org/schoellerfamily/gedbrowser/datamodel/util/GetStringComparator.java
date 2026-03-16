@@ -5,10 +5,12 @@ import java.util.Comparator;
 
 import org.schoellerfamily.gedbrowser.datamodel.GetString;
 
+
+
 /**
- * Trying to sort IDs naturally. That is, I1, I2, I3... I10, I11, etc.
+ * Compares get string values.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.CyclomaticComplexity")
 public final class GetStringComparator
@@ -73,7 +75,7 @@ public final class GetStringComparator
      * @param thisChunk the first chunk to be compared
      * @param thatChunk the second chunk to be compared
      * @return a negative integer, zero, or a positive integer as the first
-     *      argument is less than, equal to, or greater than the second
+     * argument is less than, equal to, or greater than the second
      */
     private int compareChunksOfEitherType(final String thisChunk,
             final String thatChunk) {
@@ -90,7 +92,7 @@ public final class GetStringComparator
      * @param thisChunk the first chunk to be compared
      * @param thatChunk the second chunk to be compared
      * @return a negative integer, zero, or a positive integer as the first
-     *      argument is less than, equal to, or greater than the second
+     * argument is less than, equal to, or greater than the second
      */
     private int compareNumericChunks(final String thisChunk,
             final String thatChunk) {

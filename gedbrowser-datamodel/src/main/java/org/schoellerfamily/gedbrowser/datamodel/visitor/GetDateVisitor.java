@@ -6,9 +6,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * Visitor to get the "best" date from a GedObject.
+ * Visits get date elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GetDateVisitor implements GedObjectVisitor {
     /**
@@ -33,7 +33,6 @@ public final class GetDateVisitor implements GedObjectVisitor {
 
     /**
      * Creates a new GetDateVisitor.
-     *
      */
     public GetDateVisitor() {
         type = "";

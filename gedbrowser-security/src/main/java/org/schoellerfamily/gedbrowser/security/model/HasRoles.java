@@ -8,8 +8,12 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents has roles.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class HasRoles implements Serializable {

@@ -36,8 +36,10 @@ import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
 
+
+
 /**
- * Tests for {@link GeoServiceClient}.
+ * Contains tests for geo service client.
  */
 @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts", "PMD.TooManyMethods" })
 final class GeoServiceClientTest {

@@ -15,8 +15,12 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.Geometry;
 import com.google.maps.model.LatLng;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for geo code item.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessivePublicCount" })
 final class GeoCodeItemTest {

@@ -9,8 +9,12 @@ import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to test.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 public class TestConfiguration {

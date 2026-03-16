@@ -10,7 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UsersImpl;
 import org.schoellerfamily.gedbrowser.reader.users.UsersReader;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for users reader.
+ *
+ * @author Richard Schoeller
  */
 class UsersReaderTest {
     private static final String TEST_USER_FILE_CSV = System.getProperty("gedbrowser.home",

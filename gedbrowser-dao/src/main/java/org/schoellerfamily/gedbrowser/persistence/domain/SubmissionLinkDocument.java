@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of submission link.
+ *
+ * @author Richard Schoeller
  */
 public interface SubmissionLinkDocument extends GedDocument<SubmissionLink> {
     @Override

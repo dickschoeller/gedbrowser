@@ -4,12 +4,13 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents submitter in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Submitter extends AbstractSource implements Nameable {
     /**
      * Creates a new Submitter.
-     *
      */
     public Submitter() {
         super();

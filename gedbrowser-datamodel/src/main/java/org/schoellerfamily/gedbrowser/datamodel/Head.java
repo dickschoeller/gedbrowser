@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents head in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Head extends AbstractSpecialObject {
     /**
      * Creates a new Head.
-     *
      */
     public Head() {
         super();

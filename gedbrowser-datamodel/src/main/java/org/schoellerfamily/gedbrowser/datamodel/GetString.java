@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for get string.
+ *
+ * @author Richard Schoeller
  */
 public interface GetString {
     /**

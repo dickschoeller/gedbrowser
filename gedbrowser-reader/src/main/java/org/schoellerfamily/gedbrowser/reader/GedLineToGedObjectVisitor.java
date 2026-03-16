@@ -6,8 +6,12 @@ import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Visits ged line to ged object elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public class GedLineToGedObjectVisitor implements GedLineVisitor {

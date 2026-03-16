@@ -5,8 +5,12 @@ import java.util.Set;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents has roles in the domain model.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class HasRoles {

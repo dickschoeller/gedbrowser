@@ -7,9 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 
 /**
- * Render an Family.
+ * Renders family output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class FamilyRenderer extends GedRenderer<Family>
         implements AttributesRenderer<Family> {

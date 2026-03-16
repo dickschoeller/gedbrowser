@@ -7,8 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
- * @author Dick Schoeller
+ * Represents attribute builder impl in the domain model.
  *
+ * @author Richard Schoeller
  */
 public final class AttributeBuilderImpl implements AttributeBuilder {
     /** */

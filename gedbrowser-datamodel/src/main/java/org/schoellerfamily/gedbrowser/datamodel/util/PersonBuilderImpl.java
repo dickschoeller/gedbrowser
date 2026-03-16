@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
- * @author Dick Schoeller
+ * Represents person builder impl in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class PersonBuilderImpl implements PersonBuilder {
     /** */

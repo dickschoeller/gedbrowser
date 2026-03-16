@@ -11,8 +11,12 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserFacade;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents request user util.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public final class RequestUserUtil implements UserFacade {

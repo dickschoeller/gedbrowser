@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents child in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Child extends AbstractLink {
     /**
      * Creates a new Child.
-     *
      */
     public Child() {
         super();

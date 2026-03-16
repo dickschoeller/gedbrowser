@@ -6,10 +6,12 @@ import com.google.maps.model.LatLng;
 
 import lombok.Getter;
 
+
+
 /**
- * This class implements a single entry in the geocode cache.
+ * Provides behavior related to geo code item.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Getter
 public final class GeoCodeItem {
@@ -22,7 +24,6 @@ public final class GeoCodeItem {
 
     /**
      * Executes geo code item.
-     *
      */
     public GeoCodeItem() {
         this.placeName = null;

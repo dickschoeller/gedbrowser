@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.users;
 
 /**
- * A basic user record.
+ * Represents user impl in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class UserImpl extends HasRoles implements User {
     /** */

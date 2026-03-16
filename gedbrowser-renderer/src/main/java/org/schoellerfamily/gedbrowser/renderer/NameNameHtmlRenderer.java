@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
 /**
- * A NameHtmlRenderer that is designed to work with a NameRenderer.
+ * Renders name name html output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class NameNameHtmlRenderer implements NameHtmlRenderer {
     /**

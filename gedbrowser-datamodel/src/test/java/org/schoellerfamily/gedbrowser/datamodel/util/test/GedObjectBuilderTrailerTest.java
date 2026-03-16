@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object builder trailer.
+ *
+ * @author Richard Schoeller
  */
 final class GedObjectBuilderTrailerTest {
 

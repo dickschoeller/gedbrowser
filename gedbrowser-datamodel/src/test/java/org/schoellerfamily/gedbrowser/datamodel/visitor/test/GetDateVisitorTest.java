@@ -32,7 +32,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for get date visitor.
+ *
+ * @author Richard Schoeller
  */
 final class GetDateVisitorTest {
     @Test

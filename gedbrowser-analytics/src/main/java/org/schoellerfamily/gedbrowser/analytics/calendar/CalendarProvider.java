@@ -5,9 +5,9 @@ import java.util.Calendar;
 import org.joda.time.LocalDate;
 
 /**
- * Interface for providing the current date as a Calendar or LocalDate.
+ * Provides calendar values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface CalendarProvider {
     /**

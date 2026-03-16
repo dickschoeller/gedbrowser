@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
- * Render a Root.
+ * Renders root output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class RootRenderer extends GedRenderer<Root> {
     /**

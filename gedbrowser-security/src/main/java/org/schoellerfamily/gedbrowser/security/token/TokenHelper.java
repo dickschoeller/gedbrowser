@@ -19,8 +19,12 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents token helper.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

@@ -5,7 +5,9 @@ import org.geojson.Point;
 import com.google.maps.model.LatLng;
 
 /**
- * @author Dick Schoeller
+ * Builds point instances.
+ *
+ * @author Richard Schoeller
  */
 public interface PointBuilder {
     /**

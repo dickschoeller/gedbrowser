@@ -29,8 +29,12 @@ import com.saucelabs.saucebindings.junit5.SauceBindingsExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for ged browser basic.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = SeleniumConfig.class)

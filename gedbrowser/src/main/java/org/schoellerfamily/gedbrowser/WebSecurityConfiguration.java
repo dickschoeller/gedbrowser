@@ -16,10 +16,12 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Configures web security for the application.
+ * Configures components related to web security.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableWebSecurity

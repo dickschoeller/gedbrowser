@@ -13,8 +13,12 @@ import com.google.maps.model.GeocodingResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Provides behavior related to geo code basic.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -154,7 +158,6 @@ public abstract class GeoCodeBasic implements GeoCode {
 
     /**
      * Executes dump.
-     *
      */
     @Override
     @SuppressWarnings({ "java:S106", "PMD.SystemPrintln" })

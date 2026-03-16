@@ -3,8 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.AbstractLink;
 
 /**
- * @author Dick Schoeller
+ * Renders abstract link output for display.
  *
+ * @author Richard Schoeller
  * @param <T> The object type to render.
  */
 public abstract class AbstractLinkRenderer<T extends AbstractLink> extends

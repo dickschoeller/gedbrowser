@@ -4,16 +4,17 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 
+
+
 /**
- * This interface wraps up the interfaces for the CRUD operations into a
- * single package. These interfaces contain default methods that implement
- * their respective part for the classes that declare implementing the
- * interface.
+ * Defines the contract for crud operations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  *
  * @param <X> the data model type we are manipulating
+ *
  * @param <Y> the DB type associated with the type X
+ *
  * @param <Z> the Api type associated with the type X
  */
 @SuppressWarnings("PMD.CommentSize")

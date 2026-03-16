@@ -5,8 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for exception handling.
+ *
+ * @author Richard Schoeller
  */
 @ControllerAdvice
 public class ExceptionHandlingController {

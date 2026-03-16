@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Controller for RESTful web service to request geocoding for a historical
- * place name. The response will contain an equivalent modern place name, which
- * may or may not be the same as the historical place name. If found, the
- * response will also contain a geocoding result from Google's geocoding APIs.
+ * Handles requests for geo code entry.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @RestController
 @RequiredArgsConstructor

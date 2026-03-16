@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 
 /**
- * @author Dick Schoeller
+ * Renders submitter link name html output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class SubmitterLinkNameHtmlRenderer implements NameHtmlRenderer {
     /**

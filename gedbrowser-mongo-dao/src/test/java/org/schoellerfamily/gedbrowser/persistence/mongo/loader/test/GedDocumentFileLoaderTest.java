@@ -16,8 +16,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLo
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 
 /**
- * Tests for GedDocumentFileLoader validateDatabaseName branches that are hard
- * to reach with normal string inputs by mocking Paths.get(...).
+ * Contains tests for ged document file loader.
  */
 public class GedDocumentFileLoaderTest {
 

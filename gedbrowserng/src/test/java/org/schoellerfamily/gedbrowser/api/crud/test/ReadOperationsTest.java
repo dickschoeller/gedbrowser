@@ -18,7 +18,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 /**
- * Unit tests for default methods in {@link ReadOperations}.
+ * Contains tests for read operations.
  */
 final class ReadOperationsTest {
 

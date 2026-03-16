@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
 /**
- * @author Dick Schoeller
+ * Renders name name index output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class NameNameIndexRenderer
     implements NameIndexRenderer, ComplexRenderer {

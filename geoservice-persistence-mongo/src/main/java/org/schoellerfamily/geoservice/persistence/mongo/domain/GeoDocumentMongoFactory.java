@@ -4,10 +4,9 @@ import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 
 /**
- * This factory is used to create GeoCodeItem objects from GeoDocumentMongo
- * objects and vice versa.
+ * Creates geo document mongo instances.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GeoDocumentMongoFactory {
     private static final GeoDocumentMongoFactory INSTANCE =

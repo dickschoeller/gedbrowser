@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocume
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents note link document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 public final class NoteLinkDocumentMongo extends GedDocumentMongo<NoteLink>
         implements NoteLinkDocument {

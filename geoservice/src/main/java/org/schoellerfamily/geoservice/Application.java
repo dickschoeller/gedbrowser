@@ -20,11 +20,12 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Main module of a Spring Boot application to provide cached geocode lookups
- * for GedBrowser.
+ * Bootstraps the application.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ComponentScan(basePackages = { "org.schoellerfamily.geoservice" })
 @EnableAutoConfiguration

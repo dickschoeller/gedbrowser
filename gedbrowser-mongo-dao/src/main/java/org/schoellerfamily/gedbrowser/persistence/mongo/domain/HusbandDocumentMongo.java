@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocume
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents husband document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 public final class HusbandDocumentMongo extends GedDocumentMongo<Husband>
         implements HusbandDocument {

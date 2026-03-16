@@ -11,8 +11,12 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.schoellerfamily.gedbrowser.writer.util.Backup;
 
+
+
 /**
- * @author Dick Schoeller
+ * Writes users data to an external destination.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class UsersWriter {

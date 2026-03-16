@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Listen for requests for the surnames index page.
+ * Handles requests for index.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Controller
 @SuppressWarnings("PMD.CommentSize")

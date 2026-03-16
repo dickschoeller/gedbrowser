@@ -16,10 +16,12 @@ import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 
+
+
 /**
- * Implements backup and recover of the contents of the geocode data set.
+ * Provides behavior related to geo code backup.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 public class GeoCodeBackup {

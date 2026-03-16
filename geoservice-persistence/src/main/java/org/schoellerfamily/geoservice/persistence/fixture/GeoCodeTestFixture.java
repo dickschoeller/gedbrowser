@@ -7,7 +7,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 
 /**
- * @author Dick Schoeller
+ * Provides fixture data for geo code test tests.
+ *
+ * @author Richard Schoeller
  */
 public class GeoCodeTestFixture {
 

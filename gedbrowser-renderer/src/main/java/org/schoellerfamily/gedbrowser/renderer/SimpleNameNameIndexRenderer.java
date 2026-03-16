@@ -5,7 +5,9 @@ import java.util.Arrays;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
 /**
- * @author Dick Schoeller
+ * Renders simple name name index output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class SimpleNameNameIndexRenderer
     implements NameIndexRenderer, SimpleRenderer {

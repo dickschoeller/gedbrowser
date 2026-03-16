@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for user token state.
+ *
+ * @author Richard Schoeller
  */
 final class UserTokenStateTest {
     @Test

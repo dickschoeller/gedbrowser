@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
 /**
- * @author Dick Schoeller
+ * Provides a stub implementation for application info.
+ *
+ * @author Richard Schoeller
  */
 public final class ApplicationInfoStub implements ApplicationInfo {
     /**

@@ -9,9 +9,9 @@ import org.openqa.selenium.WebElement;
 import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
 
 /**
- * Base class for various page object classes.
+ * Represents page base.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class PageBase {
     /** Ten seconds for passing to sleep for some known longish waits. */

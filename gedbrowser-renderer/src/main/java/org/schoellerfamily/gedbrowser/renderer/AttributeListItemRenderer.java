@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * @author Dick Schoeller
+ * Renders attribute list item output for display.
+ *
+ * @author Richard Schoeller
  */
 public class AttributeListItemRenderer implements ListItemRenderer {
     /**

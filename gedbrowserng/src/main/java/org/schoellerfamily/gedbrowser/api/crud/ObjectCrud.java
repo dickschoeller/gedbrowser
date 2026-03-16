@@ -5,6 +5,8 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 
 /**
+ * Defines the contract for object crud.
+ *
  * @author Dick Scholler
  * @param <Z> the type of object operated on
  */

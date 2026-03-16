@@ -5,8 +5,12 @@ import java.io.IOException;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents backup.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class Backup {

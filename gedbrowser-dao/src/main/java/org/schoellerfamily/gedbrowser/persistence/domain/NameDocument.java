@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of name.
+ *
+ * @author Richard Schoeller
  */
 public interface NameDocument extends GedDocument<Name> {
     @Override

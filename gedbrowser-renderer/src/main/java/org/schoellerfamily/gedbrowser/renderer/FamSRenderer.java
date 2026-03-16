@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.FamS;
 
 /**
- * Render a FamS.
+ * Renders fam s output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class FamSRenderer extends AbstractLinkRenderer<FamS> {
     /**

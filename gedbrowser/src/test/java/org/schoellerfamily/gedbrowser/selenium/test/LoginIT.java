@@ -30,10 +30,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.saucelabs.saucebindings.junit5.SauceBindingsExtension;
 
+
+
 /**
- * Tests for the basic presentation of guest, user login, and admin login.
+ * Contains integration tests for login.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { SeleniumConfig.class, WebDriverFactory.class })

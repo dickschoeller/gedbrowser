@@ -21,8 +21,12 @@ import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Renders living output for display.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class LivingRenderer extends GedRenderer<Root>
@@ -101,7 +105,7 @@ public final class LivingRenderer extends GedRenderer<Root>
     }
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     @Getter
     public static final class Bucket {

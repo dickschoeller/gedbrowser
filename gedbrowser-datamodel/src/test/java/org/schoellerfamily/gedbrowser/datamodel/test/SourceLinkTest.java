@@ -14,6 +14,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+/**
+ * Contains tests for source link.
+ */
+
 final class SourceLinkTest {
 
     @SuppressWarnings("checkstyle:nowhitespaceafter")

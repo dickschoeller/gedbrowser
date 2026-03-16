@@ -7,12 +7,13 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * @author Dick Schoeller
+ * Represents parent finder in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class ParentFinder implements FinderStrategy {
     /**
      * Creates a new ParentFinder.
-     *
      */
     public ParentFinder() {
         // Empty constructor.

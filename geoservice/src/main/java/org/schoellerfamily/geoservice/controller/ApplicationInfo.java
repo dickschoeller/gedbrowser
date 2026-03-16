@@ -3,7 +3,9 @@ package org.schoellerfamily.geoservice.controller;
 import java.util.Map;
 
 /**
- * @author Dick Schoeller
+ * Handles requests related to application info.
+ *
+ * @author Richard Schoeller
  */
 public final class ApplicationInfo {
     /** */

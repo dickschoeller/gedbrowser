@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
- * @author Dick Schoeller
+ * Provides a simplified interface for attribute builder operations.
+ *
+ * @author Richard Schoeller
  */
 public interface AttributeBuilderFacade extends AttributeBuilder {
     /**

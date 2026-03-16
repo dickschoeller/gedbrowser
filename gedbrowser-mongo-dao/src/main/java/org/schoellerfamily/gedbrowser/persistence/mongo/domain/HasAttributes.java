@@ -7,8 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 
 /**
- * @author Dick Schoeller
+ * Represents has attributes for persistence operations.
  *
+ * @author Richard Schoeller
  * @param <G> the associated GedObject subclass
  */
 public abstract class HasAttributes<G extends GedObject>
@@ -52,7 +53,6 @@ public abstract class HasAttributes<G extends GedObject>
 
     /**
      * Executes clear attributes.
-     *
      */
     @Override
     public final void clearAttributes() {

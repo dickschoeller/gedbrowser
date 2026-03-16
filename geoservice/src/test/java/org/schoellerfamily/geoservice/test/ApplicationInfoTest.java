@@ -11,8 +11,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for application info.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration
@@ -24,7 +28,7 @@ public final class ApplicationInfoTest {
     /**
      * Setup the configurations for this test class.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     @Configuration
     static class ContextConfiguration {

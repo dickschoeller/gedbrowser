@@ -7,10 +7,9 @@ import org.geojson.LngLatAlt;
 import org.geojson.Polygon;
 
 /**
- * Helper class which is used by builders to create a clean bounding box
- * GeoJSON feature.
+ * Provides behavior related to geo service bounds.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GeoServiceBounds {
     /** Index in bounding box for SW longitude. */

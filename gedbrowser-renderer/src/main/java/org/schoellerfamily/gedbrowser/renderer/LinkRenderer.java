@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 
 /**
- * Render a Link.
+ * Renders link output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class LinkRenderer extends AbstractLinkRenderer<Link> {
     /**

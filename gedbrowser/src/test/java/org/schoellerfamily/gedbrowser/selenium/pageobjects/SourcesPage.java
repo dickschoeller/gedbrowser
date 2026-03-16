@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * @author Dick Schoeller
+ * Represents sources page.
+ *
+ * @author Richard Schoeller
  */
 public final class SourcesPage extends PageBase implements MenuPageFacade {
     /** */

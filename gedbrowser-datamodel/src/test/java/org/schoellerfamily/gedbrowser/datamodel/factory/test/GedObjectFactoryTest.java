@@ -14,6 +14,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
+
+/**
+ * Contains tests for ged object factory.
+ */
+
 final class GedObjectFactoryTest {
 
     @SuppressWarnings("checkstyle:nowhitespaceafter")

@@ -7,9 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implements a mixin that provides the submission repository.
+ * Provides submission repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface SubmissionRepoProvider {
     /**

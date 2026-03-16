@@ -19,7 +19,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterLinkDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.WifeDocument;
 
 /**
- * @author Dick Schoeller
+ * Visits document to api model elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public final class DocumentToApiModelVisitor
         extends TopLevelDocumentToApiModelVisitor

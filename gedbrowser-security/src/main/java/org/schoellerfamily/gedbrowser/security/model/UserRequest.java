@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.security.model;
 
 /**
- * @author Dick Schoeller
+ * Represents a request for user.
+ *
+ * @author Richard Schoeller
  */
 public class UserRequest {
     /**

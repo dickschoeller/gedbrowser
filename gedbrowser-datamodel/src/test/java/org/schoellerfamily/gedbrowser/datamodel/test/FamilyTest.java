@@ -24,8 +24,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for family.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
 final class FamilyTest {

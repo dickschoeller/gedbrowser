@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocume
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents fam c document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 public final class FamCDocumentMongo extends GedDocumentMongo<FamC>
         implements FamCDocument {

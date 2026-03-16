@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents submission in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Submission extends GedObject {
     /**
      * Creates a new Submission.
-     *
      */
     public Submission() {
         super();

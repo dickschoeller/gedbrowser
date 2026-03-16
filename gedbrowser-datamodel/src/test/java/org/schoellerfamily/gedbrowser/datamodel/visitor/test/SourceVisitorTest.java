@@ -32,8 +32,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for source visitor.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class SourceVisitorTest {

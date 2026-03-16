@@ -12,10 +12,12 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Listen for requests for the login page.
+ * Handles requests for login.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Controller
 @Slf4j

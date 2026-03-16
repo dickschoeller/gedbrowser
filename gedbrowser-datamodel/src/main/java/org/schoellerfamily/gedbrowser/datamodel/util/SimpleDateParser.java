@@ -6,12 +6,13 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * @author Dick Schoeller
+ * Parses simple date values from textual input.
+ *
+ * @author Richard Schoeller
  */
 public class SimpleDateParser {
     /**
      * Creates a new SimpleDateParser.
-     *
      */
     public SimpleDateParser() {
         // Intentionally empty.

@@ -7,10 +7,9 @@ import org.geojson.Point;
 import com.google.maps.model.LocationType;
 
 /**
- * A variant of Google's Geometry that will work with Jackson serialization to
- * JSON.
+ * Provides behavior related to geo service geometry.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GeoServiceGeometry {
     /**

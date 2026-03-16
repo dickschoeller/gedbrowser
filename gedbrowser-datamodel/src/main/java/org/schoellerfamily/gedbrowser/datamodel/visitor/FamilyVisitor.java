@@ -11,9 +11,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
- * Visitor intended to gather information about family structure.
+ * Visits family elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class FamilyVisitor implements GedObjectVisitor {
     /** */

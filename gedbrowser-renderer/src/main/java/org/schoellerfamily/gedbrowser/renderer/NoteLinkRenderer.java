@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 
 /**
- * Render a NoteLink.
+ * Renders note link output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class NoteLinkRenderer extends AbstractLinkRenderer<NoteLink> {
     /**

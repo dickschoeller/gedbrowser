@@ -12,8 +12,12 @@ import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Provides a stub implementation for geo code.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class GeoCodeStub extends GeoCodeBasic {
@@ -33,7 +37,6 @@ public final class GeoCodeStub extends GeoCodeBasic {
 
     /**
      * Executes clear.
-     *
      */
     @Override
     public void clear() {

@@ -14,6 +14,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+/**
+ * Contains tests for submitter link.
+ */
+
 final class SubmitterLinkTest {
 
     @SuppressWarnings("checkstyle:nowhitespaceafter")

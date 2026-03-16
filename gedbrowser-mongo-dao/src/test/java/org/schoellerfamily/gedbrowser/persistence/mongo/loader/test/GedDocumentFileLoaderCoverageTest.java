@@ -15,9 +15,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentR
 import org.springframework.dao.DataAccessResourceFailureException;
 
 /**
- * Coverage tests for GedDocumentFileLoader error paths.
+ * Contains tests for ged document file loader coverage.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 class GedDocumentFileLoaderCoverageTest {
 

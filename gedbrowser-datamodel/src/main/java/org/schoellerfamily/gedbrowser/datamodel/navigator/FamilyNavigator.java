@@ -13,7 +13,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.FamilyVisitor;
 
 /**
- * @author Dick Schoeller
+ * Navigates relationships for family.
+ *
+ * @author Richard Schoeller
  */
 public final class FamilyNavigator {
     /** */

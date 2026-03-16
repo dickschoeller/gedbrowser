@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 
 /**
- * @author Dick Schoeller
+ * Provides support for testing crud test helper behavior.
+ *
+ * @author Richard Schoeller
  */
 public class CrudTestHelper {
     /** */

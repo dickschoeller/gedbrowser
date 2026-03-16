@@ -8,8 +8,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents authority.
+ *
+ * @author Richard Schoeller
  */
 @Builder
 public final class Authority implements GrantedAuthority {

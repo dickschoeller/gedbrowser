@@ -13,10 +13,12 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfoFacade
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Keep track of the user context that we are rendering under.
+ * Represents rendering context.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 @Getter

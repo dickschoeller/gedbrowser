@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 import org.openqa.selenium.WebElement;
 
 /**
- * @author Dick Schoeller
+ * Represents login page.
+ *
+ * @author Richard Schoeller
  */
 public class LoginPage extends PageBase {
     /**

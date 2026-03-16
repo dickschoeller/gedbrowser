@@ -28,10 +28,12 @@ import tools.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Implements making read requests to geoservice.
+ * Provides client access to geo service.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @Slf4j

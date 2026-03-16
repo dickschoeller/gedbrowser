@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents fam c in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class FamC extends AbstractLink {
     /**
      * Creates a new FamC.
-     *
      */
     public FamC() {
         super();

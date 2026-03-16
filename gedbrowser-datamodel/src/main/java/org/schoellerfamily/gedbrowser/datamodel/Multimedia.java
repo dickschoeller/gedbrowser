@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.appender.MultimediaAppender;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents multimedia in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Multimedia extends AbstractAttribute {
     /** */
@@ -12,7 +14,6 @@ public final class Multimedia extends AbstractAttribute {
 
     /**
      * Creates a new Multimedia.
-     *
      */
     public Multimedia() {
         super();

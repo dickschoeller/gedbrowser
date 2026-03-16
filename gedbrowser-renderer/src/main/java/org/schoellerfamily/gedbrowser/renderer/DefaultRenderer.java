@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * @author Dick Schoeller
+ * Renders default output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class DefaultRenderer extends GedRenderer<GedObject> {
     /**

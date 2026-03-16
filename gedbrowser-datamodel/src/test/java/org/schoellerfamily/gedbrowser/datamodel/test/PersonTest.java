@@ -19,8 +19,12 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for person.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.GodClass", "PMD.TooManyFields" })
 final class PersonTest {

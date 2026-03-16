@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.api.crud.SpouseCrud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 
 /**
- * Tests for relation link predicates.
+ * Contains tests for relations link predicate.
  */
 final class RelationsLinkPredicateTest {
 

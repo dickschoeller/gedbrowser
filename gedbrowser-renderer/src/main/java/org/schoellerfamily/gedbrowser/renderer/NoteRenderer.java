@@ -13,9 +13,9 @@ import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
- * Render a Note.
+ * Renders note output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class NoteRenderer extends GedRenderer<Note>
         implements HeaderHrefRenderer<Note>, IndexHrefRenderer<Note>,

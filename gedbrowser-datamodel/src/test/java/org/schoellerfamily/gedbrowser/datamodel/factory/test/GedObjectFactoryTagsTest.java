@@ -13,6 +13,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
+
+/**
+ * Contains tests for ged object factory tags.
+ */
+
 final class GedObjectFactoryTagsTest {
     private static final Root ROOT = new GedObjectBuilder().getRoot();
     /**

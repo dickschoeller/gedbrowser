@@ -13,7 +13,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for husband.
+ *
+ * @author Richard Schoeller
  */
 final class HusbandTest {
     /** */

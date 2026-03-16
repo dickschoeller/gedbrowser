@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.DummyEncoder;
 
 /**
- * Tests for {@link DummyEncoder}.
+ * Contains tests for dummy encoder.
  */
 final class DummyEncoderTest {
 

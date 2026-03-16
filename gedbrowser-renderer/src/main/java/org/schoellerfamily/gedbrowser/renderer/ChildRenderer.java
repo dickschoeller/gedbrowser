@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 
 /**
- * Render a Child.
+ * Renders child output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class ChildRenderer extends AbstractLinkRenderer<Child> {
     /**

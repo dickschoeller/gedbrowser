@@ -14,8 +14,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents remote page waiter.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class RemotePageWaiter implements PageWaiter {

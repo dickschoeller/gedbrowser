@@ -28,10 +28,11 @@ import com.mongodb.client.MongoClients;
 import lombok.RequiredArgsConstructor;
 
 
+
 /**
- * Standard Spring configuration for tests of the MongoDB persistence layer.
+ * Configures components related to mongo test.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableMongoRepositories(

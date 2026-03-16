@@ -10,7 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for source.
+ *
+ * @author Richard Schoeller
  */
 final class SourceTest {
     @Test

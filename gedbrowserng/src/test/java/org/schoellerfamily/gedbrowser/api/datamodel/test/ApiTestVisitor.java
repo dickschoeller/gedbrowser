@@ -12,7 +12,9 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmission;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
 
 /**
- * @author Dick Schoeller
+ * Visits api test elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public class ApiTestVisitor implements ApiObjectVisitor {
     /** */

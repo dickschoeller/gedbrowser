@@ -11,8 +11,12 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to test.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @ComponentScan("org.schoellerfamily.gedbrowser.security")

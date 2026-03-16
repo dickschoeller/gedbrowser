@@ -8,7 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.security.model.Authority;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for authority.
+ *
+ * @author Richard Schoeller
  */
 class AuthorityTest {
     @Test

@@ -10,12 +10,13 @@ import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
 
 /**
- * @author Dick Schoeller
+ * Represents document to api model transformer.
+ *
+ * @author Richard Schoeller
  */
 public class DocumentToApiModelTransformer {
     /**
      * Creates a new DocumentToApiModelTransformer.
-     *
      */
     public DocumentToApiModelTransformer() {
         super();

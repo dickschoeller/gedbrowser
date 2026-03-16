@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
 /**
- * @author Dick Schoeller
+ * Navigates relationships for person.
+ *
+ * @author Richard Schoeller
  */
 public final class PersonNavigator {
     /** */

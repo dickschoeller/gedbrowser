@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents trailer in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Trailer extends AbstractSpecialObject {
     /**
      * Creates a new Trailer.
-     *
      */
     public Trailer() {
         super();

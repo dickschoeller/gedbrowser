@@ -13,7 +13,9 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderFacade;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for calendar provider facade.
+ *
+ * @author Richard Schoeller
  */
 class CalendarProviderFacadeTest {
     private final Calendar calendar = Calendar.getInstance();
@@ -28,7 +30,7 @@ class CalendarProviderFacadeTest {
      * pass-through. Because we will assertSame on the results against the fields of
      * the test class.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private final class CalendarProviderMock implements CalendarProvider {
         /**
@@ -56,7 +58,7 @@ class CalendarProviderFacadeTest {
      * Simplest possible implementation of the facade class with an injected
      * provider.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private final class CalendarProviderFacadeImpl implements CalendarProviderFacade {
         /** */

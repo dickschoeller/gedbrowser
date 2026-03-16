@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders note link phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class NoteLinkPhraseRenderer implements PhraseRenderer {
     /** */

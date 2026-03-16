@@ -4,9 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implements a mixin that provides the family repository.
+ * Provides family repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface FamilyRepoProvider extends HasRepoMap {
     /**

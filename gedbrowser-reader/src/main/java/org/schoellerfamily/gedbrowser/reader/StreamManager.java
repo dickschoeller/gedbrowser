@@ -9,9 +9,9 @@ import java.nio.file.Paths;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Can open a stream either in an absolute file location or in the classpath.
+ * Manages stream operations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class StreamManager {
 

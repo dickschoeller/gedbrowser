@@ -8,8 +8,12 @@ import org.openqa.selenium.WebElement;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents source page.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class SourcePage extends PageBase implements MenuPageFacade {

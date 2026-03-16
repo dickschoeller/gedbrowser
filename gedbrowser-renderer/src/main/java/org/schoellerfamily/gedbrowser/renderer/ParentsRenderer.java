@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * @author Dick Schoeller
+ * Renders parents output for display.
+ *
+ * @author Richard Schoeller
  */
 public class ParentsRenderer {
     /** */

@@ -1,8 +1,9 @@
 package org.schoellerfamily.gedbrowser.controller.test;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for menu test helper.
  *
+ * @author Richard Schoeller
  */
 public interface MenuTestHelper {
     /**

@@ -8,9 +8,9 @@ import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
- * Render a Submission.
+ * Renders submission output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class SubmissionRenderer extends GedRenderer<Submission>
         implements AttributesRenderer<Submission>,

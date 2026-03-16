@@ -15,8 +15,12 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Provides services for custom user details.
+ *
+ * @author Richard Schoeller
  */
 @Service
 @RequiredArgsConstructor

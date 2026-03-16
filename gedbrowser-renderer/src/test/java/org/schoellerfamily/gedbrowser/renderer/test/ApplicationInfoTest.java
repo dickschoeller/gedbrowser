@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for application info.
+ *
+ * @author Richard Schoeller
  */
 public class ApplicationInfoTest {
     /** */

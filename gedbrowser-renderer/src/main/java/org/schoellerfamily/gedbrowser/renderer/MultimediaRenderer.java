@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 
 /**
- * @author Dick Schoeller
+ * Renders multimedia output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class MultimediaRenderer extends GedRenderer<Multimedia> {
     /**

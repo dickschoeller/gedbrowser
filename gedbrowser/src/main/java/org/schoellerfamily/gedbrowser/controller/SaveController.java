@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Emits GEDCOM to the HTTP connection to download the GEDCOM state.
+ * Handles requests for save.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @RestController
 @Slf4j

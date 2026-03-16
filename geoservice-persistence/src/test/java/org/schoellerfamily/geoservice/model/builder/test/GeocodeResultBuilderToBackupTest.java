@@ -19,8 +19,12 @@ import com.google.maps.model.Geometry;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.LocationType;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for geocode result builder to backup.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 class GeocodeResultBuilderToBackupTest extends GeocodeValidator {

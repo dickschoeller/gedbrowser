@@ -3,8 +3,12 @@ package org.schoellerfamily.gedbrowser.security.exception;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents a response for exception.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 @Getter

@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * @author Dick Schoeller
+ * Represents index page.
+ *
+ * @author Richard Schoeller
  */
 public final class IndexPage extends PageBase implements MenuPageFacade {
     /** */

@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Renders person name index output for display.
+ *
+ * @author Richard Schoeller
  */
 public class PersonNameIndexRenderer implements NameIndexRenderer {
     /** */

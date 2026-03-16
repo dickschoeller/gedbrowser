@@ -9,10 +9,12 @@ import com.google.maps.model.LatLng;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Stub version of the Geocoding wrapper. Works with some canned behaviors.
+ * Provides behavior related to stub geo coder.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class StubGeoCoder implements GeoCoder {

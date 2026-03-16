@@ -15,8 +15,12 @@ import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Renders sources output for display.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class SourcesRenderer extends GedRenderer<Root>
@@ -27,7 +31,7 @@ public class SourcesRenderer extends GedRenderer<Root>
     /**
      * Compares source renderers for sorting by title string.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private static final class SourceRendererComparator
             implements Comparator<SourceRenderer>, Serializable {

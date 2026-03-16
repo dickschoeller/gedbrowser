@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.writer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * @author Dick Schoeller
+ * Represents ged writer line.
+ *
+ * @author Richard Schoeller
  */
 public class GedWriterLine {
     /** */

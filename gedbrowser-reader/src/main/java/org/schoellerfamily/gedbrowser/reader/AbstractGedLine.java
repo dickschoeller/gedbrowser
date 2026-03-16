@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base of GedLine and GedFile.
+ * Represents abstract ged line.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public abstract class AbstractGedLine extends AbstractSingleGedLine {
     /** */
@@ -87,7 +87,7 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
      * this one. That allows the reading of children.
      *
      * @return The GedLine at the current level. Null if the end of data is
-     *         reached first.
+     * reached first.
      * @throws IOException If this is a file source and we encounter a problem.
      */
     public final AbstractGedLine readToNext() throws IOException {

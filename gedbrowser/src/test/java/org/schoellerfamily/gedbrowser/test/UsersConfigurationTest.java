@@ -12,8 +12,12 @@ import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for users configuration.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 public final class UsersConfigurationTest {

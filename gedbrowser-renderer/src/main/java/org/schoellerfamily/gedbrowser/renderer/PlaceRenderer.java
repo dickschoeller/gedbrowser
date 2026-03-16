@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 
 /**
- * Render a Place.
+ * Renders place output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class PlaceRenderer extends GedRenderer<Place> {
     /**

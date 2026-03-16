@@ -34,8 +34,12 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to mongo test.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableMongoRepositories(

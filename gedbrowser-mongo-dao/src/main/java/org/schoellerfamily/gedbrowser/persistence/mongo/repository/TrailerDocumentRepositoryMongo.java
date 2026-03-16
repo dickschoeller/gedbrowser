@@ -8,7 +8,9 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * @author Dick Schoeller
+ * Defines persistence operations for trailer document repository mongo.
+ *
+ * @author Richard Schoeller
  */
 public interface TrailerDocumentRepositoryMongo extends
     CrudRepository<TrailerDocumentMongo, String>,

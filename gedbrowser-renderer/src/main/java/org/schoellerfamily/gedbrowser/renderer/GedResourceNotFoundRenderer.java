@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders ged resource not found output for display.
+ *
+ * @author Richard Schoeller
  */
 public class GedResourceNotFoundRenderer extends RenderingContextRenderer {
     /** */

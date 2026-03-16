@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.reader;
 import java.io.IOException;
 
 /**
- * @author Dick Schoeller
+ * Represents array source.
+ *
+ * @author Richard Schoeller
  */
 public final class ArraySource extends AbstractGedLineSource {
     /** */

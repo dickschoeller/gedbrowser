@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders attribute phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class AttributePhraseRenderer implements PhraseRenderer {
     /**

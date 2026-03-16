@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 
 /**
- * Render a Date.
+ * Renders date output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class DateRenderer extends GedRenderer<Date> {
     /**

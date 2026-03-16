@@ -11,12 +11,13 @@ import org.schoellerfamily.gedbrowser.datamodel.util.PersonComparator;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents root finder in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class RootFinder implements FinderStrategy {
     /**
      * Creates a new RootFinder.
-     *
      */
     public RootFinder() {
         // Empty constructor.

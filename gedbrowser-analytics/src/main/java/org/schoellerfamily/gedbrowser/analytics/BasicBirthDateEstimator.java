@@ -13,11 +13,10 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * Basic birth date estimator for a person. Only looks at the person's events.
- * If you want a more extensive analysis, use BirthDateEstimator.
+ * Represents basic birth date estimator.
  *
  * @see BirthDateEstimator
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class BasicBirthDateEstimator extends Estimator {
     /** Hold the person we are estimating. */

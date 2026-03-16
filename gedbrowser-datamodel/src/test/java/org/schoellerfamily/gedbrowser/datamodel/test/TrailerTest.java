@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for trailer.
+ *
+ * @author Richard Schoeller
  */
 final class TrailerTest {
     @Test

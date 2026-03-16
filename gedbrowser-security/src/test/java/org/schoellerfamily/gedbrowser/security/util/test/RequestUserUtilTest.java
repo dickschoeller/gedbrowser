@@ -21,7 +21,9 @@ import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.util.RequestUserUtil;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for request user util.
+ *
+ * @author Richard Schoeller
  */
 class RequestUserUtilTest {
     @Test

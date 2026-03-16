@@ -10,7 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.util.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents date in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Date extends AbstractAttribute {
 

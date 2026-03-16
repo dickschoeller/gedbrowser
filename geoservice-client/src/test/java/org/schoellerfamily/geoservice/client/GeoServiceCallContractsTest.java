@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import org.junit.jupiter.api.Test;
 
 /**
- * Contract tests for geoservice call abstractions.
+ * Contains tests for geo service call contracts.
  */
 final class GeoServiceCallContractsTest {
 

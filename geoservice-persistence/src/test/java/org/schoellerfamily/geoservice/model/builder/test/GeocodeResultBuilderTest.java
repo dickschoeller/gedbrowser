@@ -25,8 +25,12 @@ import com.google.maps.model.AddressType;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.LocationType;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for geocode result builder.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 final class GeocodeResultBuilderTest extends GeocodeValidator {

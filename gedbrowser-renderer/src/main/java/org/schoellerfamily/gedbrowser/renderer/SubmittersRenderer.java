@@ -13,8 +13,12 @@ import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Renders submitters output for display.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class SubmittersRenderer extends GedRenderer<Root>

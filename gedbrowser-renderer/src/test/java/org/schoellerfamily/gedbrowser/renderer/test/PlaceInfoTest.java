@@ -11,8 +11,12 @@ import org.geojson.LngLatAlt;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for place info.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.TooManyMethods")
 final class PlaceInfoTest {

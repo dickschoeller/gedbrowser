@@ -36,10 +36,12 @@ import com.google.maps.model.LatLng;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Tests of the geocoder using MongoDB persistence for the cache.
+ * Contains integration tests for geo code mongo.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.GodClass", "PMD.TooManyStaticImports",
     "PMD.TooManyMethods" })

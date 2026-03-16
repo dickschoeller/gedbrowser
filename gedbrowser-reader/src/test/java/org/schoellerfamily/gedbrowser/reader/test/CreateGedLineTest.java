@@ -11,7 +11,9 @@ import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for create ged line.
+ *
+ * @author Richard Schoeller
  */
 class CreateGedLineTest {
 

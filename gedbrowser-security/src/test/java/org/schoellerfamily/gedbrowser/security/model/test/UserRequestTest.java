@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for user request.
+ *
+ * @author Richard Schoeller
  */
 class UserRequestTest {
     @Test

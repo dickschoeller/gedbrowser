@@ -6,8 +6,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents log bean instantiation processor.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @Slf4j

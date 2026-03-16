@@ -6,7 +6,9 @@ import org.schoellerfamily.geoservice.model.GeoServiceBounds;
 import com.google.maps.model.Bounds;
 
 /**
- * @author Dick Schoeller
+ * Builds box instances.
+ *
+ * @author Richard Schoeller
  */
 public interface BoxBuilder extends LngLatAltBuilder {
     /**

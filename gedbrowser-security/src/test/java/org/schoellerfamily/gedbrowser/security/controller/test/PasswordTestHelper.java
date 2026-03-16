@@ -8,7 +8,9 @@ import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
 /**
- * @author Dick Schoeller
+ * Provides support for testing password test helper behavior.
+ *
+ * @author Richard Schoeller
  */
 public class PasswordTestHelper {
     /** */
@@ -53,7 +55,7 @@ public class PasswordTestHelper {
     }
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     static final class PasswordChanger {
         /** */

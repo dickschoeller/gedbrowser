@@ -16,7 +16,7 @@ import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 
 /**
- * Tests for {@link Resilience4jGeoServiceCallExecutor}.
+ * Contains tests for resilience4j geo service call executor.
  */
 final class Resilience4jGeoServiceCallExecutorTest {
 

@@ -13,7 +13,9 @@ import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
 import io.jsonwebtoken.ExpiredJwtException;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for token helper.
+ *
+ * @author Richard Schoeller
  */
 public class TokenHelperTest {
     /** */

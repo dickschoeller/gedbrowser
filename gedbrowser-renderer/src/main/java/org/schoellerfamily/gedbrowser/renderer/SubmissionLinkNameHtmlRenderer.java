@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders submission link name html output for display.
+ *
+ * @author Richard Schoeller
  */
 public class SubmissionLinkNameHtmlRenderer implements NameHtmlRenderer {
     /** */

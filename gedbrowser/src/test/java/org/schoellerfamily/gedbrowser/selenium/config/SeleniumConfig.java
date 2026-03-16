@@ -9,8 +9,12 @@ import org.springframework.context.annotation.Configuration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to selenium.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @Slf4j

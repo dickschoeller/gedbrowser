@@ -5,10 +5,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 import lombok.NoArgsConstructor;
 
+
+
 /**
- * Visitor that analyzes a Person object.
+ * Visits person analysis elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @NoArgsConstructor
 public final class PersonAnalysisVisitor extends AbstractAnalysisVisitor {

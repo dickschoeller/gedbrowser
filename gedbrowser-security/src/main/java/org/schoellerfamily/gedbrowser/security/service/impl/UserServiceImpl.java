@@ -18,8 +18,12 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Provides behavior related to user service impl.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @Slf4j
@@ -33,7 +37,6 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Executes reset credentials.
-     *
      */
     @Override
     public void resetCredentials() {

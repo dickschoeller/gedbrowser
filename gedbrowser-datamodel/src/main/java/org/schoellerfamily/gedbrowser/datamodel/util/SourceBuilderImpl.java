@@ -10,8 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 
 /**
- * @author Dick Schoeller
+ * Represents source builder impl in the domain model.
  *
+ * @author Richard Schoeller
  */
 public final class SourceBuilderImpl implements SourceBuilder {
     /** */

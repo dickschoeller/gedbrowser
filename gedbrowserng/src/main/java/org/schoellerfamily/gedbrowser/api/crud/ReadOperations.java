@@ -16,14 +16,17 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
+
+
 /**
- * This interface contains default methods that implement the read operations
- * for the classes that declare implementing the interface.
+ * Defines the contract for read operations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  *
  * @param <X> the data model type we are manipulating
+ *
  * @param <Y> the DB type associated with the type X
+ *
  * @param <Z> the Api type associated with the type X
  */
 @SuppressWarnings("PMD.CommentSize")

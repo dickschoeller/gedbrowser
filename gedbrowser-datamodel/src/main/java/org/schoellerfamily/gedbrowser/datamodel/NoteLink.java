@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents note link in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class NoteLink extends AbstractLink {
     /**
      * Creates a new NoteLink.
-     *
      */
     public NoteLink() {
         super();

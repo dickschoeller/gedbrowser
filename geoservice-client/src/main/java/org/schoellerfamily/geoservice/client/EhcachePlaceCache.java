@@ -10,11 +10,9 @@ import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 
 /**
- * Ehcache-backed {@link PlaceCache} implementation.
- * All ehcache API types are confined to this class so that
- * {@link GeoServiceClient} can be loaded without ehcache on the classpath.
+ * Provides behavior related to ehcache place cache.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class EhcachePlaceCache implements PlaceCache {
 

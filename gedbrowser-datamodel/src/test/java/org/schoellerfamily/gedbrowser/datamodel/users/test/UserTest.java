@@ -10,9 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
 /**
- * Test the User object. The only thing slightly complex is role management.
+ * Contains tests for user.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 final class UserTest {
     @Test

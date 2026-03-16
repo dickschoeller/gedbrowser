@@ -5,7 +5,9 @@ import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import com.google.maps.model.GeocodingResult;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of geo.
+ *
+ * @author Richard Schoeller
  */
 public interface GeoDocument {
     /**

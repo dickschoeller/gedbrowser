@@ -4,9 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implements a mixin that provides the note repository.
+ * Provides note repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface NoteRepoProvider extends HasRepoMap {
     /**

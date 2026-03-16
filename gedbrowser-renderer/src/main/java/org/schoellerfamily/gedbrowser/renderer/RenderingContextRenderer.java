@@ -5,11 +5,12 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
 import lombok.Getter;
 
+
+
 /**
- * Some base rendering behaviors outside of the context of GedObject rendering.
- * This provides methods that can be used in the context of error pages, etc.
+ * Renders rendering context output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Getter
 public abstract class RenderingContextRenderer implements Renderer {

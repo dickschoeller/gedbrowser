@@ -6,7 +6,9 @@ import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.finder.ParentFinder;
 
 /**
- * @author Dick Schoeller
+ * Represents abstract finder object in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public abstract class AbstractFinderObject implements FinderObject {
     /** */
@@ -14,7 +16,6 @@ public abstract class AbstractFinderObject implements FinderObject {
 
     /**
      * Creates a new AbstractFinderObject.
-     *
      */
     protected AbstractFinderObject() {
         finder = new ParentFinder();
@@ -83,7 +84,7 @@ public abstract class AbstractFinderObject implements FinderObject {
     }
 
     /**
-     *GSet the strategy that implements finding.
+     * GSet the strategy that implements finding.
      *
      * @return the finder
      */

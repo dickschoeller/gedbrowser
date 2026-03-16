@@ -8,9 +8,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author dick
+ * Provides user values to calling code.
  *
+ * @author dick
  */
 @Component
 @RequiredArgsConstructor

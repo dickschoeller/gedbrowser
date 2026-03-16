@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.reader;
 
 /**
- * @author Dick Schoeller
+ * Represents abstract ged line source.
+ *
+ * @author Richard Schoeller
  */
 public abstract class AbstractGedLineSource implements GedLineSource {
     /**

@@ -13,7 +13,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
 /**
- * @author Dick Schoeller
+ * Builds ged object instances.
+ *
+ * @author Richard Schoeller
  */
 public final class GedObjectBuilder implements PersonBuilderFacade,
         FamilyBuilderFacade, SourceBuilderFacade, AttributeBuilderFacade {
@@ -114,7 +116,6 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
 
     /**
      * Creates a new GedObjectBuilder.
-     *
      */
     public GedObjectBuilder() {
         this(new Root());

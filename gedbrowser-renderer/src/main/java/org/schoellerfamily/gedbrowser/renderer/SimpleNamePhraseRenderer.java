@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
 /**
- * @author Dick Schoeller
+ * Renders simple name phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public class SimpleNamePhraseRenderer
     implements PhraseRenderer, SimpleRenderer {

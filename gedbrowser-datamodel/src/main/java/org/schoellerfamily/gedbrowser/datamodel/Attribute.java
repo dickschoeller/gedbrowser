@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.appender.TailAppender;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents attribute in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Attribute extends AbstractAttribute implements Tail {
     /** */

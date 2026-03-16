@@ -11,8 +11,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Exposes operations for the load endpoint.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @Endpoint(id = "load")
@@ -60,7 +64,6 @@ public class LoadEndpoint extends BaseGeoCodeEndpoint {
 
     /**
      * Executes geo code action.
-     *
      */
     @Override
     public final void geoCodeAction() {

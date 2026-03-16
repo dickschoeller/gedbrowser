@@ -4,9 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implements a mixin that provides the source repository.
+ * Provides source repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface SourceRepoProvider extends HasRepoMap {
     /**

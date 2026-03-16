@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents submission link in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class SubmissionLink extends AbstractLink {
     /**
      * Creates a new SubmissionLink.
-     *
      */
     public SubmissionLink() {
         super();

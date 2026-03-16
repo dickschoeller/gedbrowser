@@ -6,7 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
 
 /**
- * @author Dick Schoeller
+ * Creates page instances.
+ *
+ * @author Richard Schoeller
  */
 public final class PageFactory {
     /** */

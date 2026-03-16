@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 /**
- * Class represents the ID strings for a pair of parents.
+ * Represents parent ids.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class ParentIds {
     /** */

@@ -1,9 +1,11 @@
 package org.schoellerfamily.geoservice.exception;
 
+
+
 /**
- * Exception for geocoding problems.
+ * Represents an error related to geo code runtime.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
 public class GeoCodeRuntimeException extends RuntimeException {
@@ -25,7 +27,7 @@ public class GeoCodeRuntimeException extends RuntimeException {
      * call to {@link #initCause}.
      *
      * @param   message   the detail message. The detail message is saved for
-     *          later retrieval by the {@link #getMessage()} method.
+     * later retrieval by the {@link #getMessage()} method.
      */
     public GeoCodeRuntimeException(final String message) {
         super(message);
@@ -39,9 +41,9 @@ public class GeoCodeRuntimeException extends RuntimeException {
      * that are little more than wrappers for other throwables.
      *
      * @param  cause the cause (which is saved for later retrieval by the
-     *         {@link #getCause()} method).  (A <code>null</code> value is
-     *         permitted, and indicates that the cause is nonexistent or
-     *         unknown.)
+     * {@link #getCause()} method).  (A <code>null</code> value is
+     * permitted, and indicates that the cause is nonexistent or
+     * unknown.)
      */
     public GeoCodeRuntimeException(final Throwable cause) {
         super(cause);
@@ -54,11 +56,11 @@ public class GeoCodeRuntimeException extends RuntimeException {
      * this runtime exception's detail message.
      *
      * @param  message the detail message (which is saved for later retrieval
-     *         by the {@link #getMessage()} method).
+     * by the {@link #getMessage()} method).
      * @param  cause the cause (which is saved for later retrieval by the
-     *         {@link #getCause()} method).  (A <code>null</code> value is
-     *         permitted, and indicates that the cause is nonexistent or
-     *         unknown.)
+     * {@link #getCause()} method).  (A <code>null</code> value is
+     * permitted, and indicates that the cause is nonexistent or
+     * unknown.)
      */
     public GeoCodeRuntimeException(final String message,
             final Throwable cause) {
@@ -74,9 +76,9 @@ public class GeoCodeRuntimeException extends RuntimeException {
      * @param cause the cause.  (A {@code null} value is permitted,
      * and indicates that the cause is nonexistent or unknown.)
      * @param enableSuppression whether or not suppression is enabled
-     *                          or disabled
+     * or disabled
      * @param writableStackTrace whether or not the stack trace should
-     *                           be writable
+     * be writable
      *
      * @since 1.7
      */

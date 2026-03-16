@@ -4,8 +4,12 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents ged appender in the domain model.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public final class GedAppender implements AppenderStrategy {

@@ -16,7 +16,9 @@ import org.schoellerfamily.geoservice.model.GeoServiceItemComparator;
 import org.schoellerfamily.geoservice.model.builder.test.GeocodeValidator;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for geo service item comparator.
+ *
+ * @author Richard Schoeller
  */
 class GeoServiceItemComparatorTest extends GeocodeValidator {
     /** */

@@ -6,7 +6,9 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * @author Dick Schoeller
+ * Represents repository manager mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 public class RepositoryManagerMongo extends MappedRepositoryManagerMongo
         implements RootRepoProvider, PersonRepoProvider, FamilyRepoProvider, SourceRepoProvider,

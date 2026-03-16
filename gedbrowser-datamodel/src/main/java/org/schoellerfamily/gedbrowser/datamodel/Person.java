@@ -4,12 +4,13 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents person in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Person extends GedObject implements Nameable {
     /**
      * Creates a new Person.
-     *
      */
     public Person() {
         super();

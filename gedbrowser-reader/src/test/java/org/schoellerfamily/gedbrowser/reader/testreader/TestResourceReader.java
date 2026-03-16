@@ -12,10 +12,12 @@ import org.schoellerfamily.gedbrowser.reader.CharsetScanner;
 import org.schoellerfamily.gedbrowser.reader.GedFile;
 import org.schoellerfamily.gedbrowser.reader.StreamManager;
 
+
+
 /**
- * This class provides a method to simplify reading test data files.
+ * Reads test resource data from an external source.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TestClassWithoutTestCases" })
 public final class TestResourceReader {

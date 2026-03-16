@@ -8,8 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to test.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @ComponentScan(basePackageClasses = { GeoServiceClient.class, ApplicationInfoImpl.class })

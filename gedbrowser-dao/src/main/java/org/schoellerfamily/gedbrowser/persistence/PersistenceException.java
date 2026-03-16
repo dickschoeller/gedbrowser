@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.persistence;
 
 /**
- * @author Dick Schoeller
+ * Represents an error related to persistence.
+ *
+ * @author Richard Schoeller
  */
 public class PersistenceException extends RuntimeException {
     /** */
@@ -9,7 +11,6 @@ public class PersistenceException extends RuntimeException {
 
     /**
      * Creates a new PersistenceException.
-     *
      */
     public PersistenceException() {
         super();

@@ -20,9 +20,9 @@ import org.schoellerfamily.gedbrowser.api.service.storage.StorageException;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Test class for FileSystemStorageService path validation.
+ * Contains tests for the file system storage service.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 class FileSystemStorageServiceTest {
 

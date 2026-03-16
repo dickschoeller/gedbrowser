@@ -20,8 +20,12 @@ import org.springframework.test.web.servlet.client.RestTestClient;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for the public controller.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class,

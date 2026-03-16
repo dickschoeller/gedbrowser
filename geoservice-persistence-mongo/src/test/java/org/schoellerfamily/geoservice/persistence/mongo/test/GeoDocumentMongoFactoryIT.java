@@ -10,10 +10,9 @@ import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongo;
 import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongoFactory;
 
 /**
- * Test of the factory that creates GeoDocumentMongo objects from GeoCodeItem
- * objects, and vice versa.
+ * Contains integration tests for geo document mongo factory.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 final class GeoDocumentMongoFactoryIT {
     @Test
