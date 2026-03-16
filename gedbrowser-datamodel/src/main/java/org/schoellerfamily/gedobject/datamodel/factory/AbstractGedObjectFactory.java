@@ -29,6 +29,8 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
+import lombok.NoArgsConstructor;
+
 
 
 /**
@@ -37,40 +39,61 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.CouplingBetweenObjects" })
+@NoArgsConstructor
 public abstract class AbstractGedObjectFactory {
-    /**
-     * Creates a new AbstractGedObjectFactory.
-     */
-    public AbstractGedObjectFactory() {
-    }
-
+    /** */
     /* default */ static final AttributeFactory ATTR_FACTORY = new AttributeFactory();
+    /** */
     /* default */ static final ChildFactory CHILD_FACTORY = new ChildFactory();
+    /** */
     /* default */ static final ConcatenationFactory CONCAT_FACTORY = new ConcatenationFactory();
+    /** */
     /* default */ static final ContinuationFactory CONTIN_FACTORY = new ContinuationFactory();
+    /** */
     /* default */ static final DateFactory DATE_FACTORY = new DateFactory();
+    /** */
     /* default */ static final FamCFactory FAMC_FACTORY = new FamCFactory();
+    /** */
     /* default */ static final FamilyFactory FAMILY_FACTORY = new FamilyFactory();
+    /** */
     /* default */ static final FamSFactory FAMS_FACTORY = new FamSFactory();
+    /** */
     /* default */ static final HeadFactory HEAD_FACTORY = new HeadFactory();
+    /** */
     /* default */ static final HusbandFactory HUSBAND_FACTORY = new HusbandFactory();
+    /** */
     /* default */ static final LinkFactory LINK_FACTORY = new LinkFactory();
+    /** */
     /* default */ static final MultimediaFactory MULTIMEDIA_FACTORY = new MultimediaFactory();
+    /** */
     /* default */ static final NameFactory NAME_FACTORY = new NameFactory();
+    /** */
     /* default */ static final NoteFactory NOTE_FACTORY = new NoteFactory();
+    /** */
     /* default */ static final NoteLinkFactory NOTELINK_FACTORY = new NoteLinkFactory();
+    /** */
     /* default */ static final PersonFactory PERSON_FACTORY = new PersonFactory();
+    /** */
     /* default */ static final PlaceFactory PLACE_FACTORY = new PlaceFactory();
+    /** */
     /* default */ static final RootFactory ROOT_FACTORY = new RootFactory();
+    /** */
     /* default */ static final SourceFactory SOURCE_FACTORY = new SourceFactory();
+    /** */
     /* default */ static final SourceLinkFactory SOURLINK_FACTORY = new SourceLinkFactory();
+    /** */
     /* default */ static final SubmissionFactory SUBMISSION_FACTORY = new SubmissionFactory();
+    /** */
     /* default */ static final SubmissionLinkFactory SUBNLINK_FACTORY = new SubmissionLinkFactory();
+    /** */
     /* default */ static final SubmitterFactory SUBMITTER_FACTORY = new SubmitterFactory();
+    /** */
     /* default */ static final SubmitterLinkFactory SUBMLINK_FACTORY = new SubmitterLinkFactory();
+    /** */
     /* default */ static final TrailerFactory TRAILER_FACTORY = new TrailerFactory();
+    /** */
     /* default */ static final WifeFactory WIFE_FACTORY = new WifeFactory();
-
+    /** */
     private static Map<String, GedToken> tokens = new TokenTableInitializer().getTokens();
 
     /**
@@ -808,6 +831,7 @@ public abstract class AbstractGedObjectFactory {
      * @param parent the parent GedObject
      * @param xref   an optional ID string
      * @param tag    the GEDCOM tag
+     * @param tail   the rest of the line
      * @return the GedObject
      */
     public final GedObject create(final GedObject parent, final String xref, final String tag,
@@ -853,13 +877,8 @@ public abstract class AbstractGedObjectFactory {
      *
      * @author Richard Schoeller
      */
+    @NoArgsConstructor
     public static final class GedObjectFactory extends AbstractGedObjectFactory {
-        /**
-         * Creates a new GedObjectFactory.
-         */
-        public GedObjectFactory() {
-        }
-
         /**
          * Returns the ged object.
          *

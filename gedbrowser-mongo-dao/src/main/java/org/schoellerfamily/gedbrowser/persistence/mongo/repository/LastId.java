@@ -19,6 +19,9 @@ public interface LastId<T extends GedDocumentMongo<?>> {
      * Performs last id.
      *
      * @param mongoTemplate the MongoDB access template
+     * @param clazz the document class to query
+     * @param filename the dataset filename to restrict the search
+     * @param baseId the base ID prefix to match against
      * @return the last matching ID
      */
     default String lastId(final MongoTemplate mongoTemplate,
@@ -43,7 +46,10 @@ public interface LastId<T extends GedDocumentMongo<?>> {
      * Performs new id.
      *
      * @param mongoTemplate the MongoDB access template
-     * @return the last matching ID
+     * @param clazz the document class to query
+     * @param filename the dataset filename to restrict the search
+     * @param baseId the base ID prefix to use when generating the new ID
+     * @return the next available ID
      */
     default String newId(final MongoTemplate mongoTemplate,
             final Class<T> clazz,

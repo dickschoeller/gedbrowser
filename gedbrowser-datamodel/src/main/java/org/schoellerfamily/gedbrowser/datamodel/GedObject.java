@@ -212,16 +212,16 @@ public abstract class GedObject extends AbstractFinderObject
         return result;
     }
 
-    @Override
-    @SuppressWarnings({ "PMD.CyclomaticComplexity",
-            "PMD.ModifiedCyclomaticComplexity",
-            "PMD.StdCyclomaticComplexity" })
     /**
      * Executes equals.
      *
      * @param obj the obj
      * @return the resulting boolean
      */
+    @Override
+    @SuppressWarnings({ "PMD.CyclomaticComplexity",
+            "PMD.ModifiedCyclomaticComplexity",
+            "PMD.StdCyclomaticComplexity" })
     public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -281,7 +281,7 @@ public abstract class GedObject extends AbstractFinderObject
     }
 
     /**
-     * Hook for using the visitor design pattern to accumulate information
+     * Hook for using the visitor design pattern to accumulate information.
      *
      * @param visitor the visitor
      */
