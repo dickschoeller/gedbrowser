@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 import { ApiService } from './api-service';
 import { ApiObject } from '../models';
@@ -17,7 +17,19 @@ export abstract class ServiceBase<T extends ApiObject> implements ApiService<T> 
   }
 
   getAll(db: string): Observable<Array<T>> {
-    return this.http.get<Array<T>>(this.url(db));
+    return this.http.get<Array<T>>(this.url(db)).pipe(
+      map((items) => {
+        const seen = new Set<string>();
+        return items.filter((item) => {
+          const key = item?.string;
+          if (!key || seen.has(key)) {
+            return false;
+          }
+          seen.add(key);
+          return true;
+        });
+      })
+    );
   }
 
   getOne(db: string, id): Observable<T> {

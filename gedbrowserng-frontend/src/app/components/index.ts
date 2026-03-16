@@ -1,5 +1,6 @@
 export * from './attribute-dialog';
 export * from './attribute-list';
+export * from './confirm-dialog';
 export * from './link-dialog';
 export * from './link-person-dialog';
 export * from './main-menu';

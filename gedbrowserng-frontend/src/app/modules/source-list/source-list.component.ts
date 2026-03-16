@@ -7,7 +7,7 @@ import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeader
 
 import { SourceCreator } from '../../bases/source-creator';
 import { NewSourceHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
-import { NewSourceDialogComponent } from '../../components';
+import { NewSourceDialogComponent, ConfirmDialogComponent } from '../../components';
 import { ApiSource } from '../../models';
 import { SourceService } from '../../services';
 import { SourceListPageComponent } from './source-list-page.component';
@@ -181,8 +181,15 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
   }
 
   delete(source: ApiSource) {
-    this.sourceService.delete(this.dataset, source).subscribe((s: ApiSource) => {
-      this.refreshSource(s);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Are you sure you want to delete this source?' }
+    });
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.sourceService.delete(this.dataset, source).subscribe((s: ApiSource) => {
+          this.refreshSource(s);
+        });
+      }
     });
   }
 }

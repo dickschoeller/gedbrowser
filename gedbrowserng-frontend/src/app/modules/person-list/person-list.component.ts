@@ -6,7 +6,7 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
 import { PersonCreator } from '../../bases';
-import { NewPersonDialogComponent } from '../../components';
+import { NewPersonDialogComponent, ConfirmDialogComponent } from '../../components';
 import { ApiPerson, NewPersonDialogData } from '../../models';
 import { PersonService } from '../../services';
 import { UrlBuilder, NewPersonHelper, ListPage, ListPageHelper } from '../../utils';
@@ -238,8 +238,15 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
   }
 
   delete(person: ApiPerson) {
-    this.personService.delete(this.dataset, person).subscribe((p: ApiPerson) => {
-      this.refreshPerson();
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Are you sure you want to delete this person?' }
+    });
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.personService.delete(this.dataset, person).subscribe((p: ApiPerson) => {
+          this.refreshPerson();
+        });
+      }
     });
   }
 }

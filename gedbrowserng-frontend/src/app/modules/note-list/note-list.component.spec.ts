@@ -62,6 +62,7 @@ describe('NoteListComponent', () => {
     const router = new StubRouter();
     const svc = new StubNoteService();
     const dlg = new StubDialog();
+    dlg.result = true;
     const comp = new NoteListComponent(router as any, svc as any, dlg as any);
     comp.parent = new StubParent() as any;
     const note = new ApiNote();

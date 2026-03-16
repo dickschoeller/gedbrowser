@@ -2,6 +2,8 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
@@ -103,6 +105,13 @@ public interface ReadOperations<
         try {
             final Iterable<Y> a = getRepository().findAll(root);
             return java.util.stream.StreamSupport.stream(a.spliterator(), false)
+                .filter(doc -> doc != null && doc.getString() != null)
+                .collect(Collectors.toMap(
+                    Y::getString,
+                    Function.identity(),
+                    (first, second) -> first,
+                    java.util.LinkedHashMap::new))
+                .values().stream()
                 .sorted(new GetStringComparator())
                 .toList();
         } catch (RuntimeException e) {

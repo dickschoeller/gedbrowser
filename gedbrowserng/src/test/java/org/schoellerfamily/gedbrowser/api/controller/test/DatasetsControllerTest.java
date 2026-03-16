@@ -75,4 +75,26 @@ final class DatasetsControllerTest {
 
         assertTrue(dbs.isEmpty());
     }
+
+    /** */
+    @Test
+    void testDbsDeduplicatesDatasetNames() {
+        final RepositoryManagerMongo manager = Mockito.mock(RepositoryManagerMongo.class);
+        final RootDocumentRepositoryMongo repository =
+            Mockito.mock(RootDocumentRepositoryMongo.class);
+        final RootDocumentMongo first = new RootDocumentMongo();
+        first.setDbName("schoeller");
+        final RootDocumentMongo second = new RootDocumentMongo();
+        second.setDbName("schoeller");
+        final RootDocumentMongo third = new RootDocumentMongo();
+        third.setDbName("mini");
+
+        doReturn(repository).when(manager).get(Root.class);
+        when(repository.findAll()).thenReturn(List.of(first, second, third));
+
+        final DatasetsController controller = new DatasetsController(manager);
+        final List<String> dbs = controller.dbs();
+
+        assertEquals(List.of("schoeller", "mini"), dbs);
+    }
 }

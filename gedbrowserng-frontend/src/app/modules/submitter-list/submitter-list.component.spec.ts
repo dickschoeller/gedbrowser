@@ -130,6 +130,7 @@ describe('SubmitterListComponent', () => {
     const refreshSubmitterSpy = vi.spyOn(component.parent, 'refreshSubmitter');
 
     vi.spyOn(submitterService, 'delete').mockReturnValue(of(mockSubmitters[0]));
+    vi.spyOn(dialog, 'open').mockReturnValue({ afterClosed: () => of(true) } as any);
 
     component.delete(mockSubmitters[0]);
 
@@ -182,6 +183,7 @@ describe('SubmitterListComponent', () => {
     component.dataset = 'testDataset';
     const deleteSpy = vi.spyOn(submitterService, 'delete').mockReturnValue(of(mockSubmitters[0]));
     const refreshSpy = vi.spyOn(component.parent, 'refreshSubmitter');
+    vi.spyOn(dialog, 'open').mockReturnValue({ afterClosed: () => of(true) } as any);
 
     component.delete(mockSubmitters[0]);
 

@@ -61,12 +61,24 @@ a:active {
 
 app-attribute-list-item .hidden .mat-icon-button,
 app-attribute-list-item .hidden .mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 16px;
+  --mat-icon-button-state-layer-size: 16px;
   width: 16px;
   height: 16px;
   min-width: 16px;
   min-height: 16px;
   margin: 0;
   padding: 0;
+}
+
+app-attribute-list-item .hidden .mat-mdc-icon-button .mat-mdc-button-touch-target,
+app-attribute-list-item .hidden .mat-mdc-icon-button .mat-mdc-button-persistent-ripple,
+app-attribute-list-item .hidden .mat-mdc-icon-button .mat-mdc-button-ripple {
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  transform: none;
 }
 
 app-attribute-list-item .hidden .mat-icon {
@@ -88,6 +100,16 @@ app-person-family-child .hidden .mat-mdc-icon-button {
   min-height: 16px;
   margin: 0;
   padding: 0;
+}
+
+app-person-family-child .hidden .mat-mdc-icon-button .mat-mdc-button-touch-target,
+app-person-family-child .hidden .mat-mdc-icon-button .mat-mdc-button-persistent-ripple,
+app-person-family-child .hidden .mat-mdc-icon-button .mat-mdc-button-ripple {
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  transform: none;
 }
 
 app-person-family-child .hidden .mat-icon {

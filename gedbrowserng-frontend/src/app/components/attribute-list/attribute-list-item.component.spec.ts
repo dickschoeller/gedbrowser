@@ -142,6 +142,7 @@ describe('AttributeListItemComponent', () => {
     component.attributeList = [attr1, attr2];
     component.attribute = attr1;
 
+    mockMatDialog.open.mockReturnValue({ afterClosed: () => of(true) });
     component.delete();
 
     expect(component.attributeList.length).toBe(1);
@@ -244,6 +245,7 @@ describe('AttributeListItemComponent', () => {
     component.attributeList = [attr1, attr2, attr3];
     component.attribute = attr2;
 
+    mockMatDialog.open.mockReturnValue({ afterClosed: () => of(true) });
     component.delete();
 
     expect(component.attributeList.length).toBe(2);
