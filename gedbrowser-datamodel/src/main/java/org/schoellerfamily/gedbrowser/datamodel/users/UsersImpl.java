@@ -15,10 +15,12 @@ public final class UsersImpl<T extends User> implements Users<T> {
     private final Map<String, T> users = new HashMap<>();
 
     /**
-     * Returns the t.
+     * Adds the specified user to this collection, keyed by its username.
+     * If a user with the same username already exists, it is replaced.
      *
-     * @param user the user
-     * @return the resulting t
+     * @param user the user to add
+     * @return the previous user associated with the username, or {@code null}
+     *         if there was no mapping for the username
      */
     @Override
     public T add(final T user) {
@@ -26,10 +28,11 @@ public final class UsersImpl<T extends User> implements Users<T> {
     }
 
     /**
-     * Returns the t.
+     * Removes the specified user (by username) from this collection.
      *
-     * @param user the user
-     * @return the resulting t
+     * @param user the user whose username is to be removed
+     * @return the previous user associated with the username, or {@code null}
+     *         if there was no mapping for the username
      */
     @Override
     public T remove(final User user) {
@@ -37,10 +40,10 @@ public final class UsersImpl<T extends User> implements Users<T> {
     }
 
     /**
-     * Gets the value.
+     * Gets the user associated with the given username.
      *
      * @param username the username to use
-     * @return the value
+     * @return the user associated with the username, or {@code null} if none
      */
     @Override
     public T get(final String username) {
@@ -48,7 +51,7 @@ public final class UsersImpl<T extends User> implements Users<T> {
     }
 
     /**
-     * Executes clear.
+     * Removes all users from this collection.
      */
     @Override
     public void clear() {
@@ -56,9 +59,9 @@ public final class UsersImpl<T extends User> implements Users<T> {
     }
 
     /**
-     * Returns the iterator.
+     * Returns an iterator over the users in this collection.
      *
-     * @return the resulting iterator
+     * @return an iterator over the contained users
      */
     @Override
     public Iterator<T> iterator() {
@@ -66,9 +69,9 @@ public final class UsersImpl<T extends User> implements Users<T> {
     }
 
     /**
-     * Returns the int.
+     * Returns the number of users in this collection.
      *
-     * @return the resulting int
+     * @return the number of users
      */
     @Override
     public int size() {
