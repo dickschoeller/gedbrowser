@@ -25,6 +25,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public final class SourceDocumentMongo extends GedDocumentMongo<Source>
         implements SourceDocument {
     /**
+     * Creates a new SourceDocumentMongo.
+     */
+    public SourceDocumentMongo() {
+    }
+
+    /**
      * Gets the type.
      *
      * @return the type
@@ -38,7 +44,6 @@ public final class SourceDocumentMongo extends GedDocumentMongo<Source>
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

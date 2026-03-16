@@ -28,9 +28,13 @@ import lombok.RequiredArgsConstructor;
 public class SubmitterDocumentRepositoryMongoImpl implements
     FindableDocument<Submitter, SubmitterDocument>,
     LastId<SubmitterDocumentMongo> {
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
     /**
      * Finds the by file and string.

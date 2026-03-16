@@ -57,10 +57,14 @@ public class GedDocumentFileLoader {
      */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
-    /** */
+    /**
+     * The root document repository value.
+     */
     private final RootDocumentRepositoryMongo rootDocumentRepository;
 
-    /** */
+    /**
+     * The gedbrowser home value.
+     */
     @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private final String gedbrowserHome;
 
@@ -68,7 +72,6 @@ public class GedDocumentFileLoader {
      * Loads the document.
      *
      * @param repositoryManager the repository manager
-     * @param dbName the db name to use
      * @return the resulting root document
      */
     public RootDocument loadDocument(final RepositoryManagerMongo repositoryManager,
@@ -163,7 +166,6 @@ public class GedDocumentFileLoader {
      * Loads the repository.
      *
      * @param repositoryManager the repository manager
-     * @param dbName the db name to use
      * @return the resulting root document
      */
     protected RootDocument loadRepository(final RepositoryManagerMongo repositoryManager,
@@ -246,7 +248,6 @@ public class GedDocumentFileLoader {
      * Executes details.
      *
      * @param repositoryManager the repository manager
-     * @param dbname the dbname to use
      * @return the resulting object>
      */
     public final Map<String, Object> details(final RepositoryManagerMongo repositoryManager,

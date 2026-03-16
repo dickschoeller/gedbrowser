@@ -15,10 +15,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
  */
 public class GedDocumentMongoToGedObjectConverter {
     /**
+     * Creates a new GedDocumentMongoToGedObjectConverter.
+     */
+    public GedDocumentMongoToGedObjectConverter() {
+    }
+
+    /**
      * Creates the ged object.
      *
      * @param parent the parent
-     * @param document the document
      * @return the resulting ged object
      */
     public GedObject createGedObject(final GedObject parent,
@@ -45,7 +50,6 @@ public class GedDocumentMongoToGedObjectConverter {
      * Creates the root.
      *
      * @param document the document
-     * @param finder the finder
      * @return the resulting root
      */
     public Root createRoot(final RootDocument document,

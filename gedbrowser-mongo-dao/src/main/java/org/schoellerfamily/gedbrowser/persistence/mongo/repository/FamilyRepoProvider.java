@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public interface FamilyRepoProvider extends HasRepoMap {
     /**
+     * Sets the family document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -18,6 +20,8 @@ public interface FamilyRepoProvider extends HasRepoMap {
     }
 
     /**
+     * Gets the family document repository.
+     *
      * @return the repository
      */
     default FamilyDocumentRepositoryMongo getFamilyDocumentRepository() {

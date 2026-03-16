@@ -13,6 +13,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  */
 public interface AttributeBuilderFacade extends AttributeBuilder {
     /**
+     * Gets the attribute builder.
+     *
      * @return the attribute builder
      */
     AttributeBuilder getAttributeBuilder();

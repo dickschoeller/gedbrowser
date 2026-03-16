@@ -101,8 +101,9 @@ public final class Name extends GedObject implements Nameable {
     }
 
     /**
-     * @return the suffix portion of the name. In western names this is usually
      * a generation modifier.
+     *
+     * @return the suffix portion of the name. In western names this is usually
      */
     public String getSuffix() {
         return suffix;

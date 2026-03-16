@@ -7,6 +7,8 @@ package org.schoellerfamily.gedbrowser.datamodel;
  */
 public interface Spouse {
     /**
+     * Gets the spouse.
+     *
      * @return return the person that this object points to.
      */
     Person getSpouse();

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public interface SourceRepoProvider extends HasRepoMap {
     /**
+     * Sets the source document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -18,6 +20,8 @@ public interface SourceRepoProvider extends HasRepoMap {
     }
 
     /**
+     * Gets the source document repository.
+     *
      * @return the repository
      */
     default SourceDocumentRepositoryMongo getSourceDocumentRepository() {

@@ -11,10 +11,14 @@ import org.springframework.security.core.GrantedAuthority;
  * @author Richard Schoeller
  */
 public final class AnonAuthentication extends AbstractAuthenticationToken {
-    /** */
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
 
-    /** */
+    /**
+     * The h a s h  r o o t constant.
+     */
     private static final int HASH_ROOT = 7;
 
     /**

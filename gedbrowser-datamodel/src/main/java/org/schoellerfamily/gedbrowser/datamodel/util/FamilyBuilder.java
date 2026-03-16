@@ -57,9 +57,9 @@ public interface FamilyBuilder {
 
     /**
      * Add a person as the husband in a family.
+     *
      * @param family the family
      * @param person the person
-     *
      * @return the husband object
      */
     Husband addHusbandToFamily(Family family, Person person);

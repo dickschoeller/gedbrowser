@@ -20,7 +20,6 @@ public final class SubmissionLink extends AbstractLink {
      *
      * @param parent the parent
      * @param tag the tag
-     * @param xref the xref
      */
     public SubmissionLink(final GedObject parent, final String tag,
             final ObjectId xref) {

@@ -51,6 +51,7 @@ public final class RootFinder implements FinderStrategy {
     /**
      * Returns the t.
      *
+     * @param <T> the type to return
      * @param owner the owner
      * @param str the str
      * @param clazz the clazz
@@ -90,7 +91,6 @@ public final class RootFinder implements FinderStrategy {
      * Finds the by surname.
      *
      * @param owner the owner
-     * @param surname the surname to use
      * @return the resulting collection
      */
     @Override
@@ -109,7 +109,6 @@ public final class RootFinder implements FinderStrategy {
      * Finds the by surnames begin with.
      *
      * @param owner the owner
-     * @param beginsWith the begins with
      * @return the resulting collection
      */
     @Override
@@ -144,8 +143,8 @@ public final class RootFinder implements FinderStrategy {
     /**
      * Executes find.
      *
+     * @param <T> the type to return
      * @param owner the owner
-     * @param clazz the clazz
      * @return the resulting collection
      */
     @Override

@@ -27,7 +27,7 @@ public class AuthorityServiceImpl implements AuthorityService {
      * Finds by id.
      *
      * @param id the unique identifier for the target
-     * @return the resulting list< authority>
+     * @return the resulting list of authority
      */
     @Override
     public final List<Authority> findById(final Long id) {

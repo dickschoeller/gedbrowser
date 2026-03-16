@@ -16,25 +16,45 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  * @author Richard Schoeller
  */
 public final class FamilyVisitor implements GedObjectVisitor {
-    /** */
+    /**
+     * Creates a new FamilyVisitor.
+     */
+    public FamilyVisitor() {
+    }
+
+    /**
+     * The wife found value.
+     */
     private Wife wifeFound;
 
-    /** */
+    /**
+     * The mother value.
+     */
     private Person mother;
 
-    /** */
+    /**
+     * The husband found value.
+     */
     private Husband husbandFound;
 
-    /** */
+    /**
+     * The father value.
+     */
     private Person father;
 
-    /** */
+    /**
+     * Performs method.
+     */
     private final List<Child> childList = new ArrayList<>();
 
-    /** */
+    /**
+     * Performs method.
+     */
     private final List<Person> children = new ArrayList<>();
 
-    /** */
+    /**
+     * Performs method.
+     */
     private final List<Person> spouses = new ArrayList<>();
 
     /**
@@ -51,7 +71,6 @@ public final class FamilyVisitor implements GedObjectVisitor {
 
     /**
      * Get the person who is the mother in this family. Can return an empty
-     * person.
      *
      * @return the mother
      */
@@ -76,7 +95,6 @@ public final class FamilyVisitor implements GedObjectVisitor {
 
     /**
      * Get the person who is the father in this family. Can return an empty
-     * person.
      *
      * @return the father
      */

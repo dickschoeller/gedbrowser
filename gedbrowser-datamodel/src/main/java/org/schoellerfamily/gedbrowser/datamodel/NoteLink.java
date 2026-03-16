@@ -30,7 +30,6 @@ public final class NoteLink extends AbstractLink {
      *
      * @param parent the parent
      * @param tag the tag
-     * @param xref the xref
      */
     public NoteLink(final GedObject parent, final String tag,
             final ObjectId xref) {

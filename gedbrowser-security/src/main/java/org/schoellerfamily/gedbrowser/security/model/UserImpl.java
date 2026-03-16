@@ -14,22 +14,34 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author Richard Schoeller
  */
 public final class UserImpl extends HasRoles implements SecurityUser {
-    /** */
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
 
-    /** */
+    /**
+     * The username value.
+     */
     private String username;
 
-    /** */
+    /**
+     * The firstname value.
+     */
     private String firstname;
 
-    /** */
+    /**
+     * The lastname value.
+     */
     private String lastname;
 
-    /** */
+    /**
+     * The email value.
+     */
     private String email;
 
-    /** */
+    /**
+     * The password value.
+     */
     private String password;
 
     /**

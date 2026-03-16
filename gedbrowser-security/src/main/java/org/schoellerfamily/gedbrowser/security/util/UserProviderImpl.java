@@ -18,7 +18,9 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public final class UserProviderImpl implements UserProvider {
-    /** */
+    /**
+     * The service value.
+     */
     private final UserService service;
 
     /**

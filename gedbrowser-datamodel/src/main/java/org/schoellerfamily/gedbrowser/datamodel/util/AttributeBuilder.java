@@ -55,6 +55,8 @@ public interface AttributeBuilder {
     Place addPlaceToEvent(Attribute event, String placeName);
 
     /**
+     * Adds the date to ged object.
+     *
      * @param gob the GedObject to add the name to
      * @param string the date string
      * @return the new date object

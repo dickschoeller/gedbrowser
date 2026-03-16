@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public interface PersonRepoProvider extends HasRepoMap {
     /**
+     * Sets the person document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -18,6 +20,8 @@ public interface PersonRepoProvider extends HasRepoMap {
     }
 
     /**
+     * Gets the person document repository.
+     *
      * @return the repository
      */
     default PersonDocumentRepositoryMongo getPersonDocumentRepository() {

@@ -16,6 +16,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 public final class SubmissionLinkDocumentMongo extends GedDocumentMongo<SubmissionLink>
     implements SubmissionLinkDocument {
     /**
+     * Creates a new SubmissionLinkDocumentMongo.
+     */
+    public SubmissionLinkDocumentMongo() {
+    }
+
+    /**
      * Gets the type.
      *
      * @return the type
@@ -29,7 +35,6 @@ public final class SubmissionLinkDocumentMongo extends GedDocumentMongo<Submissi
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

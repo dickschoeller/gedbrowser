@@ -23,8 +23,6 @@ public final class RestAuthenticationEntryPoint
      * Executes commence.
      *
      * @param request the request
-     * @param response the response
-     * @param authException the auth exception
      */
     @Override
     public void commence(final HttpServletRequest request,

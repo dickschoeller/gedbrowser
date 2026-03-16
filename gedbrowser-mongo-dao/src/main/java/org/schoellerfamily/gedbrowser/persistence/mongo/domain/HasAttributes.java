@@ -14,8 +14,16 @@ import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
  */
 public abstract class HasAttributes<G extends GedObject>
         implements GedDocument<G> {
+    /**
+     * Creates a new HasAttributes.
+     */
+    public HasAttributes() {
+    }
 
-    /** */
+
+    /**
+     * The attributes value.
+     */
     private final List<GedDocument<? extends GedObject>> attributes =
         new ArrayList<>();
 

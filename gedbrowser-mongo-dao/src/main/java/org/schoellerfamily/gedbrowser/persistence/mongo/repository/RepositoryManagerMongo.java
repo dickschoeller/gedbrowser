@@ -15,6 +15,12 @@ public class RepositoryManagerMongo extends MappedRepositoryManagerMongo
             HeadRepoProvider, SubmissionRepoProvider, SubmitterRepoProvider, TrailerRepoProvider,
             NoteRepoProvider {
     /**
+     * Creates a new RepositoryManagerMongo.
+     */
+    public RepositoryManagerMongo() {
+    }
+
+    /**
      * Get a repository based on the class of ged object we are working with.
      *
      * @param clazz the class of ged object

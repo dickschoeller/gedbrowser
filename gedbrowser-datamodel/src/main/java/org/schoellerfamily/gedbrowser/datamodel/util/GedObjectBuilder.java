@@ -19,22 +19,34 @@ import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.
  */
 public final class GedObjectBuilder implements PersonBuilderFacade,
         FamilyBuilderFacade, SourceBuilderFacade, AttributeBuilderFacade {
-    /** */
+    /**
+     * The root value.
+     */
     private final Root root;
 
-    /** */
+    /**
+     * The person builder value.
+     */
     private final PersonBuilder personBuilder;
 
-    /** */
+    /**
+     * The family builder value.
+     */
     private final FamilyBuilder familyBuilder;
 
-    /** */
+    /**
+     * The source builder value.
+     */
     private final SourceBuilder sourceBuilder;
 
-    /** */
+    /**
+     * The attribute builder value.
+     */
     private final AttributeBuilder attributeBuilder;
 
-    /** */
+    /**
+     * Performs ged object factory.
+     */
     private final GedObjectFactory factory = new GedObjectFactory();
 
     /**
@@ -69,21 +81,34 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
         TAGMAP.put("wife", "WIFE");
     }
 
-    /** */
+    /**
+     * Represents the available ged object builder values.
+     */
     private enum Construction {
-        /** */
+        /**
+         * The a t t r i b u t e value.
+         */
         ATTRIBUTE,
-        /** */
+        /**
+         * The h a s i d value.
+         */
         HASID,
-        /** */
+        /**
+         * The n o t e value.
+         */
         NOTE,
-        /** */
+        /**
+         * The r e f e r e n c e value.
+         */
         REFERENCE,
-        /** */
+        /**
+         */
         VALUE
     };
 
-    /** */
+    /**
+     * Represents string.
+     */
     private static final Map<String, Construction> CONSTRUCTION_MAP =
             new HashMap<>();
     static {
@@ -242,8 +267,6 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
      *
      * @param parent the parent
      * @param type the type to use
-     * @param string the string
-     * @param tail the tail
      * @return the resulting ged object
      */
     public GedObject createEvent(final GedObject parent, final String type,
@@ -283,7 +306,6 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
      *
      * @param parent the parent
      * @param type the type to use
-     * @param string the string
      * @return the resulting ged object
      */
     public GedObject createEvent(final GedObject parent, final String type,

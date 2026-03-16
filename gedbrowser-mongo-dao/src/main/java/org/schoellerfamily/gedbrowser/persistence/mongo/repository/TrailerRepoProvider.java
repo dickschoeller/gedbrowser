@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public interface TrailerRepoProvider extends HasRepoMap {
     /**
+     * Sets the trailer document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -18,6 +20,8 @@ public interface TrailerRepoProvider extends HasRepoMap {
     }
 
     /**
+     * Gets the trailer document repository.
+     *
      * @return the repository
      */
     default TrailerDocumentRepositoryMongo getTrailerDocumentRepository() {

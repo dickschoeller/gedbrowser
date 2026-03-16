@@ -18,7 +18,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
  * @author Richard Schoeller
  */
 public final class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
-    /** */
+    /**
+     * The repository manager value.
+     */
     private final RepositoryManagerMongo repositoryManager;
 
     /**

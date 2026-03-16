@@ -11,7 +11,9 @@ import org.schoellerfamily.gedbrowser.datamodel.finder.ParentFinder;
  * @author Richard Schoeller
  */
 public abstract class AbstractFinderObject implements FinderObject {
-    /** */
+    /**
+     * The finder value.
+     */
     private transient FinderStrategy finder;
 
     /**
@@ -24,6 +26,7 @@ public abstract class AbstractFinderObject implements FinderObject {
     /**
      * Returns the t.
      *
+     * @param <T> the type to return
      * @param str the str
      * @param clazz the clazz
      * @return the resulting t
@@ -96,7 +99,7 @@ public abstract class AbstractFinderObject implements FinderObject {
      * Finds by surname.
      *
      * @param surname the surname to use
-     * @return the resulting collection< person>
+     * @return the resulting collection of person
      */
     public final Collection<Person> findBySurname(final String surname) {
         return finder.findBySurname(this, surname);
@@ -116,7 +119,7 @@ public abstract class AbstractFinderObject implements FinderObject {
     /**
      * Finds surname initial letters.
      *
-     * @return the resulting collection< string>
+     * @return the resulting collection of string
      */
     public final Collection<String> findSurnameInitialLetters() {
         return finder.findSurnameInitialLetters(this);
@@ -126,6 +129,7 @@ public abstract class AbstractFinderObject implements FinderObject {
     /**
      * Returns the collection.
      *
+     * @param <T> the type to return
      * @param clazz the clazz
      * @return the resulting collection
      */

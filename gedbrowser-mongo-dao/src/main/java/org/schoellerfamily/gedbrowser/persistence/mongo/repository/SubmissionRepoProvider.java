@@ -20,6 +20,8 @@ public interface SubmissionRepoProvider {
     Map<Class<? extends GedObject>, Object> getMap();
 
     /**
+     * Sets the submission document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -29,6 +31,8 @@ public interface SubmissionRepoProvider {
     }
 
     /**
+     * Gets the submission document repository.
+     *
      * @return the repository
      */
     default SubmissionDocumentRepositoryMongo getSubmissionDocumentRepository() {

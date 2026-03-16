@@ -44,6 +44,8 @@ public interface PersonBuilder {
     Person createPerson(String idString, String name);
 
     /**
+     * Adds the name to person.
+     *
      * @param person the person to add the name to
      * @param string the name string
      * @return the new name object
@@ -70,6 +72,8 @@ public interface PersonBuilder {
     Attribute createPersonEvent(Person person, String type);
 
     /**
+     * Adds the multimedia to person.
+     *
      * @param person the person to add the name to
      * @param string the reference string
      * @return the new multimedia object

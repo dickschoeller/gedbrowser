@@ -27,15 +27,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FamilyDocumentRepositoryMongoImpl implements
     FindableDocument<Family, FamilyDocument>, LastId<FamilyDocumentMongo> {
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
     /**
      * Finds the by file and string.
      *
      * @param filename the filename to use
-     * @param string the string
      * @return the resulting family document
      */
     @Override

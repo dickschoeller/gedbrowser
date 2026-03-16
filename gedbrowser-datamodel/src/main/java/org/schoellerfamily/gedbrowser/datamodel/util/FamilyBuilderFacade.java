@@ -14,6 +14,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  */
 public interface FamilyBuilderFacade extends FamilyBuilder {
     /**
+     * Gets the family builder.
+     *
      * @return the family builder
      */
     FamilyBuilder getFamilyBuilder();

@@ -20,7 +20,6 @@ public final class FamC extends AbstractLink {
      *
      * @param parent the parent
      * @param string the string
-     * @param xref the xref
      */
     public FamC(final GedObject parent, final String string,
             final ObjectId xref) {

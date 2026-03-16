@@ -25,11 +25,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RootDocumentRepositoryMongoImpl implements
     FindableDocument<Root, RootDocument> {
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The finder value.
+     */
     private final FinderStrategy finder;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**

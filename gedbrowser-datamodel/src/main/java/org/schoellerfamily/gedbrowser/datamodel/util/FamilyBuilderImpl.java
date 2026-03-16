@@ -18,7 +18,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  * @author Richard Schoeller
  */
 public final class FamilyBuilderImpl implements FamilyBuilder {
-    /** */
+    /**
+     * The ged object builder value.
+     */
     private final GedObjectBuilder gedObjectBuilder;
 
     /**
@@ -69,7 +71,6 @@ public final class FamilyBuilderImpl implements FamilyBuilder {
      *
      * @param family the family the event is for
      * @param type the type of event
-     * @param dateString the date of the event
      * @return the created event
      */
     public Attribute createFamilyEvent(final Family family, final String type,
@@ -86,7 +87,6 @@ public final class FamilyBuilderImpl implements FamilyBuilder {
      * Create an undated event.
      *
      * @param family the family the event is for
-     * @param type the type of event
      * @return the created event
      */
     public Attribute createFamilyEvent(final Family family,
@@ -96,9 +96,8 @@ public final class FamilyBuilderImpl implements FamilyBuilder {
 
     /**
      * Add a person as the husband in a family.
-     * @param family the family
-     * @param person the person
      *
+     * @param family the family
      * @return the husband object
      */
     public Husband addHusbandToFamily(final Family family,

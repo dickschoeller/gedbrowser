@@ -15,7 +15,15 @@ import org.schoellerfamily.gedbrowser.datamodel.GetString;
 @SuppressWarnings("PMD.CyclomaticComplexity")
 public final class GetStringComparator
         implements Comparator<GetString>, Serializable {
-    /** */
+    /**
+     * Creates a new GetStringComparator.
+     */
+    public GetStringComparator() {
+    }
+
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 2L;
 
     /**
@@ -72,10 +80,10 @@ public final class GetStringComparator
     }
 
     /**
-     * @param thisChunk the first chunk to be compared
-     * @param thatChunk the second chunk to be compared
-     * @return a negative integer, zero, or a positive integer as the first
      * argument is less than, equal to, or greater than the second
+     *
+     * @param thisChunk the first chunk to be compared
+     * @return a negative integer, zero, or a positive integer as the first
      */
     private int compareChunksOfEitherType(final String thisChunk,
             final String thatChunk) {
@@ -89,10 +97,10 @@ public final class GetStringComparator
     }
 
     /**
-     * @param thisChunk the first chunk to be compared
-     * @param thatChunk the second chunk to be compared
-     * @return a negative integer, zero, or a positive integer as the first
      * argument is less than, equal to, or greater than the second
+     *
+     * @param thisChunk the first chunk to be compared
+     * @return a negative integer, zero, or a positive integer as the first
      */
     private int compareNumericChunks(final String thisChunk,
             final String thatChunk) {
@@ -104,8 +112,9 @@ public final class GetStringComparator
     }
 
     /**
+     * Performs length difference.
+     *
      * @param thisChunk the first chunk to be compared
-     * @param thatChunk the second chunk to be compared
      * @return the difference in length (l1 - l2)
      */
     private int lengthDifference(final String thisChunk,
@@ -133,10 +142,9 @@ public final class GetStringComparator
 
     /**
      * Get a chunk of the string that is all digits or all not digits. Length
-     * of string is passed in for improved efficiency (calculate once).
+     *
      * @param string the string being chunked
      * @param slength the length of the string
-     * @param marker the starting point for processing
      * @return the chunk
      */
     private String getChunk(final String string, final int slength,
@@ -160,10 +168,9 @@ public final class GetStringComparator
 
     /**
      * Get a chunk of the string that is consistently not digits. Length of
-     * string is passed in for improved efficiency (calculate once).
+     *
      * @param string the string being chunked
      * @param slength the length of the string
-     * @param marker the starting point for processing
      * @return the chunk
      */
     private String getTextChunk(final String string, final int slength,
@@ -181,10 +188,9 @@ public final class GetStringComparator
 
     /**
      * Get a chunk of the string that is consistently digits. Length of
-     * string is passed in for improved efficiency (calculate once).
+     *
      * @param string the string being chunked
      * @param slength the length of the string
-     * @param marker the starting point for processing
      * @return the chunk
      */
     private String getNumericChunk(final String string, final int slength,

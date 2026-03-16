@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public interface SecurityUser extends User, UserDetails {
     /**
+     * Sets the password.
+     *
      * @param password the new password.
      */
     void setPassword(String password);

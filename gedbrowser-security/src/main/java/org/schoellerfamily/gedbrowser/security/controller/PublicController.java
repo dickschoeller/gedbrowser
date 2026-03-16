@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PublicController {
     /**
+     * Creates a new PublicController.
+     */
+    public PublicController() {
+    }
+
+    /**
      * Controller to just support pinging.
      *
      * @return map of foo to bar

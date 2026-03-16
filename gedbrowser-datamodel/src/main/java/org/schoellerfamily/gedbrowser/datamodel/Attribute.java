@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  * @author Richard Schoeller
  */
 public final class Attribute extends AbstractAttribute implements Tail {
-    /** */
+    /**
+     * The tail value.
+     */
     private String tail;
 
     /**
@@ -48,7 +50,6 @@ public final class Attribute extends AbstractAttribute implements Tail {
      *
      * @param parent the parent
      * @param string the string
-     * @param tail the tail
      */
     public Attribute(final GedObject parent, final String string,
             final String tail) {

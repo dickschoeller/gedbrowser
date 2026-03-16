@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.security.exception;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 
 
@@ -10,9 +9,20 @@ import lombok.RequiredArgsConstructor;
  *
  * @author Richard Schoeller
  */
-@RequiredArgsConstructor
 @Getter
 public final class ExceptionResponse {
+    /**
+     * Creates a new ExceptionResponse.
+     *
+     * @param errorCode the error code
+     * @param errorMessage the descriptive error message
+     */
+    public ExceptionResponse(final String errorCode,
+            final String errorMessage) {
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+    }
+
     /**
      * The error code.
      */

@@ -6,19 +6,35 @@ package org.schoellerfamily.gedbrowser.datamodel.users;
  * @author Richard Schoeller
  */
 public final class UserImpl extends HasRoles implements User {
-    /** */
+    /**
+     * Creates a new UserImpl.
+     */
+    public UserImpl() {
+    }
+
+    /**
+     * The username value.
+     */
     private String username;
 
-    /** */
+    /**
+     * The firstname value.
+     */
     private String firstname;
 
-    /** */
+    /**
+     * The lastname value.
+     */
     private String lastname;
 
-    /** */
+    /**
+     * The email value.
+     */
     private String email;
 
-    /** */
+    /**
+     * The password value.
+     */
     private String password;
 
     /**

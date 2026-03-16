@@ -16,6 +16,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 public final class NameDocumentMongo extends GedDocumentMongo<Name>
         implements NameDocument {
     /**
+     * Creates a new NameDocumentMongo.
+     */
+    public NameDocumentMongo() {
+    }
+
+    /**
      * Gets the type.
      *
      * @return the type
@@ -29,7 +35,6 @@ public final class NameDocumentMongo extends GedDocumentMongo<Name>
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

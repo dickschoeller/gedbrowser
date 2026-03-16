@@ -13,43 +13,74 @@ import org.apache.commons.lang3.tuple.Pair;
  * @author Richard Schoeller
  */
 public final class DateParser extends SimpleDateParser {
-    /** */
+    /**
+     * The a b t value.
+     */
     private static final String ABT = "ABT ";
-    /** */
+    /**
+     * The b e f value.
+     */
     private static final String BEF = "BEF ";
-    /** */
+    /**
+     * The a f t value.
+     */
     private static final String AFT = "AFT ";
-    /** */
+    /**
+     * The e s t value.
+     */
     private static final String EST = "EST";
-    /** */
+    /**
+     * The f r o m value.
+     */
     private static final String FROM = "FROM";
-    /** */
+    /**
+     * The b e t value.
+     */
     private static final String BET = "BET";
-    /** */
+    /**
+     * Performs of.
+     */
     private static final List<Pair<String, Approximation>> LIST = List.of(
         new ImmutablePair<>(ABT, Approximation.ABOUT),
         new ImmutablePair<>(EST, Approximation.ABOUT),
         new ImmutablePair<>(BEF, Approximation.BEFORE),
         new ImmutablePair<>(AFT, Approximation.AFTER));
 
-    /** */
+    /**
+     * The input string value.
+     */
     private final String inputString;
-    /** */
+    /**
+     * The approximation value.
+     */
     private Approximation approximation;
 
-    /** */
+    /**
+     * Represents the available date parser values.
+     */
     public enum Approximation {
-        /** */
+        /**
+         * The e x a c t value.
+         */
         EXACT,
-        /** */
+        /**
+         * The b e f o r e value.
+         */
         BEFORE,
-        /** */
+        /**
+         * The a f t e r value.
+         */
         AFTER,
-        /** */
+        /**
+         * The a b o u t value.
+         */
         ABOUT,
-        /** */
+        /**
+         * The b e t w e e n value.
+         */
         BETWEEN,
-        /** */
+        /**
+         */
         ESTIMATED
     };
 
@@ -78,7 +109,6 @@ public final class DateParser extends SimpleDateParser {
 
     /**
      * Returns the sort version of the date. Does not have
-     * estimation rules applied.
      *
      * @return return the sort string for this date
      */

@@ -26,10 +26,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public final class CustomUserDetailsService implements UserDetailsService {
-    /** */
+    /**
+     * The users value.
+     */
     private final SecurityUsers users;
 
-    /** */
+    /**
+     * The password encoder value.
+     */
     private final PasswordEncoder passwordEncoder;
 
     /**
@@ -53,8 +57,6 @@ public final class CustomUserDetailsService implements UserDetailsService {
      * Change password of current user.
      *
      * @param oldPassword old password
-     * @param newPassword new password
-     * @param authenticationManager the authentication manager
      */
     public void changePassword(final String oldPassword,
             final String newPassword,

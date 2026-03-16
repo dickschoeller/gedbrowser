@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  * @author Richard Schoeller
  */
 public final class Multimedia extends AbstractAttribute {
-    /** */
+    /**
+     * The tail value.
+     */
     private String tail;
 
     /**
@@ -38,7 +40,6 @@ public final class Multimedia extends AbstractAttribute {
      *
      * @param parent the parent
      * @param string the string
-     * @param tail the tail
      */
     public Multimedia(final GedObject parent, final String string,
             final String tail) {

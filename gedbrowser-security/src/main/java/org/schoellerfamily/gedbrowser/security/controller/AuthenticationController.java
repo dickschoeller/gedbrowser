@@ -33,20 +33,30 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class AuthenticationController {
-    /** */
+    /**
+     * The user details service value.
+     */
     private final CustomUserDetailsService userDetailsService;
 
-    /** */
+    /**
+     * The authentication manager value.
+     */
     private final AuthenticationManager authenticationManager;
 
-    /** */
+    /**
+     * The token helper value.
+     */
     private final TokenHelper tokenHelper;
 
-    /** */
+    /**
+     * The expires in value.
+     */
     @Value("${jwt.expires_in:600}")
     private int expiresIn;
 
-    /** */
+    /**
+     * The cookie value.
+     */
     @Value("${jwt.cookie:AUTH-TOKEN}")
     private String cookie;
 
@@ -54,7 +64,6 @@ public class AuthenticationController {
      * Executes refresh authentication token.
      *
      * @param request the request
-     * @param response the response
      * @return the resulting response entity
      */
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
@@ -93,7 +102,6 @@ public class AuthenticationController {
     /**
      * Executes change password.
      *
-     * @param passwordChanger the password changer
      * @return the resulting string>>
      */
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
@@ -111,9 +119,13 @@ public class AuthenticationController {
      * @author Richard Schoeller
      */
     /* default */ static final class PasswordChanger {
-        /** */
+        /**
+         * The old password value.
+         */
         private String oldPassword;
-        /** */
+        /**
+         * The new password value.
+         */
         private String newPassword;
 
         /**

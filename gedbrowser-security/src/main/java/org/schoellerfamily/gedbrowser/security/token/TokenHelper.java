@@ -29,22 +29,32 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public final class TokenHelper {
-    /** */
+    /**
+     * The app name value.
+     */
     @Value("${app.name:none}")
     private final String appName;
 
-    /** */
+    /**
+     * The secret value.
+     */
     @Value("${jwt.secret:queenvictoria}")
     private final String secret;
-    /** */
+    /**
+     * The expires in value.
+     */
     @Value("${jwt.expires_in:600}")
     private final int expiresIn;
 
-    /** */
+    /**
+     * The auth header name value.
+     */
     @Value("${jwt.header:Authorization}")
     private final String authHeaderName;
 
-    /** */
+    /**
+     * The auth cookie name value.
+     */
     @Value("${jwt.cookie:AUTH-TOKEN}")
     private final String authCookieName;
 
@@ -100,8 +110,6 @@ public final class TokenHelper {
 
     /**
      * Parse the token and return its claims, letting parsing exceptions propagate
-     * to the caller (for tests or callers that need to react to
-     * ExpiredJwtException).
      *
      * @param token the token
      * @return the claims

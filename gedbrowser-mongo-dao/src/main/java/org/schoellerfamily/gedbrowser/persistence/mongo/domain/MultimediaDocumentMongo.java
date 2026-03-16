@@ -15,7 +15,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
  */
 public final class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
         implements MultimediaDocument {
-    /** */
+    /**
+     * Creates a new MultimediaDocumentMongo.
+     */
+    public MultimediaDocumentMongo() {
+    }
+
+    /**
+     * The tail value.
+     */
     private String tail;
 
     /**
@@ -32,7 +40,6 @@ public final class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

@@ -33,34 +33,54 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
-    /** */
+    /**
+     * The token helper value.
+     */
     private final TokenHelper tokenHelper;
 
-    /** */
+    /**
+     * The user details service value.
+     */
     private final UserDetailsService userDetailsService;
 
-    /** */
+    /**
+     * The r o o t  m a t c h e r constant.
+     */
     public static final String ROOT_MATCHER = "/";
 
-    /** */
+    /**
+     * The f a v i c o n  m a t c h e r constant.
+     */
     public static final String FAVICON_MATCHER = "/favicon.ico";
 
-    /** */
+    /**
+     * The h t m l  m a t c h e r constant.
+     */
     public static final String HTML_MATCHER = "/**/*.html";
 
-    /** */
+    /**
+     * The c s s  m a t c h e r constant.
+     */
     public static final String CSS_MATCHER = "/**/*.css";
 
-    /** */
+    /**
+     * The j s  m a t c h e r constant.
+     */
     public static final String JS_MATCHER = "/**/*.js";
 
-    /** */
+    /**
+     * The i m g  m a t c h e r constant.
+     */
     public static final String IMG_MATCHER = "/images/*";
 
-    /** */
+    /**
+     * The l o g i n  m a t c h e r constant.
+     */
     public static final String LOGIN_MATCHER = "/auth/login";
 
-    /** */
+    /**
+     * The l o g o u t  m a t c h e r constant.
+     */
     public static final String LOGOUT_MATCHER = "/auth/logout";
 
     private final List<String> pathsToSkip = List.of(
@@ -78,8 +98,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
      * Executes do filter internal.
      *
      * @param request the request
-     * @param response the response
-     * @param chain the chain
      */
     @Override
     public void doFilterInternal(

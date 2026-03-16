@@ -7,11 +7,15 @@ package org.schoellerfamily.gedbrowser.datamodel;
  */
 public interface InsertableObject {
     /**
+     * Performs insert.
+     *
      * @param gob object to insert
      */
     void insert(FinderObject gob);
 
     /**
+     * Performs extra insert.
+     *
      * @param gob object to insert
      */
     default void extraInsert(final FinderObject gob) {

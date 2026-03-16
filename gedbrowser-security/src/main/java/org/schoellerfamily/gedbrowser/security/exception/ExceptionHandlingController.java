@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionHandlingController {
     /**
+     * Creates a new ExceptionHandlingController.
+     */
+    public ExceptionHandlingController() {
+    }
+
+    /**
      * Executes resource conflict.
      *
      * @param ex the ex

@@ -19,6 +19,12 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
  */
 public final class PersonVisitor implements GedObjectVisitor {
     /**
+     * Creates a new PersonVisitor.
+     */
+    public PersonVisitor() {
+    }
+
+    /**
      * The person that we seem to be visiting.
      */
     private Person visitedPerson;

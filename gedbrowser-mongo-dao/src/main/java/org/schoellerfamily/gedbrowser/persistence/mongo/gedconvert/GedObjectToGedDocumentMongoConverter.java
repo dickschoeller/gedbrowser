@@ -140,6 +140,7 @@ public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
     /**
      * Creates the ged document.
      *
+     * @param <G> the type to return
      * @param ged the ged
      * @return the resulting ged document mongo
      */

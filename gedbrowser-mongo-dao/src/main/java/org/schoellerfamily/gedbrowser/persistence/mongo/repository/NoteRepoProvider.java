@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public interface NoteRepoProvider extends HasRepoMap {
     /**
+     * Sets the note document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -18,6 +20,8 @@ public interface NoteRepoProvider extends HasRepoMap {
     }
 
     /**
+     * Gets the note document repository.
+     *
      * @return the repository
      */
     default NoteDocumentRepositoryMongo getNoteDocumentRepository() {

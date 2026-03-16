@@ -11,16 +11,22 @@ import java.util.Map;
  * @param <T> the contained type
  */
 public final class UsersImpl<T extends User> implements Users<T> {
-    /** Holds the known users. */
+    /**
+     * Creates a new UsersImpl.
+     */
+    public UsersImpl() {
+    }
+
+    /**
+     * Performs method.
+     */
     private final Map<String, T> users = new HashMap<>();
 
     /**
      * Adds the specified user to this collection, keyed by its username.
-     * If a user with the same username already exists, it is replaced.
      *
      * @param user the user to add
      * @return the previous user associated with the username, or {@code null}
-     *         if there was no mapping for the username
      */
     @Override
     public T add(final T user) {
@@ -32,7 +38,6 @@ public final class UsersImpl<T extends User> implements Users<T> {
      *
      * @param user the user whose username is to be removed
      * @return the previous user associated with the username, or {@code null}
-     *         if there was no mapping for the username
      */
     @Override
     public T remove(final User user) {

@@ -10,11 +10,17 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public final class TokenBasedAuthentication
         extends AbstractAuthenticationToken {
-    /** */
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
-    /** */
+    /**
+     * The token value.
+     */
     private final String token;
-    /** */
+    /**
+     * The principle value.
+     */
     private final UserDetails principle;
 
     /**

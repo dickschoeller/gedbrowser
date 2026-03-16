@@ -24,9 +24,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 })
 public final class PersonDocumentMongo extends GedDocumentMongo<Person>
         implements PersonDocument {
-    /** */
+    /**
+     * Creates a new PersonDocumentMongo.
+     */
+    public PersonDocumentMongo() {
+    }
+
+    /**
+     * The index name value.
+     */
     private String indexName;
-    /** */
+    /**
+     * The surname value.
+     */
     private String surname;
 
     /**
@@ -43,7 +53,6 @@ public final class PersonDocumentMongo extends GedDocumentMongo<Person>
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

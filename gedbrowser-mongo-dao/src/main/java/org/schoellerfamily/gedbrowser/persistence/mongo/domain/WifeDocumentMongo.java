@@ -16,6 +16,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
 public final class WifeDocumentMongo extends GedDocumentMongo<Wife>
         implements WifeDocument {
     /**
+     * Creates a new WifeDocumentMongo.
+     */
+    public WifeDocumentMongo() {
+    }
+
+    /**
      * Gets the type.
      *
      * @return the type
@@ -29,7 +35,6 @@ public final class WifeDocumentMongo extends GedDocumentMongo<Wife>
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

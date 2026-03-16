@@ -12,6 +12,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
  */
 public final class NameableVisitor implements GedObjectVisitor {
     /**
+     * Creates a new NameableVisitor.
+     */
+    public NameableVisitor() {
+    }
+
+    /**
      * Hold the name for the person.
      */
     private Name thename;

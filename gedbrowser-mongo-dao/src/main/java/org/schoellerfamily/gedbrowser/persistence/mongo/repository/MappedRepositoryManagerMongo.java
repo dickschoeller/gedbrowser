@@ -12,8 +12,13 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  */
 public abstract class MappedRepositoryManagerMongo implements HasRepoMap {
     /**
+     * Creates a new MappedRepositoryManagerMongo.
+     */
+    public MappedRepositoryManagerMongo() {
+    }
+
+    /**
      * This map manages the relationship between GedObject classes and
-     * repositories.
      */
     private final Map<Class<? extends GedObject>, Object>
         classToRepoMap = new HashMap<>();

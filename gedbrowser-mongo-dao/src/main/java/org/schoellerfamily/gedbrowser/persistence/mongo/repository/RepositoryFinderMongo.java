@@ -43,10 +43,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public final class RepositoryFinderMongo implements FinderStrategy {
-    /** */
+    /**
+     * The repository manager value.
+     */
     private final RepositoryManagerMongo repositoryManager;
 
-    /** */
+    /**
+     * The to doc converter value.
+     */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
     private static final List<Class<? extends GedObject>> CLASSES = List.of(Person.class,
@@ -74,9 +78,9 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     /**
      * Executes find.
      *
+     * @param <T> the type to return
      * @param owner the owner
      * @param str the str
-     * @param clazz the clazz
      * @return the resulting t
      */
     @Override
@@ -179,7 +183,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      * Finds the by surnames begin with.
      *
      * @param owner the owner
-     * @param beginsWith the begins with
      * @return the resulting collection
      */
     @Override
@@ -231,8 +234,8 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     /**
      * Executes find.
      *
+     * @param <T> the type to return
      * @param owner the owner
-     * @param clazz the clazz
      * @return the resulting collection
      */
     @SuppressWarnings("unchecked")

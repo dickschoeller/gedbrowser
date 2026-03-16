@@ -9,6 +9,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
  */
 public final class GetTimeVisitor implements GedObjectVisitor {
     /**
+     * Creates a new GetTimeVisitor.
+     */
+    public GetTimeVisitor() {
+    }
+
+    /**
      * Accumulates the best time information.
      */
     private String timeString = "";

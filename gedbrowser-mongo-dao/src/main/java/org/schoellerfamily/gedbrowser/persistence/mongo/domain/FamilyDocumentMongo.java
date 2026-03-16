@@ -25,6 +25,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public final class FamilyDocumentMongo extends GedDocumentMongo<Family>
         implements FamilyDocument {
     /**
+     * Creates a new FamilyDocumentMongo.
+     */
+    public FamilyDocumentMongo() {
+    }
+
+    /**
      * Gets the type.
      *
      * @return the type
@@ -38,7 +44,6 @@ public final class FamilyDocumentMongo extends GedDocumentMongo<Family>
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

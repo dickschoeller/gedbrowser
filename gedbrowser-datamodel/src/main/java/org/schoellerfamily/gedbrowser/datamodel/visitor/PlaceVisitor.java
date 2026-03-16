@@ -17,10 +17,20 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
  * @author Richard Schoeller
  */
 public final class PlaceVisitor implements GedObjectVisitor {
-    /** */
+    /**
+     * Creates a new PlaceVisitor.
+     */
+    public PlaceVisitor() {
+    }
+
+    /**
+     * Performs method.
+     */
     private final Set<String> placeStrings = new TreeSet<>();
 
-    /** */
+    /**
+     * Performs method.
+     */
     private final Set<Place> places = new TreeSet<>();
 
     /**

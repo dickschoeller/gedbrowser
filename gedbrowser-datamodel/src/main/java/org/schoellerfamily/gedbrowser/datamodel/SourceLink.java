@@ -30,7 +30,6 @@ public final class SourceLink extends AbstractLink {
      *
      * @param parent the parent
      * @param tag the tag
-     * @param xref the xref
      */
     public SourceLink(final GedObject parent, final String tag,
             final ObjectId xref) {

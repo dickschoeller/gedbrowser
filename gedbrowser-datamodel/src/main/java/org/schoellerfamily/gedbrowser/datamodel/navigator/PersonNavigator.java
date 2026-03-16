@@ -12,10 +12,14 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
  * @author Richard Schoeller
  */
 public final class PersonNavigator {
-    /** */
+    /**
+     * The person value.
+     */
     private final Person person;
 
-    /** */
+    /**
+     * The visitor value.
+     */
     private final PersonVisitor visitor;
 
     /**

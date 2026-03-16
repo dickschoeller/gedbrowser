@@ -36,14 +36,15 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class UserController {
-    /** */
+    /**
+     * The user service value.
+     */
     private final UserService userService;
 
     /**
      * Load a user identified by the user name.
      *
      * @param request the http request
-     * @param username the user name
      * @return the user object
      */
     @RequestMapping(method = GET, value = "/users/{username:.+}")
@@ -80,7 +81,6 @@ public class UserController {
      * Add a new user.
      *
      * @param userRequest the description of the requested user
-     * @param ucBuilder uri builder
      * @return the new user
      */
     @RequestMapping(method = POST, value = "/signup")
@@ -99,8 +99,6 @@ public class UserController {
 
     /**
      * We are not using userService.findByUsername here(we could), so it is good
-     * that we are making sure that the user has role "USER" to access this
-     * endpoint.
      *
      * @return the current user
      */

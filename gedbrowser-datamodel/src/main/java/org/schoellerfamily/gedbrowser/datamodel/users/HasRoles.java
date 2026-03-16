@@ -14,7 +14,15 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class HasRoles {
-    /** */
+    /**
+     * Creates a new HasRoles.
+     */
+    public HasRoles() {
+    }
+
+    /**
+     * Performs method.
+     */
     private final Set<UserRoleName> roles = new HashSet<>();
 
     /**

@@ -24,7 +24,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 })
 public final class NoteDocumentMongo extends GedDocumentMongo<Note>
         implements NoteDocument {
-    /** */
+    /**
+     * Creates a new NoteDocumentMongo.
+     */
+    public NoteDocumentMongo() {
+    }
+
+    /**
+     * The tail value.
+     */
     private String tail;
 
     /**
@@ -41,7 +49,6 @@ public final class NoteDocumentMongo extends GedDocumentMongo<Note>
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

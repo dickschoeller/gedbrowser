@@ -16,9 +16,13 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  */
 public final class Date extends AbstractAttribute {
 
-    /** */
+    /**
+     * The sort date value.
+     */
     private Calendar sortDate;
-    /** */
+    /**
+     * The estimate date value.
+     */
     private Calendar estimateDate;
 
 
@@ -88,7 +92,6 @@ public final class Date extends AbstractAttribute {
 
     /**
      * Like sort date only we are starting in on correcting the problems with
-     * approximations.
      *
      * @return string in the form yyyymmdd
      */

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public interface SubmitterRepoProvider extends HasRepoMap {
     /**
+     * Sets the submitter document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -19,6 +21,8 @@ public interface SubmitterRepoProvider extends HasRepoMap {
     }
 
     /**
+     * Gets the submitter document repository.
+     *
      * @return the repository
      */
     default SubmitterDocumentRepositoryMongo getSubmitterDocumentRepository() {

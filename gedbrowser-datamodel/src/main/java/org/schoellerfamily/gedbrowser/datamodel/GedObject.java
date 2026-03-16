@@ -15,33 +15,57 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 public abstract class GedObject extends AbstractFinderObject
         implements GetString {
 
-    /** */
+    /**
+     * The default i d x  n a m e value.
+     */
     protected static final String DEFAULT_IDX_NAME = "";
-    /** */
+    /**
+     * The project version string.
+     */
     public static final String VERSION = "1.3.0-RC3-SNAPSHOT";
-    /** */
+    /**
+     * The default s u r n a m e value.
+     */
     protected static final String DEFAULT_SURNAME = "";
-    /** */
+    /**
+     * The default b i r t h d a t e value.
+     */
     protected static final String DEFAULT_BIRTHDATE = "";
-    /** */
+    /**
+     * The default d e a t h d a t e value.
+     */
     protected static final String DEFAULT_DEATHDATE = "";
-    /** */
+    /**
+     * The default d a t e value.
+     */
     protected static final String DEFAULT_DATE = "";
 
-    /** */
+    /**
+     * The p r i m e value.
+     */
     private static final int PRIME = 31;
 
-    /** */
+    /**
+     * The string value.
+     */
     private String string;
-    /** */
+    /**
+     * The parent value.
+     */
     private GedObject parent;
-    /** */
+    /**
+     * The attributes value.
+     */
     private final transient List<GedObject> attributes =
             new ArrayList<GedObject>();
-    /** */
+    /**
+     * The set value.
+     */
     private final transient boolean set;
 
-    /** */
+    /**
+     * The appender value.
+     */
     private transient AppenderStrategy appender;
 
     /**
@@ -258,7 +282,6 @@ public abstract class GedObject extends AbstractFinderObject
 
     /**
      * Hook for using the visitor design pattern to accumulate information
-     * about a GedObject and its children.
      *
      * @param visitor the visitor
      */

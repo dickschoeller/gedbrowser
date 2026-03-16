@@ -12,7 +12,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  * @author Richard Schoeller
  */
 public final class AttributeBuilderImpl implements AttributeBuilder {
-    /** */
+    /**
+     * The ged object builder value.
+     */
     private final GedObjectBuilder gedObjectBuilder;
 
     /**
@@ -66,7 +68,6 @@ public final class AttributeBuilderImpl implements AttributeBuilder {
      *
      * @param ged the ged
      * @param string the string
-     * @param tail the tail
      * @return the resulting attribute
      */
     @Override
@@ -84,7 +85,6 @@ public final class AttributeBuilderImpl implements AttributeBuilder {
      * Executes add place to event.
      *
      * @param event the event
-     * @param placeName the place name to use
      * @return the resulting place
      */
     @Override

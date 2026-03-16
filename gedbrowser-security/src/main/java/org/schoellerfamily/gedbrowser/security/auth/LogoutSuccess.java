@@ -23,15 +23,15 @@ import tools.jackson.databind.ObjectMapper;
 @Component
 @RequiredArgsConstructor
 public final class LogoutSuccess implements LogoutSuccessHandler {
-    /** */
+    /**
+     * The object mapper value.
+     */
     private final ObjectMapper objectMapper;
 
     /**
      * Executes on logout success.
      *
      * @param httpServletRequest the http servlet request
-     * @param response the response
-     * @param authentication the authentication
      */
     @Override
     public void onLogoutSuccess(final HttpServletRequest httpServletRequest,

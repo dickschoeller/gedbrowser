@@ -25,6 +25,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public final class SubmissionDocumentMongo extends GedDocumentMongo<Submission>
         implements SubmissionDocument {
     /**
+     * Creates a new SubmissionDocumentMongo.
+     */
+    public SubmissionDocumentMongo() {
+    }
+
+    /**
      * Gets the type.
      *
      * @return the type
@@ -38,7 +44,6 @@ public final class SubmissionDocumentMongo extends GedDocumentMongo<Submission>
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

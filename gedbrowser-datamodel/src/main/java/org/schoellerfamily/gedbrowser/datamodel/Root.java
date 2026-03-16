@@ -13,22 +13,24 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  * @author Richard Schoeller
  */
 public final class Root extends AbstractSpecialObject {
-    /** */
+    /**
+     * The filename value.
+     */
     private transient String filename;
 
-    /** */
+    /**
+     * The dbname value.
+     */
     private transient String dbname;
 
     /**
      * Map of ID strings to GedObjects. This is the complete set of top level
-     * objects, Persons, Families, Sources and Submitters.
      */
     private final transient Map<String, GedObject> objects =
             new HashMap<String, GedObject>();
 
     /**
      * Index object that manages index breakdown by Surname -> Complete Name ->
-     * individual persons.
      */
     private final transient Index surnameIndex;
 

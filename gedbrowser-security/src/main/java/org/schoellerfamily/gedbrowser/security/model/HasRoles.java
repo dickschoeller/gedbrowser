@@ -17,10 +17,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class HasRoles implements Serializable {
-    /** */
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
 
-    /** */
+    /**
+     * The roles value.
+     */
     private final Set<UserRoleName> roles = new HashSet<>();
 
     /**

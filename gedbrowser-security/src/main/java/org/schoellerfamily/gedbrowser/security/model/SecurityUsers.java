@@ -12,7 +12,9 @@ import org.schoellerfamily.gedbrowser.datamodel.users.Users;
  * @author Richard Schoeller
  */
 public final class SecurityUsers implements Users<SecurityUser> {
-    /** Holds the known users. */
+    /**
+     * The string value.
+     */
     private final Map<String, SecurityUser> users = new HashMap<>();
 
     /**

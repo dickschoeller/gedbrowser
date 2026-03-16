@@ -25,6 +25,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public final class HeadDocumentMongo extends GedDocumentMongo<Head>
         implements HeadDocument {
     /**
+     * Creates a new HeadDocumentMongo.
+     */
+    public HeadDocumentMongo() {
+    }
+
+    /**
      * Gets the type.
      *
      * @return the type
@@ -38,7 +44,6 @@ public final class HeadDocumentMongo extends GedDocumentMongo<Head>
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

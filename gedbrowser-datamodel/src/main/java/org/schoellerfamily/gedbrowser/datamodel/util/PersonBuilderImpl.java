@@ -14,7 +14,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  * @author Richard Schoeller
  */
 public final class PersonBuilderImpl implements PersonBuilder {
-    /** */
+    /**
+     * The ged object builder value.
+     */
     private final GedObjectBuilder gedObjectBuilder;
 
     /**
@@ -103,7 +105,6 @@ public final class PersonBuilderImpl implements PersonBuilder {
      *
      * @param person the person
      * @param type the type to use
-     * @param dateString the date string
      * @return the resulting attribute
      */
     @Override
@@ -130,7 +131,6 @@ public final class PersonBuilderImpl implements PersonBuilder {
      * Executes add multimedia to person.
      *
      * @param person the person
-     * @param string the string
      * @return the resulting multimedia
      */
     @Override

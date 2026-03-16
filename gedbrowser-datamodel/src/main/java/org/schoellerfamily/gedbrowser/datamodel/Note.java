@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  * @author Richard Schoeller
  */
 public final class Note extends GedObject implements Tail {
-    /** */
+    /**
+     * The tail value.
+     */
     private String tail;
 
     /**
@@ -36,7 +38,6 @@ public final class Note extends GedObject implements Tail {
      *
      * @param parent the parent
      * @param xref the xref
-     * @param tail the tail
      */
     public Note(final GedObject parent, final ObjectId xref,
             final String tail) {

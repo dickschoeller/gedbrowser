@@ -20,10 +20,14 @@ import org.schoellerfamily.gedbrowser.security.service.UserService;
  */
 @RequiredArgsConstructor
 public final class RequestUserUtil implements UserFacade {
-    /** Hold the request. */
+    /**
+     * The principal value.
+     */
     private final Principal principal;
 
-    /** Hold the service. */
+    /**
+     * The user service value.
+     */
     private final UserService userService;
 
     /**

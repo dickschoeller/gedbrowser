@@ -17,7 +17,9 @@ import lombok.Getter;
  */
 @Builder
 public final class Authority implements GrantedAuthority {
-    /** */
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
 
     /**

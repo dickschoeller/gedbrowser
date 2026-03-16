@@ -7,6 +7,12 @@ package org.schoellerfamily.gedbrowser.security.model;
  */
 public class UserRequest {
     /**
+     * Creates a new UserRequest.
+     */
+    public UserRequest() {
+    }
+
+    /**
      * The request ID.
      */
     private Long id;

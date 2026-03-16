@@ -11,6 +11,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
  */
 public final class PersonConfidentialVisitor implements GedObjectVisitor {
     /**
+     * Creates a new PersonConfidentialVisitor.
+     */
+    public PersonConfidentialVisitor() {
+    }
+
+    /**
      * Has a confidential setting.
      */
     private boolean isConfidential;

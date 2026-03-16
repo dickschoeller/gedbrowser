@@ -22,10 +22,6 @@ public final class Index {
 
     /**
      * The storage for the index.
-     *
-     * Structure: TreeMap<"Surname", TreeMap<"Surname, Given", TreeSet<"ID">>>
-     * This allows us to organize by surname and then surname,given and finally
-     * the set of IDs that have the same surname,given.
      */
     private final SortedMap<String,
             SortedMap<String, SortedSet<String>>> surnameIndex = new TreeMap<>();

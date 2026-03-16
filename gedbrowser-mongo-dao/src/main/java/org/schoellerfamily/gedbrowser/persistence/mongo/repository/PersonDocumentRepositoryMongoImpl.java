@@ -37,17 +37,22 @@ import lombok.extern.slf4j.Slf4j;
 public final class PersonDocumentRepositoryMongoImpl implements
         FindableByNameDocument<Person, PersonDocument>,
         LastId<PersonDocumentMongo> {
-    /** */
+    /**
+     * The s u r n a m e constant.
+     */
     private static final String SURNAME = "surname";
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
     /**
      * Finds the by file and string.
      *
      * @param filename the filename to use
-     * @param string the string
      * @return the resulting person document
      */
     @Override
@@ -91,7 +96,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
      *
      * @param filename the filename to use
      * @param surname the surname to use
-     * @return the resulting collection< person document>
+     * @return the resulting collection of person document
      */
     @Override
     public Collection<PersonDocument> findByFileAndSurname(
@@ -154,6 +159,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
     }
 
     /**
+     * Performs query unknown surname.
+     *
      * @param filename the filename of the dataset to search
      * @return the list of matches
      */
@@ -167,6 +174,8 @@ public final class PersonDocumentRepositoryMongoImpl implements
     }
 
     /**
+     * Performs query surname begins with.
+     *
      * @param filename the filename of the dataset to search
      * @param beginsWith beginning substring
      * @return the list of matches
@@ -205,8 +214,9 @@ public final class PersonDocumentRepositoryMongoImpl implements
     }
 
     /**
-     * @param personDocuments
      * the list of person documents to create and associate.
+     *
+     * @param personDocuments
      */
     private void createGedObjects(
             final List<PersonDocumentMongo> personDocuments) {
@@ -238,14 +248,21 @@ public final class PersonDocumentRepositoryMongoImpl implements
      */
     private static final class PersonDocumentComparator implements
             Comparator<PersonDocument>, Serializable {
-        /** */
+        /**
+         * Creates a new PersonDocumentComparator.
+         */
+        private PersonDocumentComparator() {
+        }
+
+        /**
+         * The serial version u i d value.
+         */
         private static final long serialVersionUID = 3;
 
         /**
          * Executes compare.
          *
          * @param arg0 the arg0
-         * @param arg1 the arg1
          * @return the resulting int
          */
         @Override

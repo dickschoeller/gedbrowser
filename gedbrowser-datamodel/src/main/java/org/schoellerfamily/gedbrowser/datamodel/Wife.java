@@ -20,7 +20,6 @@ public final class Wife extends AbstractLink implements Spouse {
      *
      * @param parent the parent
      * @param string the string
-     * @param xref the xref
      */
     public Wife(final GedObject parent, final String string,
             final ObjectId xref) {
@@ -29,7 +28,6 @@ public final class Wife extends AbstractLink implements Spouse {
 
     /**
      * Get the person that this object points to. If not found return an unset
-     * Person.
      *
      * @return the mother.
      */

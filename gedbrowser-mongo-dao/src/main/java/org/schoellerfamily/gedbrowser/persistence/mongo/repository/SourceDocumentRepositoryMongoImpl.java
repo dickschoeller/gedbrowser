@@ -27,9 +27,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SourceDocumentRepositoryMongoImpl implements
     FindableDocument<Source, SourceDocument>, LastId<SourceDocumentMongo> {
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
     /**
      * Finds the by file and string.

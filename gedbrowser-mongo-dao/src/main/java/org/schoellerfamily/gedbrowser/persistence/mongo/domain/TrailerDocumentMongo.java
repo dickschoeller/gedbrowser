@@ -25,6 +25,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public final class TrailerDocumentMongo extends GedDocumentMongo<Trailer>
         implements TrailerDocument {
     /**
+     * Creates a new TrailerDocumentMongo.
+     */
+    public TrailerDocumentMongo() {
+    }
+
+    /**
      * Gets the type.
      *
      * @return the type
@@ -38,7 +44,6 @@ public final class TrailerDocumentMongo extends GedDocumentMongo<Trailer>
      * Loads the ged object.
      *
      * @param loader the loader
-     * @param ged the ged
      */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,

@@ -15,7 +15,9 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
  * @author Richard Schoeller
  */
 public final class SourceBuilderImpl implements SourceBuilder {
-    /** */
+    /**
+     * The ged object builder value.
+     */
     private final GedObjectBuilder gedObjectBuilder;
 
     /**
@@ -74,7 +76,6 @@ public final class SourceBuilderImpl implements SourceBuilder {
      * Creates the source link.
      *
      * @param ged the ged
-     * @param source the source
      * @return the resulting source link
      */
     @Override
@@ -139,7 +140,6 @@ public final class SourceBuilderImpl implements SourceBuilder {
      * Creates the submitter link.
      *
      * @param ged the ged
-     * @param submitter the submitter
      * @return the resulting submitter link
      */
     @Override

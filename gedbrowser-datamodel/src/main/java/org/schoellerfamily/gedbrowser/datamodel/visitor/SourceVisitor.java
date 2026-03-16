@@ -10,7 +10,15 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
  * @author Richard Schoeller
  */
 public final class SourceVisitor implements GedObjectVisitor {
-    /** */
+    /**
+     * Creates a new SourceVisitor.
+     */
+    public SourceVisitor() {
+    }
+
+    /**
+     * The title string value.
+     */
     private String titleString;
 
     /**

@@ -26,9 +26,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NoteDocumentRepositoryMongoImpl implements
     FindableDocument<Note, NoteDocument>, LastId<NoteDocumentMongo>  {
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**

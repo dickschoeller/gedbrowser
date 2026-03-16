@@ -16,7 +16,15 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  * @author Richard Schoeller
  */
 public final class RootVisitor implements GedObjectVisitor {
-    /** */
+    /**
+     * Creates a new RootVisitor.
+     */
+    public RootVisitor() {
+    }
+
+    /**
+     * Performs method.
+     */
     private final List<Person> persons = new ArrayList<>();
 
     /**

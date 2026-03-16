@@ -27,9 +27,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TrailerDocumentRepositoryMongoImpl implements
     FindableDocument<Trailer, TrailerDocument> {
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
     /**

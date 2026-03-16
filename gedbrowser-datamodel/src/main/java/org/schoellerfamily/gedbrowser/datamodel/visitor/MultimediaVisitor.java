@@ -10,13 +10,25 @@ import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
  * @author Richard Schoeller
  */
 public final class MultimediaVisitor implements GedObjectVisitor {
-    /** */
+    /**
+     * Creates a new MultimediaVisitor.
+     */
+    public MultimediaVisitor() {
+    }
+
+    /**
+     * The file path value.
+     */
     private String filePath;
 
-    /** */
+    /**
+     * The format value.
+     */
     private String format;
 
-    /** */
+    /**
+     * The title value.
+     */
     private String title;
 
     /**

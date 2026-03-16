@@ -13,6 +13,8 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
  */
 public interface SourceBuilderFacade extends SourceBuilder {
     /**
+     * Gets the source builder.
+     *
      * @return the source builder
      */
     SourceBuilder getSourceBuilder();
