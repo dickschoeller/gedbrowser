@@ -44,15 +44,6 @@ public final class TokenHelper {
     @Value("${jwt.cookie:AUTH-TOKEN}")
     private final String authCookieName;
 
-    /**
-     * Create a signing Key from the configured secret. Use
-     * io.jsonwebtoken.security.Keys.hmacShaKeyFor to produce an appropriate HMAC
-     * key for HS512. If the configured secret is too short, derive a 64-byte key by
-     * hashing the secret with SHA-512 so we always meet the HS512 key length
-     * requirement.
-     *
-     * @return the signing key
-     */
     @SuppressFBWarnings("REC_CATCH_EXCEPTION")
     private SecretKey getSigningKey() {
         try {
@@ -115,10 +106,6 @@ public final class TokenHelper {
             .getPayload();
     }
 
-    /**
-     * @param token the token
-     * @return the claims
-     */
     @SuppressWarnings("java:S1168")
     private Claims getClaimsFromToken(final String token) {
         try {
@@ -166,23 +153,14 @@ public final class TokenHelper {
         }
     }
 
-    /**
-     * @return the current time
-     */
     private long getCurrentTimeMillis() {
         return Instant.now().toEpochMilli();
     }
 
-    /**
-     * @return the current date
-     */
     private Date generateCurrentDate() {
         return new Date(getCurrentTimeMillis());
     }
 
-    /**
-     * @return the expiration date
-     */
     private Date generateExpirationDate() {
         final int millisPerSecond = 1000;
         return new Date(getCurrentTimeMillis() + this.expiresIn * millisPerSecond);

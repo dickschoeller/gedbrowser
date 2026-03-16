@@ -44,16 +44,11 @@ final class HeadRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
@@ -63,10 +58,6 @@ final class HeadRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
@@ -75,10 +66,6 @@ final class HeadRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
@@ -87,10 +74,6 @@ final class HeadRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndeRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
@@ -99,10 +82,6 @@ final class HeadRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final HeadRenderer renderer = new HeadRenderer(new Head(null, "Header"),
@@ -111,11 +90,6 @@ final class HeadRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Simple test from a data file.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testHeadRenderer() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -127,11 +101,6 @@ final class HeadRendererTest {
         assertEquals(expected, attrRenderers.size(), "should not be empty");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testHeaderMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -141,11 +110,6 @@ final class HeadRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -156,11 +120,6 @@ final class HeadRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -171,11 +130,6 @@ final class HeadRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -186,11 +140,6 @@ final class HeadRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -200,11 +149,6 @@ final class HeadRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -214,11 +158,6 @@ final class HeadRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -229,10 +168,6 @@ final class HeadRendererTest {
         }
     }
 
-    /**
-     * @param head the head to render
-     * @return the renderer
-     */
     private HeadRenderer createRenderer(final Head head) {
         return new HeadRenderer(head, new GedRendererFactory(), anonymousContext);
     }

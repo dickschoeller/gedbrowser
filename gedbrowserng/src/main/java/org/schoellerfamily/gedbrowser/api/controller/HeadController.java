@@ -30,9 +30,6 @@ public class HeadController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating the DB header
-     */
     private ObjectCrud<ApiHead> crud() {
         return new HeadCrud(loader, toDocConverter, repositoryManager);
     }

@@ -19,10 +19,6 @@ public class CrudTestHelper {
     /** */
     private final FamilyCrud familyCrud;
 
-    /**
-     * @param personCrud the person CRUD object
-     * @param familyCrud the family CRUD object
-     */
     CrudTestHelper(final PersonCrud personCrud, final FamilyCrud familyCrud) {
         this.personCrud = personCrud;
         this.familyCrud = familyCrud;

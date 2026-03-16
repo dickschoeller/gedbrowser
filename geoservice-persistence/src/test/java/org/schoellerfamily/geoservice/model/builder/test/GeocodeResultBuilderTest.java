@@ -30,16 +30,13 @@ import com.google.maps.model.LocationType;
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 final class GeocodeResultBuilderTest extends GeocodeValidator {
-    /** */
     private final GeocodeResultBuilder builder = new GeocodeResultBuilder();
 
-    /** */
     @Test
     void testToGeoCodeItemNull() {
         assertNull(builder.toGeoCodeItem(null), "Null gets null");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemName() {
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", null);
@@ -47,7 +44,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertEquals("XYZZY", gci.getPlaceName(), "Mismatched name");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemModernName() {
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", null);
@@ -55,7 +51,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertEquals("PLUGH", gci.getModernPlaceName(), "Mismatched modern name");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemNullResult() {
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH", null);
@@ -63,7 +58,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertNull(gci.getGeocodingResult(), "Expected null result");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemEmptyResult() {
         final GeoServiceItem bgci = new GeoServiceItem("XYZZY", "PLUGH",
@@ -72,7 +66,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultAddressComponent() {
         final AddressComponent[] addressComponents = new AddressComponent[1];
@@ -86,7 +79,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultEmptyAddressComponent() {
         final AddressComponent[] addressComponents = new AddressComponent[1];
@@ -99,12 +91,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /**
-     * @param longName  long name
-     * @param shortName short name
-     * @param types     types
-     * @return the new address component
-     */
     @SuppressWarnings("PMD.UseVarargs")
     private AddressComponent createAddressComponent(final String longName, final String shortName,
         final AddressComponentType[] types) {
@@ -115,7 +101,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         return component;
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultAddress() {
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(null,
@@ -125,7 +110,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultPlaceId() {
         final GeoServiceGeocodingResult bgr = new GeoServiceGeocodingResult(null, null, null, null,
@@ -135,7 +119,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultPostcodeLocality() {
         final String[] postcodeLocalities = new String[1];
@@ -147,7 +130,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultAddressType() {
         final AddressType[] types = new AddressType[1];
@@ -159,7 +141,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultEmptyGeometry() {
         final FeatureCollection geometry = new FeatureCollection();
@@ -170,7 +151,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultGeometryLocation() {
         final double lat = 10.00;
@@ -185,7 +165,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultGeometryEmptyBounds() {
         final Feature bounds = GeoServiceBounds.createBounds("bounds");
@@ -198,7 +177,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultGeometryBoundsWithNE() {
         final double lat = 10.00;
@@ -208,7 +186,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
             .isThrownBy(() -> GeoServiceBounds.createBounds("bounds", null, northeast));
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultGeometryBoundsWithSW() {
         final double lat = 10.00;
@@ -218,7 +195,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
             .isThrownBy(() -> GeoServiceBounds.createBounds("bounds", southwest, null));
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultGeometryBoundsWithBoth() {
         final double neLat = 10.00;
@@ -237,7 +213,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultGeometryLocationType() {
         final FeatureCollection geometry = GeoServiceGeometry.createFeatureCollection(null, null,
@@ -249,7 +224,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultGeometryEmptyViewport() {
         final Feature viewport = GeoServiceBounds.createBounds("viewport");
@@ -262,7 +236,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultGeometryViewportNE() {
         final double lat = 10.00;
@@ -272,7 +245,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
             .isThrownBy(() -> GeoServiceBounds.createBounds("viewport", null, northeast));
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultGeometryViewportSW() {
         final double lat = 5.00;
@@ -282,7 +254,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
             .isThrownBy(() -> GeoServiceBounds.createBounds("viewport", southwest, null));
     }
 
-    /** */
     @Test
     void testToGeoCodeItemResultGeometryViewportBoth() {
         final double neLat = 10.00;
@@ -301,7 +272,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testPointToLatLng() {
         final Point point = new Point(1.0, 2.0);
@@ -309,13 +279,11 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(latLng, point), "coordinates should match");
     }
 
-    /** */
     @Test
     void testPointToLatLngNull() {
         assertNull(builder.toLatLng((Point) null), "Expected null");
     }
 
-    /** */
     @Test
     void testLngLatAltToLatLng() {
         final LngLatAlt lngLatAlt = new LngLatAlt(1.0, 2.0);
@@ -323,13 +291,11 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(latLng, lngLatAlt), "coordinates should match");
     }
 
-    /** */
     @Test
     void testLngLatAltToLatLngNull() {
         assertNull(builder.toLatLng((LngLatAlt) null), "Expected null");
     }
 
-    /** */
     @Test
     void testLatLngToPoint() {
         final LatLng latLng = new LatLng(1.0, 2.0);
@@ -337,13 +303,11 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(latLng, point), "coordinates should match");
     }
 
-    /** */
     @Test
     void testLatLngToPointNull() {
         assertNull(builder.toPoint((LatLng) null), "Expected null");
     }
 
-    /** */
     @Test
     void testLatLngToLngLatAlt() {
         final LatLng latLng = new LatLng(1.0, 2.0);
@@ -351,7 +315,6 @@ final class GeocodeResultBuilderTest extends GeocodeValidator {
         assertTrue(validate(latLng, lngLatAlt), "coordinates should match");
     }
 
-    /** */
     @Test
     void testLatLngToLngLatAltNull() {
         assertNull(builder.toLngLatAlt((LatLng) null), "Expected null");

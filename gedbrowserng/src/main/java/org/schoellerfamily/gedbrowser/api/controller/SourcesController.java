@@ -36,9 +36,6 @@ public class SourcesController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating persons
-     */
     private ObjectCrud<ApiSource> crud() {
         return new SourceCrud(loader, toDocConverter, repositoryManager);
     }

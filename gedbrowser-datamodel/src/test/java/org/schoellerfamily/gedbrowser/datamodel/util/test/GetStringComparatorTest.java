@@ -41,9 +41,6 @@ final class GetStringComparatorTest {
         EQUALTO
     };
 
-    /**
-     * @return the stream of test values
-     */
     @SuppressWarnings("PMD.MethodReturnsInternalArray")
     static Stream<Arguments> params() {
         return Stream.of(PARAMETERS).map(a -> Arguments.of(a[0], a[1], a[2]));

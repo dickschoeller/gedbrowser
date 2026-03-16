@@ -35,9 +35,6 @@ public final class TreeTableRenderer {
         return treeCellRenderers;
     }
 
-    /**
-     * @return a new cell row.
-     */
     private CellRow createCellRow() {
         return new CellRow(generations * 2 - 1);
     }
@@ -82,10 +79,6 @@ public final class TreeTableRenderer {
         return treeNode;
     }
 
-    /**
-     * @param cellRows the table that we are working with.
-     * @param treeNode the tree whose data we are adding.
-     */
     private void addToTable(final CellRow[] cellRows,
             final TreeNode<PersonRenderer> treeNode) {
         final int column = treeNode.getColumn() * 2;
@@ -118,9 +111,6 @@ public final class TreeTableRenderer {
         }
     }
 
-    /**
-     * @return a cell with the class set for a vertical line.
-     */
     private LineCellRenderer createVerticalLineCell() {
         return new LineCellRenderer("v");
     }

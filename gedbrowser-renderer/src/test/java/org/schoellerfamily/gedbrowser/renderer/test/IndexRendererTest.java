@@ -42,12 +42,6 @@ final class IndexRendererTest {
         userContext = RenderingContext.user(appInfo);
     }
 
-    /**
-     * Prepare expectation string for letters in the index.
-     *
-     * @param letter the letter to link
-     * @return the formatted string.
-     */
     private String letterExpectString(final String letter) {
         return "<a id=\"letter-" + letter + "\" href=\"surnames?db=null&amp;letter=" + letter
             + "\" class=\"name\">[" + letter + "]</a>";

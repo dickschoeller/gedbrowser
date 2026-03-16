@@ -41,7 +41,6 @@ class UploadServiceIT {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testRealUpload() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/upload";
@@ -65,7 +64,6 @@ class UploadServiceIT {
             "Type mismatch");
     }
 
-    /** */
     @Test
     void testDotDotUpload() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/upload";
@@ -89,7 +87,6 @@ class UploadServiceIT {
             "Type mismatch");
     }
 
-    /** */
     @Test
     void testEmptyUpload() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/upload";
@@ -113,10 +110,6 @@ class UploadServiceIT {
             "Type mismatch");
     }
 
-    /**
-     * @param name file name to open
-     * @return the ged file as a classpath resource
-     */
     private ClassPathResource getFile(final String name) {
         return new ClassPathResource(name);
     }

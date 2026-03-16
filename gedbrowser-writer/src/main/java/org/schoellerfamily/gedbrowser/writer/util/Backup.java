@@ -11,9 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class Backup {
 
-    /**
-     * Private constructor.
-     */
     private Backup() {
     }
 
@@ -36,10 +33,6 @@ public final class Backup {
         }
     }
 
-    /**
-     * @param filename the name of the file being backedup
-     * @return the filename.n that doesn't exist
-     */
     private static File generateBackupFilename(final String filename) {
         int i = 1;
         while (true) {
@@ -51,10 +44,6 @@ public final class Backup {
         }
     }
 
-    /**
-     * @param filename the name of the file to create
-     * @return the file object
-     */
     private static File createFile(final String filename) {
         return new File(filename);
     }

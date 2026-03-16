@@ -78,20 +78,11 @@ public class HeadController extends DatedDataController {
         return "head";
     }
 
-    /**
-     * @param dbName the name of the database
-     * @return the head
-     */
     private Head fetchHead(final String dbName) {
         final Root root = fetchRoot(dbName);
         return (Head) root.find("Header");
     }
 
-    /**
-     * @param context the rendering context
-     * @param head the head object being rendered
-     * @return the person renderer
-     */
     private GedRenderer<?> headRenderer(final RenderingContext context,
             final Head head) {
         return new GedRendererFactory().create(head, context);

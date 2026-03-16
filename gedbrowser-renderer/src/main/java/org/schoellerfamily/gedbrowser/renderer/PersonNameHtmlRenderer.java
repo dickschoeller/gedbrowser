@@ -49,10 +49,6 @@ public class PersonNameHtmlRenderer implements NameHtmlRenderer {
                 + person.getString() + "]" + "</a>";
     }
 
-    /**
-     * @param person the person whose lifespan we are getting
-     * @return the lifespan string (can be empty)
-     */
     private String spanString(final Person person) {
         final GetDateVisitor birthVisitor = new GetDateVisitor("Birth");
         person.accept(birthVisitor);

@@ -24,9 +24,6 @@ public final class DateParser extends SimpleDateParser {
     /** */
     private static final String BET = "BET";
 
-    /**
-     * List of prefixes handled by strip and simple approximation.
-     */
     private static final List<Pair<String, Approximation>> LIST = List.of(
         new ImmutablePair<>(ABT, Approximation.ABOUT),
         new ImmutablePair<>(EST, Approximation.ABOUT),
@@ -89,9 +86,6 @@ public final class DateParser extends SimpleDateParser {
         return parseCalendar(dateString);
     }
 
-    /**
-     * @return the output date string
-     */
     private String stripApproximationKeywords() {
         final String dateString = inputString;
 
@@ -121,25 +115,12 @@ public final class DateParser extends SimpleDateParser {
         }
     }
 
-    /**
-     * Does startsWith but ignoring the case.
-     *
-     * @param dateString the input string
-     * @param startString the prefix we are checking for
-     * @return true if dateString starts with a case insensitive match to start
-     */
     private boolean startsWithIgnoreCase(final String dateString,
             final String startString) {
         final String prefix = dateString.substring(0, startString.length());
         return prefix.equalsIgnoreCase(startString);
     }
 
-    /**
-     * Handle some odd dates from family tree maker.
-     *
-     * @param dateString the input string
-     * @return the stripped string
-     */
     private String handleFTMBizzareDateFormat(final String dateString) {
         approximation = DateParser.Approximation.BETWEEN;
         String string = stripPrefix(dateString, "(").trim();
@@ -182,49 +163,21 @@ public final class DateParser extends SimpleDateParser {
         return string;
     }
 
-    /**
-     * Strip the searchString with and trim the result.
-     *
-     * @param input the source string
-     * @param searchString the string to look for in the source
-     * @return the stripped string
-     */
     private String stripPrefix(final String input, final String searchString) {
         return input.substring(searchString.length(), input.length()).trim();
     }
 
-    /**
-     * Strip the searchString with and trim the result.
-     *
-     * @param input the source string
-     * @param searchString the string to look for in the source
-     * @return the stripped string
-     */
     private String stripSuffix(final String input, final String searchString) {
         final String stripped = input.replace(searchString, "");
         return stripped.trim();
     }
 
-    /**
-     * Process between syntax. Just leave the beginning date.
-     *
-     * @param input the source string
-     * @return the stripped result
-     */
     private String handleBetween(final String input) {
         final String outString = input.replace("BETWEEN ", "")
                 .replace("BET ", "").replace("FROM ", "");
         return truncateAt(truncateAt(outString, " AND "), " TO ").trim();
     }
 
-    /**
-     * Truncate the input string after the first occurrence of the
-     * searchString.
-     *
-     * @param input the source string
-     * @param searchString the string to look for in the source
-     * @return the truncated string
-     */
     private String truncateAt(final String input, final String searchString) {
         final int i = input.indexOf(searchString);
         if (i != -1) {
@@ -233,13 +186,6 @@ public final class DateParser extends SimpleDateParser {
         return input;
     }
 
-    /**
-     * Lop off the beginning of the string up through the searchString.
-     *
-     * @param input the source string
-     * @param searchString the string to look for in the source
-     * @return the truncated string
-     */
     private String removeBeginningAt(final String input,
             final String searchString) {
         final int i = input.indexOf(searchString);
@@ -249,10 +195,6 @@ public final class DateParser extends SimpleDateParser {
         return input;
     }
 
-    /**
-     * @param dateString input date string
-     * @return the adjusted string
-     */
     private Calendar applyEstimationRules(final String dateString) {
         switch (new StringTokenizer(dateString, " ").countTokens()) {
         case 0:
@@ -266,10 +208,6 @@ public final class DateParser extends SimpleDateParser {
         }
     }
 
-    /**
-     * @param dateString input date string
-     * @return adjusted date
-     */
     private Calendar estimateDay(final String dateString) {
         final Calendar c = parseCalendar(dateString);
         if (approximation == DateParser.Approximation.BEFORE) {
@@ -280,10 +218,6 @@ public final class DateParser extends SimpleDateParser {
         return c;
     }
 
-    /**
-     * @param dateString input date string
-     * @return adjusted date
-     */
     private Calendar estimateMonth(final String dateString) {
         final Calendar c = parseCalendar(dateString);
         if (approximation == DateParser.Approximation.BEFORE) {
@@ -296,10 +230,6 @@ public final class DateParser extends SimpleDateParser {
         return c;
     }
 
-    /**
-     * @param dateString input date string
-     * @return adjusted date
-     */
     private Calendar estimateYear(final String dateString) {
         final Calendar c = parseCalendar(dateString);
         if (approximation == DateParser.Approximation.BEFORE) {

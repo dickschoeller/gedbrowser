@@ -29,9 +29,6 @@ public class SubmissionLinkListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
-    /**
-     * @param builder the string builder that we will be appending to.
-     */
     private void renderListItemContents(final StringBuilder builder) {
         builder.append("<span class=\"label\">Submission:</span> ");
         builder.append(submissionLinkRenderer.getNameHtml());

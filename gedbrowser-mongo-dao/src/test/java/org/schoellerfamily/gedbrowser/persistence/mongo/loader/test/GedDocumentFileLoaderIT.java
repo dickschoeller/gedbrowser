@@ -133,9 +133,6 @@ class GedDocumentFileLoaderIT {
         }
     }
 
-    /**
-     * @param details the details map
-     */
     private void assertDetails(final Map<String, Object> details) {
         assertEquals("mini-schoeller", details.get("dbname"), "dbname mismatch");
         assertEquals(gedbrowserHome + "/mini-schoeller.ged", details.get("filename"),
@@ -165,40 +162,22 @@ class GedDocumentFileLoaderIT {
         assertTrue(singleMatch && count == 1, "expected a single reloaded document");
     }
 
-    /**
-     * Assert that we should have only the newly loaded document this because we
-     * first cleared everything.
-     *
-     * @param resultDoc the newly loaded document
-     */
     private void assertJustThisOne(final RootDocument resultDoc) {
         for (final RootDocument foundDoc : findAll()) {
             checkSame(resultDoc, foundDoc);
         }
     }
 
-    /**
-     * Check that the 2 documents are actually the same object.
-     *
-     * @param doc1 first document
-     * @param doc2 second document
-     */
     private void checkSame(final RootDocument doc1, final RootDocument doc2) {
         assertEquals(doc1.getIdString(), doc2.getIdString(), "should be the same DB object");
     }
 
-    /**
-     * Check that the repository is empty.
-     */
     private void assertRepositoryEmpty() {
         final Iterable<RootDocumentMongo> allDocs = findAll();
         assertThatExceptionOfType(java.util.NoSuchElementException.class)
             .isThrownBy(() -> allDocs.iterator().next());
     }
 
-    /**
-     * Check that the repository is empty.
-     */
     private void assertRepositoryHasOne() {
         int count = 0;
         final Iterator<RootDocumentMongo> iterator = findAll().iterator();
@@ -209,9 +188,6 @@ class GedDocumentFileLoaderIT {
         assertEquals(1, count, "Count should be 1");
     }
 
-    /**
-     * @return all of the root documents in the repository
-     */
     private Iterable<RootDocumentMongo> findAll() {
         return rootDocumentRepository.findAll();
     }

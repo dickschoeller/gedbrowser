@@ -32,16 +32,11 @@ final class HusbandRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final HusbandRenderer renderer = createRenderer();
@@ -50,10 +45,6 @@ final class HusbandRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final HusbandRenderer renderer = createRenderer();
@@ -61,10 +52,6 @@ final class HusbandRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final HusbandRenderer renderer = createRenderer();
@@ -72,10 +59,6 @@ final class HusbandRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final HusbandRenderer renderer = createRenderer();
@@ -83,10 +66,6 @@ final class HusbandRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final HusbandRenderer renderer = createRenderer();
@@ -94,9 +73,6 @@ final class HusbandRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * @return the renderer
-     */
     private HusbandRenderer createRenderer() {
         return new HusbandRenderer(new Husband(null, "Husband", null), new GedRendererFactory(),
             anonymousContext);

@@ -361,11 +361,6 @@ final class GedLineTest {
     @Autowired
     private transient GedLineToGedObjectTransformer g2g;
 
-    /**
-     * Test GedLine with an array input.
-     *
-     * @throws IOException never.
-     */
     @Test
     void testFactoryGedLineArray() throws IOException {
         final AbstractGedLine top = readArrayTestSource();
@@ -383,11 +378,6 @@ final class GedLineTest {
         assertEquals(1, spouses.size(), "Dick only has one spouse");
     }
 
-    /**
-     * Test GedLine with an array input.
-     *
-     * @throws IOException never.
-     */
     @Test
     void testFactoryGedLineArrayNote() throws IOException {
         final AbstractGedLine top = readArrayTestSource();
@@ -406,11 +396,6 @@ final class GedLineTest {
         assertEquals("This is a note", note.getTail(), "Note body mismatch");
     }
 
-    /**
-     * Test GedLine with an array input.
-     *
-     * @throws IOException never.
-     */
     @Test
     void testFactoryGedLineArraySubmission() throws IOException {
         final AbstractGedLine top = readArrayTestSource();
@@ -433,24 +418,11 @@ final class GedLineTest {
         assertEquals("SUBMISSION", submission.getString(), "getString mismatch");
     }
 
-    /**
-     * Compare expected and actual and throw if not equal.
-     *
-     * @param message the message when fails
-     * @param expected expected value
-     * @param actual actual value
-     */
     private void checkEquals(final String message, final String expected,
             final String actual) {
         assertEquals(expected, actual, message);
     }
 
-    /**
-     * Read data for tests available to prepare data for tests.
-     *
-     * @return a populated GedLine parse tree.
-     * @throws IOException because reader might throw.
-     */
     private static AbstractGedLine readArrayTestSource() throws IOException {
         final AbstractGedLine top = new GedLine(ARRAY_SOURCE);
         top.readToNext();

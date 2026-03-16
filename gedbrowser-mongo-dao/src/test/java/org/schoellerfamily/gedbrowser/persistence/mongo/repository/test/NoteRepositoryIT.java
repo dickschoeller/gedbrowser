@@ -47,9 +47,6 @@ class NoteRepositoryIT {
     /** */
     private transient RootDocumentMongo rootDocument;
 
-    /**
-     * @throws IOException because the reader does
-     */
     @BeforeEach
     void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
@@ -59,13 +56,11 @@ class NoteRepositoryIT {
         rootDocument.setGedObject(root);
     }
 
-    /** */
     @AfterEach
     void tearDown() {
         repositoryFixture.clearRepository();
     }
 
-    /** */
     @Test
     void testN1() {
         final NoteDocument famdoc = noteDocumentRepository.findByFileAndString(root.getFilename(),
@@ -74,7 +69,6 @@ class NoteRepositoryIT {
         assertEquals("N1", note.getString(), "Id mismatch");
     }
 
-    /** */
     @Test
     void testN1Root() {
         final NoteDocument famdoc = noteDocumentRepository.findByRootAndString(rootDocument, "N1");
@@ -82,7 +76,6 @@ class NoteRepositoryIT {
         assertEquals("N1", note.getString(), "Id mismatch");
     }
 
-    /** */
     @Test
     void testBogus() {
         final NoteDocument famdoc = noteDocumentRepository.findByFileAndString(root.getFilename(),
@@ -90,7 +83,6 @@ class NoteRepositoryIT {
         assertNull(famdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testBogusRoot() {
         final NoteDocument famdoc = noteDocumentRepository.findByRootAndString(rootDocument,
@@ -98,20 +90,17 @@ class NoteRepositoryIT {
         assertNull(famdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testCountRoot() {
         assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument), "Should be 3 notes");
     }
 
-    /** */
     @Test
     void testCountFilename() {
         assertEquals(NOTE_COUNT, noteDocumentRepository.count(rootDocument.getFilename()),
             "Should be 3 notes");
     }
 
-    /** */
     @Test
     void testFindAllRoot() {
         final Iterable<NoteDocument> list = noteDocumentRepository.findAll(rootDocument);
@@ -123,7 +112,6 @@ class NoteRepositoryIT {
         assertEquals(NOTE_COUNT, count, "Should be 3 notes");
     }
 
-    /** */
     @Test
     void testFindAllFilename() {
         final Iterable<NoteDocument> list = noteDocumentRepository
@@ -136,20 +124,12 @@ class NoteRepositoryIT {
         assertEquals(NOTE_COUNT, count, "Should be 3 notes");
     }
 
-    /** */
     @Test
     void testLastId() {
         final String string = noteDocumentRepository.lastId(rootDocument);
         assertEquals("N3", string, "");
     }
 
-    /**
-     * Wrapper for assertion to bypass PMD check.
-     *
-     * @param message  the identifying message for the AssertionError (null okay)
-     * @param expected expected value
-     * @param actual   actual value
-     */
     private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }

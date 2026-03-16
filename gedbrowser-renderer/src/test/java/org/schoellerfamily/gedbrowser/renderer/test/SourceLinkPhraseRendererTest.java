@@ -36,7 +36,6 @@ final class SourceLinkPhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final Root root = new Root("Root");
@@ -52,7 +51,6 @@ final class SourceLinkPhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsPhrase() {
         final SourceLinkRenderer slr = new SourceLinkRenderer(sourceLink, new GedRendererFactory(),

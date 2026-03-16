@@ -55,10 +55,6 @@ final class UserServiceTest extends AbstractTest {
             .isThrownBy(() -> findAllIgnoreAnswer());
     }
 
-    /**
-     * Using this to test the findAll method without caring about the return value,
-     * just whether it throws a runtime exception or not.
-     */
     @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     private void findAllIgnoreAnswer() {
         userService.findAll();

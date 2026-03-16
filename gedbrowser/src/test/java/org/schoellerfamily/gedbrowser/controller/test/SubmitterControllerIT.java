@@ -36,7 +36,6 @@ class SubmitterControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testSubmitterControllerU1() {
         final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U1";
@@ -54,7 +53,6 @@ class SubmitterControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testSubmitterControllerU2() {
         final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U2";
@@ -73,7 +71,6 @@ class SubmitterControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testSubmitterControllerU4() {
         final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U4";
@@ -94,7 +91,6 @@ class SubmitterControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testSubmitterControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -108,7 +104,6 @@ class SubmitterControllerIT implements MenuTestHelper {
                 .asString().contains("Data set not found");
     }
 
-    /** */
     @Test
     void testSubmitterControllerBadSubmitter() {
         final EntityExchangeResult<String> entity = restTestClient.get()

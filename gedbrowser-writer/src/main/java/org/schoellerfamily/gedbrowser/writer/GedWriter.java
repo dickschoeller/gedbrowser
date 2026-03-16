@@ -16,7 +16,6 @@ import org.schoellerfamily.gedbrowser.writer.util.Backup;
 @Slf4j
 public class GedWriter {
 
-    /** */
     private final GedObjectToGedWriterVisitor visitor =
             new GedObjectToGedWriterVisitor();
 
@@ -51,14 +50,6 @@ public class GedWriter {
         }
     }
 
-    /**
-     * Loop through the lines from the line creator and write them to the
-     * stream.
-     *
-     * @param stream the stream to write to
-     * @param charset the string encoding to use
-     * @throws IOException if there is a problem writing to the stream
-     */
     private void writeTheLines(final BufferedOutputStream stream,
             final String charset)
             throws IOException {

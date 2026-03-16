@@ -34,16 +34,11 @@ final class SourceLinkRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
@@ -52,10 +47,6 @@ final class SourceLinkRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
@@ -63,10 +54,6 @@ final class SourceLinkRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
@@ -74,10 +61,6 @@ final class SourceLinkRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
@@ -85,10 +68,6 @@ final class SourceLinkRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final SourceLinkRenderer renderer = createRenderer();
@@ -96,27 +75,18 @@ final class SourceLinkRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test empty rendering.
-     */
     @Test
     void testUnsetSourceLink() {
         final SourceLinkRenderer renderer = createRenderer();
         assertEquals("", renderer.getIndexName(), "Index name should be empty");
     }
 
-    /**
-     * Test empty rendering.
-     */
     @Test
     void testUnsetSourceHtmlLink() {
         final SourceLinkRenderer renderer = createRenderer();
         assertEquals("", renderer.getNameHtml(), "Index name should be empty");
     }
 
-    /**
-     * Test empty rendering.
-     */
     @Test
     void testSourceLinkCobweb() {
         final SourceLinkRenderer renderer = new SourceLinkRenderer(
@@ -125,9 +95,6 @@ final class SourceLinkRendererTest {
         assertEquals("S1", renderer.getNameHtml(), "Index name mismatch");
     }
 
-    /**
-     * @return the renderer
-     */
     private SourceLinkRenderer createRenderer() {
         return new SourceLinkRenderer(new SourceLink(), new GedRendererFactory(), anonymousContext);
     }

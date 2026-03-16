@@ -22,12 +22,6 @@ public final class Submitter extends AbstractSource implements Nameable {
         super(parent, xrefString(xref));
     }
 
-    /**
-     * Get the ID string from and ObjectId. Returns null on null input.
-     *
-     * @param xref an object ID
-     * @return its string
-     */
     private static String xrefString(final ObjectId xref) {
         if (xref == null) {
             return null;

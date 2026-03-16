@@ -130,19 +130,10 @@ public class UserTestHelper {
         return res.getResponseBody();
     }
 
-    /**
-     * @return the base URL of the API
-     */
     private String baseUrl() {
         return "http://localhost:" + port + "/v1/";
     }
 
-    /**
-     * @param url     the usl to access
-     * @param headers the necessary headers
-     * @return the string format of the response body
-     * @throws URISyntaxException if the URI is bogus
-     */
     private String getString(final String url, final HttpHeaders headers)
         throws URISyntaxException {
         final EntityExchangeResult<String> res = client.get()

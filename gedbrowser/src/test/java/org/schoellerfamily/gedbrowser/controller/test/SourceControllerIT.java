@@ -36,7 +36,6 @@ class SourceControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testSourceControllerS33750() {
         final String url = "http://localhost:" + port + "/gedbrowser/source?db=gl120368&id=S33750";
@@ -54,7 +53,6 @@ class SourceControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testSourceControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -68,7 +66,6 @@ class SourceControllerIT implements MenuTestHelper {
                 .asString().contains("Data set not found");
     }
 
-    /** */
     @Test
     void testSourceControllerBadSource() {
         final EntityExchangeResult<String> entity = restTestClient.get()

@@ -67,11 +67,6 @@ public class AuthenticationController {
         }
     }
 
-    /**
-     * @param response the http response
-     * @param authToken the authentication token
-     * @return the response
-     */
     private ResponseEntity<UserTokenState> doRefresh(final HttpServletResponse response,
             final String authToken) {
         final String refreshedToken = tokenHelper.refreshToken(authToken);

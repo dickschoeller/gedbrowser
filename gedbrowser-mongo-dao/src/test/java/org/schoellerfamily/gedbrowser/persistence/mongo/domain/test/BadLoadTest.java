@@ -44,12 +44,9 @@ final class BadLoadTest {
     @Autowired
     private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
-    /** */
     private final GedObject root = new Root();
-    /** */
     private final GedObject attr = new Attribute(root);
 
-    /** */
     @Test
     void testBadAttributeLoad() {
         final AttributeDocumentMongo ad = new AttributeDocumentMongo();
@@ -58,7 +55,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadChildLoad() {
         final ChildDocumentMongo ad = new ChildDocumentMongo();
@@ -67,7 +63,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadDateLoad() {
         final DateDocumentMongo ad = new DateDocumentMongo();
@@ -76,7 +71,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadFamCLoad() {
         final FamCDocumentMongo ad = new FamCDocumentMongo();
@@ -85,7 +79,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadFamilyLoad() {
         final FamilyDocumentMongo ad = new FamilyDocumentMongo();
@@ -94,7 +87,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadFamSLoad() {
         final FamSDocumentMongo ad = new FamSDocumentMongo();
@@ -103,7 +95,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadHeadLoad() {
         final HeadDocumentMongo ad = new HeadDocumentMongo();
@@ -112,7 +103,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadHusbandLoad() {
         final HusbandDocumentMongo ad = new HusbandDocumentMongo();
@@ -121,7 +111,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadMultimediaLoad() {
         final MultimediaDocumentMongo ad = new MultimediaDocumentMongo();
@@ -130,7 +119,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadNameLoad() {
         final NameDocumentMongo ad = new NameDocumentMongo();
@@ -139,7 +127,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadPersonLoad() {
         final PersonDocumentMongo ad = new PersonDocumentMongo();
@@ -148,7 +135,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadPlaceLoad() {
         final PlaceDocumentMongo ad = new PlaceDocumentMongo();
@@ -157,7 +143,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadRootLoad() {
         final RootDocumentMongo ad = new RootDocumentMongo();
@@ -166,7 +151,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadSourceLoad() {
         final SourceDocumentMongo ad = new SourceDocumentMongo();
@@ -175,7 +159,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadSourceLinkLoad() {
         final SourceLinkDocumentMongo ad = new SourceLinkDocumentMongo();
@@ -184,7 +167,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadSubmitterLoad() {
         final SubmitterDocumentMongo ad = new SubmitterDocumentMongo();
@@ -193,7 +175,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadSubmitterLinkLoad() {
         final SubmitterLinkDocumentMongo ad = new SubmitterLinkDocumentMongo();
@@ -202,7 +183,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadTrailerLoad() {
         final TrailerDocumentMongo ad = new TrailerDocumentMongo();
@@ -211,7 +191,6 @@ final class BadLoadTest {
             .withMessage("Wrong type");
     }
 
-    /** */
     @Test
     void testBadWifeLoad() {
         final WifeDocumentMongo ad = new WifeDocumentMongo();

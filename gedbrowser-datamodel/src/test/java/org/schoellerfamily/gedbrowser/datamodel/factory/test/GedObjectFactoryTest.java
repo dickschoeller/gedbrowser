@@ -16,9 +16,6 @@ import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.
 
 final class GedObjectFactoryTest {
 
-    /**
-     * @return parameters to test
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

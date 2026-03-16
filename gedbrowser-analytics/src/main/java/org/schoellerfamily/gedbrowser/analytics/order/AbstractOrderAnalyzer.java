@@ -138,10 +138,6 @@ public abstract class AbstractOrderAnalyzer {
         return new LocalDate(estimateCalendar);
     }
 
-    /**
-     * @param newDate the newDate
-     * @return true if the order is correct
-     */
     private boolean newDateAfterCurrent(final LocalDate newDate) {
         if (getCurrentDate() == null) {
             setCurrentDate(newDate);

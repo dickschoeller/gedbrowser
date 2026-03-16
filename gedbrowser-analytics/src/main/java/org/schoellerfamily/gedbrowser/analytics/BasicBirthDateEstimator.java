@@ -105,13 +105,6 @@ public class BasicBirthDateEstimator extends Estimator {
         return null;
     }
 
-    /**
-     * Estimate from a single event.
-     *
-     * @param gob the event
-     * @param dateString the date string from the event
-     * @return the adjust date estimate. Can return null.
-     */
     private LocalDate estimateFromEvent(final GedObject gob,
             final String dateString) {
         if (StringUtils.isEmpty(dateString)) {

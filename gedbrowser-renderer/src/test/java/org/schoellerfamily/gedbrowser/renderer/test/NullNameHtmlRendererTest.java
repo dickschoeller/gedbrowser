@@ -14,13 +14,11 @@ final class NullNameHtmlRendererTest {
     /** */
     private transient NameHtmlRenderer nameHtmlRenderer;
 
-    /** */
     @BeforeEach
     void setUp() {
         nameHtmlRenderer = new NullNameHtmlRenderer();
     }
 
-    /** */
     @Test
     void testGetNameHtml() {
         assertEquals("", nameHtmlRenderer.getNameHtml(), "expected empty string");

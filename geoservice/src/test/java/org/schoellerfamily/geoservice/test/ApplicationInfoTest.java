@@ -38,7 +38,6 @@ public final class ApplicationInfoTest {
         }
     }
 
-    /** */
     @Test
     void testApplicationInfoURL() {
         assertEquals(
@@ -47,7 +46,6 @@ public final class ApplicationInfoTest {
                 "Application URL mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoMaintainerEmail() {
         assertEquals(
@@ -56,7 +54,6 @@ public final class ApplicationInfoTest {
                 "Maintainer email mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoMaintainerName() {
         assertEquals(
@@ -65,7 +62,6 @@ public final class ApplicationInfoTest {
                 "Maintainer name mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoName() {
         assertEquals(
@@ -74,7 +70,6 @@ public final class ApplicationInfoTest {
                 "Application name mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoVersion() {
         assertEquals(

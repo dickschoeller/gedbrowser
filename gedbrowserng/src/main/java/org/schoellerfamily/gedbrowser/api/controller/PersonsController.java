@@ -60,9 +60,6 @@ public class PersonsController {
     /** */
     private final PersonGeoService personGeoService;
 
-    /**
-     * @return the CRUD object for manipulating persons
-     */
     private ObjectCrud<ApiPerson> crud() {
         return new PersonCrud(loader, toDocConverter, repositoryManager);
     }
@@ -157,12 +154,6 @@ public class PersonsController {
         return !hasUser && new LivingEstimator(person, provider).estimate();
     }
 
-    /**
-     * Create a minimal person for return, who is only identified as living.
-     *
-     * @param id the person ID
-     * @return the dummy person
-     */
     private ApiPerson createDummyLivingPerson(final String id) {
         return ApiPerson.builder()
             .string(id)

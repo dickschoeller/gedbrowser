@@ -11,21 +11,18 @@ import org.schoellerfamily.gedbrowser.security.model.Authority;
  * @author Dick Schoeller
  */
 class AuthorityTest {
-    /** */
     @Test
     void testDefault() {
         final Authority authority = Authority.builder().build();
         assertNull(authority.getAuthority(), "Should be null");
     }
 
-    /** */
     @Test
     void testDefaultUserRoleName() {
         final Authority authority = Authority.builder().build();
         assertNull(authority.getUserRoleName(), "Should be null");
     }
 
-    /** */
     @Test
     void testSetGet() {
         final Authority authority = Authority.builder()

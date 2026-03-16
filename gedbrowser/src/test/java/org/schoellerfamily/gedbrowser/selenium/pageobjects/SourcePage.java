@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public final class SourcePage extends PageBase implements MenuPageFacade {
-
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
             .equals(System.getProperty("printNavigation", "false"));
@@ -21,7 +20,7 @@ public final class SourcePage extends PageBase implements MenuPageFacade {
     /** Database ID associated with this page. */
     private final String id;
 
-    /** */
+    /**  */
     private final MenuPage menuPage = new MenuPageImpl(this);
 
     /**
@@ -58,12 +57,6 @@ public final class SourcePage extends PageBase implements MenuPageFacade {
         return menuPage;
     }
 
-    /**
-     * Build the URL string for this page.
-     *
-     * @param id the ID of the source on the page
-     * @return the built url string
-     */
     private static String location(final String id) {
         return "source?db=gl120368&id=" + id;
     }
@@ -78,11 +71,6 @@ public final class SourcePage extends PageBase implements MenuPageFacade {
         return getTitle().equals(TITLE_MAP.get(id));
     }
 
-    /**
-     * Print the provide string.
-     *
-     * @param string the string to print
-     */
     private void println(final String string) {
         if (PRINT_NAVIGATION) {
             log.info(string);

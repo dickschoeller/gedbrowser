@@ -92,12 +92,6 @@ public class ApiPerson extends ApiExtraLists {
             return super.string(string);
         }
 
-        /**
-         * Returns the reference number attribute extracted from the person string.
-         *
-         * @param string the person string
-         * @return the reference number extracted from that
-         */
         private ApiAttribute refn(final String string) {
             return ApiAttribute.builder()
                 .type("attribute")

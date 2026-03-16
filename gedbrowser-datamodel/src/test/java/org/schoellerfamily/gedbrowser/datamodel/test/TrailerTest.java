@@ -12,7 +12,6 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  * @author Dick Schoeller
  */
 final class TrailerTest {
-    /** */
     @Test
     void testTrailerGedObject() {
         final Root root = new Root("Root");
@@ -24,7 +23,6 @@ final class TrailerTest {
         assertEquals(trailer, gob, "expected trailer");
     }
 
-    /** */
     @Test
     void testTrailerGedFoundObjectString() {
         final Root root = new Root("Root");
@@ -34,7 +32,6 @@ final class TrailerTest {
         final GedObject gob = root.find("Trailer");
         assertEquals(trailer, gob, "expected trailer");
     }
-    /** */
     @Test
     void testTrailerGedObjectString() {
         final GedObjectBuilder builder = new GedObjectBuilder();

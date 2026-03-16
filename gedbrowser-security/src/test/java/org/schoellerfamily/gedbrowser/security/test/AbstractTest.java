@@ -52,9 +52,6 @@ public abstract class AbstractTest {
         mockAuthentication(new TokenBasedAuthentication(user, null));
     }
 
-    /**
-     * @param auth the authentication
-     */
     private void mockAuthentication(final TokenBasedAuthentication auth) {
         auth.setAuthenticated(true);
         Mockito.when(securityContext.getAuthentication()).thenReturn(auth);

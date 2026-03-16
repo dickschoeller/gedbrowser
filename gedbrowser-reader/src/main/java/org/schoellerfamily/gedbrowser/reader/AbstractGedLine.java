@@ -32,10 +32,6 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
         this.setLevel(-1);
     }
 
-    /**
-     * @param parent the parent
-     * @return the appropriate line number
-     */
     private static int generateLineNumber(final AbstractGedLine parent) {
         if (parent == null) {
             return 0;

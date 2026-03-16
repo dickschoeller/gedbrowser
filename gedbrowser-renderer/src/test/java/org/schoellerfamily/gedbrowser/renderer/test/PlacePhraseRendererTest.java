@@ -37,7 +37,6 @@ final class PlacePhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -49,7 +48,6 @@ final class PlacePhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetRenderAsPhrase() {
         final PlaceRenderer dRenderer = new PlaceRenderer(place,
@@ -60,7 +58,6 @@ final class PlacePhraseRendererTest {
         assertEquals("Fayetteville, NC", string, "Rendered string doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetRenderAsListItemEmpty() {
         final PlaceRenderer dRenderer = new PlaceRenderer(
@@ -72,7 +69,6 @@ final class PlacePhraseRendererTest {
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
     @Test
     void testGetRenderAsListItemNull() {
         final PlaceRenderer dRenderer = new PlaceRenderer(

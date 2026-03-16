@@ -40,7 +40,6 @@ final class DatePhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -53,7 +52,6 @@ final class DatePhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetRenderAsPhrase() {
         final DateRenderer dRenderer = new DateRenderer(date, new GedRendererFactory(),
@@ -64,7 +62,6 @@ final class DatePhraseRendererTest {
             "Rendered date string doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetRenderAsPhrase2() {
         final DateRenderer dRenderer = new DateRenderer(date2, new GedRendererFactory(),
@@ -74,7 +71,6 @@ final class DatePhraseRendererTest {
         assertEquals("14 December 1958", string, "Rendered date string doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetRenderAsPhraseEmpty() {
         final DateRenderer dRenderer = new DateRenderer(new Date(attribute, ""),
@@ -84,7 +80,6 @@ final class DatePhraseRendererTest {
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
     @Test
     void testGetRenderAsPhraseNull() {
         final DateRenderer dRenderer = new DateRenderer(new Date(attribute, null),

@@ -99,24 +99,11 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
         return date;
     }
 
-    /**
-     * Estimate from spouses' ancestors.
-     *
-     * @param bde the estimator for this person
-     * @param localDate the input date estimate
-     * @return the new estimate
-     */
     private LocalDate estimateFromSpousesAncestors(final BirthDateEstimator bde,
             final LocalDate localDate) {
         return bde.estimateFromSpousesAncestors(localDate);
     }
 
-    /**
-     * Estimate from a child.
-     *
-     * @param bde the estimator for this child
-     * @return the new estimate
-     */
     private LocalDate estimateFromChild(final BirthDateEstimator bde) {
         LocalDate date = null;
         date = bde.estimateFromChildren(date);

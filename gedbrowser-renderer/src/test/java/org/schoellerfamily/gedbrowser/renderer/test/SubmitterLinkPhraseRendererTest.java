@@ -36,7 +36,6 @@ final class SubmitterLinkPhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final Root root = new Root("Root");
@@ -52,7 +51,6 @@ final class SubmitterLinkPhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsPhrase() {
         final SubmitterLinkRenderer slr = new SubmitterLinkRenderer(submitterLink,

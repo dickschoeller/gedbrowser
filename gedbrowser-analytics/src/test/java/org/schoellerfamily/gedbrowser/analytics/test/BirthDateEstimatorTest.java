@@ -378,14 +378,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /**
-     * Test for persons for who the algorithm fails to come up with
-     * a birth date.
-     *
-     * TODO this test exercises stuff not test elsewhere. Fix that.
-     *
-     * @throws IOException if the file can't be read
-     */
     @Test
     void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
@@ -592,24 +584,11 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /**
-     * Wrap calls to the constructor, so that we avoid the creation in
-     * loops warning.
-     *
-     * @param person the person to estimate
-     * @return the new estimator
-     */
     private BirthDateEstimator createBirthEstimator(final Person person) {
         return new BirthDateEstimator(
                 person);
     }
 
-    /**
-     * Read data for tests available to prepare data for tests.
-     *
-     * @return a populated GedLine parse tree.
-     * @throws IOException because reader might throw.
-     */
     private AbstractGedLine readFileTestSource() throws IOException {
         return TestResourceReader.readFileTestSource("gl120368.ged");
     }

@@ -136,13 +136,6 @@ public class WebSecurityConfig {
         return configured.build();
     }
 
-    /**
-     * Work from the http security object and enable or disable CSRF handling, as
-     * requested in the application properties.
-     *
-     * @param http the http security object
-     * @return the http security object
-     */
     @SuppressWarnings({ "java:S4502", "java:S3330" })
     private HttpSecurity configureCsrf(final HttpSecurity http) {
         // Warning suppressed because CSRF is disabled only in test profile.

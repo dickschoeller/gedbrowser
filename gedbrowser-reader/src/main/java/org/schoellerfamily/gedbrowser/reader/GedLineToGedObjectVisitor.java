@@ -59,9 +59,6 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
         gedObject = root;
     }
 
-    /**
-     * @return get the parent GedObject
-     */
     private GedObject parentGob() {
         if (parent == null) {
             return null;
@@ -69,10 +66,6 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
         return parent.getGedObject();
     }
 
-    /**
-     * @param gob the gob being filled in
-     * @param current the current line
-     */
     private void populateGob(final GedObject gob,
             final AbstractGedLine current) {
         if (gob != null) {
@@ -82,10 +75,6 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
         }
     }
 
-    /**
-     * @param gob the gob being filled in
-     * @param current the current line
-     */
     private void createChildren(final GedObject gob,
             final AbstractGedLine current) {
         for (final AbstractGedLine child : current.getChildren()) {
@@ -95,10 +84,6 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
         }
     }
 
-    /**
-     * @param current current line, parent in the new visitor
-     * @return the new visitor
-     */
     private GedLineToGedObjectVisitor createVisitor(
             final AbstractGedLine current) {
         return new GedLineToGedObjectVisitor(factory, current);

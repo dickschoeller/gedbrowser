@@ -32,16 +32,11 @@ final class LinkRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final LinkRenderer renderer = new LinkRenderer(new Link(null), new GedRendererFactory(),
@@ -51,10 +46,6 @@ final class LinkRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final LinkRenderer renderer = new LinkRenderer(new Link(null), new GedRendererFactory(),
@@ -63,10 +54,6 @@ final class LinkRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final LinkRenderer renderer = new LinkRenderer(new Link(null), new GedRendererFactory(),
@@ -75,10 +62,6 @@ final class LinkRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndeRenderer() {
         final LinkRenderer renderer = new LinkRenderer(new Link(null), new GedRendererFactory(),
@@ -87,10 +70,6 @@ final class LinkRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final LinkRenderer renderer = new LinkRenderer(new Link(null), new GedRendererFactory(),

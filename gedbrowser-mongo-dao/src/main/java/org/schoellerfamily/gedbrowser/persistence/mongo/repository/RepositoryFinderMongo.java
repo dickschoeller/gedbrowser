@@ -45,10 +45,6 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     /** */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
-    /**
-     * Ordered list of classes to process. This order represents the most likely
-     * search order.
-     */
     private static final List<Class<? extends GedObject>> CLASSES = List.of(Person.class,
         Family.class, Source.class, Head.class, Note.class, Submission.class, Submitter.class,
         Trailer.class);

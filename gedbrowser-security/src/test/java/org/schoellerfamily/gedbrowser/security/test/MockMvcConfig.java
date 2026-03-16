@@ -36,9 +36,6 @@ public class MockMvcConfig {
         return null;
     }
 
-    /**
-     * @return the mock MVC
-     */
     private MockMvc mockMvc() {
         final DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(wac);
         return builder.addFilter(filter, "", "")

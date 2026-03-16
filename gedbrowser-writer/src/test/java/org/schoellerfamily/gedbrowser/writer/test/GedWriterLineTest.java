@@ -34,7 +34,6 @@ class GedWriterLineTest {
     /** */
     private GedObjectToGedWriterVisitor gedLineCreator;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -75,7 +74,6 @@ class GedWriterLineTest {
         root.accept(gedLineCreator);
     }
 
-    /** */
     @Test
     void testLineCount() {
         final Collection<GedWriterLine> lines = gedLineCreator.getLines();
@@ -83,7 +81,6 @@ class GedWriterLineTest {
         assertEquals(expected, lines.size(), "Output size mismatch");
     }
 
-    /** */
     @Test
     void testRootFilename() {
         final List<GedWriterLine> lines = gedLineCreator.getLines();
@@ -91,7 +88,6 @@ class GedWriterLineTest {
         assertEquals("huh.ged", file.getFilename(), "Should be the filename set above");
     }
 
-    /** */
     @Test
     void testRootDbName() {
         final List<GedWriterLine> lines = gedLineCreator.getLines();

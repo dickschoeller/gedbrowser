@@ -37,7 +37,6 @@ class LoadEndpointIT {
     @Autowired
     private RestTestClient restTestClient;
 
-    /** */
     @Test
     void testAReturn200WhenSendingRequestToClearEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -50,7 +49,6 @@ class LoadEndpointIT {
                 .contains("0 locations in the cache");
     }
 
-    /** */
     @Test
     void testBReturn200WhenSendingRequestToLoadEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -63,7 +61,6 @@ class LoadEndpointIT {
                 .contains("917 locations in the cache");
     }
 
-    /** */
     @Test
     void testCReturn200WhenSendingRequestToClearEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -76,7 +73,6 @@ class LoadEndpointIT {
                 .contains("0 locations in the cache");
     }
 
-    /** */
     @Test
     void testDReturn200WhenSendingRequestToLoadAndFindEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()

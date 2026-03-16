@@ -104,11 +104,6 @@ final class GeoCodeMongoIT {
         assertNotNull(geocodingResult, "Should have found 3341 Chaucer Lane");
     }
 
-    /**
-     * Provides location strings to test cache consistency.
-     *
-     * @return stream of arguments containing location string
-     */
     private static Stream<Arguments> cacheConsistencyProvider() {
         return Stream.of(
             Arguments.of("XYZZY"),
@@ -117,11 +112,6 @@ final class GeoCodeMongoIT {
         );
     }
 
-    /**
-     * Test that finding the same location twice returns equal cached results.
-     *
-     * @param location the location to search for
-     */
     @ParameterizedTest
     @MethodSource("cacheConsistencyProvider")
     void testCacheConsistency(final String location) {
@@ -298,15 +288,6 @@ final class GeoCodeMongoIT {
         }
     }
 
-    /**
-     * Check that all entries in expected are also in actual.
-     * There may be more in actual than expected because Google
-     * is inconsistent.
-     *
-     * @param expected set of keys we expect Google to not find
-     * @param actual keys that Google didn't find
-     * @return true if all keys in expected are present in actual
-     */
     private boolean compareNotFound(final Collection<String> expected,
             final Collection<String> actual) {
         boolean retval = true;
@@ -452,9 +433,6 @@ final class GeoCodeMongoIT {
                 "Items should not match");
     }
 
-    /**
-     * @return test file opened in an input stream
-     */
     private InputStream getTestFileAsStream() {
         return getClass().getResourceAsStream("/test.txt");
     }

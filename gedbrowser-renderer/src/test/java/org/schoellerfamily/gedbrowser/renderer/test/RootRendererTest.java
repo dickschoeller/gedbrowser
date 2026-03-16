@@ -32,16 +32,11 @@ final class RootRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final RootRenderer renderer = new RootRenderer(new Root(), new GedRendererFactory(),
@@ -51,10 +46,6 @@ final class RootRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final RootRenderer renderer = new RootRenderer(new Root(), new GedRendererFactory(),
@@ -63,10 +54,6 @@ final class RootRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final RootRenderer renderer = new RootRenderer(new Root(), new GedRendererFactory(),
@@ -75,10 +62,6 @@ final class RootRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final RootRenderer renderer = new RootRenderer(new Root(), new GedRendererFactory(),
@@ -87,10 +70,6 @@ final class RootRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final RootRenderer renderer = new RootRenderer(new Root(), new GedRendererFactory(),

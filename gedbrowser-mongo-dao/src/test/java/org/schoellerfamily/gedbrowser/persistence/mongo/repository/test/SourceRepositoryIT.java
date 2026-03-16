@@ -47,9 +47,6 @@ final class SourceRepositoryIT {
     /** */
     private transient RootDocumentMongo rootDocument;
 
-    /**
-     * @throws IOException because the reader does
-     */
     @BeforeEach
     void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
@@ -59,13 +56,11 @@ final class SourceRepositoryIT {
         rootDocument.setGedObject(root);
     }
 
-    /** */
     @AfterEach
     void tearDown() {
         repositoryFixture.clearRepository();
     }
 
-    /** */
     @Test
     void testSource() {
         final SourceDocument document = sourceDocumentRepository
@@ -74,7 +69,6 @@ final class SourceRepositoryIT {
         assertEquals("S2", source.getString(), "Id mismatch");
     }
 
-    /** */
     @Test
     void testSourceRoot() {
         final SourceDocument document = sourceDocumentRepository.findByRootAndString(rootDocument,
@@ -83,7 +77,6 @@ final class SourceRepositoryIT {
         assertEquals("S2", source.getString(), "Id mismatch");
     }
 
-    /** */
     @Test
     void testBogus() {
         final SourceDocument perdoc = sourceDocumentRepository
@@ -91,7 +84,6 @@ final class SourceRepositoryIT {
         assertNull(perdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testBogusRoot() {
         final SourceDocument perdoc = sourceDocumentRepository.findByRootAndString(rootDocument,
@@ -99,21 +91,18 @@ final class SourceRepositoryIT {
         assertNull(perdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testCountRoot() {
         assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument),
             "Should be 9 sources");
     }
 
-    /** */
     @Test
     void testCountFilename() {
         assertEquals(SOURCE_COUNT, sourceDocumentRepository.count(rootDocument.getFilename()),
             "Should be 9 sources");
     }
 
-    /** */
     @Test
     void testFindAllRoot() {
         final Iterable<SourceDocument> list = sourceDocumentRepository.findAll(rootDocument);
@@ -125,7 +114,6 @@ final class SourceRepositoryIT {
         assertEquals(SOURCE_COUNT, count, "Should be 9 sources");
     }
 
-    /** */
     @Test
     void testFindAllFilename() {
         final Iterable<SourceDocument> list = sourceDocumentRepository
@@ -138,27 +126,18 @@ final class SourceRepositoryIT {
         assertEquals(SOURCE_COUNT, count, "Should be 9 sources");
     }
 
-    /** */
     @Test
     void testLastId() {
         final String string = sourceDocumentRepository.lastId(rootDocument);
         assertEquals("S229", string, "");
     }
 
-    /** */
     @Test
     void testNewId() {
         final String string = sourceDocumentRepository.newId(rootDocument);
         assertEquals("S230", string, "");
     }
 
-    /**
-     * Wrapper for assertion to bypass PMD check.
-     *
-     * @param message  the identifying message for the AssertionError (null okay)
-     * @param expected expected value
-     * @param actual   actual value
-     */
     private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }

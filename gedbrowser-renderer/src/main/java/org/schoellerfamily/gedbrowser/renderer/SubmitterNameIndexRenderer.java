@@ -36,12 +36,6 @@ public class SubmitterNameIndexRenderer implements NameIndexRenderer {
                 + submitter.getString() + "]" + "</a>";
     }
 
-    /**
-     * Handle the messy getting of the name ready for HTML formatting.
-     *
-     * @param submitter the submitter whose name we are doing
-     * @return the string
-     */
     private String getNameHtml(final Submitter submitter) {
         final GedRenderer<? extends GedObject> renderer =
                 new SimpleNameRenderer(submitter.getName(),

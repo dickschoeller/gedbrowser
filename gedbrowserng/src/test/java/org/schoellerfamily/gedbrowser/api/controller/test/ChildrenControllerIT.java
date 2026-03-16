@@ -51,17 +51,11 @@ class ChildrenControllerIT {
     /** */
     private ControllerTestHelper helper;
 
-    /**
-     * Set up some base objects.
-     */
     @BeforeEach
     void setUp() {
         helper = new ControllerTestHelper(port, restTestClient);
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testCreateChild() throws RestClientException {
         final ApiPerson parent = helper.createPerson();
@@ -73,9 +67,6 @@ class ChildrenControllerIT {
             "Child should be in family");
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testLinkChildInFamily() throws RestClientException {
         final ApiPerson parent = helper.createPerson();
@@ -106,9 +97,6 @@ class ChildrenControllerIT {
 
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testLinkChild() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -130,9 +118,6 @@ class ChildrenControllerIT {
             gotChild.getFamcs().get(0).getString(), "check ids");
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testUnlinkChild() throws RestClientException {
         final String familiesUrl = helper.getFamiliesUrl();
@@ -149,10 +134,6 @@ class ChildrenControllerIT {
         assertEquals(0, gotChild.getFamcs().size(), "not in family");
     }
 
-    /**
-     * @param parent the parent
-     * @return the child
-     */
     private ApiPerson createChildOfParent(final ApiPerson parent) {
         final String childUrl = helper.getPersonsUrl() + "/" + parent.getString() + "/children";
         log.info("childUrl: {}", childUrl);

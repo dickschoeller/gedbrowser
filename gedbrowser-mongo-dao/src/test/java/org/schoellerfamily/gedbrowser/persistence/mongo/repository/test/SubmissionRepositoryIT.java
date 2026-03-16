@@ -42,9 +42,6 @@ final class SubmissionRepositoryIT {
     /** */
     private transient RootDocumentMongo rootDocument;
 
-    /**
-     * @throws IOException because the reader does
-     */
     @BeforeEach
     void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
@@ -54,13 +51,11 @@ final class SubmissionRepositoryIT {
         rootDocument.setGedObject(root);
     }
 
-    /** */
     @AfterEach
     void tearDown() {
         repositoryFixture.clearRepository();
     }
 
-    /** */
     @Test
     void testSubmission() {
         final SubmissionDocument document = submissionDocumentRepository
@@ -69,7 +64,6 @@ final class SubmissionRepositoryIT {
         assertEquals("SUBMISSION", submission.getString(), "Expected submission string");
     }
 
-    /** */
     @Test
     void testSubmissionRoot() {
         final SubmissionDocument document = submissionDocumentRepository
@@ -78,7 +72,6 @@ final class SubmissionRepositoryIT {
         assertEquals("SUBMISSION", submission.getString(), "Expected submission string");
     }
 
-    /** */
     @Test
     void testBogus() {
         final SubmissionDocument perdoc = submissionDocumentRepository
@@ -86,7 +79,6 @@ final class SubmissionRepositoryIT {
         assertNull(perdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testBogusRoot() {
         final SubmissionDocument perdoc = submissionDocumentRepository
@@ -94,7 +86,6 @@ final class SubmissionRepositoryIT {
         assertNull(perdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testCountRoot() {
         final long expected = 1;
@@ -102,7 +93,6 @@ final class SubmissionRepositoryIT {
         assertEquals(expected, count, "Should be 1 submission");
     }
 
-    /** */
     @Test
     void testCountFilename() {
         final long expected = 1;
@@ -110,7 +100,6 @@ final class SubmissionRepositoryIT {
         assertEquals(expected, count, "Should be 1 submission");
     }
 
-    /** */
     @Test
     void testFindAllRoot() {
         final Iterable<SubmissionDocument> list = submissionDocumentRepository
@@ -124,7 +113,6 @@ final class SubmissionRepositoryIT {
         assertEquals(expected, count, "Should be 1 submission");
     }
 
-    /** */
     @Test
     void testFindAllFilename() {
         final Iterable<SubmissionDocument> list = submissionDocumentRepository
@@ -138,20 +126,12 @@ final class SubmissionRepositoryIT {
         assertEquals(expected, count, "Should be 1 submission");
     }
 
-    /** */
     @Test
     void testLastId() {
         final String string = submissionDocumentRepository.lastId(rootDocument);
         assertEquals("SUBN", string, "");
     }
 
-    /**
-     * Wrapper for assertion to bypass PMD check.
-     *
-     * @param message  the identifying message for the AssertionError (null okay)
-     * @param expected expected value
-     * @param actual   actual value
-     */
     private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }

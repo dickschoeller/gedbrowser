@@ -32,35 +32,30 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  * @author Dick Schoeller
  */
 final class FamilyVisitorTest {
-    /** */
     @Test
     void testUninitHusband() {
         final FamilyVisitor visitor = new FamilyVisitor();
         assertFalse(visitor.getHusband().isSet(), "Should be unset");
     }
 
-    /** */
     @Test
     void testUninitWife() {
         final FamilyVisitor visitor = new FamilyVisitor();
         assertFalse(visitor.getWife().isSet(), "Should be unset");
     }
 
-    /** */
     @Test
     void testUninitChildren() {
         final FamilyVisitor visitor = new FamilyVisitor();
         assertTrue(visitor.getChildren().isEmpty(), "Should be empty");
     }
 
-    /** */
     @Test
     void testUninitChildList() {
         final FamilyVisitor visitor = new FamilyVisitor();
         assertTrue(visitor.getChildList().isEmpty(), "Should be empty");
     }
 
-    /** */
     @Test
     void testNoImpactFromUnrelated() {
         final FamilyVisitor visitor = new FamilyVisitor();

@@ -29,13 +29,8 @@ public class CharsetScanner {
     private static final String ASCII = "ASCII";
     /** */
     private static final String CP1252 = "Cp1252";
-    /** */
     private static final String UTF_8 = StandardCharsets.UTF_8.name();
-    /** */
     private static final String UTF_16 = StandardCharsets.UTF_16.name();
-    /**
-     * Holds the mapping between GEDCOM known charsets and Java known charsets.
-     */
     private static final Map<String, String> CHARSET_MAP = Map.of(
         "ansel", ANSEL,
         "ansi", CP1252,
@@ -70,18 +65,10 @@ public class CharsetScanner {
         return UTF_8;
     }
 
-    /**
-     * @param line the input line
-     * @return true if this line is the charset line
-     */
     private boolean isCharset(final String line) {
         return line.startsWith("1 CHAR");
     }
 
-    /**
-     * @param line the input line
-     * @return the charset found there
-     */
     private String extractCharsetFromLine(final String line) {
         final int space = line.lastIndexOf(' ') + 1;
         return gedcomCharsetToJava(line.substring(space));
@@ -99,12 +86,6 @@ public class CharsetScanner {
         return UTF_8;
     }
 
-    /**
-     * Find the GEDCOM charset in the attributes of the header.
-     *
-     * @param gob the header ged object
-     * @return the GEDCOM charset
-     */
     private String findCharsetInHeader(final GedObject gob) {
         for (final GedObject hgob : gob.getAttributes()) {
             if ("Character Set".equals(hgob.getString())) {

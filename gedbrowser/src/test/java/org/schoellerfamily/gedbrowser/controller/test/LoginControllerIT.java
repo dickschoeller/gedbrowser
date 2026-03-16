@@ -41,7 +41,6 @@ class LoginControllerIT {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testLoginEndpointOK() {
         final String referer = "/gedbrowser/living?db=gl120368";
@@ -61,7 +60,6 @@ class LoginControllerIT {
                         + refererUrl + "\"/>");
     }
 
-    /** */
     @Test
     void testLogoutEndpointOK() {
         final String referer = "/gedbrowser/living?db=gl120368";
@@ -81,7 +79,6 @@ class LoginControllerIT {
                         + refererUrl + "\"/>");
     }
 
-    /** */
     @Test
     void testLoginEndpointNoReferrer() {
         final String refererUrl = "/gedbrowser/person?db=schoeller&amp;id=I1";
@@ -100,7 +97,6 @@ class LoginControllerIT {
                         + refererUrl + "\"/>");
     }
 
-    /** */
     @Test
     void testLogoutEndpointNoReferrer() {
         final String refererUrl = "/gedbrowser/person?db=schoeller&amp;id=I1";
@@ -119,12 +115,6 @@ class LoginControllerIT {
                         + refererUrl + "\"/>");
     }
 
-    /**
-     * Add an interceptor to insert the referer header.
-     *
-     * @param restTemplate the rest template
-     * @param refererUrl the URL to add
-     */
     private void setReferer(final RestTemplate restTemplate,
             final String refererUrl) {
         restTemplate.setInterceptors(

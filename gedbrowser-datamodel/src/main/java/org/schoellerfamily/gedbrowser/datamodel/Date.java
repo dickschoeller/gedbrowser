@@ -68,11 +68,6 @@ public final class Date extends AbstractAttribute {
         return format(formatter, getSortCalendar());
     }
 
-    /**
-     * Return the sortable date in the form of a Calendar.
-     *
-     * @return the calendar
-     */
     private Calendar getSortCalendar() {
         if (sortDate == null) {
             final DateParser parser = new DateParser(getDate());
@@ -97,11 +92,6 @@ public final class Date extends AbstractAttribute {
         return format(formatter, estimateDate);
     }
 
-    /**
-     * @param formatter formatter to use
-     * @param c calendar to format
-     * @return string from formatting (can be "Unknown")
-     */
     private String format(final SimpleDateFormat formatter, final Calendar c) {
         if (c == null) {
             return "Unknown";

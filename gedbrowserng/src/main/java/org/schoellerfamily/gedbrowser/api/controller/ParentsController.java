@@ -32,9 +32,6 @@ public class ParentsController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating spouses
-     */
     private ParentCrud parentCrud() {
         return new ParentCrud(loader, toDocConverter, repositoryManager);
     }

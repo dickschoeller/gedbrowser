@@ -38,7 +38,6 @@ class LivingControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testLivingControllerOK() {
         final String url = "http://localhost:" + port
@@ -56,7 +55,6 @@ class LivingControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testLivingControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()

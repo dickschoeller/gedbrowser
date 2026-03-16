@@ -15,7 +15,6 @@ public class ApplicationInfoTest {
     /** */
     private ApplicationInfo appInfo;
 
-    /** */
     @BeforeEach
     void setUp() {
         appInfo = new ApplicationInfo() {

@@ -11,7 +11,6 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  */
 final class GedObjectBuilderTrailerTest {
 
-    /** */
     @Test
     void testCreateTrailer() {
         final GedObjectBuilder builder = new GedObjectBuilder();

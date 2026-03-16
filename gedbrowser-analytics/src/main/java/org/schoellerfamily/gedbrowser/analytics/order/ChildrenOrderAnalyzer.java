@@ -47,11 +47,6 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
         return result;
     }
 
-    /**
-     * Analyze the order of children in one family.
-     *
-     * @param family the family
-     */
     private void analyzeFamily(final Family family) {
         Person prevChild = null;
         final FamilyNavigator navigator = new FamilyNavigator(family);
@@ -60,13 +55,6 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
         }
     }
 
-    /**
-     * Check the order of one child against the previous dated child.
-     *
-     * @param child the child
-     * @param prevChild the previous child
-     * @return the current child if dated
-     */
     private Person analyzeChild(final Person child, final Person prevChild) {
         Person retChild = prevChild;
         if (retChild == null) {

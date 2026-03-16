@@ -42,7 +42,6 @@ final class FamilyTest {
     /** */
     private transient Person person3;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -64,7 +63,6 @@ final class FamilyTest {
         builder.addChildToFamily(family3, person5);
     }
 
-    /** */
     @Test
     void testGetSpouseFromHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
@@ -72,7 +70,6 @@ final class FamilyTest {
         assertEquals(person2, spouse, "Spouse mismatch");
     }
 
-    /** */
     @Test
     void testGetSpouseFromWife() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
@@ -80,7 +77,6 @@ final class FamilyTest {
         assertEquals(person1, spouse, "Spouse mismatch");
     }
 
-    /** */
     @Test
     void testGetSpouseFromNonSpouse() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
@@ -88,7 +84,6 @@ final class FamilyTest {
         assertFalse(spouse.isSet(), "Expected spouse to be unset when search from child");
     }
 
-    /** */
     @Test
     void testGetSpousesContainsHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
@@ -96,7 +91,6 @@ final class FamilyTest {
         assertTrue(spouses.contains(person1), "Expected to find husband");
     }
 
-    /** */
     @Test
     void testGetSpousesContainsWife() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
@@ -104,7 +98,6 @@ final class FamilyTest {
         assertTrue(spouses.contains(person2), "Expected to find wife");
     }
 
-    /** */
     @Test
     void testGetSpousesDoesNotContainNonSpouse() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
@@ -112,7 +105,6 @@ final class FamilyTest {
         assertFalse(spouses.contains(person3), "Did not expect to find child in spouses list");
     }
 
-    /** */
     @Test
     void testFamilyUsualSetup() {
         final Root localRoot = new Root(ROOT_NAME);
@@ -159,15 +151,6 @@ final class FamilyTest {
                 localWife, marriage, sourceLink);
     }
 
-    /**
-     * @param fam the family
-     * @param gob what we found with find
-     * @param chil the child
-     * @param hus the husband
-     * @param wif the wife
-     * @param marr the marriage
-     * @param sl the source link
-     */
     private void assertMatchUnusual(final Family fam, final GedObject gob,
             final Child chil, final Husband hus, final Wife wif,
             final Attribute marr, final SourceLink sl) {
@@ -180,21 +163,18 @@ final class FamilyTest {
         assertTrue(marr.getAttributes().contains(sl), "Expected to find SourceLink in attributes");
     }
 
-    /** */
     @Test
     void testDefaultConstructor() {
         final Family family = new Family();
         assertMatch(null, family, "", false, false, 0);
     }
 
-    /** */
     @Test
     void testEmptyToString() {
         final Family family = new Family();
         assertEquals("", family.toString(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testConstructorRootId() {
         final Root localRoot = new Root(ROOT_NAME);
@@ -203,14 +183,6 @@ final class FamilyTest {
         assertMatch(localRoot, family, "F1", false, false, 0);
     }
 
-    /**
-     * @param localRoot the root that this family is in
-     * @param family the family
-     * @param string the expected string
-     * @param fatherSet whether father is expected to be set
-     * @param motherSet whether mother is expected to be set
-     * @param spousesSize the size of the spouses list
-     */
     private void assertMatch(final Root localRoot, final Family family,
             final String string, final boolean fatherSet,
             final boolean motherSet, final int spousesSize) {

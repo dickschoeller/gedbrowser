@@ -59,7 +59,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     /** */
     public static final String LOGOUT_MATCHER = "/auth/logout";
 
-    /** */
     private final List<String> pathsToSkip = List.of(
             ROOT_MATCHER,
             HTML_MATCHER,
@@ -93,9 +92,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
-    /**
-     * @param authToken the token
-     */
     private void processToken(final String authToken) {
         // get username from token
         try {
@@ -116,11 +112,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         }
     }
 
-    /**
-     * @param request the request
-     * @param paths list of paths to skip
-     * @return true if there are matches
-     */
     private boolean skipPathRequest(final HttpServletRequest request,
             final List<String> paths) {
         Assert.notNull(paths, "path cannot be null.");

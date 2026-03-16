@@ -66,9 +66,6 @@ public final class GeoServiceClientStub extends GeoServiceClient {
         return new GeoServiceItem(placeName, placeName, null);
     }
 
-    /**
-     * @return the location feature
-     */
     private Feature createLocation() {
         final Point point = new Point(-71.2377548, 42.2809285);
         final Feature feature = new Feature();
@@ -76,9 +73,6 @@ public final class GeoServiceClientStub extends GeoServiceClient {
         return feature;
     }
 
-    /**
-     * @return the bounding box feature
-     */
     private Feature createBox() {
         final double confidence = .01;
         final Polygon polygon = new Polygon(

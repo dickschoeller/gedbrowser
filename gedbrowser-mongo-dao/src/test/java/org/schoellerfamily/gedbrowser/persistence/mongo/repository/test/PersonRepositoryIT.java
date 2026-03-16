@@ -50,9 +50,6 @@ final class PersonRepositoryIT {
     /** */
     private transient RootDocumentMongo rootDocument;
 
-    /**
-     * @throws IOException because the reader does
-     */
     @BeforeEach
     void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
@@ -62,13 +59,11 @@ final class PersonRepositoryIT {
         rootDocument.setGedObject(root);
     }
 
-    /** */
     @AfterEach
     void tearDown() {
         repositoryFixture.clearRepository();
     }
 
-    /** */
     @Test
     void testMelissa() {
         final PersonDocument perdoc = personDocumentRepository.
@@ -78,7 +73,6 @@ final class PersonRepositoryIT {
         assertEquals("Melissa Robinson/Schoeller/", person.getName().getString(), "Name mistmatch");
     }
 
-    /** */
     @Test
     void testMelissaRoot() {
         final PersonDocument perdoc = personDocumentRepository.
@@ -88,7 +82,6 @@ final class PersonRepositoryIT {
         assertEquals("Melissa Robinson/Schoeller/", person.getName().getString(), "Name mistmatch");
     }
 
-    /** */
     @Test
     void testDick() {
         final PersonDocument perdoc = personDocumentRepository.
@@ -98,7 +91,6 @@ final class PersonRepositoryIT {
         assertEquals("Richard John/Schoeller/", person.getName().getString(), "Name mistmatch");
     }
 
-    /** */
     @Test
     void testDickRoot() {
         final PersonDocument perdoc = personDocumentRepository.
@@ -108,7 +100,6 @@ final class PersonRepositoryIT {
         assertEquals("Richard John/Schoeller/", person.getName().getString(), "Name mistmatch");
     }
 
-    /** */
     @Test
     void testSchoellerRoot() {
         final String[] names = {
@@ -125,7 +116,6 @@ final class PersonRepositoryIT {
         }
     }
 
-    /** */
     @Test
     void testRootNullSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -133,7 +123,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testNullRootWithSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -141,7 +130,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testNullRootNullSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -149,7 +137,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testFileNullSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -157,7 +144,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testNullFileWithSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -165,7 +151,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testNullFileNullSurname() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -173,7 +158,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testSchoeller() {
         final String[] names = {
@@ -190,7 +174,6 @@ final class PersonRepositoryIT {
         }
     }
 
-    /** */
     @Test
     void testS() {
         final String[] names = {
@@ -210,7 +193,6 @@ final class PersonRepositoryIT {
         }
     }
 
-    /** */
     @Test
     void testSRoot() {
         final String[] names = {
@@ -230,7 +212,6 @@ final class PersonRepositoryIT {
         }
     }
 
-    /** */
     @Test
     void testBogus() {
         final PersonDocument perdoc = personDocumentRepository.
@@ -238,7 +219,6 @@ final class PersonRepositoryIT {
         assertNull(perdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testBogusRoot() {
         final PersonDocument perdoc = personDocumentRepository.
@@ -246,7 +226,6 @@ final class PersonRepositoryIT {
         assertNull(perdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testFindByFileNotFound() {
         final Iterable<PersonDocument> persons = personDocumentRepository
@@ -254,7 +233,6 @@ final class PersonRepositoryIT {
         assertEquals(0, count(persons), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testFindByFileNull() {
         final Iterable<PersonDocument> persons = personDocumentRepository
@@ -262,7 +240,6 @@ final class PersonRepositoryIT {
         assertEquals(0, count(persons), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testFindByNullRoot() {
         final Iterable<PersonDocument> persons = personDocumentRepository
@@ -270,7 +247,6 @@ final class PersonRepositoryIT {
         assertEquals(0, count(persons), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testFindByRootWithFileNotFound() {
         final RootDocumentMongo rootDocument1 = new RootDocumentMongo();
@@ -280,7 +256,6 @@ final class PersonRepositoryIT {
         assertEquals(0, count(persons), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testRootNullSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -288,7 +263,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testNullRootWithSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -296,7 +270,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testNullRootNullSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -304,7 +277,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testFileNullSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -312,7 +284,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testNullFileWithSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -320,7 +291,6 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testNullFileNullSurnameBegins() {
         final Collection<PersonDocument> perdocs = personDocumentRepository
@@ -328,14 +298,12 @@ final class PersonRepositoryIT {
         assertEquals(0, perdocs.size(), "Bogus request should return empty");
     }
 
-    /** */
     @Test
     void testCountRoot() {
         final long count = personDocumentRepository.count(rootDocument);
         assertEquals(PERSON_COUNT, count, "Should be 16 persons");
     }
 
-    /** */
     @Test
     void testCountFilename() {
         final long count =
@@ -343,7 +311,6 @@ final class PersonRepositoryIT {
         assertEquals(PERSON_COUNT, count, "Should be 16 persons");
     }
 
-    /** */
     @Test
     void testFindAllRoot() {
         final Iterable<PersonDocument> list =
@@ -356,7 +323,6 @@ final class PersonRepositoryIT {
         assertEquals(PERSON_COUNT, count, "Should be 16 persons");
     }
 
-    /** */
     @Test
     void testFindAllFilename() {
         final Iterable<PersonDocument> list =
@@ -369,38 +335,23 @@ final class PersonRepositoryIT {
         assertEquals(PERSON_COUNT, count, "Should be 16 persons");
     }
 
-    /** */
     @Test
     void testLastId() {
         final String string = personDocumentRepository.lastId(rootDocument);
         assertEquals("I5266", string, "");
     }
 
-    /** */
     @Test
     void testNewId() {
         final String string = personDocumentRepository.newId(rootDocument);
         assertEquals("I5267", string, "");
     }
 
-    /**
-     * Wrapper for assertion to bypass PMD check.
-     *
-     * @param message the identifying message for the AssertionError (null okay)
-     * @param expected expected value
-     * @param actual actual value
-     */
     private void checkEquals(final String message, final Object expected,
             final Object actual) {
         assertEquals(expected, actual, message);
     }
 
-    /**
-     * Count the number of items in an collection.
-     *
-     * @param iterable the collect expressed as an iterable
-     * @return the count
-     */
     private int count(final Iterable<?> iterable) {
         final Iterator<?> iterator = iterable.iterator();
         int count = 0;

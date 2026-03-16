@@ -155,10 +155,6 @@ public final class UserImpl extends HasRoles implements SecurityUser {
             .toList();
     }
 
-    /**
-     * @param role the role to map to an authority
-     * @return the authority
-     */
     private Authority createAuthority(final UserRoleName role) {
         return Authority.builder()
             .userRoleName(role)

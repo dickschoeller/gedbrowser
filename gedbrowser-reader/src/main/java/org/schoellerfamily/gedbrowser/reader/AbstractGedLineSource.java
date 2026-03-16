@@ -54,10 +54,6 @@ public abstract class AbstractGedLineSource implements GedLineSource {
         return gedLine;
     }
 
-    /**
-     * @param lineIn the input line
-     * @param gedLine the AbstractGedLine being built
-     */
     private void process(final String lineIn, final AbstractGedLine gedLine) {
         gedLine.setXref("");
 
@@ -70,10 +66,6 @@ public abstract class AbstractGedLineSource implements GedLineSource {
         }
     }
 
-    /**
-     * @param lineIn the input line
-     * @param gedLine the AbstractGedLine being built
-     */
     private void processLevel0(final String lineIn,
             final AbstractGedLine gedLine) {
         String line = lineIn;

@@ -13,7 +13,6 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
  */
 final class RelationsLinkPredicateTest {
 
-    /** */
     @Test
     void testParentCrudLinkMatchesWife() {
         final ParentCrud crud = new ParentCrud(null, null, null);
@@ -21,7 +20,6 @@ final class RelationsLinkPredicateTest {
         assertTrue(crud.isTheLinkWeAreLookingFor(wife, "I1"));
     }
 
-    /** */
     @Test
     void testParentCrudLinkMatchesHusband() {
         final ParentCrud crud = new ParentCrud(null, null, null);
@@ -29,7 +27,6 @@ final class RelationsLinkPredicateTest {
         assertTrue(crud.isTheLinkWeAreLookingFor(husband, "I2"));
     }
 
-    /** */
     @Test
     void testParentCrudLinkRejectsMismatchedType() {
         final ParentCrud crud = new ParentCrud(null, null, null);
@@ -37,7 +34,6 @@ final class RelationsLinkPredicateTest {
         assertFalse(crud.isTheLinkWeAreLookingFor(child, "I2"));
     }
 
-    /** */
     @Test
     void testSpouseCrudLinkMatchesHusband() {
         final SpouseCrud crud = new SpouseCrud(null, null, null);
@@ -45,7 +41,6 @@ final class RelationsLinkPredicateTest {
         assertTrue(crud.isTheLinkWeAreLookingFor(husband, "I3"));
     }
 
-    /** */
     @Test
     void testSpouseCrudLinkMatchesWife() {
         final SpouseCrud crud = new SpouseCrud(null, null, null);
@@ -53,7 +48,6 @@ final class RelationsLinkPredicateTest {
         assertTrue(crud.isTheLinkWeAreLookingFor(wife, "I4"));
     }
 
-    /** */
     @Test
     void testSpouseCrudLinkRejectsMismatchedId() {
         final SpouseCrud crud = new SpouseCrud(null, null, null);

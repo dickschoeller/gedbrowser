@@ -24,7 +24,6 @@ final class FamCTest {
     /** */
     private transient FamC famC;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -39,11 +38,6 @@ final class FamCTest {
         builder.addWifeToFamily(family, person4);
     }
 
-    /**
-     * @param family  the family to put the child in
-     * @param person1 the person to be the child
-     * @return the child object
-     */
     private Child buildChild(final Family family, final Person person1) {
         if (family == null || person1 == null) {
             return new Child();
@@ -58,28 +52,24 @@ final class FamCTest {
         return child;
     }
 
-    /** */
     @Test
     void testGetFatherNotSet() {
         final FamilyNavigator navigator = new FamilyNavigator(new FamC());
         assertFalse(navigator.getFather().isSet(), "Father should be unset");
     }
 
-    /** */
     @Test
     void testGetFather() {
         final FamilyNavigator navigator = new FamilyNavigator(famC);
         assertEquals(person2, navigator.getFather(), "Person mismatch");
     }
 
-    /** */
     @Test
     void testGetMotherNotSet() {
         final FamilyNavigator navigator = new FamilyNavigator(new FamC());
         assertFalse(navigator.getMother().isSet(), "Mother should be unset");
     }
 
-    /** */
     @Test
     void testGetMother() {
         final FamilyNavigator navigator = new FamilyNavigator(famC);

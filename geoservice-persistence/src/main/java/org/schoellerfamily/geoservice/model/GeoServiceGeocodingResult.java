@@ -243,13 +243,6 @@ public final class GeoServiceGeocodingResult {
         return location.getProperty("placeId");
     }
 
-    /**
-     * Return the location. It is in the form of a GeoJSON feature.
-     * Much of the descriptive data from Google is in the properties
-     * of that feature.
-     *
-     * @return the location feature
-     */
     @Transient
     private Feature getLocation() {
         if (geometry == null) {

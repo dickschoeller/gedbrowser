@@ -44,19 +44,14 @@ import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.
 @SuppressWarnings("PMD.ExcessiveImports")
 final class AbstractGedObjectFactoryTest {
 
-    /** */
     private static final GedObjectBuilder BUILDER = new GedObjectBuilder();
 
-    /** */
     private static final Root ROOT = BUILDER.getRoot();
 
-    /** */
     private static final Person PERSON = BUILDER.createPerson("I1", "Richard John/Schoeller/");
 
-    /** */
     private static final Attribute NOTE = new Attribute(PERSON, "Note", "Some text");
 
-    /** */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     private static final Object[][] PARAMETERS = { { null, null, "ROOT", null, new Root("Root") },
         { null, "", "ROOT", null, new Root("Root") }, { null, null, "ROOT", "", new Root("Root") },
@@ -127,15 +122,11 @@ final class AbstractGedObjectFactoryTest {
     /** */
     private GedObjectFactory factory;
 
-    /** */
     @BeforeEach
     void setUp() {
         factory = new GedObjectFactory();
     }
 
-    /**
-     * @return the collection of test parameters
-     */
     static Stream<Arguments> params() {
         PERSON.addAttribute(NOTE);
         return Arrays.stream(PARAMETERS).map(Arguments::of);

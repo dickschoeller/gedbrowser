@@ -49,7 +49,6 @@ class ChildCrudIT {
     /** */
     private CrudTestHelper helper;
 
-    /** */
     @BeforeEach
     void setUp() {
         helper = new CrudTestHelper(
@@ -58,7 +57,6 @@ class ChildCrudIT {
         crud = new ChildCrud(loader, toDocConverter, repositoryManager);
     }
 
-    /** */
     @Test
     void testCreateChild() {
         log.info("Beginning testCreateChildInFamily2");
@@ -70,7 +68,6 @@ class ChildCrudIT {
                 gotParent.getFamss().get(0).getString(), "Child should be in family");
     }
 
-    /** */
     @Test
     void testLinkChildInFamily() {
         log.info("Beginning testLinkChildInFamily");
@@ -86,7 +83,6 @@ class ChildCrudIT {
         assertEquals(secondChild.getString(), family.getChildren().get(1).getString());
     }
 
-    /** */
     @Test
     void testLinkChild() {
         log.info("Beginning testLinkChild");
@@ -105,7 +101,6 @@ class ChildCrudIT {
             .returns(gotChild.getFamcs().get(0).getString(), p -> p.getFamss().get(0).getString());
     }
 
-    /** */
     @Test
     void testUnlinkChild() {
         final ApiPerson parent = helper.createPerson();
@@ -118,16 +113,11 @@ class ChildCrudIT {
         assertEquals(0, gotChild.getFamcs().size(), "not in family");
     }
 
-    /**
-     * @param parent the parent
-     * @return the child
-     */
     private ApiPerson createChildOfParent(final ApiPerson parent) {
         final ApiPerson child = helper.buildPerson();
         return crud.createChild(helper.getDb(), parent.getString(), child);
     }
 
-    /** */
     @Test
     void testCreateChildInFamily() {
         log.info("Beginning testCreateChildInFamily");
@@ -142,7 +132,6 @@ class ChildCrudIT {
             .returns("F1", p -> p.getFamcs().get(0).getString());
     }
 
-    /** */
     @Test
     void testCreateChildInFamily2() {
         log.info("Beginning testCreateChildInFamily2");
@@ -157,7 +146,6 @@ class ChildCrudIT {
             .returns("F4", p -> p.getFamcs().get(0).getString());
     }
 
-    /** */
     @Test
     void testGetPersonsMiniSchoellerI2AddChild() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddChild");
@@ -171,7 +159,6 @@ class ChildCrudIT {
             .returns(reqChild.getIndexName(), c -> c.getIndexName());
     }
 
-    /** */
     @Test
     void testGetPersonsMiniSchoellerI2AddChild2() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddChild2");

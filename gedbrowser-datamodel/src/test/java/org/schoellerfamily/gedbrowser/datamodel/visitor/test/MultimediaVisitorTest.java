@@ -36,7 +36,6 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
  * @author Dick Schoeller
  */
 final class MultimediaVisitorTest {
-    /** */
     @Test
     void testNoFilePathFromUnrelated() {
         final MultimediaVisitor visitor = new MultimediaVisitor();
@@ -72,7 +71,6 @@ final class MultimediaVisitorTest {
         assertNull(visitor.getFilePath(), "Found unexpected content");
     }
 
-    /** */
     @Test
     void testNoFormatFromUnrelated() {
         final MultimediaVisitor visitor = new MultimediaVisitor();
@@ -106,7 +104,6 @@ final class MultimediaVisitorTest {
         assertNull(visitor.getFormat(), "Found unexpected content");
     }
 
-    /** */
     @Test
     void testNoTitleFromUnrelated() {
         final MultimediaVisitor visitor = new MultimediaVisitor();

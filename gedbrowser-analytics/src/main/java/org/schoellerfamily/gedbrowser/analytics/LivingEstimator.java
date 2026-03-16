@@ -109,33 +109,15 @@ public final class LivingEstimator {
         log.info("Exiting LivingEstimator.fillBuckets");
     }
 
-    /**
-     * Get an estimate from another estimator.
-     *
-     * @param le an estimator to get the estimate from
-     * @return the estimate
-     */
     private static boolean estimate(final LivingEstimator le) {
         return le.estimate();
     }
 
-    /**
-     * Create a new estimator.
-     *
-     * @param person the person we're estimating
-     * @param provider the calendar provider we are using to determine now
-     * @return the estimator
-     */
     private static LivingEstimator createLivingEstimator(final Person person,
             final CalendarProvider provider) {
         return new LivingEstimator(person, provider);
     }
 
-    /**
-     * @param buckets the collection of people into age ranges
-     * @param person the person to add
-     * @param provider the calendar provider we are using to determine now
-     */
     private static void addToBucket(final Map<Integer, Set<Person>> buckets,
             final Person person,
             final CalendarProvider provider) {
@@ -172,25 +154,11 @@ public final class LivingEstimator {
             return compare(dumpableName0, dumpableName1);
         }
 
-        /**
-         * Compare 2 strings. Only added this method to avoid Demeter.
-         *
-         * @param name0 the first name
-         * @param name1 the second name
-         * @return a negative integer, zero, or a positive integer as the first
-         *         argument is less than, equal to, or greater than the second.
-         */
         private int compare(final String name0, final String name1) {
             return name0.compareTo(name1);
         }
     }
 
-    /**
-     * Emit a string that is good for sorting and for dumping.
-     *
-     * @param person the person who name to dump
-     * @return the string to dump
-     */
     /* default */ static String dumpableName(final Person person) {
         return person.getIndexName() + " [" + person.toString() + "]";
     }

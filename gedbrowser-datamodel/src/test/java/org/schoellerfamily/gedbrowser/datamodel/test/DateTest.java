@@ -17,10 +17,8 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 final class DateTest {
-    /** */
     private static final Root ROOT = new Root("Root");
 
-    /** */
     @Test
     void testDateNullParentGedObject() {
         final Date date1 = new Date(null);
@@ -77,12 +75,6 @@ final class DateTest {
         assertEquals("2 JAN 2013", date6.getString(), "Date mismatch");
     }
 
-    /**
-     * Parameterized test combining the former null/root parent String tests.
-     *
-     * @param useRoot whether to use the test's root parent
-     * @param dateString the string to construct the Date with
-     */
     @ParameterizedTest
     @MethodSource("dateGedObjectStringParentCases")
     void testDateGedObjectStringParent(final Root useRoot, final String dateString) {

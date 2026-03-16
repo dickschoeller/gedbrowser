@@ -48,9 +48,6 @@ final class LivingRendererTest {
     /** */
     private transient Root root;
 
-    /**
-     * @throws IOException if there is a problem reading the test data
-     */
     @BeforeEach
     void setUp() throws IOException {
         root = reader.readBigTestSource();
@@ -65,9 +62,6 @@ final class LivingRendererTest {
         userContext = new RenderingContext(user, appInfo, provider);
     }
 
-    /**
-     *
-     */
     @Test
     void testRenderUserIndexHref() {
         final LivingRenderer renderer = new LivingRenderer(root, userContext);
@@ -75,7 +69,6 @@ final class LivingRendererTest {
             "The index link should refer to the letter A");
     }
 
-    /** */
     @Test
     void testRenderAdminIndexHref() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
@@ -83,18 +76,12 @@ final class LivingRendererTest {
             "The index link should refer to the letter A");
     }
 
-    /**
-     *
-     */
     @Test
     void testRenderUserBuckets() {
         final LivingRenderer renderer = new LivingRenderer(root, userContext);
         assertTrue(renderer.getBuckets().isEmpty(), "In user context, this is always empty");
     }
 
-    /**
-     *
-     */
     @Test
     void testRenderAdminBuckets() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
@@ -102,7 +89,6 @@ final class LivingRendererTest {
             "In admin context, there should be some buckets");
     }
 
-    /** */
     @Test
     void testRenderAdminBucket() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
@@ -113,9 +99,6 @@ final class LivingRendererTest {
         assertFalse(persons.isEmpty(), "In admin context, there should be someone in the bucket");
     }
 
-    /**
-     *
-     */
     @Test
     void testRenderBucketSizes() {
         final LivingRenderer renderer = new LivingRenderer(root, adminContext);
@@ -133,13 +116,6 @@ final class LivingRendererTest {
         }
     }
 
-    /**
-     * @param limit         the upper limit of "living"
-     * @param expectedLower expected bucket lower bound
-     * @param expectedUpper expected bucket upper bound
-     * @param bucket        the bucket being checked
-     * @return true if the bucket ranges are OK
-     */
     private boolean checkBucketRanges(final int limit, final int expectedLower,
         final int expectedUpper, final Bucket bucket) {
         if (expectedLower != bucket.getLower().intValue()) {
@@ -151,11 +127,6 @@ final class LivingRendererTest {
         return (expectedLower < limit);
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testHeadMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
@@ -163,11 +134,6 @@ final class LivingRendererTest {
         assertEquals("head?db=gl120368", renderer.getHeaderHref(), "head href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
@@ -175,11 +141,6 @@ final class LivingRendererTest {
         assertEquals("save?db=gl120368", renderer.getSaveHref(), "save href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveFilename() throws IOException {
         final Root root1 = reader.readFileTestSource();
@@ -187,11 +148,6 @@ final class LivingRendererTest {
         assertEquals("gl120368.ged", renderer.getSaveFilename(), "save href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testIndexMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
@@ -200,11 +156,6 @@ final class LivingRendererTest {
             "index href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testLivingMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
@@ -212,11 +163,6 @@ final class LivingRendererTest {
         assertEquals("living?db=gl120368", renderer.getLivingHref(), "living href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSourcesMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
@@ -224,11 +170,6 @@ final class LivingRendererTest {
         assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "submitters href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSubmittersMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();
@@ -237,11 +178,6 @@ final class LivingRendererTest {
             "sources href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testPlacesMenuItem() throws IOException {
         final Root root1 = reader.readFileTestSource();

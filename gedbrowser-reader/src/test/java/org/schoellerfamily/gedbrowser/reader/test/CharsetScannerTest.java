@@ -28,7 +28,6 @@ class CharsetScannerTest {
     @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private transient String gedbrowserHome;
 
-    /** */
     @Test
     void testFileUTF8() {
         final CharsetScanner scanner = new CharsetScanner();
@@ -36,7 +35,6 @@ class CharsetScannerTest {
                 "Charset mismatch");
     }
 
-    /** */
     @Test
     void testFileANSI() {
         final CharsetScanner scanner = new CharsetScanner();
@@ -44,7 +42,6 @@ class CharsetScannerTest {
                 "Charset mismatch");
     }
 
-    /** */
     @Test
     void testFileASCII() {
         final CharsetScanner scanner =
@@ -53,7 +50,6 @@ class CharsetScannerTest {
                 "Charset mismatch");
     }
 
-    /** */
     @Test
     void testFileANSEL() {
         final CharsetScanner scanner =
@@ -62,7 +58,6 @@ class CharsetScannerTest {
                 "Charset mismatch");
     }
 
-    /** */
     @Test
     void testFileANSEL2() {
         final CharsetScanner scanner =
@@ -71,9 +66,6 @@ class CharsetScannerTest {
                 "Charset mismatch");
     }
 
-    /**
-     * @throws IOException if there is an error reading the file.
-     */
     @Test
     void testRootUTF8() throws IOException {
         final Root root = reader.readFileTestSource("mini-schoeller.ged");
@@ -82,9 +74,6 @@ class CharsetScannerTest {
                 "Charset mismatch");
     }
 
-    /**
-     * @throws IOException if there is an error reading the file.
-     */
     @Test
     void testRootANSEL2() throws IOException {
         final Root root = reader.readFileTestSource("ansel.ged");

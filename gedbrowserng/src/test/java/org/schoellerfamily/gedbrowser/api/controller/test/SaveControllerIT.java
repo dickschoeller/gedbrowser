@@ -36,7 +36,6 @@ class SaveControllerIT {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testSaveControllerOK() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/save";
@@ -60,7 +59,6 @@ class SaveControllerIT {
             .contains("1 DEST FTM");
     }
 
-    /** */
     @Test
     void testSaveControllerDatasetNotFound() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/xyzzy/save";

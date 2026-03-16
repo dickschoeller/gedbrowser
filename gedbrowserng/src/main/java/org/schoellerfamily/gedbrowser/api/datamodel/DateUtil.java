@@ -28,10 +28,6 @@ public class DateUtil {
             .build();
     }
 
-    /**
-     * @param day a day number
-     * @return as a two digit string
-     */
     private String twoDigit(final int day) {
         final int ten = 10;
         if (day >= ten) {

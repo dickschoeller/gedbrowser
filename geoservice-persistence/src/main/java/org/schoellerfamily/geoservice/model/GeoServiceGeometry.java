@@ -25,27 +25,12 @@ public final class GeoServiceGeometry {
         this.featureCollection = new FeatureCollection();
     }
 
-    /**
-     * Constructor.
-     *
-     * @param bounds the actual bounding box of the region
-     * @param location the location of the center of the region
-     * @param locationType the level of certainty of the location
-     * @param viewport the bounding box of the recommended view of the region
-     */
     private GeoServiceGeometry(final Feature bounds,
             final Point location, final LocationType locationType,
             final Feature viewport) {
         this(createLocation(location, locationType), bounds, viewport);
     }
 
-    /**
-     * Convert a Point and LocationType into a Feature.
-     *
-     * @param point the Point
-     * @param locationType the LocationType
-     * @return the Feature
-     */
     private static Feature createLocation(final Point point,
             final LocationType locationType) {
         final Feature location = new Feature();
@@ -55,12 +40,6 @@ public final class GeoServiceGeometry {
         return location;
     }
 
-    /**
-     * Constructor.
-     * @param location the location of the center of the region
-     * @param bounds the actual bounding box of the region
-     * @param viewport the bounding box of the recommended view of the region
-     */
     private GeoServiceGeometry(final Feature location, final Feature bounds,
             final Feature viewport) {
         this();
@@ -69,9 +48,6 @@ public final class GeoServiceGeometry {
         this.featureCollection.add(viewport);
     }
 
-    /**
-     * @return the collection of features that make up this geometry
-     */
     private FeatureCollection getFeatureCollection() {
         return featureCollection;
     }

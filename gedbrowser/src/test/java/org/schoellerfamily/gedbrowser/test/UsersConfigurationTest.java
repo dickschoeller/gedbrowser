@@ -21,7 +21,6 @@ public final class UsersConfigurationTest {
     @Value("${gedbrowser.home:src/test/resources}")
     private transient String gedbrowserHome;
 
-    /** */
     @Test
     void testUserFile() {
         final String userFile = gedbrowserHome + "/testUserFile.csv";
@@ -32,7 +31,6 @@ public final class UsersConfigurationTest {
         assertEquals(expected, actual, "Found file should have two");
     }
 
-    /** */
     @Test
     void testUserFileNotFound() {
         final String userFile = gedbrowserHome + "/XYX";
@@ -43,7 +41,6 @@ public final class UsersConfigurationTest {
         assertEquals(expected, actual, "Not found file should have only one");
     }
 
-    /** */
     @Test
     void testUserFileNotFoundContainsGues() {
         final String userFile = gedbrowserHome + "/XYX";

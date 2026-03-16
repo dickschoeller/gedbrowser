@@ -37,7 +37,6 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class SourceVisitorTest {
-    /** */
     @Test
     void testGetTitleString() {
         final Root root = new Root("Root");
@@ -50,7 +49,6 @@ final class SourceVisitorTest {
         assertEquals("Title 9", visitor.getTitleString(), "Found wrong title");
     }
 
-    /** */
     @Test
     void testGetNonTitleAttribute() {
         final Root root = new Root("Root");
@@ -63,7 +61,6 @@ final class SourceVisitorTest {
         assertEquals("S1", visitor.getTitleString(), "Found wrong title");
     }
 
-    /** */
     @Test
     void testNoTitleString() {
         final Root root = new Root("Root");
@@ -74,14 +71,12 @@ final class SourceVisitorTest {
         assertEquals("S1", visitor.getTitleString(), "Found wrong title");
     }
 
-    /** */
     @Test
     void testNoSource() {
         final SourceVisitor visitor = new SourceVisitor();
         assertEquals("", visitor.getTitleString(), "Found wrong title");
     }
 
-    /** */
     @Test
     void testNoImpactFromUnrelated() {
         final SourceVisitor visitor = new SourceVisitor();

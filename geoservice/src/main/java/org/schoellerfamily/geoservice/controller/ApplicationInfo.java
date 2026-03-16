@@ -65,9 +65,6 @@ public final class ApplicationInfo {
             "maintainer", getMaintainerMap());
     }
 
-    /**
-     * @return the maintainer part of the info
-     */
     private Map<String, Object> getMaintainerMap() {
         return Map.of(
             "name", MAINTAINER_NAME,

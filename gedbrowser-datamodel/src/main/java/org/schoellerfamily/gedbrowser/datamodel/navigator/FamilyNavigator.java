@@ -43,12 +43,6 @@ public final class FamilyNavigator {
         this(findFamily(child));
     }
 
-    /**
-     * Get the family for this child to build the navigator with.
-     *
-     * @param child the child
-     * @return the family
-     */
     private static Family findFamily(final Child child) {
         if (!child.isSet()) {
             return new Family();
@@ -70,12 +64,6 @@ public final class FamilyNavigator {
         this(findFamily(famc));
     }
 
-    /**
-     * Get the family for this famc to build the navigator with.
-     *
-     * @param famc the famc
-     * @return the family
-     */
     private static Family findFamily(final FamC famc) {
         if (!famc.isSet()) {
             return new Family();
@@ -97,12 +85,6 @@ public final class FamilyNavigator {
         this(findFamily(fams));
     }
 
-    /**
-     * Get the family for this fams to build the navigator with.
-     *
-     * @param fams the fams
-     * @return the family
-     */
     private static Family findFamily(final FamS fams) {
         if (!fams.isSet()) {
             return new Family();

@@ -37,7 +37,6 @@ class BackupRestoreEndpointIT {
     @Autowired
     private RestTestClient restTestClient;
 
-    /** */
     @Test
     void shouldReturn200WhenSendingRequestToBackupEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -50,7 +49,6 @@ class BackupRestoreEndpointIT {
             .contains("locations in the cache");
     }
 
-    /** */
     @Test
     void shouldReturn200WhenSendingRequestToRestoreEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()

@@ -43,7 +43,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AutoConfigureRestTestClient
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SuppressWarnings({ "PMD.TooManyMethods", "PMD.UnitTestContainsTooManyAsserts" })
+@SuppressWarnings({
+    "PMD.TooManyMethods", "PMD.UnitTestContainsTooManyAsserts", "PMD.ExcessiveImports" })
 class PersonControllerIT {
     /**
      * RestTestClient injected by Spring's test support.
@@ -104,7 +105,8 @@ class PersonControllerIT {
             .returnResult(String.class);
         assertThat(entity)
             .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
-            .matches(e -> ControllerTestHelper.containsAll(Optional.ofNullable(e.getResponseBody()).orElse(""),
+            .matches(e -> ControllerTestHelper.containsAll(
+                Optional.ofNullable(e.getResponseBody()).orElse(""),
                 "\"type\" : \"person\"",
                 "\"string\" : \"I1\"",
                 "\"attributes\" : [ {",

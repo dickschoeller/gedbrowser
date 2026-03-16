@@ -67,12 +67,6 @@ public class StreamManager {
         return is;
     }
 
-    /**
-     * Validates that a file path does not contain path traversal sequences.
-     *
-     * @param filePath the file path to validate
-     * @throws IllegalArgumentException if filePath contains path traversal sequences
-     */
     private void validateFilePath(final String filePath) {
         if (StringUtils.isEmpty(filePath)) {
             throw new IllegalArgumentException("File path cannot be null or empty");
@@ -86,12 +80,6 @@ public class StreamManager {
         checkForPathTraversal(filePath);
     }
 
-    /**
-     * Validates that a resource path does not contain path traversal sequences.
-     *
-     * @param resourcePath the resource path to validate
-     * @throws IllegalArgumentException if resourcePath contains path traversal sequences
-     */
     private void validateResourcePath(final String resourcePath) {
         if (StringUtils.isEmpty(resourcePath)) {
             throw new IllegalArgumentException("Resource path cannot be null or empty");
@@ -106,12 +94,6 @@ public class StreamManager {
         checkForPathTraversal(resourcePath);
     }
 
-    /**
-     * Checks if a path contains ".." as a path component, which indicates a path traversal attempt.
-     *
-     * @param pathString the path string to check
-     * @throws IllegalArgumentException if the path contains ".." as a path component
-     */
     private void checkForPathTraversal(final String pathString) {
         final Path path = Paths.get(pathString);
         for (final Path part : path) {

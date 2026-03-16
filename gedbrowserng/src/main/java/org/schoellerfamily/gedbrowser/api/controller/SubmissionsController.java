@@ -36,9 +36,6 @@ public class SubmissionsController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating submissions
-     */
     private ObjectCrud<ApiSubmission> crud() {
         return new SubmissionCrud(loader, toDocConverter, repositoryManager);
     }

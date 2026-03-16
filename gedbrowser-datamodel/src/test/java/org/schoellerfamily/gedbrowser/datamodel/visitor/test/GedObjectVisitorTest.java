@@ -41,7 +41,6 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class GedObjectVisitorTest {
-    /** */
     private final GedObjectVisitorStub visitor = new GedObjectVisitorStub();
 
     /**
@@ -219,11 +218,6 @@ final class GedObjectVisitorTest {
         }
     };
 
-    /**
-     * Provide parameter combinations: (visited, type).
-     *
-     * @return stream of arguments
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObject generic = new GedObject() {

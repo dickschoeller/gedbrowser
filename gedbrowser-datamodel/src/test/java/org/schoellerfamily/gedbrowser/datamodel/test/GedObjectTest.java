@@ -40,22 +40,14 @@ final class GedObjectTest {
     /** */
     private transient Root root;
 
-    /** */
     private final FinderStrategy finder = new ParentFinder();
 
     /** */
     private static final class GedObjectWrapper extends GedObject {
-        /**
-         * @param parent parent object of this object
-         */
         private GedObjectWrapper(final GedObject parent) {
             super(parent);
         }
 
-        /**
-         * @param parent parent object of this object
-         * @param string long version of type string
-         */
         private GedObjectWrapper(final GedObject parent, final String string) {
             super(parent, string);
         }
@@ -154,9 +146,6 @@ final class GedObjectTest {
             "Should have found same family");
     }
 
-    /**
-     * @return the new GedObject
-     */
     private GedObject createGedObject() {
         return new GedObjectWrapper(root, GOB_TAG);
     }

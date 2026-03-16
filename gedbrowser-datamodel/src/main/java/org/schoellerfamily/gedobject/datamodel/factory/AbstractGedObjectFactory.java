@@ -37,62 +37,33 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.CouplingBetweenObjects" })
 public abstract class AbstractGedObjectFactory {
-    /** */
     /* default */ static final AttributeFactory ATTR_FACTORY = new AttributeFactory();
-    /** */
     /* default */ static final ChildFactory CHILD_FACTORY = new ChildFactory();
-    /** */
     /* default */ static final ConcatenationFactory CONCAT_FACTORY = new ConcatenationFactory();
-    /** */
     /* default */ static final ContinuationFactory CONTIN_FACTORY = new ContinuationFactory();
-    /** */
     /* default */ static final DateFactory DATE_FACTORY = new DateFactory();
-    /** */
     /* default */ static final FamCFactory FAMC_FACTORY = new FamCFactory();
-    /** */
     /* default */ static final FamilyFactory FAMILY_FACTORY = new FamilyFactory();
-    /** */
     /* default */ static final FamSFactory FAMS_FACTORY = new FamSFactory();
-    /** */
     /* default */ static final HeadFactory HEAD_FACTORY = new HeadFactory();
-    /** */
     /* default */ static final HusbandFactory HUSBAND_FACTORY = new HusbandFactory();
-    /** */
     /* default */ static final LinkFactory LINK_FACTORY = new LinkFactory();
-    /** */
     /* default */ static final MultimediaFactory MULTIMEDIA_FACTORY = new MultimediaFactory();
-    /** */
     /* default */ static final NameFactory NAME_FACTORY = new NameFactory();
-    /** */
     /* default */ static final NoteFactory NOTE_FACTORY = new NoteFactory();
-    /** */
     /* default */ static final NoteLinkFactory NOTELINK_FACTORY = new NoteLinkFactory();
-    /** */
     /* default */ static final PersonFactory PERSON_FACTORY = new PersonFactory();
-    /** */
     /* default */ static final PlaceFactory PLACE_FACTORY = new PlaceFactory();
-    /** */
     /* default */ static final RootFactory ROOT_FACTORY = new RootFactory();
-    /** */
     /* default */ static final SourceFactory SOURCE_FACTORY = new SourceFactory();
-    /** */
     /* default */ static final SourceLinkFactory SOURLINK_FACTORY = new SourceLinkFactory();
-    /** */
     /* default */ static final SubmissionFactory SUBMISSION_FACTORY = new SubmissionFactory();
-    /** */
     /* default */ static final SubmissionLinkFactory SUBNLINK_FACTORY = new SubmissionLinkFactory();
-    /** */
     /* default */ static final SubmitterFactory SUBMITTER_FACTORY = new SubmitterFactory();
-    /** */
     /* default */ static final SubmitterLinkFactory SUBMLINK_FACTORY = new SubmitterLinkFactory();
-    /** */
     /* default */ static final TrailerFactory TRAILER_FACTORY = new TrailerFactory();
-    /** */
     /* default */ static final WifeFactory WIFE_FACTORY = new WifeFactory();
 
-    /**
-     * The set of known GEDCOM tokens.
-     */
     private static Map<String, GedToken> tokens = new TokenTableInitializer().getTokens();
 
     /**
@@ -485,22 +456,10 @@ public abstract class AbstractGedObjectFactory {
      */
     public abstract GedObject create(GedObject parent, ObjectId objectId, String tag, String tail);
 
-    /**
-     * Get the factory for this GEDCOM tag.
-     *
-     * @param tag the tag.
-     * @return the factory.
-     */
     private AbstractGedObjectFactory getFactory(final String tag) {
         return getToken(tag).getFactory();
     }
 
-    /**
-     * Find the token processor for this tag. Defaults to attribute.
-     *
-     * @param tag the tag.
-     * @return the token processor.
-     */
     private GedToken getToken(final String tag) {
         return tokens.computeIfAbsent(tag, k -> new GedToken(k, ATTR_FACTORY));
     }

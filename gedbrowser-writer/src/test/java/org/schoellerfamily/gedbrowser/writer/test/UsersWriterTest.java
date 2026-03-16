@@ -16,7 +16,6 @@ import org.schoellerfamily.gedbrowser.writer.users.UsersWriter;
  * @author Dick Schoeller
  */
 class UsersWriterTest {
-    /** */
     private static final String TEST_USER_FILE_CSV = System.getProperty("gedbrowser.home",
         System.getProperty("user.dir") + "/target") + "/temp.tmp";
 
@@ -44,10 +43,6 @@ class UsersWriterTest {
         assertEquals(1, users.size(), "should be the one dummy because of failure");
     }
 
-    /**
-     * @param userFile the user file to read
-     * @return the set of users from the user file
-     */
     private Users<User> readUserFile(final String userFile) {
         final UsersReader<User, Users<User>> usersReader = new UsersReader<>();
         return usersReader.readUserFile(userFile, () -> new UsersImpl<>(), () -> new UserImpl());

@@ -43,7 +43,6 @@ class PublicControllerTest {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testFooController() throws URISyntaxException {
         final String url = "http://localhost:" + port + "/v1/foo";

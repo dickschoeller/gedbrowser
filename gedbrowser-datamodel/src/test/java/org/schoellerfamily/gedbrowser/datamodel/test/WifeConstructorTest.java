@@ -15,9 +15,6 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 final class WifeConstructorTest {
 
-    /**
-     * @return parameters for the tests
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

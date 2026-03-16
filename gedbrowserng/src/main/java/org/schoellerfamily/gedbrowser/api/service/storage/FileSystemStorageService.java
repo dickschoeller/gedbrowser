@@ -48,12 +48,6 @@ public class FileSystemStorageService implements StorageService {
         }
     }
 
-    /**
-     * Extract the filename and validate it.
-     *
-     * @param file the input file
-     * @return the filename
-     */
     private String validateFile(final MultipartFile file) {
         final String originalFilename = file.getOriginalFilename();
         if (StringUtils.isEmpty(originalFilename)) {

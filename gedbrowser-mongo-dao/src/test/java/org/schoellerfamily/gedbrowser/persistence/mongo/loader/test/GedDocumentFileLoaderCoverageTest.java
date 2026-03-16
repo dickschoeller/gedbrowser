@@ -21,7 +21,6 @@ import org.springframework.dao.DataAccessResourceFailureException;
  */
 class GedDocumentFileLoaderCoverageTest {
 
-    /** */
     @Test
     void testBuildFileNameWithNullDbName() {
         final TestLoader loader = new TestLoader();
@@ -29,7 +28,6 @@ class GedDocumentFileLoaderCoverageTest {
             .isThrownBy(() -> loader.callBuildFileName(null));
     }
 
-    /** */
     @Test
     void testSaveHandlesDataAccessException() throws Exception {
         final Root root = new Root();

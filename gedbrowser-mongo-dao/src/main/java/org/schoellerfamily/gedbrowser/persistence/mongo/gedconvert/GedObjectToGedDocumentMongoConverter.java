@@ -101,10 +101,6 @@ public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
         // Empty
     }
 
-    /**
-     * @param ged the GedObject that we are going to persist
-     * @return the mongo document to represent it
-     */
     private GedDocumentMongo<? extends GedObject> create(final GedObject ged) {
         if (ged == null) {
             throw new PersistenceException("Null ged object not supported");

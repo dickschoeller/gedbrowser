@@ -70,11 +70,6 @@ public abstract class GeoDataController extends DatedDataController {
         return places;
     }
 
-    /**
-     * Dump the places to debug log.
-     *
-     * @param places the places
-     */
     private void logPlaces(final List<PlaceInfo> places) {
         if (log.isDebugEnabled()) {
             for (final PlaceInfo place : places) {

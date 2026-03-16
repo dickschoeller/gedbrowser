@@ -33,12 +33,6 @@ public class AttributeListHelper {
         addIfNotTypes(apiParent, "date", "place");
     }
 
-    /**
-     * Add the attributes if they match the given type.
-     *
-     * @param apiParent the parent attribute
-     * @param string the type we want to match
-     */
     private void addByType(final ApiAttribute apiParent, final String string) {
         for (final ApiAttribute object : apiParent.getAttributes()) {
             if (object.isType(string)) {
@@ -48,12 +42,6 @@ public class AttributeListHelper {
         }
     }
 
-    /**
-     * Add the attributes that don't match any of the selected types.
-     *
-     * @param apiParent the parent attribute
-     * @param types the types to check
-     */
     private void addIfNotTypes(final ApiAttribute apiParent,
             final String... types) {
         for (final ApiAttribute object : apiParent.getAttributes()) {
@@ -64,11 +52,6 @@ public class AttributeListHelper {
         }
     }
 
-    /**
-     * @param object the object that we are checking
-     * @param types a list of types to match
-     * @return true if matches any of the types
-     */
     private boolean matchOne(final ApiAttribute object,
             final String... types) {
         for (final String type : types) {
@@ -109,11 +92,6 @@ public class AttributeListHelper {
         addToAttributes(apiParent.getImages());
     }
 
-    /**
-     * Add to the attributes of the parent for saving.
-     *
-     * @param attributes some attributes to add to the list
-     */
     private void addToAttributes(final List<ApiAttribute> attributes) {
         for (final ApiObject object : attributes) {
             final ApiModelToGedObjectVisitor visitor = createVisitor();
@@ -131,9 +109,6 @@ public class AttributeListHelper {
         }
     }
 
-    /**
-     * @return the new visitor
-     */
     private ApiModelToGedObjectVisitor createVisitor() {
         return parentVisitor.createVisitor();
     }

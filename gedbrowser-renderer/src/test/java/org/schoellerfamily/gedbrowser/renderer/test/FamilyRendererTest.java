@@ -49,20 +49,14 @@ final class FamilyRendererTest {
     /** */
     private transient RenderingContext userContext;
 
-    /** */
     private final transient GedObjectBuilder builder = new GedObjectBuilder();
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
         userContext = RenderingContext.user(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final Family family = builder.createFamily();
@@ -73,10 +67,6 @@ final class FamilyRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final Family family = builder.createFamily();
@@ -86,10 +76,6 @@ final class FamilyRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final Family family = builder.createFamily();
@@ -99,10 +85,6 @@ final class FamilyRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final Family family = builder.createFamily();
@@ -112,10 +94,6 @@ final class FamilyRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final Family family = builder.createFamily();
@@ -125,9 +103,6 @@ final class FamilyRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * @throws IOException because reader can.
-     */
     @Test
     void testSpouseConstructUsedInPersonTemplate() throws IOException {
         @SuppressWarnings("java:S6126")
@@ -145,9 +120,6 @@ final class FamilyRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException because reader can.
-     */
     @Test
     void testSpouseConstructUsedInPersonTemplateAnonymous() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -161,22 +133,11 @@ final class FamilyRendererTest {
             "Rendered text doesn't match expectation");
     }
 
-    /**
-     * Create a renderer for the provided family, with a non-default rendering
-     * context.
-     *
-     * @param family  the family
-     * @param context the renderingContext
-     * @return the renderer
-     */
     private FamilyRenderer createFamilyRenderer(final Family family,
         final RenderingContext context) {
         return new FamilyRenderer(family, new GedRendererFactory(), context);
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderF1Attributes() throws IOException {
         @SuppressWarnings("java:S6126")
@@ -196,9 +157,6 @@ final class FamilyRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderF1Children() throws IOException {
         @SuppressWarnings("java:S6126")
@@ -214,9 +172,6 @@ final class FamilyRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /**
-     * @throws IOException when there is a read error.
-     */
     @Test
     void testRenderF1ChildrenAnonymous() throws IOException {
         final Root root = reader.readBigTestSource();

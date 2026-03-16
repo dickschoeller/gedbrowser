@@ -66,10 +66,6 @@ public final class PlaceListRenderer {
         return geoCodePlaces(places);
     }
 
-    /**
-     * @param places the place to code
-     * @return the list of geocode results
-     */
     private List<PlaceInfo> geoCodePlaces(final Collection<String> places) {
         return places.stream()
                 .map(client::get)
@@ -80,10 +76,6 @@ public final class PlaceListRenderer {
                 .toList();
     }
 
-    /**
-     * @param item the geoservice item containing the data
-     * @return the new place information
-     */
     private PlaceInfo createPlaceInfo(final GeoServiceItem item) {
         final GeoServiceGeocodingResult result = item.getResult();
         if (result == null || result.getGeometry() == null) {
@@ -147,16 +139,10 @@ public final class PlaceListRenderer {
         return null;
     }
 
-    /**
-     * @return whether the current person is hidden because living.
-     */
     private boolean isHiddenLiving() {
         return !renderingContext.isUser() && le.estimate();
     }
 
-    /**
-     * @return whether the current person is hidden because confidential.
-     */
     private boolean isHiddenConfidential() {
         if (renderingContext.isAdmin()) {
             return false;

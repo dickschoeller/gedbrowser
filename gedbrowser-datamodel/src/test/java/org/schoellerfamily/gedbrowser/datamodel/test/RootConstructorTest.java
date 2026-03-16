@@ -15,9 +15,6 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
  * @author Dick Schoeller
  */
 final class RootConstructorTest {
-    /**
-     * @return collection of parameter arrays
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         return Arrays.stream(

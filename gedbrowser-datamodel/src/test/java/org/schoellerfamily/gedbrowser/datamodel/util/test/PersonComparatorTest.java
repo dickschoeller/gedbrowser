@@ -28,7 +28,6 @@ class PersonComparatorTest {
     /** */
     private PersonComparator comparator;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -57,13 +56,11 @@ class PersonComparatorTest {
         comparator = new PersonComparator();
     }
 
-    /** */
     @Test
     void testSamePerson() {
         assertEquals(0, comparator.compare(person1, person1), "Same person should match");
     }
 
-    /** */
     @Test
     void testDifferentNamePositive() {
         final String person1IndexName = reportString(person1);
@@ -72,7 +69,6 @@ class PersonComparatorTest {
                 person1IndexName + " should be after " + person2IndexName);
     }
 
-    /** */
     @Test
     void testDifferentNameNegative() {
         final String person1IndexName = reportString(person1);
@@ -81,7 +77,6 @@ class PersonComparatorTest {
                 person2IndexName + " should be before " + person1IndexName);
     }
 
-    /** */
     @Test
     void testSameNameDifferentDatePositive() {
         final String person4IndexName = reportString(person4);
@@ -90,7 +85,6 @@ class PersonComparatorTest {
                 person5IndexName + " should be after " + person4IndexName);
     }
 
-    /** */
     @Test
     void testSameNameDifferentDateNegative() {
         final String person4IndexName = reportString(person4);
@@ -99,7 +93,6 @@ class PersonComparatorTest {
                 person4IndexName + " should be before " + person5IndexName);
     }
 
-    /** */
     @Test
     void testSameNameSameDatePositive() {
         final String person3IndexName = reportString(person3);
@@ -108,7 +101,6 @@ class PersonComparatorTest {
                 person4IndexName + " should be after " + person3IndexName);
     }
 
-    /** */
     @Test
     void testSameNameSameDateNegative() {
         final String person3IndexName = reportString(person3);
@@ -117,10 +109,6 @@ class PersonComparatorTest {
                 person3IndexName + " should be before " + person4IndexName);
     }
 
-    /**
-     * @param person the person
-     * @return a string describing the person
-     */
     private String reportString(final Person person) {
         final GetDateVisitor visitor = new GetDateVisitor();
         person.accept(visitor);

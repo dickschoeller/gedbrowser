@@ -29,9 +29,6 @@ public class SourceLinkListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
-    /**
-     * @param builder the string builder that we will be appending to.
-     */
     private void renderListItemContents(final StringBuilder builder) {
         builder.append("<span class=\"label\">Source:</span> ");
         builder.append(sourceLinkRenderer.getNameHtml());

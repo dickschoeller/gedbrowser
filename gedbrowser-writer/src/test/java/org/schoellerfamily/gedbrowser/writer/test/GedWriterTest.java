@@ -52,9 +52,6 @@ class GedWriterTest {
     /** */
     private String filename;
 
-    /**
-     * @throws IOException if there are problems reading the data file
-     */
     @BeforeEach
     void setUp() throws IOException {
         inputFilename = gedbrowserHome + "/mini-schoeller.ged";
@@ -66,9 +63,6 @@ class GedWriterTest {
         cleanTemp(filename);
     }
 
-    /**
-     * @throws IOException if file IO fails
-     */
     @Test
     void test() throws IOException {
         final GedWriter writer = new GedWriter(root);
@@ -80,9 +74,6 @@ class GedWriterTest {
         assertSuccess();
     }
 
-    /**
-     * @throws IOException if file IO fails
-     */
     @Test
     void testString() throws IOException {
         final GedWriter writer = new GedWriter(root);
@@ -92,9 +83,6 @@ class GedWriterTest {
         assertEquals(readString, writeString, "Input and output should match");
     }
 
-    /**
-     * @throws IOException if there are problems reading or writing files
-     */
     private void assertSuccess() throws IOException {
         log.info("originalFilename: {}", inputFilename);
         log.info("filename: {}", filename);
@@ -107,17 +95,11 @@ class GedWriterTest {
         assertTrue(backup2.exists(), "Backup should exist");
     }
 
-    /** */
     @AfterEach
     void tearDown() {
         cleanTemp(filename);
     }
 
-    /**
-     * Clean up the files that might be sitting in the temp directory.
-     *
-     * @param baseFilename the filename that we'll be doing stuff with
-     */
     private void cleanTemp(final String baseFilename) {
         final File folder = new File("/tmp");
         final File[] files = folder.listFiles(new FilenameFilter() {
@@ -140,12 +122,6 @@ class GedWriterTest {
         }
     }
 
-    /**
-     * Read data for tests available to prepare data for tests.
-     *
-     * @return a populated GedLine parse tree.
-     * @throws IOException because reader might throw.
-     */
     private AbstractGedLine readFileTestSource() throws IOException {
         return TestResourceReader.readFileTestSource(inputFilename);
     }

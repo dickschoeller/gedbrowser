@@ -46,7 +46,6 @@ class SubmitterControllerIT {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testGetSubmittersGl120368() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/submitters";
@@ -64,7 +63,6 @@ class SubmitterControllerIT {
                 "\"name\" : \"Phil Williams\""));
     }
 
-    /** */
     @Test
     @SuppressWarnings({ "java:S6126" })
     void testGetSubmittersGl120368U1() {
@@ -85,7 +83,6 @@ class SubmitterControllerIT {
             .returns(bodyFragment, EntityExchangeResult::getResponseBody);
     }
 
-    /** */
     @Test
     void testGetSubmittersGl120368Xyzzy() {
         final String url = "http://localhost:" + port
@@ -101,9 +98,6 @@ class SubmitterControllerIT {
             EntityExchangeResult::getStatus);
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testCreateSubmittersSimple() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/submitters";
@@ -121,9 +115,6 @@ class SubmitterControllerIT {
             .returns(reqBody.getType(), e -> e.getResponseBody().getType());
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteSubmitter() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -176,9 +167,6 @@ class SubmitterControllerIT {
             EntityExchangeResult::getStatus);
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteSubmitterNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -203,9 +191,6 @@ class SubmitterControllerIT {
             EntityExchangeResult::getStatus);
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteSubmitterDatabaseNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -230,9 +215,6 @@ class SubmitterControllerIT {
             EntityExchangeResult::getStatus);
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testUpdateSubmitterWithNote() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/submitters";

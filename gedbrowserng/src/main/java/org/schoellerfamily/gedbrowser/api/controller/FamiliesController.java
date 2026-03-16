@@ -36,9 +36,6 @@ public final class FamiliesController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating families
-     */
     private ObjectCrud<ApiFamily> crud() {
         return new FamilyCrud(loader, toDocConverter, repositoryManager);
     }

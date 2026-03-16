@@ -30,14 +30,6 @@ public final class Head extends AbstractSpecialObject {
         super(parent, buildParentString(tag, tail));
     }
 
-    /**
-     * The parent can only take one string. If we need to, concatenate the
-     * strings. The argument tag should never be empty, but tail could be.
-     *
-     * @param tag tag string
-     * @param tail tail string
-     * @return the constructed string
-     */
     private static String buildParentString(final String tag,
             final String tail) {
         if (tail.isEmpty()) {

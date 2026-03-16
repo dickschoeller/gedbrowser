@@ -22,11 +22,6 @@ public final class CellRow {
         }
     }
 
-    /**
-     * Factory method.
-     *
-     * @return the cell renderer
-     */
     private NullCellRenderer createNullCellRenderer() {
         return new NullCellRenderer();
     }

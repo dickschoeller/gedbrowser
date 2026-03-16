@@ -23,42 +23,36 @@ public final class ApplicationInfoTest {
     @Autowired
     private transient ApplicationInfoImpl appInfo;
 
-    /** */
     @Test
     void testApplicationInfoURL() {
         assertEquals("https://github.com/dickschoeller/gedbrowser",
                 appInfo.getApplicationURL(), "Application URL mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoMaintainerEmail() {
         assertEquals("schoeller@comcast.net", appInfo.getMaintainerEmail(),
                 "Maintainer email mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoMaintainerName() {
         assertEquals("Richard Schoeller", appInfo.getMaintainerName(),
                 "Maintainer name mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoName() {
         assertEquals("gedbrowser", appInfo.getApplicationName(),
                 "Application name mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoVersion() {
         assertEquals("1.3.0-RC3-SNAPSHOT", appInfo.getVersion(),
                 "Version mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoHomeURL() {
         assertEquals("http://www.schoellerfamily.org/", appInfo.getHomeURL(),

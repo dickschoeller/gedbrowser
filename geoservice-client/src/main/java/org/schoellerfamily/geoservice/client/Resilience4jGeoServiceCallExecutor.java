@@ -20,7 +20,6 @@ public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallE
     /** Default wait time between retries used by the no-arg constructor. */
     private static final long DEFAULT_WAIT_MILLIS = 500L;
 
-    /** Circuit breaker guarding geoservice outbound calls. */
     private final CircuitBreaker circuitBreaker = CircuitBreaker.ofDefaults("geoservice");
 
     /** Retry policy for transient connectivity failures. */

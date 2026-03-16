@@ -48,12 +48,6 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
         return builder.toString();
     }
 
-    /**
-     * Render the inner part of this thing in a list item.  Will never
-     * have an &lt;li&gt; tag.
-     *
-     * @param builder the string builder that we will be appending to.
-     */
     private void renderListItemContents(final StringBuilder builder) {
         final Multimedia multimedia = multimediaRenderer.getGedObject();
         builder.append("<span class=\"label\">");

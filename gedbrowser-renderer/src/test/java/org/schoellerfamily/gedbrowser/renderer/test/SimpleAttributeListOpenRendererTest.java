@@ -29,12 +29,8 @@ final class SimpleAttributeListOpenRendererTest {
     /** */
     private transient SimpleAttributeListOpenRenderer npr;
 
-    /** */
     private final transient GedObject gob = createGedObject();
 
-    /**
-     * @return an anonymous subclass of GedObject for testing
-     */
     private GedObject createGedObject() {
         return new GedObject(null, "THIS IS A STRING") {
             /**
@@ -47,7 +43,6 @@ final class SimpleAttributeListOpenRendererTest {
         };
     }
 
-    /** */
     @BeforeEach
     void setUp() {
         final DefaultRenderer renderer = new DefaultRenderer(gob,
@@ -57,7 +52,6 @@ final class SimpleAttributeListOpenRendererTest {
                 .getAttributeListOpenRenderer();
     }
 
-    /** */
     @Test
     void testRenderAsPhrase() {
         final StringBuilder builder = new StringBuilder();

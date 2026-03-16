@@ -163,10 +163,6 @@ final class SpouseCrudIT {
             .withMessage("Object XXXXX of type person not found");
     }
 
-    /**
-     * @param parent the parent
-     * @return the child
-     */
     private ApiPerson createChildOfParent(final ApiPerson parent) {
         final ApiPerson childReqPerson = helper.buildPerson();
         final ChildCrud childCrud = new ChildCrud(loader, toDocConverter, repositoryManager);

@@ -45,7 +45,6 @@ public class ApplicationTest {
     @Autowired
     private RestTestClient restTestClient;
 
-    /** */
     @Test
     void shouldReturn200WhenSendingRequestToInfoEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -56,7 +55,6 @@ public class ApplicationTest {
         assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
     }
 
-    /** */
     @Test
     void shouldReturn200WhenSendingRequestToHealthEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -68,7 +66,6 @@ public class ApplicationTest {
         assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
     }
 
-    /** */
     @Test
     void testApplicationName() {
         final Application a = new Application();

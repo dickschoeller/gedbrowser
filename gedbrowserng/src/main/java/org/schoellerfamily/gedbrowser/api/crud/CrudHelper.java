@@ -25,11 +25,6 @@ public class CrudHelper {
         return ApiAttribute.builder().type("husband").string(person.getString()).build();
     }
 
-    /**
-     * @param person a person to check
-     * @param sex the sex we are checking for
-     * @return true if the sex female attribute is found
-     */
     private boolean sex(final ApiPersonBuilder<?, ?> person, final String sex) {
         for (final ApiAttribute attr : person.getAttributes()) {
             if ("attribute".equals(attr.getType())

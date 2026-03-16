@@ -50,12 +50,6 @@ public class ParentsRenderer {
         renderParent(builder, pad, mother, "Mother");
     }
 
-    /**
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param parent The parent being rendered
-     * @param parentLabel The string containing the parent type
-     */
     private void renderParent(final StringBuilder builder,
             final int pad, final Person parent, final String parentLabel) {
         if (parent != null) {
@@ -64,12 +58,6 @@ public class ParentsRenderer {
         }
     }
 
-    /**
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param parentHtml The parent being rendered
-     * @param parentLabel The string containing the parent type
-     */
     private void renderParent(final StringBuilder builder,
             final int pad, final String parentHtml, final String parentLabel) {
         if (!parentHtml.isEmpty() && (isConfidential() || isHiddenLiving())) {
@@ -140,25 +128,15 @@ public class ParentsRenderer {
         return createGedRenderer(navigator.getMother()).getNameHtml();
     }
 
-    /**
-     * @param parent the parent that we are creating a renderer for
-     * @return the renderer
-     */
     private GedRenderer<? extends GedObject> createGedRenderer(
             final Person parent) {
         return personRenderer.createGedRenderer(parent);
     }
 
-    /**
-     * @return true if the person is hidden because confidential
-     */
     private boolean isConfidential() {
         return personRenderer.isConfidential();
     }
 
-    /**
-     * @return true if the person is hidden because living
-     */
     private boolean isHiddenLiving() {
         return personRenderer.isHiddenLiving();
     }

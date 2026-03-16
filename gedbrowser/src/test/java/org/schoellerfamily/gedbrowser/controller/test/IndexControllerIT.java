@@ -42,7 +42,6 @@ class IndexControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testIndexControllerC() {
         final String url = URL_TEMPLATE.formatted(port, "gl120368", "C");
@@ -61,7 +60,6 @@ class IndexControllerIT implements MenuTestHelper {
                     getMenu("C"));
     }
 
-    /** */
     @Test
     void testIndexControllerB() {
         final String url = URL_TEMPLATE.formatted(port, "gl120368", "B");
@@ -80,7 +78,6 @@ class IndexControllerIT implements MenuTestHelper {
                     getMenu("B"));
     }
 
-    /** */
     @Test
     void testIndexControllerBadDataSet() {
         final String url = URL_TEMPLATE.formatted(port, "XYZZY", "A");
@@ -95,7 +92,6 @@ class IndexControllerIT implements MenuTestHelper {
                 .asString().contains("Data set not found");
     }
 
-    /** */
     @Test
     void testIndexControllerLetter() {
         final String url = URL_TEMPLATE.formatted(port, "gl120368", "q");

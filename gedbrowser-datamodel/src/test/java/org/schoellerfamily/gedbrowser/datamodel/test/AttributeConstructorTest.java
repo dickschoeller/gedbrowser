@@ -21,9 +21,6 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  */
 final class AttributeConstructorTest {
 
-    /**
-     * @return stream of argument arrays
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

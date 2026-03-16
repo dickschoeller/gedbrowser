@@ -16,7 +16,6 @@ import nl.jqno.equalsverifier.Warning;
  * @author Dick Schoeller
  */
 class ApiSubmissionTest {
-    /** */
     @Test
     void testDefaultConstructorType() {
         final ApiSubmission o = ApiSubmission.builder()
@@ -27,7 +26,6 @@ class ApiSubmissionTest {
         assertEquals("", o.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testDefaultConstructorString() {
         final ApiSubmission o = ApiSubmission.builder()
@@ -38,7 +36,6 @@ class ApiSubmissionTest {
         assertEquals("", o.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testDefaultConstructorAttributes() {
         final ApiSubmission o = ApiSubmission.builder()
@@ -49,7 +46,6 @@ class ApiSubmissionTest {
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testConstructorType() {
         final ApiSubmission o = ApiSubmission.builder()
@@ -60,7 +56,6 @@ class ApiSubmissionTest {
         assertEquals("type", o.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testConstructorString() {
         final ApiSubmission o = ApiSubmission.builder()
@@ -71,7 +66,6 @@ class ApiSubmissionTest {
         assertEquals("string", o.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testConstructorNoAttributes() {
         final ApiSubmission o = ApiSubmission.builder()
@@ -82,7 +76,6 @@ class ApiSubmissionTest {
         assertTrue(o.getAttributes().isEmpty(), "attributes empty mismatch");
     }
 
-    /** */
     @Test
     void testConstructorWithAttributes() {
         final List<ApiAttribute> attributes = List.of(ApiAttribute.builder()
@@ -99,7 +92,6 @@ class ApiSubmissionTest {
         assertEquals(1, o.getAttributes().size(), "attributes size mismatch");
     }
 
-    /** */
     @Test
     void testIsType() {
         final ApiSubmission o = ApiSubmission.builder()
@@ -110,7 +102,6 @@ class ApiSubmissionTest {
         assertTrue(o.isType("type"), "isType mismatch");
     }
 
-    /** */
     @Test
     void testAccept() {
         final ApiSubmission o = ApiSubmission.builder()
@@ -123,7 +114,6 @@ class ApiSubmissionTest {
         assertEquals("submission", visitor.getMethodCalled(), "Method mismatch");
     }
 
-    /** */
     @Test
     void testHashAndEquals() {
         EqualsVerifier.forClass(ApiSubmission.class).suppress(Warning.STRICT_INHERITANCE).verify();

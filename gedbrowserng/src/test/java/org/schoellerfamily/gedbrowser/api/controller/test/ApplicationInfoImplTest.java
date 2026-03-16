@@ -10,7 +10,6 @@ import org.schoellerfamily.gedbrowser.api.controller.ApplicationInfoImpl;
  */
 final class ApplicationInfoImplTest {
 
-    /** */
     @Test
     void testApplicationInfoName() {
         final ApplicationInfoImpl info = new ApplicationInfoImpl(
@@ -22,7 +21,6 @@ final class ApplicationInfoImplTest {
         assertEquals("gedbrowserng", info.getApplicationName());
     }
 
-    /** */
     @Test
     void testMaintainerEmail() {
         final ApplicationInfoImpl info = new ApplicationInfoImpl(
@@ -34,7 +32,6 @@ final class ApplicationInfoImplTest {
         assertEquals("dev@example.com", info.getMaintainerEmail());
     }
 
-    /** */
     @Test
     void testMaintainerName() {
         final ApplicationInfoImpl info = new ApplicationInfoImpl(
@@ -46,7 +43,6 @@ final class ApplicationInfoImplTest {
         assertEquals("Developer", info.getMaintainerName());
     }
 
-    /** */
     @Test
     void testApplicationUrl() {
         final ApplicationInfoImpl info = new ApplicationInfoImpl(
@@ -58,7 +54,6 @@ final class ApplicationInfoImplTest {
         assertEquals("https://example.com/app", info.getApplicationURL());
     }
 
-    /** */
     @Test
     void testHomeUrl() {
         final ApplicationInfoImpl info = new ApplicationInfoImpl(

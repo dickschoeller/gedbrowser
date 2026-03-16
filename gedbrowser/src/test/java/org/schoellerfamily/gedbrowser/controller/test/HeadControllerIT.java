@@ -36,7 +36,6 @@ class HeadControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testHeadController() {
         final String url = "http://localhost:" + port
@@ -61,7 +60,6 @@ class HeadControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testHeadControllerSchoeller() {
         final String url = "http://localhost:" + port
@@ -86,7 +84,6 @@ class HeadControllerIT implements MenuTestHelper {
                     getMenu("mini-schoeller", "A"));
     }
 
-    /** */
     @Test
     void testHeadControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()

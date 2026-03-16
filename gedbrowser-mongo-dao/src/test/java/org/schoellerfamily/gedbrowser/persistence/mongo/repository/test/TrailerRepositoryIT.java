@@ -45,9 +45,6 @@ final class TrailerRepositoryIT {
     /** */
     private transient RootDocumentMongo rootDocument;
 
-    /**
-     * @throws IOException because the reader does
-     */
     @BeforeEach
     void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
@@ -57,13 +54,11 @@ final class TrailerRepositoryIT {
         rootDocument.setGedObject(root);
     }
 
-    /** */
     @AfterEach
     void tearDown() {
         repositoryFixture.clearRepository();
     }
 
-    /** */
     @Test
     void testTrailer() {
         final TrailerDocument document = trailerDocumentRepository
@@ -72,7 +67,6 @@ final class TrailerRepositoryIT {
         assertEquals(TRAILER_STRING, trailer.getString(), "Expected trailer string");
     }
 
-    /** */
     @Test
     void testTrailerRoot() {
         final TrailerDocument document = trailerDocumentRepository.findByRootAndString(rootDocument,
@@ -81,7 +75,6 @@ final class TrailerRepositoryIT {
         assertEquals(TRAILER_STRING, trailer.getString(), "Expected trailer string");
     }
 
-    /** */
     @Test
     void testBogus() {
         final TrailerDocument perdoc = trailerDocumentRepository
@@ -89,7 +82,6 @@ final class TrailerRepositoryIT {
         assertNull(perdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testBogusRoot() {
         final TrailerDocument perdoc = trailerDocumentRepository.findByRootAndString(rootDocument,
@@ -97,21 +89,18 @@ final class TrailerRepositoryIT {
         assertNull(perdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testCountRoot() {
         assertEquals(1, trailerDocumentRepository.count(rootDocument),
             "Should only be one trailer");
     }
 
-    /** */
     @Test
     void testCountFilename() {
         assertEquals(1, trailerDocumentRepository.count(rootDocument.getFilename()),
             "Should only be one trailer");
     }
 
-    /** */
     @Test
     void testFindAllRoot() {
         final Iterable<TrailerDocument> list = trailerDocumentRepository.findAll(rootDocument);
@@ -123,7 +112,6 @@ final class TrailerRepositoryIT {
         assertEquals(1, count, "Should only be one trailer");
     }
 
-    /** */
     @Test
     void testFindAllFilename() {
         final Iterable<TrailerDocument> list = trailerDocumentRepository
@@ -136,13 +124,6 @@ final class TrailerRepositoryIT {
         assertEquals(1, count, "Should only be one trailer");
     }
 
-    /**
-     * Wrapper for assertion to bypass PMD check.
-     *
-     * @param message  the identifying message for the AssertionError (null okay)
-     * @param expected expected value
-     * @param actual   actual value
-     */
     private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }

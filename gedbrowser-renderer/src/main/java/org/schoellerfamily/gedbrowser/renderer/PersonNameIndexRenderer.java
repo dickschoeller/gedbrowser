@@ -51,11 +51,6 @@ public class PersonNameIndexRenderer implements NameIndexRenderer {
                 + person.getString() + ")</a>";
     }
 
-    /**
-     * @param birthYear birth year string
-     * @param deathYear death year string
-     * @return nicely formatted range string
-     */
     private String dateRangeString(final String birthYear,
             final String deathYear) {
         if (birthYear.isEmpty() && deathYear.isEmpty()) {

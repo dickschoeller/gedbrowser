@@ -36,7 +36,6 @@ final class NoteLinkPhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final Root root = new Root("Root");
@@ -52,7 +51,6 @@ final class NoteLinkPhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsPhrase() {
         final NoteLinkRenderer slr = new NoteLinkRenderer(noteLink, new GedRendererFactory(),

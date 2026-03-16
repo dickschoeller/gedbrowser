@@ -77,25 +77,11 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
         return ancestorAdjustment(date);
     }
 
-    /**
-     * Estimate from ancestors' other events.
-     *
-     * @param date estimated birth date before calling this method
-     * @param bde the birth date estimate to invoke
-     * @return a new estimated birth date
-     */
     private LocalDate estimateFromAncestorsOtherEvents(final LocalDate date,
             final BirthDateEstimator bde) {
         return bde.estimateFromAncestorsOtherEvents(date);
     }
 
-    /**
-     * Estimate from other events.
-     *
-     * @param date estimated birth date before calling this method
-     * @param bde the birth date estimate to invoke
-     * @return a new estimated birth date
-     */
     private LocalDate estimateFromOtherEvents(final LocalDate date,
             final BirthDateEstimator bde) {
         return bde.estimateFromOtherEvents(date);
@@ -128,26 +114,12 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
         return ancestorAdjustment(date);
     }
 
-    /**
-     * Estimate from ancestor's birth date.
-     *
-     * @param date the date before trying this estimate
-     * @param parent the person whose birth date we're going to try to apply
-     * @return the new estimate
-     */
     private LocalDate estimateFromAncestorsBirth(final LocalDate date,
             final Person parent) {
         final BirthDateEstimator bde = createEstimator(parent);
         return estimateFromAncestorsBirth(date, bde);
     }
 
-    /**
-     * Estimate from ancestor's birth date.
-     *
-     * @param date the date before trying this estimate
-     * @param parent the person whose birth date we're going to try to apply
-     * @return the new estimate
-     */
     private LocalDate estimateFromBirthDate(final LocalDate date,
             final Person parent) {
         if (date != null) {
@@ -157,13 +129,6 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
         return createLocalDate(dateString);
     }
 
-    /**
-     * Estimate from ancestor's birth date.
-     *
-     * @param localDate if not null we already have a better estimate
-     * @param bde birth date estimator for some related person
-     * @return the date estimate
-     */
     private LocalDate estimateFromAncestorsBirth(final LocalDate localDate,
             final BirthDateEstimator bde) {
         return bde.estimateFromAncestorsBirth(localDate);
@@ -194,13 +159,6 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
         return date;
     }
 
-    /**
-     * Estimate from father's marriage.
-     *
-     * @param localDate if not null we already have a better estimate
-     * @param family the family from which father will be checked
-     * @return the estimated birth date
-     */
     private LocalDate estimateFromFatherMarriage(final LocalDate localDate,
             final Family family) {
         if (localDate != null) {
@@ -211,13 +169,6 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
         return estimateFromParentMarriage(husband);
     }
 
-    /**
-     * Estimate from mother's marriage.
-     *
-     * @param localDate if not null we already have a better estimate
-     * @param family the family from which mother will be checked
-     * @return the estimated birth date
-     */
     private LocalDate estimateFromMotherMarriage(final LocalDate localDate,
             final Family family) {
         if (localDate != null) {
@@ -228,34 +179,15 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
         return estimateFromParentMarriage(wife);
     }
 
-    /**
-     * Estimate birth date from parent's marriage.
-     *
-     * @param parent the parent
-     * @return the date estimate
-     */
     private LocalDate estimateFromParentMarriage(final Person parent) {
         final BirthDateEstimator bde = createEstimator(parent);
         return estimateFromParentMarriage(bde);
     }
 
-    /**
-     * Estimate birth date from parent's marriage.
-     *
-     * @param bde an estimator for the parent
-     * @return the date estimate
-     */
     private LocalDate estimateFromParentMarriage(final BirthDateEstimator bde) {
         return ancestorAdjustment(bde.estimateFromAncestorsMarriage(null));
     }
 
-    /**
-     * Apply a standard adjustment from an ancestor's marriage date to a
-     * person's birth date.
-     *
-     * @param date the ancestor's marriage date
-     * @return the adjusted date
-     */
     private LocalDate ancestorAdjustment(final LocalDate date) {
         if (date == null) {
             return null;
@@ -265,12 +197,6 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
                 .withMonthOfYear(1).withDayOfMonth(1);
     }
 
-    /**
-     * Adjust by the gap between children and to beginning of month.
-     *
-     * @param date the input date
-     * @return the adjusted date
-     */
     private LocalDate childAdjustment(final LocalDate date) {
         if (date == null) {
             return date;

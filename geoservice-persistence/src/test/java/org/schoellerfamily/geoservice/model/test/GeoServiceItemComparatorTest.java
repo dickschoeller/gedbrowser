@@ -22,7 +22,6 @@ class GeoServiceItemComparatorTest extends GeocodeValidator {
     /** */
     private GeoServiceGeocodingResult bgr;
 
-    /** */
     @BeforeEach
     void setUp() {
         final double neLat = 10.00;
@@ -37,7 +36,6 @@ class GeoServiceItemComparatorTest extends GeocodeValidator {
         bgr = new GeoServiceGeocodingResult(null, null, null, geometry, null, false, null);
     }
 
-    /** */
     @Test
     void testCompareEqualExceptForName0() {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -46,7 +44,6 @@ class GeoServiceItemComparatorTest extends GeocodeValidator {
         assertTrue(c.compare(item0, item1) < 0, "Should be less than 0");
     }
 
-    /** */
     @Test
     void testCompareEqualExceptForName2() {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -55,7 +52,6 @@ class GeoServiceItemComparatorTest extends GeocodeValidator {
         assertTrue(c.compare(item1, item0) > 0, "Should be greater than 0");
     }
 
-    /** */
     @Test
     void testCompareEqualExceptForName3() {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -64,7 +60,6 @@ class GeoServiceItemComparatorTest extends GeocodeValidator {
         assertTrue(c.compare(item0, item1) < 0, "Should be less than 0");
     }
 
-    /** */
     @Test
     void testCompareEqualExceptForName1() {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -73,7 +68,6 @@ class GeoServiceItemComparatorTest extends GeocodeValidator {
         assertTrue(c.compare(item1, item0) > 0, "Should be greater than 0");
     }
 
-    /** */
     @Test
     void testCompareDifferentExceptForName() {
         final GeoServiceItem item0 = new GeoServiceItem("XYZZY", "PLUGH", bgr);
@@ -82,7 +76,6 @@ class GeoServiceItemComparatorTest extends GeocodeValidator {
         assertEquals(0, c.compare(item0, item1), "Should be 0");
     }
 
-    /** */
     @Test
     void testCompareDifferentExceptForModernName() {
         // Really only tracks "modern" name for sorting

@@ -36,7 +36,6 @@ class PlaceIndexControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testControllerGL120368() {
         final String url = "http://localhost:" + port
@@ -54,7 +53,6 @@ class PlaceIndexControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()

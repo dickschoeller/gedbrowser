@@ -94,24 +94,9 @@ public class GeoCodeLoader {
      * @author Dick Schoeller
      */
     private interface Loader {
-        /**
-         * Do whatever the load load operation requires.
-         *
-         * @param placeName the place name
-         * @param modernPlaceName the modern place name for geocoding
-         * @return a geocodeitem
-         */
         GeoCodeItem load(String placeName, String modernPlaceName);
     }
 
-    /**
-     * Read places from an input stream. The format is | separated. It may
-     * contain just a historical place name or both historical and modern
-     * places names.
-     *
-     * @param istream the input stream
-     * @param loader what to do with each line
-     */
     private void load(final InputStream istream, final Loader loader) {
         log.debug("Loading the cache from input stream");
         String line;

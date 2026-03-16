@@ -32,7 +32,6 @@ final class NameTest {
     /** */
     private transient Name name5;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -49,36 +48,26 @@ final class NameTest {
         name5 = builder.addNameToPerson(person5, "/Wang/Foo");
     }
 
-    /** */
     @Test
     void testGetName1() {
         assertEquals(name1, name1.getName(), "Name string mismatch");
     }
 
-    /** */
     @Test
     void testGetName2() {
         assertEquals(name2, name2.getName(), "Name string mismatch");
     }
 
-    /** */
     @Test
     void testGetName3() {
         assertEquals(name3, name3.getName(), "Name string mismatch");
     }
 
-    /** */
     @Test
     void testGetNameP() {
         assertEquals(name1, person.getName(), "Name string mismatch");
     }
 
-    /**
-     * Parameterized test for getIndexName across multiple name cases.
-     *
-     * @param idx name index (1-based)
-     * @param expected expected index name string
-     */
     @ParameterizedTest(name = "indexName[{index}] name{0} => {1}")
     @MethodSource("indexNameCases")
     void testGetIndexNameParameterized(final int idx, final String expected) {
@@ -97,12 +86,6 @@ final class NameTest {
         );
     }
 
-    /**
-     * Parameterized test for getSurname across multiple name cases.
-     *
-     * @param idx name index (1-based)
-     * @param expected expected surname
-     */
     @ParameterizedTest(name = "surname[{index}] name{0} => {1}")
     @MethodSource("surnameCases")
     void testGetSurnameParameterized(final int idx, final String expected) {
@@ -121,12 +104,6 @@ final class NameTest {
         );
     }
 
-    /**
-     * Parameterized test for getPrefix across multiple name cases.
-     *
-     * @param idx name index (1-based)
-     * @param expected expected prefix
-     */
     @ParameterizedTest(name = "prefix[{index}] name{0} => {1}")
     @MethodSource("prefixCases")
     void testGetPrefixParameterized(final int idx, final String expected) {
@@ -145,12 +122,6 @@ final class NameTest {
         );
     }
 
-    /**
-     * Parameterized test for getSuffix across multiple name cases.
-     *
-     * @param idx name index (1-based)
-     * @param expected expected suffix
-     */
     @ParameterizedTest(name = "suffix[{index}] name{0} => {1}")
     @MethodSource("suffixCases")
     void testGetSuffixParameterized(final int idx, final String expected) {
@@ -169,12 +140,6 @@ final class NameTest {
         );
     }
 
-    /**
-     * Helper to map an index to one of the name fields set up in @BeforeEach.
-     *
-     * @param idx 1-based index of the name
-     * @return corresponding Name instance
-     */
     @SuppressWarnings("magicnumber")
     private Name getNameByIndex(final int idx) {
         switch (idx) {
@@ -193,7 +158,6 @@ final class NameTest {
         }
     }
 
-    /** */
     @Test
     void testNameGedObject() {
         final Root localRoot = new Root("Root");
@@ -204,7 +168,6 @@ final class NameTest {
         assertMatch(localPerson, name, "", "", "?", "");
     }
 
-    /** */
     @Test
     void testNameGedObjectString() {
         final Root localRoot = new Root("Root");
@@ -216,14 +179,6 @@ final class NameTest {
                 "Schoeller", "Jr.");
     }
 
-    /**
-     * @param localPerson the person to test
-     * @param name the name object
-     * @param expectedString the expected getString
-     * @param expectedPrefix the expected getPrefix
-     * @param expectedSurname the expected getSurname
-     * @param expectedSuffix the expected getSuffix
-     */
     private void assertMatch(final Person localPerson, final Name name,
             final String expectedString, final String expectedPrefix,
             final String expectedSurname, final String expectedSuffix) {

@@ -22,9 +22,6 @@ public final class GeoServiceBounds {
     /** Index in bounding box for NE latitude. */
     private static final int NE_LAT = 3;
 
-    /**
-     * Default constructor used in serialization.
-     */
     private GeoServiceBounds() {
     }
 

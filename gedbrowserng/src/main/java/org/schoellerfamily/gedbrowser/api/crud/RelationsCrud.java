@@ -13,7 +13,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
  * @author Dick Schoeller
  */
 public abstract class RelationsCrud extends CrudParams implements LinkCrud {
-    /** Helper. */
     private final transient CrudHelper helper = new CrudHelper();
 
     /**
@@ -98,11 +97,6 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
         }
     }
 
-    /**
-     * @param family the family that we are searching
-     * @param person the person who should be a spouse
-     * @return the spouse attribute
-     */
     private ApiAttribute findSpouseAttribute(final ApiFamilyBuilder<?, ?> family,
             final ApiPersonBuilder<?, ?> person) {
         for (final ApiAttribute spouse : family.getSpouses()) {
@@ -113,11 +107,6 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
         return null;
     }
 
-    /**
-     * @param family the family that should be pointed to by fams
-     * @param person the person we are searching
-     * @return the fams attribute
-     */
     private ApiAttribute findFamsAttribute(final ApiFamilyBuilder<?, ?> family,
             final ApiPersonBuilder<?, ?> person) {
         return findFamsAttribute(family.getString(), person);

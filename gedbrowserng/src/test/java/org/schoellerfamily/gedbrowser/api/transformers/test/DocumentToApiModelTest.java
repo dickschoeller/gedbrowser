@@ -19,7 +19,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMo
  * @author Dick Schoeller
  */
 class DocumentToApiModelTest {
-    /** */
     @Test
     void basicTrailerTest() {
         final TrailerDocument document = new TrailerDocumentMongo();
@@ -30,7 +29,6 @@ class DocumentToApiModelTest {
         assertEquals("trailer", baseObject.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void basicObjectTest() {
         final GedDocument<GedObject> document = new GedDocumentStub();

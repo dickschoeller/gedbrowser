@@ -13,9 +13,6 @@ import org.schoellerfamily.gedbrowser.reader.users.UsersReader;
  * @author Dick Schoeller
  */
 class UsersReaderTest {
-    /**
-     * The name of the user file for tests.
-     */
     private static final String TEST_USER_FILE_CSV = System.getProperty("gedbrowser.home",
         System.getProperty("user.dir") + "/src/test/resources") + "/testUserFile.csv";
 
@@ -35,10 +32,6 @@ class UsersReaderTest {
         assertEquals(expected, actual, "Number of users is wrong");
     }
 
-    /**
-     * @param userFile the user file to read
-     * @return the set of users from the user file
-     */
     private Users<User> readUserFile(final String userFile) {
         final UsersReader<User, Users<User>> usersReader = new UsersReader<>();
         return usersReader.readUserFile(userFile, () -> new UsersImpl<>(), () -> new UserImpl());

@@ -42,7 +42,6 @@ import tools.jackson.databind.node.ObjectNode;
 @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts", "PMD.TooManyMethods" })
 final class GeoServiceClientTest {
 
-  /** */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
   /** */

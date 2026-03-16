@@ -16,7 +16,6 @@ import org.schoellerfamily.geoservice.persistence.mongo.domain.GeoDocumentMongoF
  * @author Dick Schoeller
  */
 final class GeoDocumentMongoFactoryIT {
-    /** */
     @Test
     void testToGeoCodeItem() {
         final GeoDocument document = new GeoDocumentMongo();
@@ -27,7 +26,6 @@ final class GeoDocumentMongoFactoryIT {
         assertEquals(expected, actual, "Items should be the same");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemNullName() {
         final GeoDocument document = new GeoDocumentMongo();
@@ -38,7 +36,6 @@ final class GeoDocumentMongoFactoryIT {
         assertEquals(expected, actual, "Items should be the same");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemNullModern() {
         final GeoDocument document = new GeoDocumentMongo();
@@ -49,7 +46,6 @@ final class GeoDocumentMongoFactoryIT {
         assertEquals(expected, actual, "Items should be the same");
     }
 
-    /** */
     @Test
     void testToGeoCodeItemNull() {
         final GeoCodeItem expected = new GeoCodeItem();
@@ -58,7 +54,6 @@ final class GeoDocumentMongoFactoryIT {
         assertEquals(expected, actual, "Items should be the same");
     }
 
-    /** */
     @Test
     void testToGeoDocument() {
         final GeoCodeItem item = new GeoCodeItem("XYZZY", "PLUGH");
@@ -67,7 +62,6 @@ final class GeoDocumentMongoFactoryIT {
         assertTrue(compare(item, actual), "GeoDocument and GeoCodeItem should match");
     }
 
-    /** */
     @Test
     void testToGeoDocumentNull() {
         final GeoCodeItem item = new GeoCodeItem();
@@ -76,11 +70,6 @@ final class GeoDocumentMongoFactoryIT {
         assertTrue(compare(item, actual), "GeoDocument and GeoCodeItem should match");
     }
 
-    /**
-     * @param item a geocode item
-     * @param doc a geo document
-     * @return true if their fields match
-     */
     private boolean compare(final GeoCodeItem item, final GeoDocument doc) {
         // TODO move this method into a utility class somewhere
         // where it can be more broadly used
@@ -99,13 +88,6 @@ final class GeoDocumentMongoFactoryIT {
         return (item.getGeocodingResult().equals(doc.getResult()));
     }
 
-    /**
-     * Compare 2 strings. Both null is considered to be a match.
-     *
-     * @param arg0 a string
-     * @param arg1 another string
-     * @return true if they match
-     */
     private boolean compare(final String arg0, final String arg1) {
         // TODO move this method into a utility class somewhere
         // where it can be more broadly used

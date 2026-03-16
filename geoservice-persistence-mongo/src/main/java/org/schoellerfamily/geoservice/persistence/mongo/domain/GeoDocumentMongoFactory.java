@@ -10,13 +10,9 @@ import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
  * @author Dick Schoeller
  */
 public final class GeoDocumentMongoFactory {
-    /** */
     private static final GeoDocumentMongoFactory INSTANCE =
             new GeoDocumentMongoFactory();
 
-    /**
-     * Constructor.
-     */
     private GeoDocumentMongoFactory() {
         // Empty constructor.
     }

@@ -32,9 +32,6 @@ public class SpousesController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating spouses
-     */
     private SpouseCrud spouseCrud() {
         return new SpouseCrud(loader, toDocConverter, repositoryManager);
     }

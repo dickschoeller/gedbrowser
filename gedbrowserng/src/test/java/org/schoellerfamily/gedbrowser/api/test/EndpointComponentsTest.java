@@ -28,7 +28,6 @@ import org.springframework.boot.health.contributor.Health;
 @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
 final class EndpointComponentsTest {
 
-    /** */
     @Test
     void testApplicationHealthIndicatorIncludesVersionAndDatasetDetails() {
         final ApplicationInfo appInfo = Mockito.mock(ApplicationInfo.class);
@@ -48,7 +47,6 @@ final class EndpointComponentsTest {
         assertEquals(datasets, health.getDetails().get("datasets"));
     }
 
-    /** */
     @Test
     void testApplicationInfoContributorAddsAppMap() {
         final ApplicationInfo appInfo = Mockito.mock(ApplicationInfo.class);
@@ -63,7 +61,6 @@ final class EndpointComponentsTest {
         assertTrue(info.getDetails().containsKey("app"));
     }
 
-    /** */
     @Test
     void testRestoreEndpointReloadsAndReportsDatasetCount() {
         final GedObjectFileLoader loader = Mockito.mock(GedObjectFileLoader.class);
@@ -78,7 +75,6 @@ final class EndpointComponentsTest {
         assertEquals("Reloaded 2 datasets", result.get(0));
     }
 
-    /** */
     @Test
     void testCleanupDuplicatesEndpointReportsCounts() {
         final int rootCount = 1;
@@ -103,7 +99,6 @@ final class EndpointComponentsTest {
             result.get(0));
     }
 
-    /** */
     @Test
     void testLogDuplicatesEndpointReportsCounts() {
         final int rootCount = 1;

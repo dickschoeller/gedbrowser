@@ -42,11 +42,6 @@ public final class UsersReader<T extends User, U extends Users<T>> {
         return users;
     }
 
-    /**
-     * @param strings the strings from a row of the users file
-     * @param builder the user factory
-     * @return the populated user
-     */
     private T buildUser(final String[] strings, final UserFactory<T> builder) {
         final T user = builder.createUser();
         int i = 0;

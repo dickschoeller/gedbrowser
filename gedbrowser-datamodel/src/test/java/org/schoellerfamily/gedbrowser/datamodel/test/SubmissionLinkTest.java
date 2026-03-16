@@ -16,9 +16,6 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 final class SubmissionLinkTest {
 
-    /**
-     * @return parameters for the parameterized tests
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

@@ -15,9 +15,6 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 final class ChildConstructorTest {
 
-    /**
-     * @return stream of arguments for parameterized tests.
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

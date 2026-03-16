@@ -24,16 +24,13 @@ import com.google.maps.model.LocationType;
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
-    /** */
     private final GeocodeResultBuilder builder = new GeocodeResultBuilder();
 
-    /** */
     @Test
     void testToBackupGeoCodeItemNull() {
         assertNull(builder.toGeoServiceItem(null), "Null gets null");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemName() {
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", null);
@@ -41,7 +38,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertEquals("XYZZY", bgci.getPlaceName(), "Mismatched name");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemModernName() {
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", null);
@@ -49,7 +45,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertEquals("PLUGH", bgci.getModernPlaceName(), "Mismatched modern name");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemNullResult() {
         final GeoCodeItem gci = new GeoCodeItem("XYZZY", "PLUGH", null);
@@ -57,7 +52,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemEmptyResult() {
         final GeocodingResult gr = new GeocodingResult();
@@ -66,7 +60,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultAddressComponent() {
         final GeocodingResult gr = new GeocodingResult();
@@ -81,7 +74,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultEmptyAddressComponent() {
         final GeocodingResult gr = new GeocodingResult();
@@ -95,7 +87,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultAddress() {
         final GeocodingResult gr = new GeocodingResult();
@@ -105,7 +96,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultPlaceId() {
         final GeocodingResult gr = new GeocodingResult();
@@ -115,7 +105,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultPostcodeLocality() {
         final GeocodingResult gr = new GeocodingResult();
@@ -126,7 +115,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultAddressType() {
         final GeocodingResult gr = new GeocodingResult();
@@ -137,7 +125,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultEmptyGeometry() {
         final GeocodingResult gr = new GeocodingResult();
@@ -147,7 +134,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultGeometryLocation() {
         final GeocodingResult gr = new GeocodingResult();
@@ -160,7 +146,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultGeometryEmptyBounds() {
         final GeocodingResult gr = new GeocodingResult();
@@ -171,7 +156,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
             .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultGeometryBoundsWithNE() {
         final GeocodingResult gr = new GeocodingResult();
@@ -185,7 +169,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
             .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultGeometryBoundsWithSW() {
         final GeocodingResult gr = new GeocodingResult();
@@ -199,7 +182,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
             .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultGeometryBoundsWithBoth() {
         final GeocodingResult gr = new GeocodingResult();
@@ -216,7 +198,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultGeometryLocationType() {
         final GeocodingResult gr = new GeocodingResult();
@@ -227,7 +208,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
         assertTrue(validate(gci.getGeocodingResult(), bgci.getResult()), "Failed comparison");
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultGeometryEmptyViewport() {
         final GeocodingResult gr = new GeocodingResult();
@@ -238,7 +218,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
             .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultGeometryViewportNE() {
         final GeocodingResult gr = new GeocodingResult();
@@ -252,7 +231,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
             .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultGeometryViewportSW() {
         final GeocodingResult gr = new GeocodingResult();
@@ -266,7 +244,6 @@ class GeocodeResultBuilderToBackupTest extends GeocodeValidator {
             .isThrownBy(() -> builder.toGeoServiceItem(gci));
     }
 
-    /** */
     @Test
     void testToBackupGeoCodeItemResultGeometryViewportBoth() {
         final GeocodingResult gr = new GeocodingResult();

@@ -16,7 +16,6 @@ import nl.jqno.equalsverifier.Warning;
  * @author Dick Schoeller
  */
 class ApiObjectTest {
-    /** */
     @Test
     void testDefaultConstructorType() {
         final ApiObject o = ApiObject.builder()
@@ -27,7 +26,6 @@ class ApiObjectTest {
         assertEquals("", o.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testDefaultConstructorString() {
         final ApiObject o = ApiObject.builder()
@@ -38,7 +36,6 @@ class ApiObjectTest {
         assertEquals("", o.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testDefaultConstructorAttributes() {
         final ApiObject o = ApiObject.builder()
@@ -49,7 +46,6 @@ class ApiObjectTest {
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testConstructorType() {
         final ApiObject o = ApiObject.builder()
@@ -60,7 +56,6 @@ class ApiObjectTest {
         assertEquals("type", o.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testConstructorString() {
         final ApiObject o = ApiObject.builder()
@@ -71,7 +66,6 @@ class ApiObjectTest {
         assertEquals("string", o.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testConstructorNoAttributes() {
         final ApiObject o = ApiObject.builder()
@@ -82,7 +76,6 @@ class ApiObjectTest {
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testConstructorWithAttributes() {
         final List<ApiAttribute> attributes = List.of(ApiAttribute.builder()
@@ -99,7 +92,6 @@ class ApiObjectTest {
         assertEquals(1, o.getAttributes().size(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testIsType() {
         final ApiObject o = ApiObject.builder()
@@ -110,7 +102,6 @@ class ApiObjectTest {
         assertTrue(o.isType("type"), "isType mismatch");
     }
 
-    /** */
     @Test
     void testAccept() {
         final ApiObject o = ApiObject.builder()
@@ -123,7 +114,6 @@ class ApiObjectTest {
         assertEquals("base", visitor.getMethodCalled(), "Method mismatch");
     }
 
-    /** */
     @Test
     void testHashAndEquals() {
         EqualsVerifier.forClass(ApiObject.class).suppress(Warning.STRICT_INHERITANCE).verify();

@@ -39,7 +39,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
         return builder;
     }
 
-    /** */
     @Test
     void testPersonWithFamilyOneUndatedChildMatch() {
         final Person person1 = createJRandom();
@@ -53,7 +52,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with one family with undated child");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyTwoUndatedChildrenMatch() {
         final Person person1 = createJRandom();
@@ -69,7 +67,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with one family with undated children");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyTwoChildren1stUndatedMatch() {
         final Person person1 = createJRandom();
@@ -87,7 +84,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
             "Expected correct with one family with children 1st undated");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyTwoChildren1stUndatedBirthMatch() {
         final Person person1 = createJRandom();
@@ -106,7 +102,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
             "Expected correct with one family with children 1st undated");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyTwoChildren2ndUndatedMatch() {
         final Person person1 = createJRandom();
@@ -124,7 +119,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
             "Expected correct with one family with children 2nd undated");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyTwoChildren2ndUndatedBirthMatch() {
         final Person person1 = createJRandom();
@@ -143,7 +137,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
             "Expected correct with one family with children 2nd undated");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyTwoChildrenDatedInOrderMatch() {
         final Person person1 = createJRandom();
@@ -161,7 +154,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct 1 family with 2 children dated in order");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyTwoChildrenDatedOutOfOrderMisMatch() {
         final Person person1 = createJRandom();
@@ -179,7 +171,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
         assertFalse(result.isCorrect(), "Expected incorrect 1 family with 2 children out of order");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyTwoChildrenDatedNearBirthInOrderMatch() {
         final Person person1 = createJRandom();
@@ -198,7 +189,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
             "Expected correct 1 family with 2 children dated near " + "birth events in order");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyTwoChildrenDateBaptismOutOrderMisatch() {
         final Person person1 = createJRandom();
@@ -217,7 +207,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
             + "birth events out of order");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyTwoChildrenNamingBirthOutOrderMisatch() {
         final Person person1 = createJRandom();
@@ -236,7 +225,6 @@ final class OrderAnalyzerChildrenTest implements AnalyzerTest {
             + "birth events out of order");
     }
 
-    /** */
     @Test
     void testPersonWithFamily3ChildrenChristeningBirthOutOrderMisatch() {
         final Person person1 = createJRandom();

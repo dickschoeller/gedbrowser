@@ -249,13 +249,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
     // TODO will need checks of kids born before birth or after death of mother
     // TODO will need checks of kids born too long after death of father
 
-    /**
-     * This test hits a big data set. The main thing that it detects is poorly
-     * parsed dates. Since the data set in question has weird date formats. Some of
-     * that is inevitable.
-     *
-     * @throws IOException if failed to read file
-     */
     @Test
     void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = TestResourceReader.readFileTestSource("gl120368.ged");
@@ -269,11 +262,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         }
     }
 
-    /**
-     * Run analysis on one person and assess the results.
-     *
-     * @param person the person
-     */
     private void assertAnalysisSane(final Person person) {
         final LocalDate today = new LocalDate();
         final String indexName = person.getIndexName();
@@ -289,10 +277,6 @@ final class OrderAnalyzerTest implements AnalyzerTest {
         }
     }
 
-    /**
-     * @param person the person
-     * @return the analyzer
-     */
     private OrderAnalyzer createAnalyzer(final Person person) {
         return new OrderAnalyzer(person);
     }

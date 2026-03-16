@@ -39,7 +39,6 @@ final class AttributeListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -55,7 +54,6 @@ final class AttributeListItemRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsListItemEmpty() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute1,
@@ -68,7 +66,6 @@ final class AttributeListItemRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testRenderAsListItemString() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute2,
@@ -81,7 +78,6 @@ final class AttributeListItemRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testRenderAsListItem() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute3,

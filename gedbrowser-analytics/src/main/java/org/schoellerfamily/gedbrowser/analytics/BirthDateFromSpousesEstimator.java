@@ -113,32 +113,16 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
         return date;
     }
 
-    /**
-     * @param bde a birth date estimator to use
-     * @return the estimated birth date as a LocalDate
-     */
     private LocalDate shortEstimate(final BirthDateEstimator bde) {
         return bde.shortEstimate();
     }
 
-    /**
-     * @param bde a birth date estimator to use
-     * @param localDate if not null we already have a better estimate
-     * @param shortEstimate whether to do a short estimate or a deep estimate
-     * @return the estimate from own marriages
-     */
     private LocalDate estimateFromSpouse(final BirthDateEstimator bde,
             final LocalDate localDate,
             final boolean shortEstimate) {
         return bde.estimateFromSpouses(localDate, shortEstimate);
     }
 
-    /**
-     * Estimate for the ancestors of the person in the provided bde.
-     *
-     * @param bde estimator for that person
-     * @return the estimate
-     */
     private LocalDate ancestorsEstimate(final BirthDateEstimator bde) {
         return bde.ancestorsEstimate();
     }

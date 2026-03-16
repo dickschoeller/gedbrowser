@@ -72,13 +72,6 @@ public class SaveController extends AbstractController {
         return contents;
     }
 
-    /**
-     * Fill in response headers to make this save the file instead of
-     * displaying it.
-     *
-     * @param response the servlet response
-     * @param root the root of the dataset being saved
-     */
     private void setHeaders(final HttpServletResponse response,
             final Root root) {
         response.setHeader("content-type", "application/octet-stream");
@@ -86,10 +79,6 @@ public class SaveController extends AbstractController {
                 "attachment; filename=" + getSaveFilename(root));
     }
 
-    /**
-     * @param root the root object we are saving
-     * @return the href string with the base filename.
-     */
     private String getSaveFilename(final Root root) {
         final String filename = root.getFilename();
         final int lastIndexOf = filename.lastIndexOf("/");

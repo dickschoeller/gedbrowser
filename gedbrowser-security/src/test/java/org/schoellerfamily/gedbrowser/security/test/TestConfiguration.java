@@ -34,10 +34,6 @@ public class TestConfiguration {
         return readUserFile(userFile);
     }
 
-    /**
-     * @param userFile the user file to read
-     * @return the set of users from the user file
-     */
     private SecurityUsers readUserFile(final String userFile) {
         final UsersReader<SecurityUser, SecurityUsers> usersReader =
                 new UsersReader<>();

@@ -131,10 +131,6 @@ public final class ChildCrud extends RelationsCrud {
         }
     }
 
-    /**
-     * @param family the family to remove from
-     * @param cid    the person who referred to by the child link to remove
-     */
     private void removeChildFromFamily(final ApiFamilyBuilder<?, ?> family, final String cid) {
         for (final ApiAttribute childlink : family.getChildren()) {
             if (childlink.getString().equals(cid)) {

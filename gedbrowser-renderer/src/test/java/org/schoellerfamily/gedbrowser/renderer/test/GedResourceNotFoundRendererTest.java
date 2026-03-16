@@ -31,7 +31,6 @@ class GedResourceNotFoundRendererTest {
      */
     private GedResourceNotFoundRenderer renderer;
 
-    /** */
     @BeforeEach
     void setUp() {
         final RenderingContext context = RenderingContext.user(appInfo);
@@ -39,13 +38,11 @@ class GedResourceNotFoundRendererTest {
         renderer = new GedResourceNotFoundRenderer(throwable, context);
     }
 
-    /** */
     @Test
     void testGetMessage() {
         assertEquals("This is a test", renderer.getMessage(), "Mismatched message");
     }
 
-    /** */
     @Test
     void testGetException() {
         assertSame(throwable, renderer.getException(), "Mismatched exception");

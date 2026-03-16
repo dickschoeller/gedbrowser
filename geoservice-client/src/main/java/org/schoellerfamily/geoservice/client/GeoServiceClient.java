@@ -103,7 +103,10 @@ public class GeoServiceClient {
     /** Resilience executor, initialized by Spring in {@link #initCache()}. */
     private GeoServiceCallExecutor callExecutor;
 
-    /** Geocode result cache keyed by place name, null until {@link #initCache()} runs. */
+    /**
+     * Geocode result cache keyed by place name, null until {@link #initCache()}
+     * runs.
+     */
     private PlaceCache geocodeCache;
 
     /**

@@ -9,7 +9,6 @@ import nl.jqno.equalsverifier.Warning;
  * @author Dick Schoeller
  */
 class ApiExtraListsTest {
-    /** */
     @Test
     void testHashAndEquals() {
         EqualsVerifier.forClass(ApiExtraListsTest.class)

@@ -31,16 +31,11 @@ final class MultimediaRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testMultimediaListItemRenderer() {
         final MultimediaRenderer renderer = createRenderer();
@@ -48,10 +43,6 @@ final class MultimediaRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final MultimediaRenderer renderer = createRenderer();
@@ -59,10 +50,6 @@ final class MultimediaRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final MultimediaRenderer renderer = createRenderer();
@@ -70,10 +57,6 @@ final class MultimediaRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final MultimediaRenderer renderer = createRenderer();
@@ -81,9 +64,6 @@ final class MultimediaRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * @return the renderer
-     */
     private MultimediaRenderer createRenderer() {
         return new MultimediaRenderer(new Multimedia(), new GedRendererFactory(), anonymousContext);
     }

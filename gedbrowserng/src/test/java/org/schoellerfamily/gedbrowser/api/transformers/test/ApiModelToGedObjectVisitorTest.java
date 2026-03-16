@@ -31,13 +31,11 @@ class ApiModelToGedObjectVisitorTest {
     /** */
     private GedObjectBuilder builder;
 
-    /** */
     @BeforeEach
     void setUp() {
         builder = new GedObjectBuilder();
     }
 
-    /** */
     @Test
     void testHead() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
@@ -47,7 +45,6 @@ class ApiModelToGedObjectVisitorTest {
         assertEquals("Head", gob.getString(), "head mismatch");
     }
 
-    /** */
     @Test
     void testPerson() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
@@ -61,7 +58,6 @@ class ApiModelToGedObjectVisitorTest {
         assertEquals("I1", gob.getString(), "person mismatch");
     }
 
-    /** */
     @Test
     void testPersonWithAttributes() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
@@ -78,7 +74,6 @@ class ApiModelToGedObjectVisitorTest {
         assertEquals("Richard/Schoeller/", name.getString(), "name mismatch");
     }
 
-    /** */
     @Test
     void testFamily() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
@@ -88,7 +83,6 @@ class ApiModelToGedObjectVisitorTest {
         assertEquals("F1", gob.getString(), "family mismatch");
     }
 
-    /** */
     @Test
     void testSource() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
@@ -102,7 +96,6 @@ class ApiModelToGedObjectVisitorTest {
         assertEquals("S1", gob.getString(), "source mismatch");
     }
 
-    /** */
     @Test
     void testSourceLink() {
         final Person p = builder.createPerson("I1", "Richard/Schoeller/");
@@ -116,7 +109,6 @@ class ApiModelToGedObjectVisitorTest {
         assertEquals("S1", gob.getToString(), "source mismatch");
     }
 
-    /** */
     @Test
     void testSubmission() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
@@ -129,7 +121,6 @@ class ApiModelToGedObjectVisitorTest {
         assertEquals("SUBN", gob.getString(), "submission mismatch");
     }
 
-    /** */
     @Test
     void testSubmitter() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
@@ -143,7 +134,6 @@ class ApiModelToGedObjectVisitorTest {
         assertEquals("SUB1", gob.getString(), "submitter mismatch");
     }
 
-    /** */
     @Test
     void testBasicObject() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);
@@ -153,7 +143,6 @@ class ApiModelToGedObjectVisitorTest {
         assertEquals("OBJECT1", gob.getString(), "object mismatch");
     }
 
-    /** */
     @Test
     void testBasicObjectType() {
         final ApiModelToGedObjectVisitor visitor = new ApiModelToGedObjectVisitor(builder);

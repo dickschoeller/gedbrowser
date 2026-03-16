@@ -74,11 +74,6 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
         return date;
     }
 
-    /**
-     * @param beforePerson whether we are before the person being estimated
-     * @param increment current increment
-     * @return new increment
-     */
     private int incrementWhenDate(final boolean beforePerson,
             final int increment) {
         if (beforePerson) {
@@ -87,11 +82,6 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
         return increment - typicals.gapBetweenChildren();
     }
 
-    /**
-     * @param beforePerson whether we are before the person being estimated
-     * @param increment current increment
-     * @return new increment
-     */
     private int incrementWhenEmptyDate(final boolean beforePerson,
             final int increment) {
         if (beforePerson) {
@@ -128,21 +118,11 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
         return date;
     }
 
-    /**
-     * @param bde birth date estimator to use
-     * @param date the input date
-     * @return the adjusted date
-     */
     private LocalDate estimateFromSpousesAncestors(final BirthDateEstimator bde,
             final LocalDate date) {
         return bde.estimateFromSpousesAncestors(date);
     }
 
-    /**
-     * @param bde birth date estimator to use
-     * @param date the input date
-     * @return the adjusted date
-     */
     private LocalDate estimateFromSpouse(final BirthDateEstimator bde,
             final LocalDate date) {
         return bde.estimateFromSpouses(date, true);

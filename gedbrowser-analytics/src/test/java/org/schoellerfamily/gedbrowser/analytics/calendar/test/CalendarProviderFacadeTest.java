@@ -16,9 +16,7 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
  * @author Dick Schoeller
  */
 class CalendarProviderFacadeTest {
-    /** */
     private final Calendar calendar = Calendar.getInstance();
-    /** */
     private final LocalDate localDate = new LocalDate();
     /** */
     private CalendarProvider mockProvider;
@@ -60,9 +58,6 @@ class CalendarProviderFacadeTest {
         /** */
         private final CalendarProvider provider;
 
-        /**
-         * @param provider the provider to facade.
-         */
         CalendarProviderFacadeImpl(final CalendarProvider provider) {
             this.provider = provider;
         }
@@ -76,37 +71,23 @@ class CalendarProviderFacadeTest {
         }
     }
 
-    /**
-     * Prepare for the test.
-     */
     @BeforeEach
     void setUp() {
         mockProvider = new CalendarProviderFacadeImpl(new CalendarProviderMock());
         implProvider = new CalendarProviderFacadeImpl(new CalendarProviderImpl());
     }
 
-    /**
-     * Simply test the pass through of the facade.
-     */
     @Test
     void testFacadeNow() {
         assertSame(calendar, mockProvider.now(), "Should have passed through to the provider mock");
     }
 
-    /**
-     * Simply test the pass through of the facade.
-     */
     @Test
     void testFacadeNowDate() {
         assertSame(localDate, mockProvider.nowDate(),
             "Should have passed through to the provider mock");
     }
 
-    /**
-     * Simply test the pass through of the facade.
-     *
-     * @throws InterruptedException if thread interrupted
-     */
     @Test
     void testImplNow() throws InterruptedException {
         final Calendar actual = implProvider.now();
@@ -117,9 +98,6 @@ class CalendarProviderFacadeTest {
             expected, difference);
     }
 
-    /**
-     * Simply test the pass through of the facade.
-     */
     @Test
     void testImplNowDate() {
         final LocalDate actual = implProvider.nowDate();
@@ -127,11 +105,6 @@ class CalendarProviderFacadeTest {
             "actual should be same as localDate, or is 1 day higher if test at midnight");
     }
 
-    /**
-     * @param message  message to display on failure
-     * @param expected expected limit
-     * @param actual   actual value
-     */
     private void assertLessThan(final String message, final long expected, final long actual) {
         assertTrue(actual < expected, message);
     }

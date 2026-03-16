@@ -37,7 +37,6 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class RootVisitorTest {
-    /** */
     @Test
     void testBasicGetPersons() {
         final Root root = new Root();
@@ -49,7 +48,6 @@ final class RootVisitorTest {
         assertEquals(2, visitor.getPersons().size(), "Expected 2 persons");
     }
 
-    /** */
     @Test
     void testNoPersonsFromUnrelated() {
         final RootVisitor visitor = new RootVisitor();

@@ -70,12 +70,6 @@ public class ApiObject implements GetString {
         return "attribute".equals(getType()) && dt.equalsIgnoreCase(getString());
     }
 
-    /**
-     * Turn a URL encoded string into a decoded string.
-     *
-     * @param t type string to decode
-     * @return decoded string
-     */
     private String decode(final String t) {
         return URLDecoder.decode(t, StandardCharsets.UTF_8);
     }

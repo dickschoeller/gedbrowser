@@ -26,7 +26,6 @@ public class GeoCodeBackup {
     /** */
     private final GeoCode gcd;
 
-    /** */
     private final ObjectMapper mapper = JsonMapper.builder()
             .disable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
             .changeDefaultVisibility(

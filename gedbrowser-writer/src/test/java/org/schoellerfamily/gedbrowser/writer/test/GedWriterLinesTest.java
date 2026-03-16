@@ -149,7 +149,6 @@ class GedWriterLinesTest {
         return parameters;
     }
 
-    /** */
     @Test
     void testLines() {
         final List<String[]> parameters = data();

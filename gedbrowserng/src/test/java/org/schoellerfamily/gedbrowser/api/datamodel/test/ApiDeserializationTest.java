@@ -29,13 +29,11 @@ final class ApiDeserializationTest {
     /** */
     private ObjectMapper mapper;
 
-    /** */
     @BeforeEach
     void setUp() {
         mapper = new ObjectMapper();
     }
 
-    /** */
     @Test
     void testApiObjectDeserializeType() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"I1\",\"attributes\":[]}";
@@ -43,7 +41,6 @@ final class ApiDeserializationTest {
         assertEquals("person", obj.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testApiObjectDeserializeString() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"I1\",\"attributes\":[]}";
@@ -51,7 +48,6 @@ final class ApiDeserializationTest {
         assertEquals("I1", obj.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testApiObjectDeserializeEmptyAttributes() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"I1\",\"attributes\":[]}";
@@ -59,7 +55,6 @@ final class ApiDeserializationTest {
         assertTrue(obj.getAttributes().isEmpty(), "attributes should be empty");
     }
 
-    /** */
     @Test
     void testApiObjectDeserializeWithAttributes() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"I1\","
@@ -69,7 +64,6 @@ final class ApiDeserializationTest {
         assertEquals(1, obj.getAttributes().size(), "attributes size mismatch");
     }
 
-    /** */
     @Test
     void testApiObjectDeserializeDefaultsWhenMissing() throws Exception {
         final String json = "{}";
@@ -79,7 +73,6 @@ final class ApiDeserializationTest {
         assertEquals("", obj.getString(), "string should default to empty");
     }
 
-    /** */
     @Test
     void testApiAttributeDeserializeType() throws Exception {
         final String json = "{\"type\":\"attribute\",\"string\":\"Name\",\"tail\":\"John Doe\"}";
@@ -87,7 +80,6 @@ final class ApiDeserializationTest {
         assertEquals("attribute", attr.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testApiAttributeDeserializeString() throws Exception {
         final String json = "{\"type\":\"attribute\",\"string\":\"Name\",\"tail\":\"John Doe\"}";
@@ -95,7 +87,6 @@ final class ApiDeserializationTest {
         assertEquals("Name", attr.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testApiAttributeDeserializeTail() throws Exception {
         final String json = "{\"type\":\"attribute\",\"string\":\"Name\",\"tail\":\"John Doe\"}";
@@ -103,7 +94,6 @@ final class ApiDeserializationTest {
         assertEquals("John Doe", attr.getTail(), "tail mismatch");
     }
 
-    /** */
     @Test
     void testApiAttributeDeserializeDefaultTail() throws Exception {
         final String json = "{\"type\":\"attribute\",\"string\":\"Name\"}";
@@ -111,7 +101,6 @@ final class ApiDeserializationTest {
         assertEquals("", attr.getTail(), "tail should default to empty");
     }
 
-    /** */
     @Test
     void testApiPersonDeserializeString() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"I1\","
@@ -120,7 +109,6 @@ final class ApiDeserializationTest {
         assertEquals("I1", person.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testApiPersonDeserializeIndexName() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"I1\","
@@ -129,7 +117,6 @@ final class ApiDeserializationTest {
         assertEquals("Doe, John", person.getIndexName(), "indexName mismatch");
     }
 
-    /** */
     @Test
     void testApiPersonDeserializeSurname() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"I1\","
@@ -138,7 +125,6 @@ final class ApiDeserializationTest {
         assertEquals("Doe", person.getSurname(), "surname mismatch");
     }
 
-    /** */
     @Test
     void testApiPersonDeserializeDefaultIndexName() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"\",\"attributes\":[]}";
@@ -146,7 +132,6 @@ final class ApiDeserializationTest {
         assertEquals("?, ?", person.getIndexName(), "indexName should default to '?, ?'");
     }
 
-    /** */
     @Test
     void testApiPersonDeserializeDefaultSurname() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"\",\"attributes\":[]}";
@@ -154,7 +139,6 @@ final class ApiDeserializationTest {
         assertEquals("?", person.getSurname(), "surname should default to '?'");
     }
 
-    /** */
     @Test
     void testApiPersonDeserializePlaces() throws Exception {
         final String json = "{\"type\":\"person\",\"string\":\"I1\","
@@ -172,7 +156,6 @@ final class ApiDeserializationTest {
             "placeName mismatch");
     }
 
-    /** */
     @Test
     void testApiFamilyDeserializeType() throws Exception {
         final String json = "{\"type\":\"family\",\"string\":\"F1\",\"attributes\":[]}";
@@ -180,7 +163,6 @@ final class ApiDeserializationTest {
         assertEquals("family", family.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testApiFamilyDeserializeString() throws Exception {
         final String json = "{\"type\":\"family\",\"string\":\"F1\",\"attributes\":[]}";
@@ -188,7 +170,6 @@ final class ApiDeserializationTest {
         assertEquals("F1", family.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testApiFamilyDeserializeSpouses() throws Exception {
         final String json = "{\"type\":\"family\",\"string\":\"F1\","
@@ -198,7 +179,6 @@ final class ApiDeserializationTest {
         assertEquals(1, family.getSpouses().size(), "spouses size mismatch");
     }
 
-    /** */
     @Test
     void testApiFamilyDeserializeChildren() throws Exception {
         final String json = "{\"type\":\"family\",\"string\":\"F1\","
@@ -208,7 +188,6 @@ final class ApiDeserializationTest {
         assertEquals(1, family.getChildren().size(), "children size mismatch");
     }
 
-    /** */
     @Test
     void testApiHeadDeserializeType() throws Exception {
         final String json = "{\"type\":\"head\",\"string\":\"Head\",\"attributes\":[]}";
@@ -216,7 +195,6 @@ final class ApiDeserializationTest {
         assertEquals("head", head.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testApiNoteDeserializeTail() throws Exception {
         final String json = "{\"type\":\"note\",\"string\":\"N1\","
@@ -225,7 +203,6 @@ final class ApiDeserializationTest {
         assertEquals("This is a note.", note.getTail(), "tail mismatch");
     }
 
-    /** */
     @Test
     void testApiSourceDeserializeString() throws Exception {
         final String json = "{\"type\":\"source\",\"string\":\"S1\",\"attributes\":[]}";
@@ -233,7 +210,6 @@ final class ApiDeserializationTest {
         assertEquals("S1", source.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testApiSubmitterDeserializeName() throws Exception {
         final String json = "{\"type\":\"submitter\",\"string\":\"SUBM\","
@@ -242,7 +218,6 @@ final class ApiDeserializationTest {
         assertEquals("Jane Smith", submitter.getName(), "name mismatch");
     }
 
-    /** */
     @Test
     void testApiSubmissionDeserializeType() throws Exception {
         final String json = "{\"type\":\"submission\",\"string\":\"SUBN\",\"attributes\":[]}";

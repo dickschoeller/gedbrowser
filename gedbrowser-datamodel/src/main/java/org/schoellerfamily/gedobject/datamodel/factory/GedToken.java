@@ -12,12 +12,6 @@ package org.schoellerfamily.gedobject.datamodel.factory;
     /** */
     private final transient AbstractGedObjectFactory factory;
 
-    /**
-     * Token processing for GEDCOM lines.
-     *
-     * @param fullstring the input string.
-     * @param factory the factory for GedObject creation.
-     */
     /* default */ GedToken(final String fullstring,
             final AbstractGedObjectFactory factory) {
         this.fullString = fullstring;

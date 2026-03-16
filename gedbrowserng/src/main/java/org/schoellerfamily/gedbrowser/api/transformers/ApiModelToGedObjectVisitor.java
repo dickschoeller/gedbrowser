@@ -149,16 +149,10 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
         addAttributes(submitter);
     }
 
-    /**
-     * @param apiParent the parent object
-     */
     private void addAttributes(final ApiObject apiParent) {
         new AttributeListHelper(this).addAttributes(apiParent);
     }
 
-    /**
-     * @return the visitor
-     */
     /* default */ ApiModelToGedObjectVisitor createVisitor() {
         return new ApiModelToGedObjectVisitor(builder, gedObject);
     }

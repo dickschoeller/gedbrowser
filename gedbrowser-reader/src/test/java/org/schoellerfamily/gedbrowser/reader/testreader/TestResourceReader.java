@@ -19,9 +19,6 @@ import org.schoellerfamily.gedbrowser.reader.StreamManager;
  */
 @SuppressWarnings({ "PMD.TestClassWithoutTestCases" })
 public final class TestResourceReader {
-    /**
-     * Constructor.
-     */
     private TestResourceReader() {
     }
 
@@ -59,11 +56,6 @@ public final class TestResourceReader {
         return openBufferedReader(filename).lines();
     }
 
-    /**
-     * @param filename the input filename
-     * @return the buffered reader
-     * @throws IOException if the file isn't found or bad charset
-     */
     private static BufferedReader openBufferedReader(final String filename) throws IOException {
         final InputStream fis = new StreamManager(filename).getInputStream();
         final String charset = new CharsetScanner().charset(filename);

@@ -88,13 +88,6 @@ public class GedDocumentFileLoader {
         return Paths.get(gedbrowserHome, dbName + ".ged").toString();
     }
 
-    /**
-     * Validates that the database name does not contain path traversal sequences
-     * or other potentially dangerous path components.
-     *
-     * @param dbName the database name to validate
-     * @throws IllegalArgumentException if dbName is invalid
-     */
     private void validateDatabaseName(final String dbName) {
         if (StringUtils.isEmpty(dbName)) {
             throw new IllegalArgumentException("Database name cannot be null or empty");
@@ -182,12 +175,6 @@ public class GedDocumentFileLoader {
 
     }
 
-    /**
-     * @param dbName   the database name
-     * @param filename the file name
-     * @param gedFile  the file object
-     * @return the root object
-     */
     private Root createRoot(final String dbName, final String filename, final GedFile gedFile) {
         final Root root = g2g.create(gedFile);
         root.setString("Root");
@@ -196,12 +183,6 @@ public class GedDocumentFileLoader {
         return root;
     }
 
-    /**
-     * Save the root to the database.
-     *
-     * @param root the root GED object
-     * @return the root document
-     */
     private RootDocument save(final Root root) {
         final RootDocumentMongo rootdoc = (RootDocumentMongo) toDocConverter
             .createGedDocument(root);

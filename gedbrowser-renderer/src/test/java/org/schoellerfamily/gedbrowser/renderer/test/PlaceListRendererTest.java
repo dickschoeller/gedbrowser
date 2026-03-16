@@ -42,14 +42,8 @@ final class PlaceListRendererTest {
     @Autowired
     private ApplicationInfo appInfo;
 
-    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
-    /**
-     * A common person creator.
-     *
-     * @return the person
-     */
     private Person createJRandom() {
         return builder.createPerson("I1", "J. Random/Schoeller/");
     }

@@ -36,9 +36,6 @@ public class NotesController {
         /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating notes
-     */
     private ObjectCrud<ApiNote> crud() {
         return new NoteCrud(loader, toDocConverter, repositoryManager);
     }

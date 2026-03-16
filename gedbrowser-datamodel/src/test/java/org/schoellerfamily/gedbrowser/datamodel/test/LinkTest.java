@@ -24,7 +24,6 @@ final class LinkTest {
     /** */
     private transient Person person1;
 
-    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     @BeforeEach
@@ -116,11 +115,6 @@ final class LinkTest {
         );
     }
 
-    /**
-     * @param link the link to check
-     * @param expectedFromString the expected from string
-     * @param expectedToString the expected to string
-     */
     private void assertMatch(final Link link, final String expectedFromString,
             final String expectedToString) {
         assertEquals(expectedFromString, link.getFromString(), "From string mismatch");

@@ -100,12 +100,6 @@ public class PersonController extends GeoDataController {
         return "person";
     }
 
-    /**
-     * @param dbName   the name of the database
-     * @param idString the ID of the person
-     * @param context  the rendering context
-     * @return the person
-     */
     private Person fetchPerson(final String dbName, final String idString,
         final RenderingContext context) {
         final Root root = fetchRoot(dbName);
@@ -117,31 +111,14 @@ public class PersonController extends GeoDataController {
         return person;
     }
 
-    /**
-     * @param context the rendering context
-     * @param person  the person being rendered
-     * @return the person renderer
-     */
     private GedRenderer<?> personRenderer(final RenderingContext context, final Person person) {
         return new GedRendererFactory().create(person, context);
     }
 
-    /**
-     * Get the name string in an html fragment format.
-     *
-     * @param context the rendering context
-     * @param person  the person being rendered
-     * @return the name string
-     */
     private String nameHtml(final RenderingContext context, final Person person) {
         return nameRenderer(context, person).getNameHtml();
     }
 
-    /**
-     * @param context the rendering context
-     * @param person  the person being rendered
-     * @return the name renderer
-     */
     private GedRenderer<?> nameRenderer(final RenderingContext context, final Person person) {
         return new GedRendererFactory().create(person.getName(), context);
     }

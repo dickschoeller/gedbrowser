@@ -31,9 +31,6 @@ public class UsersConfiguration {
         return readUserFile();
     }
 
-    /**
-     * @return the set of users from the user file
-     */
     private SecurityUsers readUserFile() {
         final UsersReader<SecurityUser, SecurityUsers> usersReader =
                 new UsersReader<>();

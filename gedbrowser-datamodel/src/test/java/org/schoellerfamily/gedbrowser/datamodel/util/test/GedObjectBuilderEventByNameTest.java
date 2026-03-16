@@ -38,12 +38,9 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
  */
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
 final class GedObjectBuilderEventByNameTest {
-    /** */
     private static GedObjectBuilder builder = new GedObjectBuilder();
-    /** */
     @SuppressWarnings("PMD.SingularField")
     private static Root root = builder.getRoot();
-    /** */
     @SuppressWarnings("PMD.SingularField")
     private static Person person = builder.createPerson("I99999", "Name/Me/");
 
@@ -83,11 +80,6 @@ final class GedObjectBuilderEventByNameTest {
         { person, "submitterlink", "SUB1", "", SubmitterLink.class, "Submitter", "SUB1" },
         { person, "submissionlink", "SUBN", "", SubmissionLink.class, "Submission", "SUBN" }, };
 
-    /**
-     * Provide parameter combinations: (visited, type).
-     *
-     * @return stream of arguments
-     */
     private static Stream<Arguments> params() {
         return Arrays.stream(PARAMETERS).map(Arguments::of);
     }

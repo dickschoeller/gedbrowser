@@ -50,7 +50,6 @@ final class IndexByPlaceRendererTest {
     @Autowired
     private transient GeoServiceClient client;
 
-    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     /** */
@@ -73,9 +72,6 @@ final class IndexByPlaceRendererTest {
         adminContext = new RenderingContext(admin, appInfo, provider);
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIndexAsAnon() throws IOException {
         // Living check is too slow. Turned off display
@@ -86,9 +82,6 @@ final class IndexByPlaceRendererTest {
         assertRenderMatches(sizes, anonymousContext);
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIndexAsUser() throws IOException {
         @SuppressWarnings("checkstyle:nowhitespaceafter")
@@ -96,9 +89,6 @@ final class IndexByPlaceRendererTest {
         assertRenderMatches(sizes, userContext);
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIndexAsAdmin() throws IOException {
         @SuppressWarnings("checkstyle:nowhitespaceafter")
@@ -106,9 +96,6 @@ final class IndexByPlaceRendererTest {
         assertRenderMatches(sizes, adminContext);
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIndexAsAdminSchoeller() throws IOException {
         // Test can only be run with my data.
@@ -129,18 +116,10 @@ final class IndexByPlaceRendererTest {
         assertEquals(expected, map.size(), "maps size wrong");
     }
 
-    /**
-     * A common person creator.
-     *
-     * @return the person
-     */
     private Person createJRandom() {
         return builder.createPerson("I1", "J. Random/Schoeller/");
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIndexAsAdminSchoellerPlaceInfo() throws IOException {
         // Have to build what the stub client can deal with.
@@ -170,13 +149,6 @@ final class IndexByPlaceRendererTest {
         assertEquals(1, map.size(), "map is empty");
     }
 
-    /**
-     * Do all the work for a specific context.
-     *
-     * @param sizes   the sizes
-     * @param context the context
-     * @throws IOException if file can't be read
-     */
     private void assertRenderMatches(final int[] sizes, final RenderingContext context)
         throws IOException {
         final Root root = reader.readBigTestSource();

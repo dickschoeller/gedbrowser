@@ -106,9 +106,6 @@ class LoginIT {
         return sessionId.toString();
     }
 
-    /**
-     * @throws MalformedURLException if something goes awry
-     */
     @BeforeEach
     void setUp() throws MalformedURLException {
         if (driver == null) {
@@ -137,9 +134,6 @@ class LoginIT {
                 expectationsUtil.create());
     }
 
-    /**
-     * Test navigation through index from one person to another.
-     */
     @Disabled("Selenium tests currently failing in setup phase")
     @Test
     void testBasicAdminLogin() {
@@ -161,9 +155,6 @@ class LoginIT {
         currentPerson.clickLogout();
     }
 
-    /**
-     * Test navigation through index from one person to another.
-     */
     @Disabled("Selenium tests currently failing in setup phase")
     @Test
     void testBasicUserLogin() {
@@ -186,9 +177,6 @@ class LoginIT {
         currentPerson.clickLogout();
     }
 
-    /**
-     * Test navigation through index from one person to another.
-     */
     @Disabled("Selenium tests currently failing in setup phase")
     @Test
     void testBasicUserLivingPerson() {
@@ -216,9 +204,6 @@ class LoginIT {
         currentPerson.clickLogout();
     }
 
-    /**
-     * Tear down after test.
-     */
     @AfterEach
     void tearDown() {
         if (!driverManagedByExtension && driver != null) {
@@ -226,49 +211,24 @@ class LoginIT {
         }
     }
 
-    /**
-     * Use this for mid-test checks.
-     *
-     * @param message message to display on failure
-     * @param expected expected value
-     * @param actual actual value
-     */
     private void checkEquals(final String message, final String expected,
             final String actual) {
         assertEquals(expected, actual, message);
     }
 
-    /**
-     * Use this for mid-test checks.
-     *
-     * @param message message to display on failure
-     * @param expected expected value
-     * @param actual actual value
-     */
     private void checkSame(final String message, final Object expected,
             final Object actual) {
         assertSame(expected, actual, message);
     }
 
-    /**
-     * @param page the page being checked
-     * @param name the name of the menu item
-     */
     private void checkMenuPresent(final MenuPage page, final String name) {
         assertTrue(page.isMenuPresent(name), "Menu " + name + " should be present");
     }
 
-    /**
-     * @param page the page being checked
-     * @param name the name of the menu item
-     */
     private void checkMenuAbsent(final MenuPage page, final String name) {
         assertFalse(page.isMenuPresent(name), "Menu " + name + " should not be present");
     }
 
-    /**
-     * @return the base url string for connecting to the server
-     */
     private String baseUrl() {
         return "http://" + this.host + ":" + this.port + "/gedbrowser/";
     }

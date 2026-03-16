@@ -57,7 +57,6 @@ class SubmissionCrudIT {
     /** */
     private CrudTestHelper helper;
 
-    /** */
     @BeforeEach
     void setUp() {
         helper = new CrudTestHelper(new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -65,7 +64,6 @@ class SubmissionCrudIT {
         crud = new SubmissionCrud(loader, toDocConverter, repositoryManager);
     }
 
-    /** */
     @Test
     void testGetSubmissionsGl120368() {
         log.info("Beginning testGetSubmissionsGl120368");
@@ -79,7 +77,6 @@ class SubmissionCrudIT {
             .returns("2", o -> o.getAttributes().get(0).getTail());
     }
 
-    /** */
     @Test
     void testGetSubmissionsMiniSchoeller() {
         log.info("Beginning testGetSubmissionsMiniSchoeller");
@@ -87,7 +84,6 @@ class SubmissionCrudIT {
         assertTrue(list.isEmpty(), "should be no submissions");
     }
 
-    /** */
     @Test
     void testGetSubmissionsGl120368B1() {
         log.info("Beginning testGetSubmissionsGl120368B1");
@@ -99,7 +95,6 @@ class SubmissionCrudIT {
             .returns("2", o -> o.getTail());
     }
 
-    /** */
     @Test
     void testGetSubmissionsGl120368Xyzzy() {
         log.info("Beginning testGetSubmissionsGl120368Xyzzy");
@@ -109,7 +104,6 @@ class SubmissionCrudIT {
             .withMessage("Object Xyzzy of type submission not found");
     }
 
-    /** */
     @Test
     void testCreateSubmissionsSimple() {
         log.info("Beginning testCreateSubmissionsSimple");
@@ -122,7 +116,6 @@ class SubmissionCrudIT {
         assertThat(outSubmission).returns(inSubmission.getType(), o -> o.getType());
     }
 
-    /** */
     @Test
     void testDeleteSubmission() {
         log.info("Beginning testDeleteSubmission");
@@ -138,7 +131,6 @@ class SubmissionCrudIT {
         assertThat(deletedSubmission).returns(id, o -> o.getString());
     }
 
-    /** */
     @Test
     void testDeleteSubmissionNotFound() {
         log.info("Beginning testDeleteSubmissionNotFound");
@@ -148,7 +140,6 @@ class SubmissionCrudIT {
             .withMessage("Object XXXXXXX of type submission not found");
     }
 
-    /** */
     @Test
     void testDeleteSubmissionDatabaseNotFound() {
         log.info("Beginning testDeleteSubmissionDatabaseNotFound");
@@ -157,7 +148,6 @@ class SubmissionCrudIT {
             .withMessage("Data set XYZZY not found");
     }
 
-    /** */
     @Test
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testUpdateSubmissionWithNote() {

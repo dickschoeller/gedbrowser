@@ -102,12 +102,6 @@ public class GeoCodeTestFixture {
         return cloneArray(ADDRESS_TABLE);
     }
 
-    /**
-     * Clones the provided array.
-     *
-     * @param src the input array
-     * @return a new clone of the provided array
-     */
     @SuppressWarnings({ "PMD.UseVarargs" })
     private String[][] cloneArray(final String[][] src) {
         final int length = src.length;
@@ -154,14 +148,6 @@ public class GeoCodeTestFixture {
         load(addressTable(), gcc);
     }
 
-    /**
-     * Load the cache from an array of strings. Particularly valuable for
-     * testing. Each string has planeName|modernPlaceName. The second part can
-     * be empty.
-     *
-     * @param strings the array of strings
-     * @param gcc the geocode to load
-     */
     private void load(final String[][] strings, final GeoCode gcc) {
         for (final String[] line : strings) {
             if (line.length < 2 || StringUtils.isEmpty(line[1])) {

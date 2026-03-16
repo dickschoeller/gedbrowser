@@ -10,7 +10,6 @@ import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
  * @author Dick Schoeller
  */
 final class UserTokenStateTest {
-    /** */
     @Test
     void testDefaultExpiration() {
         final UserTokenState userTokenState = new UserTokenStateImpl();
@@ -18,14 +17,12 @@ final class UserTokenStateTest {
             "Default should be min Long");
     }
 
-    /** */
     @Test
     void testDefaultToken() {
         final UserTokenState userTokenState = new UserTokenStateImpl();
         assertEquals("", userTokenState.getAccessToken(), "Default should be empty string");
     }
 
-    /** */
     @Test
     void testInitializedExpiration() {
         final UserTokenState userTokenState = new UserTokenStateImpl("token", 1L);
@@ -33,7 +30,6 @@ final class UserTokenStateTest {
             "Value doesn't match what was passed to constructor");
     }
 
-    /** */
     @Test
     void testInitializedToken() {
         final UserTokenState userTokenState = new UserTokenStateImpl("token", 1L);
@@ -41,7 +37,6 @@ final class UserTokenStateTest {
             "Value doesn't match what was passed to constructor");
     }
 
-    /** */
     @Test
     void testSetExpiration() {
         final UserTokenStateImpl userTokenState = new UserTokenStateImpl();
@@ -50,7 +45,6 @@ final class UserTokenStateTest {
             "Value doesn't match what was set");
     }
 
-    /** */
     @Test
     void testSetToken() {
         final UserTokenStateImpl userTokenState = new UserTokenStateImpl();

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public final class GedLineToGedObjectTransformer {
-    /** */
     private final GedObjectFactory factory = new GedObjectFactory();
 
     /**

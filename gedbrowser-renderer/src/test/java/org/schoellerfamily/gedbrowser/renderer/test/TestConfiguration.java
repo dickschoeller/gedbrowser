@@ -22,10 +22,6 @@ public class TestConfiguration {
         return new CalendarProviderStub();
     }
 
-    /**
-     * @param g2g the transformer
-     * @return the data reader
-     */
     @Bean
     TestDataReader reader(final GedLineToGedObjectTransformer g2g) {
         return new TestDataReader(g2g);

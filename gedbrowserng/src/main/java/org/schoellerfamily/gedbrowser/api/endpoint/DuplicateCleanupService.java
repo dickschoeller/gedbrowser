@@ -65,12 +65,6 @@ public class DuplicateCleanupService {
         return duplicates;
     }
 
-    /**
-     * Keep the first matching document and delete later duplicates.
-     *
-     * @param collectionName the Mongo collection to clean
-     * @return number of deleted documents
-     */
     private long cleanupCollection(final String collectionName) {
         final Map<String, List<Object>> idsByKey = groupedIdsByKey(collectionName);
 
@@ -90,10 +84,6 @@ public class DuplicateCleanupService {
         return deletedCount;
     }
 
-    /**
-     * @param collectionName the collection to scan
-     * @return number of duplicate documents identified
-     */
     private int logCollectionDuplicates(final String collectionName) {
         final Map<String, List<Object>> idsByKey = groupedIdsByKey(collectionName);
         int duplicateCount = 0;
@@ -113,10 +103,6 @@ public class DuplicateCleanupService {
         return duplicateCount;
     }
 
-    /**
-     * @param collectionName the collection to scan
-     * @return map of dedupe-key to list of document ids
-     */
     private Map<String, List<Object>> groupedIdsByKey(final String collectionName) {
         final Query query = new Query();
         query.fields()
@@ -150,11 +136,6 @@ public class DuplicateCleanupService {
         return idsByKey;
     }
 
-    /**
-     * @param doc document from a top-level GED collection
-     * @return de-duplication key based on filename and string, or {@code null}
-     *         if either component is missing
-     */
     private String buildKey(final Document doc) {
         final Object filename = doc.get("filename");
         final Object string = doc.get("string");
@@ -164,9 +145,6 @@ public class DuplicateCleanupService {
         return String.valueOf(filename) + "\u0000" + String.valueOf(string);
     }
 
-    /**
-     * @return a mutable list for collecting document IDs
-     */
     private List<Object> newIdList() {
         return new ArrayList<>();
     }

@@ -535,10 +535,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * @param person the person
-     * @return the renderer
-     */
     private PersonRenderer createRenderer(final Person person) {
         return new PersonRenderer(person, new GedRendererFactory(), userContext);
     }

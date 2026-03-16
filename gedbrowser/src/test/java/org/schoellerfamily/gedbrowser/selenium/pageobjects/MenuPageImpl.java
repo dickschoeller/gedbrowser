@@ -71,10 +71,6 @@ public final class MenuPageImpl implements MenuPage {
         }
     }
 
-    /**
-     * @param name the name of the menu item
-     * @return the element for that menu item
-     */
     private WebElement getMenu(final String name) {
         return page.getWebElement(By.id(name + "-menu"));
     }

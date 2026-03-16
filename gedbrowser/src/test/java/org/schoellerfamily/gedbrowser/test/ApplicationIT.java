@@ -43,7 +43,6 @@ public class ApplicationIT {
     @Autowired
     private RestTestClient restTestClient;
 
-    /** */
     @Test
     void shouldReturn200WhenSendingRequestToLoadEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()

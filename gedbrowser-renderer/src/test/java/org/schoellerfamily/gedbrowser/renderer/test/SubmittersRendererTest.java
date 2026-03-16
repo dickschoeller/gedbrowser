@@ -35,15 +35,11 @@ final class SubmittersRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * @throws IOException if can't read the data file
-     */
     @Test
     void testSubmitters() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -51,11 +47,6 @@ final class SubmittersRendererTest {
         assertSubmittersMatch(renderer.getSubmitters());
     }
 
-    /**
-     * Check that the submitters matches the expectation.
-     *
-     * @param renderers the collection of submitter renderers
-     */
     private void assertSubmittersMatch(final Collection<SubmitterRenderer> renderers) {
         assertEquals(1, renderers.size(), "should have only one entry");
         for (final SubmitterRenderer subRenderer : renderers) {
@@ -66,11 +57,6 @@ final class SubmittersRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -78,11 +64,6 @@ final class SubmittersRendererTest {
         assertEquals("head?db=gl120368", renderer.getHeaderHref(), "head href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -90,11 +71,6 @@ final class SubmittersRendererTest {
         assertEquals("save?db=gl120368", renderer.getSaveHref(), "save href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveFilename() throws IOException {
         final Root root1 = reader.readFileTestSource();
@@ -102,11 +78,6 @@ final class SubmittersRendererTest {
         assertEquals("gl120368.ged", renderer.getSaveFilename(), "save href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -115,11 +86,6 @@ final class SubmittersRendererTest {
             "index href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -127,11 +93,6 @@ final class SubmittersRendererTest {
         assertEquals("living?db=gl120368", renderer.getLivingHref(), "living href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -139,11 +100,6 @@ final class SubmittersRendererTest {
         assertEquals("sources?db=gl120368", renderer.getSourcesHref(), "submitters href mismatch");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();

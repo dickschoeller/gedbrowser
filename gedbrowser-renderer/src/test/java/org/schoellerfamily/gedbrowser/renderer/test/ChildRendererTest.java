@@ -32,19 +32,12 @@ final class ChildRendererTest {
     /** */
     private ChildRenderer renderer;
 
-    /**
-     * Set up the renderer to test.
-     */
     @BeforeEach
     void setUp() {
         renderer = new ChildRenderer(new Child(), new GedRendererFactory(),
             RenderingContext.anonymous(appInfo));
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         assertTrue(renderer
@@ -52,10 +45,6 @@ final class ChildRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         assertTrue(renderer
@@ -63,10 +52,6 @@ final class ChildRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         assertTrue(renderer
@@ -74,10 +59,6 @@ final class ChildRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndeRenderer() {
         assertTrue(renderer
@@ -85,10 +66,6 @@ final class ChildRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         assertTrue(renderer

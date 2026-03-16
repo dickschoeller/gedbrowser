@@ -13,19 +13,16 @@ class DataSetNotFoundExceptionTest {
     /** */
     private DataSetNotFoundException exception;
 
-    /** */
     @BeforeEach
     void setUp() {
         exception = new DataSetNotFoundException("Data set not found", "xyzzy");
     }
 
-    /** */
     @Test
     void testMessage() {
         assertEquals("Data set not found", exception.getMessage(), "Message doesn't match");
     }
 
-    /** */
     @Test
     void testDatasetName() {
         assertEquals("xyzzy", exception.getDatasetName(), "Dataset name doesn't match");

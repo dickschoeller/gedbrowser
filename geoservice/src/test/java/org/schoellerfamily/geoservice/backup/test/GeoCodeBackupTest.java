@@ -72,9 +72,6 @@ final class GeoCodeBackupTest {
         }
     }
 
-    /**
-     * @throws IOException if backup file can't be written or read
-     */
     @Test
     void testBackupRestoreBasic() throws IOException {
         gcd.clear();
@@ -90,9 +87,6 @@ final class GeoCodeBackupTest {
         }
     }
 
-    /**
-     * @throws IOException if backup file can't be written or read
-     */
     @Test
     void testBackupRestore() throws IOException {
         gcd.clear();

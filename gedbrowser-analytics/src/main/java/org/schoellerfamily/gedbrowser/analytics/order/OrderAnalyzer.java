@@ -58,9 +58,6 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
         return getResult();
     }
 
-    /**
-     * @param attribute the attribute to check
-     */
     private void birthCheck(final Attribute attribute) {
         final LocalDate newDate = createLocalDate(attribute);
         if (!isBirthRelatedEvent(attribute)) {
@@ -86,9 +83,6 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
         }
     }
 
-    /**
-     * @param attribute the attribute to check
-     */
     private void deathCheck(final Attribute attribute) {
         final LocalDate newDate = createLocalDate(attribute);
         if (getSeenEvent() == null) {

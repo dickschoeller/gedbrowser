@@ -38,7 +38,6 @@ import lombok.extern.slf4j.Slf4j;
 @Disabled("Selenium tests currently failing in setup phase")
 @Slf4j
 final class GedBrowserBasicIT {
-
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
         .equals(System.getProperty("printNavigation", "false"));
@@ -63,7 +62,7 @@ final class GedBrowserBasicIT {
     private RemoteWebDriver driver;
 
     /** */
-    private boolean driverManagedByExtension = false;
+    private boolean driverManagedByExtension;
 
     /** */
     private SessionId sessionId;
@@ -90,10 +89,6 @@ final class GedBrowserBasicIT {
         return sessionId.toString();
     }
 
-    /**
-     * @param testInfo information about the currently running test
-     * @throws MalformedURLException if something goes awry
-     */
     @BeforeEach
     void setUp(final TestInfo testInfo) throws MalformedURLException {
         final String methodName = testInfo.getTestMethod().map(m -> m.getName()).orElse("unknown");
@@ -120,10 +115,6 @@ final class GedBrowserBasicIT {
         factory = new PageFactory(driver, waiter, expectationsUtil.create());
     }
 
-    /**
-     * This test runs through the links by a partial of the text. This is done
-     * because the UI currently doesn't use IDs.
-     */
     @Test
     void testChildLinkNavigation() {
         println("child link navigation test");
@@ -131,10 +122,6 @@ final class GedBrowserBasicIT {
         println();
     }
 
-    /**
-     * This test runs through the links by a partial of the text. This is done
-     * because the UI currently doesn't use IDs.
-     */
     @Test
     void testFatherLinkNavigation() {
         println("father link navigation test");
@@ -142,10 +129,6 @@ final class GedBrowserBasicIT {
         println();
     }
 
-    /**
-     * This test runs through the links by a partial of the text. This is done
-     * because the UI currently doesn't use IDs.
-     */
     @Test
     void testMotherLinkNavigation() {
         println("mother link navigation test");
@@ -153,9 +136,6 @@ final class GedBrowserBasicIT {
         println();
     }
 
-    /**
-     * @return always returns true
-     */
     private boolean childNavigationExercise() {
         try {
             PersonPage currentPerson = factory.createPersonPage(null, baseUrl(), "I22");
@@ -189,9 +169,6 @@ final class GedBrowserBasicIT {
         return true;
     }
 
-    /**
-     * @return always returns true
-     */
     private boolean fathersNavigationExercise() {
         try {
             PersonPage currentPerson = factory.createPersonPage(null, baseUrl(), "I9");
@@ -228,9 +205,6 @@ final class GedBrowserBasicIT {
         return true;
     }
 
-    /**
-     * @return always returns true
-     */
     private boolean mothersNavigationExercise() {
         try {
             PersonPage currentPerson = factory.createPersonPage(null, baseUrl(), "I15");
@@ -260,57 +234,30 @@ final class GedBrowserBasicIT {
         return true;
     }
 
-    /**
-     * @return the base url string for connecting to the server
-     */
     private String baseUrl() {
         return "http://" + this.host + ":" + this.port + "/gedbrowser/";
     }
 
-    /**
-     * Print the provide string.
-     *
-     * @param string the string to print
-     */
     private void println(final String string) {
         if (PRINT_NAVIGATION) {
             log.info(string);
         }
     }
 
-    /**
-     * Print empty line.
-     */
     private void println() {
         if (PRINT_NAVIGATION) {
             log.info("");
         }
     }
 
-    /**
-     * Use this for mid-test checks.
-     *
-     * @param message  message to display on failure
-     * @param expected expected value
-     * @param actual   actual value
-     */
     private void check(final String message, final String expected, final String actual) {
         assertEquals(expected, actual, message);
     }
 
-    /**
-     * Use this for mid-test checks.
-     *
-     * @param message message to display on failure
-     * @param actual  actual value
-     */
     private void check(final String message, final boolean actual) {
         assertTrue(actual, message);
     }
 
-    /**
-     * Tear down after test.
-     */
     @AfterEach
     void tearDown() {
         if (!driverManagedByExtension && driver != null) {

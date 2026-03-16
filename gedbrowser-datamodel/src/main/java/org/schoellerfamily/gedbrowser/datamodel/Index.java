@@ -63,24 +63,10 @@ public final class Index {
         }
     }
 
-    /**
-     * Find the map of full names to a sets of IDs for the given surname. If the
-     * surname is not already present, create a new map and add it to the index.
-     *
-     * @param surname surname to search
-     * @return the associated map
-     */
     private SortedMap<String, SortedSet<String>> findNamesPerSurname(final String surname) {
         return surnameIndex.computeIfAbsent(surname, k -> new TreeMap<>());
     }
 
-    /**
-     * Find the set of IDs associated with a full name in the provided map.
-     *
-     * @param indexName the full name in index form
-     * @param names the map of full names to sets of IDs
-     * @return the set of ID strings
-     */
     private SortedSet<String> findIdsPerName(final String indexName,
             final SortedMap<String, SortedSet<String>> names) {
         return names.computeIfAbsent(indexName, k -> new TreeSet<>());
@@ -120,12 +106,6 @@ public final class Index {
     // TODO want a method to provide the total count of names.
     // TODO want a method to provide the IDs per name/surname.
 
-    /**
-     * Get map of full names to sets of IDs for the provided surname.
-     *
-     * @param surname the surname to search.
-     * @return the map
-     */
     private Map<String, SortedSet<String>> getNamesPerSurnameMap(
             final String surname) {
         if (!surnameIndex.containsKey(surname)) {

@@ -64,12 +64,6 @@ public final class IndexPage extends PageBase implements MenuPageFacade {
         return getFactory().createPersonPage(this, getBaseUrl(), id);
     }
 
-    /**
-     * Return the link to the person requested.
-     *
-     * @param id the ID string of the person link to click
-     * @return the web element for the a tag inside the mother element
-     */
     private WebElement getPerson(final String id) {
         return getWebElement(
                 By.id(id)).findElement(By.tagName("a"));

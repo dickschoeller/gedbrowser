@@ -20,7 +20,6 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentR
  */
 final class DatasetsControllerTest {
 
-    /** */
     @Test
     void testDbsReturnsExpectedCount() {
         final RepositoryManagerMongo manager = Mockito.mock(RepositoryManagerMongo.class);
@@ -40,7 +39,6 @@ final class DatasetsControllerTest {
         assertEquals(2, dbs.size());
     }
 
-    /** */
     @Test
     void testDbsReturnsFirstDatasetName() {
         final RepositoryManagerMongo manager = Mockito.mock(RepositoryManagerMongo.class);
@@ -60,7 +58,6 @@ final class DatasetsControllerTest {
         assertEquals("alpha", dbs.get(0));
     }
 
-    /** */
     @Test
     void testDbsReturnsEmptyListWhenNoDatasets() {
         final RepositoryManagerMongo manager = Mockito.mock(RepositoryManagerMongo.class);
@@ -76,7 +73,6 @@ final class DatasetsControllerTest {
         assertTrue(dbs.isEmpty());
     }
 
-    /** */
     @Test
     void testDbsDeduplicatesDatasetNames() {
         final RepositoryManagerMongo manager = Mockito.mock(RepositoryManagerMongo.class);

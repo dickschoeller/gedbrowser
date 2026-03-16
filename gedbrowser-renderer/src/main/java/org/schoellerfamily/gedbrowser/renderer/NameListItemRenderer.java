@@ -34,9 +34,6 @@ public class NameListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
-    /**
-     * @param builder the string builder that we will be appending to.
-     */
     private void renderListItemContents(final StringBuilder builder) {
         builder.append("<span class=\"label\">Name:</span> ");
         builder.append(nameRenderer.renderAsPhrase());
