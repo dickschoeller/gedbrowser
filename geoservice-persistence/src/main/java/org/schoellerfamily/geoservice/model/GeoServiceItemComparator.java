@@ -15,7 +15,11 @@ public class GeoServiceItemComparator
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@inheritDoc}
+     * Returns the int.
+     *
+     * @param o1 the o1
+     * @param o2 the o2
+     * @return the resulting int
      */
     @Override
     public int compare(final GeoServiceItem o1, final GeoServiceItem o2) {

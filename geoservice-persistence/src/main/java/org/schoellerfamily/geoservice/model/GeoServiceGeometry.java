@@ -53,11 +53,13 @@ public final class GeoServiceGeometry {
     }
 
     /**
-     * @param bounds the actual bounding box of the region
-     * @param location the location of the center of the region
-     * @param locationType the level of certainty of the location
-     * @param viewport the bounding box of the recommended view of the region
-     * @return the feature collection
+     * Creates the feature collection.
+     *
+     * @param bounds the bounds
+     * @param location the location
+     * @param locationType the location type to use
+     * @param viewport the viewport
+     * @return the resulting feature collection
      */
     public static FeatureCollection createFeatureCollection(
             final Feature bounds, final Point location,
@@ -67,10 +69,12 @@ public final class GeoServiceGeometry {
         return gsg.getFeatureCollection();
     }
     /**
-     * @param location the location of the center of the region
-     * @param bounds the actual bounding box of the region
-     * @param viewport the bounding box of the recommended view of the region
-     * @return the feature collection
+     * Creates the feature collection.
+     *
+     * @param location the location
+     * @param bounds the bounds
+     * @param viewport the viewport
+     * @return the resulting feature collection
      */
     public static FeatureCollection createFeatureCollection(
             final Feature location, final Feature bounds,

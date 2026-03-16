@@ -34,7 +34,9 @@ public final class Index {
     private final Root mRoot;
 
     /**
-     * @param root the root object for this index.
+     * Creates a new Index.
+     *
+     * @param root the root
      */
     public Index(final Root root) {
         this.mRoot = root;
@@ -73,14 +75,18 @@ public final class Index {
     }
 
     /**
-     * @return the number of surnames in the index
+     * Returns the int.
+     *
+     * @return the resulting int
      */
     public int surnameCount() {
         return surnameIndex.size();
     }
 
     /**
-     * @return the set of surnames in the index
+     * Gets the surnames.
+     *
+     * @return the surnames
      */
     public Set<String> getSurnames() {
         return Collections.unmodifiableSet(surnameIndex.keySet());

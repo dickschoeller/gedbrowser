@@ -36,7 +36,9 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     private GedObject gedObject;
 
     /**
-     * @param builder class to assist in build GED objects
+     * Creates a new ApiModelToGedObjectVisitor.
+     *
+     * @param builder the builder
      */
     public ApiModelToGedObjectVisitor(final GedObjectBuilder builder) {
         this.builder = builder;
@@ -44,8 +46,10 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * @param builder class to assist in build GED objects
-     * @param parent the parent GED object
+     * Creates a new ApiModelToGedObjectVisitor.
+     *
+     * @param builder the builder
+     * @param parent the parent
      */
     public ApiModelToGedObjectVisitor(final GedObjectBuilder builder,
             final GedObject parent) {
@@ -54,14 +58,18 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * @return the built object
+     * Gets the ged object.
+     *
+     * @return the ged object
      */
     public GedObject getGedObject() {
         return gedObject;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param attribute the attribute
      */
     @Override
     public void visit(final ApiAttribute attribute) {
@@ -71,7 +79,9 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param baseObject the base object
      */
     @Override
     public void visit(final ApiObject baseObject) {
@@ -81,7 +91,9 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param family the family
      */
     @Override
     public void visit(final ApiFamily family) {
@@ -90,7 +102,9 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param head the head
      */
     @Override
     public void visit(final ApiHead head) {
@@ -99,7 +113,9 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param note the note
      */
     @Override
     public void visit(final ApiNote note) {
@@ -110,7 +126,9 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param person the person
      */
     @Override
     public void visit(final ApiPerson person) {
@@ -120,7 +138,9 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param source the source
      */
     @Override
     public void visit(final ApiSource source) {
@@ -130,7 +150,9 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param submission the submission
      */
     @Override
     public void visit(final ApiSubmission submission) {
@@ -140,7 +162,9 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param submitter the submitter
      */
     @Override
     public void visit(final ApiSubmitter submitter) {

@@ -34,10 +34,10 @@ public final class LivingEstimator {
     private final CalendarProvider provider;
 
     /**
-     * Constructor.
+     * Creates a new LivingEstimator.
      *
-     * @param person   the person we are estimating
-     * @param provider the provider of "today" for comparisons
+     * @param person the person
+     * @param provider the provider
      */
     public LivingEstimator(final Person person,
             final CalendarProvider provider) {
@@ -81,11 +81,13 @@ public final class LivingEstimator {
     }
 
     /**
-     * @param root data set to process
-     * @param living the list of people estimated to be living
-     * @param dead the list of people estimated to be dead
-     * @param buckets the living people divided into buckets by decade
-     * @param provider the provider of "today" for comparisons
+     * Executes fill buckets.
+     *
+     * @param root the root
+     * @param living the living
+     * @param dead the dead
+     * @param buckets the buckets
+     * @param provider the provider
      */
     public static void fillBuckets(final GedObject root,
             final List<Person> living, final List<Person> dead,
@@ -141,11 +143,11 @@ public final class LivingEstimator {
         private static final long serialVersionUID = 1L;
 
         /**
-         * <p>
-         * Implements comparison by sorting by index name (and ID if names are
-         * the same).
-         * </p>
-         * {@inheritDoc}
+         * Executes compare.
+         *
+         * @param arg0 the arg0
+         * @param arg1 the arg1
+         * @return the resulting int
          */
         @Override
         public int compare(final Person arg0, final Person arg1) {

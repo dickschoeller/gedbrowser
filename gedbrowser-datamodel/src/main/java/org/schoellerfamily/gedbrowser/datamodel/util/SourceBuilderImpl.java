@@ -18,24 +18,40 @@ public final class SourceBuilderImpl implements SourceBuilder {
     private final GedObjectBuilder gedObjectBuilder;
 
     /**
-     * Constructor.
+     * Creates a new SourceBuilderImpl.
      *
-     * @param gedObjectBuilder the containing builder
+     * @param gedObjectBuilder the ged object builder
      */
     public SourceBuilderImpl(final GedObjectBuilder gedObjectBuilder) {
         this.gedObjectBuilder = gedObjectBuilder;
     }
 
+    /**
+     * Gets the root.
+     *
+     * @return the root
+     */
     @Override
     public Root getRoot() {
         return gedObjectBuilder.getRoot();
     }
 
+    /**
+     * Creates the source.
+     *
+     * @return the resulting source
+     */
     @Override
     public Source createSource() {
         return new Source();
     }
 
+    /**
+     * Creates the source.
+     *
+     * @param string the string
+     * @return the resulting source
+     */
     @Override
     public Source createSource(final String string) {
         final Source source = new Source(getRoot(), new ObjectId(string));
@@ -43,11 +59,23 @@ public final class SourceBuilderImpl implements SourceBuilder {
         return source;
     }
 
+    /**
+     * Creates source link.
+     *
+     * @return the resulting source link
+     */
     @Override
     public SourceLink createSourceLink() {
         return new SourceLink();
     }
 
+    /**
+     * Creates the source link.
+     *
+     * @param ged the ged
+     * @param source the source
+     * @return the resulting source link
+     */
     @Override
     public SourceLink createSourceLink(final GedObject ged,
             final Source source) {
@@ -60,11 +88,22 @@ public final class SourceBuilderImpl implements SourceBuilder {
         return sourceLink;
     }
 
+    /**
+     * Creates the submitter.
+     *
+     * @return the resulting submitter
+     */
     @Override
     public Submitter createSubmitter() {
         return new Submitter(getRoot(), null);
     }
 
+    /**
+     * Creates the submitter.
+     *
+     * @param idString the id string
+     * @return the resulting submitter
+     */
     @Override
     public Submitter createSubmitter(final String idString) {
         if (idString == null) {
@@ -76,6 +115,13 @@ public final class SourceBuilderImpl implements SourceBuilder {
         return submitter;
     }
 
+    /**
+     * Creates the submitter.
+     *
+     * @param idString the id string
+     * @param name the name to use
+     * @return the resulting submitter
+     */
     @Override
     public Submitter createSubmitter(final String idString, final String name) {
         if (idString == null || name == null) {
@@ -88,6 +134,13 @@ public final class SourceBuilderImpl implements SourceBuilder {
         return submitter;
     }
 
+    /**
+     * Creates the submitter link.
+     *
+     * @param ged the ged
+     * @param submitter the submitter
+     * @return the resulting submitter link
+     */
     @Override
     public SubmitterLink createSubmitterLink(final GedObject ged,
             final Submitter submitter) {

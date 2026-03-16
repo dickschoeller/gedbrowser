@@ -40,7 +40,11 @@ public class AuthenticationSuccessHandler
     private final ObjectMapper objectMapper;
 
     /**
-     * {@inheritDoc}
+     * Executes on authentication success.
+     *
+     * @param request the request
+     * @param response the response
+     * @param authentication the authentication
      */
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request,

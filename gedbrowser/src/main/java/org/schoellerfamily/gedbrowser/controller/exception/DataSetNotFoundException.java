@@ -16,10 +16,10 @@ public final class DataSetNotFoundException extends RuntimeException {
     private final String datasetName;
 
     /**
-     * Constructor.
+     * Creates a new DataSetNotFoundException.
      *
-     * @param message     the message to display
-     * @param datasetName the dataset that was requested
+     * @param message the message
+     * @param datasetName the dataset name to use
      */
     public DataSetNotFoundException(final String message, final String datasetName) {
         super(message);

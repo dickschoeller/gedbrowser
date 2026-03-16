@@ -61,9 +61,11 @@ public class GedDocumentFileLoader {
     private final String gedbrowserHome;
 
     /**
+     * Loads the document.
+     *
      * @param repositoryManager the repository manager
-     * @param dbName the name of the database to load
-     * @return the root object of the database
+     * @param dbName the db name to use
+     * @return the resulting root document
      */
     public RootDocument loadDocument(final RepositoryManagerMongo repositoryManager,
         final String dbName) {
@@ -79,9 +81,10 @@ public class GedDocumentFileLoader {
     }
 
     /**
-     * @param dbName the name of the DB
-     * @return the derived filename
-     * @throws IllegalArgumentException if dbName contains path traversal sequences
+     * Builds file name.
+     *
+     * @param dbName the db name to use
+     * @return the resulting string
      */
     public String buildFileName(final String dbName) {
         validateDatabaseName(dbName);
@@ -153,9 +156,11 @@ public class GedDocumentFileLoader {
     }
 
     /**
+     * Loads the repository.
+     *
      * @param repositoryManager the repository manager
-     * @param dbName the name of the DB to load
-     * @return the root object loaded
+     * @param dbName the db name to use
+     * @return the resulting root document
      */
     protected RootDocument loadRepository(final RepositoryManagerMongo repositoryManager,
         final String dbName) {
@@ -222,8 +227,10 @@ public class GedDocumentFileLoader {
     }
 
     /**
+     * Returns the object>>.
+     *
      * @param repositoryManager the repository manager
-     * @return list of name value pairs for the data sets currently loaded
+     * @return the resulting object>>
      */
     public final List<Map<String, Object>> details(final RepositoryManagerMongo repositoryManager) {
         return StreamSupport.stream(rootDocumentRepository.findAll().spliterator(), false)
@@ -232,9 +239,11 @@ public class GedDocumentFileLoader {
     }
 
     /**
+     * Executes details.
+     *
      * @param repositoryManager the repository manager
-     * @param dbname name of a dataset
-     * @return the name value pairs describing this dataset
+     * @param dbname the dbname to use
+     * @return the resulting object>
      */
     public final Map<String, Object> details(final RepositoryManagerMongo repositoryManager,
         final String dbname) {

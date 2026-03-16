@@ -23,8 +23,10 @@ public class UserTestHelper {
     private final RestTestClient client;
 
     /**
-     * @param client lets us make rest calls
-     * @param port   the port to connect to
+     * Creates a new UserTestHelper.
+     *
+     * @param client the client
+     * @param port the port
      */
     public UserTestHelper(final RestTestClient client, final int port) {
         this.client = client;
@@ -32,9 +34,10 @@ public class UserTestHelper {
     }
 
     /**
+     * Executes whoami.
+     *
      * @param headers the headers
-     * @return the user
-     * @throws URISyntaxException if there is a URL problem
+     * @return the resulting security user
      */
     public SecurityUser whoami(final HttpHeaders headers) throws URISyntaxException {
         final EntityExchangeResult<UserImpl> res = whoamiResponse(headers);
@@ -42,9 +45,10 @@ public class UserTestHelper {
     }
 
     /**
+     * Executes whoami response.
+     *
      * @param headers the headers
-     * @return the response
-     * @throws URISyntaxException if there is a URL problem
+     * @return the resulting entity exchange result
      */
     public EntityExchangeResult<UserImpl> whoamiResponse(final HttpHeaders headers)
         throws URISyntaxException {
@@ -58,9 +62,10 @@ public class UserTestHelper {
     }
 
     /**
+     * Returns the users string.
+     *
      * @param headers the headers
-     * @return the JSON string of users
-     * @throws URISyntaxException if there is a problem with the URL
+     * @return the users string
      */
     public String getUsersString(final HttpHeaders headers) throws URISyntaxException {
         final String url = baseUrl() + "users";
@@ -68,10 +73,11 @@ public class UserTestHelper {
     }
 
     /**
-     * @param headers     the necessary headers
-     * @param requestName the name of the user to get
-     * @return the User
-     * @throws URISyntaxException if the URI is bogus
+     * Returns the user.
+     *
+     * @param headers the headers
+     * @param requestName the request name to use
+     * @return the user
      */
     public SecurityUser getUser(final HttpHeaders headers, final String requestName)
         throws URISyntaxException {
@@ -80,10 +86,11 @@ public class UserTestHelper {
     }
 
     /**
-     * @param headers     the necessary headers
-     * @param requestName the name of the user to get
-     * @return the response
-     * @throws URISyntaxException if the URI is bogus
+     * Returns the user response.
+     *
+     * @param headers the headers
+     * @param requestName the request name to use
+     * @return the user response
      */
     public EntityExchangeResult<UserImpl> getUserResponse(final HttpHeaders headers,
         final String requestName) throws URISyntaxException {
@@ -97,9 +104,10 @@ public class UserTestHelper {
     }
 
     /**
-     * @param headers     the necessary headers
-     * @return the response
-     * @throws URISyntaxException if the URI is bogus
+     * Returns the users response.
+     *
+     * @param headers the headers
+     * @return the users response
      */
     public EntityExchangeResult<List<UserImpl>> getUsersResponse(final HttpHeaders headers)
         throws URISyntaxException {
@@ -114,9 +122,10 @@ public class UserTestHelper {
     }
 
     /**
-     * @param headers the necessary headers
-     * @return the User list
-     * @throws URISyntaxException if the URI is bogus
+     * Returns the users.
+     *
+     * @param headers the headers
+     * @return the users
      */
     public List<UserImpl> getUsers(final HttpHeaders headers) throws URISyntaxException {
         final String url = baseUrl() + "users";

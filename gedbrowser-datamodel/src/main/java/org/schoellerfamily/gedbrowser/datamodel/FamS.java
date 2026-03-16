@@ -7,22 +7,30 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  */
 public final class FamS extends AbstractLink {
     /**
-     * Default constructor.
+     * Creates a new FamS.
+     *
      */
     public FamS() {
         super();
     }
 
     /**
-     * @param parent person who is a spouse in the referred family
-     * @param string long version of type string
-     * @param xref the reference to a family object
+     * Creates a new FamS.
+     *
+     * @param parent the parent
+     * @param string the string
+     * @param xref the xref
      */
     public FamS(final GedObject parent, final String string,
             final ObjectId xref) {
         super(parent, string, xref);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

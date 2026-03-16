@@ -14,8 +14,10 @@ public class GedWriterLine {
     private final String line;
 
     /**
-     * @param level the GEDCOM object level
-     * @param gedObject the GEDCOM object that this line represents
+     * Creates a new GedWriterLine.
+     *
+     * @param level the level
+     * @param gedObject the ged object
      * @param line the line
      */
     public GedWriterLine(final int level, final GedObject gedObject,
@@ -26,21 +28,27 @@ public class GedWriterLine {
     }
 
     /**
-     * @return the level for the current object
+     * Gets the level.
+     *
+     * @return the level
      */
     public int getLevel() {
         return level;
     }
 
     /**
-     * @return the GEDCOM object
+     * Gets the ged object.
+     *
+     * @return the ged object
      */
     public GedObject getGedObject() {
         return gedObject;
     }
 
     /**
-     * @return the string for this line
+     * Gets the line.
+     *
+     * @return the line
      */
     public String getLine() {
         return line;

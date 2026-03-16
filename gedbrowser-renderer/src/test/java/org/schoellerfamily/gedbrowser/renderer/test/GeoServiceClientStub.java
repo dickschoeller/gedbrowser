@@ -14,18 +14,29 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
  */
 public final class GeoServiceClientStub extends GeoServiceClient {
     /**
-     * Constructor.
+     * Creates a new GeoServiceClientStub.
+     *
      */
     public GeoServiceClientStub() {
         super(null, null, 0, null);
     }
 
+    /**
+     * Executes init cache.
+     *
+     */
     @Override
     protected void initCache() {
         // No-op: avoid starting cache infrastructure (e.g., resilience4j/ehcache)
         // during renderer tests.
     }
 
+    /**
+     * Gets the value.
+     *
+     * @param placeName the place name to use
+     * @return the value
+     */
     @Override
     public GeoServiceItem get(final String placeName) {
         if ("Null Item, USA".equals(placeName)) {

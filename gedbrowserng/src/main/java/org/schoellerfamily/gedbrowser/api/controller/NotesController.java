@@ -41,9 +41,11 @@ public class NotesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param note the data for the note
-     * @return the note as created
+     * Returns the api note.
+     *
+     * @param db the db
+     * @param note the note
+     * @return the resulting api note
      */
     @PostMapping(value = "/v1/dbs/{db}/notes")
     public ApiNote create(
@@ -53,8 +55,10 @@ public class NotesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of notes
+     * Returns the list.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @GetMapping(value = "/v1/dbs/{db}/notes")
     public List<ApiNote> read(
@@ -63,9 +67,11 @@ public class NotesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the note
-     * @return the note
+     * Returns the api note.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api note
      */
     @GetMapping(value = "/v1/dbs/{db}/notes/{id}")
     public ApiNote read(
@@ -75,10 +81,12 @@ public class NotesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the note to update
-     * @param note the data for the note
-     * @return the note as created
+     * Returns the api note.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param note the note
+     * @return the resulting api note
      */
     @PutMapping(value = "/v1/dbs/{db}/notes/{id}")
     public ApiNote update(
@@ -89,9 +97,11 @@ public class NotesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the note
-     * @return the deleted object
+     * Returns the api note.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api note
      */
     @DeleteMapping(value = "/v1/dbs/{db}/notes/{id}")
     public ApiNote delete(

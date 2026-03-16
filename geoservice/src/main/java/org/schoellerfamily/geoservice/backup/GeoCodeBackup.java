@@ -33,17 +33,18 @@ public class GeoCodeBackup {
             .build();
 
     /**
-     * Constructor.
+     * Creates a new GeoCodeBackup.
      *
-     * @param gcd a geocode
+     * @param gcd the gcd
      */
     public GeoCodeBackup(final GeoCode gcd) {
         this.gcd = gcd;
     }
 
     /**
-     * @param resultFile the file to write to
-     * @throws IOException if file IO problems
+     * Executes backup.
+     *
+     * @param resultFile the result file to use
      */
     public void backup(final File resultFile) throws IOException {
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
@@ -55,8 +56,9 @@ public class GeoCodeBackup {
     }
 
     /**
-     * @param src the file to read from
-     * @throws IOException if file IO problems
+     * Executes recover.
+     *
+     * @param src the src
      */
     public void recover(final File src) throws IOException {
         final List<GeoServiceItem> list = mapper.readValue(src,

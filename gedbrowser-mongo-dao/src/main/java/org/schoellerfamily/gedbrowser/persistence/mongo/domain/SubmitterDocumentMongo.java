@@ -22,11 +22,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 })
 public final class SubmitterDocumentMongo extends GedDocumentMongo<Submitter>
         implements SubmitterDocument {
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "submitter";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     * @param ged the ged
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -40,11 +51,21 @@ public final class SubmitterDocumentMongo extends GedDocumentMongo<Submitter>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

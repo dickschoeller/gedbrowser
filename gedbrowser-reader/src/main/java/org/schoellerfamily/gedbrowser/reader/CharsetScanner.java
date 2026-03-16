@@ -41,8 +41,10 @@ public class CharsetScanner {
         "ascii", ASCII);
 
     /**
-     * @param filename the name of the file to scan
-     * @return the Java charset name
+     * Executes charset.
+     *
+     * @param filename the filename to use
+     * @return the resulting string
      */
     public String charset(final String filename) {
         try (InputStream fis = new StreamManager(filename).getInputStream()) {
@@ -75,8 +77,10 @@ public class CharsetScanner {
     }
 
     /**
-     * @param root the root of the dataset that we are working with
-     * @return the Java charset name
+     * Executes charset.
+     *
+     * @param root the root
+     * @return the resulting string
      */
     public String charset(final Root root) {
         final GedObject gob = root.getAttributes().get(0);
@@ -96,8 +100,10 @@ public class CharsetScanner {
     }
 
     /**
-     * @param charset the GEDCOM charset name
-     * @return the Java charset name
+     * Executes gedcom charset to java.
+     *
+     * @param charset the charset to process
+     * @return the resulting string
      */
     public String gedcomCharsetToJava(final String charset) {
         final String javaCharset = CHARSET_MAP

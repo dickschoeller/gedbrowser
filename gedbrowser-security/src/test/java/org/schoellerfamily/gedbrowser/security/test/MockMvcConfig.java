@@ -30,7 +30,9 @@ public class MockMvcConfig {
     private static final int PORT = 8080;
 
     /**
-     * @return the request builder
+     * Returns the request builder.
+     *
+     * @return the resulting request builder
      */
     public RequestBuilder mockRequestBuilder() {
         return null;

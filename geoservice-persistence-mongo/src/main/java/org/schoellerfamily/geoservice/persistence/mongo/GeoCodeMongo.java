@@ -36,7 +36,8 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes clear.
+     *
      */
     @Override
     public void clear() {
@@ -44,7 +45,9 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     }
 
     /**
-     * {@inheritDoc}
+     * Finds the all documents.
+     *
+     * @return the resulting geo document>
      */
     @Override
     public Iterable<? extends GeoDocument> findAllDocuments() {
@@ -52,7 +55,9 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes size.
+     *
+     * @return the resulting long
      */
     @Override
     public long size() {
@@ -62,7 +67,10 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the geo document.
+     *
+     * @param item the item
+     * @return the resulting geo document
      */
     @Override
     public GeoDocument create(final GeoCodeItem item) {
@@ -71,7 +79,10 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes add document.
+     *
+     * @param document the document
+     * @return the resulting geo document
      */
     @Override
     public GeoDocument addDocument(final GeoDocument document) {
@@ -83,7 +94,10 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the document.
+     *
+     * @param placeName the place name to use
+     * @return the document
      */
     @Override
     public GeoDocument getDocument(final String placeName) {
@@ -98,7 +112,10 @@ public final class GeoCodeMongo extends GeoCodeBasic {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes delete document.
+     *
+     * @param placeName the place name to use
+     * @return the resulting geo document
      */
     @Override
     public GeoDocument deleteDocument(final String placeName) {

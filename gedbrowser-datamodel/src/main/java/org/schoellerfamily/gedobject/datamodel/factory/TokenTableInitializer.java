@@ -184,9 +184,8 @@ public final class TokenTableInitializer {
     };
 
     /**
-     * Constructor.
+     * Creates a new TokenTableInitializer.
      *
-     * Populates the map of tokens.
      */
     public TokenTableInitializer() {
         initAttributeTokens();

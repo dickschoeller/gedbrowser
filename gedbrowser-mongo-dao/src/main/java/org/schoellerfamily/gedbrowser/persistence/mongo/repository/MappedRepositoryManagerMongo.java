@@ -18,6 +18,11 @@ public abstract class MappedRepositoryManagerMongo implements HasRepoMap {
     private final Map<Class<? extends GedObject>, Object>
         classToRepoMap = new HashMap<>();
 
+    /**
+     * Gets the map.
+     *
+     * @return the map
+     */
     @Override
     public final Map<Class<? extends GedObject>, Object> getMap() {
         return classToRepoMap;

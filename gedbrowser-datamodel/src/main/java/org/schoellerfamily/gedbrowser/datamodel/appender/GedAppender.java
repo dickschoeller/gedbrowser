@@ -14,6 +14,11 @@ public final class GedAppender implements AppenderStrategy {
      */
     private final transient GedObject owner;
 
+    /**
+     * Executes append string.
+     *
+     * @param appendage the appendage
+     */
     @Override
     public void appendString(final String appendage) {
         owner.setString(owner.getString().concat(appendage));

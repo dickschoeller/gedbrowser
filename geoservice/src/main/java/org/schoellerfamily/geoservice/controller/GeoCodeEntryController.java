@@ -33,9 +33,11 @@ public class GeoCodeEntryController {
     private final GeoCode gcc;
 
     /**
-     * @param name the historical name of the place
-     * @param modernName the modern searchable name of the place
-     * @return a search result
+     * Finds a value.
+     *
+     * @param name the name to use
+     * @param modernName the modern name to use
+     * @return the resulting geo service item
      */
     @GetMapping("/geocode")
     public final GeoServiceItem find(

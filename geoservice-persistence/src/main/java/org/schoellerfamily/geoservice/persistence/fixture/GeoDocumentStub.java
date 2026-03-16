@@ -13,23 +13,26 @@ public final class GeoDocumentStub implements GeoDocument {
     private GeoCodeItem item;
 
     /**
-     * Constructor.
+     * Creates a new GeoDocumentStub.
+     *
      */
     public GeoDocumentStub() {
         item = null;
     }
 
     /**
-     * Constructor.
+     * Creates a new GeoDocumentStub.
      *
-     * @param item the wrapped item
+     * @param item the item
      */
     public GeoDocumentStub(final GeoCodeItem item) {
         this.item = item;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the name.
+     *
+     * @return the name
      */
     @Override
     public String getName() {
@@ -40,7 +43,9 @@ public final class GeoDocumentStub implements GeoDocument {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the modern name.
+     *
+     * @return the modern name
      */
     @Override
     public String getModernName() {
@@ -51,7 +56,9 @@ public final class GeoDocumentStub implements GeoDocument {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the result.
+     *
+     * @return the result
      */
     @Override
     public GeocodingResult getResult() {
@@ -62,7 +69,9 @@ public final class GeoDocumentStub implements GeoDocument {
     }
 
     /**
-     * {@inheritDoc}
+     * Loads the geo code item.
+     *
+     * @param gci the gci
      */
     @Override
     public void loadGeoCodeItem(final GeoCodeItem gci) {
@@ -70,7 +79,9 @@ public final class GeoDocumentStub implements GeoDocument {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the geo item.
+     *
+     * @return the geo item
      */
     @Override
     public GeoCodeItem getGeoItem() {
@@ -78,7 +89,9 @@ public final class GeoDocumentStub implements GeoDocument {
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the geo item.
+     *
+     * @param gci the gci
      */
     @Override
     public void setGeoItem(final GeoCodeItem gci) {

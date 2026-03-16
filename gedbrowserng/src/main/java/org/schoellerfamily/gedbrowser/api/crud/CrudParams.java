@@ -21,8 +21,10 @@ public class CrudParams {
     private final RepositoryManagerMongo repositoryManager;
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Executes crud params.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public CrudParams(final GedObjectFileLoader loader,
@@ -52,6 +54,8 @@ public class CrudParams {
     }
 
     /**
+     * Gets the repository manager.
+     *
      * @return the repository manager
      */
     public final RepositoryManagerMongo getRepositoryManager() {

@@ -11,14 +11,18 @@ public class NoteLinkNameIndexRenderer implements NameIndexRenderer {
     private final NoteLinkRenderer noteLinkRenderer;
 
     /**
-     * @param noteLinkRenderer the associated object renderer
+     * Creates a new NoteLinkNameIndexRenderer.
+     *
+     * @param noteLinkRenderer the note link renderer
      */
     public NoteLinkNameIndexRenderer(final NoteLinkRenderer noteLinkRenderer) {
         this.noteLinkRenderer = noteLinkRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public String getIndexName() {

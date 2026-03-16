@@ -21,7 +21,8 @@ public final class GeoCodeItem {
     private final GeocodingResult geocodingResult;
 
     /**
-     * Default constructor.
+     * Executes geo code item.
+     *
      */
     public GeoCodeItem() {
         this.placeName = null;
@@ -30,8 +31,10 @@ public final class GeoCodeItem {
     }
 
     /**
-     * @param placeName a place name to use for both historical and modern name
-     * @param geocodingResult a geo-coding result
+     * Executes geo code item.
+     *
+     * @param placeName the place name to use
+     * @param geocodingResult the geocoding result
      */
     public GeoCodeItem(final String placeName,
             final GeocodingResult geocodingResult) {
@@ -41,7 +44,9 @@ public final class GeoCodeItem {
     }
 
     /**
-     * @param placeName a place name to use for both historical and modern name
+     * Executes geo code item.
+     *
+     * @param placeName the place name to use
      */
     public GeoCodeItem(final String placeName) {
         this.placeName = placeName;
@@ -50,8 +55,10 @@ public final class GeoCodeItem {
     }
 
     /**
-     * @param placeName the historical place name
-     * @param modernPlaceName the modern place name to use for geo-coding
+     * Executes geo code item.
+     *
+     * @param placeName the place name to use
+     * @param modernPlaceName the modern place name to use
      */
     public GeoCodeItem(final String placeName,
             final String modernPlaceName) {
@@ -61,7 +68,9 @@ public final class GeoCodeItem {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether h code is present.
+     *
+     * @return true if the condition is met; otherwise false
      */
     @Override
     public int hashCode() {
@@ -115,7 +124,10 @@ public final class GeoCodeItem {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes equals.
+     *
+     * @param obj the obj
+     * @return the resulting boolean
      */
     @Override
     @SuppressWarnings({ "PMD.SimplifyBooleanReturns" })
@@ -187,9 +199,11 @@ public final class GeoCodeItem {
     }
 
     /**
-     * @param placeName the historical place name
-     * @param modernPlaceName the modern place name to use for geo-coding
-     * @param geocodingResult the geo-coding result
+     * Executes geo code item.
+     *
+     * @param placeName the place name to use
+     * @param modernPlaceName the modern place name to use
+     * @param geocodingResult the geocoding result
      */
     public GeoCodeItem(final String placeName,
             final String modernPlaceName,

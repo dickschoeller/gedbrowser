@@ -27,9 +27,11 @@ import com.google.maps.model.LocationType;
     "PMD.UnusedPrivateMethod" })
 public class GeocodeValidator {
     /**
-     * @param result a geocoding result
-     * @param backupResult a backup geocoding result
-     * @return true if they match
+     * Executes validate.
+     *
+     * @param result the result
+     * @param backupResult the backup result
+     * @return the resulting boolean
      */
     protected boolean validate(final GeocodingResult result,
             final GeoServiceGeocodingResult backupResult) {
@@ -287,9 +289,11 @@ public class GeocodeValidator {
     }
 
     /**
-     * @param latLng geocoding location
-     * @param point GeoJSON Point version of location
-     * @return true if they match
+     * Executes validate.
+     *
+     * @param latLng the lat lng
+     * @param point the point
+     * @return the resulting boolean
      */
     protected boolean validate(final LatLng latLng, final Point point) {
         if (latLng == null && point == null) {
@@ -308,9 +312,11 @@ public class GeocodeValidator {
     }
 
     /**
-     * @param latLng geocoding location
-     * @param lla GeoJSON LngLatAlt version of location
-     * @return true if they match
+     * Executes validate.
+     *
+     * @param latLng the lat lng
+     * @param lla the lla
+     * @return the resulting boolean
      */
     protected boolean validate(final LatLng latLng, final LngLatAlt lla) {
         if (latLng == null && lla == null) {

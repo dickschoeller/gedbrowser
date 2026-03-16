@@ -23,8 +23,10 @@ public class SubmissionCrud
         ObjectCrud<ApiSubmission> {
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Creates a new SubmissionCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public SubmissionCrud(final GedObjectFileLoader loader,
@@ -34,7 +36,9 @@ public class SubmissionCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the repository.
+     *
+     * @return the repository
      */
     @Override
     public FindableDocument<Submission, SubmissionDocument> getRepository() {
@@ -42,7 +46,9 @@ public class SubmissionCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the ged class.
+     *
+     * @return the ged class
      */
     @Override
     public Class<Submission> getGedClass() {
@@ -50,9 +56,11 @@ public class SubmissionCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param submission the data for the submission
-     * @return the submission as created
+     * Creates the one.
+     *
+     * @param db the db
+     * @param submission the submission
+     * @return the resulting api submission
      */
     @Override
     public ApiSubmission createOne(final String db,
@@ -63,8 +71,10 @@ public class SubmissionCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of submissions
+     * Executes read all.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @Override
     public List<ApiSubmission> readAll(final String db) {
@@ -73,9 +83,11 @@ public class SubmissionCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the submission
-     * @return the submission
+     * Executes read one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api submission
      */
     @Override
     public ApiSubmission readOne(final String db, final String id) {
@@ -84,10 +96,12 @@ public class SubmissionCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the submission to update
-     * @param submission the data for the submission
-     * @return the submission as created
+     * Executes update one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param submission the submission
+     * @return the resulting api submission
      */
     @Override
     public ApiSubmission updateOne(final String db, final String id,
@@ -100,9 +114,11 @@ public class SubmissionCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the submission
-     * @return the deleted object
+     * Returns the api submission.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api submission
      */
     @Override
     public ApiSubmission deleteOne(final String db, final String id) {

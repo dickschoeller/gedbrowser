@@ -12,16 +12,18 @@ public class PersonNameIndexRenderer implements NameIndexRenderer {
     private final transient PersonRenderer personRenderer;
 
     /**
-     * Constructor.
+     * Creates a new PersonNameIndexRenderer.
      *
-     * @param personRenderer the associated personRenderer
+     * @param personRenderer the person renderer
      */
     public PersonNameIndexRenderer(final PersonRenderer personRenderer) {
         this.personRenderer = personRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public final String getIndexName() {

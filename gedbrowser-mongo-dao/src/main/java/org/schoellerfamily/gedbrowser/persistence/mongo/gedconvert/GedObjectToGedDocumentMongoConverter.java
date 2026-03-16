@@ -95,7 +95,8 @@ public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
     }
 
     /**
-     * Constructor.
+     * Creates a new GedObjectToGedDocumentMongoConverter.
+     *
      */
     public GedObjectToGedDocumentMongoConverter() {
         // Empty
@@ -120,8 +121,10 @@ public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
     }
 
     /**
-     * @param document      the document
-     * @param gedAttributes the attributes to add
+     * Loads the attributes.
+     *
+     * @param document the document
+     * @param gedAttributes the ged attributes
      */
     public void loadAttributes(final GedDocument<?> document, final List<GedObject> gedAttributes) {
         document.clearAttributes();
@@ -132,9 +135,10 @@ public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
     }
 
     /**
-     * @param <G> type of GedObject provided
-     * @param ged the GedObject that is being transformed
-     * @return the mongo document produced
+     * Creates the ged document.
+     *
+     * @param ged the ged
+     * @return the resulting ged document mongo
      */
     public <G extends GedObject> GedDocumentMongo<G> createGedDocument(final G ged) {
         @SuppressWarnings("unchecked")

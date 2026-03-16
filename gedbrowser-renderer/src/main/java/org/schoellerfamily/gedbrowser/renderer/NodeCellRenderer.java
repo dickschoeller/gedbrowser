@@ -17,6 +17,11 @@ public final class NodeCellRenderer implements CellRenderer {
     /** */
     private final transient PersonRenderer personRenderer;
 
+    /**
+     * Gets the name html.
+     *
+     * @return the name html
+     */
     @Override
     public String getNameHtml() {
         String nameHtml = personRenderer.getNameHtml();
@@ -27,6 +32,11 @@ public final class NodeCellRenderer implements CellRenderer {
                 + nameHtml + "</td></tr></table>";
     }
 
+    /**
+     * Gets the cell class.
+     *
+     * @return the cell class
+     */
     @Override
     public String getCellClass() {
         return "";

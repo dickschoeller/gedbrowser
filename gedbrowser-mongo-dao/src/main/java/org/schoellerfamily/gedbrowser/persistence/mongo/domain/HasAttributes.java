@@ -18,11 +18,21 @@ public abstract class HasAttributes<G extends GedObject>
     private final List<GedDocument<? extends GedObject>> attributes =
         new ArrayList<>();
 
+    /**
+     * Gets the attributes.
+     *
+     * @return the attributes
+     */
     @Override
     public final List<GedDocument<? extends GedObject>> getAttributes() {
         return attributes;
     }
 
+    /**
+     * Sets the attributes.
+     *
+     * @param attributes the attributes
+     */
     @Override
     public final void setAttributes(
             final List<GedDocument<? extends GedObject>> attributes) {
@@ -30,11 +40,20 @@ public abstract class HasAttributes<G extends GedObject>
         this.attributes.addAll(attributes);
     }
 
+    /**
+     * Executes add attribute.
+     *
+     * @param attribute the attribute
+     */
     @Override
     public final void addAttribute(final GedDocument<?> attribute) {
         attributes.add(attribute);
     }
 
+    /**
+     * Executes clear attributes.
+     *
+     */
     @Override
     public final void clearAttributes() {
         attributes.clear();

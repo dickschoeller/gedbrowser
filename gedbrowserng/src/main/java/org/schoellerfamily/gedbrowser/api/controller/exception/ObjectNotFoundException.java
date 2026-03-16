@@ -19,10 +19,12 @@ public class ObjectNotFoundException extends RuntimeException {
     private final String datasetName;
 
     /**
-     * @param message the message to display
-     * @param objectType the type of object queried
-     * @param id the ID of the object not found
-     * @param datasetName the name of the dataset being searched
+     * Creates a new ObjectNotFoundException.
+     *
+     * @param message the message
+     * @param objectType the object type to use
+     * @param id the unique identifier for the target
+     * @param datasetName the dataset name to use
      */
     public ObjectNotFoundException(final String message,
             final String objectType, final String id,
@@ -52,7 +54,9 @@ public class ObjectNotFoundException extends RuntimeException {
     }
 
     /**
-     * @return get the name of the dataset being searched
+     * Gets the dataset name.
+     *
+     * @return the dataset name
      */
     public String getDatasetName() {
         return datasetName;

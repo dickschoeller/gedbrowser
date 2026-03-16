@@ -30,7 +30,9 @@ public final class ApplicationInfoTest {
     static class ContextConfiguration {
 
         /**
-         * @return the backup manager
+         * Creates and configures the application info bean.
+         *
+         * @return the configured application info bean
          */
         @Bean
         public ApplicationInfo appInfo() {

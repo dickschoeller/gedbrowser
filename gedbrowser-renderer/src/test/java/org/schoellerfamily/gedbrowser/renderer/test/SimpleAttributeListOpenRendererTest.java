@@ -34,7 +34,9 @@ final class SimpleAttributeListOpenRendererTest {
     private GedObject createGedObject() {
         return new GedObject(null, "THIS IS A STRING") {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

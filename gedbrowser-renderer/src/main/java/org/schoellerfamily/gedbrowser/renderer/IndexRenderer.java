@@ -28,11 +28,11 @@ public final class IndexRenderer extends GedRenderer<Root>
     private final String base;
 
     /**
-     * Constructor.
+     * Creates a new IndexRenderer.
      *
-     * @param root root of data set
-     * @param base base string for page
-     * @param renderingContext the context that we are rendering in
+     * @param root the root
+     * @param base the base
+     * @param renderingContext the rendering context
      */
     public IndexRenderer(final Root root, final String base,
             final RenderingContext renderingContext) {
@@ -41,15 +41,19 @@ public final class IndexRenderer extends GedRenderer<Root>
     }
 
     /**
-     * @return collection of surnames that match the base
+     * Gets the surnames.
+     *
+     * @return the surnames
      */
     public Collection<String> getSurnames() {
         return getGedObject().findBySurnamesBeginWith(base);
     }
 
     /**
-     * @param surname surname that we will match on this
-     * @return the collection of nameHtml results
+     * Gets the index name htmls.
+     *
+     * @param surname the surname to use
+     * @return the index name htmls
      */
     public Collection<String> getIndexNameHtmls(final String surname) {
         log.info("Starting getIndexNameHtmls");
@@ -99,15 +103,18 @@ public final class IndexRenderer extends GedRenderer<Root>
     }
 
     /**
-     * @return the base letter of the index
+     * Gets the base.
+     *
+     * @return the base
      */
     public String getBase() {
         return base;
     }
 
     /**
-     * @return the list of initial letters found in the surnames in the data
-     *         base.
+     * Returns the letters.
+     *
+     * @return the letters
      */
     public Collection<String> getLetters() {
         log.info("Starting getLetters");
@@ -122,6 +129,11 @@ public final class IndexRenderer extends GedRenderer<Root>
         return indexLetters;
     }
 
+    /**
+     * Gets the index href.
+     *
+     * @return the index href
+     */
     @Override
     public String getIndexHref() {
         return "surnames?db=" + getGedObject().getDbName() + "&letter=" + base;

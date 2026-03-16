@@ -17,9 +17,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     /**
-     * @param ex the exception being handled
-     * @param request the request that it is associated with
-     * @return the response
+     * Executes handle object not found.
+     *
+     * @param ex the ex
+     * @param request the request
+     * @return the resulting response entity
      */
     @ExceptionHandler(value = { ObjectNotFoundException.class })
     protected ResponseEntity<Object> handleObjectNotFound(
@@ -34,9 +36,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * @param ex the exception being handled
-     * @param request the request that it is associated with
-     * @return the response
+     * Executes handle data set not found.
+     *
+     * @param ex the ex
+     * @param request the request
+     * @return the resulting response entity
      */
     @ExceptionHandler(value = { DataSetNotFoundException.class })
     protected ResponseEntity<Object> handleDataSetNotFound(
@@ -49,9 +53,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * @param ex the exception being handled
-     * @param request the request that it is associated with
-     * @return the response
+     * Executes handle storage exception.
+     *
+     * @param ex the ex
+     * @param request the request
+     * @return the resulting response entity
      */
     @ExceptionHandler(value = { StorageException.class })
     protected ResponseEntity<Object> handleStorageException(

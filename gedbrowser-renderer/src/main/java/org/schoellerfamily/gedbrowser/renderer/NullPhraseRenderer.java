@@ -5,7 +5,9 @@ package org.schoellerfamily.gedbrowser.renderer;
  */
 public class NullPhraseRenderer implements PhraseRenderer {
     /**
-     * {@inheritDoc}
+     * Returns the string.
+     *
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

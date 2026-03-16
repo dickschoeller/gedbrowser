@@ -19,6 +19,12 @@ public final class GoogleGeoCoder implements GeoCoder {
     /** */
     private final String key;
 
+    /**
+     * Executes geocode.
+     *
+     * @param placeName the place name to use
+     * @return the resulting geocoding result array
+     */
     @Override
     public GeocodingResult[] geocode(final String placeName) {
         log.debug("Querying Google APIs for place: {}", placeName);

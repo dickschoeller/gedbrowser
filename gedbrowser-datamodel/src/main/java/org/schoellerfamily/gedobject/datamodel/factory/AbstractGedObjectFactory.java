@@ -72,6 +72,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class AttributeFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new attribute.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -85,6 +94,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class ChildFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new child.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -98,6 +116,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class DateFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new date.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -111,6 +138,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class FamCFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new fam c.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -124,6 +160,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class FamilyFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new family.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -137,6 +182,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class FamSFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new fam s.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -150,6 +204,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class HeadFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new head.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -163,6 +226,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class HusbandFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new husband.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -176,6 +248,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class LinkFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new link.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -189,6 +270,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class MultimediaFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new multimedia.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -202,6 +292,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class NameFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new name.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -215,6 +314,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class NoteFactory extends AbstractGedObjectFactory {
+        /**
+         * Executes create.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -236,6 +344,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class NoteLinkFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new note link.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -249,6 +366,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class PersonFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new person.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -262,6 +388,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class PlaceFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new place.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -275,6 +410,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class RootFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new root.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -289,6 +433,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class SourceFactory extends AbstractGedObjectFactory {
+        /**
+         * Executes create.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -310,6 +463,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class SourceLinkFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new source link.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -323,6 +485,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class SubmissionFactory extends AbstractGedObjectFactory {
+        /**
+         * Executes create.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -340,6 +511,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class SubmissionLinkFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new submission link.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -353,6 +533,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class SubmitterFactory extends AbstractGedObjectFactory {
+        /**
+         * Executes create.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -370,6 +559,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class SubmitterLinkFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new submitter link.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -383,6 +581,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class TrailerFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new trailer.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -396,6 +603,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class WifeFactory extends AbstractGedObjectFactory {
+        /**
+         * Creates and returns a new wife.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -409,6 +625,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class ConcatenationFactory extends AbstractGedObjectFactory {
+        /**
+         * Executes create.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -423,6 +648,15 @@ public abstract class AbstractGedObjectFactory {
      * @author Dick Schoeller
      */
     private static final class ContinuationFactory extends AbstractGedObjectFactory {
+        /**
+         * Executes create.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
+         */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
             final String tail) {
@@ -485,7 +719,13 @@ public abstract class AbstractGedObjectFactory {
      */
     public static final class GedObjectFactory extends AbstractGedObjectFactory {
         /**
-         * {@inheritDoc}
+         * Returns the ged object.
+         *
+         * @param parent the parent
+         * @param xref the xref
+         * @param tag the tag
+         * @param tail the tail
+         * @return the resulting ged object
          */
         @Override
         public GedObject create(final GedObject parent, final ObjectId xref, final String tag,

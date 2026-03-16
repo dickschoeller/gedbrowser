@@ -41,9 +41,11 @@ public class SubmissionsController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param submission the data for the submission
-     * @return the submission as created
+     * Returns the api submission.
+     *
+     * @param db the db
+     * @param submission the submission
+     * @return the resulting api submission
      */
     @PostMapping(value = "/v1/dbs/{db}/submissions")
     public ApiSubmission create(
@@ -53,8 +55,10 @@ public class SubmissionsController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of submissions
+     * Returns the list.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @GetMapping(value = "/v1/dbs/{db}/submissions")
     public List<ApiSubmission> read(
@@ -63,9 +67,11 @@ public class SubmissionsController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the submission
-     * @return the submission
+     * Returns the api submission.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api submission
      */
     @GetMapping(value = "/v1/dbs/{db}/submissions/{id}")
     public ApiSubmission read(
@@ -75,10 +81,12 @@ public class SubmissionsController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the submission to update
-     * @param submission the data for the submission
-     * @return the submission as created
+     * Returns the api submission.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param submission the submission
+     * @return the resulting api submission
      */
     @PutMapping(value = "/v1/dbs/{db}/submissions/{id}")
     public ApiSubmission update(
@@ -89,9 +97,11 @@ public class SubmissionsController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the submission
-     * @return the deleted object
+     * Returns the api submission.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api submission
      */
     @DeleteMapping(value = "/v1/dbs/{db}/submissions/{id}")
     public ApiSubmission delete(

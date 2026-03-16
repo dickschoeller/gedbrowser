@@ -37,10 +37,12 @@ public class ParentsController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
-     * @param person the data for the spouse
-     * @return the person as created
+     * Creates the parent.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api object
      */
     @PostMapping(value = "/v1/dbs/{db}/persons/{id}/parents")
     public ApiObject createParent(@PathVariable final String db,
@@ -50,10 +52,12 @@ public class ParentsController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
-     * @param person the data for the spouse
-     * @return the person as created
+     * Returns the api object.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api object
      */
     @PutMapping(value = "/v1/dbs/{db}/persons/{id}/parents")
     public ApiObject linkParent(@PathVariable final String db,

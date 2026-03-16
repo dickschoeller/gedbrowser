@@ -22,8 +22,10 @@ public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
     private Family seenFamily;
 
     /**
-     * @param person the person analyzed
-     * @param orderAnalyzerResult the result accumulator for this analysis
+     * Creates a new FamilyOrderAnalyzer.
+     *
+     * @param person the person
+     * @param orderAnalyzerResult the order analyzer result
      */
     public FamilyOrderAnalyzer(final Person person,
             final OrderAnalyzerResult orderAnalyzerResult) {
@@ -31,6 +33,11 @@ public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
         this.person = person;
     }
 
+    /**
+     * Executes analyze.
+     *
+     * @return the resulting order analyzer result
+     */
     @Override
     public OrderAnalyzerResult analyze() {
         seenFamily = null;

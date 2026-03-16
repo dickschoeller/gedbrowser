@@ -22,14 +22,21 @@ public final class SubmittersPage extends PageBase implements MenuPageFacade {
         super(factory, previous, baseUrl, "submitters?db=gl120368");
     }
 
+    /**
+     * Gets the menu page.
+     *
+     * @return the menu page
+     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;
     }
 
     /**
-     * @param id the ID of the submitter to click
-     * @return the page object for that
+     * Executes click submitter.
+     *
+     * @param id the unique identifier for the target
+     * @return the resulting submitter page
      */
     public SubmitterPage clickSubmitter(final String id) {
         final WebElement element = getWebElement(By.id(id));

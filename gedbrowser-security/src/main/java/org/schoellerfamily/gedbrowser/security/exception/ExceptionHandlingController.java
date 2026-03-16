@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionHandlingController {
     /**
-     * @param ex the exception
-     * @return the response entity
+     * Executes resource conflict.
+     *
+     * @param ex the ex
+     * @return the resulting response entity
      */
     @ExceptionHandler(ResourceConflictException.class)
     public final ResponseEntity<ExceptionResponse> resourceConflict(

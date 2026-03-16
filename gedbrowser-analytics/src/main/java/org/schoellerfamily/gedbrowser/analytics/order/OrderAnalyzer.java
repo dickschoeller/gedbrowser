@@ -36,6 +36,11 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
                 new ChildrenOrderAnalyzer(person, getResult());
     }
 
+    /**
+     * Executes analyze.
+     *
+     * @return the resulting order analyzer result
+     */
     @Override
     public OrderAnalyzerResult analyze() {
         setCurrentDate(null);

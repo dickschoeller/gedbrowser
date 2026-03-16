@@ -15,7 +15,8 @@ public final class OrderAnalyzerResult {
     private final List<String> mismatches = new ArrayList<>();
 
     /**
-     * Constructor.
+     * Creates a new OrderAnalyzerResult.
+     *
      */
     public OrderAnalyzerResult() {
         correct = true;

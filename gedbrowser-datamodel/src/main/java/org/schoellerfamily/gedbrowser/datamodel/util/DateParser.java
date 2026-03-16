@@ -52,7 +52,9 @@ public final class DateParser extends SimpleDateParser {
     };
 
     /**
-     * @param inputString the string that we are going to parse
+     * Creates a new DateParser.
+     *
+     * @param inputString the input string
      */
     public DateParser(final String inputString) {
         this.inputString = inputString;

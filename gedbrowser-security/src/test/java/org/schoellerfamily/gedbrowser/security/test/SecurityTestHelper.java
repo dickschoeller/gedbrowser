@@ -23,7 +23,9 @@ public final class SecurityTestHelper {
         // Empty
     }
     /**
-     * @param userFile the path of the file to reset
+     * Executes reset user file.
+     *
+     * @param userFile the user file to use
      */
     public static void resetUserFile(final String userFile) {
         log.info("resetting {}", userFile);

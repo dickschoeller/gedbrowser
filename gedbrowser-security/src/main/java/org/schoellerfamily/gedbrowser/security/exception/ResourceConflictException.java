@@ -11,10 +11,10 @@ public final class ResourceConflictException extends RuntimeException {
     private final Long resourceId;
 
     /**
-     * Constructor.
+     * Creates a new ResourceConflictException.
      *
-     * @param resourceId the resource ID
-     * @param message an error message string
+     * @param resourceId the unique identifier for resource
+     * @param message the message
      */
     public ResourceConflictException(final Long resourceId,
             final String message) {
@@ -23,7 +23,9 @@ public final class ResourceConflictException extends RuntimeException {
     }
 
     /**
-     * @return the resource ID
+     * Gets the resource id.
+     *
+     * @return the resource id
      */
     public Long getResourceId() {
         return resourceId;

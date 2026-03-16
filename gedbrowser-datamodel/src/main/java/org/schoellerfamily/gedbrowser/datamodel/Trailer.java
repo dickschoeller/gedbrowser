@@ -7,20 +7,28 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  */
 public final class Trailer extends AbstractSpecialObject {
     /**
-     * Default constructor.
+     * Creates a new Trailer.
+     *
      */
     public Trailer() {
         super();
     }
 
     /**
-     * @param parent parent object of this object
-     * @param string long version of type string
+     * Creates a new Trailer.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     public Trailer(final GedObject parent, final String string) {
         super(parent, string);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

@@ -10,15 +10,21 @@ public final class ArraySource extends AbstractGedLineSource {
     private final String[] stringArray;
 
     /**
-     * Constructor.
+     * Creates a new ArraySource.
      *
-     * @param stringArray array of strings containing the gedcom content
+     * @param stringArray the string array
      */
     @SuppressWarnings("PMD.UseVarargs")
     public ArraySource(final String[] stringArray) {
         this.stringArray = stringArray.clone();
     }
 
+    /**
+     * Creates the ged line.
+     *
+     * @param parent the parent
+     * @return the resulting abstract ged line
+     */
     @Override
     public AbstractGedLine createGedLine(final AbstractGedLine parent)
             throws IOException {

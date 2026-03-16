@@ -32,7 +32,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     /**
-     * Reset credentials.
+     * Executes reset credentials.
+     *
      */
     @Override
     public void resetCredentials() {

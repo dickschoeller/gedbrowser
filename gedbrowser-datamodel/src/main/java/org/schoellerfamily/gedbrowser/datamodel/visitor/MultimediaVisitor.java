@@ -18,21 +18,27 @@ public final class MultimediaVisitor implements GedObjectVisitor {
     private String title;
 
     /**
-     * @return the file name of the multimedia item
+     * Gets the file path.
+     *
+     * @return the file path
      */
     public String getFilePath() {
         return filePath;
     }
 
     /**
-     * @return the file format of the multimedia item
+     * Gets the format.
+     *
+     * @return the format
      */
     public String getFormat() {
         return format;
     }
 
     /**
-     * @return whether the type is an image type (not video or YouTube)
+     * Checks whether image.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isImage() {
         final String form = getFormat();
@@ -43,7 +49,9 @@ public final class MultimediaVisitor implements GedObjectVisitor {
     }
 
     /**
-     * @return whether the type is a video type
+     * Checks whether video.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isVideo() {
         final String form = getFormat();
@@ -57,31 +65,36 @@ public final class MultimediaVisitor implements GedObjectVisitor {
     }
 
     /**
-     * @return whether the type is a YouTube link
+     * Checks whether you tube.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isYouTube() {
         return "youtube".equalsIgnoreCase(getFormat());
     }
 
     /**
-     * @return whether the type is any supported media type (image, video, or YouTube)
+     * Checks whether media.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isMedia() {
         return isImage() || isVideo() || isYouTube();
     }
 
     /**
-     * @return the title of the multimedia item
+     * Gets the title.
+     *
+     * @return the title
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * Visit an Attribute. The values of specific attributes are gathered for
-     * later use.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public void visit(final Attribute attribute) {
@@ -101,10 +114,9 @@ public final class MultimediaVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Multimedia. This is the primary focus of the visitation. From
-     * here, interesting information is gathered from the attributes.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Multimedia)
+     * @param multimedia the multimedia
      */
     @Override
     public void visit(final Multimedia multimedia) {

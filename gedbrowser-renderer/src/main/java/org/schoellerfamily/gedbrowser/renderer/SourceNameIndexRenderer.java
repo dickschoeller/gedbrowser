@@ -11,16 +11,18 @@ public class SourceNameIndexRenderer implements NameIndexRenderer {
     private final transient SourceRenderer sourceRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SourceNameIndexRenderer.
      *
-     * @param sourceRenderer the associated SourceRenderer
+     * @param sourceRenderer the source renderer
      */
     public SourceNameIndexRenderer(final SourceRenderer sourceRenderer) {
         this.sourceRenderer = sourceRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public final String getIndexName() {

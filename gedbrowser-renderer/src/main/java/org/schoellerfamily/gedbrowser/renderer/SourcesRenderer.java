@@ -35,7 +35,11 @@ public class SourcesRenderer extends GedRenderer<Root>
         private static final long serialVersionUID = 1L;
 
         /**
-         * {@inheritDoc}
+         * Returns the int.
+         *
+         * @param renderer0 the renderer0
+         * @param renderer1 the renderer1
+         * @return the resulting int
          */
         @Override
         public int compare(final SourceRenderer renderer0,
@@ -46,10 +50,10 @@ public class SourcesRenderer extends GedRenderer<Root>
     }
 
     /**
-     * Constructor.
+     * Creates a new SourcesRenderer.
      *
-     * @param root root of data set
-     * @param renderingContext the context that we are rendering in
+     * @param root the root
+     * @param renderingContext the rendering context
      */
     public SourcesRenderer(final Root root,
             final RenderingContext renderingContext) {
@@ -57,7 +61,9 @@ public class SourcesRenderer extends GedRenderer<Root>
     }
 
     /**
-     * @return the collection of source renderers
+     * Gets the sources.
+     *
+     * @return the sources
      */
     public Collection<SourceRenderer> getSources() {
         log.info("Starting getSources");

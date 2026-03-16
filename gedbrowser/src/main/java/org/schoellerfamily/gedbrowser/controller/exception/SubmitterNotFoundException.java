@@ -15,12 +15,12 @@ public class SubmitterNotFoundException extends ObjectNotFoundException {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructor.
+     * Creates a new SubmitterNotFoundException.
      *
-     * @param message the message to display
-     * @param submitterId the ID of the submitter not found
-     * @param datasetName the name of the dataset being searched
-     * @param context the rendering context
+     * @param message the message
+     * @param submitterId the unique identifier for submitter
+     * @param datasetName the dataset name to use
+     * @param context the context
      */
     public SubmitterNotFoundException(final String message,
             final String submitterId, final String datasetName,

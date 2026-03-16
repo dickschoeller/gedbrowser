@@ -22,7 +22,8 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
     private final List<Child> children = new ArrayList<>();
 
     /**
-     * Constructor.
+     * Creates a new AbstractAnalysisVisitor.
+     *
      */
     protected AbstractAnalysisVisitor() {
         super();
@@ -56,10 +57,9 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
     }
 
     /**
-     * Visit an Attribute. Track the complete list of Attributes and a list
-     * trimmed by removing "ignoreable" attributes.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public final void visit(final Attribute attribute) {
@@ -71,10 +71,9 @@ public abstract class AbstractAnalysisVisitor extends IgnoreableProcessor
     }
 
     /**
-     * Visit a Child. The list of children may be used by the calling
-     * algorithm.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Child)
+     * @param child the child
      */
     @Override
     public final void visit(final Child child) {

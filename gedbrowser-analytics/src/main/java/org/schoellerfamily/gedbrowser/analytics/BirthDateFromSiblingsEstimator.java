@@ -20,8 +20,9 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
     private final Typicals typicals;
 
     /**
-     * Constructor.
-     * @param person the person whose dates we are estimating
+     * Creates a new BirthDateFromSiblingsEstimator.
+     *
+     * @param person the person
      */
     public BirthDateFromSiblingsEstimator(final Person person) {
         this.person = person;
@@ -91,8 +92,10 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
     }
 
     /**
-     * @param localDate if not null we already have a better estimate
-     * @return an estimate from spouses of siblings
+     * Executes estimate from siblings spouses.
+     *
+     * @param localDate the local date
+     * @return the resulting local date
      */
     @SuppressWarnings("java:S3776")
     public LocalDate estimateFromSiblingsSpouses(final LocalDate localDate) {

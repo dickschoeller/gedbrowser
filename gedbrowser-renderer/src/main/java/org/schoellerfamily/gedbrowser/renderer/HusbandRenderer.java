@@ -9,10 +9,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Husband;
  */
 public final class HusbandRenderer extends AbstractLinkRenderer<Husband> {
     /**
-     * @param gedObject the Husband that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new HusbandRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public HusbandRenderer(final Husband gedObject,
             final GedRendererFactory rendererFactory,

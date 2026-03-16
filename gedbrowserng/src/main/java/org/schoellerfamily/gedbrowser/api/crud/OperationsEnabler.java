@@ -20,8 +20,10 @@ public abstract class OperationsEnabler<
             new DocumentToApiModelTransformer();
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Creates a new OperationsEnabler.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     protected OperationsEnabler(final GedObjectFileLoader loader,
@@ -31,12 +33,16 @@ public abstract class OperationsEnabler<
     }
 
     /**
-     * @return the data model class
+     * Gets the ged class.
+     *
+     * @return the ged class
      */
     public abstract Class<X> getGedClass();
 
     /**
-     * @return the class the converts from DB model to API model
+     * Gets the d2dm.
+     *
+     * @return the d2dm
      */
     public final DocumentToApiModelTransformer getD2dm() {
         return d2dm;

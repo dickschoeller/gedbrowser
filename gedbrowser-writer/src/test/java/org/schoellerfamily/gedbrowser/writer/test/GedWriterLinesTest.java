@@ -76,7 +76,9 @@ class GedWriterLinesTest {
         { "Should not be here", "XXXXX" }, };
 
     /**
-     * @return create the table of expected and actual
+     * Executes data.
+     *
+     * @return the resulting list
      */
     public static List<String[]> data() {
         final GedObjectBuilder builder = new GedObjectBuilder();

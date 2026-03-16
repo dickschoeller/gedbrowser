@@ -13,16 +13,18 @@ public final class SimpleNameNameIndexRenderer
     private final transient SimpleNameRenderer nameRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SimpleNameNameIndexRenderer.
      *
-     * @param nameRenderer the NameRenderer that is using this helper.
+     * @param nameRenderer the name renderer to use
      */
     public SimpleNameNameIndexRenderer(final SimpleNameRenderer nameRenderer) {
         this.nameRenderer = nameRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public String getIndexName() {
@@ -41,7 +43,10 @@ public final class SimpleNameNameIndexRenderer
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the string.
+     *
+     * @param args the command-line arguments
+     * @return the resulting string
      */
     @Override
     public String separate(final String... args) {

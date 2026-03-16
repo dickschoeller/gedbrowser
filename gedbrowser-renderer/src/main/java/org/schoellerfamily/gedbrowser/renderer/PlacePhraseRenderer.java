@@ -12,16 +12,18 @@ public class PlacePhraseRenderer implements PhraseRenderer {
     private final transient PlaceRenderer placeRenderer;
 
     /**
-     * Constructor.
+     * Creates a new PlacePhraseRenderer.
      *
-     * @param placeRenderer the renderer that this is associated with.
+     * @param placeRenderer the place renderer
      */
     protected PlacePhraseRenderer(final PlaceRenderer placeRenderer) {
         this.placeRenderer = placeRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as phrase.
+     *
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

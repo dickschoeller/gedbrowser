@@ -9,10 +9,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  */
 public final class NullRenderer extends GedRenderer<GedObject> {
     /**
-     * @param gedObject The GedObject that we are going to render.
-     * @param rendererFactory
-     *            The factory that creates the renderers for the attributes.
-     * @param renderingContext the context that we are rendering in
+     * Creates a new NullRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public NullRenderer(final GedObject gedObject,
             final GedRendererFactory rendererFactory,

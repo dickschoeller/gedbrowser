@@ -30,10 +30,10 @@ public final class ControllerTestHelper {
     private final ApiPerson.ApiPersonBuilder<?, ?> builder;
 
     /**
-     * RestTestClient-based constructor.
+     * Creates a new ControllerTestHelper.
      *
-     * @param port           the port for this test
-     * @param restTestClient the RestTestClient injected by Spring
+     * @param port the port
+     * @param restTestClient the rest test client
      */
     public ControllerTestHelper(final int port, final RestTestClient restTestClient) {
         this.restTestClient = restTestClient;
@@ -97,27 +97,35 @@ public final class ControllerTestHelper {
     }
 
     /**
-     * @return the base persons URL
+     * Gets the persons url.
+     *
+     * @return the persons url
      */
     public String getPersonsUrl() {
         return personsUrl;
     }
 
     /**
-     * @return the base families URL
+     * Gets the families url.
+     *
+     * @return the families url
      */
     public String getFamiliesUrl() {
         return familiesUrl;
     }
 
     /**
-     * @return the basic http headers
+     * Gets the headers.
+     *
+     * @return the headers
      */
     public HttpHeaders getHeaders() {
         return headers;
     }
 
     /**
+     * Gets the person builder.
+     *
      * @return the person builder
      */
     public ApiPerson.ApiPersonBuilder<?, ?> getPersonBuilder() {
@@ -125,7 +133,9 @@ public final class ControllerTestHelper {
     }
 
     /**
-     * @return a newly created, very simple person
+     * Creates the person.
+     *
+     * @return the resulting api person
      */
     public ApiPerson createPerson() {
         final ApiPerson person = buildPerson();
@@ -139,15 +149,19 @@ public final class ControllerTestHelper {
     }
 
     /**
-     * @return a new person object
+     * Builds the person.
+     *
+     * @return the resulting api person
      */
     public ApiPerson buildPerson() {
         return builder.build();
     }
 
     /**
-     * @param person the person that we are "regetting"
-     * @return the newly gotten person
+     * Returns the person.
+     *
+     * @param person the person
+     * @return the person
      */
     public ApiPerson getPerson(final ApiPerson person) {
         final EntityExchangeResult<ApiPerson> entity = restTestClient.get()

@@ -32,7 +32,9 @@ class CalendarProviderFacadeTest {
      */
     private final class CalendarProviderMock implements CalendarProvider {
         /**
-         * {@inheritDoc}
+         * Returns the calendar.
+         *
+         * @return the resulting calendar
          */
         @Override
         public Calendar now() {
@@ -40,7 +42,9 @@ class CalendarProviderFacadeTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Returns the local date.
+         *
+         * @return the resulting local date
          */
         @Override
         public LocalDate nowDate() {
@@ -63,7 +67,9 @@ class CalendarProviderFacadeTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Returns the calendar provider.
+         *
+         * @return the calendar provider
          */
         @Override
         public CalendarProvider getCalendarProvider() {

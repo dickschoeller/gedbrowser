@@ -22,23 +22,27 @@ public final class PlaceVisitor implements GedObjectVisitor {
     private final Set<Place> places = new TreeSet<>();
 
     /**
-     * @return the places found in the visit
+     * Gets the place strings.
+     *
+     * @return the place strings
      */
     public Set<String> getPlaceStrings() {
         return placeStrings;
     }
 
     /**
-     * @return the places found in the visit
+     * Gets the places.
+     *
+     * @return the places
      */
     public Set<Place> getPlaces() {
         return places;
     }
 
     /**
-     * Visit an Attributes. Look at Attributes to find Places.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public void visit(final Attribute attribute) {
@@ -48,9 +52,9 @@ public final class PlaceVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Family. Look at Attributes to find Places.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Family)
+     * @param family the family
      */
     @Override
     public void visit(final Family family) {
@@ -60,9 +64,9 @@ public final class PlaceVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Person. Look at Attributes and Families to find Places.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Person)
+     * @param person the person
      */
     @Override
     public void visit(final Person person) {
@@ -76,9 +80,9 @@ public final class PlaceVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Place. The names of Places are collected.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Place)
+     * @param place the place
      */
     @Override
     public void visit(final Place place) {
@@ -87,10 +91,9 @@ public final class PlaceVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit the Root. From here we will look through the top level objects for
-     * Persons. Persons direct to Places and Places are what we really want.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Root)
+     * @param root the root
      */
     @Override
     public void visit(final Root root) {

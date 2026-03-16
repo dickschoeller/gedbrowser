@@ -24,7 +24,9 @@ public final class Authority implements GrantedAuthority {
     private final UserRoleName userRoleName;
 
     /**
-     * {@inheritDoc}
+     * Returns the authority.
+     *
+     * @return the authority
      */
     @Override
     public String getAuthority() {

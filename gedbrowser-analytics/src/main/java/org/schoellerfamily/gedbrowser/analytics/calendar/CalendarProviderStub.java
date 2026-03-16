@@ -14,6 +14,11 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor
 public final class CalendarProviderStub implements CalendarProvider {
+    /**
+     * Executes now.
+     *
+     * @return the resulting calendar
+     */
     @Override
     public Calendar now() {
         final int birthYear = 2015;
@@ -25,6 +30,11 @@ public final class CalendarProviderStub implements CalendarProvider {
         return referenceCalendar;
     }
 
+    /**
+     * Creates and returns a new local date.
+     *
+     * @return the resulting local date
+     */
     @Override
     public LocalDate nowDate() {
         return new LocalDate(now());

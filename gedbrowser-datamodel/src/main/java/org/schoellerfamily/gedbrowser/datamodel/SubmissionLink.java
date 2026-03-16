@@ -7,22 +7,30 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  */
 public final class SubmissionLink extends AbstractLink {
     /**
-     * Default constructor.
+     * Creates a new SubmissionLink.
+     *
      */
     public SubmissionLink() {
         super();
     }
 
     /**
-     * @param parent parent object of this submitter link
-     * @param tag long version of type string
-     * @param xref the reference to a submitter object
+     * Creates a new SubmissionLink.
+     *
+     * @param parent the parent
+     * @param tag the tag
+     * @param xref the xref
      */
     public SubmissionLink(final GedObject parent, final String tag,
             final ObjectId xref) {
         super(parent, tag, xref);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

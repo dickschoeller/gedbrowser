@@ -11,9 +11,9 @@ public final class CellRow {
     private final transient List<CellRenderer> renderers;
 
     /**
-     * Constructor.
+     * Creates a new CellRow.
      *
-     * @param columns the number of columns in a row.
+     * @param columns the columns
      */
     public CellRow(final int columns) {
         renderers = new ArrayList<CellRenderer>(columns);
@@ -27,23 +27,29 @@ public final class CellRow {
     }
 
     /**
-     * @return the contained array.
+     * Gets the cells.
+     *
+     * @return the cells
      */
     public CellRenderer[] getCells() {
         return renderers.toArray(new CellRenderer[0]);
     }
 
     /**
-     * @param index which cell to set.
-     * @param element new value.
+     * Executes set.
+     *
+     * @param index the zero-based index
+     * @param element the element
      */
     public void set(final int index, final CellRenderer element) {
         renderers.set(index, element);
     }
 
     /**
-     * @param index which cell to get.
-     * @return the renderer for the cell.
+     * Gets the value.
+     *
+     * @param index the zero-based index
+     * @return the value
      */
     public CellRenderer get(final int index) {
         return renderers.get(index);

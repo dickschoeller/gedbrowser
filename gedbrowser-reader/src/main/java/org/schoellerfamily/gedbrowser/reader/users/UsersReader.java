@@ -17,10 +17,12 @@ import org.schoellerfamily.gedbrowser.datamodel.users.Users;
  */
 public final class UsersReader<T extends User, U extends Users<T>> {
     /**
-     * @param userFile the user file to read
-     * @param usersFactory the factory to create an implementation of Users
-     * @param builder a class that can build an implementation of User
-     * @return the set of users from the user file
+     * Executes read user file.
+     *
+     * @param userFile the user file to use
+     * @param usersFactory the users factory
+     * @param builder the builder
+     * @return the resulting users
      */
     public Users<T> readUserFile(final String userFile,
             final UsersFactory<U> usersFactory,

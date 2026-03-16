@@ -180,9 +180,10 @@ public final class TestDataReader {
     }
 
     /**
-     * @param filename the filename
-     * @return the GedLine hierarchy from parsing this file.
-     * @throws IOException because the file reader might throw.
+     * Executes read file test source.
+     *
+     * @param filename the filename to use
+     * @return the resulting root
      */
     public Root readFileTestSource(final String filename) throws IOException {
         final AbstractGedLine top = TestResourceReader.readFileTestSource(filename);

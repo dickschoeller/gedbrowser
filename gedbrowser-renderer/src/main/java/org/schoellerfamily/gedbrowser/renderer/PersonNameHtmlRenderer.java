@@ -14,16 +14,18 @@ public class PersonNameHtmlRenderer implements NameHtmlRenderer {
     private final transient PersonRenderer personRenderer;
 
     /**
-     * Constructor.
+     * Creates a new PersonNameHtmlRenderer.
      *
-     * @param personRenderer the PersonRenderer that is using this helper.
+     * @param personRenderer the person renderer
      */
     protected PersonNameHtmlRenderer(final PersonRenderer personRenderer) {
         this.personRenderer = personRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public final String getNameHtml() {

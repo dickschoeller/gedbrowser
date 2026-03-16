@@ -23,7 +23,9 @@ public class GedWriter {
     private final Root root;
 
     /**
-     * @param root the root of the data set to write.
+     * Creates a new GedWriter.
+     *
+     * @param root the root
      */
     public GedWriter(final Root root) {
         this.root = root;
@@ -64,7 +66,9 @@ public class GedWriter {
     }
 
     /**
-     * @return the gedcom file as a string
+     * Executes write string.
+     *
+     * @return the resulting string
      */
     public String writeString() {
         root.accept(visitor);

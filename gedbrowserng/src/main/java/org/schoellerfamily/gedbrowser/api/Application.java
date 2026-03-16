@@ -27,7 +27,9 @@ public class Application {
     }
 
     /**
-     * @return the application name.
+     * Gets the application name.
+     *
+     * @return the application name
      */
     public final String getApplicationName() {
         return "gedbrowserng";

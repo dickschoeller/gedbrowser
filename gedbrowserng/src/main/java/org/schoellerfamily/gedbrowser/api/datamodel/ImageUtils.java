@@ -7,8 +7,10 @@ import java.util.Locale;
  */
 public class ImageUtils {
     /**
-     * @param attr the attribute to check
-     * @return true if it wraps any supported media type (image, video, or YouTube)
+     * Indicates whether image wrapper.
+     *
+     * @param attr the attr
+     * @return true if the condition is met; otherwise false
      */
     public boolean isImageWrapper(final ApiAttribute attr) {
         for (final ApiAttribute attribute : attr.getAttributes()) {
@@ -21,8 +23,10 @@ public class ImageUtils {
     }
 
     /**
-     * @param attribute the attribute to check
-     * @return true if it is a reference to an image file type
+     * Indicates whether image.
+     *
+     * @param attribute the attribute
+     * @return true if the condition is met; otherwise false
      */
     public boolean isImage(final ApiAttribute attribute) {
         final String[] types = {
@@ -36,8 +40,10 @@ public class ImageUtils {
     }
 
     /**
-     * @param attribute the attribute to check
-     * @return true if it is a reference to a video file type
+     * Indicates whether video.
+     *
+     * @param attribute the attribute
+     * @return true if the condition is met; otherwise false
      */
     public boolean isVideo(final ApiAttribute attribute) {
         final String[] types = {
@@ -51,8 +57,10 @@ public class ImageUtils {
     }
 
     /**
-     * @param attribute the attribute to check
-     * @return true if it is a YouTube URL
+     * Indicates whether you tube.
+     *
+     * @param attribute the attribute
+     * @return true if the condition is met; otherwise false
      */
     public boolean isYouTube(final ApiAttribute attribute) {
         final String tail = attribute.getTail().toLowerCase(Locale.ENGLISH);

@@ -17,8 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 public class ParentCrud extends RelationsCrud {
 
     /**
-     * @param loader            the file loader that we will use
-     * @param toDocConverter    the document converter
+     * Creates a new ParentCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public ParentCrud(final GedObjectFileLoader loader,
@@ -28,10 +30,12 @@ public class ParentCrud extends RelationsCrud {
     }
 
     /**
-     * @param db     the name of the db to access
-     * @param id     the id of the person whose parent we are adding
-     * @param person the data for the parent
-     * @return the person returned from the db
+     * Creates the parent.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     public ApiPerson createParent(final String db, final String id, final ApiPerson person) {
         log.info("Entering create parent in db: {} for person {}", db, id);
@@ -44,10 +48,12 @@ public class ParentCrud extends RelationsCrud {
     }
 
     /**
-     * @param db     the name of the db to access
-     * @param id     the id of the person whose parent we are adding
-     * @param person the data for the spouse
-     * @return the person returned from the db
+     * Executes link parent.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     public ApiPerson linkParent(final String db, final String id, final ApiPerson person) {
         log.info("Entering link person: {} in db: {} as parent of person {}", person.getString(),
@@ -61,7 +67,11 @@ public class ParentCrud extends RelationsCrud {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether the link we are looking for.
+     *
+     * @param attribute the attribute
+     * @param id the unique identifier for the target
+     * @return true if the condition is met; otherwise false
      */
     @Override
     public boolean isTheLinkWeAreLookingFor(final ApiAttribute attribute, final String id) {

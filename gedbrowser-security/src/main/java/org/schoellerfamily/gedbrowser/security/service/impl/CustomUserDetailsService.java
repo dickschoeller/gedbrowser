@@ -28,6 +28,12 @@ public final class CustomUserDetailsService implements UserDetailsService {
     /** */
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Loads user by username.
+     *
+     * @param username the username to use
+     * @return the resulting user details
+     */
     @Override
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {

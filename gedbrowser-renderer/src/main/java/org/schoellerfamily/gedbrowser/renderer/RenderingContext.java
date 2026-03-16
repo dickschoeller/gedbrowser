@@ -76,14 +76,18 @@ public final class RenderingContext
     }
 
     /**
-     * @return true if it is an identified user
+     * Checks whether user.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isUser() {
         return user != null && user.hasRole(UserRoleName.USER);
     }
 
     /**
-     * @return true if the user is an administrator
+     * Checks whether admin.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isAdmin() {
         return user != null && user.hasRole(UserRoleName.ADMIN);

@@ -71,7 +71,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     );
 
     /**
-     * {@inheritDoc}
+     * Executes do filter internal.
+     *
+     * @param request the request
+     * @param response the response
+     * @param chain the chain
      */
     @Override
     public void doFilterInternal(

@@ -22,7 +22,9 @@ public class LogDuplicatesEndpoint {
     private final DuplicateCleanupService duplicateCleanupService;
 
     /**
-     * @return summary messages
+     * Executes invoke.
+     *
+     * @return the resulting list
      */
     @ReadOperation
     public List<String> invoke() {

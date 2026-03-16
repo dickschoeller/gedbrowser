@@ -29,7 +29,9 @@ public class FileSystemStorageService implements StorageService {
     private final GedbrowserPropertiesService gedbrowserProperties;
 
     /**
-     * {@inheritDoc}
+     * Executes store.
+     *
+     * @param file the file to use
      */
     @Override
     public void store(final MultipartFile file) {

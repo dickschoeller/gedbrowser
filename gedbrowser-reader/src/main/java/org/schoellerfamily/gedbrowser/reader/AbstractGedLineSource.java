@@ -10,21 +10,29 @@ public abstract class AbstractGedLineSource implements GedLineSource {
     private int maxLineNumber;
 
     /**
-     * @return the highest line number known in the file.
+     * Gets the max line number.
+     *
+     * @return the max line number
      */
     public final int getMaxLineNumber() {
         return maxLineNumber;
     }
 
     /**
-     * @return the next line number in the file.
+     * Returns the int.
+     *
+     * @return the resulting int
      */
     public final int nextLineNumber() {
         return maxLineNumber++;
     }
 
     /**
-     * {@inheritDoc}
+     * Creates the ged line.
+     *
+     * @param parent the parent
+     * @param inLine the in line
+     * @return the resulting abstract ged line
      */
     public final AbstractGedLine createGedLine(final AbstractGedLine parent,
             final String inLine) {

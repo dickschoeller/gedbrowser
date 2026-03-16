@@ -42,7 +42,10 @@ public abstract class GedObject extends AbstractFinderObject
     /** */
     private transient AppenderStrategy appender;
 
-    /** */
+    /**
+     * Creates a new GedObject.
+     *
+     */
     protected GedObject() {
         this.set = false;
         this.string = "";
@@ -51,8 +54,9 @@ public abstract class GedObject extends AbstractFinderObject
     }
 
     /**
-     * @param parent
-     *            parent object of this object
+     * Creates a new GedObject.
+     *
+     * @param parent the parent
      */
     protected GedObject(final GedObject parent) {
         this.string = "";
@@ -62,10 +66,10 @@ public abstract class GedObject extends AbstractFinderObject
     }
 
     /**
-     * @param parent
-     *            parent object of this object
-     * @param string
-     *            long version of type string
+     * Creates a new GedObject.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     protected GedObject(final GedObject parent, final String string) {
         this.parent = parent;
@@ -79,19 +83,28 @@ public abstract class GedObject extends AbstractFinderObject
     }
 
     /**
-     * @return whether this object was set. If false this is a stub.
+     * Checks whether set.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public final boolean isSet() {
         return this.set;
     }
 
+    /**
+     * Gets the string.
+     *
+     * @return the string
+     */
     @Override
     public final String getString() {
         return string;
     }
 
     /**
-     * @param string long version of type string
+     * Sets the string.
+     *
+     * @param string the string
      */
     public final void setString(final String string) {
         if (string == null) {
@@ -102,51 +115,66 @@ public abstract class GedObject extends AbstractFinderObject
     }
 
     /**
-     * @param appendage
-     *            text to append to the string
+     * Executes append string.
+     *
+     * @param appendage the appendage
      */
     public final void appendString(final String appendage) {
         appender.appendString(appendage);
     }
 
+    /**
+     * Gets the parent.
+     *
+     * @return the parent
+     */
     @Override
     public final GedObject getParent() {
         return parent;
     }
 
     /**
-     * @param parent
-     *            parent object of this object
+     * Sets the parent.
+     *
+     * @param parent the parent
      */
     public final void setParent(final GedObject parent) {
         this.parent = parent;
     }
 
     /**
-     * @param attribute
-     *            object to add to the attribute list
+     * Executes add attribute.
+     *
+     * @param attribute the attribute
      */
     public final void addAttribute(final GedObject attribute) {
         attributes.add(attribute);
     }
 
     /**
-     * @param attribute
-     *            object to remove from the attribute list
+     * Executes remove attribute.
+     *
+     * @param attribute the attribute
      */
     public final void removeAttribute(final GedObject attribute) {
         attributes.remove(attribute);
     }
 
     /**
-     * @param attribute
-     *            object to check in the attribute list
-     * @return whether the provided object is in the list
+     * Indicates whether attribute is present.
+     *
+     * @param attribute the attribute
+     * @return true if the condition is met; otherwise false
      */
     public final boolean hasAttribute(final GedObject attribute) {
         return attributes.contains(attribute);
     }
 
+    /**
+     * Checks whether h code.
+     *
+     * @return true if the condition is met; otherwise false
+     */
     @Override
     public final int hashCode() {
         int result = 1;
@@ -163,6 +191,12 @@ public abstract class GedObject extends AbstractFinderObject
     @SuppressWarnings({ "PMD.CyclomaticComplexity",
             "PMD.ModifiedCyclomaticComplexity",
             "PMD.StdCyclomaticComplexity" })
+    /**
+     * Executes equals.
+     *
+     * @param obj the obj
+     * @return the resulting boolean
+     */
     public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -185,19 +219,28 @@ public abstract class GedObject extends AbstractFinderObject
     }
 
     /**
-     * @return the list of attributes and sub-objects for this object
+     * Gets the attributes.
+     *
+     * @return the attributes
      */
     public final List<GedObject> getAttributes() {
         return attributes;
     }
 
     /**
-     * @return whether the list of attributes has some content
+     * Checks whether attributes.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public final boolean hasAttributes() {
         return !attributes.isEmpty();
     }
 
+    /**
+     * Returns the string.
+     *
+     * @return the resulting string
+     */
     @Override
     public final String toString() {
         return string;

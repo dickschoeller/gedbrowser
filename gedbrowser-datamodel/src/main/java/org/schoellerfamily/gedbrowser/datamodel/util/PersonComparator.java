@@ -13,6 +13,13 @@ public final class PersonComparator implements Comparator<Person>, Serializable 
     /** */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Executes compare.
+     *
+     * @param p0 the p0
+     * @param p1 the p1
+     * @return the resulting int
+     */
     @Override
     public int compare(final Person p0, final Person p1) {
         final int nameComparison =

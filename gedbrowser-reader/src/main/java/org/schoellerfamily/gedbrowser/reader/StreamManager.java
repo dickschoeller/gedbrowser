@@ -26,18 +26,18 @@ public class StreamManager {
     private final String filename;
 
     /**
-     * Constructor.
+     * Creates a new StreamManager.
      *
-     * @param filename the name of the file that we are opening
+     * @param filename the filename to use
      */
     public StreamManager(final String filename) {
         this.filename = filename;
     }
 
     /**
+     * Gets the input stream.
+     *
      * @return the input stream
-     * @throws FileNotFoundException if the file can't be opened
-     * @throws IllegalArgumentException if the filename contains path traversal sequences
      */
     public InputStream getInputStream() throws FileNotFoundException {
         // Treat obvious filesystem paths (absolute/relative paths, files

@@ -11,7 +11,8 @@ public final class Multimedia extends AbstractAttribute {
     private String tail;
 
     /**
-     * Default constructor.
+     * Creates a new Multimedia.
+     *
      */
     public Multimedia() {
         super();
@@ -20,8 +21,10 @@ public final class Multimedia extends AbstractAttribute {
     }
 
     /**
-     * @param parent parent object of this attribute
-     * @param string long version of type string
+     * Creates a new Multimedia.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     public Multimedia(final GedObject parent, final String string) {
         super(parent, string);
@@ -30,12 +33,11 @@ public final class Multimedia extends AbstractAttribute {
     }
 
     /**
-     * @param parent
-     *            parent object of this attribute
-     * @param string
-     *            long version of type string
-     * @param tail
-     *            additional data
+     * Creates a new Multimedia.
+     *
+     * @param parent the parent
+     * @param string the string
+     * @param tail the tail
      */
     public Multimedia(final GedObject parent, final String string,
             final String tail) {
@@ -45,7 +47,9 @@ public final class Multimedia extends AbstractAttribute {
     }
 
     /**
-     * @return tail string
+     * Gets the tail.
+     *
+     * @return the tail
      */
     public String getTail() {
         if (tail == null) {
@@ -56,7 +60,9 @@ public final class Multimedia extends AbstractAttribute {
     }
 
     /**
-     * @param tail additional data
+     * Sets the tail.
+     *
+     * @param tail the tail
      */
     public void setTail(final String tail) {
         if (tail == null) {
@@ -66,6 +72,11 @@ public final class Multimedia extends AbstractAttribute {
         }
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

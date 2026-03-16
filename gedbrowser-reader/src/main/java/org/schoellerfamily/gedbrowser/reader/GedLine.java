@@ -11,22 +11,27 @@ import java.io.BufferedReader;
  */
 public final class GedLine extends AbstractGedLine {
     /**
-     * @param parent The parent GedLine. Parentage is determined by the GEDCOM
-     *               level number.
+     * Creates a new GedLine.
+     *
+     * @param parent the parent
      */
     protected GedLine(final AbstractGedLine parent) {
         super(parent);
     }
 
     /**
-     * @param reader The buffered reader that we are getting data from.
+     * Creates a new GedLine.
+     *
+     * @param reader the reader
      */
     protected GedLine(final BufferedReader reader) {
         super(reader);
     }
 
     /**
-     * @param arraySource Array of strings containing lines of GEDCOM.
+     * Creates a new GedLine.
+     *
+     * @param arraySource the array source
      */
     @SuppressWarnings("PMD.UseVarargs")
     public GedLine(final String[] arraySource) {
@@ -34,7 +39,9 @@ public final class GedLine extends AbstractGedLine {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes to string.
+     *
+     * @return the resulting string
      */
     @Override
     public String toString() {
@@ -64,7 +71,9 @@ public final class GedLine extends AbstractGedLine {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes accept.
+     *
+     * @param visitor the visitor
      */
     @Override
     public void accept(final GedLineVisitor visitor) {

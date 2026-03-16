@@ -17,8 +17,10 @@ public class PasswordTestHelper {
     private final RestTestClient client;
 
     /**
-     * @param client lets us make rest calls
-     * @param port the port to connect to
+     * Creates a new PasswordTestHelper.
+     *
+     * @param client the client
+     * @param port the port
      */
     public PasswordTestHelper(final RestTestClient client,
             final int port) {
@@ -60,6 +62,8 @@ public class PasswordTestHelper {
         private String newPassword;
 
         /**
+         * Gets the old password.
+         *
          * @return the old password
          */
         public String getOldPassword() {
@@ -67,6 +71,8 @@ public class PasswordTestHelper {
         }
 
         /**
+         * Sets the old password.
+         *
          * @param oldPassword the old password
          */
         public void setOldPassword(final String oldPassword) {
@@ -74,6 +80,8 @@ public class PasswordTestHelper {
         }
 
         /**
+         * Gets the new password.
+         *
          * @return the new password
          */
         public String getNewPassword() {
@@ -81,6 +89,8 @@ public class PasswordTestHelper {
         }
 
         /**
+         * Sets the new password.
+         *
          * @param newPassword the new password
          */
         public void setNewPassword(final String newPassword) {

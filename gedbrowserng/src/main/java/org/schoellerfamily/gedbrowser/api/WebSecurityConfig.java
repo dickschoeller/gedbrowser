@@ -68,7 +68,9 @@ public class WebSecurityConfig {
     private String activeProfile;
 
     /**
-     * @return the token authentication filter
+     * Creates and configures the token authentication filter bean.
+     *
+     * @return the configured token authentication filter bean
      */
     @Bean
     public TokenAuthenticationFilter jwtAuthenticationTokenFilter() {

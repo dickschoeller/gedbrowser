@@ -56,7 +56,8 @@ public final class LoginTestHelper {
         private final Long expiresIn;
 
         /**
-         * Default constructor.
+         * Executes login response.
+         *
          */
         public LoginResponse() {
             this.accessToken = null;
@@ -64,6 +65,8 @@ public final class LoginTestHelper {
         }
 
         /**
+         * Gets the access token.
+         *
          * @return the access token
          */
         public String getAccessToken() {
@@ -71,7 +74,9 @@ public final class LoginTestHelper {
         }
 
         /**
-         * @return the expiration in seconds
+         * Gets the expires in.
+         *
+         * @return the expires in
          */
         public Long getExpiresIn() {
             return expiresIn;

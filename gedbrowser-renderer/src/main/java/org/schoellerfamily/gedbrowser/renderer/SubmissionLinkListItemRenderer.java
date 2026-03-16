@@ -10,9 +10,9 @@ public class SubmissionLinkListItemRenderer implements ListItemRenderer {
     private final transient SubmissionLinkRenderer submissionLinkRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SubmissionLinkListItemRenderer.
      *
-     * @param renderer the renderer that this is associated with.
+     * @param renderer the renderer
      */
     protected SubmissionLinkListItemRenderer(
             final SubmissionLinkRenderer renderer) {
@@ -20,7 +20,12 @@ public class SubmissionLinkListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as list item.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -35,7 +40,9 @@ public class SubmissionLinkListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {

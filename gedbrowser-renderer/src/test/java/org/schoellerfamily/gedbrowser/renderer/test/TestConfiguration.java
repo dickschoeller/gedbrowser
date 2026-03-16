@@ -15,7 +15,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TestConfiguration {
     /**
-     * @return provides the "today" for use in comparisons
+     * Creates and configures the calendar provider bean.
+     *
+     * @return the configured calendar provider bean
      */
     @Bean
     public CalendarProvider provider() {
@@ -28,7 +30,9 @@ public class TestConfiguration {
     }
 
     /**
-     * @return the persistence manager
+     * Creates and configures the geo service client bean.
+     *
+     * @return the configured geo service client bean
      */
     @Bean
     public GeoServiceClient geoServiceClient() {
@@ -36,7 +40,9 @@ public class TestConfiguration {
     }
 
     /**
-     * @return the calendar provider
+     * Creates and configures the application info bean.
+     *
+     * @return the configured application info bean
      */
     @Bean
     public ApplicationInfo applicationInfo() {
@@ -44,7 +50,9 @@ public class TestConfiguration {
     }
 
     /**
-     * @return converter from AbstractGedLine to GedObject
+     * Creates and configures the ged line to ged object transformer bean.
+     *
+     * @return the configured ged line to ged object transformer bean
      */
     @Bean
     public GedLineToGedObjectTransformer gedObjectCreator() {

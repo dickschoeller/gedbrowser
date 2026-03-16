@@ -19,11 +19,11 @@ public final class PageFactory {
     private final Map<String, Expectations> expectationsMap;
 
     /**
-     * Constructor.
+     * Creates a new PageFactory.
      *
-     * @param driver the webdriver for the current test
-     * @param waiter the wait manager
-     * @param expectationsMap the person expectations
+     * @param driver the driver
+     * @param waiter the waiter
+     * @param expectationsMap the expectations map to process
      */
     public PageFactory(final WebDriver driver, final PageWaiter waiter,
             final Map<String, Expectations> expectationsMap) {
@@ -33,30 +33,38 @@ public final class PageFactory {
     }
 
     /**
-     * @return the web driver
+     * Gets the driver.
+     *
+     * @return the driver
      */
     public WebDriver getDriver() {
         return driver;
     }
 
     /**
-     * @return the page waiter
+     * Gets the waiter.
+     *
+     * @return the waiter
      */
     public PageWaiter getWaiter() {
         return waiter;
     }
 
     /**
-     * @return the person expectations
+     * Gets the expectations map.
+     *
+     * @return the expectations map
      */
     public Map<String, Expectations> getExpectationsMap() {
         return expectationsMap;
     }
 
     /**
-     * @param previous the previous page object
-     * @param baseUrl the base URL string
-     * @return the new page object
+     * Creates the index page.
+     *
+     * @param previous the previous
+     * @param baseUrl the base url to use
+     * @return the resulting index page
      */
     public IndexPage createIndexPage(final PageBase previous,
             final String baseUrl) {
@@ -64,10 +72,12 @@ public final class PageFactory {
     }
 
     /**
-     * @param previous the previous page object
-     * @param baseUrl the base URL string
-     * @param letter the letter for this page
-     * @return the new page object
+     * Creates the index page.
+     *
+     * @param previous the previous
+     * @param baseUrl the base url to use
+     * @param letter the letter
+     * @return the resulting index page
      */
     public IndexPage createIndexPage(final PageBase previous,
             final String baseUrl, final String letter) {
@@ -75,10 +85,12 @@ public final class PageFactory {
     }
 
     /**
-     * @param previous the previous page object
-     * @param baseUrl the base URL string
-     * @param id the ID of the person
-     * @return the new page object
+     * Creates the person page.
+     *
+     * @param previous the previous
+     * @param baseUrl the base url to use
+     * @param id the unique identifier for the target
+     * @return the resulting person page
      */
     public PersonPage createPersonPage(final PageBase previous,
             final String baseUrl, final String id) {
@@ -86,10 +98,12 @@ public final class PageFactory {
     }
 
     /**
-     * @param previous the previous page object
-     * @param baseUrl the base URL string
-     * @param id the ID of the source
-     * @return the new page object
+     * Creates the source page.
+     *
+     * @param previous the previous
+     * @param baseUrl the base url to use
+     * @param id the unique identifier for the target
+     * @return the resulting source page
      */
     public SourcePage createSourcePage(final PageBase previous,
             final String baseUrl, final String id) {
@@ -97,9 +111,11 @@ public final class PageFactory {
     }
 
     /**
-     * @param previous the previous page object
-     * @param baseUrl the base URL string
-     * @return the new page object
+     * Creates the sources page.
+     *
+     * @param previous the previous
+     * @param baseUrl the base url to use
+     * @return the resulting sources page
      */
     public SourcesPage createSourcesPage(final PageBase previous,
             final String baseUrl) {
@@ -107,10 +123,12 @@ public final class PageFactory {
     }
 
     /**
-     * @param previous the previous page object
-     * @param baseUrl the base URL string
-     * @param id the ID of the submitter
-     * @return the new page object
+     * Creates the submitter page.
+     *
+     * @param previous the previous
+     * @param baseUrl the base url to use
+     * @param id the unique identifier for the target
+     * @return the resulting submitter page
      */
     public SubmitterPage createSubmitterPage(final PageBase previous,
             final String baseUrl, final String id) {
@@ -118,9 +136,11 @@ public final class PageFactory {
     }
 
     /**
-     * @param previous the previous page object
-     * @param baseUrl the base URL string
-     * @return the new page object
+     * Creates the submitters page.
+     *
+     * @param previous the previous
+     * @param baseUrl the base url to use
+     * @return the resulting submitters page
      */
     public SubmittersPage createSubmittersPage(final PageBase previous,
             final String baseUrl) {
@@ -128,9 +148,11 @@ public final class PageFactory {
     }
 
     /**
-     * @param previous the previous page object
-     * @param baseUrl the base URL string
-     * @return the new page object
+     * Creates the login page.
+     *
+     * @param previous the previous
+     * @param baseUrl the base url to use
+     * @return the resulting login page
      */
     public LoginPage createLoginPage(final PageBase previous,
             final String baseUrl) {

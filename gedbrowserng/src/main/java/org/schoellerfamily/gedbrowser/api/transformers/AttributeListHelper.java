@@ -18,14 +18,18 @@ public class AttributeListHelper {
     private final ApiModelToGedObjectVisitor parentVisitor;
 
     /**
-     * @param parentVisitor the visitor that is using this helper.
+     * Executes attribute list helper.
+     *
+     * @param parentVisitor the parent visitor
      */
     public AttributeListHelper(final ApiModelToGedObjectVisitor parentVisitor) {
         this.parentVisitor = parentVisitor;
     }
 
     /**
-     * @param apiParent the parent object
+     * Executes add attributes.
+     *
+     * @param apiParent the api parent
      */
     public void addAttributes(final ApiAttribute apiParent) {
         addByType(apiParent, "date");
@@ -63,7 +67,9 @@ public class AttributeListHelper {
     }
 
     /**
-     * @param apiParent the parent object
+     * Executes add attributes.
+     *
+     * @param apiParent the api parent
      */
     public void addAttributes(final ApiPerson apiParent) {
         addToAttributes(apiParent.getAttributes());
@@ -75,7 +81,9 @@ public class AttributeListHelper {
     }
 
     /**
-     * @param apiParent the parent object
+     * Executes add attributes.
+     *
+     * @param apiParent the api parent
      */
     public void addAttributes(final ApiFamily apiParent) {
         addToAttributes(apiParent.getSpouses());
@@ -85,7 +93,9 @@ public class AttributeListHelper {
     }
 
     /**
-     * @param apiParent the parent object
+     * Executes add attributes.
+     *
+     * @param apiParent the api parent
      */
     public void addAttributes(final ApiSource apiParent) {
         addToAttributes(apiParent.getAttributes());
@@ -100,7 +110,9 @@ public class AttributeListHelper {
     }
 
     /**
-     * @param apiParent the parent object
+     * Executes add attributes.
+     *
+     * @param apiParent the api parent
      */
     public void addAttributes(final ApiObject apiParent) {
         for (final ApiObject object : apiParent.getAttributes()) {

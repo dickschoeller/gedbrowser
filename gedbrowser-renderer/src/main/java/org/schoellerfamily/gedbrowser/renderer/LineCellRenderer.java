@@ -12,16 +12,18 @@ public final class LineCellRenderer implements CellRenderer {
     private final transient String classString;
 
     /**
-     * Constructor.
+     * Executes line cell renderer.
      *
-     * @param classString the classString
+     * @param classString the class string
      */
     public LineCellRenderer(final String classString) {
         this.classString = classString;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public String getNameHtml() {
@@ -29,7 +31,9 @@ public final class LineCellRenderer implements CellRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the cell class.
+     *
+     * @return the cell class
      */
     @Override
     public String getCellClass() {

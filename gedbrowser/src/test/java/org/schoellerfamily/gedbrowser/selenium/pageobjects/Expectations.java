@@ -24,13 +24,15 @@ public final class Expectations {
     private final GreatGreatGrandParentIds leaves;
 
     /**
-     * @param title expected title string
-     * @param fatherId expected father ID string
-     * @param fatherString expected father name and ID string
-     * @param motherId expected mother ID string
-     * @param motherString expected mother name and ID string
-     * @param childOneId expected ID string of first child
-     * @param leaves the set of ancestors at the leaf nodes
+     * Executes expectations.
+     *
+     * @param title the title
+     * @param fatherId the unique identifier for father
+     * @param fatherString the father string
+     * @param motherId the unique identifier for mother
+     * @param motherString the mother string
+     * @param childOneId the unique identifier for child one
+     * @param leaves the leaves
      */
     public Expectations(final String title, final String fatherId,
             final String fatherString, final String motherId,
@@ -46,48 +48,62 @@ public final class Expectations {
     }
 
     /**
-     * @return the expected title string
+     * Gets the title.
+     *
+     * @return the title
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * @return the expected father ID
+     * Gets the father id.
+     *
+     * @return the father id
      */
     public String getFatherId() {
         return fatherId;
     }
 
     /**
-     * @return the expected father string
+     * Gets the father string.
+     *
+     * @return the father string
      */
     public String getFatherString() {
         return fatherString;
     }
 
     /**
-     * @return the expected mother ID
+     * Gets the mother id.
+     *
+     * @return the mother id
      */
     public String getMotherId() {
         return motherId;
     }
 
     /**
-     * @return the expected mother string
+     * Gets the mother string.
+     *
+     * @return the mother string
      */
     public String getMotherString() {
         return motherString;
     }
 
     /**
-     * @return the expected first child ID
+     * Gets the child one id.
+     *
+     * @return the child one id
      */
     public String getChildOneId() {
         return childOneId;
     }
 
     /**
+     * Gets the leaves.
+     *
      * @return the leaves
      */
     public GreatGreatGrandParentIds getLeaves() {

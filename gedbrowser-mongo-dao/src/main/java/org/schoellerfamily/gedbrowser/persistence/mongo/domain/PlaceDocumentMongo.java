@@ -13,11 +13,22 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
  */
 public final class PlaceDocumentMongo extends GedDocumentMongo<Place>
         implements PlaceDocument {
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "place";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     * @param ged the ged
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -31,11 +42,21 @@ public final class PlaceDocumentMongo extends GedDocumentMongo<Place>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

@@ -13,6 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class LogBeanInstantiationProcessor implements BeanPostProcessor {
 
+    /**
+     * Returns the object.
+     *
+     * @param bean the bean
+     * @param beanName the bean name to use
+     * @return the resulting object
+     */
     @Override
     public Object postProcessBeforeInitialization(
         final Object bean,
@@ -21,6 +28,13 @@ public final class LogBeanInstantiationProcessor implements BeanPostProcessor {
         return bean;
     }
 
+    /**
+     * Executes post process after initialization.
+     *
+     * @param bean the bean
+     * @param beanName the bean name to use
+     * @return the resulting object
+     */
     @Override
     public Object postProcessAfterInitialization(
         final Object bean,

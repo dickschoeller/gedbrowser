@@ -5,7 +5,12 @@ package org.schoellerfamily.gedbrowser.renderer;
  */
 public class NullListItemRenderer implements ListItemRenderer {
     /**
-     * {@inheritDoc}
+     * Returns the string builder.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -14,7 +19,9 @@ public class NullListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {

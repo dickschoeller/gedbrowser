@@ -21,15 +21,19 @@ public final class Date extends AbstractAttribute {
 
 
     /**
-     * @param parent parent object of this date
+     * Creates a new Date.
+     *
+     * @param parent the parent
      */
     public Date(final GedObject parent) {
         super(parent);
     }
 
     /**
-     * @param parent parent object of this date
-     * @param dateString date as a string
+     * Creates a new Date.
+     *
+     * @param parent the parent
+     * @param dateString the date string
      */
     public Date(final GedObject parent, final String dateString) {
         super(parent, dateString);
@@ -45,7 +49,9 @@ public final class Date extends AbstractAttribute {
     }
 
     /**
-     * @return the year as a string.
+     * Gets the year.
+     *
+     * @return the year
      */
     public String getYear() {
         if (StringUtils.isEmpty(getString())) {
@@ -57,7 +63,9 @@ public final class Date extends AbstractAttribute {
     }
 
     /**
-     * @return the string in a sortable format.
+     * Gets the sort date.
+     *
+     * @return the sort date
      */
     public String getSortDate() {
         if (StringUtils.isEmpty(getString())) {
@@ -99,6 +107,11 @@ public final class Date extends AbstractAttribute {
         return formatter.format(c.getTime());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

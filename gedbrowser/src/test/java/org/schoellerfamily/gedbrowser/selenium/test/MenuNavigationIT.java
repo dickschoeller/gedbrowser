@@ -70,7 +70,11 @@ class MenuNavigationIT {
     /** */
     private PageFactory factory;
 
-    /** */
+    /**
+     * Executes sauce bindings extension.
+     *
+     * @return the resulting new
+     */
     @RegisterExtension
     @SuppressWarnings("checkstyle:visibilitymodifier")
     public final SauceBindingsExtension sauceExtension = new SauceBindingsExtension();

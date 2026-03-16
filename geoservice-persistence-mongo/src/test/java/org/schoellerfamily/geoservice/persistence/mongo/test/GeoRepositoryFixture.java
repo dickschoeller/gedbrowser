@@ -19,10 +19,10 @@ public final class GeoRepositoryFixture extends GeoCodeTestFixture {
     private final MongoTemplate mongoTemplate;
 
     /**
-     * Constructor.
+     * Creates a new GeoRepositoryFixture.
      *
-     * @param geoDocumentRepository a MongoDB repository for geo documents
-     * @param mongoTemplate a MongoDB template
+     * @param geoDocumentRepository the geo document repository
+     * @param mongoTemplate the mongo template
      */
     public GeoRepositoryFixture(final GeoDocumentRepositoryMongo geoDocumentRepository,
         final MongoTemplate mongoTemplate) {

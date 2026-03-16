@@ -25,10 +25,10 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
     private final Person person;
 
     /**
-     * Constructor.
+     * Creates a new ChildrenOrderAnalyzer.
      *
-     * @param person the person being analyzed
-     * @param result the result accumulator
+     * @param person the person
+     * @param result the result
      */
     public ChildrenOrderAnalyzer(final Person person,
             final OrderAnalyzerResult result) {
@@ -37,6 +37,11 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
         this.result = result;
     }
 
+    /**
+     * Executes analyze.
+     *
+     * @return the resulting order analyzer result
+     */
     @Override
     public OrderAnalyzerResult analyze() {
         final PersonNavigator navigator = new PersonNavigator(person);

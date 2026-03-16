@@ -24,6 +24,12 @@ public abstract class GeoCodeBasic implements GeoCode {
     /** The key string to use for talking to Google's map APIs. */
     private final GeoCoder geoCoder;
 
+    /**
+     * Finds a value.
+     *
+     * @param placeName the place name to use
+     * @return the resulting geo code item
+     */
     @Override
     public final GeoCodeItem find(final String placeName) {
         log.debug("find(\"{}\")", placeName);
@@ -72,6 +78,13 @@ public abstract class GeoCodeBasic implements GeoCode {
         return newGcce;
     }
 
+    /**
+     * Finds a value.
+     *
+     * @param placeName the place name to use
+     * @param modernPlaceName the modern place name to use
+     * @return the resulting geo code item
+     */
     @Override
     public final GeoCodeItem find(final String placeName, final String modernPlaceName) {
         if (StringUtils.isEmpty(modernPlaceName)) {
@@ -139,6 +152,10 @@ public abstract class GeoCodeBasic implements GeoCode {
         return gcce;
     }
 
+    /**
+     * Executes dump.
+     *
+     */
     @Override
     @SuppressWarnings({ "java:S106", "PMD.SystemPrintln" })
     public final void dump() {
@@ -149,6 +166,11 @@ public abstract class GeoCodeBasic implements GeoCode {
         System.out.println(toString());
     }
 
+    /**
+     * Executes count not found.
+     *
+     * @return the resulting int
+     */
     @Override
     public final int countNotFound() {
         log.debug("Count the places that couldn't be found");
@@ -157,6 +179,11 @@ public abstract class GeoCodeBasic implements GeoCode {
         return count;
     }
 
+    /**
+     * Executes all keys.
+     *
+     * @return the resulting collection
+     */
     @Override
     public final Collection<String> allKeys() {
         final SortedSet<String> names = new TreeSet<>();
@@ -166,6 +193,11 @@ public abstract class GeoCodeBasic implements GeoCode {
         return names;
     }
 
+    /**
+     * Executes not found keys.
+     *
+     * @return the resulting collection
+     */
     @Override
     public final Collection<String> notFoundKeys() {
         log.debug("Captures the places that couldn't be found");
@@ -185,12 +217,24 @@ public abstract class GeoCodeBasic implements GeoCode {
         return notFoundSet;
     }
 
+    /**
+     * Executes add.
+     *
+     * @param item the item
+     * @return the resulting geo code item
+     */
     @Override
     public final GeoCodeItem add(final GeoCodeItem item) {
         addDocument(create(item));
         return item;
     }
 
+    /**
+     * Executes delete.
+     *
+     * @param item the item
+     * @return the resulting geo code item
+     */
     @Override
     public final GeoCodeItem delete(final GeoCodeItem item) {
         final String placeName = item.getPlaceName();
@@ -203,6 +247,12 @@ public abstract class GeoCodeBasic implements GeoCode {
         return item;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @param placeName the place name to use
+     * @return the value
+     */
     @Override
     public final GeoCodeItem get(final String placeName) {
         final GeoDocument geoDocument = getDocument(placeName);

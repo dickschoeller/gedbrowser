@@ -9,10 +9,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
  */
 public final class TrailerRenderer extends GedRenderer<Trailer> {
     /**
-     * @param gedObject the Trailer that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new TrailerRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public TrailerRenderer(final Trailer gedObject,
             final GedRendererFactory rendererFactory,

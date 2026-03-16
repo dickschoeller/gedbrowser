@@ -39,9 +39,10 @@ public class WebDriverFactory {
     private final String platform;
 
     /**
-     * @param testName pass the test name in for building the saucelabs info
-     * @return the webdriver
-     * @throws MalformedURLException if there is a bogus URL
+     * Creates and returns a new remote web driver.
+     *
+     * @param testName the test name to use
+     * @return the resulting remote web driver
      */
     public RemoteWebDriver webDriver(final String testName) throws MalformedURLException {
         return new RemoteWebDriver(getRemoteUrl(), getCapabilities(testName));

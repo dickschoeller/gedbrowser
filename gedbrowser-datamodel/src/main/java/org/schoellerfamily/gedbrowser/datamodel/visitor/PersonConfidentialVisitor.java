@@ -16,16 +16,18 @@ public final class PersonConfidentialVisitor implements GedObjectVisitor {
     private boolean isConfidential;
 
     /**
-     * @return true if this person is confidential
+     * Checks whether confidential.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isConfidential() {
         return isConfidential;
     }
 
     /**
-     * Visit an Attribute. Certain Attributes contribute interest data.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public void visit(final Attribute attribute) {
@@ -36,10 +38,9 @@ public final class PersonConfidentialVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Person. Look through the attributes of a Person for
-     * relationships (FamC and FamS) and interesting Attributes.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Person)
+     * @param person the person
      */
     @Override
     public void visit(final Person person) {

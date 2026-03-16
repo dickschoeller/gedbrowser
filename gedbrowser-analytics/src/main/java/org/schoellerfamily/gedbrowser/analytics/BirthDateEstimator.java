@@ -36,9 +36,9 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
     private final BirthDateFromChildrenEstimator childrenEstimator;
 
     /**
-     * Constructor.
+     * Creates a new BirthDateEstimator.
      *
-     * @param person the person we are estimating
+     * @param person the person
      */
     public BirthDateEstimator(final Person person) {
         super(person);

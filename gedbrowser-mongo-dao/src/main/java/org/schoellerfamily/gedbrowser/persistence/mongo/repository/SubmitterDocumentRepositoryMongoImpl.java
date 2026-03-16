@@ -28,6 +28,13 @@ public class SubmitterDocumentRepositoryMongoImpl implements
     private final MongoTemplate mongoTemplate;
     /** */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
+    /**
+     * Finds the by file and string.
+     *
+     * @param filename the filename to use
+     * @param string the string
+     * @return the resulting submitter document
+     */
     @Override
     public final SubmitterDocument findByFileAndString(
             final String filename, final String string) {
@@ -45,6 +52,13 @@ public class SubmitterDocumentRepositoryMongoImpl implements
         return submitterDocument;
     }
 
+    /**
+     * Finds the by root and string.
+     *
+     * @param rootDocument the root document
+     * @param string the string
+     * @return the resulting submitter document
+     */
     @Override
     public final SubmitterDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -58,6 +72,12 @@ public class SubmitterDocumentRepositoryMongoImpl implements
         return submitterDocument;
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param filename the filename to use
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<SubmitterDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -73,6 +93,12 @@ public class SubmitterDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param rootDocument the root document
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<SubmitterDocument> findAll(
             final RootDocument rootDocument) {
@@ -88,6 +114,12 @@ public class SubmitterDocumentRepositoryMongoImpl implements
         return submitterDocuments;
     }
 
+    /**
+     * Executes count.
+     *
+     * @param filename the filename to use
+     * @return the resulting long
+     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -95,17 +127,35 @@ public class SubmitterDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, SubmitterDocumentMongo.class);
     }
 
+    /**
+     * Returns the long.
+     *
+     * @param rootDocument the root document
+     * @return the resulting long
+     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, SubmitterDocumentMongo.class,
                 rootDocument.getFilename(), "SUB");
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, SubmitterDocumentMongo.class,

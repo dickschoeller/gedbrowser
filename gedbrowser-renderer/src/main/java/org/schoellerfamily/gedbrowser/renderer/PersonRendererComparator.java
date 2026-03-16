@@ -14,7 +14,11 @@ public class PersonRendererComparator
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@inheritDoc}
+     * Executes compare.
+     *
+     * @param arg0 the arg0
+     * @param arg1 the arg1
+     * @return the resulting int
      */
     @Override
     public int compare(final PersonRenderer arg0,

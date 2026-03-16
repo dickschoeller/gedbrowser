@@ -21,11 +21,11 @@ public final class GeoServiceItem {
     }
 
     /**
-     * Constructor.
+     * Creates a new GeoServiceItem.
      *
-     * @param placeName the place name
-     * @param modernPlaceName a modern version of the placename
-     * @param result the result of geocoding
+     * @param placeName the place name to use
+     * @param modernPlaceName the modern place name to use
+     * @param result the result
      */
     public GeoServiceItem(final String placeName, final String modernPlaceName,
             final GeoServiceGeocodingResult result) {
@@ -35,20 +35,26 @@ public final class GeoServiceItem {
     }
 
     /**
-     * @return the placeName
+     * Gets the place name.
+     *
+     * @return the place name
      */
     public String getPlaceName() {
         return placeName;
     }
 
     /**
-     * @return the modernPlaceName
+     * Gets the modern place name.
+     *
+     * @return the modern place name
      */
     public String getModernPlaceName() {
         return modernPlaceName;
     }
 
     /**
+     * Gets the result.
+     *
      * @return the result
      */
     public GeoServiceGeocodingResult getResult() {

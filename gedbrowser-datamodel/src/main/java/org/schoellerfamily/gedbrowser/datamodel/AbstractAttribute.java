@@ -13,15 +13,19 @@ public abstract class AbstractAttribute extends GedObject {
     }
 
     /**
-     * @param parent parent object of this attribute
+     * Creates a new AbstractAttribute.
+     *
+     * @param parent the parent
      */
     protected AbstractAttribute(final GedObject parent) {
         super(parent);
     }
 
     /**
-     * @param parent parent object of this attribute
-     * @param string long version of type string
+     * Creates a new AbstractAttribute.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     protected AbstractAttribute(final GedObject parent, final String string) {
         super(parent, string);

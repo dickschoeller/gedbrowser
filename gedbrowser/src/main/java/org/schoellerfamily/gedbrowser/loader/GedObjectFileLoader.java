@@ -20,13 +20,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class GedObjectFileLoader extends GedDocumentFileLoader {
     /**
-     * Constructor.
+     * Creates a new GedObjectFileLoader.
      *
-     * @param finder                 finds objects in the database
-     * @param g2g                    convert GedLine to a GedObject
-     * @param toDocConverter         convert a GedObject to a GedDocumentMongo
-     * @param rootDocumentRepository access root objects in the database
-     * @param gedbrowserHome         location of files for initialization
+     * @param finder the finder
+     * @param g2g the g2g
+     * @param toDocConverter the to doc converter
+     * @param rootDocumentRepository the root document repository
+     * @param gedbrowserHome the gedbrowser home
      */
     public GedObjectFileLoader(final FinderStrategy finder, final GedLineToGedObjectTransformer g2g,
         final GedObjectToGedDocumentMongoConverter toDocConverter,

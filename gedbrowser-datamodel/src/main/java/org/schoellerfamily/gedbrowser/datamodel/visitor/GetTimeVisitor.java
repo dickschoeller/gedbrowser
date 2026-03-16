@@ -12,10 +12,9 @@ public final class GetTimeVisitor implements GedObjectVisitor {
     private String timeString = "";
 
     /**
-     * Visit an Attribute. We will look at the attributes of this Attribute
-     * for Dates. Once one is found, quit.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public void visit(final Attribute attribute) {

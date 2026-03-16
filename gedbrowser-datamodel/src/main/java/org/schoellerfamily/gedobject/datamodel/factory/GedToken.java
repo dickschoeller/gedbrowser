@@ -19,14 +19,18 @@ package org.schoellerfamily.gedobject.datamodel.factory;
     }
 
     /**
-     * @return the full string of the line.
+     * Gets the full string.
+     *
+     * @return the full string
      */
     public String getFullString() {
         return fullString;
     }
 
     /**
-     * @return the GedObject factory.
+     * Gets the factory.
+     *
+     * @return the factory
      */
     public AbstractGedObjectFactory getFactory() {
         return factory;

@@ -22,7 +22,9 @@ public class SeleniumConfig {
     private final long timeout;
 
     /**
-     * @return the page waiter
+     * Creates and configures the page waiter bean.
+     *
+     * @return the configured page waiter bean
      */
     @Bean
     public PageWaiter pageWaiter() {

@@ -19,7 +19,10 @@ public final class UserProviderImpl implements UserProvider {
     private final UserService service;
 
     /**
-     * {@inheritDoc}
+     * Returns the user.
+     *
+     * @param request the request
+     * @return the user
      */
     @Override
     public User getUser(final HttpServletRequest request) {

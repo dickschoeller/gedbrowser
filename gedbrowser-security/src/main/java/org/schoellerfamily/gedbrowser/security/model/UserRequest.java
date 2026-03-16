@@ -35,6 +35,8 @@ public class UserRequest {
     private String email;
 
     /**
+     * Gets the username.
+     *
      * @return the username
      */
     public String getUsername() {
@@ -42,13 +44,17 @@ public class UserRequest {
     }
 
     /**
-     * @param username the username
+     * Sets the username.
+     *
+     * @param username the username to use
      */
     public void setUsername(final String username) {
       this.username = username;
     }
 
     /**
+     * Gets the password.
+     *
      * @return the password
      */
     public String getPassword() {
@@ -56,6 +62,8 @@ public class UserRequest {
     }
 
     /**
+     * Sets the password.
+     *
      * @param password the password
      */
     public void setPassword(final String password) {
@@ -63,56 +71,72 @@ public class UserRequest {
     }
 
     /**
-     * @return the first name
+     * Gets the firstname.
+     *
+     * @return the firstname
      */
     public String getFirstname() {
       return firstname;
     }
 
     /**
-     * @param firstname the first name
+     * Sets the firstname.
+     *
+     * @param firstname the firstname to use
      */
     public void setFirstname(final String firstname) {
       this.firstname = firstname;
     }
 
     /**
-     * @return the last name
+     * Gets the lastname.
+     *
+     * @return the lastname
      */
     public String getLastname() {
       return lastname;
     }
 
     /**
-     * @param lastname the last name
+     * Sets the lastname.
+     *
+     * @param lastname the lastname to use
      */
     public void setLastname(final String lastname) {
       this.lastname = lastname;
     }
 
     /**
-     * @return the ID
+     * Gets the id.
+     *
+     * @return the id
      */
     public Long getId() {
       return id;
     }
 
     /**
-     * @param id the ID
+     * Sets the id.
+     *
+     * @param id the unique identifier for the target
      */
     public void setId(final Long id) {
       this.id = id;
     }
 
     /**
-     * @param email the email address
+     * Sets the email.
+     *
+     * @param email the email
      */
     public void setEmail(final String email) {
         this.email = email;
     }
 
     /**
-     * @return the email address
+     * Gets the email.
+     *
+     * @return the email
      */
     public String getEmail() {
         return email;

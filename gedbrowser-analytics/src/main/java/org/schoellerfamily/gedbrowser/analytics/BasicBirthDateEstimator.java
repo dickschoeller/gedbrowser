@@ -26,9 +26,9 @@ public class BasicBirthDateEstimator extends Estimator {
     private final Typicals typicals;
 
     /**
-     * Constructor.
+     * Creates a new BasicBirthDateEstimator.
      *
-     * @param person the person we are estimating
+     * @param person the person
      */
     public BasicBirthDateEstimator(final Person person) {
         this.person = person;

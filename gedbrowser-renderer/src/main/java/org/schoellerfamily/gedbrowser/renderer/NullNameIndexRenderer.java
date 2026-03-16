@@ -5,7 +5,9 @@ package org.schoellerfamily.gedbrowser.renderer;
  */
 public class NullNameIndexRenderer implements NameIndexRenderer {
     /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public final String getIndexName() {

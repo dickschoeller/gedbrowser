@@ -7,30 +7,41 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  */
 public final class Link extends AbstractLink {
     /**
-     * @param parent parent object of this link
+     * Creates a new Link.
+     *
+     * @param parent the parent
      */
     public Link(final GedObject parent) {
         super(parent);
     }
 
     /**
-     * @param parent parent object of this link
-     * @param string long version of type string
+     * Creates a new Link.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     public Link(final GedObject parent, final String string) {
         super(parent, string);
     }
 
     /**
-     * @param parent parent object of this link
-     * @param string long version of type string
-     * @param xref the reference to a GED object
+     * Creates a new Link.
+     *
+     * @param parent the parent
+     * @param string the string
+     * @param xref the xref
      */
     public Link(final GedObject parent, final String string,
             final ObjectId xref) {
         super(parent, string, xref);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

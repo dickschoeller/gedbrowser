@@ -24,8 +24,10 @@ public class UsersWriter {
     private final String userfilename;
 
     /**
-     * @param users the users to write
-     * @param userfilename the file name to write
+     * Creates a new UsersWriter.
+     *
+     * @param users the users
+     * @param userfilename the userfilename to use
      */
     public UsersWriter(final Users<? extends User> users,
             final String userfilename) {

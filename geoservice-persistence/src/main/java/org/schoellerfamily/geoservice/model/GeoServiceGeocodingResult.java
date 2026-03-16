@@ -52,15 +52,15 @@ public final class GeoServiceGeocodingResult {
     }
 
     /**
-     * @param addressComponents
-     *            an array containing the separate address components
-     * @param formattedAddress human readable address string
-     * @param postcodeLocalities
-     *            an array denoting all of the addresses in the postal code
-     * @param geometry location information
-     * @param types an array describing the applicable location types
-     * @param partialMatch true if this is a partial match
-     * @param placeId unique identifier for the place
+     * Creates a new GeoServiceGeocodingResult.
+     *
+     * @param addressComponents the address components
+     * @param formattedAddress the formatted address
+     * @param postcodeLocalities the postcode localities to use
+     * @param geometry the geometry
+     * @param types the types to use
+     * @param partialMatch the partial match
+     * @param placeId the unique identifier for place
      */
     public GeoServiceGeocodingResult(
             final AddressComponent[] addressComponents,

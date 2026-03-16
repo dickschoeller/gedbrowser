@@ -23,10 +23,10 @@ public class SubmittersRenderer extends GedRenderer<Root>
         SourcesHrefRenderer<Root>, SubmittersHrefRenderer<Root> {
 
     /**
-     * Constructor.
+     * Creates a new SubmittersRenderer.
      *
-     * @param root root of data set
-     * @param renderingContext the context that we are rendering in
+     * @param root the root
+     * @param renderingContext the rendering context
      */
     public SubmittersRenderer(final Root root,
             final RenderingContext renderingContext) {
@@ -34,7 +34,9 @@ public class SubmittersRenderer extends GedRenderer<Root>
     }
 
     /**
-     * @return the collection of submitters
+     * Gets the submitters.
+     *
+     * @return the submitters
      */
     public Collection<SubmitterRenderer> getSubmitters() {
         log.info("Starting getSubmitters");

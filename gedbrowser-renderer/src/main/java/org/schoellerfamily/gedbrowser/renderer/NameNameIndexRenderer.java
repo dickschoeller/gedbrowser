@@ -11,16 +11,18 @@ public final class NameNameIndexRenderer
     private final transient NameRenderer nameRenderer;
 
     /**
-     * Constructor.
+     * Creates a new NameNameIndexRenderer.
      *
-     * @param nameRenderer the NameRenderer that is using this helper.
+     * @param nameRenderer the name renderer to use
      */
     public NameNameIndexRenderer(final NameRenderer nameRenderer) {
         this.nameRenderer = nameRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public String getIndexName() {

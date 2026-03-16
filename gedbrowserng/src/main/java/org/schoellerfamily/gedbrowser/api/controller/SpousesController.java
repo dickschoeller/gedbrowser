@@ -37,10 +37,12 @@ public class SpousesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
-     * @param person the data for the spouse
-     * @return the person as created
+     * Creates the spouse.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @PostMapping(value = "/v1/dbs/{db}/persons/{id}/spouses")
     public ApiPerson createSpouse(@PathVariable final String db,
@@ -50,10 +52,12 @@ public class SpousesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
-     * @param person the data for the spouse
-     * @return the person as created
+     * Returns the api person.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @PutMapping(value = "/v1/dbs/{db}/persons/{id}/spouses")
     public ApiPerson linkSpouse(@PathVariable final String db,
@@ -63,10 +67,12 @@ public class SpousesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
-     * @param person the data for the spouse
-     * @return the person as created
+     * Creates the spouse in family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @PostMapping(value = "/v1/dbs/{db}/families/{id}/spouses")
     public ApiPerson createSpouseInFamily(@PathVariable final String db,
@@ -76,10 +82,12 @@ public class SpousesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
-     * @param person the data for the spouse
-     * @return the person as created
+     * Returns the api person.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @PutMapping(value = "/v1/dbs/{db}/families/{id}/spouses")
     public ApiPerson linkSpouseInFamily(@PathVariable final String db,
@@ -89,10 +97,12 @@ public class SpousesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
-     * @param sid the data for the spouse
-     * @return the person whose link was deleted
+     * Returns the api person.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param sid the unique identifier for s
+     * @return the resulting api person
      */
     @DeleteMapping(value = "/v1/dbs/{db}/families/{id}/spouses/{sid}")
     public ApiPerson unlinkSpouseInFamily(@PathVariable final String db,

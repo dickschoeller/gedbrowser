@@ -24,6 +24,12 @@ public class GeoDocumentRepositoryMongoImpl
     /** */
     private final MongoTemplate mongoTemplate;
 
+    /**
+     * Finds a value.
+     *
+     * @param placeName the place name to use
+     * @return the resulting geo document
+     */
     @Override
     public final GeoDocument find(final String placeName) {
         final Query searchQuery =

@@ -8,7 +8,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 public class PersonAttributeListOpenRenderer implements
         AttributeListOpenRenderer {
     /**
-     * {@inheritDoc}
+     * Executes render attribute list open.
+     *
+     * @param builder the builder
+     * @param pad the pad
+     * @param gob the gob
      */
     @Override
     public final void renderAttributeListOpen(final StringBuilder builder,

@@ -20,7 +20,9 @@ public class HasRoles implements Serializable {
     private final Set<UserRoleName> roles = new HashSet<>();
 
     /**
-     * {@inheritDoc}
+     * Returns the roles.
+     *
+     * @return the roles
      */
     @SuppressWarnings({ "PMD.OptimizableToArrayCall" })
     public UserRoleName[] getRoles() {
@@ -28,7 +30,9 @@ public class HasRoles implements Serializable {
     }
 
     /**
-     * @param role the role to add to the role set
+     * Executes add role.
+     *
+     * @param role the role
      */
     public void addRole(final String role) {
         try {
@@ -47,7 +51,10 @@ public class HasRoles implements Serializable {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether role is present.
+     *
+     * @param role the role
+     * @return true if the condition is met; otherwise false
      */
     public boolean hasRole(final UserRoleName role) {
         return roles.contains(role);

@@ -25,11 +25,22 @@ public final class NoteDocumentMongo extends GedDocumentMongo<Note>
     /** */
     private String tail;
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "note";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     * @param ged the ged
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -44,21 +55,41 @@ public final class NoteDocumentMongo extends GedDocumentMongo<Note>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Gets the tail.
+     *
+     * @return the tail
+     */
     @Override
     public String getTail() {
         return tail;
     }
 
+    /**
+     * Sets the tail.
+     *
+     * @param tail the tail
+     */
     @Override
     public void setTail(final String tail) {
         this.tail = tail;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

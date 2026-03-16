@@ -29,7 +29,11 @@ class SauceBindingsExampleIT {
     @Autowired
     private WebDriverFactory driverFactory;
 
-    /** Sauce Labs extension to manage WebDriver lifecycle. */
+    /**
+     * Executes sauce bindings extension.
+     *
+     * @return the resulting new
+     */
     @RegisterExtension
     @SuppressWarnings("checkstyle:visibilitymodifier")
     public final SauceBindingsExtension sauceExtension = new SauceBindingsExtension();

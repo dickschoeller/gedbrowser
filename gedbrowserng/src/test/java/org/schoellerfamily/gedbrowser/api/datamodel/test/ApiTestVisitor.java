@@ -19,14 +19,18 @@ public class ApiTestVisitor implements ApiObjectVisitor {
     private String methodCalled = "";
 
     /**
-     * @return the name of the method called
+     * Gets the method called.
+     *
+     * @return the method called
      */
     public String getMethodCalled() {
         return methodCalled;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param attribute the attribute
      */
     @Override
     public void visit(final ApiAttribute attribute) {
@@ -34,7 +38,9 @@ public class ApiTestVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param baseObject the base object
      */
     @Override
     public void visit(final ApiObject baseObject) {
@@ -42,7 +48,9 @@ public class ApiTestVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param family the family
      */
     @Override
     public void visit(final ApiFamily family) {
@@ -50,7 +58,9 @@ public class ApiTestVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param head the head
      */
     @Override
     public void visit(final ApiHead head) {
@@ -58,7 +68,9 @@ public class ApiTestVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param note the note
      */
     @Override
     public void visit(final ApiNote note) {
@@ -66,7 +78,9 @@ public class ApiTestVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param person the person
      */
     @Override
     public void visit(final ApiPerson person) {
@@ -74,7 +88,9 @@ public class ApiTestVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param source the source
      */
     @Override
     public void visit(final ApiSource source) {
@@ -82,7 +98,9 @@ public class ApiTestVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param submission the submission
      */
     @Override
     public void visit(final ApiSubmission submission) {
@@ -90,7 +108,9 @@ public class ApiTestVisitor implements ApiObjectVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param submitter the submitter
      */
     @Override
     public void visit(final ApiSubmitter submitter) {

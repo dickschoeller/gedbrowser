@@ -13,9 +13,9 @@ public class SourceLinkNameHtmlRenderer implements NameHtmlRenderer {
     private final transient SourceLinkRenderer sourceLinkRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SourceLinkNameHtmlRenderer.
      *
-     * @param sourceLinkRenderer the renderer that is using this helper.
+     * @param sourceLinkRenderer the source link renderer
      */
     protected SourceLinkNameHtmlRenderer(
             final SourceLinkRenderer sourceLinkRenderer) {
@@ -23,7 +23,9 @@ public class SourceLinkNameHtmlRenderer implements NameHtmlRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public String getNameHtml() {

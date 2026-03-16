@@ -11,9 +11,9 @@ public class SubmitterNameIndexRenderer implements NameIndexRenderer {
     private final transient SubmitterRenderer submitterRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SubmitterNameIndexRenderer.
      *
-     * @param submitterRenderer the associated submitterRenderer
+     * @param submitterRenderer the submitter renderer
      */
     public SubmitterNameIndexRenderer(
             final SubmitterRenderer submitterRenderer) {
@@ -21,7 +21,9 @@ public class SubmitterNameIndexRenderer implements NameIndexRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public String getIndexName() {

@@ -34,6 +34,11 @@ public class ApplicationHealthIndicator implements HealthIndicator {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
+    /**
+     * Executes health.
+     *
+     * @return the resulting health
+     */
     @Override
     public final Health health() {
         log.debug("Health");

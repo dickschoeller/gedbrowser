@@ -115,10 +115,9 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Child. We track this and, if set, the Person who is the
-     * child.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Child)
+     * @param child the child
      */
     @Override
     public void visit(final Child child) {
@@ -130,10 +129,9 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Family. This is the primary focus of the visitation. From
-     * here, interesting information is gathered from the attributes.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Family)
+     * @param family the family
      */
     @Override
     public void visit(final Family family) {
@@ -143,10 +141,9 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Husband. We track this and, if set, the Person who is the
-     * father.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Husband)
+     * @param husband the husband
      */
     @Override
     public void visit(final Husband husband) {
@@ -158,10 +155,9 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Wife. We track this and, if set, the Person who is the
-     * mother.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Wife)
+     * @param wife the wife
      */
     @Override
     public void visit(final Wife wife) {

@@ -53,8 +53,10 @@ public class ApiHasImages extends ApiObject {
     }
 
     /**
-     * Is the other object of exactly the same type as this one? All overrides
-     * should use the same approach.
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
      */
     @Override
     public boolean canEqual(final Object other) {

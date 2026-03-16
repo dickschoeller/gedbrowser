@@ -37,9 +37,11 @@ public final class PlaceListRenderer {
     private final LivingEstimator le;
 
     /**
+     * Creates a new PlaceListRenderer.
+     *
      * @param person the person
-     * @param client the geoservice client
-     * @param renderingContext the current rendering context
+     * @param client the client
+     * @param renderingContext the rendering context
      */
     public PlaceListRenderer(final Person person,
             final GeoServiceClient client,
@@ -51,7 +53,9 @@ public final class PlaceListRenderer {
     }
 
     /**
-     * @return the list of place information
+     * Executes render.
+     *
+     * @return the resulting list
      */
     public List<PlaceInfo> render() {
         if (person == null || client == null) {

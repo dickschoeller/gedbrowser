@@ -26,13 +26,17 @@ public class CrudTestHelper {
     }
 
     /**
-     * @return the DB string
+     * Gets the db.
+     *
+     * @return the db
      */
     public String getDb() {
         return "gl120368";
     }
 
     /**
+     * Gets the person builder.
+     *
      * @return the person builder
      */
     public ApiPerson.ApiPersonBuilder<?, ?> getPersonBuilder() {
@@ -40,30 +44,38 @@ public class CrudTestHelper {
     }
 
     /**
-     * @return a newly created, very simple person
+     * Creates the person.
+     *
+     * @return the resulting api person
      */
     public ApiPerson createPerson() {
         return personCrud.createOne(getDb(), buildPerson());
     }
 
     /**
-     * @return a new person object
+     * Builds the person.
+     *
+     * @return the resulting api person
      */
     public ApiPerson buildPerson() {
         return builder.build();
     }
 
     /**
-     * @param person the person that we are "regetting"
-     * @return the newly gotten person
+     * Returns the person.
+     *
+     * @param person the person
+     * @return the person
      */
     public ApiPerson getPerson(final ApiPerson person) {
         return personCrud.readOne(getDb(), person.getString());
     }
 
     /**
-     * @param famID the ID of the family to read
-     * @return the family
+     * Returns the api family.
+     *
+     * @param famID the unique identifier for fam i
+     * @return the resulting api family
      */
     public ApiFamily readFamily(final String famID) {
         return familyCrud.readOne(getDb(), famID);
@@ -71,7 +83,9 @@ public class CrudTestHelper {
 
 
     /**
-     * @return the newly created person
+     * Creates the alexander.
+     *
+     * @return the resulting api person
      */
     public ApiPerson createAlexander() {
         return ApiPerson.builder()
@@ -93,7 +107,9 @@ public class CrudTestHelper {
     }
 
     /**
-     * @return the newly created person
+     * Creates the alexandra.
+     *
+     * @return the resulting api person
      */
     public ApiPerson createAlexandra() {
         return ApiPerson.builder()

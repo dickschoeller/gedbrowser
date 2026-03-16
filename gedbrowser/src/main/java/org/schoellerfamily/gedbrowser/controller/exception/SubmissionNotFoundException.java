@@ -15,12 +15,12 @@ public final class SubmissionNotFoundException extends ObjectNotFoundException {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructor.
+     * Creates a new SubmissionNotFoundException.
      *
-     * @param message the message to display
-     * @param sourceId the ID of the source not found
-     * @param datasetName the name of the dataset being searched
-     * @param context the rendering context
+     * @param message the message
+     * @param sourceId the unique identifier for source
+     * @param datasetName the dataset name to use
+     * @param context the context
      */
     public SubmissionNotFoundException(final String message,
             final String sourceId, final String datasetName,

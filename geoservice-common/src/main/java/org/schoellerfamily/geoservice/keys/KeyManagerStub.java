@@ -7,7 +7,9 @@ package org.schoellerfamily.geoservice.keys;
  */
 public final class KeyManagerStub implements KeyManager {
     /**
-     * {@inheritDoc}
+     * Returns the geocoding key.
+     *
+     * @return the geocoding key
      */
     @Override
     public String getGeocodingKey() {
@@ -15,7 +17,9 @@ public final class KeyManagerStub implements KeyManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the maps key.
+     *
+     * @return the maps key
      */
     @Override
     public String getMapsKey() {

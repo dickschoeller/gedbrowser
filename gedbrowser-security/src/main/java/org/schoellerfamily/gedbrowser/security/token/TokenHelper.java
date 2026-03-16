@@ -61,8 +61,10 @@ public final class TokenHelper {
     }
 
     /**
+     * Returns the username from token.
+     *
      * @param token the token
-     * @return the user name
+     * @return the username from token
      */
     public String getUsernameFromToken(final String token) {
         try {
@@ -77,8 +79,10 @@ public final class TokenHelper {
     }
 
     /**
-     * @param username the username
-     * @return the token
+     * Returns the string.
+     *
+     * @param username the username to use
+     * @return the resulting string
      */
     public String generateToken(final String username) {
         return Jwts.builder()
@@ -123,8 +127,10 @@ public final class TokenHelper {
     }
 
     /**
+     * Executes can token be refreshed.
+     *
      * @param token the token
-     * @return true if the token can be refreshed
+     * @return the resulting boolean
      */
     public Boolean canTokenBeRefreshed(final String token) {
         try {
@@ -136,8 +142,10 @@ public final class TokenHelper {
     }
 
     /**
-     * @param token the old token
-     * @return the new token
+     * Executes refresh token.
+     *
+     * @param token the token
+     * @return the resulting string
      */
     public String refreshToken(final String token) {
         try {
@@ -167,7 +175,9 @@ public final class TokenHelper {
     }
 
     /**
-     * @param request the servlet request
+     * Returns the token.
+     *
+     * @param request the request
      * @return the token
      */
     public String getToken(final HttpServletRequest request) {

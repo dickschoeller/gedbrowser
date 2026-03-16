@@ -19,10 +19,11 @@ public final class HeadRenderer extends GedRenderer<Head>
         SaveHrefRenderer<Head>, SourcesHrefRenderer<Head>,
         SubmittersHrefRenderer<Head> {
     /**
-     * @param gedObject the Head that we are going to render.
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new HeadRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public HeadRenderer(final Head gedObject,
             final GedRendererFactory rendererFactory,

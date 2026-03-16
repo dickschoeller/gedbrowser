@@ -47,9 +47,11 @@ public class AuthenticationController {
     private String cookie;
 
     /**
+     * Executes refresh authentication token.
+     *
      * @param request the request
      * @param response the response
-     * @return the response entity
+     * @return the resulting response entity
      */
     @RequestMapping(value = "/refresh", method = RequestMethod.GET)
     public ResponseEntity<UserTokenState> refreshAuthenticationToken(
@@ -85,8 +87,10 @@ public class AuthenticationController {
     }
 
     /**
-     * @param passwordChanger the data carrier for password change
-     * @return the response entity
+     * Executes change password.
+     *
+     * @param passwordChanger the password changer
+     * @return the resulting string>>
      */
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     @PreAuthorize("hasRole('USER')")
@@ -109,6 +113,8 @@ public class AuthenticationController {
         private String newPassword;
 
         /**
+         * Gets the old password.
+         *
          * @return the old password
          */
         public String getOldPassword() {
@@ -116,6 +122,8 @@ public class AuthenticationController {
         }
 
         /**
+         * Sets the old password.
+         *
          * @param oldPassword the old password
          */
         public void setOldPassword(final String oldPassword) {
@@ -123,6 +131,8 @@ public class AuthenticationController {
         }
 
         /**
+         * Gets the new password.
+         *
          * @return the new password
          */
         public String getNewPassword() {
@@ -130,6 +140,8 @@ public class AuthenticationController {
         }
 
         /**
+         * Sets the new password.
+         *
          * @param newPassword the new password
          */
         public void setNewPassword(final String newPassword) {

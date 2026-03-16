@@ -39,6 +39,13 @@ public final class PersonDocumentRepositoryMongoImpl implements
     private final MongoTemplate mongoTemplate;
     /** */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
+    /**
+     * Finds the by file and string.
+     *
+     * @param filename the filename to use
+     * @param string the string
+     * @return the resulting person document
+     */
     @Override
     public PersonDocument findByFileAndString(final String filename,
             final String string) {
@@ -55,6 +62,13 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return personDocument;
     }
 
+    /**
+     * Finds the by root and string.
+     *
+     * @param rootDocument the root document
+     * @param string the string
+     * @return the resulting person document
+     */
     @Override
     public PersonDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -68,6 +82,13 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return personDocument;
     }
 
+    /**
+     * Finds by file and surname.
+     *
+     * @param filename the filename to use
+     * @param surname the surname to use
+     * @return the resulting collection< person document>
+     */
     @Override
     public Collection<PersonDocument> findByFileAndSurname(
             final String filename, final String surname) {
@@ -83,6 +104,13 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return copy(personDocuments);
     }
 
+    /**
+     * Finds the by root and surname.
+     *
+     * @param rootDocument the root document
+     * @param surname the surname to use
+     * @return the resulting collection
+     */
     @Override
     public Collection<PersonDocument> findByRootAndSurname(
             final RootDocument rootDocument, final String surname) {
@@ -98,6 +126,13 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return personDocuments;
     }
 
+    /**
+     * Finds the by file and surname begins with.
+     *
+     * @param filename the filename to use
+     * @param beginsWith the begins with
+     * @return the resulting collection
+     */
     @Override
     public Collection<PersonDocument> findByFileAndSurnameBeginsWith(
             final String filename, final String beginsWith) {
@@ -140,6 +175,13 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return mongoTemplate.find(searchQuery, PersonDocumentMongo.class);
     }
 
+    /**
+     * Finds the by root and surname begins with.
+     *
+     * @param rootDocument the root document
+     * @param beginsWith the begins with
+     * @return the resulting collection
+     */
     @Override
     public Collection<PersonDocument> findByRootAndSurnameBeginsWith(
             final RootDocument rootDocument, final String beginsWith) {
@@ -196,7 +238,11 @@ public final class PersonDocumentRepositoryMongoImpl implements
         private static final long serialVersionUID = 3;
 
         /**
-         * {@inheritDoc}
+         * Executes compare.
+         *
+         * @param arg0 the arg0
+         * @param arg1 the arg1
+         * @return the resulting int
          */
         @Override
         public int compare(final PersonDocument arg0,
@@ -206,6 +252,12 @@ public final class PersonDocumentRepositoryMongoImpl implements
         }
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param filename the filename to use
+     * @return the resulting iterable
+     */
     @Override
     public Iterable<PersonDocument> findAll(final String filename) {
         final Query searchQuery = new Query(
@@ -216,6 +268,12 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return copy(personDocuments);
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param rootDocument the root document
+     * @return the resulting iterable
+     */
     @Override
     public Iterable<PersonDocument> findAll(final RootDocument rootDocument) {
         if (rootDocument == null) {
@@ -230,6 +288,12 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return personDocuments;
     }
 
+    /**
+     * Executes count.
+     *
+     * @param filename the filename to use
+     * @return the resulting long
+     */
     @Override
     public long count(final String filename) {
         final Query searchQuery =
@@ -237,17 +301,35 @@ public final class PersonDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, PersonDocumentMongo.class);
     }
 
+    /**
+     * Returns the long.
+     *
+     * @param rootDocument the root document
+     * @return the resulting long
+     */
     @Override
     public long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, PersonDocumentMongo.class,
                 rootDocument.getFilename(), "I");
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, PersonDocumentMongo.class,

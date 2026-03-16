@@ -8,7 +8,9 @@ package org.schoellerfamily.gedbrowser.renderer;
  */
 public final class NullCellRenderer implements CellRenderer {
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public String getNameHtml() {
@@ -16,7 +18,9 @@ public final class NullCellRenderer implements CellRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the cell class.
+     *
+     * @return the cell class
      */
     @Override
     public String getCellClass() {

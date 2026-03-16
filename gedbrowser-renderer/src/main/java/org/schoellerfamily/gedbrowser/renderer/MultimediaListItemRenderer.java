@@ -13,9 +13,9 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
     private final transient MultimediaRenderer multimediaRenderer;
 
     /**
-     * Constructor.
+     * Creates a new MultimediaListItemRenderer.
      *
-     * @param multimediaRenderer the renderer that this is associated with.
+     * @param multimediaRenderer the multimedia renderer
      */
     public MultimediaListItemRenderer(
             final MultimediaRenderer multimediaRenderer) {
@@ -23,7 +23,12 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as list item.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public StringBuilder renderAsListItem(final StringBuilder builder,
@@ -39,7 +44,9 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public String getListItemContents() {

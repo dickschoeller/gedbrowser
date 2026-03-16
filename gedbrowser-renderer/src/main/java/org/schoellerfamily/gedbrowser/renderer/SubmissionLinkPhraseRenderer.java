@@ -10,9 +10,9 @@ public class SubmissionLinkPhraseRenderer implements PhraseRenderer {
     private final transient SubmissionLinkRenderer slRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SubmissionLinkPhraseRenderer.
      *
-     * @param renderer the renderer that this is associated with.
+     * @param renderer the renderer
      */
     protected SubmissionLinkPhraseRenderer(
             final SubmissionLinkRenderer renderer) {
@@ -20,7 +20,9 @@ public class SubmissionLinkPhraseRenderer implements PhraseRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the string.
+     *
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

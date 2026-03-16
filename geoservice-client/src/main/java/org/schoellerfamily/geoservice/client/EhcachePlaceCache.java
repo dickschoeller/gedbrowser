@@ -25,8 +25,10 @@ public final class EhcachePlaceCache implements PlaceCache {
     private final org.ehcache.Cache<String, GeoServiceItem> cache;
 
     /**
-     * @param maxSize    maximum number of entries to hold in memory
-     * @param ttlSeconds time-to-live for each entry in seconds
+     * Executes ehcache place cache.
+     *
+     * @param maxSize the max size
+     * @param ttlSeconds the ttl seconds
      */
     public EhcachePlaceCache(final int maxSize, final long ttlSeconds) {
         cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
@@ -43,13 +45,23 @@ public final class EhcachePlaceCache implements PlaceCache {
         cache = cacheManager.getCache("geocode", String.class, GeoServiceItem.class);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Gets the value.
+     *
+     * @param placeName the place name to use
+     * @return the value
+     */
     @Override
     public GeoServiceItem get(final String placeName) {
         return cache.get(placeName);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Executes put.
+     *
+     * @param placeName the place name to use
+     * @param item the item
+     */
     @Override
     public void put(final String placeName, final GeoServiceItem item) {
         cache.put(placeName, item);

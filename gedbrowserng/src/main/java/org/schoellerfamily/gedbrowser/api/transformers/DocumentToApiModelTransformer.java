@@ -14,15 +14,18 @@ import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
  */
 public class DocumentToApiModelTransformer {
     /**
-     * Constructor.
+     * Creates a new DocumentToApiModelTransformer.
+     *
      */
     public DocumentToApiModelTransformer() {
         super();
     }
 
     /**
-     * @param document the document to convert
-     * @return the resulting object
+     * Executes convert.
+     *
+     * @param document the document
+     * @return the resulting api head
      */
     public final ApiHead convert(final HeadDocument document) {
         final DocumentToApiModelVisitor v =
@@ -48,10 +51,10 @@ public class DocumentToApiModelTransformer {
     }
 
     /**
-     * @param <T> the data type returned
-     * @param <V> the data type input
-     * @param document the document to convert
-     * @return the resulting object
+     * Executes convert.
+     *
+     * @param document the document
+     * @return the resulting t
      */
     @SuppressWarnings("unchecked")
     public final <T extends ApiObject, V extends GedDocument<?>> T convert(

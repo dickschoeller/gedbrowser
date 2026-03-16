@@ -64,7 +64,9 @@ public class MongoTestConfiguration {
     private transient GeoCoder geoCoder = null;
 
     /**
-     * @return the persistence manager
+     * Creates and configures the geo code bean.
+     *
+     * @return the configured geo code bean
      */
     @Bean
     public GeoCode persistenceManager() {
@@ -75,7 +77,9 @@ public class MongoTestConfiguration {
     }
 
     /**
-     * @return the geocoder
+     * Creates and configures the geo coder bean.
+     *
+     * @return the configured geo coder bean
      */
     @Bean
     public GeoCoder geoCoder() {
@@ -126,7 +130,9 @@ public class MongoTestConfiguration {
     }
 
     /**
-     * @return the geocodeloader
+     * Creates and configures the geo code loader bean.
+     *
+     * @return the configured geo code loader bean
      */
     @Bean
     public GeoCodeLoader loader() {
@@ -134,8 +140,9 @@ public class MongoTestConfiguration {
     }
 
     /**
-     * @return the repository implementation
-     * @throws UnknownHostException because it must
+     * Creates and configures the geo document repository mongo impl bean.
+     *
+     * @return the configured geo document repository mongo impl bean
      */
     @Bean
     public GeoDocumentRepositoryMongoImpl geoDocumentRepositoryMongo() throws UnknownHostException {

@@ -101,7 +101,9 @@ final class GeoCodeTest {
         }
 
         /**
-         * @return the geocode cache
+         * Creates and configures the geo code bean.
+         *
+         * @return the configured geo code bean
          */
         @Bean
         public GeoCode geoCode() {
@@ -112,7 +114,9 @@ final class GeoCodeTest {
         }
 
         /**
-         * @return the geocoder
+         * Creates and configures the geo coder bean.
+         *
+         * @return the configured geo coder bean
          */
         @Bean
         public GeoCoder geoCoder() {
@@ -123,7 +127,9 @@ final class GeoCodeTest {
         }
 
         /**
-         * @return the geocodeloader
+         * Creates and configures the geo code loader bean.
+         *
+         * @return the configured geo code loader bean
          */
         @Bean
         public GeoCodeLoader loader() {

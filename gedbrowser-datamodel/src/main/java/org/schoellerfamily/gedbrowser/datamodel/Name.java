@@ -22,14 +22,17 @@ public final class Name extends GedObject implements Nameable {
     private String suffix = "";
 
     /**
-     * Default constructor.
+     * Creates a new Name.
+     *
      */
     public Name() {
         super();
     }
 
     /**
-     * @param parent parent object of this name
+     * Creates a new Name.
+     *
+     * @param parent the parent
      */
     public Name(final GedObject parent) {
         super(parent);
@@ -37,8 +40,10 @@ public final class Name extends GedObject implements Nameable {
     }
 
     /**
-     * @param parent parent object of this name
-     * @param string name string
+     * Creates a new Name.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     public Name(final GedObject parent, final String string) {
         super(parent, string);
@@ -63,11 +68,21 @@ public final class Name extends GedObject implements Nameable {
         }
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     @Override
     public Name getName() {
         return this;
     }
 
+    /**
+     * Gets the surname.
+     *
+     * @return the surname
+     */
     @Override
     public String getSurname() {
         if (surname.isEmpty()) {
@@ -78,8 +93,9 @@ public final class Name extends GedObject implements Nameable {
     }
 
     /**
-     * @return the prefix portion of the name. In western names this is the
-     *         given name.
+     * Returns the prefix.
+     *
+     * @return the prefix
      */
     public String getPrefix() {
         return prefix;
@@ -93,6 +109,11 @@ public final class Name extends GedObject implements Nameable {
         return suffix;
     }
 
+    /**
+     * Gets the index name.
+     *
+     * @return the index name
+     */
     @Override
     public String getIndexName() {
         final boolean hasPrefix = !prefix.isEmpty();
@@ -132,6 +153,11 @@ public final class Name extends GedObject implements Nameable {
         return buffer.toString();
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

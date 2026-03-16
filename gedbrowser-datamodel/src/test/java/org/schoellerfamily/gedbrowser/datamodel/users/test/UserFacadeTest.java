@@ -26,6 +26,11 @@ class UserFacadeTest {
             this.user = user;
         }
 
+        /**
+         * Gets the user.
+         *
+         * @return the user
+         */
         @Override
         public User getUser() {
             return user;

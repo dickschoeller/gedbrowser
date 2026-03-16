@@ -10,9 +10,11 @@ import org.schoellerfamily.gedbrowser.datamodel.AbstractLink;
 public abstract class AbstractLinkRenderer<T extends AbstractLink> extends
         GedRenderer<T> {
     /**
-     * @param gedObject the gedObject to render
-     * @param rendererFactory the factory to get additional renderers
-     * @param renderingContext the context that we are rendering in
+     * Creates a new AbstractLinkRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     protected AbstractLinkRenderer(final T gedObject,
             final GedRendererFactory rendererFactory,

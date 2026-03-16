@@ -12,7 +12,9 @@ public final class SourceVisitor implements GedObjectVisitor {
     private String titleString;
 
     /**
-     * @return the title string of the source
+     * Gets the title string.
+     *
+     * @return the title string
      */
     public String getTitleString() {
         if (titleString == null) {
@@ -22,10 +24,9 @@ public final class SourceVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit an Attribute. Specific Attributes provide interesting data for
-     * the Source that is the primary focus.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public void visit(final Attribute attribute) {
@@ -35,10 +36,9 @@ public final class SourceVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Source. This is the primary focus of the visitation. From
-     * here, interesting information is gathered.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Source)
+     * @param source the source
      */
     @Override
     public void visit(final Source source) {

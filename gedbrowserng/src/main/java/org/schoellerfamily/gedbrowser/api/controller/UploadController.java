@@ -56,6 +56,12 @@ public class UploadController {
     @RequestMapping(value = "/v1/upload",
         method = RequestMethod.POST,
         consumes = "multipart/form-data")
+    /**
+     * Executes upload.
+     *
+     * @param file the file to use
+     * @return the resulting api head
+     */
     public final ApiHead upload(@RequestParam("file") final MultipartFile file) {
         final String originalFilename = file.getOriginalFilename();
         if (ObjectUtils.isEmpty(originalFilename)) {

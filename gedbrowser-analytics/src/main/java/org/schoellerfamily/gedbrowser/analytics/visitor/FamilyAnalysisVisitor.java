@@ -10,10 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  */
 public final class FamilyAnalysisVisitor extends AbstractAnalysisVisitor {
     /**
-     * Visit a Family. This is the primary focus of the visitation. From
-     * here, interesting information is gathered from the attributes.
+     * Executes visit.
      *
-     * @see org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor#visit(Family)
+     * @param family the family
      */
     @Override
     public void visit(final Family family) {

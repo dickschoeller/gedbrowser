@@ -118,7 +118,9 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the RestClient builder
+     * Creates and configures the builder bean.
+     *
+     * @return the configured builder bean
      */
     @Bean
     public RestClient.Builder restClientBuilder() {

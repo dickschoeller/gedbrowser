@@ -38,6 +38,11 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         this.id = id;
     }
 
+    /**
+     * Gets the index letter.
+     *
+     * @return the index letter
+     */
     @Override
     protected String getIndexLetter() {
         final String title = getExpectedTitleString();
@@ -46,6 +51,11 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         return surname.substring(0, 1);
     }
 
+    /**
+     * Gets the menu page.
+     *
+     * @return the menu page
+     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;
@@ -75,14 +85,18 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
     }
 
     /**
-     * @return newly created page object for this page's father
+     * Returns the person page.
+     *
+     * @return the resulting person page
      */
     public PersonPage navigateFather() {
         return navigate(getFatherLink());
     }
 
     /**
-     * @return newly created page object for this page's mother
+     * Returns the person page.
+     *
+     * @return the resulting person page
      */
     public PersonPage navigateMother() {
         return navigate(getMotherLink());
@@ -482,7 +496,9 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
     }
 
     /**
-     * @return the ID string for this page
+     * Gets the id.
+     *
+     * @return the id
      */
     public String getId() {
         return id;

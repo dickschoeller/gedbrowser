@@ -21,7 +21,9 @@ public final class ApplicationInfoContributor implements InfoContributor {
     private final ApplicationInfo appInfo;
 
     /**
-     * {@inheritDoc}
+     * Executes contribute.
+     *
+     * @param builder the builder
      */
     @Override
     public void contribute(final Builder builder) {

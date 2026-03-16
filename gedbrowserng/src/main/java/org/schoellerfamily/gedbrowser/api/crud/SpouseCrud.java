@@ -18,8 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 public class SpouseCrud extends RelationsCrud {
 
     /**
-     * @param loader            the file loader that we will use
-     * @param toDocConverter    the document converter
+     * Creates a new SpouseCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public SpouseCrud(final GedObjectFileLoader loader,
@@ -29,10 +31,12 @@ public class SpouseCrud extends RelationsCrud {
     }
 
     /**
-     * @param db     the name of the db to access
-     * @param id     the id of the person whose spouse we are adding
-     * @param person the data for the spouse
-     * @return the person returned from the db
+     * Creates the spouse.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     public ApiPerson createSpouse(final String db, final String id, final ApiPerson person) {
         log.info("Entering create spouse in db: {} of person {}", db, id);
@@ -46,10 +50,12 @@ public class SpouseCrud extends RelationsCrud {
     }
 
     /**
-     * @param db     the name of the db to access
-     * @param id     the id of the person whose spouse we are adding
-     * @param person the data for the spouse (use the id to read from the db)
-     * @return the person returned from the db
+     * Executes link spouse.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     public ApiPerson linkSpouse(final String db, final String id, final ApiPerson person) {
         log.info("Entering link person: {} as spouse in db: {} of person {}", person.getString(),
@@ -64,10 +70,12 @@ public class SpouseCrud extends RelationsCrud {
     }
 
     /**
-     * @param db     the name of the db to access
-     * @param id     the id of the family to which we are adding a spouse
-     * @param person the data for the spouse
-     * @return the person returned from the db
+     * Creates the spouse in family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     public ApiPerson createSpouseInFamily(final String db, final String id,
         final ApiPerson person) {
@@ -83,10 +91,12 @@ public class SpouseCrud extends RelationsCrud {
     }
 
     /**
-     * @param db     the name of the db to access
-     * @param id     the id of the family to which we are linking a spouse
-     * @param person the data for the spouse (use the id to read from db)
-     * @return the person returned from the db
+     * Executes link spouse in family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     public ApiPerson linkSpouseInFamily(final String db, final String id, final ApiPerson person) {
         log.info("Entering link person: {} in db: {} as spouse in family {}", person.getString(),
@@ -102,10 +112,12 @@ public class SpouseCrud extends RelationsCrud {
     }
 
     /**
-     * @param db  the name of the db to access
-     * @param id  the id of the family to which we are linking a spouse
-     * @param sid the id of the spouse to remove
-     * @return the person returned from the db
+     * Executes unlink spouse in family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param sid the unique identifier for s
+     * @return the resulting api person
      */
     public ApiPerson unlinkSpouseInFamily(final String db, final String id, final String sid) {
         log.info("Entering unlink person: {} in db: {} from being a spouse in family {}", sid, db,
@@ -124,7 +136,11 @@ public class SpouseCrud extends RelationsCrud {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether the link we are looking for.
+     *
+     * @param attribute the attribute
+     * @param id the unique identifier for the target
+     * @return true if the condition is met; otherwise false
      */
     @Override
     public boolean isTheLinkWeAreLookingFor(final ApiAttribute attribute, final String id) {

@@ -13,10 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public final class PersonAnalysisVisitor extends AbstractAnalysisVisitor {
     /**
-     * Visit a Person. This is the primary focus of the visitation. From
-     * here, interesting information is gathered from the attributes.
+     * Executes visit.
      *
-     * @see org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor#visit(Person)
+     * @param person the person
      */
     @Override
     public void visit(final Person person) {

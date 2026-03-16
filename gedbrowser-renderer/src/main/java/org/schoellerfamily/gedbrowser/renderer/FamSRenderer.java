@@ -9,10 +9,11 @@ import org.schoellerfamily.gedbrowser.datamodel.FamS;
  */
 public final class FamSRenderer extends AbstractLinkRenderer<FamS> {
     /**
-     * @param gedObject the GedObject that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new FamSRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public FamSRenderer(final FamS gedObject,
             final GedRendererFactory rendererFactory,

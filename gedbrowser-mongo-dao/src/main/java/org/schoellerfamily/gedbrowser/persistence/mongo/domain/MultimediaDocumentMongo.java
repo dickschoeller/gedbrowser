@@ -16,11 +16,22 @@ public final class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
     /** */
     private String tail;
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "multimedia";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     * @param ged the ged
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -35,21 +46,41 @@ public final class MultimediaDocumentMongo extends GedDocumentMongo<Multimedia>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Gets the tail.
+     *
+     * @return the tail
+     */
     @Override
     public String getTail() {
         return this.tail;
     }
 
+    /**
+     * Sets the tail.
+     *
+     * @param tail the tail
+     */
     @Override
     public void setTail(final String tail) {
         this.tail = tail;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

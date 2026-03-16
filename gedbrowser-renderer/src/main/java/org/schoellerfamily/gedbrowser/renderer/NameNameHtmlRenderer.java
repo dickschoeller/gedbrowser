@@ -14,12 +14,9 @@ public class NameNameHtmlRenderer implements NameHtmlRenderer {
     private final transient NameRenderer nameRenderer;
 
     /**
-     * Constructor.
+     * Creates a new NameNameHtmlRenderer.
      *
-     * This constructor is public for testing purposes only. Do not try to call
-     * it outside of the context of the rendering engine.
-     *
-     * @param nameRenderer the renderer that this is associated with.
+     * @param nameRenderer the name renderer to use
      */
     public NameNameHtmlRenderer(final NameRenderer nameRenderer) {
         this.nameRenderer = nameRenderer;
@@ -27,7 +24,9 @@ public class NameNameHtmlRenderer implements NameHtmlRenderer {
 
 
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public final String getNameHtml() {

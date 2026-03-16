@@ -96,7 +96,9 @@ public class GeoCodeTestFixture {
     };
 
     /**
-     * @return table of addresses
+     * Adds ress table.
+     *
+     * @return the resulting string[][]
      */
     public final String[][] addressTable() {
         return cloneArray(ADDRESS_TABLE);
@@ -113,7 +115,9 @@ public class GeoCodeTestFixture {
     }
 
     /**
-     * @return table of addresses
+     * Returns the string array.
+     *
+     * @return the resulting string array
      */
     public final String[] expectedNotFound() {
         return Arrays.copyOf(EXPECT_TO_NOT_FIND, EXPECT_TO_NOT_FIND.length);

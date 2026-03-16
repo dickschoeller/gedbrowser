@@ -32,7 +32,8 @@ public final class GetDateVisitor implements GedObjectVisitor {
     private final String type;
 
     /**
-     * Default constructor.
+     * Creates a new GetDateVisitor.
+     *
      */
     public GetDateVisitor() {
         type = "";
@@ -48,31 +49,36 @@ public final class GetDateVisitor implements GedObjectVisitor {
     }
 
     /**
-     * @return the accumulated date string
+     * Gets the date.
+     *
+     * @return the date
      */
     public String getDate() {
         return dateString;
     }
 
     /**
-     * @return the accumulated year string
+     * Gets the year.
+     *
+     * @return the year
      */
     public String getYear() {
         return yearString;
     }
 
     /**
-     * @return the accumulated date string
+     * Gets the sort date.
+     *
+     * @return the sort date
      */
     public String getSortDate() {
         return sortDateString;
     }
 
     /**
-     * Visit an Attribute. We will look at the attributes of this Attribute
-     * for Dates. Once one is found, quit.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public void visit(final Attribute attribute) {
@@ -87,9 +93,9 @@ public final class GetDateVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Date. Record the interesting information from that date.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Date)
+     * @param date the date
      */
     @Override
     public void visit(final Date date) {
@@ -110,11 +116,9 @@ public final class GetDateVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Person. This is the primary focus of the visitation. From
-     * here, interesting information is gathered from the attributes. Once a
-     * date string is found, quit.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Person)
+     * @param person the person
      */
     @Override
     public void visit(final Person person) {

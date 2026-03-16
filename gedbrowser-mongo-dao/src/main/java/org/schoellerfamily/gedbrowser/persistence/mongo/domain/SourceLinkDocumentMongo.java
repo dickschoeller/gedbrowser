@@ -13,11 +13,22 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelG
  */
 public final class SourceLinkDocumentMongo extends GedDocumentMongo<SourceLink>
         implements SourceLinkDocument {
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "sourcelink";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     * @param ged the ged
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -31,13 +42,20 @@ public final class SourceLinkDocumentMongo extends GedDocumentMongo<SourceLink>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
     /**
-     * {@inheritDoc}
+     * Executes accept.
+     *
+     * @param visitor the visitor
      */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {

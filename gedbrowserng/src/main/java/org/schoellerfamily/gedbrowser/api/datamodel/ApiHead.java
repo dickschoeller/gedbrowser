@@ -42,11 +42,22 @@ public final class ApiHead extends ApiObject {
         }
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
+     */
     @Override
     protected boolean canEqual(final Object other) {
         return other.getClass() == ApiHead.class;

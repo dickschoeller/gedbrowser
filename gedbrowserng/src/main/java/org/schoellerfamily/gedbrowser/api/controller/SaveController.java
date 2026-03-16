@@ -74,8 +74,10 @@ public class SaveController {
     }
 
     /**
-     * @param dbName the name of the database
-     * @return the root object
+     * Executes fetch root.
+     *
+     * @param dbName the db name to use
+     * @return the resulting root
      */
     protected final Root fetchRoot(final String dbName) {
         final RootDocument rootDocument = loader.loadDocument(repositoryManager, dbName);

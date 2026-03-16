@@ -14,12 +14,12 @@ public final class PersonNotFoundException extends ObjectNotFoundException {
     private static final long serialVersionUID = 3L;
 
     /**
-     * Constructor.
+     * Creates a new PersonNotFoundException.
      *
-     * @param message the message to display
-     * @param personId the ID of the person not found
-     * @param datasetName the name of the dataset being searched
-     * @param context the rendering context
+     * @param message the message
+     * @param personId the unique identifier for person
+     * @param datasetName the dataset name to use
+     * @param context the context
      */
     public PersonNotFoundException(final String message, final String personId,
             final String datasetName, final RenderingContext context) {

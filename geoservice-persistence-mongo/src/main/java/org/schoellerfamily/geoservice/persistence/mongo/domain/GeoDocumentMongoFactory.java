@@ -18,15 +18,19 @@ public final class GeoDocumentMongoFactory {
     }
 
     /**
-     * @return the singleton
+     * Gets the instance.
+     *
+     * @return the instance
      */
     public static GeoDocumentMongoFactory getInstance() {
         return INSTANCE;
     }
 
     /**
-     * @param gci the input geocode item
-     * @return the output geo document for persistence
+     * Creates the geo document.
+     *
+     * @param gci the gci
+     * @return the resulting geo document
      */
     public GeoDocument createGeoDocument(final GeoCodeItem gci) {
         final GeoDocument retval = new GeoDocumentMongo();
@@ -37,8 +41,10 @@ public final class GeoDocumentMongoFactory {
     }
 
     /**
-     * @param gd the input geodocument
-     * @return the output geocode item
+     * Creates the geo code item.
+     *
+     * @param gd the gd
+     * @return the resulting geo code item
      */
     public GeoCodeItem createGeoCodeItem(final GeoDocument gd) {
         if (gd == null) {

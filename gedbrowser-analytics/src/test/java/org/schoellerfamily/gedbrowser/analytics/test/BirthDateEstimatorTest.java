@@ -41,11 +41,21 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
     @Autowired
     private transient GedLineToGedObjectTransformer g2g;
 
+    /**
+     * Returns the person builder.
+     *
+     * @return the resulting person builder
+     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
+    /**
+     * Returns the family builder.
+     *
+     * @return the resulting family builder
+     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;

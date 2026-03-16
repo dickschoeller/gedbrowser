@@ -50,6 +50,8 @@ public class ApiObject implements GetString {
     private final List<ApiAttribute> attributes;
 
     /**
+     * Executes accept.
+     *
      * @param visitor the visitor
      */
     public void accept(final ApiObjectVisitor visitor) {

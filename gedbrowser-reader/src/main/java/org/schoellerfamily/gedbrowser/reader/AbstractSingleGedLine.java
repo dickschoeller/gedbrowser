@@ -31,6 +31,8 @@ public abstract class AbstractSingleGedLine implements GedObjectHolder {
     private transient GedObject gedObject;
 
     /**
+     * Executes abstract single ged line.
+     *
      * @param lineNumber the line number
      */
     protected AbstractSingleGedLine(final int lineNumber) {

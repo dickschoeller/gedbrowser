@@ -8,7 +8,9 @@ public final class NoteLinkPhraseRenderer implements PhraseRenderer {
     private final transient NoteLinkRenderer nlRenderer;
 
     /**
-     * @param renderer the associated source link renderer;
+     * Creates a new NoteLinkPhraseRenderer.
+     *
+     * @param renderer the renderer
      */
     public NoteLinkPhraseRenderer(
             final NoteLinkRenderer renderer) {
@@ -16,7 +18,9 @@ public final class NoteLinkPhraseRenderer implements PhraseRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as phrase.
+     *
+     * @return the resulting string
      */
     @Override
     public String renderAsPhrase() {

@@ -9,10 +9,11 @@ import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
  */
 public final class SourceLinkRenderer extends AbstractLinkRenderer<SourceLink> {
     /**
-     * @param gedObject the SourceLink that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new SourceLinkRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public SourceLinkRenderer(final SourceLink gedObject,
             final GedRendererFactory rendererFactory,

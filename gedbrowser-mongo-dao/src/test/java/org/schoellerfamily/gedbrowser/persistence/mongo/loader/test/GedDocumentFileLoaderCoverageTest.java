@@ -49,6 +49,12 @@ class GedDocumentFileLoaderCoverageTest {
 
         final GedObjectToGedDocumentMongoConverter converter =
             new GedObjectToGedDocumentMongoConverter() {
+                /**
+                 * Creates the ged document.
+                 *
+                 * @param ged the ged
+                 * @return the resulting root document mongo
+                 */
                 @SuppressWarnings("unchecked")
                 @Override
                 public RootDocumentMongo createGedDocument(

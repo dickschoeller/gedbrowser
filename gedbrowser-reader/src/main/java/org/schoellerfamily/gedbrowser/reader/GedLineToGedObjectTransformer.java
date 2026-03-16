@@ -13,8 +13,10 @@ public final class GedLineToGedObjectTransformer {
     private final GedObjectFactory factory = new GedObjectFactory();
 
     /**
-     * @param line the input gedline
-     * @return the output gedobject
+     * Executes create.
+     *
+     * @param line the line
+     * @return the resulting root
      */
     public Root create(final AbstractGedLine line) {
         final GedLineToGedObjectVisitor visitor =

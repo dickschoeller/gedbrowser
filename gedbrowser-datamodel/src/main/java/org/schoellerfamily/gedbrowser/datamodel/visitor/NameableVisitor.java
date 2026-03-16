@@ -20,7 +20,9 @@ public final class NameableVisitor implements GedObjectVisitor {
     private GedObject visitedNameable;
 
     /**
-     * @return the name of the person
+     * Gets the name attribute.
+     *
+     * @return the name attribute
      */
     public Name getNameAttribute() {
         if (thename == null) {
@@ -30,6 +32,8 @@ public final class NameableVisitor implements GedObjectVisitor {
     }
 
     /**
+     * Gets the surname.
+     *
      * @return the surname
      */
     public String getSurname() {
@@ -37,17 +41,18 @@ public final class NameableVisitor implements GedObjectVisitor {
     }
 
     /**
-     * @return the name to use in indices
+     * Gets the index name.
+     *
+     * @return the index name
      */
     public String getIndexName() {
         return getNameAttribute().getIndexName();
     }
 
     /**
-     * Visit a Name. The first name encountered is collected. All others are
-     * ignored.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Name)
+     * @param name the name to use
      */
     @Override
     public void visit(final Name name) {
@@ -59,10 +64,9 @@ public final class NameableVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Person. This is could be primary focus of the visitation.
-     * From here, interesting information is gathered from the attributes.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Person)
+     * @param person the person
      */
     @Override
     public void visit(final Person person) {
@@ -73,10 +77,9 @@ public final class NameableVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Submitter. This is could be primary focus of the visitation.
-     * From here, interesting information is gathered from the attributes.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Submitter)
+     * @param submitter the submitter
      */
     @Override
     public void visit(final Submitter submitter) {

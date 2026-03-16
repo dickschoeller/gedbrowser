@@ -33,31 +33,61 @@ public final class ApplicationInfoImpl implements ApplicationInfo {
     @Value("${gedbrowser.homeurl:http://www.schoellerfamily.org/}")
     private final String homeUrl;
 
+    /**
+     * Gets the application name.
+     *
+     * @return the application name
+     */
     @Override
     public String getApplicationName() {
         return "gedbrowser";
     }
 
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
     @Override
     public String getVersion() {
         return GedObject.VERSION;
     }
 
+    /**
+     * Gets the maintainer email.
+     *
+     * @return the maintainer email
+     */
     @Override
     public String getMaintainerEmail() {
         return maintainerEmail;
     }
 
+    /**
+     * Gets the maintainer name.
+     *
+     * @return the maintainer name
+     */
     @Override
     public String getMaintainerName() {
         return maintainerName;
     }
 
+    /**
+     * Gets the application u r l.
+     *
+     * @return the application u r l
+     */
     @Override
     public String getApplicationURL() {
         return applicationUrl;
     }
 
+    /**
+     * Gets the home u r l.
+     *
+     * @return the home u r l
+     */
     @Override
     public String getHomeURL() {
         return homeUrl;

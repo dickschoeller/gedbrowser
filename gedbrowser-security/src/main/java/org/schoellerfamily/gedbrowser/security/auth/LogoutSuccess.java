@@ -23,7 +23,11 @@ public final class LogoutSuccess implements LogoutSuccessHandler {
     private final ObjectMapper objectMapper;
 
     /**
-     * {@inheritDoc}
+     * Executes on logout success.
+     *
+     * @param httpServletRequest the http servlet request
+     * @param response the response
+     * @param authentication the authentication
      */
     @Override
     public void onLogoutSuccess(final HttpServletRequest httpServletRequest,

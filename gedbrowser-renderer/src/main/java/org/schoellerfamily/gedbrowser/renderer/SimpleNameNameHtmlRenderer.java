@@ -15,12 +15,9 @@ public class SimpleNameNameHtmlRenderer
     private final transient SimpleNameRenderer simpleNameRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SimpleNameNameHtmlRenderer.
      *
-     * This constructor is public for testing purposes only. Do not try to call
-     * it outside of the context of the rendering engine.
-     *
-     * @param simpleNameRenderer the renderer that this is associated with.
+     * @param simpleNameRenderer the simple name renderer to use
      */
     public SimpleNameNameHtmlRenderer(
             final SimpleNameRenderer simpleNameRenderer) {
@@ -29,7 +26,9 @@ public class SimpleNameNameHtmlRenderer
 
 
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public final String getNameHtml() {

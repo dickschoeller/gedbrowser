@@ -9,14 +9,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
     /**
-     * @param args the main arguments
+     * Starts the application.
+     *
+     * @param args the command-line arguments
      */
     public static void main(final String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
     /**
-     * @return name
+     * Returns the string.
+     *
+     * @return the resulting string
      */
     public String name() {
         return "Test application";

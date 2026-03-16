@@ -52,6 +52,11 @@ final class GedObjectTest {
             super(parent, string);
         }
 
+        /**
+         * Executes accept.
+         *
+         * @param visitor the visitor
+         */
         @Override
         public void accept(final GedObjectVisitor visitor) {
             visitor.visit(this);

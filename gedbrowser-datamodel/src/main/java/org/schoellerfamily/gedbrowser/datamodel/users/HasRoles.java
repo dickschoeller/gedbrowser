@@ -14,14 +14,18 @@ public class HasRoles {
     private final Set<UserRoleName> roles = new HashSet<>();
 
     /**
-     * @return the array of roles
+     * Gets the roles.
+     *
+     * @return the roles
      */
     public UserRoleName[] getRoles() {
         return roles.toArray(new UserRoleName[0]);
     }
 
     /**
-     * @param role the role to add to the role set
+     * Executes add role.
+     *
+     * @param role the role
      */
     public void addRole(final UserRoleName role) {
         roles.add(role);

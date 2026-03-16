@@ -41,9 +41,11 @@ public class SourcesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param source the data for the source
-     * @return the source as created
+     * Returns the api source.
+     *
+     * @param db the db
+     * @param source the source
+     * @return the resulting api source
      */
     @PostMapping(value = "/v1/dbs/{db}/sources")
     public ApiSource create(
@@ -53,8 +55,10 @@ public class SourcesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of sources
+     * Returns the list.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @GetMapping(value = "/v1/dbs/{db}/sources")
     public List<ApiSource> read(
@@ -63,9 +67,11 @@ public class SourcesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the source
-     * @return the source
+     * Returns the api source.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api source
      */
     @GetMapping(value = "/v1/dbs/{db}/sources/{id}")
     public ApiSource read(
@@ -75,10 +81,12 @@ public class SourcesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the source to update
-     * @param source the data for the source
-     * @return the source as created
+     * Returns the api source.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param source the source
+     * @return the resulting api source
      */
     @PutMapping(value = "/v1/dbs/{db}/sources/{id}")
     public ApiSource update(
@@ -89,9 +97,11 @@ public class SourcesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the source
-     * @return the deleted object
+     * Returns the api source.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api source
      */
     @DeleteMapping(value = "/v1/dbs/{db}/sources/{id}")
     public ApiSource delete(

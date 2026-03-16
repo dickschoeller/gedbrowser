@@ -12,16 +12,18 @@ public class NamePhraseRenderer implements PhraseRenderer, ComplexRenderer {
     private final transient NameRenderer nameRenderer;
 
     /**
-     * Constructor.
+     * Creates a new NamePhraseRenderer.
      *
-     * @param nameRenderer the renderer that we are associated with.
+     * @param nameRenderer the name renderer to use
      */
     public NamePhraseRenderer(final NameRenderer nameRenderer) {
         this.nameRenderer = nameRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as phrase.
+     *
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

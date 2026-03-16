@@ -64,31 +64,67 @@ final class ReadOperationsTest {
             this.loader = loader;
         }
 
+        /**
+         * Gets the repository.
+         *
+         * @return the repository
+         */
         @Override
         public FindableDocument<Root, RootDocument> getRepository() {
             return repository;
         }
 
+        /**
+         * Gets the loader.
+         *
+         * @return the loader
+         */
         @Override
         public GedObjectFileLoader getLoader() {
             return loader;
         }
 
+        /**
+         * Gets the ged class.
+         *
+         * @return the ged class
+         */
         @Override
         public Class<Root> getGedClass() {
             return Root.class;
         }
 
+        /**
+         * Returns the list.
+         *
+         * @param db the db
+         * @return the resulting list
+         */
         @Override
         public List<ApiObject> readAll(final String db) {
             return List.of();
         }
 
+        /**
+         * Returns the api object.
+         *
+         * @param db the db
+         * @param id the unique identifier for the target
+         * @return the resulting api object
+         */
         @Override
         public ApiObject readOne(final String db, final String id) {
             return null;
         }
 
+        /**
+         * Returns the root document.
+         *
+         * @param repositoryManager the repository manager
+         * @param dbName the db name to use
+         * @param idString the id string
+         * @return the resulting root document
+         */
         @Override
         public RootDocument read(final RepositoryManagerMongo repositoryManager,
                 final String dbName,

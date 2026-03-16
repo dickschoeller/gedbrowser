@@ -53,7 +53,9 @@ final class GeoCodeBackupTest {
         private GeoCoder geoCoder;
 
         /**
-         * @return the persistence manager
+         * Creates and configures the geo code bean.
+         *
+         * @return the configured geo code bean
          */
         @Bean
         public GeoCode persistenceManager() {
@@ -61,7 +63,9 @@ final class GeoCodeBackupTest {
         }
 
         /**
-         * @return the geocoder
+         * Creates and configures the geo coder bean.
+         *
+         * @return the configured geo coder bean
          */
         @Bean
         public GeoCoder geoCoder() {

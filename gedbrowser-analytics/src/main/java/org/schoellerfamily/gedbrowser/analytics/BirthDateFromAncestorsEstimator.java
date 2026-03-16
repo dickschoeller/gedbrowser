@@ -22,9 +22,9 @@ public final class BirthDateFromAncestorsEstimator extends Estimator {
     private final Typicals typicals;
 
     /**
-     * Constructor.
+     * Creates a new BirthDateFromAncestorsEstimator.
      *
-     * @param person the person whose dates we are estimating
+     * @param person the person
      */
     public BirthDateFromAncestorsEstimator(final Person person) {
         this.person = person;

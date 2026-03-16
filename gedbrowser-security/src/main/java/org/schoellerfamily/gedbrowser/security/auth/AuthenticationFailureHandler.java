@@ -17,7 +17,11 @@ import org.springframework.stereotype.Component;
 public class AuthenticationFailureHandler
         extends SimpleUrlAuthenticationFailureHandler {
     /**
-     * {@inheritDoc}
+     * Executes on authentication failure.
+     *
+     * @param request the request
+     * @param response the response
+     * @param exception the exception
      */
     @Override
     public void onAuthenticationFailure(final HttpServletRequest request,

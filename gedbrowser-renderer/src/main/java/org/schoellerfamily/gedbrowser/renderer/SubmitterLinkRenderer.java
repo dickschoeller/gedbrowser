@@ -10,10 +10,11 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 public final class SubmitterLinkRenderer extends
         AbstractLinkRenderer<SubmitterLink> {
     /**
-     * @param gedObject the SubmitterLink that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new SubmitterLinkRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public SubmitterLinkRenderer(final SubmitterLink gedObject,
             final GedRendererFactory rendererFactory,

@@ -25,7 +25,9 @@ public final class DocumentToApiModelVisitor
         extends TopLevelDocumentToApiModelVisitor
         implements GedDocumentVisitor {
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final AttributeDocument document) {
@@ -39,7 +41,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final ChildDocument document) {
@@ -52,7 +56,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final DateDocument document) {
@@ -65,7 +71,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final MultimediaDocument document) {
@@ -79,7 +87,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final NameDocument document) {
@@ -92,7 +102,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final NoteLinkDocument document) {
@@ -105,7 +117,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final FamCDocument document) {
@@ -118,7 +132,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final FamSDocument document) {
@@ -131,7 +147,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final HusbandDocument document) {
@@ -144,7 +162,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final PlaceDocument document) {
@@ -157,7 +177,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final SourceLinkDocument document) {
@@ -170,7 +192,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final SubmissionLinkDocument document) {
@@ -183,7 +207,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final SubmitterLinkDocument document) {
@@ -196,7 +222,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final WifeDocument document) {
@@ -209,7 +237,9 @@ public final class DocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public void visit(final RootDocument document) {

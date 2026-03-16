@@ -25,7 +25,7 @@ public abstract class AbstractOrderAnalyzer {
     private Attribute seenEvent;
 
     /**
-     * Constructor.
+     * Executes abstract order analyzer.
      *
      * @param result the result
      */

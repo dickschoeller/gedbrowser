@@ -39,9 +39,11 @@ public final class PlaceInfo {
     private final LngLatAlt northeast;
 
     /**
-     * @param placeName the place name to put on the map
-     * @param latitude the latitude to put the pin
-     * @param longitude the longitude to put the pin
+     * Creates a new PlaceInfo.
+     *
+     * @param placeName the place name to use
+     * @param latitude the latitude
+     * @param longitude the longitude
      */
     public PlaceInfo(final String placeName, final Double latitude,
             final Double longitude) {
@@ -70,10 +72,12 @@ public final class PlaceInfo {
     }
 
     /**
-     * @param placeName the name of the place
-     * @param location the location of the pin
-     * @param southwest viewport southwest
-     * @param northeast viewport northeast
+     * Creates a new PlaceInfo.
+     *
+     * @param placeName the place name to use
+     * @param location the location
+     * @param southwest the southwest
+     * @param northeast the northeast
      */
     @JsonCreator
     public PlaceInfo(
@@ -166,6 +170,11 @@ public final class PlaceInfo {
         return null;
     }
 
+    /**
+     * Executes to string.
+     *
+     * @return the resulting string
+     */
     @Override
     public String toString() {
         if (placeName == null) {

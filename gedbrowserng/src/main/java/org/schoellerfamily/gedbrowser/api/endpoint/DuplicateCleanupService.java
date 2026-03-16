@@ -29,7 +29,9 @@ public class DuplicateCleanupService {
     private final MongoTemplate mongoTemplate;
 
     /**
-     * @return number of deleted documents per collection and total count
+     * Executes cleanup.
+     *
+     * @return the resulting integer>
      */
     public Map<String, Integer> cleanup() {
         final Map<String, Integer> deleted = new LinkedHashMap<>();

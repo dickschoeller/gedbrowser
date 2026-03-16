@@ -30,14 +30,13 @@ public class SubmittersController extends DatedDataController {
     private final String gedbrowserHome;
 
     /**
-     * Constructor.
+     * Creates a new SubmittersController.
      *
-     * @param appInfo the application info
-     * @param users info about the known application users
-     * @param loader enable loading gedcom files
-     * @param provider enable calendar processing
-     * @param repositoryManager enable data storage
-     * @param gedbrowserHome location of data files for initialization
+     * @param appInfo the app info
+     * @param users the users
+     * @param loader the loader
+     * @param provider the provider
+     * @param repositoryManager the repository manager
      */
     public SubmittersController(final ApplicationInfo appInfo,
             final Users<? extends User> users,

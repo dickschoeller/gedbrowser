@@ -31,11 +31,20 @@ public final class GeoCodeStub extends GeoCodeBasic {
         log.debug("Initializing GeoCodeCache");
     }
 
+    /**
+     * Executes clear.
+     *
+     */
     @Override
     public void clear() {
         map.clear();
     }
 
+    /**
+     * Executes size.
+     *
+     * @return the resulting long
+     */
     @Override
     public long size() {
         final long size = map.size();
@@ -43,11 +52,22 @@ public final class GeoCodeStub extends GeoCodeBasic {
         return size;
     }
 
+    /**
+     * Creates and returns a new geo document stub.
+     *
+     * @param item the item
+     * @return the resulting geo document
+     */
     @Override
     public GeoDocument create(final GeoCodeItem item) {
         return new GeoDocumentStub(item);
     }
 
+    /**
+     * Finds all documents.
+     *
+     * @return the resulting geo document>
+     */
     @Override
     public Iterable<? extends GeoDocument> findAllDocuments() {
         final SortedSet<String> names = new TreeSet<>();
@@ -57,17 +77,35 @@ public final class GeoCodeStub extends GeoCodeBasic {
             .toList();
     }
 
+    /**
+     * Executes add document.
+     *
+     * @param document the document
+     * @return the resulting geo document
+     */
     @Override
     public GeoDocument addDocument(final GeoDocument document) {
         map.put(document.getName(), document);
         return document;
     }
 
+    /**
+     * Gets the document.
+     *
+     * @param placeName the place name to use
+     * @return the document
+     */
     @Override
     public GeoDocument getDocument(final String placeName) {
         return map.get(placeName);
     }
 
+    /**
+     * Returns the geo document.
+     *
+     * @param placeName the place name to use
+     * @return the resulting geo document
+     */
     @Override
     public GeoDocument deleteDocument(final String placeName) {
         return map.remove(placeName);

@@ -41,9 +41,11 @@ public final class FamiliesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param family the data for the family
-     * @return the family as created
+     * Returns the api family.
+     *
+     * @param db the db
+     * @param family the family
+     * @return the resulting api family
      */
     @PostMapping(value = "/v1/dbs/{db}/families")
     public ApiFamily create(
@@ -53,8 +55,10 @@ public final class FamiliesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of families
+     * Returns the list.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @GetMapping(value = "/v1/dbs/{db}/families")
     public List<ApiFamily> read(
@@ -63,9 +67,11 @@ public final class FamiliesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the family
-     * @return the family
+     * Returns the api family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api family
      */
     @GetMapping(value = "/v1/dbs/{db}/families/{id}")
     public ApiFamily read(
@@ -75,10 +81,12 @@ public final class FamiliesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the family to update
-     * @param family the data for the family
-     * @return the family as created
+     * Returns the api family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param family the family
+     * @return the resulting api family
      */
     @PutMapping(value = "/v1/dbs/{db}/families/{id}")
     public ApiFamily update(
@@ -89,9 +97,11 @@ public final class FamiliesController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the family
-     * @return the deleted object
+     * Returns the api family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api family
      */
     @DeleteMapping(value = "/v1/dbs/{db}/families/{id}")
     public ApiFamily delete(

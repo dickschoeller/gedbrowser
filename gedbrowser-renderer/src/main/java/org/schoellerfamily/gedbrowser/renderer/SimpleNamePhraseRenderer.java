@@ -13,9 +13,9 @@ public class SimpleNamePhraseRenderer
     private final transient SimpleNameRenderer simpleNameRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SimpleNamePhraseRenderer.
      *
-     * @param simpleNameRenderer the renderer that we are associated with.
+     * @param simpleNameRenderer the simple name renderer to use
      */
     public SimpleNamePhraseRenderer(
             final SimpleNameRenderer simpleNameRenderer) {
@@ -23,7 +23,9 @@ public class SimpleNamePhraseRenderer
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as phrase.
+     *
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

@@ -8,7 +8,10 @@ import java.io.IOException;
  */
 public class NullSource extends AbstractGedLineSource {
     /**
-     * {@inheritDoc}
+     * Creates the ged line.
+     *
+     * @param parent the parent
+     * @return the resulting abstract ged line
      */
     @Override
     public AbstractGedLine createGedLine(final AbstractGedLine parent)

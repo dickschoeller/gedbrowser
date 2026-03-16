@@ -15,12 +15,12 @@ public final class NoteNotFoundException extends ObjectNotFoundException {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructor.
+     * Creates a new NoteNotFoundException.
      *
-     * @param message the message to display
-     * @param noteId the ID of the source not found
-     * @param datasetName the name of the dataset being searched
-     * @param context the rendering context
+     * @param message the message
+     * @param noteId the unique identifier for note
+     * @param datasetName the dataset name to use
+     * @param context the context
      */
     public NoteNotFoundException(final String message, final String noteId,
             final String datasetName, final RenderingContext context) {

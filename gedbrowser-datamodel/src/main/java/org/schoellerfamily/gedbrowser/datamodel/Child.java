@@ -7,16 +7,19 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  */
 public final class Child extends AbstractLink {
     /**
-     * Default constructor.
+     * Creates a new Child.
+     *
      */
     public Child() {
         super();
     }
 
     /**
-     * @param parent parent object of this child
-     * @param string long version of type string
-     * @param xref the reference to a person object
+     * Creates a new Child.
+     *
+     * @param parent the parent
+     * @param string the string
+     * @param xref the xref
      */
     public Child(final GedObject parent, final String string,
             final ObjectId xref) {
@@ -38,6 +41,11 @@ public final class Child extends AbstractLink {
         return toPerson;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

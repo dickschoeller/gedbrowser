@@ -15,7 +15,8 @@ public class UserTokenStateImpl implements UserTokenState {
     private Long expiresIn;
 
     /**
-     * Constructor.
+     * Creates a new UserTokenStateImpl.
+     *
      */
     public UserTokenStateImpl() {
         this.accessToken = "";
@@ -23,10 +24,10 @@ public class UserTokenStateImpl implements UserTokenState {
     }
 
     /**
-     * Constructor.
+     * Creates a new UserTokenStateImpl.
      *
-     * @param accessToken the token string
-     * @param expiresIn the time until token expiration in ?????
+     * @param accessToken the access token
+     * @param expiresIn the expires in
      */
     public UserTokenStateImpl(final String accessToken, final long expiresIn) {
         this.accessToken = accessToken;
@@ -34,7 +35,9 @@ public class UserTokenStateImpl implements UserTokenState {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the access token.
+     *
+     * @return the access token
      */
     @Override
     public String getAccessToken() {
@@ -51,7 +54,9 @@ public class UserTokenStateImpl implements UserTokenState {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the expires in.
+     *
+     * @return the expires in
      */
     @Override
     public Long getExpiresIn() {

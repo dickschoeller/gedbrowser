@@ -23,16 +23,18 @@ public final class KeyManagerImpl implements KeyManager {
     private String mapKey;
 
     /**
-     * Constructor.
+     * Creates a new KeyManagerImpl.
      *
-     * @param fileName the name of the file to read.
+     * @param fileName the file name to use
      */
     public KeyManagerImpl(final String fileName) {
         this.fileName = fileName;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the geocoding key.
+     *
+     * @return the geocoding key
      */
     @Override
     public String getGeocodingKey() {
@@ -56,7 +58,9 @@ public final class KeyManagerImpl implements KeyManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the maps key.
+     *
+     * @return the maps key
      */
     @Override
     public String getMapsKey() {

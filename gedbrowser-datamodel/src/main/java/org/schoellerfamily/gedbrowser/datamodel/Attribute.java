@@ -19,7 +19,9 @@ public final class Attribute extends AbstractAttribute implements Tail {
     }
 
     /**
-     * @param parent parent object of this attribute
+     * Creates a new Attribute.
+     *
+     * @param parent the parent
      */
     public Attribute(final GedObject parent) {
         super(parent);
@@ -28,8 +30,10 @@ public final class Attribute extends AbstractAttribute implements Tail {
     }
 
     /**
-     * @param parent parent object of this attribute
-     * @param string long version of type string
+     * Creates a new Attribute.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     public Attribute(final GedObject parent, final String string) {
         super(parent, string);
@@ -38,9 +42,11 @@ public final class Attribute extends AbstractAttribute implements Tail {
     }
 
     /**
-     * @param parent parent object of this attribute
-     * @param string long version of type string
-     * @param tail additional data
+     * Creates a new Attribute.
+     *
+     * @param parent the parent
+     * @param string the string
+     * @param tail the tail
      */
     public Attribute(final GedObject parent, final String string,
             final String tail) {
@@ -49,6 +55,11 @@ public final class Attribute extends AbstractAttribute implements Tail {
         this.setAppender(new TailAppender(this));
     }
 
+    /**
+     * Gets the tail.
+     *
+     * @return the tail
+     */
     @Override
     public String getTail() {
         if (tail == null) {
@@ -58,6 +69,11 @@ public final class Attribute extends AbstractAttribute implements Tail {
         }
     }
 
+    /**
+     * Sets the tail.
+     *
+     * @param tail the tail
+     */
     @Override
     public void setTail(final String tail) {
         if (tail == null) {
@@ -67,6 +83,11 @@ public final class Attribute extends AbstractAttribute implements Tail {
         }
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

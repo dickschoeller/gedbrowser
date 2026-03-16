@@ -44,6 +44,11 @@ final class NullListItemRendererTest {
 
     private GedObject createGedObject() {
         return new GedObject() {
+            /**
+             * Executes accept.
+             *
+             * @param visitor the visitor
+             */
             @Override
             public void accept(final GedObjectVisitor visitor) {
                 visitor.visit(this);

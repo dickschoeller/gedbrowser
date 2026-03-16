@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TestConfiguration {
     /**
-     * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
+     * Creates and configures the ged line to ged object transformer bean.
+     *
+     * @return the configured ged line to ged object transformer bean
      */
     @Bean
     public GedLineToGedObjectTransformer g2g() {
@@ -19,8 +21,10 @@ public class TestConfiguration {
     }
 
     /**
-     * @param g2g the transformer
-     * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
+     * Creates and configures the test data reader bean.
+     *
+     * @param g2g the g2g
+     * @return the configured test data reader bean
      */
     @Bean
     public TestDataReader reader(final GedLineToGedObjectTransformer g2g) {

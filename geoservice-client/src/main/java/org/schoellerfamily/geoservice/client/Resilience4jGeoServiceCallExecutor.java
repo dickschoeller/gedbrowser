@@ -55,6 +55,12 @@ public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallE
             .build());
     }
 
+    /**
+     * Executes execute.
+     *
+     * @param supplier the supplier
+     * @return the resulting t
+     */
     @Override
     public <T> T execute(final ThrowingSupplier<T> supplier)
             throws GeoServiceCallException {
@@ -69,6 +75,12 @@ public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallE
         }
     }
 
+    /**
+     * Indicates whether call not permitted.
+     *
+     * @param throwable the throwable
+     * @return true if the condition is met; otherwise false
+     */
     @Override
     public boolean isCallNotPermitted(final Throwable throwable) {
         Throwable current = throwable;

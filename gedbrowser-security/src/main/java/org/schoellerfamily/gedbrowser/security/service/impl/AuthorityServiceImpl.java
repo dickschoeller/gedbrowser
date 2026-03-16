@@ -21,6 +21,12 @@ public class AuthorityServiceImpl implements AuthorityService {
 //    @Autowired
 //    private AuthorityRepository authorityRepository;
 
+    /**
+     * Finds by id.
+     *
+     * @param id the unique identifier for the target
+     * @return the resulting list< authority>
+     */
     @Override
     public final List<Authority> findById(final Long id) {
 //      Authority auth = this.authorityRepository.findOne(id);
@@ -32,6 +38,12 @@ public class AuthorityServiceImpl implements AuthorityService {
       return auths;
     }
 
+    /**
+     * Finds the byname.
+     *
+     * @param name the name to use
+     * @return the resulting list
+     */
     @Override
     public final List<Authority> findByname(final String name) {
 //      Authority auth = this.authorityRepository.findByName(name);

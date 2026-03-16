@@ -10,7 +10,9 @@ import java.util.Locale;
  */
 public class DateUtil {
     /**
-     * @return a date attribute for today
+     * Executes today date attribute.
+     *
+     * @return the resulting api attribute
      */
     public ApiAttribute todayDateAttribute() {
         final java.util.Date date = new java.util.Date();

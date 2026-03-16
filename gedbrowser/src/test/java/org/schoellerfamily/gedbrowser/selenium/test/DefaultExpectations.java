@@ -256,7 +256,9 @@ public final class DefaultExpectations {
     }
 
     /**
-     * @return default expectations
+     * Creates a value.
+     *
+     * @return the resulting expectations>
      */
     public Map<String, Expectations> create() {
         return EXPECTATIONS_MAP;

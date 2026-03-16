@@ -52,6 +52,11 @@ public final class SourcePage extends PageBase implements MenuPageFacade {
         waitForPageLoaded(newUrl);
     }
 
+    /**
+     * Gets the menu page.
+     *
+     * @return the menu page
+     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;

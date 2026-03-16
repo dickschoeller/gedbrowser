@@ -22,21 +22,27 @@ public abstract class CrudInvoker {
     private final RepositoryManagerMongo repositoryManager;
 
     /**
-     * @return the file loader
+     * Gets the loader.
+     *
+     * @return the loader
      */
     protected GedObjectFileLoader getLoader() {
         return loader;
     }
 
     /**
-     * @return the document type converter
+     * Gets the converter.
+     *
+     * @return the converter
      */
     protected GedObjectToGedDocumentMongoConverter getConverter() {
         return toDocConverter;
     }
 
     /**
-     * @return the repository manager
+     * Gets the manager.
+     *
+     * @return the manager
      */
     protected RepositoryManagerMongo getManager() {
         return repositoryManager;

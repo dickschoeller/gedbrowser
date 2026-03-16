@@ -25,14 +25,18 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
     private GedObject gedObject;
 
     /**
-     * @return the gedObject that we created
+     * Gets the ged object.
+     *
+     * @return the ged object
      */
     public GedObject getGedObject() {
         return gedObject;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param gedline the gedline
      */
     @Override
     public void visit(final GedLine gedline) {
@@ -43,7 +47,9 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param gedfile the gedfile to use
      */
     @Override
     public void visit(final GedFile gedfile) {

@@ -104,7 +104,11 @@ class GedWriterTest {
         final File folder = new File("/tmp");
         final File[] files = folder.listFiles(new FilenameFilter() {
             /**
-             * {@inheritDoc}
+             * Returns the boolean.
+             *
+             * @param dir the dir
+             * @param name the name to use
+             * @return the resulting boolean
              */
             @Override
             public boolean accept(final File dir, final String name) {

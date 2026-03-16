@@ -23,8 +23,10 @@ public class SubmitterCrud
         ObjectCrud<ApiSubmitter> {
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Creates a new SubmitterCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public SubmitterCrud(final GedObjectFileLoader loader,
@@ -34,7 +36,9 @@ public class SubmitterCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the repository.
+     *
+     * @return the repository
      */
     @Override
     public FindableDocument<Submitter, SubmitterDocument> getRepository() {
@@ -42,7 +46,9 @@ public class SubmitterCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the ged class.
+     *
+     * @return the ged class
      */
     @Override
     public Class<Submitter> getGedClass() {
@@ -50,9 +56,11 @@ public class SubmitterCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param submitter the data for the submitter
-     * @return the submitter as created
+     * Creates the one.
+     *
+     * @param db the db
+     * @param submitter the submitter
+     * @return the resulting api submitter
      */
     @Override
     public ApiSubmitter createOne(final String db,
@@ -63,8 +71,10 @@ public class SubmitterCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of submitters
+     * Executes read all.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @Override
     public List<ApiSubmitter> readAll(final String db) {
@@ -73,9 +83,11 @@ public class SubmitterCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the submitter
-     * @return the person
+     * Executes read one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api submitter
      */
     @Override
     public ApiSubmitter readOne(final String db, final String id) {
@@ -84,10 +96,12 @@ public class SubmitterCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the submitter to update
-     * @param submitter the data for the submitter
-     * @return the submitter as created
+     * Executes update one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param submitter the submitter
+     * @return the resulting api submitter
      */
     @Override
     public ApiSubmitter updateOne(final String db, final String id,
@@ -100,9 +114,11 @@ public class SubmitterCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the submitter
-     * @return the deleted object
+     * Returns the api submitter.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api submitter
      */
     @Override
     public ApiSubmitter deleteOne(final String db, final String id) {

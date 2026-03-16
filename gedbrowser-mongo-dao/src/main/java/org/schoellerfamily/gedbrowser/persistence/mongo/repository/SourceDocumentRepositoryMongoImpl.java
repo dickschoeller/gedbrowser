@@ -27,6 +27,13 @@ public class SourceDocumentRepositoryMongoImpl implements
     private final MongoTemplate mongoTemplate;
     /** */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
+    /**
+     * Finds the by file and string.
+     *
+     * @param filename the filename to use
+     * @param string the string
+     * @return the resulting source document
+     */
     @Override
     public final SourceDocument findByFileAndString(
             final String filename, final String string) {
@@ -43,6 +50,13 @@ public class SourceDocumentRepositoryMongoImpl implements
         return sourceDocument;
     }
 
+    /**
+     * Finds the by root and string.
+     *
+     * @param rootDocument the root document
+     * @param string the string
+     * @return the resulting source document
+     */
     @Override
     public final SourceDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -56,6 +70,12 @@ public class SourceDocumentRepositoryMongoImpl implements
         return sourceDocument;
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param filename the filename to use
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<SourceDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -71,6 +91,12 @@ public class SourceDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param rootDocument the root document
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<SourceDocument> findAll(
             final RootDocument rootDocument) {
@@ -86,6 +112,12 @@ public class SourceDocumentRepositoryMongoImpl implements
         return sourceDocuments;
     }
 
+    /**
+     * Executes count.
+     *
+     * @param filename the filename to use
+     * @return the resulting long
+     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -93,17 +125,35 @@ public class SourceDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, SourceDocumentMongo.class);
     }
 
+    /**
+     * Returns the long.
+     *
+     * @param rootDocument the root document
+     * @return the resulting long
+     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, SourceDocumentMongo.class,
                 rootDocument.getFilename(), "S");
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, SourceDocumentMongo.class,

@@ -125,14 +125,21 @@ public class ApiPerson extends ApiExtraLists {
         return indexName;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public final void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     /**
-     * Is the other object of exactly the same type as this one? All overrides
-     * should use the same approach.
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
      */
     @Override
     public final boolean canEqual(final Object other) {

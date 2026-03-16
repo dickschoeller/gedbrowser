@@ -18,12 +18,19 @@ public final class RootVisitor implements GedObjectVisitor {
     private final List<Person> persons = new ArrayList<>();
 
     /**
-     * @return the persons found in the scanned root
+     * Gets the persons.
+     *
+     * @return the persons
      */
     public List<Person> getPersons() {
         return persons;
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param family the family
+     */
     @Override
     @SuppressWarnings({ "java:S125" })
     public void visit(final Family family) {
@@ -33,10 +40,9 @@ public final class RootVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Person. The collection of all Persons in the dataset is the
-     * outcome of this algorithm.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Person)
+     * @param person the person
      */
     @Override
     public void visit(final Person person) {
@@ -44,10 +50,9 @@ public final class RootVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit the Root. From here we will look through the top level objects for
-     * Persons.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Root)
+     * @param root the root
      */
     @Override
     public void visit(final Root root) {

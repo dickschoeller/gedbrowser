@@ -23,15 +23,20 @@ public final class RequestUserUtil implements UserFacade {
     private final UserService userService;
 
     /**
-     * Constructor.
+     * Creates a new RequestUserUtil.
      *
-     * @param request the request that tells us which user to search for
-     * @param userService the suer service to get the user from
+     * @param request the request
+     * @param userService the user service
      */
     public RequestUserUtil(final HttpServletRequest request, final UserService userService) {
         this(request.getUserPrincipal(), userService);
     }
 
+    /**
+     * Gets the user.
+     *
+     * @return the user
+     */
     @Override
     public User getUser() {
         if (principal == null) {

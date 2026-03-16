@@ -21,47 +21,89 @@ public final class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
     private final RepositoryManagerMongo repositoryManager;
 
     /**
+     * Creates a new SaveVisitor.
+     *
      * @param repositoryManager the repository manager
      */
     public SaveVisitor(final RepositoryManagerMongo repositoryManager) {
         this.repositoryManager = repositoryManager;
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final PersonDocumentMongo document) {
         repositoryManager.getPersonDocumentRepository().save(document);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final FamilyDocumentMongo document) {
         repositoryManager.getFamilyDocumentRepository().save(document);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final SourceDocumentMongo document) {
         repositoryManager.getSourceDocumentRepository().save(document);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final HeadDocumentMongo document) {
         repositoryManager.getHeadDocumentRepository().save(document);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final SubmissionDocumentMongo document) {
         repositoryManager.getSubmissionDocumentRepository().save(document);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final SubmitterDocumentMongo document) {
         repositoryManager.getSubmitterDocumentRepository().save(document);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final TrailerDocumentMongo document) {
         repositoryManager.getTrailerDocumentRepository().save(document);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final NoteDocumentMongo document) {
         final NoteDocumentRepositoryMongo noteDocumentRepository =
@@ -69,6 +111,11 @@ public final class SaveVisitor implements TopLevelGedDocumentMongoVisitor {
         noteDocumentRepository.save(document);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final GedDocumentMongo<? extends GedObject> document) {
         // Intentionally empty.

@@ -12,10 +12,10 @@ public final class GrandParentIds {
     private final ParentIds mothers;
 
     /**
-     * Constructor.
+     * Creates a new GrandParentIds.
      *
-     * @param fathers father's parents
-     * @param mothers mother's parents
+     * @param fathers the fathers
+     * @param mothers the mothers
      */
     public GrandParentIds(final ParentIds fathers, final ParentIds mothers) {
         this.fathers = fathers;
@@ -23,28 +23,36 @@ public final class GrandParentIds {
     }
 
     /**
-     * @return the father's father's id
+     * Gets the ff.
+     *
+     * @return the ff
      */
     public String getFf() {
         return fathers.getF();
     }
 
     /**
-     * @return the father's mother's id
+     * Gets the fm.
+     *
+     * @return the fm
      */
     public String getFm() {
         return fathers.getM();
     }
 
     /**
-     * @return the mother's father's id
+     * Gets the mf.
+     *
+     * @return the mf
      */
     public String getMf() {
         return mothers.getF();
     }
 
     /**
-     * @return the mother's mother's id
+     * Gets the mm.
+     *
+     * @return the mm
      */
     public String getMm() {
         return mothers.getM();

@@ -20,14 +20,19 @@ public final class FamilyBuilderImpl implements FamilyBuilder {
     private final GedObjectBuilder gedObjectBuilder;
 
     /**
-     * Constructor.
+     * Creates a new FamilyBuilderImpl.
      *
-     * @param gedObjectBuilder the containing builder
+     * @param gedObjectBuilder the ged object builder
      */
     public FamilyBuilderImpl(final GedObjectBuilder gedObjectBuilder) {
         this.gedObjectBuilder = gedObjectBuilder;
     }
 
+    /**
+     * Gets the root.
+     *
+     * @return the root
+     */
     @Override
     public Root getRoot() {
         return gedObjectBuilder.getRoot();

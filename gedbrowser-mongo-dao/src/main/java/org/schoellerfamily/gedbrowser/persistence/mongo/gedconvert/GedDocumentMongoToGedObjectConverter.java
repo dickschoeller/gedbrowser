@@ -14,9 +14,11 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
  */
 public class GedDocumentMongoToGedObjectConverter {
     /**
-     * @param parent the parent object
-     * @param document the document to transform
-     * @return the transformation result
+     * Creates the ged object.
+     *
+     * @param parent the parent
+     * @param document the document
+     * @return the resulting ged object
      */
     public GedObject createGedObject(final GedObject parent,
             final GedDocument<?> document) {
@@ -39,9 +41,11 @@ public class GedDocumentMongoToGedObjectConverter {
     }
 
     /**
-     * @param document the repository document for this root
-     * @param finder the repository finder instance
-     * @return the root object.
+     * Creates the root.
+     *
+     * @param document the document
+     * @param finder the finder
+     * @return the resulting root
      */
     public Root createRoot(final RootDocument document,
             final FinderStrategy finder) {

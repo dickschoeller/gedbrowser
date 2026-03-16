@@ -83,7 +83,9 @@ final class AbstractLinkRendererTest {
     private AbstractLink createAbstractLink() {
         return new AbstractLink(null) {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

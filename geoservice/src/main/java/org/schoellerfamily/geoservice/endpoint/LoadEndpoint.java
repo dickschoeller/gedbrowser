@@ -25,11 +25,10 @@ public class LoadEndpoint extends BaseGeoCodeEndpoint {
     private final String loadFile;
 
     /**
-     * Constructor.
+     * Creates a new LoadEndpoint.
      *
-     * @param gcc a geocode
-     * @param loader file loader
-     * @param loadFile the file to load
+     * @param gcc the gcc
+     * @param loader the loader
      */
     public LoadEndpoint(final GeoCode gcc, final GeoCodeLoader loader,
         @Value("${geoservice.loadfile:/var/lib/gedbrowser/geoservice-loadfile.txt}")
@@ -39,19 +38,30 @@ public class LoadEndpoint extends BaseGeoCodeEndpoint {
         this.loadFile = loadFile;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     @Override
     public final String getId() {
         return "load";
     }
 
     /**
-     * @return the list of strings
+     * Returns the list.
+     *
+     * @return the resulting list
      */
     @ReadOperation
     public List<String> invokeEndpoint() {
         return super.invoke();
     }
 
+    /**
+     * Executes geo code action.
+     *
+     */
     @Override
     public final void geoCodeAction() {
         log.info("Invoke load from: {}", loadFile);

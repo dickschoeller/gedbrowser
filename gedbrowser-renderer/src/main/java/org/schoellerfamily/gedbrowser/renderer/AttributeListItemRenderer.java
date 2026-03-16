@@ -13,9 +13,9 @@ public class AttributeListItemRenderer implements ListItemRenderer {
     private final transient AttributeRenderer attributeRenderer;
 
     /**
-     * Constructor.
+     * Creates a new AttributeListItemRenderer.
      *
-     * @param attributeRenderer the renderer that this is associated with.
+     * @param attributeRenderer the attribute renderer
      */
     public AttributeListItemRenderer(
             final AttributeRenderer attributeRenderer) {
@@ -23,7 +23,12 @@ public class AttributeListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as list item.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -39,7 +44,9 @@ public class AttributeListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {

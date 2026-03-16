@@ -11,8 +11,10 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson.ApiPersonBuilder;
 public class CrudHelper {
 
     /**
-     * @param person the person to check
-     * @return the spouse attribute
+     * Executes spouse attribute.
+     *
+     * @param person the person
+     * @return the resulting api attribute
      */
     public ApiAttribute spouseAttribute(final ApiPersonBuilder<?, ?> person) {
         if (sex(person, "M")) {
@@ -37,24 +39,30 @@ public class CrudHelper {
     }
 
     /**
-     * @param person to link to
-     * @return the child link attribute
+     * Returns the api attribute.
+     *
+     * @param person the person
+     * @return the resulting api attribute
      */
     public ApiAttribute childAttribute(final ApiPersonBuilder<?, ?> person) {
         return ApiAttribute.builder().type("child").string(person.getString()).build();
     }
 
     /**
-     * @param family the family to link to
-     * @return the famc link attribute
+     * Returns the api attribute.
+     *
+     * @param family the family
+     * @return the resulting api attribute
      */
     public ApiAttribute famcAttribute(final ApiFamilyBuilder<?, ?> family) {
         return ApiAttribute.builder().type("famc").string(family.getString()).build();
     }
 
     /**
-     * @param family the family to link to
-     * @return the fams link attribute
+     * Returns the api attribute.
+     *
+     * @param family the family
+     * @return the resulting api attribute
      */
     public ApiAttribute famsAttribute(final ApiFamilyBuilder<?, ?> family) {
         return ApiAttribute.builder().type("fams").string(family.getString()).build();

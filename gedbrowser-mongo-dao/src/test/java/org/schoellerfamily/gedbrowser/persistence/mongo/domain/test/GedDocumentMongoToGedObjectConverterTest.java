@@ -255,7 +255,9 @@ final class GedDocumentMongoToGedObjectConverterTest {
         @SuppressWarnings("PMD.NonStaticInitializer")
         final GedDocument<?> gmd = new GedDocumentMongo<GedObject>() {
             /**
-             * {@inheritDoc}
+             * Returns the type.
+             *
+             * @return the type
              */
             @Override
             public String getType() {
@@ -263,7 +265,10 @@ final class GedDocumentMongoToGedObjectConverterTest {
             }
 
             /**
-             * {@inheritDoc}
+             * Loads the ged object.
+             *
+             * @param loader the loader
+             * @param ged the ged
              */
             @Override
             public void loadGedObject(final GedDocumentLoader loader, final GedObject ged) {
@@ -271,7 +276,9 @@ final class GedDocumentMongoToGedObjectConverterTest {
             }
 
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
@@ -279,7 +286,9 @@ final class GedDocumentMongoToGedObjectConverterTest {
             }
 
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedDocumentMongoVisitor visitor) {
@@ -287,7 +296,9 @@ final class GedDocumentMongoToGedObjectConverterTest {
             }
 
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedDocumentVisitor visitor) {

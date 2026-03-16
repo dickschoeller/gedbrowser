@@ -11,16 +11,18 @@ public class NoteNameIndexRenderer implements NameIndexRenderer {
     private final transient NoteRenderer noteRenderer;
 
     /**
-     * Constructor.
+     * Creates a new NoteNameIndexRenderer.
      *
-     * @param noteRenderer the associated NoteRenderer
+     * @param noteRenderer the note renderer
      */
     public NoteNameIndexRenderer(final NoteRenderer noteRenderer) {
         this.noteRenderer = noteRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public final String getIndexName() {

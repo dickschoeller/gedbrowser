@@ -211,7 +211,9 @@ public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
     }
 
     /**
-     * {@inheritDoc}
+     * Executes init level.
+     *
+     * @return the resulting int
      */
     @Override
     public int initLevel() {
@@ -220,7 +222,9 @@ public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the level.
+     *
+     * @return the level
      */
     @Override
     public int getLevel() {
@@ -228,7 +232,9 @@ public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
     }
 
     /**
-     * {@inheritDoc}
+     * Executes increment level.
+     *
+     * @return the resulting int
      */
     @Override
     public int incrementLevel() {
@@ -237,7 +243,9 @@ public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
     }
 
     /**
-     * {@inheritDoc}
+     * Executes decrement level.
+     *
+     * @return the resulting int
      */
     @Override
     public int decrementLevel() {
@@ -246,7 +254,9 @@ public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the lines.
+     *
+     * @return the lines
      */
     @Override
     public List<GedWriterLine> getLines() {
@@ -254,7 +264,10 @@ public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
     }
 
     /**
-     * {@inheritDoc}
+     * Executes map tag.
+     *
+     * @param longString the long string
+     * @return the resulting string
      */
     @Override
     public String mapTag(final String longString) {
@@ -266,7 +279,9 @@ public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param head the head
      */
     @Override
     public void visit(final Head head) {
@@ -277,7 +292,9 @@ public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param multimedia the multimedia
      */
     @Override
     public void visit(final Multimedia multimedia) {
@@ -288,7 +305,9 @@ public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param note the note
      */
     @Override
     public void visit(final Note note) {
@@ -308,7 +327,9 @@ public class GedObjectToGedWriterVisitor implements AttributeLineVisitor,
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param trailer the trailer
      */
     @Override
     public void visit(final Trailer trailer) {

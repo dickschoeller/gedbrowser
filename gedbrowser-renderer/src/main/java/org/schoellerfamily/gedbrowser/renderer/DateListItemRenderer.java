@@ -10,16 +10,21 @@ public final class DateListItemRenderer implements ListItemRenderer {
     private final transient DateRenderer dateRenderer;
 
     /**
-     * Constructor.
+     * Creates a new DateListItemRenderer.
      *
-     * @param dateRenderer the renderer that this is associated with.
+     * @param dateRenderer the date renderer
      */
     protected DateListItemRenderer(final DateRenderer dateRenderer) {
         this.dateRenderer = dateRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as list item.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public StringBuilder renderAsListItem(final StringBuilder builder,
@@ -36,7 +41,9 @@ public final class DateListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public String getListItemContents() {

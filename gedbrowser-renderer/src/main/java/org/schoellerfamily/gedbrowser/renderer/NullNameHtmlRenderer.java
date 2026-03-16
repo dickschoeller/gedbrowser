@@ -5,7 +5,9 @@ package org.schoellerfamily.gedbrowser.renderer;
  */
 public class NullNameHtmlRenderer implements NameHtmlRenderer {
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public final String getNameHtml() {

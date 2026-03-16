@@ -18,46 +18,78 @@ public abstract class RenderingContextRenderer implements Renderer {
     private final RenderingContext renderingContext;
 
     /**
-     * Constructor.
+     * Creates a new RenderingContextRenderer.
      *
-     * @param renderingContext the context that we are rendering in
+     * @param renderingContext the rendering context
      */
     protected RenderingContextRenderer(final RenderingContext renderingContext) {
         this.renderingContext = renderingContext;
     }
 
+    /**
+     * Gets the application name.
+     *
+     * @return the application name
+     */
     @Override
     public final String getApplicationName() {
         return renderingContext.getApplicationName();
     }
 
+    /**
+     * Gets the application u r l.
+     *
+     * @return the application u r l
+     */
     @Override
     public final String getApplicationURL() {
         return renderingContext.getApplicationURL();
     }
 
+    /**
+     * Gets the home url.
+     *
+     * @return the home url
+     */
     @Override
     public final String getHomeUrl() {
         return renderingContext.getHomeURL();
     }
 
+    /**
+     * Gets the maintainer email.
+     *
+     * @return the maintainer email
+     */
     @Override
     public final String getMaintainerEmail() {
         return renderingContext.getMaintainerEmail();
     }
 
+    /**
+     * Gets the maintainer name.
+     *
+     * @return the maintainer name
+     */
     @Override
     public final String getMaintainerName() {
         return renderingContext.getMaintainerName();
     }
 
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
     @Override
     public final String getVersion() {
         return renderingContext.getVersion();
     }
 
     /**
-     * @return user's first name
+     * Gets the user firstname.
+     *
+     * @return the user firstname
      */
     public final String getUserFirstname() {
         return renderingContext.getFirstname();

@@ -5,15 +5,18 @@ package org.schoellerfamily.gedbrowser.datamodel;
  */
 public abstract class AbstractSpecialObject extends GedObject {
     /**
-     * Default constructor.
+     * Creates a new AbstractSpecialObject.
+     *
      */
     protected AbstractSpecialObject() {
         super();
     }
 
     /**
-     * @param parent parent object of this attribute
-     * @param string long version of type string
+     * Creates a new AbstractSpecialObject.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     protected AbstractSpecialObject(final GedObject parent, final String string) {
         super(parent, string);
