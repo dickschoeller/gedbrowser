@@ -1,10 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.endpoint;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Comparator;
+import java.util.stream.Stream;
 
 import org.bson.Document;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -122,27 +123,29 @@ public class DuplicateCleanupService {
             .include("_id")
             .include("filename")
             .include("string");
-        final List<Document> documents =
-            mongoTemplate.find(query, Document.class, collectionName);
-        final Map<String, List<Object>> idsByKey =
-            new LinkedHashMap<>();
-        for (final Document doc : documents) {
-            final Object id = doc.get("_id");
-            if (id == null) {
-                continue;
-            }
-            final String key = buildKey(doc);
-            if (key == null) {
-                log.warn("Skipping document without valid filename/string in {}: id={}",
-                    collectionName, id);
-                continue;
-            }
-            List<Object> ids = idsByKey.get(key);
-            if (ids == null) {
-                ids = newIdList();
-                idsByKey.put(key, ids);
-            }
-            ids.add(id);
+        final Map<String, List<Object>> idsByKey = new LinkedHashMap<>();
+        try (Stream<Document> documents =
+                mongoTemplate.stream(query, Document.class, collectionName)) {
+            documents.forEach(doc -> {
+                final Object id = doc.get("_id");
+                if (id == null) {
+                    return;
+                }
+                final String key = buildKey(doc);
+                if (key == null) {
+                    log.warn("Skipping document without valid filename/string in {}: id={}",
+                        collectionName, id);
+                    return;
+                }
+                List<Object> ids = idsByKey.get(key);
+                if (ids == null) {
+                    final List<Object> newIds = newIdList();
+                    idsByKey.put(key, newIds);
+                    newIds.add(id);
+                } else {
+                    ids.add(id);
+                }
+            });
         }
         return idsByKey;
     }
