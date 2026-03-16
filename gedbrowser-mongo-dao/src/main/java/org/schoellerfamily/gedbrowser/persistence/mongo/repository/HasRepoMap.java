@@ -5,7 +5,7 @@ import java.util.Map;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * Defines persistence operations for has repo map.
+ * Provides access to the repository map used by mapped repository managers.
  *
  * @author Richard Schoeller
  */
