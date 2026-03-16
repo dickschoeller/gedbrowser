@@ -29,7 +29,50 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 
 /**
- * Visits ged object elements and applies visitor logic.
+ * Visitor for the {@link org.schoellerfamily.gedbrowser.datamodel.GedObject}
+ * object model.
+ * <p>
+ * This interface follows the classic Visitor pattern: each concrete
+ * {@code GedObject} subtype exposes an {@code accept(GedObjectVisitor)}
+ * method (or equivalent) that calls back into the most specific
+ * {@code visit(...)} overload defined here. Implementations of this
+ * interface selectively override the type-specific {@code visit} methods
+ * that matter to their algorithm; all others default to no-ops so that
+ * visitors can focus only on the node types they care about.
+ * </p>
+ * <p>
+ * In addition to the per-type methods, the interface also defines a
+ * {@code visit(GedObject)} catch-all method (see its Javadoc for details).
+ * That generic method is intentionally provided so that:
+ * </p>
+ * <ul>
+ *   <li>Visitors can implement behavior that applies to <em>all</em>
+ *   {@code GedObject} instances without needing to override every
+ *   concrete overload.</li>
+ *   <li>New {@code GedObject} subtypes can be added in a
+ *   backward-compatible way: existing visitors that implement only
+ *   {@code visit(GedObject)} will still see and handle those nodes,
+ *   while specialized visitors may optionally add more specific
+ *   {@code visit} methods.</li>
+ * </ul>
+ * <p>
+ * Typical usage is:
+ * </p>
+ * <pre>
+ *     class CountingVisitor implements GedObjectVisitor {
+ *         private int personCount;
+ *
+ *         &#64;Override
+ *         public void visit(Person person) {
+ *             personCount++;
+ *         }
+ *     }
+ *
+ *     // somewhere in traversal code:
+ *     GedObject root = ...;
+ *     GedObjectVisitor visitor = new CountingVisitor();
+ *     root.accept(visitor);
+ * </pre>
  *
  * @author Richard Schoeller
  */
