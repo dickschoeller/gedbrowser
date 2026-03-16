@@ -142,11 +142,12 @@ public final class GetStringComparator
     }
 
     /**
-     * Get a chunk of the string that is all digits or all not digits. Length of chunk is the longest same-type run.
+     * Get a chunk of the string that is all digits or all not digits. Length of
+     * chunk is the longest same-type run.
      *
-     * @param string the string being chunked
+     * @param string  the string being chunked
      * @param slength the length of the string
-         * @param marker the starting index of the chunk
+     * @param marker  the starting index of the chunk
      * @return the chunk
      */
     private String getChunk(final String string, final int slength,
@@ -169,11 +170,12 @@ public final class GetStringComparator
     }
 
     /**
-     * Get a chunk of the string that is consistently not digits. Length of chunk stops at the first digit.
+     * Get a chunk of the string that is consistently not digits. Length of chunk
+     * stops at the first digit.
      *
-     * @param string the string being chunked
+     * @param string  the string being chunked
      * @param slength the length of the string
-         * @param marker the starting index of the chunk
+     * @param marker  the starting index of the chunk
      * @return the chunk
      */
     private String getTextChunk(final String string, final int slength,
@@ -190,11 +192,12 @@ public final class GetStringComparator
     }
 
     /**
-     * Get a chunk of the string that is consistently digits. Length of chunk stops at the first non-digit.
+     * Get a chunk of the string that is consistently digits. Length of chunk stops
+     * at the first non-digit.
      *
-     * @param string the string being chunked
+     * @param string  the string being chunked
      * @param slength the length of the string
-         * @param marker the starting index of the chunk
+     * @param marker  the starting index of the chunk
      * @return the chunk
      */
     private String getNumericChunk(final String string, final int slength,

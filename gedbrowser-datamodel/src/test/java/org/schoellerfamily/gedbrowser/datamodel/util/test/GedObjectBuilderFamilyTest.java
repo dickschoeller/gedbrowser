@@ -19,6 +19,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
  *
  * @author Richard Schoeller
  */
+@SuppressWarnings({ "PMD.TooManyMethods" })
 final class GedObjectBuilderFamilyTest {
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();

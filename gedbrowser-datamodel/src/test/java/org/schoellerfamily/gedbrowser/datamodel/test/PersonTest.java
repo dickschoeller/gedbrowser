@@ -26,7 +26,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
  *
  * @author Richard Schoeller
  */
-@SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.GodClass", "PMD.TooManyFields" })
+@SuppressWarnings({ "PMD.ExcessivePublicCount", "PMD.TooManyFields", "PMD.TooManyMethods" })
 final class PersonTest {
     /** */
     private static final String UNEXPECTED_STRING = "Unexpected string returned";
