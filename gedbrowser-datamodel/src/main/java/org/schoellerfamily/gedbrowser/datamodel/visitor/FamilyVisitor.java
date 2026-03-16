@@ -68,7 +68,7 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Get the person who is the mother in this family. Can return an empty
+     * Get the person who is the mother in this family. Can return an empty Person.
      *
      * @return the mother
      */
@@ -92,7 +92,7 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Get the person who is the father in this family. Can return an empty
+     * Get the person who is the father in this family. Can return an empty Person.
      *
      * @return the father
      */

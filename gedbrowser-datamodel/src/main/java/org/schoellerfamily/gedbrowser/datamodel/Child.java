@@ -17,6 +17,7 @@ public final class Child extends AbstractLink {
      *
      * @param parent the parent
      * @param string the string
+     * @param xref the cross-reference identifier
      */
     public Child(final GedObject parent, final String string,
             final ObjectId xref) {
@@ -25,7 +26,7 @@ public final class Child extends AbstractLink {
     }
 
     /**
-     * Get the person that this object points to. If not found, return an unset
+     * Get the person that this object points to. If not found, return an unset Person.
      *
      * @return the child
      */

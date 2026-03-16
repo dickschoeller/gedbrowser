@@ -29,7 +29,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 
 /**
- * Visitor for the {@link org.schoellerfamily.gedbrowser.datamodel.GedObject}
+ * Visitor for the {@link org.schoellerfamily.gedbrowser.datamodel.GedObject} hierarchy.
  *
  * @author Richard Schoeller
  */

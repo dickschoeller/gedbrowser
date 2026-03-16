@@ -38,6 +38,7 @@ public final class Note extends GedObject implements Tail {
      *
      * @param parent the parent
      * @param xref the xref
+     * @param tail the tail
      */
     public Note(final GedObject parent, final ObjectId xref,
             final String tail) {

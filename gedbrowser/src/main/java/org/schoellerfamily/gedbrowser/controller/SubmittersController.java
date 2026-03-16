@@ -39,6 +39,7 @@ public class SubmittersController extends DatedDataController {
      * @param loader the loader
      * @param provider the provider
      * @param repositoryManager the repository manager
+     * @param gedbrowserHome the gedbrowser home directory
      */
     public SubmittersController(final ApplicationInfo appInfo,
             final Users<? extends User> users,

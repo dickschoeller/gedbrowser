@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.users;
 
 /**
- * Roles. Any access without roles is read-only and limited data
+ * Roles. Any access without roles is read-only and limited data access.
  *
  * @author Richard Schoeller
  */

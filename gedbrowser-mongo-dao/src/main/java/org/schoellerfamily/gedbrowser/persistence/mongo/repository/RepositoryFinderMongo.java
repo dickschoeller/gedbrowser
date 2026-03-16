@@ -53,6 +53,7 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
+    /** The list of classes to search. */
     private static final List<Class<? extends GedObject>> CLASSES = List.of(Person.class,
         Family.class, Source.class, Head.class, Note.class, Submission.class, Submitter.class,
         Trailer.class);

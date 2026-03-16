@@ -267,6 +267,8 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
      *
      * @param parent the parent
      * @param type the type to use
+     * @param string the event value or identifier
+     * @param tail the trailing value to attach to the event
      * @return the resulting ged object
      */
     public GedObject createEvent(final GedObject parent, final String type,
@@ -306,6 +308,7 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
      *
      * @param parent the parent
      * @param type the type to use
+     * @param string the event value or identifier
      * @return the resulting ged object
      */
     public GedObject createEvent(final GedObject parent, final String type,

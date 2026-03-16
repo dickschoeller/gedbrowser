@@ -38,6 +38,7 @@ public class LivingController extends DatedDataController {
      * @param loader the loader
      * @param provider the provider
      * @param repositoryManager the repository manager
+     * @param gedbrowserHome the gedbrowser home directory
      */
     public LivingController(final ApplicationInfo appInfo,
             final Users<? extends User> users,

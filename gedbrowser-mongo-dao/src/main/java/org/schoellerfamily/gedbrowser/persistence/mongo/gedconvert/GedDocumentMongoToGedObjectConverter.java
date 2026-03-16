@@ -22,6 +22,7 @@ public class GedDocumentMongoToGedObjectConverter {
      * Creates the ged object.
      *
      * @param parent the parent
+     * @param document the document to convert
      * @return the resulting ged object
      */
     public GedObject createGedObject(final GedObject parent,
@@ -48,6 +49,7 @@ public class GedDocumentMongoToGedObjectConverter {
      * Creates the root.
      *
      * @param document the document
+     * @param finder the finder strategy to attach to the root
      * @return the resulting root
      */
     public Root createRoot(final RootDocument document,

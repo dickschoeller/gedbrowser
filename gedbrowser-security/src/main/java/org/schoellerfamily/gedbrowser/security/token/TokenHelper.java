@@ -109,7 +109,7 @@ public final class TokenHelper {
     }
 
     /**
-     * Parse the token and return its claims, letting parsing exceptions propagate
+     * Parse the token and return its claims, letting parsing exceptions propagate.
      *
      * @param token the token
      * @return the claims

@@ -20,6 +20,7 @@ public final class ResourceConflictException extends RuntimeException {
      * Creates a new ResourceConflictException.
      *
      * @param resourceId the unique identifier for resource
+     * @param message the error message
      */
     public ResourceConflictException(final Long resourceId,
             final String message) {

@@ -32,6 +32,7 @@ public final class Link extends AbstractLink {
      *
      * @param parent the parent
      * @param string the string
+     * @param xref the cross-reference identifier
      */
     public Link(final GedObject parent, final String string,
             final ObjectId xref) {

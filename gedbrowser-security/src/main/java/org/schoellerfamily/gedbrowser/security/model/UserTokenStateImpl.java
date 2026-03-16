@@ -63,9 +63,9 @@ public class UserTokenStateImpl implements UserTokenState {
     }
 
     /**
-     * Set the time of token expiration in ???
+     * Set the time of token expiration in seconds.
      *
-     * @param expiresIn the time until token expiration in ???
+     * @param expiresIn the time until token expiration in seconds
      */
     public void setExpiresIn(final Long expiresIn) {
         this.expiresIn = expiresIn;

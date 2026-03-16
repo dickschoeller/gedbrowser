@@ -17,6 +17,7 @@ public final class SubmitterLink extends AbstractLink {
      *
      * @param parent the parent
      * @param tag the tag
+     * @param xref the cross-reference identifier
      */
     public SubmitterLink(final GedObject parent, final String tag,
             final ObjectId xref) {

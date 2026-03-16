@@ -9,7 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
  */
 public interface VisitableObject {
     /**
-     * Hook for using the visitor design pattern to accumulate information
+     * Hook for using the visitor design pattern to accumulate information.
      *
      * @param visitor the visitor
      */

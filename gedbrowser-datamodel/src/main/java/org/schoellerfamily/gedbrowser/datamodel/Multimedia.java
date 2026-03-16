@@ -40,6 +40,7 @@ public final class Multimedia extends AbstractAttribute {
      *
      * @param parent the parent
      * @param string the string
+     * @param tail the tail
      */
     public Multimedia(final GedObject parent, final String string,
             final String tail) {

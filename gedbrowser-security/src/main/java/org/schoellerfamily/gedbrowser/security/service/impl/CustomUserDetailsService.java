@@ -57,6 +57,8 @@ public final class CustomUserDetailsService implements UserDetailsService {
      * Change password of current user.
      *
      * @param oldPassword old password
+     * @param newPassword new password
+     * @param authenticationManager the authentication manager used to re-authenticate the user
      */
     public void changePassword(final String oldPassword,
             final String newPassword,

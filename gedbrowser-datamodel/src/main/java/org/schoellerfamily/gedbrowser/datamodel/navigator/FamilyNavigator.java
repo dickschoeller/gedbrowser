@@ -40,7 +40,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Constructor takes a child, finds the family and visits it in preparation
+     * Constructor takes a child, finds the family and visits it in preparation for navigation.
      *
      * @param child the child whose family we are navigating
      */
@@ -60,7 +60,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Constructor takes a famc, finds the family and visits it in preparation
+     * Constructor takes a famc, finds the family and visits it in preparation for navigation.
      *
      * @param famc the famc whose family we are navigating
      */
@@ -80,7 +80,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Constructor takes a fams, finds the family and visits it in preparation
+     * Constructor takes a fams, finds the family and visits it in preparation for navigation.
      *
      * @param fams the fams whose family we are navigating
      */
@@ -100,7 +100,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Get the family that is in this navigator. This can be useful when the
+     * Get the family that is in this navigator. This can be useful when the constructor takes a non-Family parameter.
      *
      * @return the family.
      */
@@ -146,7 +146,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Get the person who is the father in this family. Can return an empty
+     * Get the person who is the father in this family. Can return an empty Person.
      *
      * @return the father
      */
@@ -164,7 +164,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Get the person who is the mother in this family. Can return an empty
+     * Get the person who is the mother in this family. Can return an empty Person.
      *
      * @return the mother
      */

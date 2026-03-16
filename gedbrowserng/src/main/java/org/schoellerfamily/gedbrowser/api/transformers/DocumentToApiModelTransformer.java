@@ -49,6 +49,8 @@ public class DocumentToApiModelTransformer {
     /**
      * Executes convert.
      *
+     * @param <T> the data type returned
+     * @param <V> the data type input
      * @param document the document
      * @return the resulting t
      */

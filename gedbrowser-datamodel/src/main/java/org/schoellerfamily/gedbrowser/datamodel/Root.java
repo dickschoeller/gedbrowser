@@ -24,13 +24,13 @@ public final class Root extends AbstractSpecialObject {
     private transient String dbname;
 
     /**
-     * Map of ID strings to GedObjects. This is the complete set of top level
+     * Map of ID strings to GedObjects. This is the complete set of top level GedObjects.
      */
     private final transient Map<String, GedObject> objects =
             new HashMap<String, GedObject>();
 
     /**
-     * Index object that manages index breakdown by Surname -> Complete Name ->
+     * Index object that manages index breakdown by Surname -> Complete Name -> Person.
      */
     private final transient Index surnameIndex;
 

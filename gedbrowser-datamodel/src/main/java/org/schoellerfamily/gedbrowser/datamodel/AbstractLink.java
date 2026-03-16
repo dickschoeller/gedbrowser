@@ -48,6 +48,7 @@ public abstract class AbstractLink extends GedObject {
      *
      * @param parent the parent
      * @param string the string
+     * @param tail the object ID tail
      */
     protected AbstractLink(final GedObject parent, final String string,
             final ObjectId tail) {

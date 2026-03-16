@@ -18,7 +18,7 @@ public abstract class MappedRepositoryManagerMongo implements HasRepoMap {
     }
 
     /**
-     * This map manages the relationship between GedObject classes and
+     * This map manages the relationship between GedObject classes and their corresponding repositories.
      */
     private final Map<Class<? extends GedObject>, Object>
         classToRepoMap = new HashMap<>();

@@ -15,7 +15,7 @@ public interface UserTokenState {
     String getAccessToken();
 
     /**
-     * Get the time until token expiration in ?????
+     * Get the time until token expiration in seconds.
      *
      * @return the expiration time
      */

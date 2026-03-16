@@ -43,6 +43,7 @@ public class PlaceIndexController extends DatedDataController {
      * @param provider the provider
      * @param repositoryManager the repository manager
      * @param client the client
+     * @param gedbrowserHome the gedbrowser home directory
      */
     public PlaceIndexController(final ApplicationInfo appInfo,
             final Users<? extends User> users,

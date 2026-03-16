@@ -48,7 +48,9 @@ final class BadLoadTest {
     @Autowired
     private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
+    /** */
     private final GedObject root = new Root();
+    /** */
     private final GedObject attr = new Attribute(root);
 
     @Test

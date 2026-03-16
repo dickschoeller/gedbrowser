@@ -98,7 +98,7 @@ public class UserController {
     }
 
     /**
-     * We are not using userService.findByUsername here(we could), so it is good
+     * We are not using userService.findByUsername here(we could), so it is good.
      *
      * @return the current user
      */

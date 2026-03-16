@@ -50,6 +50,7 @@ public final class Attribute extends AbstractAttribute implements Tail {
      *
      * @param parent the parent
      * @param string the string
+     * @param tail the tail
      */
     public Attribute(final GedObject parent, final String string,
             final String tail) {

@@ -108,7 +108,7 @@ public final class DateParser extends SimpleDateParser {
     }
 
     /**
-     * Returns the sort version of the date. Does not have
+     * Returns the sort version of the date. Does not have estimation rules applied.
      *
      * @return return the sort string for this date
      */

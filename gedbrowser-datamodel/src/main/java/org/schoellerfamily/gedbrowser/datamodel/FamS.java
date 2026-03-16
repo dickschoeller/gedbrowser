@@ -17,6 +17,7 @@ public final class FamS extends AbstractLink {
      *
      * @param parent the parent
      * @param string the string
+     * @param xref the cross-reference identifier
      */
     public FamS(final GedObject parent, final String string,
             final ObjectId xref) {

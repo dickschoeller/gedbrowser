@@ -72,6 +72,7 @@ public class GedDocumentFileLoader {
      * Loads the document.
      *
      * @param repositoryManager the repository manager
+     * @param dbName the database name to load
      * @return the resulting root document
      */
     public RootDocument loadDocument(final RepositoryManagerMongo repositoryManager,
@@ -166,6 +167,7 @@ public class GedDocumentFileLoader {
      * Loads the repository.
      *
      * @param repositoryManager the repository manager
+     * @param dbName the database name to load
      * @return the resulting root document
      */
     protected RootDocument loadRepository(final RepositoryManagerMongo repositoryManager,
@@ -248,6 +250,7 @@ public class GedDocumentFileLoader {
      * Executes details.
      *
      * @param repositoryManager the repository manager
+     * @param dbname the database name to describe
      * @return the resulting object>
      */
     public final Map<String, Object> details(final RepositoryManagerMongo repositoryManager,
