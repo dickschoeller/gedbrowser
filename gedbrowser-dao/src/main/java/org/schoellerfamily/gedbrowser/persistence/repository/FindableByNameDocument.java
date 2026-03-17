@@ -7,8 +7,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of findable by name.
  *
+ * @author Richard Schoeller
  * @param <G> the type of GedObject associated with the return type
  * @param <D> the type returned by the finders
  */

@@ -26,8 +26,12 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to web security.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableWebSecurity
@@ -68,7 +72,9 @@ public class WebSecurityConfig {
     private String activeProfile;
 
     /**
-     * @return the token authentication filter
+     * Creates and configures the token authentication filter bean.
+     *
+     * @return the configured token authentication filter bean
      */
     @Bean
     public TokenAuthenticationFilter jwtAuthenticationTokenFilter() {
@@ -136,13 +142,6 @@ public class WebSecurityConfig {
         return configured.build();
     }
 
-    /**
-     * Work from the http security object and enable or disable CSRF handling, as
-     * requested in the application properties.
-     *
-     * @param http the http security object
-     * @return the http security object
-     */
     @SuppressWarnings({ "java:S4502", "java:S3330" })
     private HttpSecurity configureCsrf(final HttpSecurity http) {
         // Warning suppressed because CSRF is disabled only in test profile.

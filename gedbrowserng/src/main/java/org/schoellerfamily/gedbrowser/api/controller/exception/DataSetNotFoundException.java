@@ -3,10 +3,12 @@ package org.schoellerfamily.gedbrowser.api.controller.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+
+
 /**
- * Exception thrown when a requested data set cannot be found.
+ * Represents an error related to data set not found.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Data set not found")
 public final class DataSetNotFoundException extends RuntimeException {
@@ -17,8 +19,10 @@ public final class DataSetNotFoundException extends RuntimeException {
     private final String datasetName;
 
     /**
-     * @param message the message to display
-     * @param datasetName the dataset that was requested
+     * Creates a new DataSetNotFoundException.
+     *
+     * @param message the message
+     * @param datasetName the dataset name to use
      */
     public DataSetNotFoundException(final String message,
             final String datasetName) {
@@ -27,7 +31,9 @@ public final class DataSetNotFoundException extends RuntimeException {
     }
 
     /**
-     * @return the name of the requested dataset
+     * Gets the dataset name.
+     *
+     * @return the dataset name
      */
     public String getDatasetName() {
         return datasetName;

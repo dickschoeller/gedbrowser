@@ -11,7 +11,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 
 /**
- * Tests for {@link CrudHelper}.
+ * Contains tests for crud helper.
  */
 final class CrudHelperTest {
 

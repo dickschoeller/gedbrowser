@@ -1,14 +1,18 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders source link phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class SourceLinkPhraseRenderer implements PhraseRenderer {
     /** */
     private final transient SourceLinkRenderer slRenderer;
 
     /**
-     * @param renderer the associated source link renderer;
+     * Creates a new SourceLinkPhraseRenderer.
+     *
+     * @param renderer the renderer
      */
     public SourceLinkPhraseRenderer(
             final SourceLinkRenderer renderer) {
@@ -16,7 +20,9 @@ public final class SourceLinkPhraseRenderer implements PhraseRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as phrase.
+     *
+     * @return the resulting string
      */
     @Override
     public String renderAsPhrase() {

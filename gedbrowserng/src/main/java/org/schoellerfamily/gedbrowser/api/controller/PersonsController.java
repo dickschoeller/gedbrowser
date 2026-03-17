@@ -32,8 +32,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for persons.
+ *
+ * @author Richard Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
@@ -60,18 +64,17 @@ public class PersonsController {
     /** */
     private final PersonGeoService personGeoService;
 
-    /**
-     * @return the CRUD object for manipulating persons
-     */
     private ObjectCrud<ApiPerson> crud() {
         return new PersonCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
-     * @param request the servlet request object
-     * @param db the name of the db to access
-     * @param person the data for the person
-     * @return the person as created
+     * Executes create.
+     *
+     * @param request the request
+     * @param db the db
+     * @param person the person
+     * @return the resulting api person
      */
     @PostMapping(value = "/v1/dbs/{db}/persons")
     public ApiPerson create(
@@ -86,9 +89,11 @@ public class PersonsController {
     }
 
     /**
-     * @param request the servlet request coming in
-     * @param db the name of the db to access
-     * @return the list of persons
+     * Executes read.
+     *
+     * @param request the request
+     * @param db the db
+     * @return the resulting list
      */
     @GetMapping(value = "/v1/dbs/{db}/persons")
     public List<ApiPerson> read(final HttpServletRequest request,
@@ -118,10 +123,12 @@ public class PersonsController {
     }
 
     /**
-     * @param request the servlet request coming in
-     * @param db the name of the db to access
-     * @param id the ID of the person
-     * @return the person
+     * Executes read.
+     *
+     * @param request the request
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api person
      */
     @GetMapping(value = "/v1/dbs/{db}/persons/{id}")
     public ApiPerson read(
@@ -157,12 +164,6 @@ public class PersonsController {
         return !hasUser && new LivingEstimator(person, provider).estimate();
     }
 
-    /**
-     * Create a minimal person for return, who is only identified as living.
-     *
-     * @param id the person ID
-     * @return the dummy person
-     */
     private ApiPerson createDummyLivingPerson(final String id) {
         return ApiPerson.builder()
             .string(id)
@@ -172,11 +173,13 @@ public class PersonsController {
     }
 
     /**
-     * @param request the servlet request coming in
-     * @param db the name of the db to access
-     * @param id the id of the person to update
-     * @param person the data for the person
-     * @return the person as created
+     * Executes update.
+     *
+     * @param request the request
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @PutMapping(value = "/v1/dbs/{db}/persons/{id}")
     public ApiPerson update(
@@ -193,10 +196,12 @@ public class PersonsController {
     }
 
     /**
-     * @param request the servlet request coming in
-     * @param db the name of the db to access
-     * @param id the ID of the person
-     * @return the deleted person object
+     * Executes delete.
+     *
+     * @param request the request
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api person
      */
     @DeleteMapping(value = "/v1/dbs/{db}/persons/{id}")
     public ApiPerson delete(

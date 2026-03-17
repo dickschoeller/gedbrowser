@@ -1,10 +1,9 @@
 package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 /**
- * Facade implementation for MenuPage. This follows the Java 8 mixin facade
- * pattern.
+ * Provides a simplified interface for menu page operations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface MenuPageFacade extends MenuPage {
     /**

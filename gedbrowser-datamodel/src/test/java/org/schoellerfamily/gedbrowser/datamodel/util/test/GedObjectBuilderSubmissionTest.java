@@ -9,10 +9,11 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object builder submission.
+ *
+ * @author Richard Schoeller
  */
 class GedObjectBuilderSubmissionTest {
-    /** */
     @Test
     void testCreateSubmissionSimple() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -20,7 +21,6 @@ class GedObjectBuilderSubmissionTest {
         assertEquals("SUB1", submission.getString(), "Mismatched tag");
     }
 
-    /** */
     @Test
     void testCreateSubmissionSimpleNoId() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -28,7 +28,6 @@ class GedObjectBuilderSubmissionTest {
         assertEquals("", submission.getString(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testCreateSubmissionLinkSimple() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -37,7 +36,6 @@ class GedObjectBuilderSubmissionTest {
         assertEquals("SUB1", submissionLink.getToString(), "Mismatched tag");
     }
 
-    /** */
     @Test
     void testCreateSubmissionLinkSimpleNoId() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -46,7 +44,6 @@ class GedObjectBuilderSubmissionTest {
         assertEquals("", submissionLink.getToString(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testCreateSubmissionLinkSimpleParent() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -55,7 +52,6 @@ class GedObjectBuilderSubmissionTest {
         assertEquals(Head.class, submissionLink.getParent().getClass(), "Mismatched parent");
     }
 
-    /** */
     @Test
     void testCreateSubmissionLinkSimpleNoIdParent() {
         final GedObjectBuilder builder = new GedObjectBuilder();

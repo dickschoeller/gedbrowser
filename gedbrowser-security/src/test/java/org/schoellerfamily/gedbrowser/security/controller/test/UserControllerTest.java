@@ -35,8 +35,12 @@ import org.springframework.web.client.RestClientException;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for the user controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(
     classes = Application.class,

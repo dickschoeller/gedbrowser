@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.reader;
 
 /**
- * @author Dick Schoeller
+ * Represents abstract ged line source.
+ *
+ * @author Richard Schoeller
  */
 public abstract class AbstractGedLineSource implements GedLineSource {
     /**
@@ -10,21 +12,29 @@ public abstract class AbstractGedLineSource implements GedLineSource {
     private int maxLineNumber;
 
     /**
-     * @return the highest line number known in the file.
+     * Gets the max line number.
+     *
+     * @return the max line number
      */
     public final int getMaxLineNumber() {
         return maxLineNumber;
     }
 
     /**
-     * @return the next line number in the file.
+     * Returns the int.
+     *
+     * @return the resulting int
      */
     public final int nextLineNumber() {
         return maxLineNumber++;
     }
 
     /**
-     * {@inheritDoc}
+     * Creates the ged line.
+     *
+     * @param parent the parent
+     * @param inLine the in line
+     * @return the resulting abstract ged line
      */
     public final AbstractGedLine createGedLine(final AbstractGedLine parent,
             final String inLine) {
@@ -54,10 +64,6 @@ public abstract class AbstractGedLineSource implements GedLineSource {
         return gedLine;
     }
 
-    /**
-     * @param lineIn the input line
-     * @param gedLine the AbstractGedLine being built
-     */
     private void process(final String lineIn, final AbstractGedLine gedLine) {
         gedLine.setXref("");
 
@@ -70,10 +76,6 @@ public abstract class AbstractGedLineSource implements GedLineSource {
         }
     }
 
-    /**
-     * @param lineIn the input line
-     * @param gedLine the AbstractGedLine being built
-     */
     private void processLevel0(final String lineIn,
             final AbstractGedLine gedLine) {
         String line = lineIn;

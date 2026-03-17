@@ -13,13 +13,19 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.FamilyVisitor;
 
 /**
- * @author Dick Schoeller
+ * Navigates relationships for family.
+ *
+ * @author Richard Schoeller
  */
 public final class FamilyNavigator {
-    /** */
+    /**
+     * The family value.
+     */
     private final Family family;
 
-    /** */
+    /**
+     * The visitor value.
+     */
     private final FamilyVisitor visitor;
 
     /**
@@ -34,8 +40,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Constructor takes a child, finds the family and visits it in preparation
-     * for navigation.
+     * Constructor takes a child, finds the family and visits it in preparation for navigation.
      *
      * @param child the child whose family we are navigating
      */
@@ -43,12 +48,6 @@ public final class FamilyNavigator {
         this(findFamily(child));
     }
 
-    /**
-     * Get the family for this child to build the navigator with.
-     *
-     * @param child the child
-     * @return the family
-     */
     private static Family findFamily(final Child child) {
         if (!child.isSet()) {
             return new Family();
@@ -61,8 +60,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Constructor takes a famc, finds the family and visits it in preparation
-     * for navigation.
+     * Constructor takes a famc, finds the family and visits it in preparation for navigation.
      *
      * @param famc the famc whose family we are navigating
      */
@@ -70,12 +68,6 @@ public final class FamilyNavigator {
         this(findFamily(famc));
     }
 
-    /**
-     * Get the family for this famc to build the navigator with.
-     *
-     * @param famc the famc
-     * @return the family
-     */
     private static Family findFamily(final FamC famc) {
         if (!famc.isSet()) {
             return new Family();
@@ -88,8 +80,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Constructor takes a fams, finds the family and visits it in preparation
-     * for navigation.
+     * Constructor takes a fams, finds the family and visits it in preparation for navigation.
      *
      * @param fams the fams whose family we are navigating
      */
@@ -97,12 +88,6 @@ public final class FamilyNavigator {
         this(findFamily(fams));
     }
 
-    /**
-     * Get the family for this fams to build the navigator with.
-     *
-     * @param fams the fams
-     * @return the family
-     */
     private static Family findFamily(final FamS fams) {
         if (!fams.isSet()) {
             return new Family();
@@ -116,7 +101,7 @@ public final class FamilyNavigator {
 
     /**
      * Get the family that is in this navigator. This can be useful when the
-     * navigator is built from one of the links to/from it.
+     * constructor takes a non-Family parameter.
      *
      * @return the family.
      */
@@ -162,8 +147,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Get the person who is the father in this family. Can return an empty
-     * person.
+     * Get the person who is the father in this family. Can return an empty Person.
      *
      * @return the father
      */
@@ -181,8 +165,7 @@ public final class FamilyNavigator {
     }
 
     /**
-     * Get the person who is the mother in this family. Can return an empty
-     * person.
+     * Get the person who is the mother in this family. Can return an empty Person.
      *
      * @return the mother
      */

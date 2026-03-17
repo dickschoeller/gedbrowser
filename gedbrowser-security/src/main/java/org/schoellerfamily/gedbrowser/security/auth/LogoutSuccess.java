@@ -13,17 +13,25 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import tools.jackson.databind.ObjectMapper;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents logout success.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor
 public final class LogoutSuccess implements LogoutSuccessHandler {
-    /** */
+    /**
+     * The object mapper value.
+     */
     private final ObjectMapper objectMapper;
 
     /**
-     * {@inheritDoc}
+     * Executes on logout success.
+     *
+     * @param httpServletRequest the http servlet request
      */
     @Override
     public void onLogoutSuccess(final HttpServletRequest httpServletRequest,

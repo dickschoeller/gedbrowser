@@ -12,19 +12,19 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for submission.
+ *
+ * @author Richard Schoeller
  */
 class SubmissionTest {
     /** */
     private GedObjectBuilder builder;
 
-    /** */
     @BeforeEach
     void setUp() {
         builder = new GedObjectBuilder();
     }
 
-    /** */
     @Test
     void testSubmissionGedObjectCompare() {
         final Root root = builder.getRoot();
@@ -35,14 +35,12 @@ class SubmissionTest {
         assertEquals(submission, gob, "Found wrong submission");
     }
 
-    /** */
     @Test
     void testSubmissionGedObjectGetString() {
         final Submission submission = new Submission();
         assertTrue(submission.getString().isEmpty(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testSubmissionGedObjectStringGetString() {
         final Root root = builder.getRoot();

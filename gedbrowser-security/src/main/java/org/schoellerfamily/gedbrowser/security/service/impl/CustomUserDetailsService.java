@@ -15,19 +15,33 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Provides services for custom user details.
+ *
+ * @author Richard Schoeller
  */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public final class CustomUserDetailsService implements UserDetailsService {
-    /** */
+    /**
+     * The users value.
+     */
     private final SecurityUsers users;
 
-    /** */
+    /**
+     * The password encoder value.
+     */
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Loads user by username.
+     *
+     * @param username the username to use
+     * @return the resulting user details
+     */
     @Override
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
@@ -44,7 +58,7 @@ public final class CustomUserDetailsService implements UserDetailsService {
      *
      * @param oldPassword old password
      * @param newPassword new password
-     * @param authenticationManager the authentication manager
+     * @param authenticationManager the authentication manager used to re-authenticate the user
      */
     public void changePassword(final String oldPassword,
             final String newPassword,

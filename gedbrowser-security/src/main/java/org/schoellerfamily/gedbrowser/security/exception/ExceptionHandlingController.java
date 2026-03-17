@@ -1,18 +1,28 @@
 package org.schoellerfamily.gedbrowser.security.exception;
 
+import lombok.NoArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for exception handling.
+ *
+ * @author Richard Schoeller
  */
 @ControllerAdvice
+@NoArgsConstructor
 public class ExceptionHandlingController {
+
     /**
-     * @param ex the exception
-     * @return the response entity
+     * Executes resource conflict.
+     *
+     * @param ex the ex
+     * @return the resulting response entity
      */
     @ExceptionHandler(ResourceConflictException.class)
     public final ResponseEntity<ExceptionResponse> resourceConflict(

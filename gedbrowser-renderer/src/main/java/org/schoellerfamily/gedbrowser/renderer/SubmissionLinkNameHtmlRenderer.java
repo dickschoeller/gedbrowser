@@ -1,15 +1,17 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders submission link name html output for display.
+ *
+ * @author Richard Schoeller
  */
 public class SubmissionLinkNameHtmlRenderer implements NameHtmlRenderer {
     /** */
     private final SubmissionLinkRenderer submissionLinkRenderer;
     /**
-     * Constructor.
+     * Creates a new SubmissionLinkNameHtmlRenderer.
      *
-     * @param submissionLinkRenderer the parent renderer
+     * @param submissionLinkRenderer the submission link renderer
      */
     public SubmissionLinkNameHtmlRenderer(
             final SubmissionLinkRenderer submissionLinkRenderer) {
@@ -17,7 +19,9 @@ public class SubmissionLinkNameHtmlRenderer implements NameHtmlRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public String getNameHtml() {

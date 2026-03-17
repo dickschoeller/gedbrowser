@@ -9,10 +9,12 @@ import org.schoellerfamily.gedbrowser.security.service.AuthorityService;
 // import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
 /**
- * TODO Currently not using AuthorityRepository. But probably should be.
+ * Provides behavior related to authority service impl.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Service
 @SuppressWarnings("java:S125")
@@ -21,6 +23,12 @@ public class AuthorityServiceImpl implements AuthorityService {
 //    @Autowired
 //    private AuthorityRepository authorityRepository;
 
+    /**
+     * Finds by id.
+     *
+     * @param id the unique identifier for the target
+     * @return the resulting list of authority
+     */
     @Override
     public final List<Authority> findById(final Long id) {
 //      Authority auth = this.authorityRepository.findOne(id);
@@ -32,6 +40,12 @@ public class AuthorityServiceImpl implements AuthorityService {
       return auths;
     }
 
+    /**
+     * Finds the byname.
+     *
+     * @param name the name to use
+     * @return the resulting list
+     */
     @Override
     public final List<Authority> findByname(final String name) {
 //      Authority auth = this.authorityRepository.findByName(name);

@@ -11,14 +11,17 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.data.repository.CrudRepository;
 
+
+
 /**
- * This interface contains default methods that implement the delete operations
- * for the classes that declare implementing the interface.
+ * Defines the contract for delete operations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  *
  * @param <X> the data model type we are manipulating
+ *
  * @param <Y> the DB type associated with the type X
+ *
  * @param <Z> the Api type associated with the type X
  */
 @SuppressWarnings("PMD.CommentSize")

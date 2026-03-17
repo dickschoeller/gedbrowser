@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of person.
+ *
+ * @author Richard Schoeller
  */
 public interface PersonDocument extends GedDocument<Person> {
     /**

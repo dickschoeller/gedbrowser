@@ -13,12 +13,12 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderFacade;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for calendar provider facade.
+ *
+ * @author Richard Schoeller
  */
 class CalendarProviderFacadeTest {
-    /** */
     private final Calendar calendar = Calendar.getInstance();
-    /** */
     private final LocalDate localDate = new LocalDate();
     /** */
     private CalendarProvider mockProvider;
@@ -30,11 +30,13 @@ class CalendarProviderFacadeTest {
      * pass-through. Because we will assertSame on the results against the fields of
      * the test class.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private final class CalendarProviderMock implements CalendarProvider {
         /**
-         * {@inheritDoc}
+         * Returns the calendar.
+         *
+         * @return the resulting calendar
          */
         @Override
         public Calendar now() {
@@ -42,7 +44,9 @@ class CalendarProviderFacadeTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Returns the local date.
+         *
+         * @return the resulting local date
          */
         @Override
         public LocalDate nowDate() {
@@ -54,21 +58,20 @@ class CalendarProviderFacadeTest {
      * Simplest possible implementation of the facade class with an injected
      * provider.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private final class CalendarProviderFacadeImpl implements CalendarProviderFacade {
         /** */
         private final CalendarProvider provider;
 
-        /**
-         * @param provider the provider to facade.
-         */
         CalendarProviderFacadeImpl(final CalendarProvider provider) {
             this.provider = provider;
         }
 
         /**
-         * {@inheritDoc}
+         * Returns the calendar provider.
+         *
+         * @return the calendar provider
          */
         @Override
         public CalendarProvider getCalendarProvider() {
@@ -76,37 +79,23 @@ class CalendarProviderFacadeTest {
         }
     }
 
-    /**
-     * Prepare for the test.
-     */
     @BeforeEach
     void setUp() {
         mockProvider = new CalendarProviderFacadeImpl(new CalendarProviderMock());
         implProvider = new CalendarProviderFacadeImpl(new CalendarProviderImpl());
     }
 
-    /**
-     * Simply test the pass through of the facade.
-     */
     @Test
     void testFacadeNow() {
         assertSame(calendar, mockProvider.now(), "Should have passed through to the provider mock");
     }
 
-    /**
-     * Simply test the pass through of the facade.
-     */
     @Test
     void testFacadeNowDate() {
         assertSame(localDate, mockProvider.nowDate(),
             "Should have passed through to the provider mock");
     }
 
-    /**
-     * Simply test the pass through of the facade.
-     *
-     * @throws InterruptedException if thread interrupted
-     */
     @Test
     void testImplNow() throws InterruptedException {
         final Calendar actual = implProvider.now();
@@ -117,9 +106,6 @@ class CalendarProviderFacadeTest {
             expected, difference);
     }
 
-    /**
-     * Simply test the pass through of the facade.
-     */
     @Test
     void testImplNowDate() {
         final LocalDate actual = implProvider.nowDate();
@@ -127,11 +113,6 @@ class CalendarProviderFacadeTest {
             "actual should be same as localDate, or is 1 day higher if test at midnight");
     }
 
-    /**
-     * @param message  message to display on failure
-     * @param expected expected limit
-     * @param actual   actual value
-     */
     private void assertLessThan(final String message, final long expected, final long actual) {
         assertTrue(actual < expected, message);
     }

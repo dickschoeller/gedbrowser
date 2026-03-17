@@ -1,4 +1,4 @@
 /**
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 package org.schoellerfamily.gedbrowser.writer.users;

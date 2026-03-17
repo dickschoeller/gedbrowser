@@ -6,17 +6,17 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.exception.ResourceConflictException;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for resource confliect exception.
+ *
+ * @author Richard Schoeller
  */
 class ResourceConfliectExceptionTest {
-    /** */
     @Test
     void testMessage() {
         final Exception e = new ResourceConflictException(1L, "message");
         assertEquals("message", e.getMessage(), "Messages don't match");
     }
 
-    /** */
     @Test
     void testId() {
         final ResourceConflictException e =

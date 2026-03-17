@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 
 /**
- * @author Dick Schoeller
+ * Renders submitter link name html output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class SubmitterLinkNameHtmlRenderer implements NameHtmlRenderer {
     /**
@@ -14,9 +16,9 @@ public final class SubmitterLinkNameHtmlRenderer implements NameHtmlRenderer {
     private final transient SubmitterLinkRenderer submitterLinkRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SubmitterLinkNameHtmlRenderer.
      *
-     * @param submitterLinkRenderer the renderer that is using this helper.
+     * @param submitterLinkRenderer the submitter link renderer
      */
     protected SubmitterLinkNameHtmlRenderer(
             final SubmitterLinkRenderer submitterLinkRenderer) {
@@ -24,7 +26,9 @@ public final class SubmitterLinkNameHtmlRenderer implements NameHtmlRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public String getNameHtml() {

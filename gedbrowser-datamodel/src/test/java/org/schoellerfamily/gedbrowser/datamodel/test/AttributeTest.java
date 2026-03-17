@@ -17,7 +17,9 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for attribute.
+ *
+ * @author Richard Schoeller
  */
 final class AttributeTest {
     /** */
@@ -29,21 +31,18 @@ final class AttributeTest {
     /** */
     private transient Person person1;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         person1 = builder.createPerson("I1", "J. Random/Schoeller/");
     }
 
-    /** */
     @Test
     void testString() {
         final Attribute job = new Attribute(person1, "Job", "Worked at SAP");
         assertEquals("Worked at SAP", job.getTail(), "In should match out");
     }
 
-    /** */
     @Test
     void testAppendString() {
         final Attribute job = new Attribute(person1, "Job", "Worked at SAP");
@@ -52,7 +51,6 @@ final class AttributeTest {
             "Should have concatenated the segments");
     }
 
-    /** */
     @Test
     void testNoBirthNoDate() {
         final Attribute dummy = new Attribute(person1, DUMMY);
@@ -63,7 +61,6 @@ final class AttributeTest {
         assertEquals("", visitor.getDate(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testGetBirthDateNotInserted() {
         final Attribute dummy = new Attribute(person1, DUMMY);
@@ -75,7 +72,6 @@ final class AttributeTest {
         assertEquals("", visitor.getDate(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testGetBirthDate() {
         final Attribute dummy = new Attribute(person1, DUMMY);
@@ -89,7 +85,6 @@ final class AttributeTest {
         assertEquals(POTTER_DAY, visitor.getDate(), "Date's filled in. Should match");
     }
 
-    /** */
     @Test
     void testNoDeathNoDate() {
         final Attribute dummy = new Attribute(person1, DUMMY);
@@ -100,7 +95,6 @@ final class AttributeTest {
         assertEquals("", visitor.getDate(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testGetDeathDateNotInserted() {
         final Attribute dummy = new Attribute(person1, DUMMY);
@@ -112,7 +106,6 @@ final class AttributeTest {
         assertEquals("", visitor.getDate(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testGetDeathDate() {
         final Attribute dummy = new Attribute(person1, DUMMY);
@@ -126,7 +119,6 @@ final class AttributeTest {
         assertEquals(HUNDRED_DAY, visitor.getDate(), "Date's filled in. Should match");
     }
 
-    /** */
     @Test
     void testGetDate() {
         final Attribute dummy = new Attribute(person1, DUMMY);
@@ -140,7 +132,6 @@ final class AttributeTest {
         assertEquals(POTTER_DAY, visitor.getDate(), "Date mismatch");
     }
 
-    /** */
     @Test
     void testGetDateNullDateString() {
         final Attribute dummy1 = new Attribute(person1, DUMMY);
@@ -151,7 +142,6 @@ final class AttributeTest {
         assertEquals("", visitor.getDate(), "Expected empty date string");
     }
 
-    /** */
     @Test
     void testGetDeathDateNoDateString() {
         final Attribute death = new Attribute(person1, "Death");
@@ -160,15 +150,6 @@ final class AttributeTest {
         assertEquals("", visitor.getDate(), "Expected empty date string");
     }
 
-    /**
-     * Parameterized test replacing several similar tail tests.
-     * Arguments are: initialTail, doSecondSet, secondTail, expectedTail
-     *
-     * @param initialTail initial tail value to set
-     * @param doSecondSet whether to set the tail a second time
-     * @param secondTail second tail value to set (may be null)
-     * @param expectedTail expected final tail value
-     */
     @ParameterizedTest
     @MethodSource("tailCases")
     void testTailVariants(final String initialTail, final boolean doSecondSet,
@@ -194,14 +175,6 @@ final class AttributeTest {
         );
     }
 
-    /**
-     * Fails an assertion if one of the values doesn't match.
-     *
-     * @param attribute the attribute to test
-     * @param expParent expected parent value
-     * @param expString expected string value
-     * @param expTail   expected tail value
-     */
     private void assertMatch(final Attribute attribute, final GedObject expParent,
         final String expString, final String expTail) {
         assertEquals(expParent, attribute.getParent(), "Parent mismatch");

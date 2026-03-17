@@ -4,12 +4,14 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implements a mixin that provides the trailer repository.
+ * Provides trailer repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface TrailerRepoProvider extends HasRepoMap {
     /**
+     * Sets the trailer document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -18,6 +20,8 @@ public interface TrailerRepoProvider extends HasRepoMap {
     }
 
     /**
+     * Gets the trailer document repository.
+     *
      * @return the repository
      */
     default TrailerDocumentRepositoryMongo getTrailerDocumentRepository() {

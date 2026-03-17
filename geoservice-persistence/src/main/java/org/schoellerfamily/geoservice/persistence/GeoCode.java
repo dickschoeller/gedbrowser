@@ -4,8 +4,12 @@ import java.util.Collection;
 
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 
+
+
 /**
- * @author Dick Schoeller
+ * Defines persistence operations for geo code.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "PMD.TooManyMethods" })
 public interface GeoCode {

@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
 /**
- * @author Dick Schoeller
+ * Renders multimedia list item output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class MultimediaListItemRenderer implements ListItemRenderer {
     /**
@@ -13,9 +15,9 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
     private final transient MultimediaRenderer multimediaRenderer;
 
     /**
-     * Constructor.
+     * Creates a new MultimediaListItemRenderer.
      *
-     * @param multimediaRenderer the renderer that this is associated with.
+     * @param multimediaRenderer the multimedia renderer
      */
     public MultimediaListItemRenderer(
             final MultimediaRenderer multimediaRenderer) {
@@ -23,7 +25,12 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as list item.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public StringBuilder renderAsListItem(final StringBuilder builder,
@@ -39,7 +46,9 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public String getListItemContents() {
@@ -48,12 +57,6 @@ public final class MultimediaListItemRenderer implements ListItemRenderer {
         return builder.toString();
     }
 
-    /**
-     * Render the inner part of this thing in a list item.  Will never
-     * have an &lt;li&gt; tag.
-     *
-     * @param builder the string builder that we will be appending to.
-     */
     private void renderListItemContents(final StringBuilder builder) {
         final Multimedia multimedia = multimediaRenderer.getGedObject();
         builder.append("<span class=\"label\">");

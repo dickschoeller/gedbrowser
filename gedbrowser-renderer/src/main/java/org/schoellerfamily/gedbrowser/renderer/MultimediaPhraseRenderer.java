@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
 /**
- * @author Dick Schoeller
+ * Renders multimedia phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class MultimediaPhraseRenderer implements PhraseRenderer {
     /**
@@ -13,9 +15,9 @@ public final class MultimediaPhraseRenderer implements PhraseRenderer {
     private final transient MultimediaRenderer multimediaRenderer;
 
     /**
-     * Constructor.
+     * Creates a new MultimediaPhraseRenderer.
      *
-     * @param multimediaRenderer the renderer that this is associated with.
+     * @param multimediaRenderer the multimedia renderer
      */
     protected MultimediaPhraseRenderer(
             final MultimediaRenderer multimediaRenderer) {
@@ -23,7 +25,9 @@ public final class MultimediaPhraseRenderer implements PhraseRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as phrase.
+     *
+     * @return the resulting string
      */
     @Override
     public String renderAsPhrase() {

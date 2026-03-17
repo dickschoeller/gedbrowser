@@ -11,10 +11,12 @@ import lombok.experimental.SuperBuilder;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
+
+
 /**
- * An object that has a tail string.
+ * Represents api tail in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuperBuilder(toBuilder = true)
 @Getter
@@ -53,8 +55,10 @@ public class ApiTail extends ApiObject {
     }
 
     /**
-     * Is the other object of exactly the same type as this one? All overrides
-     * should use the same approach.
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
      */
     @Override
     public boolean canEqual(final Object other) {

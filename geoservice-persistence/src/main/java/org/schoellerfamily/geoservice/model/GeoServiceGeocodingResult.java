@@ -11,11 +11,12 @@ import org.apache.commons.collections4.CollectionUtils;
 import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressType;
 
+
+
 /**
- * A variant of Google's GeocodingResult that will work with Jackson
- * serialization to JSON.
+ * Represents the result of geo service geocoding processing.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "java:S1168" })
 public final class GeoServiceGeocodingResult {
@@ -52,15 +53,15 @@ public final class GeoServiceGeocodingResult {
     }
 
     /**
-     * @param addressComponents
-     *            an array containing the separate address components
-     * @param formattedAddress human readable address string
-     * @param postcodeLocalities
-     *            an array denoting all of the addresses in the postal code
-     * @param geometry location information
-     * @param types an array describing the applicable location types
-     * @param partialMatch true if this is a partial match
-     * @param placeId unique identifier for the place
+     * Creates a new GeoServiceGeocodingResult.
+     *
+     * @param addressComponents the address components
+     * @param formattedAddress the formatted address
+     * @param postcodeLocalities the postcode localities to use
+     * @param geometry the geometry
+     * @param types the types to use
+     * @param partialMatch the partial match
+     * @param placeId the unique identifier for place
      */
     public GeoServiceGeocodingResult(
             final AddressComponent[] addressComponents,
@@ -243,13 +244,6 @@ public final class GeoServiceGeocodingResult {
         return location.getProperty("placeId");
     }
 
-    /**
-     * Return the location. It is in the form of a GeoJSON feature.
-     * Much of the descriptive data from Google is in the properties
-     * of that feature.
-     *
-     * @return the location feature
-     */
     @Transient
     private Feature getLocation() {
         if (geometry == null) {

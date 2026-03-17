@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @author Dick Schoeller
+ * Represents head document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Document(collection = "heads")
 @CompoundIndexes({
@@ -22,11 +24,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
 })
 public final class HeadDocumentMongo extends GedDocumentMongo<Head>
         implements HeadDocument {
+    /**
+     * Creates a new HeadDocumentMongo.
+     */
+    public HeadDocumentMongo() {
+    }
+
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "head";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -40,11 +58,21 @@ public final class HeadDocumentMongo extends GedDocumentMongo<Head>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

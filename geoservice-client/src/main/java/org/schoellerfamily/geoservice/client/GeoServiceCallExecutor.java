@@ -1,7 +1,7 @@
 package org.schoellerfamily.geoservice.client;
 
 /**
- * Executes geoservice calls with optional resilience policies.
+ * Defines the contract for geo service call executor.
  */
 public interface GeoServiceCallExecutor {
     /**

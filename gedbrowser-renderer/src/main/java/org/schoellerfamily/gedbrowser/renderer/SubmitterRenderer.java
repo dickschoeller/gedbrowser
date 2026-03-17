@@ -10,9 +10,9 @@ import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
- * Render a Submitter.
+ * Renders submitter output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class SubmitterRenderer extends GedRenderer<Submitter>
         implements IndexHrefRenderer<Submitter>, AttributesRenderer<Submitter>,
@@ -20,10 +20,11 @@ public final class SubmitterRenderer extends GedRenderer<Submitter>
         SaveHrefRenderer<Submitter>, SubmittersHrefRenderer<Submitter>,
         SourcesHrefRenderer<Submitter> {
     /**
-     * @param gedObject the Submitter that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new SubmitterRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public SubmitterRenderer(final Submitter gedObject,
             final GedRendererFactory rendererFactory,
@@ -34,14 +35,18 @@ public final class SubmitterRenderer extends GedRenderer<Submitter>
     }
 
     /**
-     * @return the ID string of the person.
+     * Gets the id string.
+     *
+     * @return the id string
      */
     public String getIdString() {
         return getGedObject().getString();
     }
 
     /**
-     * @return a nicely string string for the title
+     * Gets the title string.
+     *
+     * @return the title string
      */
     public String getTitleString() {
         final Submitter gob = getGedObject();

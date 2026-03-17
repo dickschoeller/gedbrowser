@@ -3,12 +3,13 @@ package org.schoellerfamily.gedbrowser.datamodel;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for visitable object.
+ *
+ * @author Richard Schoeller
  */
 public interface VisitableObject {
     /**
-     * Hook for using the visitor design pattern to accumulate information
-     * about a GedObject and its children.
+     * Hook for using the visitor design pattern to accumulate information.
      *
      * @param visitor the visitor
      */

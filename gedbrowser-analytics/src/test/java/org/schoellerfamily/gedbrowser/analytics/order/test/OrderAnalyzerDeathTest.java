@@ -20,8 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for order analyzer death.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -33,11 +37,21 @@ final class OrderAnalyzerDeathTest implements AnalyzerTest {
     @Autowired
     private GedObjectBuilder builder;
 
+    /**
+     * Returns the person builder.
+     *
+     * @return the resulting person builder
+     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
+    /**
+     * Returns the family builder.
+     *
+     * @return the resulting family builder
+     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;

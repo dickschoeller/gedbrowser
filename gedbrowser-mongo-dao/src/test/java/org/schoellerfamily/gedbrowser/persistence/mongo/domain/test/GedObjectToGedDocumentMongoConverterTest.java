@@ -62,8 +62,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object to ged document mongo converter.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects", "PMD.TooManyMethods" })
 @ExtendWith(SpringExtension.class)
@@ -73,7 +77,6 @@ class GedObjectToGedDocumentMongoConverterTest {
     @Autowired
     private transient GedObjectToGedDocumentMongoConverter toDocConverter;
 
-    /** */
     @Test
     void testCreateAttributeDocument() {
         final GedObject ged = new Attribute(null);
@@ -84,7 +87,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateChildDocument() {
         final GedObject ged = new Child();
@@ -95,7 +97,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateDateDocument() {
         final GedObject ged = new Date(null);
@@ -106,7 +107,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateMultimediaDocument() {
         final GedObject ged = new Multimedia();
@@ -117,7 +117,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateNameDocument() {
         final GedObject ged = new Name(null);
@@ -128,7 +127,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateNoteDocument() {
         final GedObject ged = new Note();
@@ -139,7 +137,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateNoteLinkDocument() {
         final GedObject ged = new NoteLink();
@@ -150,7 +147,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateFamilyDocument() {
         final GedObject ged = new Family();
@@ -161,7 +157,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateFamCDocument() {
         final GedObject ged = new FamC();
@@ -172,7 +167,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateFamSDocument() {
         final GedObject ged = new FamS();
@@ -183,7 +177,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateHeadDocument() {
         final GedObject ged = new Head();
@@ -194,7 +187,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateHusbandDocument() {
         final GedObject ged = new Husband();
@@ -205,7 +197,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreatePersonDocument() {
         final GedObject ged = new Person(null, new ObjectId("I1"));
@@ -216,7 +207,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreatePlaceDocument() {
         final GedObject ged = new Place();
@@ -227,7 +217,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateSourceDocument() {
         final GedObject ged = new Source(null, new ObjectId("S1"));
@@ -238,7 +227,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateSourceLinkDocument() {
         final GedObject ged = new SourceLink();
@@ -249,7 +237,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateSubmissionDocument() {
         final GedObject ged = new Submission();
@@ -260,7 +247,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateSubmissionLinkDocument() {
         final GedObject ged = new SubmissionLink();
@@ -271,7 +257,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateSubmitterDocument() {
         final GedObject ged = new Submitter();
@@ -282,7 +267,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateSubmitterLinkDocument() {
         final GedObject ged = new SubmitterLink();
@@ -293,7 +277,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateTrailerDocument() {
         final GedObject ged = new Trailer();
@@ -304,7 +287,6 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testCreateWifeDocument() {
         final GedObject ged = new Wife();
@@ -315,14 +297,12 @@ class GedObjectToGedDocumentMongoConverterTest {
             "Failed document check");
     }
 
-    /** */
     @Test
     void testNullCreateDocument() {
         assertThatExceptionOfType(PersistenceException.class)
             .isThrownBy(() -> toDocConverter.createGedDocument(null));
     }
 
-    /** */
     @Test
     void testUnexpectedCreateDocument() {
         final GedObject ged = createGedObject();
@@ -330,13 +310,12 @@ class GedObjectToGedDocumentMongoConverterTest {
             .isThrownBy(() -> toDocConverter.createGedDocument(ged));
     }
 
-    /**
-     * @return an anonymous subclass of GedObject for testing
-     */
     private GedObject createGedObject() {
         return new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {
@@ -345,13 +324,6 @@ class GedObjectToGedDocumentMongoConverterTest {
         };
     }
 
-    /**
-     * @param ged                the ged object that we start with
-     * @param gedDocument        the mongo document that we end up with
-     * @param expectedTypeString the expected type string
-     * @param expectedClass      the expected class
-     * @return true or throws an assertion exception
-     */
     private boolean compareGedDocument(final GedObject ged, final GedDocument<?> gedDocument,
         final String expectedTypeString, final Class<? extends GedDocumentMongo<?>> expectedClass) {
         assertEquals(expectedClass, gedDocument.getClass(), "Wrong class");

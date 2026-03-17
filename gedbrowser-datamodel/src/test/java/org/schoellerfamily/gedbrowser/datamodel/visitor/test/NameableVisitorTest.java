@@ -29,17 +29,17 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for nameable visitor.
+ *
+ * @author Richard Schoeller
  */
 final class NameableVisitorTest {
-    /** */
     @Test
     void testUninit() {
         final NameableVisitor visitor = new NameableVisitor();
         assertEquals("?, ?", visitor.getIndexName(), "Found unexpected content");
     }
 
-    /** */
     @Test
     void testNoImpactFromUnrelated() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -66,7 +66,9 @@ final class NameableVisitorTest {
         new Wife().accept(visitor);
         final GedObject gob = new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

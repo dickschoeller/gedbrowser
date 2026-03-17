@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
 /**
- * @author Dick Schoeller
+ * Visits api object elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface ApiObjectVisitor {
     /**

@@ -10,9 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * Analyze the order of family data for this person.
+ * Analyzes family order data and ordering behavior.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
     /** */
@@ -22,8 +22,10 @@ public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
     private Family seenFamily;
 
     /**
-     * @param person the person analyzed
-     * @param orderAnalyzerResult the result accumulator for this analysis
+     * Creates a new FamilyOrderAnalyzer.
+     *
+     * @param person the person
+     * @param orderAnalyzerResult the order analyzer result
      */
     public FamilyOrderAnalyzer(final Person person,
             final OrderAnalyzerResult orderAnalyzerResult) {
@@ -31,6 +33,11 @@ public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
         this.person = person;
     }
 
+    /**
+     * Executes analyze.
+     *
+     * @return the resulting order analyzer result
+     */
     @Override
     public OrderAnalyzerResult analyze() {
         seenFamily = null;
@@ -77,12 +84,6 @@ public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
         }
     }
 
-    /**
-     * Analyze the family. Add any date order problems to the analysis.
-     *
-     * @param family the family to check
-     * @return the earliest date of an event in the family
-     */
     private LocalDate analyzeDates(final Family family) {
         if (family == null) {
             return null;
@@ -99,10 +100,6 @@ public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
         return earliestDate(visitor);
     }
 
-    /**
-     * @param visitor the visitor that is doing the processing
-     * @return the earliest date from the contents
-     */
     private LocalDate earliestDate(final FamilyAnalysisVisitor visitor) {
         LocalDate earliestDate = null;
         for (final Attribute attribute : visitor.getTrimmedAttributes()) {
@@ -117,10 +114,6 @@ public final class FamilyOrderAnalyzer extends AbstractOrderAnalyzer {
         return earliestDate;
     }
 
-    /**
-     * @param family the family to check
-     * @return the earliest date of an event in the family
-     */
     private LocalDate earliestDate(final Family family) {
         if (family == null) {
             return null;

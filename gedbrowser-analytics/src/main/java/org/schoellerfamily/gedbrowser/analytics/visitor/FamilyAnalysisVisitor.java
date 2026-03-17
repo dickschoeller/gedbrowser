@@ -4,16 +4,15 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * Visitor aids in the process of analyzing the order of events in a family.
+ * Visits family analysis elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class FamilyAnalysisVisitor extends AbstractAnalysisVisitor {
     /**
-     * Visit a Family. This is the primary focus of the visitation. From
-     * here, interesting information is gathered from the attributes.
+     * Executes visit.
      *
-     * @see org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor#visit(Family)
+     * @param family the family
      */
     @Override
     public void visit(final Family family) {

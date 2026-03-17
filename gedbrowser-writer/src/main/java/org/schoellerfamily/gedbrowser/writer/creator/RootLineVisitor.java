@@ -18,7 +18,9 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.writer.GedWriterFile;
 
 /**
- * @author Dick Schoeller
+ * Visits root line elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface RootLineVisitor extends GedObjectLineVisitor {
 

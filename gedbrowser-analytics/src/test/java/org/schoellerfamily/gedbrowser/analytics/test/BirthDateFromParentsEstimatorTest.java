@@ -18,8 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for birth date from parents estimator.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -37,17 +41,26 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
     /** */
     private transient BirthDateFromParentsEstimator estimator;
 
+    /**
+     * Returns the person builder.
+     *
+     * @return the resulting person builder
+     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
+    /**
+     * Returns the family builder.
+     *
+     * @return the resulting family builder
+     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;
     }
 
-    /** */
     @BeforeEach
     void setUp() {
         final Person person1 = createJRandom();
@@ -67,7 +80,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         estimator = new BirthDateFromParentsEstimator(person1);
     }
 
-    /** */
     @Test
     void testFromBirthWithOnlyMarriage() {
         final Family family = family1;
@@ -76,7 +88,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
             "Should be null because no dates available to use");
     }
 
-    /** */
     @Test
     void testFromBirthWithOnlyFatherBirth() {
         final Person person = person2;
@@ -85,7 +96,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, estimator.estimateFromBirth(null));
     }
 
-    /** */
     @Test
     void testFromBirthWithOnlyFather() {
         final Person child1 = createJRandom();
@@ -99,7 +109,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, e.estimateFromBirth(null));
     }
 
-    /** */
     @Test
     void testFromBirthWithOnlyMotherBirth() {
         final Person person = person3;
@@ -108,7 +117,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, estimator.estimateFromBirth(null));
     }
 
-    /** */
     @Test
     void testFromBirthWithOnlyMother() {
         final Person child1 = createJRandom();
@@ -123,7 +131,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, e.estimateFromBirth(null));
     }
 
-    /** */
     @Test
     void testFromBirthFamilyNoParents() {
         final Person child1 = createJRandom();
@@ -133,7 +140,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertNull(e.estimateFromBirth(null), "Should not get a date without parents");
     }
 
-    /** */
     @Test
     void testFromBirthWithBothParentsBirth() {
         final Person person = person2;
@@ -144,7 +150,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, estimator.estimateFromBirth(null));
     }
 
-    /** */
     @Test
     void testFromBirthWithPreviousDate() {
         final Person person = person2;
@@ -155,7 +160,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, estimator.estimateFromBirth(expected));
     }
 
-    /** */
     @Test
     void testFromMarriageWithOnlyMarriage() {
         final Family family = family1;
@@ -164,7 +168,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, estimator.estimateFromMarriage(null));
     }
 
-    /** */
     @Test
     void testFromMarriageWithOlderSibling() {
         final Person child1 = createJRandom();
@@ -182,7 +185,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, e.estimateFromMarriage(null));
     }
 
-    /** */
     @Test
     void testFromMarriageWithYoungerSibling() {
         final Person child1 = createJRandom();
@@ -200,7 +202,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, e.estimateFromMarriage(null));
     }
 
-    /** */
     @Test
     void testFromMarriageWithPreviousDate() {
         final Family family = family1;
@@ -209,7 +210,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, estimator.estimateFromMarriage(expected));
     }
 
-    /** */
     @Test
     void testFromMarriageWithOnlyFatherBirth() {
         final Person person = person2;
@@ -218,7 +218,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
             "Should be null because no dates available to use");
     }
 
-    /** */
     @Test
     void testFromMarriageWithOnlyMotherBirth() {
         final Person person = person3;
@@ -227,7 +226,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
             "Should be null because no dates available to use");
     }
 
-    /** */
     @Test
     void testFromMarriageWithBothParentsBirth() {
         final Person person = person2;
@@ -238,7 +236,6 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
             "Should be null because no dates available to use");
     }
 
-    /** */
     @Test
     void testFromMarriageFamilyNoParents() {
         final Person child1 = createJRandom();
@@ -250,19 +247,10 @@ final class BirthDateFromParentsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, e.estimateFromMarriage(null));
     }
 
-    /**
-     * @param expected expected date
-     * @param actual   actual date
-     */
     private void assertMatch(final LocalDate expected, final LocalDate actual) {
         assertTrue(expected.isEqual(actual), mismatchString(expected, actual));
     }
 
-    /**
-     * @param expected expected date
-     * @param actual   actual date
-     * @return string describing the mismatch
-     */
     private String mismatchString(final LocalDate expected, final LocalDate actual) {
         return "Don't match! expected: " + expected + ", actual: " + actual;
     }

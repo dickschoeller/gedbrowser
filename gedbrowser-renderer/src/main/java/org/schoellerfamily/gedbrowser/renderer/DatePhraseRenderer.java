@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Renders date phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public class DatePhraseRenderer implements PhraseRenderer {
     /**
@@ -13,16 +15,18 @@ public class DatePhraseRenderer implements PhraseRenderer {
     private final transient DateRenderer dateRenderer;
 
     /**
-     * Constructor.
+     * Creates a new DatePhraseRenderer.
      *
-     * @param dateRenderer the renderer that this is associated with.
+     * @param dateRenderer the date renderer
      */
     protected DatePhraseRenderer(final DateRenderer dateRenderer) {
         this.dateRenderer = dateRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as phrase.
+     *
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

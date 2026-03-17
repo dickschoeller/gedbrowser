@@ -15,10 +15,12 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Add our own information to the health indicator.
+ * Reports status information for application health.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @Slf4j
@@ -34,6 +36,11 @@ public class ApplicationHealthIndicator implements HealthIndicator {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
+    /**
+     * Executes health.
+     *
+     * @return the resulting health
+     */
     @Override
     public final Health health() {
         log.debug("Health");

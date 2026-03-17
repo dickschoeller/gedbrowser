@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders simple name list item output for display.
+ *
+ * @author Richard Schoeller
  */
 public class SimpleNameListItemRenderer implements ListItemRenderer {
     /**
@@ -10,9 +12,9 @@ public class SimpleNameListItemRenderer implements ListItemRenderer {
     private final transient SimpleNameRenderer simpleNameRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SimpleNameListItemRenderer.
      *
-     * @param nameRenderer the renderer that this is associated with.
+     * @param nameRenderer the name renderer to use
      */
     protected SimpleNameListItemRenderer(
             final SimpleNameRenderer nameRenderer) {
@@ -20,7 +22,12 @@ public class SimpleNameListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as list item.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -36,7 +43,9 @@ public class SimpleNameListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {

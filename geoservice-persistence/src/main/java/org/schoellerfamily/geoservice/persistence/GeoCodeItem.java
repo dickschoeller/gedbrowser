@@ -6,10 +6,12 @@ import com.google.maps.model.LatLng;
 
 import lombok.Getter;
 
+
+
 /**
- * This class implements a single entry in the geocode cache.
+ * Provides behavior related to geo code item.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Getter
 public final class GeoCodeItem {
@@ -21,7 +23,7 @@ public final class GeoCodeItem {
     private final GeocodingResult geocodingResult;
 
     /**
-     * Default constructor.
+     * Executes geo code item.
      */
     public GeoCodeItem() {
         this.placeName = null;
@@ -30,8 +32,10 @@ public final class GeoCodeItem {
     }
 
     /**
-     * @param placeName a place name to use for both historical and modern name
-     * @param geocodingResult a geo-coding result
+     * Executes geo code item.
+     *
+     * @param placeName the place name to use
+     * @param geocodingResult the geocoding result
      */
     public GeoCodeItem(final String placeName,
             final GeocodingResult geocodingResult) {
@@ -41,7 +45,9 @@ public final class GeoCodeItem {
     }
 
     /**
-     * @param placeName a place name to use for both historical and modern name
+     * Executes geo code item.
+     *
+     * @param placeName the place name to use
      */
     public GeoCodeItem(final String placeName) {
         this.placeName = placeName;
@@ -50,8 +56,10 @@ public final class GeoCodeItem {
     }
 
     /**
-     * @param placeName the historical place name
-     * @param modernPlaceName the modern place name to use for geo-coding
+     * Executes geo code item.
+     *
+     * @param placeName the place name to use
+     * @param modernPlaceName the modern place name to use
      */
     public GeoCodeItem(final String placeName,
             final String modernPlaceName) {
@@ -61,7 +69,9 @@ public final class GeoCodeItem {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether h code is present.
+     *
+     * @return true if the condition is met; otherwise false
      */
     @Override
     public int hashCode() {
@@ -73,12 +83,6 @@ public final class GeoCodeItem {
         return result;
     }
 
-    /**
-     * Get the hash code of the gcResult. 0 if object is null.
-     *
-     * @param gcResult the object
-     * @return its hash code
-     */
     private int hashCode(final GeocodingResult gcResult) {
         if (gcResult == null) {
             return 0;
@@ -92,12 +96,6 @@ public final class GeoCodeItem {
         return result;
     }
 
-    /**
-     * Get the hash code of the geometry. 0 if object is null.
-     *
-     * @param geometry the geometry
-     * @return the hash code
-     */
     private int hashCode(final Geometry geometry) {
         if (geometry == null) {
             return 0;
@@ -110,12 +108,6 @@ public final class GeoCodeItem {
         return result;
     }
 
-    /**
-     * Get the hash code of the location. 0 if object is null.
-     *
-     * @param location the location
-     * @return the hash code
-     */
     private int hashCode(final LatLng location) {
         if (location == null) {
             return 0;
@@ -125,12 +117,6 @@ public final class GeoCodeItem {
         return hashCode(location.toString());
     }
 
-    /**
-     * Get the hash code of the String. 0 if object is null.
-     *
-     * @param o the object
-     * @return its hash code
-     */
     private static int hashCode(final String o) {
         if (o == null) {
             return 0;
@@ -139,7 +125,10 @@ public final class GeoCodeItem {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes equals.
+     *
+     * @param obj the obj
+     * @return the resulting boolean
      */
     @Override
     @SuppressWarnings({ "PMD.SimplifyBooleanReturns" })
@@ -164,13 +153,6 @@ public final class GeoCodeItem {
         return (stringCompare(placeName, other.placeName));
     }
 
-    /**
-     * A relatively shallow equals comparison.
-     *
-     * @param result the item
-     * @param other the item to compare
-     * @return returns true if they seem equal
-     */
     @SuppressWarnings({ "PMD.CompareObjectsWithEquals", "PMD.SimplifyBooleanReturns" })
     private static boolean equals(final GeocodingResult result,
             final GeocodingResult other) {
@@ -187,11 +169,6 @@ public final class GeoCodeItem {
         return geometryCompare(result.geometry, other.geometry);
     }
 
-    /**
-     * @param result the input geometry
-     * @param other the compared geometry
-     * @return true if they match
-     */
     @SuppressWarnings({ "PMD.SimplifyBooleanReturns" })
     private static boolean geometryCompare(final Geometry result,
             final Geometry other) {
@@ -210,11 +187,6 @@ public final class GeoCodeItem {
         return result.location.toString().equals(other.location.toString());
     }
 
-    /**
-     * @param string string from primary
-     * @param otherString string from compared object
-     * @return true if strings match
-     */
     private static boolean stringCompare(final String string,
             final String otherString) {
         if (string == null) {
@@ -228,9 +200,11 @@ public final class GeoCodeItem {
     }
 
     /**
-     * @param placeName the historical place name
-     * @param modernPlaceName the modern place name to use for geo-coding
-     * @param geocodingResult the geo-coding result
+     * Executes geo code item.
+     *
+     * @param placeName the place name to use
+     * @param modernPlaceName the modern place name to use
+     * @param geocodingResult the geocoding result
      */
     public GeoCodeItem(final String placeName,
             final String modernPlaceName,

@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders cell output for display.
+ *
+ * @author Richard Schoeller
  */
 public interface CellRenderer {
     /**

@@ -8,7 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 
+
+
 /**
+ * Configures components related to test.
+ *
  * @author Richard Schoeller
  */
 @Configuration

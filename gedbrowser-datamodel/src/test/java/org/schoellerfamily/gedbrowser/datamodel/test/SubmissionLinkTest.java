@@ -14,11 +14,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+/**
+ * Contains tests for submission link.
+ */
+
 final class SubmissionLinkTest {
 
-    /**
-     * @return parameters for the parameterized tests
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

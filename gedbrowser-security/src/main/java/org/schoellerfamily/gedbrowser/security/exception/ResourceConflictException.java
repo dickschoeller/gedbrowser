@@ -1,20 +1,26 @@
 package org.schoellerfamily.gedbrowser.security.exception;
 
 /**
- * @author Dick Schoeller
+ * Represents an error related to resource conflict.
+ *
+ * @author Richard Schoeller
  */
 public final class ResourceConflictException extends RuntimeException {
-    /** */
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
 
-    /** */
+    /**
+     * The resource id value.
+     */
     private final Long resourceId;
 
     /**
-     * Constructor.
+     * Creates a new ResourceConflictException.
      *
-     * @param resourceId the resource ID
-     * @param message an error message string
+     * @param resourceId the unique identifier for resource
+     * @param message the error message
      */
     public ResourceConflictException(final Long resourceId,
             final String message) {
@@ -23,7 +29,9 @@ public final class ResourceConflictException extends RuntimeException {
     }
 
     /**
-     * @return the resource ID
+     * Gets the resource id.
+     *
+     * @return the resource id
      */
     public Long getResourceId() {
         return resourceId;

@@ -24,8 +24,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for family crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -48,13 +52,11 @@ class FamilyCrudIT {
     /** */
     private FamilyCrud crud;
 
-    /** */
     @BeforeEach
     void setUp() {
         crud = new FamilyCrud(loader, toDocConverter, repositoryManager);
     }
 
-    /** */
     @Test
     void testGetFamiliesGl120368() {
         log.info("Beginning testGetFamiliesGl120368");
@@ -67,7 +69,6 @@ class FamilyCrudIT {
             .returns(true, f -> f.getImages().isEmpty());
     }
 
-    /** */
     @Test
     void testGetFamiliesMiniSchoeller() {
         log.info("Beginning testGetFamiliesMiniSchoeller");
@@ -82,7 +83,6 @@ class FamilyCrudIT {
                 f -> f.getAttributes().get(0).getAttributes().get(0).getString());
     }
 
-    /** */
     @Test
     void testGetFamiliesGl120368F1593() {
         log.info("Beginning testGetFamiliesGl120368F1593");
@@ -94,7 +94,6 @@ class FamilyCrudIT {
             .returns("S33723", f -> f.getAttributes().get(0).getString());
     }
 
-    /** */
     @Test
     void testGetFamiliesMiniSchoellerF1() {
         log.info("Beginning testGetFamiliesMiniSchoellerF1");
@@ -120,7 +119,6 @@ class FamilyCrudIT {
                 .contains("Carol Robinson Sacerdote"));
     }
 
-    /** */
     @Test
     void testGetFamiliesMiniSchoellerXyzzy() {
         log.info("Beginning testGetFamiliesMiniSchoellerXyzzy");
@@ -129,7 +127,6 @@ class FamilyCrudIT {
             .withMessage("Object Xyzzy of type family not found");
     }
 
-    /** */
     @Test
     void testCreateFamiliesSimple() {
         log.info("Beginning testCreateFamiliesSimple");
@@ -142,7 +139,6 @@ class FamilyCrudIT {
             .returns(true, f -> f.getString().startsWith("F"));
     }
 
-    /** */
     @Test
     void testCreateFamiliesWithMarriage() {
         log.info("Beginning testCreateFamiliesWithMarriage");
@@ -163,7 +159,6 @@ class FamilyCrudIT {
             .returns("Marriage", f -> f.getAttributes().get(0).getString());
     }
 
-    /** */
     @Test
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeleteFamily() {
@@ -180,7 +175,6 @@ class FamilyCrudIT {
             .withMessage("Object " + id + " of type family not found");
     }
 
-    /** */
     @Test
     void testDeleteFamilyNotFound() {
         log.info("Beginning testDeleteFamilyNotFound");
@@ -189,7 +183,6 @@ class FamilyCrudIT {
             .withMessage("Object XXXXXXX of type family not found");
     }
 
-    /** */
     @Test
     void testDeleteFamilyDatabaseNotFound() {
         log.info("Beginning testDeleteFamilyDatabaseNotFound");
@@ -198,7 +191,6 @@ class FamilyCrudIT {
             .withMessage("Data set XYZZY not found");
     }
 
-    /** */
     @Test
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testUpdateFamilyWithNote() {

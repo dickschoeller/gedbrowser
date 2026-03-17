@@ -23,15 +23,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * All of these tests should return Living. The reason is that the user created
- * is one who shows up living in the test. Therefore, the renderer will punt, no
- * matter what the input string.
+ * Contains tests for anonymous mode person name html renderer.
  *
- * There is a separate set of tests with a logged in user. Those should get real
- * rendering.
- *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
 @ExtendWith(SpringExtension.class)

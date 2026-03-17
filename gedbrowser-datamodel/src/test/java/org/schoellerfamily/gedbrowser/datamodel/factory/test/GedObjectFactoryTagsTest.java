@@ -13,10 +13,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
+
+/**
+ * Contains tests for ged object factory tags.
+ */
+
 final class GedObjectFactoryTagsTest {
-    /**
-     * The root object for testing.
-     */
+    /** */
     private static final Root ROOT = new GedObjectBuilder().getRoot();
     /**
      * Parameters for testing.
@@ -109,9 +112,6 @@ final class GedObjectFactoryTagsTest {
         { ROOT, "XREF", null, "Cross Reference", null }, { ROOT, "FOOBAR", null, "FOOBAR", null },
         { ROOT, null, null, "", null }, };
 
-    /**
-     * @return the collection of test parameters
-     */
     static Stream<Arguments> params() {
         return Arrays.stream(PARAMETERS).map(Arguments::of);
     }

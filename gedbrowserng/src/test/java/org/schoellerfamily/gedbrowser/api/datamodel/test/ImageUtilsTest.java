@@ -11,7 +11,9 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ImageUtils;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for image utils.
+ *
+ * @author Richard Schoeller
  */
 class ImageUtilsTest {
     /** */

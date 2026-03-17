@@ -13,8 +13,12 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents family crud.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class FamilyCrud
@@ -23,8 +27,10 @@ public class FamilyCrud
         ObjectCrud<ApiFamily> {
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Creates a new FamilyCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public FamilyCrud(final GedObjectFileLoader loader,
@@ -34,7 +40,9 @@ public class FamilyCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the repository.
+     *
+     * @return the repository
      */
     @Override
     public FindableDocument<Family, FamilyDocument> getRepository() {
@@ -42,7 +50,9 @@ public class FamilyCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the ged class.
+     *
+     * @return the ged class
      */
     @Override
     public Class<Family> getGedClass() {
@@ -50,9 +60,11 @@ public class FamilyCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param family the data for the family
-     * @return the family as created
+     * Creates the one.
+     *
+     * @param db the db
+     * @param family the family
+     * @return the resulting api family
      */
     @Override
     public ApiFamily createOne(final String db, final ApiFamily family) {
@@ -62,8 +74,10 @@ public class FamilyCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of families
+     * Executes read all.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @Override
     public List<ApiFamily> readAll(final String db) {
@@ -72,9 +86,11 @@ public class FamilyCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the family
-     * @return the family
+     * Executes read one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api family
      */
     @Override
     public ApiFamily readOne(final String db, final String id) {
@@ -83,10 +99,12 @@ public class FamilyCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the family to update
-     * @param family the data for the family
-     * @return the family as created
+     * Executes update one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param family the family
+     * @return the resulting api family
      */
     @Override
     public ApiFamily updateOne(final String db, final String id,
@@ -110,9 +128,11 @@ public class FamilyCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the family
-     * @return the deleted object
+     * Returns the api family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api family
      */
     @Override
     public ApiFamily deleteOne(final String db, final String id) {

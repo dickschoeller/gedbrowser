@@ -20,10 +20,12 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Generates the collection of places for a provided person.
+ * Renders place list output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class PlaceListRenderer {
@@ -37,9 +39,11 @@ public final class PlaceListRenderer {
     private final LivingEstimator le;
 
     /**
+     * Creates a new PlaceListRenderer.
+     *
      * @param person the person
-     * @param client the geoservice client
-     * @param renderingContext the current rendering context
+     * @param client the client
+     * @param renderingContext the rendering context
      */
     public PlaceListRenderer(final Person person,
             final GeoServiceClient client,
@@ -51,7 +55,9 @@ public final class PlaceListRenderer {
     }
 
     /**
-     * @return the list of place information
+     * Executes render.
+     *
+     * @return the resulting list
      */
     public List<PlaceInfo> render() {
         if (person == null || client == null) {
@@ -66,10 +72,6 @@ public final class PlaceListRenderer {
         return geoCodePlaces(places);
     }
 
-    /**
-     * @param places the place to code
-     * @return the list of geocode results
-     */
     private List<PlaceInfo> geoCodePlaces(final Collection<String> places) {
         return places.stream()
                 .map(client::get)
@@ -80,10 +82,6 @@ public final class PlaceListRenderer {
                 .toList();
     }
 
-    /**
-     * @param item the geoservice item containing the data
-     * @return the new place information
-     */
     private PlaceInfo createPlaceInfo(final GeoServiceItem item) {
         final GeoServiceGeocodingResult result = item.getResult();
         if (result == null || result.getGeometry() == null) {
@@ -147,16 +145,10 @@ public final class PlaceListRenderer {
         return null;
     }
 
-    /**
-     * @return whether the current person is hidden because living.
-     */
     private boolean isHiddenLiving() {
         return !renderingContext.isUser() && le.estimate();
     }
 
-    /**
-     * @return whether the current person is hidden because confidential.
-     */
     private boolean isHiddenConfidential() {
         if (renderingContext.isAdmin()) {
             return false;

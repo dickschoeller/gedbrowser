@@ -18,29 +18,43 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import tools.jackson.databind.ObjectMapper;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents authentication success handler.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor
 public class AuthenticationSuccessHandler
         extends SimpleUrlAuthenticationSuccessHandler {
-    /** */
+    /**
+     * The expires in value.
+     */
     @Value("${jwt.expires_in:600}")
     private final int expiresIn;
 
-    /** */
+    /**
+     * The cookie value.
+     */
     @Value("${jwt.cookie:AUTH-TOKEN}")
     private final String cookie;
 
-    /** */
+    /**
+     * The token helper value.
+     */
     private final TokenHelper tokenHelper;
 
-    /** */
+    /**
+     * The object mapper value.
+     */
     private final ObjectMapper objectMapper;
 
     /**
-     * {@inheritDoc}
+     * Executes on authentication success.
+     *
+     * @param request the request
      */
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request,

@@ -32,12 +32,15 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for root visitor.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class RootVisitorTest {
-    /** */
     @Test
     void testBasicGetPersons() {
         final Root root = new Root();
@@ -49,7 +52,6 @@ final class RootVisitorTest {
         assertEquals(2, visitor.getPersons().size(), "Expected 2 persons");
     }
 
-    /** */
     @Test
     void testNoPersonsFromUnrelated() {
         final RootVisitor visitor = new RootVisitor();
@@ -77,7 +79,9 @@ final class RootVisitorTest {
         new Wife().accept(visitor);
         final GedObject gob = new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

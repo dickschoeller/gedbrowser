@@ -8,8 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to test.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @ComponentScan(basePackageClasses = { GeoServiceClient.class, ApplicationInfoImpl.class })
@@ -18,7 +22,9 @@ public class TestConfiguration {
     private static final int MINUTE_IN_MILLIS = 60000;
 
     /**
-     * @return the RestClient builder
+     * Creates and configures the builder bean.
+     *
+     * @return the configured builder bean
      */
     @Bean
     public RestClient.Builder restClientBuilder() {
@@ -26,8 +32,10 @@ public class TestConfiguration {
     }
 
     /**
-     * @param builder the RestClient builder
-     * @return the RestClient
+     * Creates and configures the rest client bean.
+     *
+     * @param builder the builder
+     * @return the configured rest client bean
      */
     @Bean
     public RestClient restClient(final RestClient.Builder builder) {

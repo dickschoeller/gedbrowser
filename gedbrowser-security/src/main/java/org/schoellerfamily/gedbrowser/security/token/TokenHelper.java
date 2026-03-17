@@ -19,40 +19,45 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents token helper.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor
 public final class TokenHelper {
-    /** */
+    /**
+     * The app name value.
+     */
     @Value("${app.name:none}")
     private final String appName;
 
-    /** */
+    /**
+     * The secret value.
+     */
     @Value("${jwt.secret:queenvictoria}")
     private final String secret;
-    /** */
+    /**
+     * The expires in value.
+     */
     @Value("${jwt.expires_in:600}")
     private final int expiresIn;
 
-    /** */
+    /**
+     * The auth header name value.
+     */
     @Value("${jwt.header:Authorization}")
     private final String authHeaderName;
 
-    /** */
+    /**
+     * The auth cookie name value.
+     */
     @Value("${jwt.cookie:AUTH-TOKEN}")
     private final String authCookieName;
 
-    /**
-     * Create a signing Key from the configured secret. Use
-     * io.jsonwebtoken.security.Keys.hmacShaKeyFor to produce an appropriate HMAC
-     * key for HS512. If the configured secret is too short, derive a 64-byte key by
-     * hashing the secret with SHA-512 so we always meet the HS512 key length
-     * requirement.
-     *
-     * @return the signing key
-     */
     @SuppressFBWarnings("REC_CATCH_EXCEPTION")
     private SecretKey getSigningKey() {
         try {
@@ -70,8 +75,10 @@ public final class TokenHelper {
     }
 
     /**
+     * Returns the username from token.
+     *
      * @param token the token
-     * @return the user name
+     * @return the username from token
      */
     public String getUsernameFromToken(final String token) {
         try {
@@ -86,8 +93,10 @@ public final class TokenHelper {
     }
 
     /**
-     * @param username the username
-     * @return the token
+     * Returns the string.
+     *
+     * @param username the username to use
+     * @return the resulting string
      */
     public String generateToken(final String username) {
         return Jwts.builder()
@@ -100,9 +109,7 @@ public final class TokenHelper {
     }
 
     /**
-     * Parse the token and return its claims, letting parsing exceptions propagate
-     * to the caller (for tests or callers that need to react to
-     * ExpiredJwtException).
+     * Parse the token and return its claims, letting parsing exceptions propagate.
      *
      * @param token the token
      * @return the claims
@@ -115,10 +122,6 @@ public final class TokenHelper {
             .getPayload();
     }
 
-    /**
-     * @param token the token
-     * @return the claims
-     */
     @SuppressWarnings("java:S1168")
     private Claims getClaimsFromToken(final String token) {
         try {
@@ -136,8 +139,10 @@ public final class TokenHelper {
     }
 
     /**
+     * Executes can token be refreshed.
+     *
      * @param token the token
-     * @return true if the token can be refreshed
+     * @return the resulting boolean
      */
     public Boolean canTokenBeRefreshed(final String token) {
         try {
@@ -149,8 +154,10 @@ public final class TokenHelper {
     }
 
     /**
-     * @param token the old token
-     * @return the new token
+     * Executes refresh token.
+     *
+     * @param token the token
+     * @return the resulting string
      */
     public String refreshToken(final String token) {
         try {
@@ -166,30 +173,23 @@ public final class TokenHelper {
         }
     }
 
-    /**
-     * @return the current time
-     */
     private long getCurrentTimeMillis() {
         return Instant.now().toEpochMilli();
     }
 
-    /**
-     * @return the current date
-     */
     private Date generateCurrentDate() {
         return new Date(getCurrentTimeMillis());
     }
 
-    /**
-     * @return the expiration date
-     */
     private Date generateExpirationDate() {
         final int millisPerSecond = 1000;
         return new Date(getCurrentTimeMillis() + this.expiresIn * millisPerSecond);
     }
 
     /**
-     * @param request the servlet request
+     * Returns the token.
+     *
+     * @param request the request
      * @return the token
      */
     public String getToken(final HttpServletRequest request) {

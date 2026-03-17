@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base of GedLine and GedFile.
+ * Represents abstract ged line.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public abstract class AbstractGedLine extends AbstractSingleGedLine {
     /** */
@@ -19,8 +19,9 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
             new ArrayList<AbstractGedLine>();
 
     /**
-     * @param parent The parent GedLine. Parentage is determined by the GEDCOM
-     *               level number.
+     * Creates a new AbstractGedLine.
+     *
+     * @param parent the parent
      */
     protected AbstractGedLine(final AbstractGedLine parent) {
         super(generateLineNumber(parent));
@@ -32,10 +33,6 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
         this.setLevel(-1);
     }
 
-    /**
-     * @param parent the parent
-     * @return the appropriate line number
-     */
     private static int generateLineNumber(final AbstractGedLine parent) {
         if (parent == null) {
             return 0;
@@ -44,7 +41,9 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
     }
 
     /**
-     * @param reader The buffered reader that we are getting data from.
+     * Creates a new AbstractGedLine.
+     *
+     * @param reader the reader
      */
     protected AbstractGedLine(final BufferedReader reader) {
         super(0);
@@ -53,7 +52,9 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
     }
 
     /**
-     * @param arraySource Array of strings containing lines of GEDCOM.
+     * Creates a new AbstractGedLine.
+     *
+     * @param arraySource the array source
      */
     @SuppressWarnings({ "PMD.UseVarargs", "PMD.ArrayIsStoredDirectly" })
     protected AbstractGedLine(final String[] arraySource) {
@@ -86,7 +87,7 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
      * this one. That allows the reading of children.
      *
      * @return The GedLine at the current level. Null if the end of data is
-     *         reached first.
+     * reached first.
      * @throws IOException If this is a file source and we encounter a problem.
      */
     public final AbstractGedLine readToNext() throws IOException {
@@ -109,7 +110,9 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
     }
 
     /**
-     * @return the combine toStrings of the children.
+     * Executes children string.
+     *
+     * @return the resulting string
      */
     protected final String childrenString() {
         final StringBuilder builder = new StringBuilder();
@@ -130,7 +133,9 @@ public abstract class AbstractGedLine extends AbstractSingleGedLine {
     }
 
     /**
-     * @param visitor the visiting object
+     * Executes accept.
+     *
+     * @param visitor the visitor
      */
     public abstract void accept(GedLineVisitor visitor);
 }

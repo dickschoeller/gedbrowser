@@ -4,16 +4,18 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 
 /**
- * @author Dick Schoeller
+ * Renders submitter name html output for display.
+ *
+ * @author Richard Schoeller
  */
 public class SubmitterNameHtmlRenderer implements NameHtmlRenderer {
     /** */
     private final transient SubmitterRenderer submitterRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SubmitterNameHtmlRenderer.
      *
-     * @param submitterRenderer the associated submitterRenderer
+     * @param submitterRenderer the submitter renderer
      */
     public SubmitterNameHtmlRenderer(
             final SubmitterRenderer submitterRenderer) {
@@ -21,7 +23,9 @@ public class SubmitterNameHtmlRenderer implements NameHtmlRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public String getNameHtml() {

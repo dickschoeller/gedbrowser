@@ -3,16 +3,17 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 
 /**
- * Render a NoteLink.
+ * Renders note link output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class NoteLinkRenderer extends AbstractLinkRenderer<NoteLink> {
     /**
-     * @param gedObject the NoteLink that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new NoteLinkRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public NoteLinkRenderer(final NoteLink gedObject,
             final GedRendererFactory rendererFactory,

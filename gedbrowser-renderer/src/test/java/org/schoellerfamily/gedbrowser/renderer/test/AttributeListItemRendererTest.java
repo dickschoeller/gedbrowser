@@ -17,8 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for attribute list item renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -39,7 +43,6 @@ final class AttributeListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -55,7 +58,6 @@ final class AttributeListItemRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsListItemEmpty() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute1,
@@ -68,7 +70,6 @@ final class AttributeListItemRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testRenderAsListItemString() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute2,
@@ -81,7 +82,6 @@ final class AttributeListItemRendererTest {
             "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testRenderAsListItem() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute3,

@@ -3,7 +3,9 @@ package org.schoellerfamily.geoservice.controller;
 import java.util.Map;
 
 /**
- * @author Dick Schoeller
+ * Handles requests related to application info.
+ *
+ * @author Richard Schoeller
  */
 public final class ApplicationInfo {
     /** */
@@ -19,35 +21,45 @@ public final class ApplicationInfo {
     private static final String MAINTAINER_EMAIL = "schoeller@comcast.net";
 
     /**
-     * @return the application name.
+     * Gets the name.
+     *
+     * @return the name
      */
     public String getName() {
         return NAME;
     }
 
     /**
-     * @return the version string.
+     * Gets the version.
+     *
+     * @return the version
      */
     public String getVersion() {
         return VERSION;
     }
 
     /**
-     * @return the maintainer's email address.
+     * Gets the maintainer email.
+     *
+     * @return the maintainer email
      */
     public String getMaintainerEmail() {
         return MAINTAINER_EMAIL;
     }
 
     /**
-     * @return the maintainer's name.
+     * Gets the maintainer name.
+     *
+     * @return the maintainer name
      */
     public String getMaintainerName() {
         return MAINTAINER_NAME;
     }
 
     /**
-     * @return the URL to learn more about the application.
+     * Gets the application u r l.
+     *
+     * @return the application u r l
      */
     public String getApplicationURL() {
         return APPLICATION_URL;
@@ -55,7 +67,9 @@ public final class ApplicationInfo {
 
 
     /**
-     * @return the map that feeds the contributor.
+     * Gets the info map.
+     *
+     * @return the info map
      */
     public Map<String, Object> getInfoMap() {
         return Map.of(
@@ -65,9 +79,6 @@ public final class ApplicationInfo {
             "maintainer", getMaintainerMap());
     }
 
-    /**
-     * @return the maintainer part of the info
-     */
     private Map<String, Object> getMaintainerMap() {
         return Map.of(
             "name", MAINTAINER_NAME,

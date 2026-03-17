@@ -7,7 +7,9 @@ import com.google.maps.model.LatLng;
 import com.google.maps.model.LocationType;
 
 /**
- * @author Dick Schoeller
+ * Builds feature instances.
+ *
+ * @author Richard Schoeller
  */
 public interface FeatureBuilder {
     /**

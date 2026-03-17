@@ -12,9 +12,9 @@ import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
- * Test the User object. The only thing slightly complex is role management.
+ * Contains tests for user.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 final class UserTest {
     @Test

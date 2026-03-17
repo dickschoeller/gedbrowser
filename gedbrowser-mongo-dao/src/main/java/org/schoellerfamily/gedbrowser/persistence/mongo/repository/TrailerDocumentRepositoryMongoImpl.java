@@ -16,18 +16,33 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents trailer document repository mongo impl for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor
 public class TrailerDocumentRepositoryMongoImpl implements
     FindableDocument<Trailer, TrailerDocument> {
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
+    /**
+     * Finds the by file and string.
+     *
+     * @param filename the filename to use
+     * @param string the string
+     * @return the resulting trailer document
+     */
     @Override
     public final TrailerDocument findByFileAndString(
             final String filename, final String string) {
@@ -44,6 +59,13 @@ public class TrailerDocumentRepositoryMongoImpl implements
         return trailerDocument;
     }
 
+    /**
+     * Finds the by root and string.
+     *
+     * @param rootDocument the root document
+     * @param string the string
+     * @return the resulting trailer document
+     */
     @Override
     public final TrailerDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -57,6 +79,12 @@ public class TrailerDocumentRepositoryMongoImpl implements
         return trailerDocument;
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param filename the filename to use
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<TrailerDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -72,6 +100,12 @@ public class TrailerDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param rootDocument the root document
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<TrailerDocument> findAll(
             final RootDocument rootDocument) {
@@ -87,6 +121,12 @@ public class TrailerDocumentRepositoryMongoImpl implements
         return trailerDocuments;
     }
 
+    /**
+     * Executes count.
+     *
+     * @param filename the filename to use
+     * @return the resulting long
+     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -94,16 +134,34 @@ public class TrailerDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, TrailerDocumentMongo.class);
     }
 
+    /**
+     * Returns the long.
+     *
+     * @param rootDocument the root document
+     * @return the resulting long
+     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String lastId(final RootDocument rootDocument) {
         return "";
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String newId(final RootDocument rootDocument) {
         return "";

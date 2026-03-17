@@ -13,11 +13,13 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+/**
+ * Contains tests for multimedia constructor.
+ */
+
 final class MultimediaConstructorTest {
 
-    /**
-     * @return parameters for parameterized tests
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

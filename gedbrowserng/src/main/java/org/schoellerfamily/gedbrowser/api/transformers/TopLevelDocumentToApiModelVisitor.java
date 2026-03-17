@@ -25,7 +25,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.TopLevelGedDocumentVisi
 import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
 
 /**
- * @author Dick Schoeller
+ * Visits top level document to api model elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public class TopLevelDocumentToApiModelVisitor
         implements TopLevelGedDocumentVisitor, LifespanBuilder,
@@ -35,21 +37,27 @@ public class TopLevelDocumentToApiModelVisitor
     private ApiObject baseObject;
 
     /**
-     * @return get the base object after a visit
+     * Gets the base object.
+     *
+     * @return the base object
      */
     public final ApiObject getBaseObject() {
         return baseObject;
     }
 
     /**
-     * @param baseObject the base object created from this visit
+     * Sets the base object.
+     *
+     * @param baseObject the base object
      */
     public final void setBaseObject(final ApiObject baseObject) {
         this.baseObject = baseObject;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public final void visit(final PersonDocument document) {
@@ -66,7 +74,9 @@ public class TopLevelDocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public final void visit(final FamilyDocument document) {
@@ -79,7 +89,9 @@ public class TopLevelDocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public final void visit(final SourceDocument document) {
@@ -93,7 +105,9 @@ public class TopLevelDocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public final void visit(final HeadDocument document) {
@@ -105,7 +119,9 @@ public class TopLevelDocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public final void visit(final SubmissionDocument document) {
@@ -117,7 +133,9 @@ public class TopLevelDocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public final void visit(final SubmitterDocument document) {
@@ -130,7 +148,9 @@ public class TopLevelDocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public final void visit(final TrailerDocument document) {
@@ -142,7 +162,9 @@ public class TopLevelDocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public final void visit(final NoteDocument document) {
@@ -155,7 +177,9 @@ public class TopLevelDocumentToApiModelVisitor
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param document the document
      */
     @Override
     public final void visit(final GedDocument<? extends GedObject> document) {

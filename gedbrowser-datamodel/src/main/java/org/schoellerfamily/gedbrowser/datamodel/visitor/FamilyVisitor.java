@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,30 +13,46 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
- * Visitor intended to gather information about family structure.
+ * Visits family elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class FamilyVisitor implements GedObjectVisitor {
-    /** */
+
+    /**
+     * The wife found value.
+     */
     private Wife wifeFound;
 
-    /** */
+    /**
+     * The mother value.
+     */
     private Person mother;
 
-    /** */
+    /**
+     * The husband found value.
+     */
     private Husband husbandFound;
 
-    /** */
+    /**
+     * The father value.
+     */
     private Person father;
 
-    /** */
+    /**
+     * Performs method.
+     */
     private final List<Child> childList = new ArrayList<>();
 
-    /** */
+    /**
+     * Performs method.
+     */
     private final List<Person> children = new ArrayList<>();
 
-    /** */
+    /**
+     * Performs method.
+     */
     private final List<Person> spouses = new ArrayList<>();
 
     /**
@@ -50,8 +68,7 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Get the person who is the mother in this family. Can return an empty
-     * person.
+     * Get the person who is the mother in this family. Can return an empty Person.
      *
      * @return the mother
      */
@@ -75,8 +92,7 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Get the person who is the father in this family. Can return an empty
-     * person.
+     * Get the person who is the father in this family. Can return an empty Person.
      *
      * @return the father
      */
@@ -115,10 +131,9 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Child. We track this and, if set, the Person who is the
-     * child.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Child)
+     * @param child the child
      */
     @Override
     public void visit(final Child child) {
@@ -130,10 +145,9 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Family. This is the primary focus of the visitation. From
-     * here, interesting information is gathered from the attributes.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Family)
+     * @param family the family
      */
     @Override
     public void visit(final Family family) {
@@ -143,10 +157,9 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Husband. We track this and, if set, the Person who is the
-     * father.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Husband)
+     * @param husband the husband
      */
     @Override
     public void visit(final Husband husband) {
@@ -158,10 +171,9 @@ public final class FamilyVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Wife. We track this and, if set, the Person who is the
-     * mother.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Wife)
+     * @param wife the wife
      */
     @Override
     public void visit(final Wife wife) {

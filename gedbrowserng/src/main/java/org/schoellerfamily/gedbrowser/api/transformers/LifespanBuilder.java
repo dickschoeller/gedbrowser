@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 
 /**
- * @author Dick Schoeller
+ * Builds lifespan instances.
+ *
+ * @author Richard Schoeller
  */
 public interface LifespanBuilder {
 

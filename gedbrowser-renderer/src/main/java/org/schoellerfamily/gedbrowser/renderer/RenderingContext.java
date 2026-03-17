@@ -13,10 +13,12 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfoFacade
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Keep track of the user context that we are rendering under.
+ * Represents rendering context.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 @Getter
@@ -76,14 +78,18 @@ public final class RenderingContext
     }
 
     /**
-     * @return true if it is an identified user
+     * Checks whether user.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isUser() {
         return user != null && user.hasRole(UserRoleName.USER);
     }
 
     /**
-     * @return true if the user is an administrator
+     * Checks whether admin.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isAdmin() {
         return user != null && user.hasRole(UserRoleName.ADMIN);

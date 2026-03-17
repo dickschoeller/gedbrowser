@@ -17,15 +17,18 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for head.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.CommentSize")
 final class HeadTest {
     /** */
     private static final int ATTRIBUTE_COUNT = 7;
 
-    /** */
     @Test
     void testUsualHead() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -54,13 +57,6 @@ final class HeadTest {
         assertHeadValid(head, soLink, suLink, date, attributeChecks);
     }
 
-    /**
-     * @param head            the head we're checking
-     * @param sourceLink      the expected source link
-     * @param submitterLink   the expected submitter link
-     * @param date            the expected date
-     * @param attributeChecks maps of messages to attributes to check
-     */
     private void assertHeadValid(final Head head, final SourceLink sourceLink,
         final SubmitterLink submitterLink, final Date date,
         final Map<String, Attribute> attributeChecks) {
@@ -73,7 +69,6 @@ final class HeadTest {
         }
     }
 
-    /** */
     @Test
     void testHeadGedObjectString() {
         final Root root = new Root("Root");
@@ -86,7 +81,6 @@ final class HeadTest {
             "Should have found head with head tag string");
     }
 
-    /** */
     @Test
     void testHeadGedObjectStringEmptyString() {
         final Root root = new Root("Root");
@@ -99,7 +93,6 @@ final class HeadTest {
             "Should have found the head with head tag string");
     }
 
-    /** */
     @Test
     void testHeadGedObjectStringString() {
         final Root root = new Root("Root");

@@ -13,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged resource not found renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -31,7 +35,6 @@ class GedResourceNotFoundRendererTest {
      */
     private GedResourceNotFoundRenderer renderer;
 
-    /** */
     @BeforeEach
     void setUp() {
         final RenderingContext context = RenderingContext.user(appInfo);
@@ -39,13 +42,11 @@ class GedResourceNotFoundRendererTest {
         renderer = new GedResourceNotFoundRenderer(throwable, context);
     }
 
-    /** */
     @Test
     void testGetMessage() {
         assertEquals("This is a test", renderer.getMessage(), "Mismatched message");
     }
 
-    /** */
     @Test
     void testGetException() {
         assertSame(throwable, renderer.getException(), "Mismatched exception");

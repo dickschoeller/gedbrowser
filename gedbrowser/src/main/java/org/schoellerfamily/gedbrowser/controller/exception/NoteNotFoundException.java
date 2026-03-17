@@ -4,10 +4,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+
+
 /**
- * Exception thrown when a note is not found.
+ * Represents an error related to note not found.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Note not found")
 public final class NoteNotFoundException extends ObjectNotFoundException {
@@ -15,12 +17,12 @@ public final class NoteNotFoundException extends ObjectNotFoundException {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructor.
+     * Creates a new NoteNotFoundException.
      *
-     * @param message the message to display
-     * @param noteId the ID of the source not found
-     * @param datasetName the name of the dataset being searched
-     * @param context the rendering context
+     * @param message the message
+     * @param noteId the unique identifier for note
+     * @param datasetName the dataset name to use
+     * @param context the context
      */
     public NoteNotFoundException(final String message, final String noteId,
             final String datasetName, final RenderingContext context) {

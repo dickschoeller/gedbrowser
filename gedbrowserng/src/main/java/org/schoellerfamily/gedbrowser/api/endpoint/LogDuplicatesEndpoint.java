@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Actuator endpoint to log duplicate dataset documents without deleting them.
+ * Exposes operations for the log duplicates endpoint.
  */
 @Component
 @Endpoint(id = "logduplicates")
@@ -22,7 +24,9 @@ public class LogDuplicatesEndpoint {
     private final DuplicateCleanupService duplicateCleanupService;
 
     /**
-     * @return summary messages
+     * Executes invoke.
+     *
+     * @return the resulting list
      */
     @ReadOperation
     public List<String> invoke() {

@@ -14,10 +14,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Encapsulates geo-coordinate lookup and place rendering for a person.
+ * Provides services for person geo.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor

@@ -3,16 +3,17 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
 /**
- * Render a Name.
+ * Renders simple name output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class SimpleNameRenderer extends GedRenderer<Name> {
     /**
-     * @param gedObject the Name that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new SimpleNameRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public SimpleNameRenderer(final Name gedObject,
             final GedRendererFactory rendererFactory,

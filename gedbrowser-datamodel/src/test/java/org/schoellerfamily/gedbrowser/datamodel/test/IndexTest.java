@@ -14,7 +14,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for index.
+ *
+ * @author Richard Schoeller
  */
 final class IndexTest {
 
@@ -164,7 +166,6 @@ final class IndexTest {
 
     }
 
-    /** */
     @Test
     void testGetIdsPerNameMe() {
         final Set<String> set = root.getIndex()

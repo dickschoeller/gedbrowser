@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.persistence.repository.
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * @author Dick Schoeller
+ * Defines persistence operations for head document repository mongo.
+ *
+ * @author Richard Schoeller
  */
 public interface HeadDocumentRepositoryMongo extends
     CrudRepository<HeadDocumentMongo, String>,

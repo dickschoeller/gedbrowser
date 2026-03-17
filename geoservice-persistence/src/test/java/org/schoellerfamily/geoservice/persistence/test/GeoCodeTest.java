@@ -41,8 +41,12 @@ import com.google.maps.model.LatLng;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for geo code.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
@@ -73,7 +77,7 @@ final class GeoCodeTest {
     /**
      * Manage the configuration for testing the cache.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     @Configuration
     @RequiredArgsConstructor
@@ -101,7 +105,9 @@ final class GeoCodeTest {
         }
 
         /**
-         * @return the geocode cache
+         * Creates and configures the geo code bean.
+         *
+         * @return the configured geo code bean
          */
         @Bean
         public GeoCode geoCode() {
@@ -112,7 +118,9 @@ final class GeoCodeTest {
         }
 
         /**
-         * @return the geocoder
+         * Creates and configures the geo coder bean.
+         *
+         * @return the configured geo coder bean
          */
         @Bean
         public GeoCoder geoCoder() {
@@ -123,7 +131,9 @@ final class GeoCodeTest {
         }
 
         /**
-         * @return the geocodeloader
+         * Creates and configures the geo code loader bean.
+         *
+         * @return the configured geo code loader bean
          */
         @Bean
         public GeoCodeLoader loader() {
@@ -139,7 +149,6 @@ final class GeoCodeTest {
         System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
     }
 
-    /** */
     @Test
     void testStupidNotFound() {
         log.info("Entering testStupidNotFound");
@@ -148,7 +157,6 @@ final class GeoCodeTest {
         assertNull(entry.getGeocodingResult(), "Should not have found XYZZY");
     }
 
-    /** */
     @Test
     void testModernStupidNotFound() {
         log.info("Entering testModernStupidNotFound");
@@ -157,7 +165,6 @@ final class GeoCodeTest {
         assertNull(entry.getGeocodingResult(), "Should not have found modern XYZZY");
     }
 
-    /** */
     @Test
     void testOldHomeFound() {
         log.info("Entering testOldHomeFound");
@@ -166,11 +173,6 @@ final class GeoCodeTest {
         assertNotNull(entry.getGeocodingResult(), "Should have found 3341 Chaucer Lane");
     }
 
-    /**
-     * Provides location strings to test cache consistency.
-     *
-     * @return stream of arguments containing location string
-     */
     private static Stream<Arguments> cacheConsistencyProvider() {
         return Stream.of(
             Arguments.of("XYZZY"),
@@ -179,11 +181,6 @@ final class GeoCodeTest {
         );
     }
 
-    /**
-     * Test that finding the same location twice returns equal cached results.
-     *
-     * @param location the location to search for
-     */
     @ParameterizedTest
     @MethodSource("cacheConsistencyProvider")
     void testCacheConsistency(final String location) {
@@ -194,7 +191,6 @@ final class GeoCodeTest {
         assertEquals(entry1, entry2, "Should be equal");
     }
 
-    /** */
     @Test
     void testModernEmpty() {
         log.info("Entering testModernEmpty");
@@ -204,7 +200,6 @@ final class GeoCodeTest {
         assertEquals(entry1, entry2, "Should be equal");
     }
 
-    /** */
     @Test
     void testModernNull() {
         log.info("Entering testModernNull");
@@ -214,7 +209,6 @@ final class GeoCodeTest {
         assertEquals(entry1, entry2, "Should be equal");
     }
 
-    /** */
     @Test
     void testCacheRefind() {
         log.info("Entering testCacheReplace");
@@ -226,7 +220,6 @@ final class GeoCodeTest {
         assertEquals(entry2, entry3, "Should be equal");
     }
 
-    /** */
     @Test
     void testCacheOldHomeModern() {
         log.info("Entering testCacheOldHomeModern");
@@ -236,7 +229,6 @@ final class GeoCodeTest {
         assertEquals(entry1, entry2, "Should be equal");
     }
 
-    /** */
     @Test
     void testCacheOldHomeModernBoth() {
         log.info("Entering testCacheOldHomeModernBoth");
@@ -246,7 +238,6 @@ final class GeoCodeTest {
         assertEquals(entry1, entry2, "Should be equal");
     }
 
-    /** */
     @Test
     void testCacheOldHomeModernChange() {
         log.info("Entering testCacheOldHomeModernChange");
@@ -256,7 +247,6 @@ final class GeoCodeTest {
         assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
-    /** */
     @Test
     void testCacheOldHomeModernToBroken() {
         log.info("Entering testCacheOldHomeModernChange");
@@ -266,7 +256,6 @@ final class GeoCodeTest {
         assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
-    /** */
     @Test
     void testCacheOldHomeBroken() {
         log.info("Entering testCacheOldHomeModernChange");
@@ -276,7 +265,6 @@ final class GeoCodeTest {
         assertEquals(entry1, entry2, "Should be equal");
     }
 
-    /** */
     @Test
     void testCacheOldHomeAddThenFind() {
         log.info("Entering testCacheOldHomeModernChange");
@@ -287,7 +275,6 @@ final class GeoCodeTest {
         assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
-    /** */
     @Test
     void testCacheAddThenFind() {
         log.info("Entering testCacheOldHomeModernChange");
@@ -297,7 +284,6 @@ final class GeoCodeTest {
         assertNotEquals(entry1, entry2, "Should NOT be equal");
     }
 
-    /** */
     @Test
     void testCacheAllKeysSize() {
         log.info("Entering testCacheOldHomeModernChange");
@@ -307,7 +293,6 @@ final class GeoCodeTest {
         assertEquals(2, gcc.allKeys().size(), "Should be 2 items");
     }
 
-    /** */
     @Test
     void testCacheAllKeysContains() {
         log.info("Entering testCacheOldHomeModernChange");
@@ -319,7 +304,6 @@ final class GeoCodeTest {
             "Should contain both items");
     }
 
-    /** */
     @Test
     void testCacheReplaceEquals() {
         log.info("Entering testCacheReplace");
@@ -330,7 +314,6 @@ final class GeoCodeTest {
         assertEquals(entry2, entry3, "Should be equal");
     }
 
-    /** */
     @Test
     void testCacheReplaceEmptyResult() {
         log.info("Entering testCacheReplace");
@@ -341,7 +324,6 @@ final class GeoCodeTest {
         assertNull(entry3.getGeocodingResult(), "Geocoding result should still be null");
     }
 
-    /** */
     @Test
     void testCacheOldHomeModernSet() {
         log.info("Entering testCacheOldHomeModernSet");
@@ -352,7 +334,6 @@ final class GeoCodeTest {
         assertEquals(entry2, entry3, "Should be equal");
     }
 
-    /** */
     @Test
     void testCacheOldHomeLocationResultNotNull() {
         log.info("Entering testCacheOldHomeLocation");
@@ -362,7 +343,6 @@ final class GeoCodeTest {
         assertNotNull(geocodingResult, "geocoding result should not be null");
     }
 
-    /** */
     @Test
     void testCacheOldHomeLocationResultMatch() {
         log.info("Entering testCacheOldHomeLocation");
@@ -375,11 +355,6 @@ final class GeoCodeTest {
             "there was a result, but the lat/long was wrong");
     }
 
-    /**
-     * Provides data loading strategies for parameterized tests.
-     *
-     * @return stream of arguments containing description and loading action
-     */
     private static Stream<Arguments> loadingStrategyProvider() {
         return Stream.of(
             Arguments.of("direct load",
@@ -394,12 +369,6 @@ final class GeoCodeTest {
         );
     }
 
-    /**
-     * Test that not found keys are correctly identified.
-     *
-     * @param description describes the loading strategy
-     * @param loadingStrategy the strategy to load test data
-     */
     @ParameterizedTest
     @MethodSource("loadingStrategyProvider")
     void testNotFounds(final String description, final Consumer<GeoCodeTest> loadingStrategy) {
@@ -412,11 +381,6 @@ final class GeoCodeTest {
         assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
     }
 
-    /**
-     * Provides file loading strategies for parameterized tests.
-     *
-     * @return stream of arguments containing description and loading action
-     */
     private static Stream<Arguments> fileLoadingStrategyProvider() {
         return Stream.of(
             Arguments.of("from stream",
@@ -428,12 +392,6 @@ final class GeoCodeTest {
         );
     }
 
-    /**
-     * Test that parsing works correctly.
-     *
-     * @param description describes the loading strategy
-     * @param loadingStrategy the strategy to load test data
-     */
     @ParameterizedTest
     @MethodSource("fileLoadingStrategyProvider")
     void testNotParsing(final String description, final Consumer<GeoCodeTest> loadingStrategy) {
@@ -445,12 +403,6 @@ final class GeoCodeTest {
             "Failure indicates a parsing problem");
     }
 
-    /**
-     * Test that count of not found items is within expected bounds.
-     *
-     * @param description describes the loading strategy
-     * @param loadingStrategy the strategy to load test data
-     */
     @ParameterizedTest
     @MethodSource("loadingStrategyProvider")
     void testCountNotFoundsLowBound(final String description,
@@ -464,12 +416,6 @@ final class GeoCodeTest {
             "Count too low at: " + count);
     }
 
-    /**
-     * Test that count of not found items is within expected bounds.
-     *
-     * @param description describes the loading strategy
-     * @param loadingStrategy the strategy to load test data
-     */
     @ParameterizedTest
     @MethodSource("loadingStrategyProvider")
     void testCountNotFoundsHighBound(final String description,
@@ -483,12 +429,6 @@ final class GeoCodeTest {
             "Count too high at: " + count);
     }
 
-    /**
-     * Test that size is correct after loading.
-     *
-     * @param description describes the loading strategy
-     * @param loadingStrategy the strategy to load test data
-     */
     @ParameterizedTest
     @MethodSource("loadingStrategyProvider")
     void testSize(final String description, final Consumer<GeoCodeTest> loadingStrategy) {
@@ -499,7 +439,6 @@ final class GeoCodeTest {
         assertEquals(expected, gcc.size(), "Should match known size of 19");
     }
 
-    /** */
     @Test
     void testSizeLoadFileError() {
         log.info("Entering testSizeFromFile");
@@ -510,7 +449,6 @@ final class GeoCodeTest {
             "Should be 0 because of file not found, was: " + gcc.size());
     }
 
-    /** */
     @Test
     void testSizeLoadAndFindFileError() {
         log.info("Entering testSizeFromFile");
@@ -521,11 +459,6 @@ final class GeoCodeTest {
             "Should be 0 because of file not found, was: " + gcc.size());
     }
 
-    /**
-     * Provides loading strategies including loadAndFind for parameterized tests.
-     *
-     * @return stream of arguments containing description and loading action
-     */
     private static Stream<Arguments> dumpLoadingStrategyProvider() {
         return Stream.of(
             Arguments.of("direct load",
@@ -546,12 +479,6 @@ final class GeoCodeTest {
         );
     }
 
-    /**
-     * Test that dump works correctly.
-     *
-     * @param description describes the loading strategy
-     * @param loadingStrategy the strategy to load test data
-     */
     @ParameterizedTest
     @MethodSource("dumpLoadingStrategyProvider")
     void testDump(final String description, final Consumer<GeoCodeTest> loadingStrategy) {
@@ -563,14 +490,6 @@ final class GeoCodeTest {
         assertEquals(expected, gcc.size(), "Should match known size of 19");
     }
 
-    /**
-     * Check that all entries in expected are also in actual. There may be more in
-     * actual than expected because Google is inconsistent.
-     *
-     * @param expected set of keys we expect Google to not find
-     * @param actual   keys that Google didn't find
-     * @return true if all keys in expected are present in actual
-     */
     private boolean compareNotFound(final Collection<String> expected,
         final Collection<String> actual) {
         boolean retval = true;
@@ -583,16 +502,10 @@ final class GeoCodeTest {
         return retval;
     }
 
-    /**
-     * @return test file opened in an input stream
-     */
     private InputStream getTestFileAsStream() {
         return getClass().getResourceAsStream("/test.txt");
     }
 
-    /**
-     * @return test file opened in an input stream
-     */
     private String getTestFileName() {
         return gedbrowserHome + "/test.txt";
     }

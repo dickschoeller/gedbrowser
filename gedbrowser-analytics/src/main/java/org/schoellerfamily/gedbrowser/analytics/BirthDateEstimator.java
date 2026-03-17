@@ -4,10 +4,9 @@ import org.joda.time.LocalDate;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * Estimates the birth date of a person based on the dates of that person's
- * events and if necessary the dates of their relatives events.
+ * Represents birth date estimator.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class BirthDateEstimator extends BasicBirthDateEstimator {
     /**
@@ -36,9 +35,9 @@ public final class BirthDateEstimator extends BasicBirthDateEstimator {
     private final BirthDateFromChildrenEstimator childrenEstimator;
 
     /**
-     * Constructor.
+     * Creates a new BirthDateEstimator.
      *
-     * @param person the person we are estimating
+     * @param person the person
      */
     public BirthDateEstimator(final Person person) {
         super(person);

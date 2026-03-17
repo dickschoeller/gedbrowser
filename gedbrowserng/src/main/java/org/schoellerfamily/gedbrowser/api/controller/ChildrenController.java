@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for children.
+ *
+ * @author Richard Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
@@ -35,18 +39,17 @@ public final class ChildrenController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating spouses
-     */
     private ChildCrud childCrud() {
         return new ChildCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose child we are adding
-     * @param person the data for the child
-     * @return the input person as modified
+     * Creates the child.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @PostMapping(value = "/v1/dbs/{db}/persons/{id}/children")
     public ApiPerson createChild(@PathVariable final String db,
@@ -57,10 +60,12 @@ public final class ChildrenController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose child we are adding
-     * @param person the data for the child
-     * @return the input person as modified
+     * Executes link child.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @PutMapping(value = "/v1/dbs/{db}/persons/{id}/children")
     public ApiPerson linkChild(@PathVariable final String db,
@@ -71,10 +76,12 @@ public final class ChildrenController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the family whose child we are adding
-     * @param person the data for the child
-     * @return the person as created
+     * Creates the child in family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @PostMapping(value = "/v1/dbs/{db}/families/{id}/children")
     public ApiPerson createChildInFamily(@PathVariable final String db,
@@ -85,10 +92,12 @@ public final class ChildrenController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the family whose child we are adding
-     * @param person the data for the child
-     * @return the person as created
+     * Executes link child in family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @PutMapping(value = "/v1/dbs/{db}/families/{id}/children")
     public ApiPerson linkChildInFamily(@PathVariable final String db,
@@ -99,10 +108,12 @@ public final class ChildrenController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the family whose child we are adding
-     * @param child the id of the child
-     * @return the person as created
+     * Executes unlink child.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param child the child
+     * @return the resulting api person
      */
     @DeleteMapping(value = "/v1/dbs/{db}/families/{id}/children/{child}")
     public ApiPerson unlinkChild(@PathVariable final String db,

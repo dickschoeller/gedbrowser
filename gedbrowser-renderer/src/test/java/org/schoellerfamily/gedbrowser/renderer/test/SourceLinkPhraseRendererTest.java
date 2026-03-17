@@ -20,8 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for source link phrase renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -36,7 +40,6 @@ final class SourceLinkPhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final Root root = new Root("Root");
@@ -52,7 +55,6 @@ final class SourceLinkPhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsPhrase() {
         final SourceLinkRenderer slr = new SourceLinkRenderer(sourceLink, new GedRendererFactory(),

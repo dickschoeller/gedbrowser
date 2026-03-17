@@ -23,8 +23,12 @@ import org.springframework.web.client.RestClientException;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the parents controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -49,17 +53,11 @@ class ParentsControllerIT {
     /** */
     private ControllerTestHelper helper;
 
-    /**
-     * Set up some base objects.
-     */
     @BeforeEach
     void setUp() {
         helper = new ControllerTestHelper(port, restTestClient);
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testCreateParent() throws RestClientException {
         final ApiPerson child = helper.createPerson();
@@ -72,10 +70,6 @@ class ParentsControllerIT {
             "Child should be in family");
     }
 
-    /**
-     * @param child the child that's getting a parent
-     * @return the parent
-     */
     private ApiPerson createParentOfChild(final ApiPerson child) {
         final String childUrl = helper.getPersonsUrl() + "/" + child.getString() + "/parents";
         final ApiPerson childReqBody = helper.buildPerson();
@@ -90,9 +84,6 @@ class ParentsControllerIT {
         return childEntity.getResponseBody();
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testLinkParent() throws RestClientException {
         final ApiPerson parent = helper.createPerson();
@@ -106,11 +97,6 @@ class ParentsControllerIT {
             gotChild.getFamcs().get(0).getString(), "check ids");
     }
 
-    /**
-     * @param parent the parent
-     * @param child  the child
-     * @return the parent
-     */
     private ApiPerson linkParentOfChild(final ApiPerson parent, final ApiPerson child) {
         final EntityExchangeResult<ApiPerson> parentEntity = restTestClient.put()
             .uri(URI.create(helper.getPersonsUrl() + "/" + child.getString() + "/parents"))

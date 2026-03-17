@@ -14,7 +14,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 
 /**
- * @author Dick Schoeller
+ * Visits link line elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface LinkLineVisitor extends GedObjectLineVisitor {
 

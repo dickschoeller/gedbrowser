@@ -32,8 +32,12 @@ import org.springframework.dao.DataAccessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents ged document file loader for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -53,17 +57,23 @@ public class GedDocumentFileLoader {
      */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
-    /** */
+    /**
+     * The root document repository value.
+     */
     private final RootDocumentRepositoryMongo rootDocumentRepository;
 
-    /** */
+    /**
+     * The gedbrowser home value.
+     */
     @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private final String gedbrowserHome;
 
     /**
+     * Loads the document.
+     *
      * @param repositoryManager the repository manager
-     * @param dbName the name of the database to load
-     * @return the root object of the database
+     * @param dbName the database name to load
+     * @return the resulting root document
      */
     public RootDocument loadDocument(final RepositoryManagerMongo repositoryManager,
         final String dbName) {
@@ -79,22 +89,16 @@ public class GedDocumentFileLoader {
     }
 
     /**
-     * @param dbName the name of the DB
-     * @return the derived filename
-     * @throws IllegalArgumentException if dbName contains path traversal sequences
+     * Builds file name.
+     *
+     * @param dbName the db name to use
+     * @return the resulting string
      */
     public String buildFileName(final String dbName) {
         validateDatabaseName(dbName);
         return Paths.get(gedbrowserHome, dbName + ".ged").toString();
     }
 
-    /**
-     * Validates that the database name does not contain path traversal sequences
-     * or other potentially dangerous path components.
-     *
-     * @param dbName the database name to validate
-     * @throws IllegalArgumentException if dbName is invalid
-     */
     private void validateDatabaseName(final String dbName) {
         if (StringUtils.isEmpty(dbName)) {
             throw new IllegalArgumentException("Database name cannot be null or empty");
@@ -160,9 +164,11 @@ public class GedDocumentFileLoader {
     }
 
     /**
+     * Loads the repository.
+     *
      * @param repositoryManager the repository manager
-     * @param dbName the name of the DB to load
-     * @return the root object loaded
+     * @param dbName the database name to load
+     * @return the resulting root document
      */
     protected RootDocument loadRepository(final RepositoryManagerMongo repositoryManager,
         final String dbName) {
@@ -182,12 +188,6 @@ public class GedDocumentFileLoader {
 
     }
 
-    /**
-     * @param dbName   the database name
-     * @param filename the file name
-     * @param gedFile  the file object
-     * @return the root object
-     */
     private Root createRoot(final String dbName, final String filename, final GedFile gedFile) {
         final Root root = g2g.create(gedFile);
         root.setString("Root");
@@ -196,12 +196,6 @@ public class GedDocumentFileLoader {
         return root;
     }
 
-    /**
-     * Save the root to the database.
-     *
-     * @param root the root GED object
-     * @return the root document
-     */
     private RootDocument save(final Root root) {
         final RootDocumentMongo rootdoc = (RootDocumentMongo) toDocConverter
             .createGedDocument(root);
@@ -241,8 +235,10 @@ public class GedDocumentFileLoader {
     }
 
     /**
+     * Returns the object>>.
+     *
      * @param repositoryManager the repository manager
-     * @return list of name value pairs for the data sets currently loaded
+     * @return the resulting object>>
      */
     public final List<Map<String, Object>> details(final RepositoryManagerMongo repositoryManager) {
         return StreamSupport.stream(rootDocumentRepository.findAll().spliterator(), false)
@@ -251,9 +247,11 @@ public class GedDocumentFileLoader {
     }
 
     /**
+     * Executes details.
+     *
      * @param repositoryManager the repository manager
-     * @param dbname name of a dataset
-     * @return the name value pairs describing this dataset
+     * @param dbname the database name to describe
+     * @return the resulting object>
      */
     public final Map<String, Object> details(final RepositoryManagerMongo repositoryManager,
         final String dbname) {

@@ -8,10 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * Encapsulates the estimation methods associated with look at a person's
- * children.
+ * Represents birth date from children estimator.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class BirthDateFromChildrenEstimator extends Estimator {
     /** Hold the person we are estimating. */
@@ -20,9 +19,9 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
     private final Typicals typicals;
 
     /**
-     * Constructor.
+     * Creates a new BirthDateFromChildrenEstimator.
      *
-     * @param person the person whose dates we are estimating
+     * @param person the person
      */
     public BirthDateFromChildrenEstimator(final Person person) {
         this.person = person;
@@ -99,24 +98,11 @@ public final class BirthDateFromChildrenEstimator extends Estimator {
         return date;
     }
 
-    /**
-     * Estimate from spouses' ancestors.
-     *
-     * @param bde the estimator for this person
-     * @param localDate the input date estimate
-     * @return the new estimate
-     */
     private LocalDate estimateFromSpousesAncestors(final BirthDateEstimator bde,
             final LocalDate localDate) {
         return bde.estimateFromSpousesAncestors(localDate);
     }
 
-    /**
-     * Estimate from a child.
-     *
-     * @param bde the estimator for this child
-     * @return the new estimate
-     */
     private LocalDate estimateFromChild(final BirthDateEstimator bde) {
         LocalDate date = null;
         date = bde.estimateFromChildren(date);

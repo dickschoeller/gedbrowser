@@ -5,14 +5,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to password encoder.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class PasswordEncoderConfig {
     /**
-     * @return the encoder
+     * Creates and configures the password encoder bean.
+     *
+     * @return the configured password encoder bean
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -20,11 +26,24 @@ public class PasswordEncoderConfig {
         // but for testing we want to be able to easily verify the password.
         return new PasswordEncoder() {
 
+            /**
+             * Returns the string.
+             *
+             * @param rawPassword the raw password
+             * @return the resulting string
+             */
             @Override
             public String encode(final CharSequence rawPassword) {
                 return rawPassword.toString();
             }
 
+            /**
+             * Executes matches.
+             *
+             * @param rawPassword the raw password
+             * @param encodedPassword the encoded password to use
+             * @return the resulting boolean
+             */
             @Override
             public boolean matches(final CharSequence rawPassword,
                     final String encodedPassword) {

@@ -3,16 +3,17 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 
 /**
- * Render a Place.
+ * Renders place output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class PlaceRenderer extends GedRenderer<Place> {
     /**
-     * @param gedObject the Place that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new PlaceRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public PlaceRenderer(final Place gedObject,
             final GedRendererFactory rendererFactory,

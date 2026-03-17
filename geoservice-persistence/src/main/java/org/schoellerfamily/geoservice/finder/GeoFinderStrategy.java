@@ -3,7 +3,9 @@ package org.schoellerfamily.geoservice.finder;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for geo finder strategy.
+ *
+ * @author Richard Schoeller
  */
 public interface GeoFinderStrategy {
     /**

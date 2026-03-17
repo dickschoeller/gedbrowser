@@ -11,8 +11,12 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.schoellerfamily.gedbrowser.writer.util.Backup;
 
+
+
 /**
- * @author Dick Schoeller
+ * Writes users data to an external destination.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class UsersWriter {
@@ -24,8 +28,10 @@ public class UsersWriter {
     private final String userfilename;
 
     /**
-     * @param users the users to write
-     * @param userfilename the file name to write
+     * Creates a new UsersWriter.
+     *
+     * @param users the users
+     * @param userfilename the userfilename to use
      */
     public UsersWriter(final Users<? extends User> users,
             final String userfilename) {
@@ -52,13 +58,6 @@ public class UsersWriter {
         }
     }
 
-    /**
-     * Loop through the lines from the line creator and write them to the
-     * stream.
-     *
-     * @param stream the stream to write to
-     * @throws IOException if there is a problem writing to the stream
-     */
     private void writeTheLines(final BufferedOutputStream stream)
             throws IOException {
         for (final User user : users) {
@@ -68,10 +67,6 @@ public class UsersWriter {
         }
     }
 
-    /**
-     * @param user the user to create row for
-     * @return the row string
-     */
     private String createLine(final User user) {
         log.debug("creating line for {}", user.getUsername());
         final StringBuilder builder = new StringBuilder();
@@ -80,12 +75,6 @@ public class UsersWriter {
         return builder.toString();
     }
 
-    /**
-     * Append the core fields of the user to the string.
-     *
-     * @param builder the string builder
-     * @param user the user whose core fields we'll add to the string
-     */
     private void appendUserInfoFields(final StringBuilder builder,
             final User user) {
         append(builder, user.getUsername(), ",");
@@ -95,13 +84,6 @@ public class UsersWriter {
         append(builder, user.getPassword(), "");
     }
 
-    /**
-     * Append a token and separator to the builder.
-     *
-     * @param builder the builder
-     * @param string the token
-     * @param separator the separator
-     */
     private void append(final StringBuilder builder, final String string,
             final String separator) {
         if (string != null) {
@@ -110,12 +92,6 @@ public class UsersWriter {
         builder.append(separator);
     }
 
-    /**
-     * Append roles to the builder.
-     *
-     * @param builder the builder
-     * @param user the user whose roles are appended
-     */
     private void appendRoles(final StringBuilder builder, final User user) {
         for (final UserRoleName role : user.getRoles()) {
             append(builder, ",", role.name());

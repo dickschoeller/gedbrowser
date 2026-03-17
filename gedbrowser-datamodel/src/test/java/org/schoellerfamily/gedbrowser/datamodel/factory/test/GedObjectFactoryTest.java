@@ -14,11 +14,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
+
+/**
+ * Contains tests for ged object factory.
+ */
+
 final class GedObjectFactoryTest {
 
-    /**
-     * @return parameters to test
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

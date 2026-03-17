@@ -10,15 +10,18 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
 /**
- * @author Dick Schoeller
+ * Represents relations crud.
+ *
+ * @author Richard Schoeller
  */
 public abstract class RelationsCrud extends CrudParams implements LinkCrud {
-    /** Helper. */
     private final transient CrudHelper helper = new CrudHelper();
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Creates a new RelationsCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     protected RelationsCrud(final GedObjectFileLoader loader,
@@ -28,43 +31,53 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param person the data for the new person
-     * @return the person returned from the db
+     * Creates the person.
+     *
+     * @param db the db
+     * @param person the person
+     * @return the resulting api person
      */
     protected final ApiPerson createPerson(final String db, final ApiPerson person) {
         return personCrud().createOne(db, person);
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person to read
-     * @return the person returned from the db
+     * Returns the api person.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api person
      */
     protected final ApiPerson readPerson(final String db, final String id) {
         return personCrud().readOne(db, id);
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the family returned from the db
+     * Creates the family.
+     *
+     * @param db the db
+     * @return the resulting api family
      */
     protected final ApiFamily createFamily(final String db) {
         return familyCrud().createOne(db, ApiFamily.builder().build());
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the family to read
-     * @return the family returned from the db
+     * Returns the api family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api family
      */
     protected final ApiFamily readFamily(final String db, final String id) {
         return familyCrud().readOne(db, id);
     }
 
     /**
-     * @param family the family to add the person to
-     * @param person the person to add
+     * Executes add child to family.
+     *
+     * @param family the family
+     * @param person the person
      */
     protected final void addChildToFamily(final ApiFamilyBuilder<?, ?> family,
             final ApiPersonBuilder<?, ?> person) {
@@ -73,8 +86,10 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
     }
 
     /**
-     * @param family the family to add the person to
-     * @param person the person to add
+     * Executes add spouse to family.
+     *
+     * @param family the family
+     * @param person the person
      */
     protected final void addSpouseToFamily(final ApiFamilyBuilder<?, ?> family,
             final ApiPersonBuilder<?, ?> person) {
@@ -83,8 +98,10 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
     }
 
     /**
-     * @param family the family from which we will remove a spouse
-     * @param person the person to remove as a spouse
+     * Executes remove spouse from family.
+     *
+     * @param family the family
+     * @param person the person
      */
     protected final void removeSpouseFromFamily(final ApiFamilyBuilder<?, ?> family,
             final ApiPersonBuilder<?, ?> person) {
@@ -98,11 +115,6 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
         }
     }
 
-    /**
-     * @param family the family that we are searching
-     * @param person the person who should be a spouse
-     * @return the spouse attribute
-     */
     private ApiAttribute findSpouseAttribute(final ApiFamilyBuilder<?, ?> family,
             final ApiPersonBuilder<?, ?> person) {
         for (final ApiAttribute spouse : family.getSpouses()) {
@@ -113,11 +125,6 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
         return null;
     }
 
-    /**
-     * @param family the family that should be pointed to by fams
-     * @param person the person we are searching
-     * @return the fams attribute
-     */
     private ApiAttribute findFamsAttribute(final ApiFamilyBuilder<?, ?> family,
             final ApiPersonBuilder<?, ?> person) {
         return findFamsAttribute(family.getString(), person);
@@ -125,9 +132,11 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
 
 
     /**
-     * @param fid the family that should be pointed to by fams
-     * @param person the person we are searching
-     * @return the fams attribute
+     * Finds the fams attribute.
+     *
+     * @param fid the unique identifier for f
+     * @param person the person
+     * @return the resulting api attribute
      */
     protected ApiAttribute findFamsAttribute(final String fid,
             final ApiPersonBuilder<?, ?> person) {
@@ -140,10 +149,12 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
     }
 
     /**
-     * @param db the name of the db to update
-     * @param newFamily the family to modify
-     * @param newPersons the persons linked to the family
-     * @return the person
+     * Executes crud update.
+     *
+     * @param db the db
+     * @param newFamily the new family
+     * @param newPersons the new persons
+     * @return the resulting api person
      */
     protected final ApiPerson crudUpdate(final String db,
             final ApiFamily newFamily, final ApiPerson... newPersons) {
@@ -152,9 +163,11 @@ public abstract class RelationsCrud extends CrudParams implements LinkCrud {
     }
 
     /**
-     * @param db the name of the db to update
-     * @param newPersons the persons linked to the family
-     * @return the person
+     * Executes crud update.
+     *
+     * @param db the db
+     * @param newPersons the new persons
+     * @return the resulting api person
      */
     protected final ApiPerson crudUpdate(final String db,
             final ApiPerson... newPersons) {

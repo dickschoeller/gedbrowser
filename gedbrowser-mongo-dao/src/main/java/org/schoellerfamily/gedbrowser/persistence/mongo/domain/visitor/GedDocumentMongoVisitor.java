@@ -17,7 +17,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocu
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 
 /**
- * @author Dick Schoeller
+ * Visits ged document mongo elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface GedDocumentMongoVisitor
         extends TopLevelGedDocumentMongoVisitor {

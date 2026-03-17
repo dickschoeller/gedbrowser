@@ -26,8 +26,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for note crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -53,7 +57,6 @@ class NoteCrudIT {
     /** */
     private CrudTestHelper helper;
 
-    /** */
     @BeforeEach
     void setUp() {
         helper = new CrudTestHelper(new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -61,7 +64,6 @@ class NoteCrudIT {
         crud = new NoteCrud(loader, toDocConverter, repositoryManager);
     }
 
-    /** */
     @Test
     void testReadNotesGl120368() {
         log.info("Beginning testReadNotesGl120368");
@@ -74,7 +76,6 @@ class NoteCrudIT {
             .returns("_P_CCINFO 1-1319", o -> o.getTail());
     }
 
-    /** */
     @Test
     @SuppressWarnings({ "java:S6126" })
     void testReadNotesGl120368N13() {
@@ -90,7 +91,6 @@ class NoteCrudIT {
         assertThat(resNote).returns(expected, o -> o.getTail());
     }
 
-    /** */
     @Test
     void testReadNotesGl120368N66() {
         log.info("Beginning testReadNotesGl120368N66");
@@ -107,7 +107,6 @@ class NoteCrudIT {
             .returns("22 APR 2007", o -> o.getString());
     }
 
-    /** */
     @Test
     void testReadNotesGl120368N1932() {
         log.info("Beginning testReadNotesGl120368N1932");
@@ -151,7 +150,6 @@ class NoteCrudIT {
             .returns("8 MAR 2008", o -> o.getString());
     }
 
-    /** */
     @Test
     void testReadNotesGl120368Xyzzy() {
         log.info("Beginning testReadNotesGl120368N1932");
@@ -161,7 +159,6 @@ class NoteCrudIT {
             .withMessage("Object Xyzzy of type note not found");
     }
 
-    /** */
     @Test
     void testCreateNotesSimple() {
         log.info("Beginning testCreateNotesSimple");
@@ -175,7 +172,6 @@ class NoteCrudIT {
         assertThat(resNote).returns(reqNote.getTail(), o -> o.getTail());
     }
 
-    /** */
     @Test
     void testDeleteNote() {
         log.info("Beginning testDeleteNote");
@@ -195,7 +191,6 @@ class NoteCrudIT {
             .withMessage("Object " + id + " of type note not found");
     }
 
-    /** */
     @Test
     void testDeleteNoteNotFound() {
         log.info("Beginning testDeleteNoteNotFound");
@@ -205,7 +200,6 @@ class NoteCrudIT {
             .withMessage("Object XXXXXXX of type note not found");
     }
 
-    /** */
     @Test
     void testDeleteNoteDatabaseNotFound() {
         log.info("Beginning testDeleteNoteDatabaseNotFound");
@@ -214,7 +208,6 @@ class NoteCrudIT {
             .withMessage("Data set XYZZY not found");
     }
 
-    /** */
     @Test
     void testUpdateNoteWithNote() {
         log.info("Beginning testUpdateNoteWithNote");

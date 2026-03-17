@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Listen for requests for the head page.
+ * Handles requests for head.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Controller
 @Slf4j
@@ -31,14 +33,14 @@ public class HeadController extends DatedDataController {
     private final String gedbrowserHome;
 
     /**
-     * Constructor.
+     * Creates a new HeadController.
      *
-     * @param appInfo the application info
-     * @param users info about the known application users
-     * @param loader enable loading gedcom files
-     * @param provider enable calendar processing
-     * @param repositoryManager enable data storage
-     * @param gedbrowserHome location of data files for initialization
+     * @param appInfo the app info
+     * @param users the users
+     * @param loader the loader
+     * @param provider the provider
+     * @param repositoryManager the repository manager
+     * @param gedbrowserHome the gedbrowser home directory
      */
     public HeadController(final ApplicationInfo appInfo,
             final Users<? extends User> users,
@@ -78,20 +80,11 @@ public class HeadController extends DatedDataController {
         return "head";
     }
 
-    /**
-     * @param dbName the name of the database
-     * @return the head
-     */
     private Head fetchHead(final String dbName) {
         final Root root = fetchRoot(dbName);
         return (Head) root.find("Header");
     }
 
-    /**
-     * @param context the rendering context
-     * @param head the head object being rendered
-     * @return the person renderer
-     */
     private GedRenderer<?> headRenderer(final RenderingContext context,
             final Head head) {
         return new GedRendererFactory().create(head, context);

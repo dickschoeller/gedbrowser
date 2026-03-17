@@ -18,10 +18,12 @@ import lombok.experimental.SuperBuilder;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
+
+
 /**
- * The base class for all API data model objects.
+ * Represents api object in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuperBuilder(toBuilder = true)
 @Getter
@@ -50,6 +52,8 @@ public class ApiObject implements GetString {
     private final List<ApiAttribute> attributes;
 
     /**
+     * Executes accept.
+     *
      * @param visitor the visitor
      */
     public void accept(final ApiObjectVisitor visitor) {
@@ -70,12 +74,6 @@ public class ApiObject implements GetString {
         return "attribute".equals(getType()) && dt.equalsIgnoreCase(getString());
     }
 
-    /**
-     * Turn a URL encoded string into a decoded string.
-     *
-     * @param t type string to decode
-     * @return decoded string
-     */
     private String decode(final String t) {
         return URLDecoder.decode(t, StandardCharsets.UTF_8);
     }

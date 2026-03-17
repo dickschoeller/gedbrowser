@@ -9,13 +9,14 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonConfidentialVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for person confidential visitor.
+ *
+ * @author Richard Schoeller
  */
 class PersonConfidentialVisitorTest {
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
-    /** */
     @Test
     void testNotConfidential() {
         final Person person =
@@ -26,7 +27,6 @@ class PersonConfidentialVisitorTest {
         assertFalse(visitor.isConfidential(), "Should not be confidential");
     }
 
-    /** */
     @Test
     void testIsConfidential() {
         final Person person =

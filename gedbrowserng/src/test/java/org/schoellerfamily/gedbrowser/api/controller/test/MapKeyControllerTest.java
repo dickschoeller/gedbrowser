@@ -11,16 +11,31 @@ import org.schoellerfamily.geoservice.keys.KeyManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+
+/**
+ * Contains tests for the map key controller.
+ */
+
 final class MapKeyControllerTest {
 
     @Test
     void testReadMapKeyReturnsKeyWhenManagerSucceeds() {
         final KeyManager keyManager = new KeyManager() {
+            /**
+             * Gets the geocoding key.
+             *
+             * @return the geocoding key
+             */
             @Override
             public String getGeocodingKey() {
                 return "GEO";
             }
 
+            /**
+             * Gets the maps key.
+             *
+             * @return the maps key
+             */
             @Override
             public String getMapsKey() {
                 return "MAP-KEY";
@@ -37,11 +52,21 @@ final class MapKeyControllerTest {
     @Test
     void testReadMapKeyReturns500WhenManagerThrows() {
         final KeyManager keyManager = new KeyManager() {
+            /**
+             * Gets the geocoding key.
+             *
+             * @return the geocoding key
+             */
             @Override
             public String getGeocodingKey() {
                 return "GEO";
             }
 
+            /**
+             * Gets the maps key.
+             *
+             * @return the maps key
+             */
             @Override
             public String getMapsKey() {
                 throw new IllegalStateException("missing key");

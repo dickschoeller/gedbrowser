@@ -16,8 +16,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the source controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,7 +40,6 @@ class SourceControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testSourceControllerS33750() {
         final String url = "http://localhost:" + port + "/gedbrowser/source?db=gl120368&id=S33750";
@@ -54,7 +57,6 @@ class SourceControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testSourceControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -68,7 +70,6 @@ class SourceControllerIT implements MenuTestHelper {
                 .asString().contains("Data set not found");
     }
 
-    /** */
     @Test
     void testSourceControllerBadSource() {
         final EntityExchangeResult<String> entity = restTestClient.get()

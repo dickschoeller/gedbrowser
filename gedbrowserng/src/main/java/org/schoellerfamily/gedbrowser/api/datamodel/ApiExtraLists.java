@@ -13,10 +13,12 @@ import lombok.experimental.SuperBuilder;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
+
+
 /**
- * The extra lists that some objects have.
+ * Represents api extra lists in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuperBuilder(toBuilder = true)
 @Getter
@@ -145,8 +147,10 @@ public class ApiExtraLists extends ApiHasImages {
     }
 
     /**
-     * Is the other object of exactly the same type as this one? All overrides
-     * should use the same approach.
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
      */
     @Override
     public boolean canEqual(final Object other) {

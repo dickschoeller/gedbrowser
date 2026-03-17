@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SubmitterDocument;
 
 /**
- * @author Dick Schoeller
+ * Builds submitter name instances.
+ *
+ * @author Richard Schoeller
  */
 public interface SubmitterNameBuilder {
     /**

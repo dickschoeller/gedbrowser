@@ -4,24 +4,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * @author Dick Schoeller
+ * Represents reader source.
  *
+ * @author Richard Schoeller
  */
 public final class ReaderSource extends AbstractGedLineSource {
     /** */
     private final BufferedReader reader;
 
     /**
-     * Constructor.
+     * Creates a new ReaderSource.
      *
-     * @param reader the reader for getting GEDCOM from a file
+     * @param reader the reader
      */
     public ReaderSource(final BufferedReader reader) {
         this.reader = reader;
     }
 
     /**
-     * {@inheritDoc}
+     * Creates the ged line.
+     *
+     * @param parent the parent
+     * @return the resulting abstract ged line
      */
     @Override
     public AbstractGedLine createGedLine(final AbstractGedLine parent)

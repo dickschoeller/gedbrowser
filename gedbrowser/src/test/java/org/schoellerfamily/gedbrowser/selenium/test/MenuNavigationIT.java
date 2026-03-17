@@ -32,8 +32,12 @@ import com.saucelabs.saucebindings.junit5.SauceBindingsExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for menu navigation.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = SeleniumConfig.class)
@@ -70,15 +74,15 @@ class MenuNavigationIT {
     /** */
     private PageFactory factory;
 
-    /** */
+    /**
+     * Executes sauce bindings extension.
+     *
+     * @return the resulting new
+     */
     @RegisterExtension
     @SuppressWarnings("checkstyle:visibilitymodifier")
     public final SauceBindingsExtension sauceExtension = new SauceBindingsExtension();
 
-    /**
-     * @param testInfo information about the currently running test
-     * @throws MalformedURLException if something goes awry
-     */
     @BeforeEach
     void setUp(final TestInfo testInfo) throws MalformedURLException {
         final String methodName = testInfo.getTestMethod()
@@ -111,9 +115,6 @@ class MenuNavigationIT {
                 expectationsUtil.create());
     }
 
-    /**
-     * Test navigation through index from one person to another.
-     */
     @Test
     void testIndexLinkNavigation() {
         final PersonPage currentPerson =
@@ -133,9 +134,6 @@ class MenuNavigationIT {
         assertTrue(personPageBagley.getTitle().contains("James BAGLEY"), "Wrong person");
     }
 
-    /**
-     * Test navigation through index from one person to another.
-     */
     @Test
     void testMenuWandering() {
         final PersonPage currentPerson =
@@ -171,9 +169,6 @@ class MenuNavigationIT {
             "Submitter URL mismatch");
     }
 
-    /**
-     * Tear down after test.
-     */
     @AfterEach
     void tearDown() {
         // Quit only if we created the driver locally.
@@ -182,21 +177,11 @@ class MenuNavigationIT {
         }
     }
 
-    /**
-     * Use this for mid-test checks.
-     *
-     * @param message message to display on failure
-     * @param expected expected value
-     * @param actual actual value
-     */
     private void check(final String message, final String expected,
             final String actual) {
         assertEquals(expected, actual, message);
     }
 
-    /**
-     * @return the base url string for connecting to the server
-     */
     private String baseUrl() {
         return "http://" + this.host + ":" + this.port + "/gedbrowser/";
     }

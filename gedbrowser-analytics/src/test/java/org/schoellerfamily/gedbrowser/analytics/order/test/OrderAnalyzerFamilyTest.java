@@ -17,8 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for order analyzer family.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -31,17 +35,26 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
     @Autowired
     private GedObjectBuilder builder;
 
+    /**
+     * Returns the person builder.
+     *
+     * @return the resulting person builder
+     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
+    /**
+     * Returns the family builder.
+     *
+     * @return the resulting family builder
+     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;
     }
 
-    /** */
     @Test
     void testPersonWithOneUndatedFamilyMatch() {
         final Person person1 = createJRandom();
@@ -53,7 +66,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with one undated family");
     }
 
-    /** */
     @Test
     void testPersonWithTwoUndatedFamiliesMatch() {
         final Person person1 = createJRandom();
@@ -69,7 +81,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with 2 undated families");
     }
 
-    /** */
     @Test
     void testPersonWithTwoFamiliesFirstDatedMatch() {
         final Person person1 = createJRandom();
@@ -86,7 +97,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with 2 families only the 1st is dated");
     }
 
-    /** */
     @Test
     void testPersonWithTwoFamiliesSecondDatedMatch() {
         final Person person1 = createJRandom();
@@ -103,7 +113,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with 2 families only the 2nd is dated");
     }
 
-    /** */
     @Test
     void testPersonWithTwoFamiliesDatedInOrderMatch() {
         final Person person1 = createJRandom();
@@ -121,7 +130,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with 2 families dates are in order");
     }
 
-    /** */
     @Test
     void testPersonWithTwoFamiliesDatedOutOfOrderMismatch() {
         final Person person1 = createJRandom();
@@ -140,7 +148,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
             "Expected incorrect with 2 families dates are out of order");
     }
 
-    /** */
     @Test
     void testPersonWithTwoFamiliesDatedInOrderWithUndatedBtwnMatch() {
         final Person person1 = createJRandom();
@@ -164,7 +171,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with 2 families dates are in order");
     }
 
-    /** */
     @Test
     void testPersonWithTwoFamiliesDatedOutOfOrderUndatedBtwnMismatch() {
         final Person person1 = createJRandom();
@@ -189,7 +195,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
             "Expected incorrect with 2 families dates are out of order");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyDatesInOrderMatch() {
         final Person person1 = createJRandom();
@@ -203,7 +208,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         assertTrue(result.isCorrect(), "Expected correct with 2 events in order");
     }
 
-    /** */
     @Test
     void testPersonWithFamilyDatesOutOfOrderMismatch() {
         final Person person1 = createJRandom();
@@ -217,7 +221,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
         assertFalse(result.isCorrect(), "Expected incorrect with 2 events out of order");
     }
 
-    /** */
     @Test
     void testPersonWith1stFamilyDatesOutOfOrderMismatch() {
         final Person person1 = createJRandom();
@@ -239,7 +242,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
             "Expected incorrect with 2 events out of order");
     }
 
-    /** */
     @Test
     void testPersonWith2ndBefore1stAnd1stFamDatesOutOfOrderMismatch() {
         final Person person1 = createJRandom();
@@ -261,7 +263,6 @@ final class OrderAnalyzerFamilyTest implements AnalyzerTest {
             "Expected incorrect with 2 events out of order");
     }
 
-    /** */
     @Test
     void testPersonWithDateFromChildMismatch() {
         final Person person1 = createJRandom();

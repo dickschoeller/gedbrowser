@@ -16,8 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for error renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -34,14 +38,12 @@ class ErrorRendererTest {
      */
     private Renderer renderer;
 
-    /** */
     @BeforeEach
     void setUp() {
         homeUrl = "http://www.schoellerfamily.org/";
         renderer = new ErrorRenderer(appInfo);
     }
 
-    /** */
     @Test
     void testGetTrailerHtmlEmpty() {
         assertEquals(
@@ -61,7 +63,6 @@ class ErrorRendererTest {
             renderer.getTrailerHtml(""), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetHeaderHtml() {
         final String keywords = "one two three";
@@ -81,7 +82,6 @@ class ErrorRendererTest {
             "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetTrailerHtml() {
         assertEquals(
@@ -101,7 +101,6 @@ class ErrorRendererTest {
             renderer.getTrailerHtml(), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetTrailerHtmlIndex() {
         assertEquals(
@@ -121,52 +120,41 @@ class ErrorRendererTest {
             renderer.getTrailerHtml("Index"), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetHomeUrl() {
         assertEquals(homeUrl, renderer.getHomeUrl(), "Home URL does not match expectation");
     }
 
-    /** */
     @Test
     void testGetName() {
         assertEquals("gedbrowser", renderer.getApplicationName(),
             "Application name does not match expectation");
     }
 
-    /** */
     @Test
     void testGetApplicationURL() {
         assertEquals("https://github.com/dickschoeller/gedbrowser", renderer.getApplicationURL(),
             "Application URL does not match expectation");
     }
 
-    /** */
     @Test
     void testGetMaintainerEmail() {
         assertEquals("schoeller@comcast.net", renderer.getMaintainerEmail(),
             "Maintainer email does not match expectation");
     }
 
-    /** */
     @Test
     void testGetMaintainerName() {
         assertEquals("Richard Schoeller", renderer.getMaintainerName(),
             "Maintainer email does not match expectation");
     }
 
-    /** */
     @Test
     void testGetVersion() {
         assertEquals(GedObject.VERSION, renderer.getVersion(),
             "Version does not match expectation");
     }
 
-    /**
-     * Get today as a date string. This emulates what happens in the renderers.
-     *
-     * @return the date string.
-     */
     private static String getDateString() {
         final java.util.Date javaDate = new java.util.Date();
         return DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault()).format(javaDate);

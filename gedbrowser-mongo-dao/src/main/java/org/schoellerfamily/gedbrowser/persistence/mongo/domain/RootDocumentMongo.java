@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @author Dick Schoeller
+ * Represents root document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Document(collection = "roots")
 @CompoundIndexes({
@@ -22,11 +24,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
 })
 public final class RootDocumentMongo extends GedDocumentMongo<Root>
         implements RootDocument {
+    /**
+     * Creates a new RootDocumentMongo.
+     */
+    public RootDocumentMongo() {
+    }
+
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "root";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -41,13 +59,20 @@ public final class RootDocumentMongo extends GedDocumentMongo<Root>
         // Note that we don't load attributes on purpose here.
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
     /**
-     * {@inheritDoc}
+     * Executes accept.
+     *
+     * @param visitor the visitor
      */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {

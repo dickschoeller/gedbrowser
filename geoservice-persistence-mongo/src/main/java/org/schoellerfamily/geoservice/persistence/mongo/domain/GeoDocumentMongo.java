@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import com.google.maps.model.GeocodingResult;
 
 /**
- * This is the primary object in the DB model when using MongoDB.
+ * Provides behavior related to geo document mongo.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GeoDocumentMongo implements GeoDocument {
     /** */
@@ -30,7 +30,9 @@ public final class GeoDocumentMongo implements GeoDocument {
     private GeoCodeItem geoItem;
 
     /**
-     * {@inheritDoc}
+     * Returns the name.
+     *
+     * @return the name
      */
     @Override
     public String getName() {
@@ -38,7 +40,9 @@ public final class GeoDocumentMongo implements GeoDocument {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the modern name.
+     *
+     * @return the modern name
      */
     @Override
     public String getModernName() {
@@ -46,7 +50,9 @@ public final class GeoDocumentMongo implements GeoDocument {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the result.
+     *
+     * @return the result
      */
     @Override
     public GeocodingResult getResult() {
@@ -54,7 +60,9 @@ public final class GeoDocumentMongo implements GeoDocument {
     }
 
     /**
-     * {@inheritDoc}
+     * Loads the geo code item.
+     *
+     * @param gci the gci
      */
     @Override
     public void loadGeoCodeItem(final GeoCodeItem gci) {
@@ -65,7 +73,9 @@ public final class GeoDocumentMongo implements GeoDocument {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the geo item.
+     *
+     * @return the geo item
      */
     @Override
     public GeoCodeItem getGeoItem() {
@@ -73,7 +83,9 @@ public final class GeoDocumentMongo implements GeoDocument {
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the geo item.
+     *
+     * @param geoItem the geo item
      */
     @Override
     public void setGeoItem(final GeoCodeItem geoItem) {

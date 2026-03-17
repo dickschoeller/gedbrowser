@@ -15,8 +15,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the save controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,7 +40,6 @@ class SaveControllerIT {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testSaveControllerOK() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/save";
@@ -60,7 +63,6 @@ class SaveControllerIT {
             .contains("1 DEST FTM");
     }
 
-    /** */
     @Test
     void testSaveControllerDatasetNotFound() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/xyzzy/save";

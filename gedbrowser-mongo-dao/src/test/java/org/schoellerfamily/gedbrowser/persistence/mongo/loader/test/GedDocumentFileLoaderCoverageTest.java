@@ -15,13 +15,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentR
 import org.springframework.dao.DataAccessResourceFailureException;
 
 /**
- * Coverage tests for GedDocumentFileLoader error paths.
+ * Contains tests for ged document file loader coverage.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 class GedDocumentFileLoaderCoverageTest {
 
-    /** */
     @Test
     void testBuildFileNameWithNullDbName() {
         final TestLoader loader = new TestLoader();
@@ -29,7 +28,6 @@ class GedDocumentFileLoaderCoverageTest {
             .isThrownBy(() -> loader.callBuildFileName(null));
     }
 
-    /** */
     @Test
     void testSaveHandlesDataAccessException() throws Exception {
         final Root root = new Root();
@@ -51,6 +49,12 @@ class GedDocumentFileLoaderCoverageTest {
 
         final GedObjectToGedDocumentMongoConverter converter =
             new GedObjectToGedDocumentMongoConverter() {
+                /**
+                 * Creates the ged document.
+                 *
+                 * @param ged the ged
+                 * @return the resulting root document mongo
+                 */
                 @SuppressWarnings("unchecked")
                 @Override
                 public RootDocumentMongo createGedDocument(

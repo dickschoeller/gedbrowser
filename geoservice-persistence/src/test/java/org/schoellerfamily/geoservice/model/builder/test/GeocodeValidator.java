@@ -21,15 +21,19 @@ import com.google.maps.model.LatLng;
 import com.google.maps.model.LocationType;
 
 /**
- * @author Dick Schoeller
+ * Validates geocode values for test expectations.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.SimplifyBooleanReturns", "PMD.UseVarargs",
     "PMD.UnusedPrivateMethod" })
 public class GeocodeValidator {
     /**
-     * @param result a geocoding result
-     * @param backupResult a backup geocoding result
-     * @return true if they match
+     * Executes validate.
+     *
+     * @param result the result
+     * @param backupResult the backup result
+     * @return the resulting boolean
      */
     protected boolean validate(final GeocodingResult result,
             final GeoServiceGeocodingResult backupResult) {
@@ -63,11 +67,6 @@ public class GeocodeValidator {
         return result.partialMatch == backupResult.isPartialMatch();
     }
 
-    /**
-     * @param addressComponents address components from application model
-     * @param backupAddressComponents address components from backup model
-     * @return true if all match
-     */
     private boolean validate(final AddressComponent[] addressComponents,
             final AddressComponent[] backupAddressComponents) {
         if (addressComponents == null && backupAddressComponents == null) {
@@ -87,11 +86,6 @@ public class GeocodeValidator {
         return true;
     }
 
-    /**
-     * @param addressComponent an address component
-     * @param backupAddressComponent a backup address component
-     * @return true if they match
-     */
     private boolean validate(final AddressComponent addressComponent,
             final AddressComponent backupAddressComponent) {
         if (addressComponent == null && backupAddressComponent == null) {
@@ -112,11 +106,6 @@ public class GeocodeValidator {
                 backupAddressComponent.types);
     }
 
-    /**
-     * @param string string from application model
-     * @param backupString string from backup model
-     * @return true if strings match
-     */
     private boolean validate(final String string, final String backupString) {
         if (string == null && backupString == null) {
             return true;
@@ -127,11 +116,6 @@ public class GeocodeValidator {
         return string.equals(backupString);
     }
 
-    /**
-     * @param types array of types from geocode result
-     * @param backupTypes array of types from backup
-     * @return true if they match
-     */
     private boolean validate(final AddressComponentType[] types,
             final AddressComponentType[] backupTypes) {
         if (types == null && backupTypes == null) {
@@ -151,11 +135,6 @@ public class GeocodeValidator {
         return true;
     }
 
-    /**
-     * @param type0 type from geocode
-     * @param type1 type from backup
-     * @return true if they match
-     */
     private boolean validate(final AddressComponentType type0,
             final AddressComponentType type1) {
         if (type0 == null && type1 == null) {
@@ -167,11 +146,6 @@ public class GeocodeValidator {
         return type0.equals(type1);
     }
 
-    /**
-     * @param geometry geocode geometry
-     * @param featureCollection the collection that represents the geometry
-     * @return true if they match
-     */
     private boolean validate(final Geometry geometry,
             final FeatureCollection featureCollection) {
         if (isEmpty(geometry) && isEmpty(featureCollection)) {
@@ -217,10 +191,6 @@ public class GeocodeValidator {
         }
     }
 
-    /**
-     * @param geometry the geometry
-     * @return if there is no data in it
-     */
     private boolean isEmpty(final Geometry geometry) {
         if (geometry == null) {
             return true;
@@ -235,10 +205,6 @@ public class GeocodeValidator {
         return isEmpty(geometry.viewport);
     }
 
-    /**
-     * @param bounds a bounding box
-     * @return true if null or both points empty
-     */
     private boolean isEmpty(final Bounds bounds) {
         if (bounds == null) {
             return true;
@@ -249,10 +215,6 @@ public class GeocodeValidator {
         return isEmpty(bounds.southwest);
     }
 
-    /**
-     * @param point a point
-     * @return true if null or both axes not a number
-     */
     private boolean isEmpty(final LatLng point) {
         if (point == null) {
             return true;
@@ -263,12 +225,6 @@ public class GeocodeValidator {
         return Double.isNaN(point.lng);
     }
 
-    /**
-     * There are a number of ways that a feature collection can be empty.
-     *
-     * @param featureCollection the feature collection
-     * @return true if considered empty
-     */
     private boolean isEmpty(final FeatureCollection featureCollection) {
         if (featureCollection == null) {
             return true;
@@ -288,10 +244,6 @@ public class GeocodeValidator {
         return true;
     }
 
-    /**
-     * @param feature the feature
-     * @return if it's empty
-     */
     private boolean isEmpty(final Feature feature) {
         if (feature == null) {
             return true;
@@ -314,12 +266,6 @@ public class GeocodeValidator {
         return true;
     }
 
-    /**
-     * @param id id string to look for in the bounds feature
-     * @param bounds geocode boundary
-     * @param backupBounds backup boundary
-     * @return true if they match
-     */
     private boolean validate(final String id, final Bounds bounds,
             final Feature backupBounds) {
         if (bounds == null && backupBounds == null) {
@@ -345,9 +291,11 @@ public class GeocodeValidator {
     }
 
     /**
-     * @param latLng geocoding location
-     * @param point GeoJSON Point version of location
-     * @return true if they match
+     * Executes validate.
+     *
+     * @param latLng the lat lng
+     * @param point the point
+     * @return the resulting boolean
      */
     protected boolean validate(final LatLng latLng, final Point point) {
         if (latLng == null && point == null) {
@@ -366,9 +314,11 @@ public class GeocodeValidator {
     }
 
     /**
-     * @param latLng geocoding location
-     * @param lla GeoJSON LngLatAlt version of location
-     * @return true if they match
+     * Executes validate.
+     *
+     * @param latLng the lat lng
+     * @param lla the lla
+     * @return the resulting boolean
      */
     protected boolean validate(final LatLng latLng, final LngLatAlt lla) {
         if (latLng == null && lla == null) {
@@ -384,24 +334,11 @@ public class GeocodeValidator {
         return almostEqual(latLng.lng, lla.getLongitude(), tolerance);
     }
 
-    /**
-     * Check if 2 doubles are close to the same.
-     *
-     * @param a first double
-     * @param b second double
-     * @param eps tolerance
-     * @return true if they are close
-     */
     private boolean almostEqual(final double a, final double b,
             final double eps) {
         return Math.abs(a - b) < eps;
     }
 
-    /**
-     * @param locationType0 first location type
-     * @param locationType1 second location type
-     * @return true if they match
-     */
     private boolean validate(final LocationType locationType0,
             final LocationType locationType1) {
         if (locationType0 == null && locationType1 == null) {
@@ -413,11 +350,6 @@ public class GeocodeValidator {
         return locationType0.equals(locationType1);
     }
 
-    /**
-     * @param array0 string array 1
-     * @param array1 string array 2
-     * @return true if they match
-     */
     private boolean validate(final String[] array0, final String[] array1) {
         if (array0 == null && array1 == null) {
             return true;
@@ -436,11 +368,6 @@ public class GeocodeValidator {
         return true;
     }
 
-    /**
-     * @param types0 first array
-     * @param types1 second array
-     * @return true if they match
-     */
     private boolean validate(final AddressType[] types0,
             final AddressType[] types1) {
         if (types0 == null && types1 == null) {

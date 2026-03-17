@@ -22,10 +22,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Emits GEDCOM to the HTTP connection to download the GEDCOM state.
+ * Handles requests for save.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @CrossOrigin(origins = { "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @Controller
@@ -74,8 +76,10 @@ public class SaveController {
     }
 
     /**
-     * @param dbName the name of the database
-     * @return the root object
+     * Executes fetch root.
+     *
+     * @param dbName the db name to use
+     * @return the resulting root
      */
     protected final Root fetchRoot(final String dbName) {
         final RootDocument rootDocument = loader.loadDocument(repositoryManager, dbName);

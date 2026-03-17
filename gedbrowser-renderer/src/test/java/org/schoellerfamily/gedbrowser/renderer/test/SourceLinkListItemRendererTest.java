@@ -20,8 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for source link list item renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -36,7 +40,6 @@ final class SourceLinkListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -51,7 +54,6 @@ final class SourceLinkListItemRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsListItem() {
         final SourceLink sourceLink =
@@ -70,7 +72,6 @@ final class SourceLinkListItemRendererTest {
                 builder.toString(), "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testRenderAsListItemWithTitle() {
         final SourceLink sourceLink =

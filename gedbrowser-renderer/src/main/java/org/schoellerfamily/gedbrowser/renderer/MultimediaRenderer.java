@@ -3,14 +3,17 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 
 /**
- * @author Dick Schoeller
+ * Renders multimedia output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class MultimediaRenderer extends GedRenderer<Multimedia> {
     /**
-     * @param gedObject the Multimedia object that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        multimedia objects
-     * @param renderingContext the context that we are rendering in
+     * Creates a new MultimediaRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public MultimediaRenderer(final Multimedia gedObject,
             final GedRendererFactory rendererFactory,
@@ -21,7 +24,9 @@ public final class MultimediaRenderer extends GedRenderer<Multimedia> {
     }
 
     /**
-     * @return the string field processed for HTML special characters.
+     * Gets the escaped string.
+     *
+     * @return the escaped string
      */
     public String getEscapedString() {
         final Multimedia attribute = getGedObject();

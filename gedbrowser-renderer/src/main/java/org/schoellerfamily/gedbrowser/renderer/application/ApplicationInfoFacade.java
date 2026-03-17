@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer.application;
 import java.util.Map;
 
 /**
- * @author Dick Schoeller
+ * Provides a simplified interface for application info operations.
+ *
+ * @author Richard Schoeller
  */
 public interface ApplicationInfoFacade extends ApplicationInfo {
     /**

@@ -63,8 +63,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.test.MongoTes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged document mongo to ged object converter.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects", "PMD.TooManyMethods" })
 @ExtendWith(org.springframework.test.context.junit.jupiter.SpringExtension.class)
@@ -74,7 +78,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
     @Autowired
     private transient GedDocumentMongoToGedObjectConverter toObjConverter;
 
-    /** */
     @Test
     void testCreateAttribute() {
         final AttributeDocumentMongo gmd = new AttributeDocumentMongo();
@@ -83,7 +86,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Attribute.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateChild() {
         final ChildDocumentMongo gmd = new ChildDocumentMongo();
@@ -92,7 +94,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Child.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateDate() {
         final DateDocumentMongo gmd = new DateDocumentMongo();
@@ -101,7 +102,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Date.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateFamily() {
         final FamilyDocumentMongo gmd = new FamilyDocumentMongo();
@@ -110,7 +110,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Family.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateFamC() {
         final FamCDocumentMongo gmd = new FamCDocumentMongo();
@@ -119,7 +118,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(FamC.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateFamS() {
         final FamSDocumentMongo gmd = new FamSDocumentMongo();
@@ -128,7 +126,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(FamS.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateHead() {
         final HeadDocumentMongo gmd = new HeadDocumentMongo();
@@ -137,7 +134,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Head.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateHusband() {
         final HusbandDocumentMongo gmd = new HusbandDocumentMongo();
@@ -146,7 +142,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Husband.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateNote() {
         final NoteDocumentMongo gmd = new NoteDocumentMongo();
@@ -155,7 +150,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Note.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateNoteLink() {
         final NoteLinkDocumentMongo gmd = new NoteLinkDocumentMongo();
@@ -164,7 +158,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(NoteLink.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreatePerson() {
         final PersonDocumentMongo gmd = new PersonDocumentMongo();
@@ -173,7 +166,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Person.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreatePlace() {
         final PlaceDocumentMongo gmd = new PlaceDocumentMongo();
@@ -182,7 +174,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Place.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateSource() {
         final SourceDocumentMongo gmd = new SourceDocumentMongo();
@@ -191,7 +182,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Source.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateSourceLink() {
         final SourceLinkDocumentMongo gmd = new SourceLinkDocumentMongo();
@@ -200,7 +190,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(SourceLink.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateSubmission() {
         final SubmissionDocumentMongo gmd = new SubmissionDocumentMongo();
@@ -209,7 +198,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Submission.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateSubmissionLink() {
         final SubmissionLinkDocumentMongo gmd = new SubmissionLinkDocumentMongo();
@@ -218,7 +206,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(SubmissionLink.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateSubmitter() {
         final SubmitterDocumentMongo gmd = new SubmitterDocumentMongo();
@@ -227,7 +214,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Submitter.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateSubmitterLink() {
         final SubmitterLinkDocumentMongo gmd = new SubmitterLinkDocumentMongo();
@@ -236,7 +222,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(SubmitterLink.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateTrailer() {
         final TrailerDocumentMongo gmd = new TrailerDocumentMongo();
@@ -245,7 +230,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Trailer.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateWife() {
         final WifeDocumentMongo gmd = new WifeDocumentMongo();
@@ -254,7 +238,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Wife.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateMultimedia() {
         final MultimediaDocumentMongo gmd = new MultimediaDocumentMongo();
@@ -263,7 +246,6 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Multimedia.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateName() {
         final NameDocumentMongo gmd = new NameDocumentMongo();
@@ -272,13 +254,14 @@ final class GedDocumentMongoToGedObjectConverterTest {
         assertEquals(Name.class, ged.getClass(), "Wrong class");
     }
 
-    /** */
     @Test
     void testCreateGed() {
         @SuppressWarnings("PMD.NonStaticInitializer")
         final GedDocument<?> gmd = new GedDocumentMongo<GedObject>() {
             /**
-             * {@inheritDoc}
+             * Returns the type.
+             *
+             * @return the type
              */
             @Override
             public String getType() {
@@ -286,7 +269,10 @@ final class GedDocumentMongoToGedObjectConverterTest {
             }
 
             /**
-             * {@inheritDoc}
+             * Loads the ged object.
+             *
+             * @param loader the loader
+             * @param ged the ged
              */
             @Override
             public void loadGedObject(final GedDocumentLoader loader, final GedObject ged) {
@@ -294,7 +280,9 @@ final class GedDocumentMongoToGedObjectConverterTest {
             }
 
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
@@ -302,7 +290,9 @@ final class GedDocumentMongoToGedObjectConverterTest {
             }
 
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedDocumentMongoVisitor visitor) {
@@ -310,7 +300,9 @@ final class GedDocumentMongoToGedObjectConverterTest {
             }
 
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedDocumentVisitor visitor) {

@@ -16,8 +16,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the living controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -38,7 +42,6 @@ class LivingControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testLivingControllerOK() {
         final String url = "http://localhost:" + port
@@ -56,7 +59,6 @@ class LivingControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testLivingControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()

@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Build the token table. Broken up into a bunch of steps to reduce complexity
- * scores.
+ * Represents token table initializer in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class TokenTableInitializer {
     /**
@@ -184,9 +183,7 @@ public final class TokenTableInitializer {
     };
 
     /**
-     * Constructor.
-     *
-     * Populates the map of tokens.
+     * Creates a new TokenTableInitializer.
      */
     public TokenTableInitializer() {
         initAttributeTokens();
@@ -194,19 +191,12 @@ public final class TokenTableInitializer {
         initSpecialFactoryTokens();
     }
 
-    /**
-     * Initialize a chunk of the tokens that go to the standard attribute
-     * factory.
-     */
     private void initAttributeTokens() {
         for (final String[] pair : ATTRIBUTE_PAIRS) {
             put(pair[0], pair[1], AbstractGedObjectFactory.ATTR_FACTORY);
         }
     }
 
-    /**
-     * Method to initialize the tokens for top level items.
-     */
     private void initLevel0FactoryTokens() {
         put("ROOT", "Root", AbstractGedObjectFactory.ROOT_FACTORY);
         put("HEAD", "Header", AbstractGedObjectFactory.HEAD_FACTORY);
@@ -220,10 +210,6 @@ public final class TokenTableInitializer {
         put("TRLR", "Trailer", AbstractGedObjectFactory.TRAILER_FACTORY);
     }
 
-    /**
-     * Method to initialize the tokens that use something other than the
-     * attribute factory.
-     */
     private void initSpecialFactoryTokens() {
         put("CHIL", "Child", AbstractGedObjectFactory.CHILD_FACTORY);
         put("CONC", "Concatenate", AbstractGedObjectFactory.CONCAT_FACTORY);
@@ -239,21 +225,11 @@ public final class TokenTableInitializer {
         put("WIFE", "Wife", AbstractGedObjectFactory.WIFE_FACTORY);
     }
 
-    /**
-     * @param shortstring the short string in gedcom
-     * @param fullstring the long string in the db
-     * @param factory the associated concrete factory
-     */
     private void put(final String shortstring, final String fullstring,
             final AbstractGedObjectFactory factory) {
         tokens.put(shortstring, new GedToken(fullstring, factory));
     }
 
-    /**
-     * Return the token table.
-     *
-     * @return the token table.
-     */
     /* default */ Map<String, GedToken> getTokens() {
         return tokens;
     }

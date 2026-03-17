@@ -25,8 +25,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for place list renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfiguration.class)
@@ -42,14 +46,8 @@ final class PlaceListRendererTest {
     @Autowired
     private ApplicationInfo appInfo;
 
-    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
-    /**
-     * A common person creator.
-     *
-     * @return the person
-     */
     private Person createJRandom() {
         return builder.createPerson("I1", "J. Random/Schoeller/");
     }
@@ -57,7 +55,7 @@ final class PlaceListRendererTest {
     /**
      * Setup the configurations for this test class.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     @Configuration
     public static class ContextConfiguration {

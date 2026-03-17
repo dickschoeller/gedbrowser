@@ -7,8 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GetString;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of ged.
  *
+ * @author Richard Schoeller
  * @param <G> the GedObject type that this is for
  */
 public interface GedDocument<G extends GedObject> extends GetString {

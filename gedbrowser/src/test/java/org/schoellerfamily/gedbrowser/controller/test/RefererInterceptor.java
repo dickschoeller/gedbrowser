@@ -9,23 +9,30 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
 /**
- * @author Dick Schoeller
+ * Provides support for testing referer interceptor behavior.
+ *
+ * @author Richard Schoeller
  */
 public class RefererInterceptor implements ClientHttpRequestInterceptor {
     /** */
     private final String refererUrl;
 
     /**
-     * Constructor.
+     * Creates a new RefererInterceptor.
      *
-     * @param refererUrl the URL string to set into the referrer header
+     * @param refererUrl the referer url to use
      */
     public RefererInterceptor(final String refererUrl) {
         this.refererUrl = refererUrl;
     }
 
     /**
-     * Intercept request and add a referer header.
+     * Executes intercept.
+     *
+     * @param request the request
+     * @param body the body
+     * @param execution the execution
+     * @return the resulting client http response
      */
     @Override
     public ClientHttpResponse intercept(

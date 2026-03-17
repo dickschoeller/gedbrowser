@@ -38,8 +38,12 @@ import com.mongodb.client.MongoClients;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to mongo.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableMongoRepositories(
@@ -97,7 +101,9 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the RestClient builder
+     * Creates and configures the builder bean.
+     *
+     * @return the configured builder bean
      */
     @Bean
     public RestClient.Builder restClientBuilder() {
@@ -105,8 +111,10 @@ public class MongoConfiguration {
     }
 
     /**
-     * @param builder the rest client builder that Spring provides
-     * @return the rest client
+     * Creates and configures the rest client bean.
+     *
+     * @param builder the builder
+     * @return the configured rest client bean
      */
     @Bean
     public RestClient restClient(final RestClient.Builder builder) {
@@ -114,7 +122,9 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return convert for AbstractGedLine hierarchy to GedObject hierarchy
+     * Creates and configures the ged line to ged object transformer bean.
+     *
+     * @return the configured ged line to ged object transformer bean
      */
     @Bean
     public GedLineToGedObjectTransformer g2g() {
@@ -122,7 +132,9 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the converter
+     * Creates and configures the ged document mongo to ged object converter bean.
+     *
+     * @return the configured ged document mongo to ged object converter bean
      */
     @Bean
     public GedDocumentMongoToGedObjectConverter toGedObjectConverter() {
@@ -130,7 +142,9 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the converter
+     * Creates and configures the ged object to ged document mongo converter bean.
+     *
+     * @return the configured ged object to ged document mongo converter bean
      */
     @Bean
     public GedObjectToGedDocumentMongoConverter toGedDocumentConverter() {
@@ -138,9 +152,11 @@ public class MongoConfiguration {
     }
 
     /**
+     * Creates and configures the finder strategy bean.
+     *
      * @param repositoryManager the repository manager
-     * @param toDocConverter    the converter to ged document
-     * @return the finder
+     * @param toDocConverter the to doc converter
+     * @return the configured finder strategy bean
      */
     @Bean
     public FinderStrategy finder(final RepositoryManagerMongo repositoryManager,
@@ -149,7 +165,9 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the repository manager
+     * Creates and configures the repository manager mongo bean.
+     *
+     * @return the configured repository manager mongo bean
      */
     @Bean
     public RepositoryManagerMongo repositoryManager() {
@@ -157,7 +175,9 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return a calendar provider of REAL today
+     * Creates and configures the calendar provider bean.
+     *
+     * @return the configured calendar provider bean
      */
     @Bean
     public CalendarProvider calendarProvider() {

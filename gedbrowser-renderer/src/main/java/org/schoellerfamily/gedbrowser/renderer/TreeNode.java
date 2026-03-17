@@ -1,8 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Represents tree node.
  *
+ * @author Richard Schoeller
  * @param <N> an object to contain in the tree.
  */
 public final class TreeNode<N> {
@@ -18,8 +19,10 @@ public final class TreeNode<N> {
     private int column;
 
     /**
-     * @param node what ever we are holding in the tree
-     * @param seedRow the original row, this will likely get overwritten.
+     * Creates a new TreeNode.
+     *
+     * @param node the node
+     * @param seedRow the seed row
      * @param column the column
      */
     public TreeNode(final N node, final int seedRow, final int column) {
@@ -29,35 +32,45 @@ public final class TreeNode<N> {
     }
 
     /**
-     * @param rightNode the one on the right.
+     * Executes add right.
+     *
+     * @param rightNode the right node
      */
     public void addRight(final TreeNode<N> rightNode) {
         this.right = rightNode;
     }
 
     /**
-     * @param leftNode the one on the left.
+     * Executes add left.
+     *
+     * @param leftNode the left node
      */
     public void addLeft(final TreeNode<N> leftNode) {
         this.left = leftNode;
     }
 
     /**
-     * @param row the row.
+     * Sets the row.
+     *
+     * @param row the row
      */
     public void setRow(final int row) {
         this.row = row;
     }
 
     /**
-     * @return the row.
+     * Gets the row.
+     *
+     * @return the row
      */
     public int getRow() {
         return row;
     }
 
     /**
-     * @return return the highest row number in the underlying tree.
+     * Gets the highest row in tree.
+     *
+     * @return the highest row in tree
      */
     public int getHighestRowInTree() {
         if (right == null) {
@@ -68,35 +81,45 @@ public final class TreeNode<N> {
     }
 
     /**
-     * @param column the column.
+     * Sets the column.
+     *
+     * @param column the column
      */
     public void setColumn(final int column) {
         this.column = column;
     }
 
     /**
-     * @return the column.
+     * Gets the column.
+     *
+     * @return the column
      */
     public int getColumn() {
         return column;
     }
 
     /**
-     * @return the contained node.
+     * Gets the node.
+     *
+     * @return the node
      */
     public N getNode() {
         return node;
     }
 
     /**
-     * @return the node to the left.
+     * Gets the left.
+     *
+     * @return the left
      */
     public TreeNode<N> getLeft() {
         return left;
     }
 
     /**
-     * @return the node to the right.
+     * Gets the right.
+     *
+     * @return the right
      */
     public TreeNode<N> getRight() {
         return right;

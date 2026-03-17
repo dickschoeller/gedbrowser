@@ -5,23 +5,27 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Renders person name index output for display.
+ *
+ * @author Richard Schoeller
  */
 public class PersonNameIndexRenderer implements NameIndexRenderer {
     /** */
     private final transient PersonRenderer personRenderer;
 
     /**
-     * Constructor.
+     * Creates a new PersonNameIndexRenderer.
      *
-     * @param personRenderer the associated personRenderer
+     * @param personRenderer the person renderer
      */
     public PersonNameIndexRenderer(final PersonRenderer personRenderer) {
         this.personRenderer = personRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public final String getIndexName() {
@@ -51,11 +55,6 @@ public class PersonNameIndexRenderer implements NameIndexRenderer {
                 + person.getString() + ")</a>";
     }
 
-    /**
-     * @param birthYear birth year string
-     * @param deathYear death year string
-     * @return nicely formatted range string
-     */
     private String dateRangeString(final String birthYear,
             final String deathYear) {
         if (birthYear.isEmpty() && deathYear.isEmpty()) {

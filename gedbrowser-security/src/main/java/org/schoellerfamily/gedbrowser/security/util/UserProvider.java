@@ -5,7 +5,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 
 /**
- * @author Dick Schoeller
+ * Provides user values to calling code.
+ *
+ * @author Richard Schoeller
  */
 public interface UserProvider {
     /**

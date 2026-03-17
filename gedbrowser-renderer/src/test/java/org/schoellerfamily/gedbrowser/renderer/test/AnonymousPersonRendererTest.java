@@ -36,8 +36,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for anonymous person renderer.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.TooManyMethods" })
 @ExtendWith(SpringExtension.class)
@@ -312,9 +316,6 @@ final class AnonymousPersonRendererTest {
             "Mismatched renderer type");
     }
 
-    /**
-     * @return the renderer
-     */
     private PersonRenderer createRenderer() {
         final GedObjectBuilder builder = new GedObjectBuilder();
         final Person person = builder.createPerson("I1");
@@ -339,14 +340,6 @@ final class AnonymousPersonRendererTest {
         }
     }
 
-    /**
-     * Perform a check for a particular cell.
-     *
-     * @param treeCells the person's cells
-     * @param i         the current index
-     * @param cc        the current cell class string
-     * @param nameHtml  the current name string
-     */
     private void assertCellMatch(final String[] treeCells, final int i, final String cc,
         final String nameHtml) {
         assertEquals(TREE_CELL_CLASSES[i], cc, "Cell class mismatch");

@@ -14,15 +14,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * Data driven tests of the permutations of calling the constructors of FamC.
+ * Contains tests for fam c constructor.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 final class FamCConstructorTest {
 
-    /**
-     * @return parameters for parameterized tests
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

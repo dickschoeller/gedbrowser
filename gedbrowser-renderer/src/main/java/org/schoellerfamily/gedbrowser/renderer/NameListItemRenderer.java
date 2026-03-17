@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders name list item output for display.
+ *
+ * @author Richard Schoeller
  */
 public class NameListItemRenderer implements ListItemRenderer {
     /**
@@ -10,16 +12,21 @@ public class NameListItemRenderer implements ListItemRenderer {
     private final transient NameRenderer nameRenderer;
 
     /**
-     * Constructor.
+     * Creates a new NameListItemRenderer.
      *
-     * @param nameRenderer the renderer that this is associated with.
+     * @param nameRenderer the name renderer to use
      */
     protected NameListItemRenderer(final NameRenderer nameRenderer) {
         this.nameRenderer = nameRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as list item.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -34,16 +41,15 @@ public class NameListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
-    /**
-     * @param builder the string builder that we will be appending to.
-     */
     private void renderListItemContents(final StringBuilder builder) {
         builder.append("<span class=\"label\">Name:</span> ");
         builder.append(nameRenderer.renderAsPhrase());
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {

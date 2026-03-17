@@ -8,10 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * Encapsulates the estimation methods associated with look at a person's
- * parents.
+ * Represents birth date from parents estimator.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class BirthDateFromParentsEstimator extends Estimator {
     /** Hold the person we are estimating. */
@@ -20,8 +19,9 @@ public final class BirthDateFromParentsEstimator extends Estimator {
     private final Typicals typicals;
 
     /**
-     * Constructor.
-     * @param person the person whose dates we are estimating
+     * Creates a new BirthDateFromParentsEstimator.
+     *
+     * @param person the person
      */
     public BirthDateFromParentsEstimator(final Person person) {
         this.person = person;
@@ -29,8 +29,10 @@ public final class BirthDateFromParentsEstimator extends Estimator {
     }
 
     /**
-     * @param localDate if not null we already have a better estimate
-     * @return estimate from parents birth date
+     * Executes estimate from birth.
+     *
+     * @param localDate the local date
+     * @return the resulting local date
      */
     public LocalDate estimateFromBirth(final LocalDate localDate) {
         if (localDate != null) {
@@ -62,12 +64,6 @@ public final class BirthDateFromParentsEstimator extends Estimator {
         return date;
     }
 
-    /**
-     * Adjust the given date by age of parent at first child.
-     *
-     * @param date the input date
-     * @return the adjusted date
-     */
     private LocalDate parentDateIncrement(final LocalDate date) {
         final int years = typicals.ageAtMarriage()
                 + typicals.gapBetweenChildren();
@@ -75,8 +71,10 @@ public final class BirthDateFromParentsEstimator extends Estimator {
     }
 
     /**
-     * @param localDate if not null we already have a better estimate
-     * @return estimate from the date of parents marriage.
+     * Executes estimate from marriage.
+     *
+     * @param localDate the local date
+     * @return the resulting local date
      */
     public LocalDate estimateFromMarriage(final LocalDate localDate) {
         if (localDate != null) {

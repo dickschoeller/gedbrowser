@@ -3,10 +3,9 @@ package org.schoellerfamily.gedbrowser.datamodel.appender;
 import org.schoellerfamily.gedbrowser.datamodel.Tail;
 
 /**
- * Implements the means by which string are appended in attributes, which is to
- * the tail string.
+ * Represents tail appender in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class TailAppender implements AppenderStrategy {
     /**
@@ -15,14 +14,19 @@ public final class TailAppender implements AppenderStrategy {
     private final transient Tail owner;
 
     /**
-     * Constructor.
+     * Creates a new TailAppender.
      *
-     * @param owner the Attribute that owns this appender.
+     * @param owner the owner
      */
     public TailAppender(final Tail owner) {
         this.owner = owner;
     }
 
+    /**
+     * Executes append string.
+     *
+     * @param appendage the appendage
+     */
     @Override
     public void appendString(final String appendage) {
         owner.setTail(owner.getTail().concat(appendage));

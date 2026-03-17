@@ -8,11 +8,12 @@ import lombok.experimental.SuperBuilder;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
+
+
 /**
- * Represents the HEAD object of the loaded GEDCOM. Generally not needed for UI rendering, but
- * is useful in data export.
+ * Represents api head in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuperBuilder(toBuilder = true)
 @Getter
@@ -42,11 +43,22 @@ public final class ApiHead extends ApiObject {
         }
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
+     */
     @Override
     protected boolean canEqual(final Object other) {
         return other.getClass() == ApiHead.class;

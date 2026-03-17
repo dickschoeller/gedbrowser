@@ -1,28 +1,32 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents submission in the domain model.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Submission extends GedObject {
-    /**
-     * Constructor.
-     */
-    public Submission() {
-        super();
-    }
 
     /**
-     * Constructor.
+     * Creates a new Submission.
      *
-     * @param parent the parent object, generally the root
-     * @param objectId the ID of this submission
+     * @param parent the parent
+     * @param objectId the unique identifier for object
      */
     public Submission(final GedObject parent, final ObjectId objectId) {
         super(parent, objectId.getIdString());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

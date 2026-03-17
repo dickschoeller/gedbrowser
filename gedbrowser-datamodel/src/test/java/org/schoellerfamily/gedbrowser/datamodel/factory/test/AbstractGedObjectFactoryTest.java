@@ -38,21 +38,21 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for abstract ged object factory.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class AbstractGedObjectFactoryTest {
-
     /** */
     private static final GedObjectBuilder BUILDER = new GedObjectBuilder();
-
     /** */
     private static final Root ROOT = BUILDER.getRoot();
-
     /** */
     private static final Person PERSON = BUILDER.createPerson("I1", "Richard John/Schoeller/");
-
     /** */
     private static final Attribute NOTE = new Attribute(PERSON, "Note", "Some text");
 
@@ -127,15 +127,11 @@ final class AbstractGedObjectFactoryTest {
     /** */
     private GedObjectFactory factory;
 
-    /** */
     @BeforeEach
     void setUp() {
         factory = new GedObjectFactory();
     }
 
-    /**
-     * @return the collection of test parameters
-     */
     static Stream<Arguments> params() {
         PERSON.addAttribute(NOTE);
         return Arrays.stream(PARAMETERS).map(Arguments::of);

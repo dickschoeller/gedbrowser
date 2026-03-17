@@ -10,7 +10,9 @@ import org.apache.commons.collections4.CollectionUtils;
 import com.google.maps.model.Bounds;
 
 /**
- * @author Dick Schoeller
+ * Builds bounds instances.
+ *
+ * @author Richard Schoeller
  */
 public interface BoundsBuilder extends LatLngBuilder {
     /**

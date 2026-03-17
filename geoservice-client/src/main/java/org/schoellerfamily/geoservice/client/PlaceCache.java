@@ -3,12 +3,9 @@ package org.schoellerfamily.geoservice.client;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 
 /**
- * Minimal cache interface used by {@link GeoServiceClient}.
- * Keeping this interface free of ehcache API types allows
- * {@code GeoServiceClient} later substitution of a different cache implementation.
- * Implementations that hold resources should override {@link #close()}.
+ * Defines the contract for place cache.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface PlaceCache extends AutoCloseable {
     /**

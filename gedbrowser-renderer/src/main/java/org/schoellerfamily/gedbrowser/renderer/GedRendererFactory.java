@@ -30,17 +30,15 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
+
+
 /**
- * Factory to create the appropriate type of renderer based on the type of the
- * GedObject.
+ * Creates ged renderer instances.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "java:S1452" })
 public final class GedRendererFactory {
-    /**
-     * Dispatcher for factory.
-     */
     private static Map<Class<?>, RendererBuilder> builders = Map.ofEntries(
         Map.entry((Class<?>) Husband.class,
             (RendererBuilder) (g, f, r) -> new HusbandRenderer((Husband) g, f, r)),
@@ -98,15 +96,9 @@ public final class GedRendererFactory {
     /**
      * Interface for builders for the factory.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private interface RendererBuilder {
-        /**
-         * @param gedObject        a gedobject to render
-         * @param factory          the factory that we're working with
-         * @param renderingContext the current rendering context
-         * @return the appropriate renderer
-         */
         GedRenderer<? extends GedObject> build(GedObject gedObject, GedRendererFactory factory,
             RenderingContext renderingContext);
     }

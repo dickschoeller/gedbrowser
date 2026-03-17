@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.api.service.storage;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Interface describing the methods of a service for storing files.
+ * Provides services for storage.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface StorageService {
     /**

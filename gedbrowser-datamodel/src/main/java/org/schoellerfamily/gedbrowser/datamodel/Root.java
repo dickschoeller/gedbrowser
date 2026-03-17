@@ -8,38 +8,44 @@ import org.schoellerfamily.gedbrowser.datamodel.finder.RootFinder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents root in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Root extends AbstractSpecialObject {
-    /** */
+    /**
+     * The filename value.
+     */
     private transient String filename;
 
-    /** */
+    /**
+     * The dbname value.
+     */
     private transient String dbname;
 
     /**
-     * Map of ID strings to GedObjects. This is the complete set of top level
-     * objects, Persons, Families, Sources and Submitters.
+     * Map of ID strings to GedObjects. This is the complete set of top level GedObjects.
      */
     private final transient Map<String, GedObject> objects =
             new HashMap<String, GedObject>();
 
     /**
-     * Index object that manages index breakdown by Surname -> Complete Name ->
-     * individual persons.
+     * Index object that manages index breakdown by Surname -> Complete Name -> Person.
      */
     private final transient Index surnameIndex;
 
     /**
-     * Default constructor.
+     * Creates a new Root.
      */
     public Root() {
         this(new RootFinder());
     }
 
     /**
-     * @param string long version of type string
-     * @param finder the engine for find objects in this data set
+     * Creates a new Root.
+     *
+     * @param string the string
+     * @param finder the finder
      */
     public Root(final String string, final FinderStrategy finder) {
         this(finder);
@@ -47,7 +53,9 @@ public final class Root extends AbstractSpecialObject {
     }
 
     /**
-     * @param finder the engine for finding objects in the data set
+     * Creates a new Root.
+     *
+     * @param finder the finder
      */
     public Root(final FinderStrategy finder) {
         super();
@@ -56,12 +64,19 @@ public final class Root extends AbstractSpecialObject {
     }
 
     /**
-     * @param string long version of type string
+     * Creates a new Root.
+     *
+     * @param string the string
      */
     public Root(final String string) {
         this(string, new RootFinder());
     }
 
+    /**
+     * Executes extra insert.
+     *
+     * @param gob the gob
+     */
     @Override
     public void extraInsert(final FinderObject gob) {
         objects.put(gob.getString(), (GedObject) gob);
@@ -69,7 +84,9 @@ public final class Root extends AbstractSpecialObject {
     }
 
     /**
-     * @return the map of IDs to objects.
+     * Gets the objects.
+     *
+     * @return the objects
      */
     public Map<String, GedObject> getObjects() {
         return objects;
@@ -83,42 +100,55 @@ public final class Root extends AbstractSpecialObject {
     }
 
     /**
-     * @return the index object
+     * Gets the index.
+     *
+     * @return the index
      */
     public Index getIndex() {
         return surnameIndex;
     }
 
     /**
-     * @param filename
-     *            the file name for this data set
+     * Sets the filename.
+     *
+     * @param filename the filename to use
      */
     public void setFilename(final String filename) {
         this.filename = filename;
     }
 
     /**
-     * @return the file name for this data set
+     * Gets the the filename.
+     *
+     * @return the the filename
      */
     public String getTheFilename() {
         return this.filename;
     }
 
     /**
-     * @return the DB name for this data set
+     * Gets the the db name.
+     *
+     * @return the the db name
      */
     public String getTheDbName() {
         return this.dbname;
     }
 
     /**
-     * @param dbName
-     *            the file name for this data set
+     * Sets the db name.
+     *
+     * @param dbName the db name to use
      */
     public void setDbName(final String dbName) {
         this.dbname = dbName;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

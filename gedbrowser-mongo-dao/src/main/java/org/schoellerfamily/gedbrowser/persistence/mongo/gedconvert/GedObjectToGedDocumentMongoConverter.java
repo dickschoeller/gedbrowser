@@ -57,8 +57,12 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterLinkDocu
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents ged object to ged document mongo converter for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
 public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
@@ -95,16 +99,12 @@ public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
     }
 
     /**
-     * Constructor.
+     * Creates a new GedObjectToGedDocumentMongoConverter.
      */
     public GedObjectToGedDocumentMongoConverter() {
         // Empty
     }
 
-    /**
-     * @param ged the GedObject that we are going to persist
-     * @return the mongo document to represent it
-     */
     private GedDocumentMongo<? extends GedObject> create(final GedObject ged) {
         if (ged == null) {
             throw new PersistenceException("Null ged object not supported");
@@ -124,8 +124,10 @@ public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
     }
 
     /**
-     * @param document      the document
-     * @param gedAttributes the attributes to add
+     * Loads the attributes.
+     *
+     * @param document the document
+     * @param gedAttributes the ged attributes
      */
     public void loadAttributes(final GedDocument<?> document, final List<GedObject> gedAttributes) {
         document.clearAttributes();
@@ -136,9 +138,11 @@ public class GedObjectToGedDocumentMongoConverter implements GedDocumentLoader {
     }
 
     /**
-     * @param <G> type of GedObject provided
-     * @param ged the GedObject that is being transformed
-     * @return the mongo document produced
+     * Creates the ged document.
+     *
+     * @param <G> the type to return
+     * @param ged the ged
+     * @return the resulting ged document mongo
      */
     public <G extends GedObject> GedDocumentMongo<G> createGedDocument(final G ged) {
         @SuppressWarnings("unchecked")

@@ -20,8 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for note link list item renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -36,7 +40,6 @@ final class NoteLinkListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -50,7 +53,6 @@ final class NoteLinkListItemRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsListItem() {
         final NoteLink noteLink = new NoteLink(person, "NOTE", new ObjectId("N1"));
@@ -67,7 +69,6 @@ final class NoteLinkListItemRendererTest {
             builder.toString(), "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testRenderAsListItemWithTitle() {
         final NoteLink sourceLink = new NoteLink(person, "NOTE", new ObjectId("N2"));

@@ -13,11 +13,13 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+/**
+ * Contains tests for link constructor.
+ */
+
 final class LinkConstructorTest {
 
-    /**
-     * @return parameters for parameterized tests
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

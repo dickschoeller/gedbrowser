@@ -17,8 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for upload.
+ *
+ * @author Richard Schoeller
  */
 @CrossOrigin(origins = { "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @RestController
@@ -56,6 +60,12 @@ public class UploadController {
     @RequestMapping(value = "/v1/upload",
         method = RequestMethod.POST,
         consumes = "multipart/form-data")
+    /**
+     * Executes upload.
+     *
+     * @param file the file to use
+     * @return the resulting api head
+     */
     public final ApiHead upload(@RequestParam("file") final MultipartFile file) {
         final String originalFilename = file.getOriginalFilename();
         if (ObjectUtils.isEmpty(originalFilename)) {

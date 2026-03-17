@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders submission link phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public class SubmissionLinkPhraseRenderer implements PhraseRenderer {
     /**
@@ -10,9 +12,9 @@ public class SubmissionLinkPhraseRenderer implements PhraseRenderer {
     private final transient SubmissionLinkRenderer slRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SubmissionLinkPhraseRenderer.
      *
-     * @param renderer the renderer that this is associated with.
+     * @param renderer the renderer
      */
     protected SubmissionLinkPhraseRenderer(
             final SubmissionLinkRenderer renderer) {
@@ -20,7 +22,9 @@ public class SubmissionLinkPhraseRenderer implements PhraseRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the string.
+     *
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

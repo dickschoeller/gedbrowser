@@ -17,8 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for birth date from children estimator.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -27,17 +31,26 @@ class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
     @Autowired
     private GedObjectBuilder builder;
 
+    /**
+     * Returns the person builder.
+     *
+     * @return the resulting person builder
+     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
+    /**
+     * Returns the family builder.
+     *
+     * @return the resulting family builder
+     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;
     }
 
-    /** */
     @Test
     void testFromChildBirth() {
         final Person person1 = createJRandom();
@@ -61,7 +74,6 @@ class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromChildAdultEvent() {
         final Person person1 = createJRandom();
@@ -85,7 +97,6 @@ class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromSecondChildBirth() {
         final Person person1 = createJRandom();
@@ -111,7 +122,6 @@ class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromSpouseParent() {
         final Person person1 = createJRandom();
@@ -150,7 +160,6 @@ class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromNada() {
         final Person person1 = createJRandom();
@@ -160,7 +169,6 @@ class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         assertNull(actual, "Expect a null when given this little");
     }
 
-    /** */
     @Test
     void testFromNadaWithDate() {
         final Person person1 = createJRandom();
@@ -176,19 +184,10 @@ class BirthDateFromChildrenEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /**
-     * @param expected expected date
-     * @param actual actual date
-     */
     private void assertMatch(final LocalDate expected, final LocalDate actual) {
         assertTrue(expected.isEqual(actual), mismatchString(expected, actual));
     }
 
-    /**
-     * @param expected expected date
-     * @param actual actual date
-     * @return string describing the mismatch
-     */
     private String mismatchString(final LocalDate expected,
             final LocalDate actual) {
         return "Don't match! expected: " + expected + ", actual: " + actual;

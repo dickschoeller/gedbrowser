@@ -5,9 +5,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
 /**
- * Interface provides default behaviors of creating CRUD processors.
+ * Defines the contract for new cruds.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface NewCruds {
     /**

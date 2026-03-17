@@ -6,7 +6,9 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 
 /**
- * @author Dick Schoeller
+ * Defines persistence operations for ged document loader.
+ *
+ * @author Richard Schoeller
  */
 public interface GedDocumentLoader {
     /**

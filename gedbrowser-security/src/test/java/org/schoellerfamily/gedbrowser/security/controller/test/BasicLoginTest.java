@@ -20,8 +20,12 @@ import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for basic login.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(

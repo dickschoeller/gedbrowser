@@ -16,23 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Emits GEDCOM to the HTTP connection to download the GEDCOM state.
+ * Handles requests for save.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @RestController
 @Slf4j
 public class SaveController extends AbstractController {
 
     /**
-     * Constructor.
+     * Creates a new SaveController.
      *
-     * @param appInfo the application info
-     * @param users info about the known application users
-     * @param loader enable loading gedcom files
-     * @param provider enable calendar processing
-     * @param repositoryManager enable data storage
+     * @param appInfo the app info
+     * @param users the users
+     * @param loader the loader
+     * @param provider the provider
+     * @param repositoryManager the repository manager
      */
     public SaveController(final ApplicationInfo appInfo,
             final Users<? extends User> users,
@@ -72,13 +74,6 @@ public class SaveController extends AbstractController {
         return contents;
     }
 
-    /**
-     * Fill in response headers to make this save the file instead of
-     * displaying it.
-     *
-     * @param response the servlet response
-     * @param root the root of the dataset being saved
-     */
     private void setHeaders(final HttpServletResponse response,
             final Root root) {
         response.setHeader("content-type", "application/octet-stream");
@@ -86,10 +81,6 @@ public class SaveController extends AbstractController {
                 "attachment; filename=" + getSaveFilename(root));
     }
 
-    /**
-     * @param root the root object we are saving
-     * @return the href string with the base filename.
-     */
     private String getSaveFilename(final Root root) {
         final String filename = root.getFilename();
         final int lastIndexOf = filename.lastIndexOf("/");

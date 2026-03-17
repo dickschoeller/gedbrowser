@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * @author Dick Schoeller
+ * Renders parents output for display.
+ *
+ * @author Richard Schoeller
  */
 public class ParentsRenderer {
     /** */
@@ -15,9 +17,9 @@ public class ParentsRenderer {
     private final PersonNavigator navigator;
 
     /**
-     * Constructor.
+     * Creates a new ParentsRenderer.
      *
-     * @param personRenderer the containing renderer
+     * @param personRenderer the person renderer
      */
     public ParentsRenderer(final PersonRenderer personRenderer) {
         this.personRenderer = personRenderer;
@@ -50,12 +52,6 @@ public class ParentsRenderer {
         renderParent(builder, pad, mother, "Mother");
     }
 
-    /**
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param parent The parent being rendered
-     * @param parentLabel The string containing the parent type
-     */
     private void renderParent(final StringBuilder builder,
             final int pad, final Person parent, final String parentLabel) {
         if (parent != null) {
@@ -64,12 +60,6 @@ public class ParentsRenderer {
         }
     }
 
-    /**
-     * @param builder Buffer for holding the rendition
-     * @param pad Minimum number spaces for padding each line of the output
-     * @param parentHtml The parent being rendered
-     * @param parentLabel The string containing the parent type
-     */
     private void renderParent(final StringBuilder builder,
             final int pad, final String parentHtml, final String parentLabel) {
         if (!parentHtml.isEmpty() && (isConfidential() || isHiddenLiving())) {
@@ -89,7 +79,9 @@ public class ParentsRenderer {
     }
 
     /**
-     * @return the father string.
+     * Gets the father rendition.
+     *
+     * @return the father rendition
      */
     public String getFatherRendition() {
         final StringBuilder builder = new StringBuilder();
@@ -102,7 +94,9 @@ public class ParentsRenderer {
     }
 
     /**
-     * @return the mother string
+     * Gets the mother rendition.
+     *
+     * @return the mother rendition
      */
     public String getMotherRendition() {
         final StringBuilder builder = new StringBuilder();
@@ -115,7 +109,9 @@ public class ParentsRenderer {
     }
 
     /**
-     * @return the HTML string format of the father's name.
+     * Gets the father name html.
+     *
+     * @return the father name html
      */
     public String getFatherNameHtml() {
         if (isConfidential()) {
@@ -128,7 +124,9 @@ public class ParentsRenderer {
     }
 
     /**
-     * @return the HTML string format of the mother's name.
+     * Gets the mother name html.
+     *
+     * @return the mother name html
      */
     public String getMotherNameHtml() {
         if (isConfidential()) {
@@ -140,25 +138,15 @@ public class ParentsRenderer {
         return createGedRenderer(navigator.getMother()).getNameHtml();
     }
 
-    /**
-     * @param parent the parent that we are creating a renderer for
-     * @return the renderer
-     */
     private GedRenderer<? extends GedObject> createGedRenderer(
             final Person parent) {
         return personRenderer.createGedRenderer(parent);
     }
 
-    /**
-     * @return true if the person is hidden because confidential
-     */
     private boolean isConfidential() {
         return personRenderer.isConfidential();
     }
 
-    /**
-     * @return true if the person is hidden because living
-     */
     private boolean isHiddenLiving() {
         return personRenderer.isHiddenLiving();
     }

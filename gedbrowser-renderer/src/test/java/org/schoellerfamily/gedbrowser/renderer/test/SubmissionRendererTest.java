@@ -26,8 +26,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for submission renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -43,16 +47,11 @@ final class SubmissionRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final SubmissionRenderer renderer = createRenderer();
@@ -61,10 +60,6 @@ final class SubmissionRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final SubmissionRenderer renderer = createRenderer();
@@ -72,10 +67,6 @@ final class SubmissionRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final SubmissionRenderer renderer = createRenderer();
@@ -83,10 +74,6 @@ final class SubmissionRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final SubmissionRenderer renderer = createRenderer();
@@ -94,10 +81,6 @@ final class SubmissionRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final SubmissionRenderer renderer = createRenderer();
@@ -105,10 +88,6 @@ final class SubmissionRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testIdString() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -117,10 +96,6 @@ final class SubmissionRendererTest {
         assertEquals("S1", renderer.getIdString(), "Submission ID mismatch");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testTitleString() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -129,28 +104,16 @@ final class SubmissionRendererTest {
         assertEquals("S1", renderer.getTitleString(), "Submission ID mismatch");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNullIdString() {
         final SubmissionRenderer renderer = createRenderer();
         assertEquals("", renderer.getIdString(), "Expected empty submission ID");
     }
 
-    /**
-     * @return the renderer
-     */
     private SubmissionRenderer createRenderer() {
         return new SubmissionRenderer(new Submission(), new GedRendererFactory(), anonymousContext);
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -161,11 +124,6 @@ final class SubmissionRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -176,11 +134,6 @@ final class SubmissionRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -191,11 +144,6 @@ final class SubmissionRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -207,11 +155,6 @@ final class SubmissionRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -222,11 +165,6 @@ final class SubmissionRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -237,11 +175,6 @@ final class SubmissionRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSubmissionsMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -253,10 +186,6 @@ final class SubmissionRendererTest {
         }
     }
 
-    /**
-     * @param submission the submission
-     * @return the renderer
-     */
     private SubmissionRenderer createRenderer(final Submission submission) {
         return new SubmissionRenderer(submission, new GedRendererFactory(), anonymousContext);
     }

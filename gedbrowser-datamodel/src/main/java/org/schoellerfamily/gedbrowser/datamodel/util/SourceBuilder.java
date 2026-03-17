@@ -8,7 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 
 /**
- * @author Dick Schoeller
+ * Builds source instances.
+ *
+ * @author Richard Schoeller
  */
 public interface SourceBuilder {
     /**

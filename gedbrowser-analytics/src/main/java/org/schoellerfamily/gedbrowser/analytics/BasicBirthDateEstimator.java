@@ -13,11 +13,10 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * Basic birth date estimator for a person. Only looks at the person's events.
- * If you want a more extensive analysis, use BirthDateEstimator.
+ * Represents basic birth date estimator.
  *
  * @see BirthDateEstimator
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class BasicBirthDateEstimator extends Estimator {
     /** Hold the person we are estimating. */
@@ -26,9 +25,9 @@ public class BasicBirthDateEstimator extends Estimator {
     private final Typicals typicals;
 
     /**
-     * Constructor.
+     * Creates a new BasicBirthDateEstimator.
      *
-     * @param person the person we are estimating
+     * @param person the person
      */
     public BasicBirthDateEstimator(final Person person) {
         this.person = person;
@@ -105,13 +104,6 @@ public class BasicBirthDateEstimator extends Estimator {
         return null;
     }
 
-    /**
-     * Estimate from a single event.
-     *
-     * @param gob the event
-     * @param dateString the date string from the event
-     * @return the adjust date estimate. Can return null.
-     */
     private LocalDate estimateFromEvent(final GedObject gob,
             final String dateString) {
         if (StringUtils.isEmpty(dateString)) {

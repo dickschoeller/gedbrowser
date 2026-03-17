@@ -1,36 +1,44 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents note link in the domain model.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class NoteLink extends AbstractLink {
-    /**
-     * Default constructor.
-     */
-    public NoteLink() {
-        super();
-    }
 
     /**
-     * @param parent parent object of this link
-     * @param tag long version of type string
+     * Creates a new NoteLink.
+     *
+     * @param parent the parent
+     * @param tag the tag
      */
     public NoteLink(final GedObject parent, final String tag) {
         super(parent, tag);
     }
 
     /**
-     * @param parent parent object of this source link
-     * @param tag long version of type string
-     * @param xref the reference to a source object
+     * Creates a new NoteLink.
+     *
+     * @param parent the parent
+     * @param tag the tag
+     * @param xref the cross-reference identifier
      */
     public NoteLink(final GedObject parent, final String tag,
             final ObjectId xref) {
         super(parent, tag, xref);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

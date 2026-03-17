@@ -8,21 +8,20 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.datamodel.util.GetStringComparator;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.HeadDocument;
+import lombok.NoArgsConstructor;
 
 /**
- * @author Dick Schoeller
+ * Represents document to api model transformer.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public class DocumentToApiModelTransformer {
     /**
-     * Constructor.
-     */
-    public DocumentToApiModelTransformer() {
-        super();
-    }
-
-    /**
-     * @param document the document to convert
-     * @return the resulting object
+     * Executes convert.
+     *
+     * @param document the document
+     * @return the resulting api head
      */
     public final ApiHead convert(final HeadDocument document) {
         final DocumentToApiModelVisitor v =
@@ -48,10 +47,12 @@ public class DocumentToApiModelTransformer {
     }
 
     /**
+     * Executes convert.
+     *
      * @param <T> the data type returned
      * @param <V> the data type input
-     * @param document the document to convert
-     * @return the resulting object
+     * @param document the document
+     * @return the resulting t
      */
     @SuppressWarnings("unchecked")
     public final <T extends ApiObject, V extends GedDocument<?>> T convert(

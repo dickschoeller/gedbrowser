@@ -34,8 +34,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object builder.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.TooManyMethods", "PMD.ExcessiveImports" })
 final class GedObjectBuilderTest {
@@ -696,10 +700,6 @@ final class GedObjectBuilderTest {
     // createAttribute(ged, string)
     // createAttribute(ged, string, tail)
 
-    /**
-     * @param event the event to fish in
-     * @return the place if found
-     */
     private Place getPlace(final Attribute event) {
         for (final GedObject ged : event.getAttributes()) {
             if (ged instanceof Place) {
@@ -709,10 +709,6 @@ final class GedObjectBuilderTest {
         return null;
     }
 
-    /**
-     * @param gob the object to fish in
-     * @return the date if found
-     */
     private Date getDate(final GedObject gob) {
         for (final GedObject ged : gob.getAttributes()) {
             if (ged instanceof Date) {

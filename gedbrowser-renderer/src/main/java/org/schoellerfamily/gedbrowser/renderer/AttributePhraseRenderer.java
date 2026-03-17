@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders attribute phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public final class AttributePhraseRenderer implements PhraseRenderer {
     /**
@@ -10,9 +12,9 @@ public final class AttributePhraseRenderer implements PhraseRenderer {
     private final transient AttributeRenderer attributeRenderer;
 
     /**
-     * Constructor.
+     * Creates a new AttributePhraseRenderer.
      *
-     * @param attributeRenderer the renderer that this is associated with.
+     * @param attributeRenderer the attribute renderer
      */
     protected AttributePhraseRenderer(
             final AttributeRenderer attributeRenderer) {
@@ -20,7 +22,9 @@ public final class AttributePhraseRenderer implements PhraseRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the string.
+     *
+     * @return the resulting string
      */
     @Override
     public String renderAsPhrase() {

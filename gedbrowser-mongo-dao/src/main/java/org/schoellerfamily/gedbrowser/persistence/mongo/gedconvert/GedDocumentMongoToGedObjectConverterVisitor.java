@@ -15,17 +15,26 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.PlaceDocumentMong
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.RootDocumentMongo;
 
 /**
- * @author Dick Schoeller
+ * Visits ged document mongo to ged object converter elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public final class GedDocumentMongoToGedObjectConverterVisitor
         extends GedLinkDocumentMongoToGedObjectConverterVisitor {
     /**
-     * @param parent the parent of the object we are going to create
+     * Creates a new GedDocumentMongoToGedObjectConverterVisitor.
+     *
+     * @param parent the parent
      */
     public GedDocumentMongoToGedObjectConverterVisitor(final GedObject parent) {
         super(parent);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final AttributeDocumentMongo document) {
         final Attribute attribute = new Attribute(getParent());
@@ -34,11 +43,21 @@ public final class GedDocumentMongoToGedObjectConverterVisitor
         setGedObject(attribute);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final DateDocumentMongo document) {
         setGedObject(new Date(getParent(), document.getString()));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final MultimediaDocumentMongo document) {
         final Multimedia attribute = new Multimedia(getParent(),
@@ -47,16 +66,31 @@ public final class GedDocumentMongoToGedObjectConverterVisitor
         setGedObject(attribute);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final NameDocumentMongo document) {
         setGedObject(new Name(getParent(), document.getString()));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final PlaceDocumentMongo document) {
         setGedObject(new Place(getParent(), document.getString()));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public void visit(final RootDocumentMongo document) {
         final Root root = new Root("Root");

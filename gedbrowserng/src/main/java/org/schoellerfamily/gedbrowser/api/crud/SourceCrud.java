@@ -14,8 +14,12 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents source crud.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class SourceCrud
@@ -25,8 +29,10 @@ public class SourceCrud
         LinkCrud {
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Creates a new SourceCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public SourceCrud(final GedObjectFileLoader loader,
@@ -36,7 +42,9 @@ public class SourceCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the repository.
+     *
+     * @return the repository
      */
     @Override
     public FindableDocument<Source, SourceDocument> getRepository() {
@@ -44,7 +52,9 @@ public class SourceCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the ged class.
+     *
+     * @return the ged class
      */
     @Override
     public Class<Source> getGedClass() {
@@ -52,9 +62,11 @@ public class SourceCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param source the data for the source
-     * @return the source as created
+     * Creates the one.
+     *
+     * @param db the db
+     * @param source the source
+     * @return the resulting api source
      */
     @Override
     public ApiSource createOne(final String db,
@@ -65,8 +77,10 @@ public class SourceCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of sources
+     * Executes read all.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @Override
     public List<ApiSource> readAll(
@@ -76,9 +90,11 @@ public class SourceCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the source
-     * @return the source
+     * Executes read one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api source
      */
     @Override
     public ApiSource readOne(
@@ -89,10 +105,12 @@ public class SourceCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the source to update
-     * @param source the data for the source
-     * @return the source as created
+     * Executes update one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param source the source
+     * @return the resulting api source
      */
     @Override
     public ApiSource updateOne(final String db,
@@ -106,9 +124,11 @@ public class SourceCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the source
-     * @return the deleted object
+     * Executes delete one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api source
      */
     @Override
     public ApiSource deleteOne(
@@ -119,7 +139,11 @@ public class SourceCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether the link we are looking for.
+     *
+     * @param attribute the attribute
+     * @param id the unique identifier for the target
+     * @return true if the condition is met; otherwise false
      */
     @Override
     public boolean isTheLinkWeAreLookingFor(final ApiAttribute attribute,

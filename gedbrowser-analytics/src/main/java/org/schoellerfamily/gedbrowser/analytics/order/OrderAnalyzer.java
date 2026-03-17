@@ -8,9 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * Analyze the order of attributes for display for this person.
+ * Analyzes order data and ordering behavior.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class OrderAnalyzer extends AbstractOrderAnalyzer {
     /** Which person are we estimating. */
@@ -36,6 +36,11 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
                 new ChildrenOrderAnalyzer(person, getResult());
     }
 
+    /**
+     * Executes analyze.
+     *
+     * @return the resulting order analyzer result
+     */
     @Override
     public OrderAnalyzerResult analyze() {
         setCurrentDate(null);
@@ -58,9 +63,6 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
         return getResult();
     }
 
-    /**
-     * @param attribute the attribute to check
-     */
     private void birthCheck(final Attribute attribute) {
         final LocalDate newDate = createLocalDate(attribute);
         if (!isBirthRelatedEvent(attribute)) {
@@ -86,9 +88,6 @@ public final class OrderAnalyzer extends AbstractOrderAnalyzer {
         }
     }
 
-    /**
-     * @param attribute the attribute to check
-     */
     private void deathCheck(final Attribute attribute) {
         final LocalDate newDate = createLocalDate(attribute);
         if (getSeenEvent() == null) {

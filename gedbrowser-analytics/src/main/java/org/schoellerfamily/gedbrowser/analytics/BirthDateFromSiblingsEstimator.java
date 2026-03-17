@@ -8,10 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * Encapsulates the estimation methods associated with look at a person's
- * ancestors.
+ * Represents birth date from siblings estimator.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class BirthDateFromSiblingsEstimator extends Estimator {
     /** Hold the person we are estimating. */
@@ -20,8 +19,9 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
     private final Typicals typicals;
 
     /**
-     * Constructor.
-     * @param person the person whose dates we are estimating
+     * Creates a new BirthDateFromSiblingsEstimator.
+     *
+     * @param person the person
      */
     public BirthDateFromSiblingsEstimator(final Person person) {
         this.person = person;
@@ -74,11 +74,6 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
         return date;
     }
 
-    /**
-     * @param beforePerson whether we are before the person being estimated
-     * @param increment current increment
-     * @return new increment
-     */
     private int incrementWhenDate(final boolean beforePerson,
             final int increment) {
         if (beforePerson) {
@@ -87,11 +82,6 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
         return increment - typicals.gapBetweenChildren();
     }
 
-    /**
-     * @param beforePerson whether we are before the person being estimated
-     * @param increment current increment
-     * @return new increment
-     */
     private int incrementWhenEmptyDate(final boolean beforePerson,
             final int increment) {
         if (beforePerson) {
@@ -101,8 +91,10 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
     }
 
     /**
-     * @param localDate if not null we already have a better estimate
-     * @return an estimate from spouses of siblings
+     * Executes estimate from siblings spouses.
+     *
+     * @param localDate the local date
+     * @return the resulting local date
      */
     @SuppressWarnings("java:S3776")
     public LocalDate estimateFromSiblingsSpouses(final LocalDate localDate) {
@@ -128,21 +120,11 @@ public final class BirthDateFromSiblingsEstimator extends Estimator {
         return date;
     }
 
-    /**
-     * @param bde birth date estimator to use
-     * @param date the input date
-     * @return the adjusted date
-     */
     private LocalDate estimateFromSpousesAncestors(final BirthDateEstimator bde,
             final LocalDate date) {
         return bde.estimateFromSpousesAncestors(date);
     }
 
-    /**
-     * @param bde birth date estimator to use
-     * @param date the input date
-     * @return the adjusted date
-     */
     private LocalDate estimateFromSpouse(final BirthDateEstimator bde,
             final LocalDate date) {
         return bde.estimateFromSpouses(date, true);

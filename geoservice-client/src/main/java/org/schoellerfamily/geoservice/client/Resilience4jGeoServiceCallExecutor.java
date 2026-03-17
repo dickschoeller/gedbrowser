@@ -11,7 +11,7 @@ import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryConfig;
 
 /**
- * Resilience4j-backed {@link GeoServiceCallExecutor}.
+ * Provides behavior related to resilience4j geo service call executor.
  */
 public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallExecutor {
     /** Default retry attempts used by the no-arg constructor. */
@@ -20,7 +20,6 @@ public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallE
     /** Default wait time between retries used by the no-arg constructor. */
     private static final long DEFAULT_WAIT_MILLIS = 500L;
 
-    /** Circuit breaker guarding geoservice outbound calls. */
     private final CircuitBreaker circuitBreaker = CircuitBreaker.ofDefaults("geoservice");
 
     /** Retry policy for transient connectivity failures. */
@@ -37,7 +36,7 @@ public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallE
      * Creates an executor with a configurable retry policy.
      *
      * @param maxAttempts  maximum number of retry attempts
-     *                     (including the first call); must be &ge; 1
+     * (including the first call); must be &ge; 1
      * @param waitMillis   fixed wait duration in milliseconds between retries; must be &ge; 0
      */
     public Resilience4jGeoServiceCallExecutor(final int maxAttempts, final long waitMillis) {
@@ -56,6 +55,12 @@ public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallE
             .build());
     }
 
+    /**
+     * Executes execute.
+     *
+     * @param supplier the supplier
+     * @return the resulting t
+     */
     @Override
     public <T> T execute(final ThrowingSupplier<T> supplier)
             throws GeoServiceCallException {
@@ -70,6 +75,12 @@ public final class Resilience4jGeoServiceCallExecutor implements GeoServiceCallE
         }
     }
 
+    /**
+     * Indicates whether call not permitted.
+     *
+     * @param throwable the throwable
+     * @return true if the condition is met; otherwise false
+     */
     @Override
     public boolean isCallNotPermitted(final Throwable throwable) {
         Throwable current = throwable;

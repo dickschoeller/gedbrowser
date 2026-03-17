@@ -13,21 +13,30 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
- * @author Dick Schoeller
+ * Represents family builder impl in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class FamilyBuilderImpl implements FamilyBuilder {
-    /** */
+    /**
+     * The ged object builder value.
+     */
     private final GedObjectBuilder gedObjectBuilder;
 
     /**
-     * Constructor.
+     * Creates a new FamilyBuilderImpl.
      *
-     * @param gedObjectBuilder the containing builder
+     * @param gedObjectBuilder the ged object builder
      */
     public FamilyBuilderImpl(final GedObjectBuilder gedObjectBuilder) {
         this.gedObjectBuilder = gedObjectBuilder;
     }
 
+    /**
+     * Gets the root.
+     *
+     * @return the root
+     */
     @Override
     public Root getRoot() {
         return gedObjectBuilder.getRoot();
@@ -62,7 +71,7 @@ public final class FamilyBuilderImpl implements FamilyBuilder {
      *
      * @param family the family the event is for
      * @param type the type of event
-     * @param dateString the date of the event
+     * @param dateString the event date string
      * @return the created event
      */
     public Attribute createFamilyEvent(final Family family, final String type,
@@ -89,9 +98,9 @@ public final class FamilyBuilderImpl implements FamilyBuilder {
 
     /**
      * Add a person as the husband in a family.
-     * @param family the family
-     * @param person the person
      *
+     * @param family the family
+     * @param person the person to add as husband
      * @return the husband object
      */
     public Husband addHusbandToFamily(final Family family,

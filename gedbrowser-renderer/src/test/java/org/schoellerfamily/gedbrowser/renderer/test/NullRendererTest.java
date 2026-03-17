@@ -25,11 +25,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * Other than the constructor, these tests are and should be identical to the
- * GedRendererTest methods. NullRenderer is used, but has no methods of its own.
+ * Contains tests for null renderer.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -44,17 +45,12 @@ final class NullRendererTest {
     /** */
     private String homeUrl;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
         homeUrl = "http://www.schoellerfamily.org/";
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final NullRenderer renderer = createRenderer();
@@ -63,10 +59,6 @@ final class NullRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final NullRenderer renderer = createRenderer();
@@ -74,10 +66,6 @@ final class NullRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final NullRenderer renderer = createRenderer();
@@ -85,10 +73,6 @@ final class NullRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final NullRenderer renderer = createRenderer();
@@ -96,10 +80,6 @@ final class NullRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final NullRenderer renderer = createRenderer();
@@ -107,7 +87,6 @@ final class NullRendererTest {
             "Wrong renderer type");
     }
 
-    /** */
     @Test
     void testGetTrailerHtmlEmpty() {
         final Root root = new Root();
@@ -131,7 +110,6 @@ final class NullRendererTest {
             renderer.getTrailerHtml(""), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetHeaderHtml() {
         final Root root = new Root();
@@ -155,7 +133,6 @@ final class NullRendererTest {
             "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetTrailerHtml() {
         final Root root = new Root();
@@ -179,7 +156,6 @@ final class NullRendererTest {
             renderer.getTrailerHtml(), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetTrailerHtmlHeader() {
         final Root root = new Root();
@@ -204,7 +180,6 @@ final class NullRendererTest {
             renderer.getTrailerHtml("Header"), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetTrailerHtmlSurnames() {
         final Root root = new Root();
@@ -229,7 +204,6 @@ final class NullRendererTest {
             renderer.getTrailerHtml("Surnames"), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetTrailerHtmlIndex() {
         final Root root = new Root();
@@ -254,29 +228,22 @@ final class NullRendererTest {
             renderer.getTrailerHtml("Index"), "Rendered string does not match expectation");
     }
 
-    /**
-     * Test the home URL. Always www.schoellerfamily.org at this point.
-     */
     @Test
     void testGetHomeUrl() {
         final NullRenderer renderer = createRenderer();
         assertEquals(homeUrl, renderer.getHomeUrl(), "Home URL does not match expectation");
     }
 
-    /**
-     * @return the renderer for testing
-     */
     private NullRenderer createRenderer() {
         return new NullRenderer(createGedObject(), new GedRendererFactory(), anonymousContext);
     }
 
-    /**
-     * @return an anonymous subclass of GedObject for testing
-     */
     private GedObject createGedObject() {
         return new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {
@@ -285,11 +252,6 @@ final class NullRendererTest {
         };
     }
 
-    /**
-     * Get today as a date string. This emulates what happens in the renderers.
-     *
-     * @return the date string.
-     */
     private static String getDateString() {
         final java.util.Date javaDate = new java.util.Date();
         return DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault()).format(javaDate);

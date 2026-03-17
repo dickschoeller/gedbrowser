@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of head.
+ *
+ * @author Richard Schoeller
  */
 public interface HeadDocument extends GedDocument<Head> {
     @Override

@@ -9,9 +9,9 @@ import org.openqa.selenium.WebElement;
 import org.schoellerfamily.gedbrowser.selenium.base.PageWaiter;
 
 /**
- * Base class for various page object classes.
+ * Represents page base.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class PageBase {
     /** Ten seconds for passing to sleep for some known longish waits. */
@@ -30,12 +30,12 @@ public class PageBase {
     private final PageFactory factory;
 
     /**
-     * Constructor.
+     * Executes page base.
      *
-     * @param factory the factory for creating more page objects
-     * @param previous the page we are coming here from
-     * @param baseUrl the URL of the page
-     * @param location the location part of the URL
+     * @param factory the factory
+     * @param previous the previous
+     * @param baseUrl the base url to use
+     * @param location the location
      */
     public PageBase(final PageFactory factory, final PageBase previous,
             final String baseUrl, final String location) {
@@ -46,14 +46,18 @@ public class PageBase {
     }
 
     /**
-     * @return the factory for creating more pages
+     * Gets the factory.
+     *
+     * @return the factory
      */
     protected PageFactory getFactory() {
         return factory;
     }
 
     /**
-     * @return the title string for this page.
+     * Gets the title.
+     *
+     * @return the title
      */
     public final String getTitle() {
         return getDriver().getTitle();
@@ -76,7 +80,9 @@ public class PageBase {
     }
 
     /**
-     * @param by the lookup approach
+     * Returns the web element.
+     *
+     * @param by the by
      * @return the web element
      */
     public final WebElement getWebElement(final By by) {
@@ -84,7 +90,9 @@ public class PageBase {
     }
 
     /**
-     * @param cssSelector CSS selector string to find Element
+     * Returns the web element.
+     *
+     * @param cssSelector the css selector
      * @return the web element
      */
     public final WebElement getWebElement(final String cssSelector) {
@@ -179,7 +187,9 @@ public class PageBase {
     }
 
     /**
-     * @return this pages waiter
+     * Gets the page waiter.
+     *
+     * @return the page waiter
      */
     public final PageWaiter getPageWaiter() {
         return factory.getWaiter();
@@ -223,7 +233,9 @@ public class PageBase {
     }
 
     /**
-     * @return the URL the driver thinks we are at
+     * Gets the current url.
+     *
+     * @return the current url
      */
     public final String getCurrentUrl() {
         return getDriver().getCurrentUrl();
@@ -262,14 +274,18 @@ public class PageBase {
         }
     }
     /**
-     * @return the letter we expect to go to when we click index in the menu
+     * Gets the index letter.
+     *
+     * @return the index letter
      */
     protected String getIndexLetter() {
         return "A";
     }
 
     /**
-     * @return the page that we came from.
+     * Gets the previous.
+     *
+     * @return the previous
      */
     protected PageBase getPrevious() {
         return previous;

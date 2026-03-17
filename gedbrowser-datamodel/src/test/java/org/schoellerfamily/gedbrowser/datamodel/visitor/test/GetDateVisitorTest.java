@@ -32,10 +32,11 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for get date visitor.
+ *
+ * @author Richard Schoeller
  */
 final class GetDateVisitorTest {
-    /** */
     @Test
     void testNoPersonsFromUnrelated() {
         final GetDateVisitor visitor = new GetDateVisitor();
@@ -62,7 +63,9 @@ final class GetDateVisitorTest {
         new Wife().accept(visitor);
         final GedObject gob = new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

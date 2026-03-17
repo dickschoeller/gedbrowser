@@ -16,8 +16,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the place index controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,7 +40,6 @@ class PlaceIndexControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testControllerGL120368() {
         final String url = "http://localhost:" + port
@@ -54,7 +57,6 @@ class PlaceIndexControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()

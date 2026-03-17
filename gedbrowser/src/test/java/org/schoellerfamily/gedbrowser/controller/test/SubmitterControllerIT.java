@@ -16,8 +16,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the submitter controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,7 +40,6 @@ class SubmitterControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testSubmitterControllerU1() {
         final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U1";
@@ -54,7 +57,6 @@ class SubmitterControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testSubmitterControllerU2() {
         final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U2";
@@ -73,7 +75,6 @@ class SubmitterControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testSubmitterControllerU4() {
         final String url = "http://localhost:" + port + "/gedbrowser/submitter?db=gl120368&id=U4";
@@ -94,7 +95,6 @@ class SubmitterControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testSubmitterControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -108,7 +108,6 @@ class SubmitterControllerIT implements MenuTestHelper {
                 .asString().contains("Data set not found");
     }
 
-    /** */
     @Test
     void testSubmitterControllerBadSubmitter() {
         final EntityExchangeResult<String> entity = restTestClient.get()

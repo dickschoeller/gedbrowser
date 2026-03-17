@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders source link list item output for display.
+ *
+ * @author Richard Schoeller
  */
 public class SourceLinkListItemRenderer implements ListItemRenderer {
     /**
@@ -10,9 +12,9 @@ public class SourceLinkListItemRenderer implements ListItemRenderer {
     private final transient SourceLinkRenderer sourceLinkRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SourceLinkListItemRenderer.
      *
-     * @param renderer the renderer that this is associated with.
+     * @param renderer the renderer
      */
     protected SourceLinkListItemRenderer(
             final SourceLinkRenderer renderer) {
@@ -20,7 +22,12 @@ public class SourceLinkListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as list item.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -29,16 +36,15 @@ public class SourceLinkListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
-    /**
-     * @param builder the string builder that we will be appending to.
-     */
     private void renderListItemContents(final StringBuilder builder) {
         builder.append("<span class=\"label\">Source:</span> ");
         builder.append(sourceLinkRenderer.getNameHtml());
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {

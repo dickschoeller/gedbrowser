@@ -22,8 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for living estimator.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -40,11 +44,6 @@ final class LivingEstimatorTest {
     @Autowired
     private transient GedLineToGedObjectTransformer g2g;
 
-    /**
-     * Smoke test and dump the listing by bucket group.
-     *
-     * @throws IOException if there is a file IO problem
-     */
     @Test
     void testFactoryGedFile() throws IOException {
         final AbstractGedLine top =
@@ -58,21 +57,10 @@ final class LivingEstimatorTest {
         assertNull(null, "Should always pass");
     }
 
-    /**
-     * Emit a string that is good for sorting and for dumping.
-     *
-     * @param person the person who name to dump
-     * @return the string to dump
-     */
     private static String dumpableName(final Person person) {
         return person.getIndexName() + " [" + person.toString() + "]";
     }
 
-    /**
-     * @param living the list of people estimated to be living
-     * @param dead the list of people estimated to be dead
-     * @param buckets the living people divided into buckets by decade
-     */
     private void dumpBuckets(final List<Person> living,
             final List<Person> dead, final Map<Integer, Set<Person>> buckets) {
         System.out.println("schoeller contains " + living.size()

@@ -28,10 +28,12 @@ import tools.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Implements making read requests to geoservice.
+ * Provides client access to geo service.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @Slf4j
@@ -103,7 +105,10 @@ public class GeoServiceClient {
     /** Resilience executor, initialized by Spring in {@link #initCache()}. */
     private GeoServiceCallExecutor callExecutor;
 
-    /** Geocode result cache keyed by place name, null until {@link #initCache()} runs. */
+    /**
+     * Geocode result cache keyed by place name, null until {@link #initCache()}
+     * runs.
+     */
     private PlaceCache geocodeCache;
 
     /**

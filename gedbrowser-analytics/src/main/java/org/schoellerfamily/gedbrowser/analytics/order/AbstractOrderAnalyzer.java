@@ -10,9 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.util.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * Base class for order analysis.
+ * Analyzes abstract order data and ordering behavior.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public abstract class AbstractOrderAnalyzer {
     /** The accumulated result of the analysis. */
@@ -25,9 +25,9 @@ public abstract class AbstractOrderAnalyzer {
     private Attribute seenEvent;
 
     /**
-     * Constructor.
+     * Creates a new abstract order analyzer.
      *
-     * @param result the result
+     * @param result the accumulated result of the analysis
      */
     protected AbstractOrderAnalyzer(final OrderAnalyzerResult result) {
         this.result = result;
@@ -138,10 +138,6 @@ public abstract class AbstractOrderAnalyzer {
         return new LocalDate(estimateCalendar);
     }
 
-    /**
-     * @param newDate the newDate
-     * @return true if the order is correct
-     */
     private boolean newDateAfterCurrent(final LocalDate newDate) {
         if (getCurrentDate() == null) {
             setCurrentDate(newDate);

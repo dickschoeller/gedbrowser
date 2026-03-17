@@ -18,8 +18,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for application.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -48,7 +52,6 @@ public class ApplicationIT {
     @Autowired
     private RestTestClient restTestClient;
 
-    /** */
     @Test
     void testReturnStatus200WhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
@@ -60,7 +63,6 @@ public class ApplicationIT {
         assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
     }
 
-    /** */
     @Test
     void testReturnStatus200WhenSendingRequestWithModern() {
         @SuppressWarnings("rawtypes")
@@ -73,7 +75,6 @@ public class ApplicationIT {
         assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
     }
 
-    /** */
     @Test
     void testReturnPlaceNameSendingRequestToController() {
         @SuppressWarnings("rawtypes")
@@ -86,7 +87,6 @@ public class ApplicationIT {
             .isEqualTo("Bethlehem, PA");
     }
 
-    /** */
     @Test
     void testReturnPlaceNameSendingRequestWithModern() {
         @SuppressWarnings("rawtypes")
@@ -101,7 +101,6 @@ public class ApplicationIT {
             .isEqualTo("Bethlehem, PA");
     }
 
-    /** */
     @Test
     void testReturnModernPlaceNameSendingRequestToController() {
         @SuppressWarnings("rawtypes")
@@ -114,7 +113,6 @@ public class ApplicationIT {
             .isEqualTo("Allentown, PA");
     }
 
-    /** */
     @Test
     void testReturnModernNameSendingRequestWithModernName() {
         @SuppressWarnings("rawtypes")
@@ -129,7 +127,6 @@ public class ApplicationIT {
             .isEqualTo("Bethlehem, PA");
     }
 
-    /** */
     @Test
     void testReturnGeocodeWhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
@@ -142,7 +139,6 @@ public class ApplicationIT {
             .map(b -> b.get("result")).orElse(null)).isNotNull();
     }
 
-    /** */
     @Test
     void testReturnNullGeocodeWhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
@@ -155,7 +151,6 @@ public class ApplicationIT {
             .map(b -> b.get("result")).orElse(null)).isNull();
     }
 
-    /** */
     @Test
     void testReturn200WhenSendingRequestToInfoEndpoint() {
         @SuppressWarnings("rawtypes")
@@ -167,7 +162,6 @@ public class ApplicationIT {
         assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
     }
 
-    /** */
     @Test
     void testReturn200WhenSendingRequestToHealthEndpoint() {
         @SuppressWarnings("rawtypes")

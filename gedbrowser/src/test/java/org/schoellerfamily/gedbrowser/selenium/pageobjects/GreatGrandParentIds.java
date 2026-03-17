@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 /**
- * Class represents the ID strings for 8 great-grandparents.
+ * Represents great grand parent ids.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GreatGrandParentIds {
     /** */
@@ -12,10 +12,10 @@ public final class GreatGrandParentIds {
     private final GrandParentIds mothers;
 
     /**
-     * Constructor.
+     * Creates a new GreatGrandParentIds.
      *
-     * @param fathers father's grandparents
-     * @param mothers mother's grandparents
+     * @param fathers the fathers
+     * @param mothers the mothers
      */
     public GreatGrandParentIds(final GrandParentIds fathers,
             final GrandParentIds mothers) {
@@ -24,56 +24,72 @@ public final class GreatGrandParentIds {
     }
 
     /**
-     * @return the father's father's father's id
+     * Gets the fff.
+     *
+     * @return the fff
      */
     public String getFff() {
         return fathers.getFf();
     }
 
     /**
-     * @return the father's father's mother's id
+     * Gets the ffm.
+     *
+     * @return the ffm
      */
     public String getFfm() {
         return fathers.getFm();
     }
 
     /**
-     * @return the father's mother's father's id
+     * Gets the fmf.
+     *
+     * @return the fmf
      */
     public String getFmf() {
         return fathers.getMf();
     }
 
     /**
-     * @return the father's mother's mother's id
+     * Gets the fmm.
+     *
+     * @return the fmm
      */
     public String getFmm() {
         return fathers.getMm();
     }
 
     /**
-     * @return the mother's father's father's id
+     * Gets the mff.
+     *
+     * @return the mff
      */
     public String getMff() {
         return mothers.getFf();
     }
 
     /**
-     * @return the mother's father's mother's id
+     * Gets the mfm.
+     *
+     * @return the mfm
      */
     public String getMfm() {
         return mothers.getFm();
     }
 
     /**
-     * @return the mother's mother's father's id
+     * Gets the mmf.
+     *
+     * @return the mmf
      */
     public String getMmf() {
         return mothers.getMf();
     }
 
     /**
-     * @return the mother's mother's mother's id
+     * Gets the mmm.
+     *
+     * @return the mmm
      */
     public String getMmm() {
         return mothers.getMm();

@@ -18,8 +18,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the save controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -44,7 +48,6 @@ class SaveControllerIT {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testSaveControllerOK() {
         // This makes it so anonymous access has admin. That allows testing
@@ -82,7 +85,6 @@ class SaveControllerIT {
         users.remove(user);
     }
 
-    /** */
     @Test
     void testSaveControllerDatasetNotFound() {
         // This makes it so anonymous access has admin. That allows testing
@@ -109,7 +111,6 @@ class SaveControllerIT {
         users.remove(user);
     }
 
-    /** */
     @Test
     void testSaveControllerNotAdmin() {
         final String url = "http://localhost:" + port

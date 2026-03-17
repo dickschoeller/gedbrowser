@@ -1,32 +1,44 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents place in the domain model.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Place extends AbstractAttribute
         implements Comparable<Place> {
-    /**
-     * Default constructor.
-     */
-    public Place() {
-        super();
-    }
 
     /**
-     * @param parent parent object of this child
-     * @param string place name
+     * Creates a new Place.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     public Place(final GedObject parent, final String string) {
         super(parent, string);
     }
 
+    /**
+     * Returns the int.
+     *
+     * @param other the other
+     * @return the resulting int
+     */
     @Override
     public int compareTo(final Place other) {
         return getString().compareTo(other.getString());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

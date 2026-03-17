@@ -13,11 +13,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+/**
+ * Contains tests for child constructor.
+ */
+
 final class ChildConstructorTest {
 
-    /**
-     * @return stream of arguments for parameterized tests.
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

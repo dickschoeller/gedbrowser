@@ -1,33 +1,28 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents submitter in the domain model.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Submitter extends AbstractSource implements Nameable {
-    /**
-     * Default constructor.
-     */
-    public Submitter() {
-        super();
-    }
 
     /**
-     * @param parent parent object of this source
-     * @param xref cross reference to this source
+     * Creates a new Submitter.
+     *
+     * @param parent the parent
+     * @param xref the xref
      */
     public Submitter(final GedObject parent, final ObjectId xref) {
         super(parent, xrefString(xref));
     }
 
-    /**
-     * Get the ID string from and ObjectId. Returns null on null input.
-     *
-     * @param xref an object ID
-     * @return its string
-     */
     private static String xrefString(final ObjectId xref) {
         if (xref == null) {
             return null;
@@ -35,6 +30,11 @@ public final class Submitter extends AbstractSource implements Nameable {
         return xref.getIdString();
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     @Override
     public Name getName() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -42,6 +42,11 @@ public final class Submitter extends AbstractSource implements Nameable {
         return visitor.getNameAttribute();
     }
 
+    /**
+     * Gets the surname.
+     *
+     * @return the surname
+     */
     @Override
     public String getSurname() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -49,6 +54,11 @@ public final class Submitter extends AbstractSource implements Nameable {
         return visitor.getSurname();
     }
 
+    /**
+     * Gets the index name.
+     *
+     * @return the index name
+     */
     @Override
     public String getIndexName() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -56,6 +66,11 @@ public final class Submitter extends AbstractSource implements Nameable {
         return visitor.getIndexName();
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

@@ -16,7 +16,9 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for person navigator.
+ *
+ * @author Richard Schoeller
  */
 final class PersonNavigatorTest {
     /** */
@@ -33,7 +35,6 @@ final class PersonNavigatorTest {
     /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
-    /** */
     @BeforeEach
     void setUp() {
         person1 =
@@ -91,42 +92,36 @@ final class PersonNavigatorTest {
         builder.createPersonEvent(person11, "Birth", "1 JAN 1930");
     }
 
-    /** */
     @Test
     void testPerson() {
         final PersonNavigator navigator = new PersonNavigator(person1);
         assertSame(person1, navigator.getPerson(), "Expected same person");
     }
 
-    /** */
     @Test
     void testGetFather() {
         final PersonNavigator navigator = new PersonNavigator(person3);
         assertEquals(person6, navigator.getFather(), "Expected to find father");
     }
 
-    /** */
     @Test
     void testGetMother() {
         final PersonNavigator navigator = new PersonNavigator(person3);
         assertEquals(person7, navigator.getMother(), "Expected to find mother");
     }
 
-    /** */
     @Test
     void testGetFatherUnset() {
         final PersonNavigator navigator = new PersonNavigator(person6);
         assertFalse(navigator.getFather().isSet(), "Expected not to find father");
     }
 
-    /** */
     @Test
     void testGetMotherUnset() {
         final PersonNavigator navigator = new PersonNavigator(person6);
         assertFalse(navigator.getMother().isSet(), "Expected not to find mother");
     }
 
-    /** */
     @Test
     void testGetHusbandsFamily() {
         final PersonNavigator navigator = new PersonNavigator(person6);
@@ -134,7 +129,6 @@ final class PersonNavigatorTest {
         assertTrue(list6.contains(family6), "Should have found husband's family");
     }
 
-    /** */
     @Test
     void testGetWifesFamily() {
         final PersonNavigator navigator = new PersonNavigator(person7);

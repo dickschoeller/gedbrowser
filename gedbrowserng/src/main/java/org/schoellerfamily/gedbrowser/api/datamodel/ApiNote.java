@@ -8,10 +8,12 @@ import lombok.experimental.SuperBuilder;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
+
+
 /**
- * Represents a note about some person, family or other attribute.
+ * Represents api note in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuperBuilder(toBuilder = true)
 @Getter
@@ -41,11 +43,22 @@ public final class ApiNote extends ApiTail {
         }
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
+     */
     @Override
     public boolean canEqual(final Object other) {
         return other.getClass() == ApiNote.class;

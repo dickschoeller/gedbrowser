@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of wife.
+ *
+ * @author Richard Schoeller
  */
 public interface WifeDocument extends GedDocument<Wife> {
     @Override

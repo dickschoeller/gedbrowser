@@ -23,19 +23,28 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.WifeDocumentMongo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Visits ged link document mongo to ged object converter elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         extends TopLevelGedDocumentMongoToGedObjectVisitor
         implements GedDocumentMongoVisitor {
     /**
-     * @param parent the parent object of the one being created by visiting
+     * Creates a new GedLinkDocumentMongoToGedObjectConverterVisitor.
+     *
+     * @param parent the parent
      */
     protected GedLinkDocumentMongoToGedObjectConverterVisitor(
             final GedObject parent) {
         super(parent);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final ChildDocumentMongo document) {
         final Child child = new Child(getParent(), "Child",
@@ -44,6 +53,11 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         setGedObject(child);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final FamCDocumentMongo document) {
         final FamC famc = new FamC(getParent(), "Child of Family",
@@ -52,6 +66,11 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         setGedObject(famc);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final FamSDocumentMongo document) {
         final FamS fams = new FamS(getParent(), "Spouse of Family",
@@ -59,6 +78,11 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         fams.setFromString(getParent().getString());
         setGedObject(fams);
     }
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final HusbandDocumentMongo document) {
         final Husband husband = new Husband(getParent(), "Husband",
@@ -67,30 +91,55 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
         setGedObject(husband);
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final NoteLinkDocumentMongo document) {
         setGedObject(new NoteLink(getParent(), "Note",
                 new ObjectId(document.getString())));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final SourceLinkDocumentMongo document) {
         setGedObject(new SourceLink(getParent(), "Source",
                 new ObjectId(document.getString())));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final SubmissionLinkDocumentMongo document) {
         setGedObject(new SubmissionLink(getParent(), "Submission",
                 new ObjectId(document.getString())));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final SubmitterLinkDocumentMongo document) {
         setGedObject(new SubmitterLink(getParent(), "Submitter",
                 new ObjectId(document.getString())));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final WifeDocumentMongo document) {
         final WifeDocumentMongo wifeDocument = (WifeDocumentMongo) document;

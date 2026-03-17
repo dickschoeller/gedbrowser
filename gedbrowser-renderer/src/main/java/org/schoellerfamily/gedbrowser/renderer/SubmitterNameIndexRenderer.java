@@ -4,16 +4,18 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 
 /**
- * @author Dick Schoeller
+ * Renders submitter name index output for display.
+ *
+ * @author Richard Schoeller
  */
 public class SubmitterNameIndexRenderer implements NameIndexRenderer {
     /** */
     private final transient SubmitterRenderer submitterRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SubmitterNameIndexRenderer.
      *
-     * @param submitterRenderer the associated submitterRenderer
+     * @param submitterRenderer the submitter renderer
      */
     public SubmitterNameIndexRenderer(
             final SubmitterRenderer submitterRenderer) {
@@ -21,7 +23,9 @@ public class SubmitterNameIndexRenderer implements NameIndexRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public String getIndexName() {
@@ -36,12 +40,6 @@ public class SubmitterNameIndexRenderer implements NameIndexRenderer {
                 + submitter.getString() + "]" + "</a>";
     }
 
-    /**
-     * Handle the messy getting of the name ready for HTML formatting.
-     *
-     * @param submitter the submitter whose name we are doing
-     * @return the string
-     */
     private String getNameHtml(final Submitter submitter) {
         final GedRenderer<? extends GedObject> renderer =
                 new SimpleNameRenderer(submitter.getName(),

@@ -23,8 +23,12 @@ import org.springframework.web.client.RestClientException;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the spouses controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(
     classes = { Application.class, TestConfiguration.class },
@@ -49,17 +53,11 @@ class SpousesControllerIT {
     /** */
     private ControllerTestHelper helper;
 
-    /**
-     * Set up some base objects.
-     */
     @BeforeEach
     void setUp() {
         helper = new ControllerTestHelper(port, restTestClient);
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testLinkSpouse() throws RestClientException {
         final ApiPerson p1 = helper.createPerson();
@@ -79,9 +77,6 @@ class SpousesControllerIT {
             "check ids");
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testLinkSpouseInFamily() throws RestClientException {
         final ApiPerson p1 = helper.createPerson();
@@ -104,9 +99,6 @@ class SpousesControllerIT {
             "check ids");
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testUnlinkSpouseInFamily() throws RestClientException {
         final ApiPerson p1 = helper.createPerson();
@@ -135,11 +127,6 @@ class SpousesControllerIT {
         assertEquals(gotP2again.getFamss().get(0).getString(), fam, "check ids");
     }
 
-    /**
-     * @param parent the parent
-     * @return the child
-     * @throws RestClientException if we can't talk to rest server
-     */
     private ApiPerson createChildOfParent(final ApiPerson parent) throws RestClientException {
         final String childUrl = helper.getPersonsUrl() + "/" + parent.getString() + "/children";
         log.info("childUrl: {}", childUrl);

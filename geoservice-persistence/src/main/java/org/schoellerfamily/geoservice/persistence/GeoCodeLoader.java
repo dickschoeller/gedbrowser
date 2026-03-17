@@ -12,12 +12,12 @@ import org.apache.commons.lang3.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Provides the means to pre-load the cache with some expected places. This is
- * the primary means by which we provide different modern place names for
- * places in the cache.
+ * Provides behavior related to geo code loader.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -91,27 +91,12 @@ public class GeoCodeLoader {
     }
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private interface Loader {
-        /**
-         * Do whatever the load load operation requires.
-         *
-         * @param placeName the place name
-         * @param modernPlaceName the modern place name for geocoding
-         * @return a geocodeitem
-         */
         GeoCodeItem load(String placeName, String modernPlaceName);
     }
 
-    /**
-     * Read places from an input stream. The format is | separated. It may
-     * contain just a historical place name or both historical and modern
-     * places names.
-     *
-     * @param istream the input stream
-     * @param loader what to do with each line
-     */
     private void load(final InputStream istream, final Loader loader) {
         log.debug("Loading the cache from input stream");
         String line;

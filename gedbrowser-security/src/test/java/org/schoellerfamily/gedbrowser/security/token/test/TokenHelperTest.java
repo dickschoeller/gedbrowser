@@ -13,9 +13,11 @@ import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
 import io.jsonwebtoken.ExpiredJwtException;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for token helper.
+ *
+ * @author Richard Schoeller
  */
-public class TokenHelperTest {
+class TokenHelperTest {
     /** */
     private static final String KEY = "mySecret";
     /** */
@@ -23,9 +25,6 @@ public class TokenHelperTest {
     /** */
     private TokenHelper tokenHelper;
 
-    /**
-     * Setup token helper for testing.
-     */
     @BeforeEach
     void setUp() {
         tokenHelper = new TokenHelper("none", KEY, 1, "Authorization", "AUTH-TOKEN");
@@ -33,9 +32,6 @@ public class TokenHelperTest {
         DateTimeUtils.setCurrentMillisFixed(twentyMillis);
     }
 
-    /**
-     * Test expired token.
-     */
     @Test
     @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
     void testGenerateTokenExpired() {

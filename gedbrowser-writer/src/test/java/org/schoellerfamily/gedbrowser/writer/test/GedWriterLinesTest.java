@@ -27,8 +27,12 @@ import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged writer lines.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 class GedWriterLinesTest {
@@ -76,7 +80,9 @@ class GedWriterLinesTest {
         { "Should not be here", "XXXXX" }, };
 
     /**
-     * @return create the table of expected and actual
+     * Executes data.
+     *
+     * @return the resulting list
      */
     public static List<String[]> data() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -149,7 +155,6 @@ class GedWriterLinesTest {
         return parameters;
     }
 
-    /** */
     @Test
     void testLines() {
         final List<String[]> parameters = data();

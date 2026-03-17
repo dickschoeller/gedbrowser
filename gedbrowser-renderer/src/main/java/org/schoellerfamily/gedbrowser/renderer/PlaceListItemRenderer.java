@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders place list item output for display.
+ *
+ * @author Richard Schoeller
  */
 public class PlaceListItemRenderer implements ListItemRenderer {
     /**
@@ -10,16 +12,21 @@ public class PlaceListItemRenderer implements ListItemRenderer {
     private final transient PlaceRenderer placeRenderer;
 
     /**
-     * Constructor.
+     * Creates a new PlaceListItemRenderer.
      *
-     * @param placeRenderer the renderer that this is associated with.
+     * @param placeRenderer the place renderer
      */
     protected PlaceListItemRenderer(final PlaceRenderer placeRenderer) {
         this.placeRenderer = placeRenderer;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes render as list item.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -30,7 +37,9 @@ public class PlaceListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {

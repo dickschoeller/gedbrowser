@@ -28,8 +28,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for note renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -44,16 +48,11 @@ final class NoteRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final NoteRenderer renderer = createRenderer();
@@ -62,10 +61,6 @@ final class NoteRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final NoteRenderer renderer = createRenderer();
@@ -73,10 +68,6 @@ final class NoteRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final NoteRenderer renderer = createRenderer();
@@ -84,10 +75,6 @@ final class NoteRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final NoteRenderer renderer = createRenderer();
@@ -95,10 +82,6 @@ final class NoteRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final NoteRenderer renderer = createRenderer();
@@ -106,17 +89,11 @@ final class NoteRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * @return the renderer
-     */
     private NoteRenderer createRenderer() {
         return new NoteRenderer(new Note(null, new ObjectId("N1")), new GedRendererFactory(),
             anonymousContext);
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testTitleString() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -126,9 +103,6 @@ final class NoteRendererTest {
         assertEquals("This is a note", renderer.getTitleString(), "Mismatched title string");
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testTitleStringLong() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -139,9 +113,6 @@ final class NoteRendererTest {
             renderer.getTitleString(), "Mismatched title string");
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testTitleStringWithAttributesCount() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -151,9 +122,6 @@ final class NoteRendererTest {
         assertEquals(1, renderer.getAttributes().size(), "Count is wrong");
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testTitleStringWithAttributesContent() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -165,9 +133,6 @@ final class NoteRendererTest {
         }
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIdString() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -177,9 +142,6 @@ final class NoteRendererTest {
         assertEquals("N1", renderer.getIdString(), "Mismatched note ID");
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIdAttributes() throws IOException {
         final String[] expects = {
@@ -196,11 +158,6 @@ final class NoteRendererTest {
         }
     }
 
-    /**
-     * Test the generating of an HTML name for inclusion in an index.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testIndexName() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -213,11 +170,6 @@ final class NoteRendererTest {
             renderer.getIndexNameHtml(), "Mismatched index html string");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -228,11 +180,6 @@ final class NoteRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -243,11 +190,6 @@ final class NoteRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -258,12 +200,6 @@ final class NoteRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected., "Rendered string does not match
-     * expectation".
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -275,11 +211,6 @@ final class NoteRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -290,11 +221,6 @@ final class NoteRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testNotesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -305,11 +231,6 @@ final class NoteRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -321,11 +242,6 @@ final class NoteRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testPlacesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -336,10 +252,6 @@ final class NoteRendererTest {
         }
     }
 
-    /**
-     * @param note the note
-     * @return the renderer
-     */
     private NoteRenderer createRenderer(final Note note) {
         return new NoteRenderer(note, new GedRendererFactory(), anonymousContext);
     }

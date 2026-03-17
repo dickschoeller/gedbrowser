@@ -5,9 +5,9 @@ import org.schoellerfamily.geoservice.persistence.repository.GeocodableDocument;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * This interface allows Spring Data to wire up our persistence in MongoDB.
+ * Defines persistence operations for geo document repository mongo.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface GeoDocumentRepositoryMongo
         extends CrudRepository<GeoDocumentMongo, String>,

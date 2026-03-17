@@ -1,26 +1,32 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents source in the domain model.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Source extends AbstractSource {
-    /**
-     * Default constructor.
-     */
-    public Source() {
-        super();
-    }
 
     /**
-     * @param parent parent object of this source
-     * @param xref cross reference to this source
+     * Creates a new Source.
+     *
+     * @param parent the parent
+     * @param xref the xref
      */
     public Source(final GedObject parent, final ObjectId xref) {
         super(parent, xref.getIdString());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

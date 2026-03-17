@@ -14,19 +14,20 @@ import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
- * Render a Source.
+ * Renders source output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class SourceRenderer extends GedRenderer<Source>
         implements HeaderHrefRenderer<Source>, IndexHrefRenderer<Source>,
             PlacesHrefRenderer<Source>, SaveHrefRenderer<Source>,
             SourcesHrefRenderer<Source>, SubmittersHrefRenderer<Source> {
     /**
-     * @param gedObject the Source that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new SourceRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public SourceRenderer(final Source gedObject,
             final GedRendererFactory rendererFactory,
@@ -36,13 +37,17 @@ public final class SourceRenderer extends GedRenderer<Source>
     }
 
     /**
-     * @return the ID string of the person.
+     * Gets the id string.
+     *
+     * @return the id string
      */
     public String getIdString() {
         return getGedObject().getString();
     }
 
     /**
+     * Gets the title string.
+     *
      * @return the title string
      */
     public String getTitleString() {
@@ -74,7 +79,9 @@ public final class SourceRenderer extends GedRenderer<Source>
     }
 
     /**
-     * @return the &lt;a href&gt; string for this source
+     * Gets the index name html.
+     *
+     * @return the index name html
      */
     public String getIndexNameHtml() {
         return this.getNameIndexRenderer().getIndexName();

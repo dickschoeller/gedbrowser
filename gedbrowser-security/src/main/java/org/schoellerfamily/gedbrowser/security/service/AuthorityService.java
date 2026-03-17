@@ -5,6 +5,8 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.security.model.Authority;
 
 /**
+ * Provides services for authority.
+ *
  * @author Dick Schoelelr
  */
 public interface AuthorityService {

@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @author Dick Schoeller
+ * Represents source document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Document(collection = "sources")
 @CompoundIndexes({
@@ -22,11 +24,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
 })
 public final class SourceDocumentMongo extends GedDocumentMongo<Source>
         implements SourceDocument {
+    /**
+     * Creates a new SourceDocumentMongo.
+     */
+    public SourceDocumentMongo() {
+    }
+
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "source";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -40,11 +58,21 @@ public final class SourceDocumentMongo extends GedDocumentMongo<Source>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

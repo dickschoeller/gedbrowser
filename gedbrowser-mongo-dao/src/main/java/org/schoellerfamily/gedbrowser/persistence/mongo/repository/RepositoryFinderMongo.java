@@ -31,28 +31,40 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents repository finder mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @SuppressWarnings("PMD.ExcessiveImports")
 @RequiredArgsConstructor
 @Slf4j
 public final class RepositoryFinderMongo implements FinderStrategy {
-    /** */
+    /**
+     * The repository manager value.
+     */
     private final RepositoryManagerMongo repositoryManager;
 
-    /** */
+    /**
+     * The to doc converter value.
+     */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
-    /**
-     * Ordered list of classes to process. This order represents the most likely
-     * search order.
-     */
+    /** The list of classes to search. */
     private static final List<Class<? extends GedObject>> CLASSES = List.of(Person.class,
         Family.class, Source.class, Head.class, Note.class, Submission.class, Submitter.class,
         Trailer.class);
 
+    /**
+     * Executes find.
+     *
+     * @param owner the owner
+     * @param str the str
+     * @return the resulting ged object
+     */
     @Override
     public GedObject find(final FinderObject owner, final String str) {
         for (final Class<? extends GedObject> clazz : CLASSES) {
@@ -64,6 +76,14 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return null;
     }
 
+    /**
+     * Executes find.
+     *
+     * @param <T> the type to return
+     * @param owner the owner
+     * @param str the str
+     * @return the resulting t
+     */
     @Override
     public <T extends GedObject> T find(final FinderObject owner, final String str,
         final Class<T> clazz) {
@@ -85,6 +105,12 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return clazz.cast(document.getGedObject());
     }
 
+    /**
+     * Returns the filename.
+     *
+     * @param owner the owner
+     * @return the filename
+     */
     @Override
     public String getFilename(final FinderObject owner) {
         if (owner instanceof Root) {
@@ -93,6 +119,12 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return owner.getFilename();
     }
 
+    /**
+     * Returns the db name.
+     *
+     * @param owner the owner
+     * @return the db name
+     */
     @Override
     public String getDbName(final FinderObject owner) {
         if (owner instanceof Root) {
@@ -101,6 +133,12 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return owner.getDbName();
     }
 
+    /**
+     * Executes insert.
+     *
+     * @param owner the owner
+     * @param fob the fob
+     */
     @Override
     public void insert(final FinderObject owner, final FinderObject fob) {
         final GedObject gob = (GedObject) fob;
@@ -115,6 +153,13 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         log.debug("Ending insert: {}", gob.getString());
     }
 
+    /**
+     * Finds the by surname.
+     *
+     * @param owner the owner
+     * @param surname the surname to use
+     * @return the resulting collection
+     */
     @Override
     public Collection<Person> findBySurname(final FinderObject owner, final String surname) {
         log.info("Starting findBySurname");
@@ -135,6 +180,12 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return persons;
     }
 
+    /**
+     * Finds the by surnames begin with.
+     *
+     * @param owner the owner
+     * @return the resulting collection
+     */
     @Override
     public Collection<String> findBySurnamesBeginWith(final FinderObject owner,
         final String beginsWith) {
@@ -155,6 +206,12 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return surnames;
     }
 
+    /**
+     * Finds the surname initial letters.
+     *
+     * @param owner the owner
+     * @return the resulting collection
+     */
     @Override
     public Collection<String> findSurnameInitialLetters(final FinderObject owner) {
         log.info("Starting findSurnameInitialLetters");
@@ -175,6 +232,13 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         return matches;
     }
 
+    /**
+     * Executes find.
+     *
+     * @param <T> the type to return
+     * @param owner the owner
+     * @return the resulting collection
+     */
     @SuppressWarnings("unchecked")
     @Override
     public <T extends GedObject> Collection<T> find(final FinderObject owner,

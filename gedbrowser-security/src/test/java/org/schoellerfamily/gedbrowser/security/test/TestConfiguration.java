@@ -11,8 +11,12 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to test.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @ComponentScan("org.schoellerfamily.gedbrowser.security")
@@ -34,10 +38,6 @@ public class TestConfiguration {
         return readUserFile(userFile);
     }
 
-    /**
-     * @param userFile the user file to read
-     * @return the set of users from the user file
-     */
     private SecurityUsers readUserFile(final String userFile) {
         final UsersReader<SecurityUser, SecurityUsers> usersReader =
                 new UsersReader<>();

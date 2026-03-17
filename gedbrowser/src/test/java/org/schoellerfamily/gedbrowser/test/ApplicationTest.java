@@ -18,8 +18,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for application.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -45,7 +49,6 @@ public class ApplicationTest {
     @Autowired
     private RestTestClient restTestClient;
 
-    /** */
     @Test
     void shouldReturn200WhenSendingRequestToInfoEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -56,7 +59,6 @@ public class ApplicationTest {
         assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
     }
 
-    /** */
     @Test
     void shouldReturn200WhenSendingRequestToHealthEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -68,7 +70,6 @@ public class ApplicationTest {
         assertThat(status).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
     }
 
-    /** */
     @Test
     void testApplicationName() {
         final Application a = new Application();

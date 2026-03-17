@@ -20,9 +20,9 @@ import org.schoellerfamily.gedbrowser.api.service.storage.StorageException;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Test class for FileSystemStorageService path validation.
+ * Contains tests for the file system storage service.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 class FileSystemStorageServiceTest {
 
@@ -36,7 +36,6 @@ class FileSystemStorageServiceTest {
     /** */
     private GedbrowserPropertiesService propertiesService;
 
-    /** */
     @BeforeEach
     void setUp() {
         propertiesService = mock(GedbrowserPropertiesService.class);
@@ -44,7 +43,6 @@ class FileSystemStorageServiceTest {
         storageService = new FileSystemStorageService(propertiesService);
     }
 
-    /** */
     @Test
     void testValidFile() throws IOException {
         final MultipartFile file = createMockFile("test.ged", "content");
@@ -54,28 +52,24 @@ class FileSystemStorageServiceTest {
         assertTrue(Files.exists(filePath), "File should exist after storing");
     }
 
-    /** */
     @Test
     void testPathTraversalWithDoubleDots() throws IOException {
         final MultipartFile file = createMockFile("../../../etc/passwd", "content");
         assertThrows(StorageException.class, () -> storageService.store(file));
     }
 
-    /** */
     @Test
     void testPathTraversalInSubdirectory() throws IOException {
         final MultipartFile file = createMockFile("subdir/../../../etc/passwd", "content");
         assertThrows(StorageException.class, () -> storageService.store(file));
     }
 
-    /** */
     @Test
     void testAbsolutePath() throws IOException {
         final MultipartFile file = createMockFile("/etc/passwd", "content");
         assertThrows(StorageException.class, () -> storageService.store(file));
     }
 
-    /** */
     @Test
     void testEmptyFilename() {
         final MultipartFile file = mock(MultipartFile.class);
@@ -83,7 +77,6 @@ class FileSystemStorageServiceTest {
         assertThrows(StorageException.class, () -> storageService.store(file));
     }
 
-    /** */
     @Test
     void testNullFilename() {
         final MultipartFile file = mock(MultipartFile.class);
@@ -91,21 +84,12 @@ class FileSystemStorageServiceTest {
         assertThrows(StorageException.class, () -> storageService.store(file));
     }
 
-    /** */
     @Test
     void testEmptyFile() throws IOException {
         final MultipartFile file = createMockFile("test.ged", "");
         assertThrows(StorageException.class, () -> storageService.store(file));
     }
 
-    /**
-     * Helper method to create a mock MultipartFile.
-     *
-     * @param filename the filename
-     * @param content the file content
-     * @return a mock MultipartFile
-     * @throws IOException if an error occurs
-     */
     private MultipartFile createMockFile(final String filename, final String content)
         throws IOException {
         final MultipartFile file = mock(MultipartFile.class);

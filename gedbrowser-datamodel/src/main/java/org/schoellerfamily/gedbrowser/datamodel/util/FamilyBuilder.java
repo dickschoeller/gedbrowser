@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
- * @author Dick Schoeller
+ * Builds family instances.
+ *
+ * @author Richard Schoeller
  */
 public interface FamilyBuilder {
     /**
@@ -55,9 +57,9 @@ public interface FamilyBuilder {
 
     /**
      * Add a person as the husband in a family.
+     *
      * @param family the family
      * @param person the person
-     *
      * @return the husband object
      */
     Husband addHusbandToFamily(Family family, Person person);

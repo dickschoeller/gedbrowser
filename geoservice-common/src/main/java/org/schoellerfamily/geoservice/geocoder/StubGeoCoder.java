@@ -9,10 +9,12 @@ import com.google.maps.model.LatLng;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Stub version of the Geocoding wrapper. Works with some canned behaviors.
+ * Provides behavior related to stub geo coder.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class StubGeoCoder implements GeoCoder {
@@ -21,7 +23,9 @@ public final class StubGeoCoder implements GeoCoder {
     private final Set<String> unknowns;
 
     /**
-     * @param unknowns list of names that are expected to be unknown
+     * Creates a new StubGeoCoder.
+     *
+     * @param unknowns the unknowns
      */
     @SuppressWarnings("PMD.UseVarargs")
     public StubGeoCoder(final String[] unknowns) {
@@ -34,7 +38,10 @@ public final class StubGeoCoder implements GeoCoder {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes geocode.
+     *
+     * @param placeName the place name to use
+     * @return the resulting geocoding result array
      */
     @Override
     public GeocodingResult[] geocode(final String placeName) {

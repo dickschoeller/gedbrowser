@@ -6,7 +6,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 
 /**
- * @author Dick Schoeller
+ * Visits attribute line elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface AttributeLineVisitor extends GedObjectLineVisitor {
 

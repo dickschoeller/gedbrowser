@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of trailer.
+ *
+ * @author Richard Schoeller
  */
 public interface TrailerDocument extends GedDocument<Trailer> {
     @Override

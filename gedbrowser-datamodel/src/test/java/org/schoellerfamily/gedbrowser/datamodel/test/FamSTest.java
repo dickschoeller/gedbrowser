@@ -19,7 +19,9 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for fam s.
+ *
+ * @author Richard Schoeller
  */
 final class FamSTest {
     /** */
@@ -35,7 +37,6 @@ final class FamSTest {
     /** */
     private transient FamS famS3;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -59,21 +60,18 @@ final class FamSTest {
         family.insert(wife);
     }
 
-    /** */
     @Test
     void testGetSpouseFromSpouse() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         assertEquals(person3, navigator.getSpouse(person2), "Person mismatch");
     }
 
-    /** */
     @Test
     void testGetSpouseFromParent() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         assertEquals(person2, navigator.getSpouse(person3), "Person mismatch");
     }
 
-    /** */
     @Test
     void testGetSpouseNotSetFromUnrelated() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
@@ -81,14 +79,12 @@ final class FamSTest {
             "Should be unset person when not from one of the spouses");
     }
 
-    /** */
     @Test
     void testGetSpouseIsParentFromNull() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
         assertEquals(person2, navigator.getSpouse(null), "Person mismatch");
     }
 
-    /** */
     @Test
     void testGetFamilies() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
@@ -96,7 +92,6 @@ final class FamSTest {
         assertSame(family, gottenFamily, "Mismatched family");
     }
 
-    /** */
     @Test
     void testGetFamiliesUnsetWhenUnattached() {
         final FamS fams = new FamS(null, "F73", null);
@@ -104,7 +99,6 @@ final class FamSTest {
         assertFalse(navigator.getFamily().isSet(), "Family should not be set");
     }
 
-    /** */
     @Test
     void testGetChildrenFromHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(famS2);
@@ -112,7 +106,6 @@ final class FamSTest {
         assertTrue(newList.contains(person1), "List should contain person1");
     }
 
-    /** */
     @Test
     void testGetChildrenFromWife() {
         final FamilyNavigator navigator = new FamilyNavigator(famS3);

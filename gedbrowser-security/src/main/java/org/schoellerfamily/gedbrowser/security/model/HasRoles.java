@@ -8,19 +8,29 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents has roles.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class HasRoles implements Serializable {
-    /** */
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
 
-    /** */
+    /**
+     * The roles value.
+     */
     private final Set<UserRoleName> roles = new HashSet<>();
 
     /**
-     * {@inheritDoc}
+     * Returns the roles.
+     *
+     * @return the roles
      */
     @SuppressWarnings({ "PMD.OptimizableToArrayCall" })
     public UserRoleName[] getRoles() {
@@ -28,7 +38,9 @@ public class HasRoles implements Serializable {
     }
 
     /**
-     * @param role the role to add to the role set
+     * Executes add role.
+     *
+     * @param role the role
      */
     public void addRole(final String role) {
         try {
@@ -47,7 +59,10 @@ public class HasRoles implements Serializable {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether role is present.
+     *
+     * @param role the role
+     * @return true if the condition is met; otherwise false
      */
     public boolean hasRole(final UserRoleName role) {
         return roles.contains(role);

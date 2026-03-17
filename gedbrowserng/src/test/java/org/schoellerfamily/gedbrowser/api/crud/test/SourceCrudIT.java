@@ -26,8 +26,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for source crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -54,7 +58,6 @@ class SourceCrudIT {
     /** */
     private CrudTestHelper helper;
 
-    /** */
     @BeforeEach
     void setUp() {
         helper = new CrudTestHelper(new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -62,7 +65,6 @@ class SourceCrudIT {
         crud = new SourceCrud(loader, toDocConverter, repositoryManager);
     }
 
-    /** */
     @Test
     void testReadSourcesGl120368() {
         log.info("Beginning testReadSourcesGl120368");
@@ -87,7 +89,6 @@ class SourceCrudIT {
             .returns("Provo, UT, USA: The Generations Network, Inc., 2006", o -> o.getTail());
     }
 
-    /** */
     @Test
     void testReadSourcesMiniSchoeller() {
         log.info("Beginning testReadSourcesMiniSchoeller");
@@ -112,7 +113,6 @@ class SourceCrudIT {
             .returns("We have the original of this document", o -> o.getTail());
     }
 
-    /** */
     @Test
     void testReadSourcesMiniSchoellerS2() {
         log.info("Beginning testReadSourcesMiniSchoellerS2");
@@ -136,7 +136,6 @@ class SourceCrudIT {
             .returns("We have the original of this document", o -> o.getTail());
     }
 
-    /** */
     @Test
     void testReadSourcesMiniSchoellerXyzzy() {
         log.info("Beginning testReadSourcesMiniSchoellerXyzzy");
@@ -145,7 +144,6 @@ class SourceCrudIT {
             .withMessage("Object Xyzzy of type source not found");
     }
 
-    /** */
     @Test
     void testCreateSourcesSimple() {
         log.info("Beginning testCreateSourcesSimple");
@@ -159,7 +157,6 @@ class SourceCrudIT {
         assertThat(newSource).returns(inSource.getType(), o -> o.getType());
     }
 
-    /** */
     @Test
     void testDeleteSource() {
         log.info("Beginning testDeleteSource");
@@ -179,7 +176,6 @@ class SourceCrudIT {
             .withMessage("Object " + deletedSource.getString() + " of type source not found");
     }
 
-    /** */
     @Test
     void testDeleteSourceNotFound() {
         log.info("Beginning testDeleteSourceNotFound");
@@ -189,7 +185,6 @@ class SourceCrudIT {
             .withMessage("Object XXXXXXX of type source not found");
     }
 
-    /** */
     @Test
     void testDeleteSubmitterDatabaseNotFound() {
         log.info("Beginning testDeleteSubmitterDatabaseNotFound");
@@ -198,7 +193,6 @@ class SourceCrudIT {
             .withMessage("Data set XYZZY not found");
     }
 
-    /** */
     @Test
     void testUpdateSourceWithNote() {
         log.info("Beginning testUpdateSourceWithNote");

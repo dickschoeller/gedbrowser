@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @author Dick Schoeller
+ * Represents family document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Document(collection = "families")
 @CompoundIndexes({
@@ -22,11 +24,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
 })
 public final class FamilyDocumentMongo extends GedDocumentMongo<Family>
         implements FamilyDocument {
+    /**
+     * Creates a new FamilyDocumentMongo.
+     */
+    public FamilyDocumentMongo() {
+    }
+
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "family";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -40,11 +58,21 @@ public final class FamilyDocumentMongo extends GedDocumentMongo<Family>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

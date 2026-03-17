@@ -16,8 +16,15 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.loader.GedDocumentFileLo
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RootDocumentRepositoryMongo;
 
 /**
- * Tests for GedDocumentFileLoader validateDatabaseName branches that are hard
- * to reach with normal string inputs by mocking Paths.get(...).
+ * Tests {@link GedDocumentFileLoader} behavior when validating database names.
+ * <p>
+ * These tests deliberately mock {@link java.nio.file.Paths# get(String, String...)}
+ * and related {@link java.nio.file.Path} methods so that the internal
+ * {@code validateDatabaseName} logic can be driven through edge-case branches
+ * (such as when the normalized path has a parent, when the file name is
+ * {@code null}, or when the file name does not match the database name)
+ * without relying on the real filesystem. This explains the use of static
+ * filesystem API mocking in this class.
  */
 public class GedDocumentFileLoaderTest {
 

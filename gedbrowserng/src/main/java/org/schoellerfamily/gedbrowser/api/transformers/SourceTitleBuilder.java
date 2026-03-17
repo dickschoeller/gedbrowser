@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 
 /**
- * @author Dick Schoeller
+ * Builds source title instances.
+ *
+ * @author Richard Schoeller
  */
 public interface SourceTitleBuilder {
     /**

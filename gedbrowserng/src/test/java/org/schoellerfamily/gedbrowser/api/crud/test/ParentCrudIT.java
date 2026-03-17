@@ -20,8 +20,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for parent crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -47,9 +51,6 @@ class ParentCrudIT {
     /** */
     private CrudTestHelper helper;
 
-    /**
-     * Set up some base objects.
-     */
     @BeforeEach
     void setUp() {
         helper = new CrudTestHelper(new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -57,7 +58,6 @@ class ParentCrudIT {
         crud = new ParentCrud(loader, toDocConverter, repositoryManager);
     }
 
-    /** */
     @Test
     void testCreateParent() {
         final ApiPerson child = helper.createPerson();
@@ -71,7 +71,6 @@ class ParentCrudIT {
             .isEqualTo(gotChild.getFamcs().get(0).getString());
     }
 
-    /** */
     @Test
     void testLinkParent() {
         final ApiPerson inParent = helper.createPerson();
@@ -86,7 +85,6 @@ class ParentCrudIT {
             gotChild.getFamcs().get(0).getString(), "check ids");
     }
 
-    /** */
     @Test
     void testGetPersonsMiniSchoellerI2AddParent() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddParent");
@@ -98,7 +96,6 @@ class ParentCrudIT {
             .returns(reqParent.getIndexName(), o -> o.getIndexName());
     }
 
-    /** */
     @Test
     void testGetPersonsMiniSchoellerI2AddParent2() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddParent2");

@@ -11,8 +11,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for application info.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration
@@ -24,13 +28,15 @@ public final class ApplicationInfoTest {
     /**
      * Setup the configurations for this test class.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     @Configuration
     static class ContextConfiguration {
 
         /**
-         * @return the backup manager
+         * Creates and configures the application info bean.
+         *
+         * @return the configured application info bean
          */
         @Bean
         public ApplicationInfo appInfo() {
@@ -38,7 +44,6 @@ public final class ApplicationInfoTest {
         }
     }
 
-    /** */
     @Test
     void testApplicationInfoURL() {
         assertEquals(
@@ -47,7 +52,6 @@ public final class ApplicationInfoTest {
                 "Application URL mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoMaintainerEmail() {
         assertEquals(
@@ -56,7 +60,6 @@ public final class ApplicationInfoTest {
                 "Maintainer email mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoMaintainerName() {
         assertEquals(
@@ -65,7 +68,6 @@ public final class ApplicationInfoTest {
                 "Maintainer name mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoName() {
         assertEquals(
@@ -74,7 +76,6 @@ public final class ApplicationInfoTest {
                 "Application name mismatch");
     }
 
-    /** */
     @Test
     void testApplicationInfoVersion() {
         assertEquals(

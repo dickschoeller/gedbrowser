@@ -18,8 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for place phrase renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -37,7 +41,6 @@ final class PlacePhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -49,7 +52,6 @@ final class PlacePhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetRenderAsPhrase() {
         final PlaceRenderer dRenderer = new PlaceRenderer(place,
@@ -60,7 +62,6 @@ final class PlacePhraseRendererTest {
         assertEquals("Fayetteville, NC", string, "Rendered string doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetRenderAsListItemEmpty() {
         final PlaceRenderer dRenderer = new PlaceRenderer(
@@ -72,7 +73,6 @@ final class PlacePhraseRendererTest {
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
     @Test
     void testGetRenderAsListItemNull() {
         final PlaceRenderer dRenderer = new PlaceRenderer(

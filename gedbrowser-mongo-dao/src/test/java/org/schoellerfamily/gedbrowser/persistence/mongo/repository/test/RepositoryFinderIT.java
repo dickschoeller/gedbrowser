@@ -31,8 +31,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for repository finder.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
@@ -58,140 +62,118 @@ final class RepositoryFinderIT {
     /** */
     private transient Root root;
 
-    /**
-     * @throws IOException because the reader can
-     */
     @BeforeEach
     void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
     }
 
-    /** */
     @AfterEach
     void tearDown() {
         repositoryFixture.clearRepository();
     }
 
-    /** */
     @Test
     void testUntypedPerson() {
         final Person person = (Person) finder.find(root, "I1");
         assertEquals("I1", person.getString(), "Mismatched ID");
     }
 
-    /** */
     @Test
     void testUntypedFamily() {
         final Family family = (Family) finder.find(root, "F1");
         assertEquals("F1", family.getString(), "Mismatched ID");
     }
 
-    /** */
     @Test
     void testUntypedSource() {
         final Source source = (Source) finder.find(root, "S2");
         assertEquals("S2", source.getString(), "Mismatched ID");
     }
 
-    /** */
     @Test
     void testUntypedSubmitter() {
         final Submitter submitter = (Submitter) finder.find(root, "SUB1");
         assertEquals("SUB1", submitter.getString(), "Mismatched tag string");
     }
 
-    /** */
     @Test
     void testUntypedHead() {
         final Head head = (Head) finder.find(root, HEADER_STRING);
         assertEquals(HEADER_STRING, head.getString(), "Mismatched tag string");
     }
 
-    /** */
     @Test
     void testUntypedTrailer() {
         final Trailer trailer = (Trailer) finder.find(root, TRAILER_STRING);
         assertEquals(TRAILER_STRING, trailer.getString(), "Mismatched tag string");
     }
 
-    /** */
     @Test
     void testUntypedNotFound() {
         final GedObject ged = finder.find(root, "Bozo");
         assertNull(ged, "Should not have found anything");
     }
 
-    /** */
     @Test
     void testTypedPerson() {
         final Person person = (Person) finder.find(root, "I1", Person.class);
         assertEquals("I1", person.getString(), "Mismatched ID");
     }
 
-    /** */
     @Test
     void testTypedFamily() {
         final Family family = (Family) finder.find(root, "F1", Family.class);
         assertEquals("F1", family.getString(), "Mismatched ID");
     }
 
-    /** */
     @Test
     void testTypedSource() {
         final Source source = (Source) finder.find(root, "S2", Source.class);
         assertEquals("S2", source.getString(), "Mismatched ID");
     }
 
-    /** */
     @Test
     void testTypedSubmitter() {
         final Submitter submitter = (Submitter) finder.find(root, "SUB1", Submitter.class);
         assertEquals("SUB1", submitter.getString(), "Mismatched tag string");
     }
 
-    /** */
     @Test
     void testTypedHead() {
         final Head head = (Head) finder.find(root, HEADER_STRING, Head.class);
         assertEquals(HEADER_STRING, head.getString(), "Mismatched tag string");
     }
 
-    /** */
     @Test
     void testTypedTrailer() {
         final Trailer trailer = (Trailer) finder.find(root, TRAILER_STRING, Trailer.class);
         assertEquals(TRAILER_STRING, trailer.getString(), "Mismatched tag string");
     }
 
-    /** */
     @Test
     void testTypedNotFoundPerson() {
         final Person person = finder.find(root, "S1", Person.class);
         assertNull(person, "Should not have found anything");
     }
 
-    /** */
     @Test
     void testTypedNotFoundFamily() {
         final Family family = finder.find(root, "I1", Family.class);
         assertNull(family, "Should not have found anything");
     }
 
-    /** */
     @Test
     void testTypedNotFoundSource() {
         final Source source = finder.find(root, "F1", Source.class);
         assertNull(source, "Should not have found anything");
     }
 
-    /** */
     @Test
     void testTypedNotFoundSubmitter() {
         final Submitter submitter = finder.find(root, "SUB2", Submitter.class);
         assertNull(submitter, "Should not have found anything");
     }
 
-    /** */
     @Test
     void testTypedNotFoundHead() {
         final Head head = finder.find(root, TRAILER_STRING, Head.class);

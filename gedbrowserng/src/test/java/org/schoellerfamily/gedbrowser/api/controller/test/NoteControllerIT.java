@@ -25,8 +25,12 @@ import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the note controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -46,7 +50,6 @@ class NoteControllerIT {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testReadNotesGl120368() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes";
@@ -66,7 +69,6 @@ class NoteControllerIT {
         assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
-    /** */
     @Test
     void testReadNotesGl120368N13() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes/N13";
@@ -88,7 +90,6 @@ class NoteControllerIT {
         assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
-    /** */
     @Test
     void testReadNotesGl120368N66() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes/N66";
@@ -112,7 +113,6 @@ class NoteControllerIT {
         assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
-    /** */
     @Test
     void testReadNotesGl120368N1932() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes/N1932";
@@ -160,7 +160,6 @@ class NoteControllerIT {
         assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
-    /** */
     @Test
     void testReadNotesGl120368Xyzzy() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368"
@@ -174,9 +173,6 @@ class NoteControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testCreateNotesSimple() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes";
@@ -194,9 +190,6 @@ class NoteControllerIT {
         assertThat(resBody.getTail()).isEqualTo(reqBody.getTail());
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteNote() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -244,9 +237,6 @@ class NoteControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteNoteNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -269,9 +259,6 @@ class NoteControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteNoteDatabaseNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -293,9 +280,6 @@ class NoteControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testUpdateNoteWithNote() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/notes";

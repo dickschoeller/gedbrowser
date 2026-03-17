@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer.href;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * Provides the pattern of returning the href to the submitters page.
+ * Renders submitters href output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  * @param <T> the GedObject type to render
  */
 public interface SubmittersHrefRenderer<T extends GedObject> {

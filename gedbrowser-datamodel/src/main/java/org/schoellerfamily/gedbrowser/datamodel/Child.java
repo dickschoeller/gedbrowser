@@ -1,22 +1,23 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents child in the domain model.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Child extends AbstractLink {
-    /**
-     * Default constructor.
-     */
-    public Child() {
-        super();
-    }
 
     /**
-     * @param parent parent object of this child
-     * @param string long version of type string
-     * @param xref the reference to a person object
+     * Creates a new Child.
+     *
+     * @param parent the parent
+     * @param string the string
+     * @param xref the cross-reference identifier
      */
     public Child(final GedObject parent, final String string,
             final ObjectId xref) {
@@ -25,8 +26,7 @@ public final class Child extends AbstractLink {
     }
 
     /**
-     * Get the person that this object points to. If not found, return an unset
-     * Person object.
+     * Get the person that this object points to. If not found, return an unset Person.
      *
      * @return the child
      */
@@ -38,6 +38,11 @@ public final class Child extends AbstractLink {
         return toPerson;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

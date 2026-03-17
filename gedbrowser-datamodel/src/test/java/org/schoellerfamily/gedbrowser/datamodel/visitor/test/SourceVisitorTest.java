@@ -32,12 +32,15 @@ import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for source visitor.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class SourceVisitorTest {
-    /** */
     @Test
     void testGetTitleString() {
         final Root root = new Root("Root");
@@ -50,7 +53,6 @@ final class SourceVisitorTest {
         assertEquals("Title 9", visitor.getTitleString(), "Found wrong title");
     }
 
-    /** */
     @Test
     void testGetNonTitleAttribute() {
         final Root root = new Root("Root");
@@ -63,7 +65,6 @@ final class SourceVisitorTest {
         assertEquals("S1", visitor.getTitleString(), "Found wrong title");
     }
 
-    /** */
     @Test
     void testNoTitleString() {
         final Root root = new Root("Root");
@@ -74,14 +75,12 @@ final class SourceVisitorTest {
         assertEquals("S1", visitor.getTitleString(), "Found wrong title");
     }
 
-    /** */
     @Test
     void testNoSource() {
         final SourceVisitor visitor = new SourceVisitor();
         assertEquals("", visitor.getTitleString(), "Found wrong title");
     }
 
-    /** */
     @Test
     void testNoImpactFromUnrelated() {
         final SourceVisitor visitor = new SourceVisitor();
@@ -109,7 +108,9 @@ final class SourceVisitorTest {
         new Wife().accept(visitor);
         final GedObject gob = new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

@@ -16,11 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Implementation of StorageService that keeps the files in a known location on
- * the file system.
+ * Provides services for file system storage.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Service
 @RequiredArgsConstructor
@@ -29,7 +30,9 @@ public class FileSystemStorageService implements StorageService {
     private final GedbrowserPropertiesService gedbrowserProperties;
 
     /**
-     * {@inheritDoc}
+     * Executes store.
+     *
+     * @param file the file to use
      */
     @Override
     public void store(final MultipartFile file) {
@@ -48,12 +51,6 @@ public class FileSystemStorageService implements StorageService {
         }
     }
 
-    /**
-     * Extract the filename and validate it.
-     *
-     * @param file the input file
-     * @return the filename
-     */
     private String validateFile(final MultipartFile file) {
         final String originalFilename = file.getOriginalFilename();
         if (StringUtils.isEmpty(originalFilename)) {

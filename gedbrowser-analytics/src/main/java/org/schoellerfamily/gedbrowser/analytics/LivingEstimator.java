@@ -16,10 +16,12 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Class carries out estimation of whether a person is living or dead.
+ * Represents living estimator.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class LivingEstimator {
@@ -34,10 +36,10 @@ public final class LivingEstimator {
     private final CalendarProvider provider;
 
     /**
-     * Constructor.
+     * Creates a new LivingEstimator.
      *
-     * @param person   the person we are estimating
-     * @param provider the provider of "today" for comparisons
+     * @param person the person
+     * @param provider the provider
      */
     public LivingEstimator(final Person person,
             final CalendarProvider provider) {
@@ -81,11 +83,13 @@ public final class LivingEstimator {
     }
 
     /**
-     * @param root data set to process
-     * @param living the list of people estimated to be living
-     * @param dead the list of people estimated to be dead
-     * @param buckets the living people divided into buckets by decade
-     * @param provider the provider of "today" for comparisons
+     * Executes fill buckets.
+     *
+     * @param root the root
+     * @param living the living
+     * @param dead the dead
+     * @param buckets the buckets
+     * @param provider the provider
      */
     public static void fillBuckets(final GedObject root,
             final List<Person> living, final List<Person> dead,
@@ -109,33 +113,15 @@ public final class LivingEstimator {
         log.info("Exiting LivingEstimator.fillBuckets");
     }
 
-    /**
-     * Get an estimate from another estimator.
-     *
-     * @param le an estimator to get the estimate from
-     * @return the estimate
-     */
     private static boolean estimate(final LivingEstimator le) {
         return le.estimate();
     }
 
-    /**
-     * Create a new estimator.
-     *
-     * @param person the person we're estimating
-     * @param provider the calendar provider we are using to determine now
-     * @return the estimator
-     */
     private static LivingEstimator createLivingEstimator(final Person person,
             final CalendarProvider provider) {
         return new LivingEstimator(person, provider);
     }
 
-    /**
-     * @param buckets the collection of people into age ranges
-     * @param person the person to add
-     * @param provider the calendar provider we are using to determine now
-     */
     private static void addToBucket(final Map<Integer, Set<Person>> buckets,
             final Person person,
             final CalendarProvider provider) {
@@ -151,7 +137,7 @@ public final class LivingEstimator {
     }
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private static final class BucketComparator implements Comparator<Person>,
             Serializable {
@@ -159,11 +145,11 @@ public final class LivingEstimator {
         private static final long serialVersionUID = 1L;
 
         /**
-         * <p>
-         * Implements comparison by sorting by index name (and ID if names are
-         * the same).
-         * </p>
-         * {@inheritDoc}
+         * Executes compare.
+         *
+         * @param arg0 the arg0
+         * @param arg1 the arg1
+         * @return the resulting int
          */
         @Override
         public int compare(final Person arg0, final Person arg1) {
@@ -172,25 +158,11 @@ public final class LivingEstimator {
             return compare(dumpableName0, dumpableName1);
         }
 
-        /**
-         * Compare 2 strings. Only added this method to avoid Demeter.
-         *
-         * @param name0 the first name
-         * @param name1 the second name
-         * @return a negative integer, zero, or a positive integer as the first
-         *         argument is less than, equal to, or greater than the second.
-         */
         private int compare(final String name0, final String name1) {
             return name0.compareTo(name1);
         }
     }
 
-    /**
-     * Emit a string that is good for sorting and for dumping.
-     *
-     * @param person the person who name to dump
-     * @return the string to dump
-     */
     /* default */ static String dumpableName(final Person person) {
         return person.getIndexName() + " [" + person.toString() + "]";
     }

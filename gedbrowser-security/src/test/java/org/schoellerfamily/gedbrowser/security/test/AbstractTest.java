@@ -15,8 +15,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import tools.jackson.databind.ObjectMapper;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for abstract.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class, TestConfiguration.class, WebSecurityConfig.class })
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
@@ -46,22 +50,23 @@ public abstract class AbstractTest {
     }
 
     /**
+     * Executes mock authenticated user.
+     *
      * @param user the user
      */
     protected void mockAuthenticatedUser(final SecurityUser user) {
         mockAuthentication(new TokenBasedAuthentication(user, null));
     }
 
-    /**
-     * @param auth the authentication
-     */
     private void mockAuthentication(final TokenBasedAuthentication auth) {
         auth.setAuthenticated(true);
         Mockito.when(securityContext.getAuthentication()).thenReturn(auth);
     }
 
     /**
-     * @return the user
+     * Builds test anon user.
+     *
+     * @return the resulting security user
      */
     protected SecurityUser buildTestAnonUser() {
         final UserImpl user = new UserImpl();
@@ -70,7 +75,9 @@ public abstract class AbstractTest {
     }
 
     /**
-     * @return the user
+     * Builds test user.
+     *
+     * @return the resulting security user
      */
     protected SecurityUser buildTestUser() {
         final UserImpl user = new UserImpl();
@@ -80,7 +87,9 @@ public abstract class AbstractTest {
     }
 
     /**
-     * @return the user
+     * Builds test admin.
+     *
+     * @return the resulting security user
      */
     protected SecurityUser buildTestAdmin() {
         final UserImpl admin = new UserImpl();
@@ -91,6 +100,8 @@ public abstract class AbstractTest {
     }
 
     /**
+     * Gets the users.
+     *
      * @return the users
      */
     public SecurityUsers getUsers() {
@@ -98,35 +109,45 @@ public abstract class AbstractTest {
     }
 
     /**
-     * @param users the users to set
+     * Sets the users.
+     *
+     * @param users the users
      */
     public void setUsers(final SecurityUsers users) {
         this.users = users;
     }
 
     /**
-     * @return the objectMapper
+     * Gets the object mapper.
+     *
+     * @return the object mapper
      */
     public ObjectMapper getObjectMapper() {
         return objectMapper;
     }
 
     /**
-     * @param objectMapper the objectMapper to set
+     * Sets the object mapper.
+     *
+     * @param objectMapper the object mapper
      */
     public void setObjectMapper(final ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 
     /**
-     * @return the securityContext
+     * Gets the security context.
+     *
+     * @return the security context
      */
     public SecurityContext getSecurityContext() {
         return securityContext;
     }
 
     /**
-     * @param securityContext the securityContext to set
+     * Sets the security context.
+     *
+     * @param securityContext the security context to use
      */
     public void setSecurityContext(final SecurityContext securityContext) {
         this.securityContext = securityContext;

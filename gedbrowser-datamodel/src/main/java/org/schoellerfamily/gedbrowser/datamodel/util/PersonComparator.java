@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.util;
 
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -7,12 +9,25 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Compares person values.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class PersonComparator implements Comparator<Person>, Serializable {
-    /** */
+
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Compare two {@link Person} instances for ordering.
+     *
+     * @param p0 the first person to compare
+     * @param p1 the second person to compare
+     * @return a negative integer, zero, or a positive integer as {@code p0}
+     */
     @Override
     public int compare(final Person p0, final Person p1) {
         final int nameComparison =

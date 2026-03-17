@@ -17,8 +17,12 @@ import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for reader writer.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 class ReaderWriterTest {
@@ -54,11 +58,6 @@ class ReaderWriterTest {
         return parameters;
     }
 
-    /**
-     * @param strings the string array
-     * @param i index into the string array
-     * @return the value at the index or a dummy if overflowed
-     */
     private static String expected(final Object[] strings, final int i) {
         if (i == 0) {
             return "";
@@ -69,31 +68,14 @@ class ReaderWriterTest {
         return (String) strings[i - 1];
     }
 
-    /**
-     * Read data for tests available to prepare data for tests.
-     *
-     * @return a populated GedLine parse tree.
-     * @throws IOException because reader might throw.
-     */
     private static AbstractGedLine readFileTestSource() throws IOException {
         return TestResourceReader.readFileTestSource(FILE_NAME);
     }
 
-    /**
-     * Read data for tests available to prepare data for tests.
-     *
-     * @return a stream of strings
-     * @throws IOException because reader might throw.
-     */
     private static Stream<String> readFileTestSourceAsStrings() throws IOException {
         return TestResourceReader.readFileTestSourceAsStrings(FILE_NAME);
     }
 
-    /**
-     * Iterate all expected/actual pairs and assert equality.
-     *
-     * @throws Exception on IO/read errors
-     */
     @Test
     void testLines() throws Exception {
         final List<String[]> parameters = data();

@@ -16,8 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for simple attribute list open renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -29,16 +33,14 @@ final class SimpleAttributeListOpenRendererTest {
     /** */
     private transient SimpleAttributeListOpenRenderer npr;
 
-    /** */
     private final transient GedObject gob = createGedObject();
 
-    /**
-     * @return an anonymous subclass of GedObject for testing
-     */
     private GedObject createGedObject() {
         return new GedObject(null, "THIS IS A STRING") {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {
@@ -47,7 +49,6 @@ final class SimpleAttributeListOpenRendererTest {
         };
     }
 
-    /** */
     @BeforeEach
     void setUp() {
         final DefaultRenderer renderer = new DefaultRenderer(gob,
@@ -57,7 +58,6 @@ final class SimpleAttributeListOpenRendererTest {
                 .getAttributeListOpenRenderer();
     }
 
-    /** */
     @Test
     void testRenderAsPhrase() {
         final StringBuilder builder = new StringBuilder();

@@ -1,8 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders sectioned output for display.
  *
+ * @author Richard Schoeller
  */
 public class SectionedRenderer extends RenderingContextRenderer {
     /** */
@@ -21,9 +22,9 @@ public class SectionedRenderer extends RenderingContextRenderer {
     private AttributeListOpenRenderer attributeListOpenRenderer;
 
     /**
-     * Constructor.
+     * Creates a new SectionedRenderer.
      *
-     * @param renderingContext the context that we are rendering in
+     * @param renderingContext the rendering context
      */
     public SectionedRenderer(final RenderingContext renderingContext) {
         super(renderingContext);
@@ -35,10 +36,9 @@ public class SectionedRenderer extends RenderingContextRenderer {
     }
 
     /**
-     * Set the renderer to something new.
+     * Sets the name html renderer.
      *
-     * @param nameHtmlRenderer
-     *            the new renderer.
+     * @param nameHtmlRenderer the name html renderer to use
      */
     protected final void setNameHtmlRenderer(
             final NameHtmlRenderer nameHtmlRenderer) {
@@ -57,10 +57,9 @@ public class SectionedRenderer extends RenderingContextRenderer {
     }
 
     /**
-     * Set the renderer to something new.
+     * Sets the list item renderer.
      *
-     * @param listItemRenderer
-     *            the new renderer.
+     * @param listItemRenderer the list item renderer
      */
     protected final void setListItemRenderer(
             final ListItemRenderer listItemRenderer) {
@@ -78,10 +77,9 @@ public class SectionedRenderer extends RenderingContextRenderer {
     }
 
     /**
-     * Set the renderer to something new.
+     * Sets the phrase renderer.
      *
-     * @param phraseRenderer
-     *            the new renderer.
+     * @param phraseRenderer the phrase renderer
      */
     protected final void setPhraseRenderer(
             final PhraseRenderer phraseRenderer) {
@@ -99,10 +97,9 @@ public class SectionedRenderer extends RenderingContextRenderer {
     }
 
     /**
-     * Set the renderer to something new.
+     * Sets the attribute list open renderer.
      *
-     * @param attributeListOpenRenderer
-     *            the new renderer.
+     * @param attributeListOpenRenderer the attribute list open renderer
      */
     protected final void setAttributeListOpenRenderer(
             final AttributeListOpenRenderer
@@ -122,10 +119,9 @@ public class SectionedRenderer extends RenderingContextRenderer {
     }
 
     /**
-     * Set the renderer to something new.
+     * Sets the name index renderer.
      *
-     * @param nameIndexRenderer
-     *            the new renderer.
+     * @param nameIndexRenderer the zero-based name index renderer
      */
     protected final void setNameIndexRenderer(
             final NameIndexRenderer nameIndexRenderer) {

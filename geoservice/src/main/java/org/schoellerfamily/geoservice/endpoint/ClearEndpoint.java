@@ -9,35 +9,49 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Exposes operations for the clear endpoint.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @Endpoint(id = "clear")
 @Slf4j
 public class ClearEndpoint extends BaseGeoCodeEndpoint {
     /**
-     * Constructor.
+     * Creates a new ClearEndpoint.
      *
-     * @param gcc a geocode
+     * @param gcc the gcc
      */
     public ClearEndpoint(final GeoCode gcc) {
         super(gcc);
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     @Override
     public final String getId() {
         return "clear";
     }
 
     /**
-     * @return the list of strings
+     * Returns the list.
+     *
+     * @return the resulting list
      */
     @ReadOperation
     public List<String> invokeEndpoint() {
         return super.invoke();
     }
 
+    /**
+     * Executes geo code action.
+     */
     @Override
     public final void geoCodeAction() {
         log.info("Invoke clear");

@@ -1,28 +1,34 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents fam c in the domain model.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class FamC extends AbstractLink {
-    /**
-     * Default constructor.
-     */
-    public FamC() {
-        super();
-    }
 
     /**
-     * @param parent person that is a child in the referred family
-     * @param string long version of type string
-     * @param xref the reference to a family object
+     * Creates a new FamC.
+     *
+     * @param parent the parent
+     * @param string the string
+     * @param xref the cross-reference identifier
      */
     public FamC(final GedObject parent, final String string,
             final ObjectId xref) {
         super(parent, string, xref);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

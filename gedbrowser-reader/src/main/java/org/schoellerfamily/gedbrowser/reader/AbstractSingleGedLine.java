@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+
+
 /**
- * This class represents the basic information read from a line of GEDCOM.
- * It does not account for hierarchy, just the specific line. Children are
- * accounted for at the next level of abstraction.
+ * Represents abstract single ged line.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Getter
 @Setter
@@ -31,6 +31,8 @@ public abstract class AbstractSingleGedLine implements GedObjectHolder {
     private transient GedObject gedObject;
 
     /**
+     * Executes abstract single ged line.
+     *
      * @param lineNumber the line number
      */
     protected AbstractSingleGedLine(final int lineNumber) {

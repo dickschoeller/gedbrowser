@@ -9,23 +9,27 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 
 /**
- * Helper class for building attribute lists. Manages order and aggregation.
+ * Represents attribute list helper.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class AttributeListHelper {
     /** */
     private final ApiModelToGedObjectVisitor parentVisitor;
 
     /**
-     * @param parentVisitor the visitor that is using this helper.
+     * Executes attribute list helper.
+     *
+     * @param parentVisitor the parent visitor
      */
     public AttributeListHelper(final ApiModelToGedObjectVisitor parentVisitor) {
         this.parentVisitor = parentVisitor;
     }
 
     /**
-     * @param apiParent the parent object
+     * Executes add attributes.
+     *
+     * @param apiParent the api parent
      */
     public void addAttributes(final ApiAttribute apiParent) {
         addByType(apiParent, "date");
@@ -33,12 +37,6 @@ public class AttributeListHelper {
         addIfNotTypes(apiParent, "date", "place");
     }
 
-    /**
-     * Add the attributes if they match the given type.
-     *
-     * @param apiParent the parent attribute
-     * @param string the type we want to match
-     */
     private void addByType(final ApiAttribute apiParent, final String string) {
         for (final ApiAttribute object : apiParent.getAttributes()) {
             if (object.isType(string)) {
@@ -48,12 +46,6 @@ public class AttributeListHelper {
         }
     }
 
-    /**
-     * Add the attributes that don't match any of the selected types.
-     *
-     * @param apiParent the parent attribute
-     * @param types the types to check
-     */
     private void addIfNotTypes(final ApiAttribute apiParent,
             final String... types) {
         for (final ApiAttribute object : apiParent.getAttributes()) {
@@ -64,11 +56,6 @@ public class AttributeListHelper {
         }
     }
 
-    /**
-     * @param object the object that we are checking
-     * @param types a list of types to match
-     * @return true if matches any of the types
-     */
     private boolean matchOne(final ApiAttribute object,
             final String... types) {
         for (final String type : types) {
@@ -80,7 +67,9 @@ public class AttributeListHelper {
     }
 
     /**
-     * @param apiParent the parent object
+     * Executes add attributes.
+     *
+     * @param apiParent the api parent
      */
     public void addAttributes(final ApiPerson apiParent) {
         addToAttributes(apiParent.getAttributes());
@@ -92,7 +81,9 @@ public class AttributeListHelper {
     }
 
     /**
-     * @param apiParent the parent object
+     * Executes add attributes.
+     *
+     * @param apiParent the api parent
      */
     public void addAttributes(final ApiFamily apiParent) {
         addToAttributes(apiParent.getSpouses());
@@ -102,18 +93,15 @@ public class AttributeListHelper {
     }
 
     /**
-     * @param apiParent the parent object
+     * Executes add attributes.
+     *
+     * @param apiParent the api parent
      */
     public void addAttributes(final ApiSource apiParent) {
         addToAttributes(apiParent.getAttributes());
         addToAttributes(apiParent.getImages());
     }
 
-    /**
-     * Add to the attributes of the parent for saving.
-     *
-     * @param attributes some attributes to add to the list
-     */
     private void addToAttributes(final List<ApiAttribute> attributes) {
         for (final ApiObject object : attributes) {
             final ApiModelToGedObjectVisitor visitor = createVisitor();
@@ -122,7 +110,9 @@ public class AttributeListHelper {
     }
 
     /**
-     * @param apiParent the parent object
+     * Executes add attributes.
+     *
+     * @param apiParent the api parent
      */
     public void addAttributes(final ApiObject apiParent) {
         for (final ApiObject object : apiParent.getAttributes()) {
@@ -131,9 +121,6 @@ public class AttributeListHelper {
         }
     }
 
-    /**
-     * @return the new visitor
-     */
     private ApiModelToGedObjectVisitor createVisitor() {
         return parentVisitor.createVisitor();
     }

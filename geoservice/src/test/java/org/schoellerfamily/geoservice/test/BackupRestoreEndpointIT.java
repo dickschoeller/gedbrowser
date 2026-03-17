@@ -15,8 +15,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the backup restore endpoint.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = Application.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -37,7 +41,6 @@ class BackupRestoreEndpointIT {
     @Autowired
     private RestTestClient restTestClient;
 
-    /** */
     @Test
     void shouldReturn200WhenSendingRequestToBackupEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -50,7 +53,6 @@ class BackupRestoreEndpointIT {
             .contains("locations in the cache");
     }
 
-    /** */
     @Test
     void shouldReturn200WhenSendingRequestToRestoreEndpoint() {
         final EntityExchangeResult<String> entity = restTestClient.get()

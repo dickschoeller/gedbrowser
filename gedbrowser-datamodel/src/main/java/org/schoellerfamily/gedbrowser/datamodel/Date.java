@@ -10,26 +10,36 @@ import org.schoellerfamily.gedbrowser.datamodel.util.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents date in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Date extends AbstractAttribute {
 
-    /** */
+    /**
+     * The sort date value.
+     */
     private Calendar sortDate;
-    /** */
+    /**
+     * The estimate date value.
+     */
     private Calendar estimateDate;
 
 
     /**
-     * @param parent parent object of this date
+     * Creates a new Date.
+     *
+     * @param parent the parent
      */
     public Date(final GedObject parent) {
         super(parent);
     }
 
     /**
-     * @param parent parent object of this date
-     * @param dateString date as a string
+     * Creates a new Date.
+     *
+     * @param parent the parent
+     * @param dateString the date string
      */
     public Date(final GedObject parent, final String dateString) {
         super(parent, dateString);
@@ -45,7 +55,9 @@ public final class Date extends AbstractAttribute {
     }
 
     /**
-     * @return the year as a string.
+     * Gets the year.
+     *
+     * @return the year
      */
     public String getYear() {
         if (StringUtils.isEmpty(getString())) {
@@ -57,7 +69,9 @@ public final class Date extends AbstractAttribute {
     }
 
     /**
-     * @return the string in a sortable format.
+     * Gets the sort date.
+     *
+     * @return the sort date
      */
     public String getSortDate() {
         if (StringUtils.isEmpty(getString())) {
@@ -68,11 +82,6 @@ public final class Date extends AbstractAttribute {
         return format(formatter, getSortCalendar());
     }
 
-    /**
-     * Return the sortable date in the form of a Calendar.
-     *
-     * @return the calendar
-     */
     private Calendar getSortCalendar() {
         if (sortDate == null) {
             final DateParser parser = new DateParser(getDate());
@@ -82,8 +91,7 @@ public final class Date extends AbstractAttribute {
     }
 
     /**
-     * Like sort date only we are starting in on correcting the problems with
-     * approximations.
+     * Like sort date only we are starting in on correcting the problems with.
      *
      * @return string in the form yyyymmdd
      */
@@ -97,11 +105,6 @@ public final class Date extends AbstractAttribute {
         return format(formatter, estimateDate);
     }
 
-    /**
-     * @param formatter formatter to use
-     * @param c calendar to format
-     * @return string from formatting (can be "Unknown")
-     */
     private String format(final SimpleDateFormat formatter, final Calendar c) {
         if (c == null) {
             return "Unknown";
@@ -109,6 +112,11 @@ public final class Date extends AbstractAttribute {
         return formatter.format(c.getTime());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

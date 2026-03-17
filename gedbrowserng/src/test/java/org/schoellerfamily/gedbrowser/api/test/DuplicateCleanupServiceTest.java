@@ -20,7 +20,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import com.mongodb.client.result.DeleteResult;
 
 /**
- * Tests for {@link DuplicateCleanupService}.
+ * Contains tests for the duplicate cleanup service.
  */
 final class DuplicateCleanupServiceTest {
 

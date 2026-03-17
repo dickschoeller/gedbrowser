@@ -12,7 +12,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.SubmitterDocument
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 
 /**
- * @author Dick Schoeller
+ * Visits top level ged document mongo elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface TopLevelGedDocumentMongoVisitor {
     /**

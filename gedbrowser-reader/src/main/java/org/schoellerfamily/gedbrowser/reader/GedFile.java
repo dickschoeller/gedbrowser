@@ -6,9 +6,9 @@ import java.io.IOException;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 
 /**
- * The file level object for parsing GEDCOM files into GedBrowser form.
+ * Represents ged file.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GedFile extends AbstractGedLine {
     /** */
@@ -21,11 +21,12 @@ public final class GedFile extends AbstractGedLine {
     private final transient FinderStrategy finder;
 
     /**
-     * @param filename the name of the file
-     * @param dbName the name of the database
-     * @param finder the finder to use in the root object
-     * @param reader The buffered reader to use to read the file
-     * @throws IOException if there are problems reading the file
+     * Creates a new GedFile.
+     *
+     * @param filename the filename to use
+     * @param dbName the db name to use
+     * @param finder the finder
+     * @param reader the reader
      */
     public GedFile(final String filename, final String dbName,
             final FinderStrategy finder, final BufferedReader reader)
@@ -38,28 +39,36 @@ public final class GedFile extends AbstractGedLine {
     }
 
     /**
-     * @return the file name
+     * Gets the filename.
+     *
+     * @return the filename
      */
     public String getFilename() {
         return filename;
     }
 
     /**
-     * @return the name of the DB for queries
+     * Gets the db name.
+     *
+     * @return the db name
      */
     public String getDbName() {
         return dbName;
     }
 
     /**
-     * @return the finder implementation
+     * Gets the finder.
+     *
+     * @return the finder
      */
     public FinderStrategy getFinder() {
         return finder;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the string.
+     *
+     * @return the resulting string
      */
     @Override
     public String toString() {
@@ -67,7 +76,9 @@ public final class GedFile extends AbstractGedLine {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes accept.
+     *
+     * @param visitor the visitor
      */
     @Override
     public void accept(final GedLineVisitor visitor) {

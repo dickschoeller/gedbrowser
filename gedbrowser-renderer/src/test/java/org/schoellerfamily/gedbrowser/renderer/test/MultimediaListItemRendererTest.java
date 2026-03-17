@@ -18,8 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for multimedia list item renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -40,7 +44,6 @@ final class MultimediaListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -70,7 +73,6 @@ final class MultimediaListItemRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsListItemEmpty() {
         @SuppressWarnings("java:S6126")
@@ -86,7 +88,6 @@ final class MultimediaListItemRendererTest {
         assertEquals(expected, builder.toString(), "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testRenderAsListItemString() {
         @SuppressWarnings("java:S6126")

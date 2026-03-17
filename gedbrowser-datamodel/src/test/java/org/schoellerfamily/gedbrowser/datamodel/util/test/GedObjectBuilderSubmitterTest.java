@@ -8,10 +8,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object builder submitter.
+ *
+ * @author Richard Schoeller
  */
 final class GedObjectBuilderSubmitterTest {
-    /** */
     @Test
     void testCreateSubmitterSimple() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -19,7 +20,6 @@ final class GedObjectBuilderSubmitterTest {
         assertEquals("SUB1", submitter.getString(), "Mismatched tag");
     }
 
-    /** */
     @Test
     void testCreateSubmitterSimpleIsUnnamed() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -27,7 +27,6 @@ final class GedObjectBuilderSubmitterTest {
         assertTrue(submitter.getName().getString().isEmpty(), "Should be empty string");
     }
 
-    /** */
     @Test
     void testCreateSubmitterSimpleNoId() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -35,7 +34,6 @@ final class GedObjectBuilderSubmitterTest {
         assertEquals("", submitter.getString(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testCreateSubmitterSimpleNoIdIsUnnamed() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -43,7 +41,6 @@ final class GedObjectBuilderSubmitterTest {
         assertTrue(submitter.getName().getString().isEmpty(), "Should be empty string");
     }
 
-    /** */
     @Test
     void testCreateSubmitterNamed() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -51,7 +48,6 @@ final class GedObjectBuilderSubmitterTest {
         assertEquals("SUB1", submitter.getString(), "Mismatched tag");
     }
 
-    /** */
     @Test
     void testCreateSubmitterNamedIsNamed() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -59,7 +55,6 @@ final class GedObjectBuilderSubmitterTest {
         assertEquals("John/Doe/", submitter.getName().getString(), "Mismatched string");
     }
 
-    /** */
     @Test
     void testCreateSubmitterNamedNullIdHasEmptyId() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -67,7 +62,6 @@ final class GedObjectBuilderSubmitterTest {
         assertTrue(submitter.getString().isEmpty(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testCreateSubmitterNamedNullIdIsUnnamed() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -75,7 +69,6 @@ final class GedObjectBuilderSubmitterTest {
         assertTrue(submitter.getName().getString().isEmpty(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testCreateSubmitterIdNullNameHasEmptyId() {
         final GedObjectBuilder builder = new GedObjectBuilder();
@@ -83,7 +76,6 @@ final class GedObjectBuilderSubmitterTest {
         assertTrue(submitter.getString().isEmpty(), "Expected empty string");
     }
 
-    /** */
     @Test
     void testCreateSubmitterIdNullNameIsUnnamed() {
         final GedObjectBuilder builder = new GedObjectBuilder();

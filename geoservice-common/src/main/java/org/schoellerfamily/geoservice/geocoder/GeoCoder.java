@@ -3,10 +3,9 @@ package org.schoellerfamily.geoservice.geocoder;
 import com.google.maps.model.GeocodingResult;
 
 /**
- * This interface defines the standard wrapper around a geocoder. The current
- * presumed behavior is to return a result in Google's Geocoding API format.
+ * Defines the contract for geo coder.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface GeoCoder {
     /**

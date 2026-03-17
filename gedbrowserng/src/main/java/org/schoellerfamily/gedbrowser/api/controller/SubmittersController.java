@@ -19,8 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for submitters.
+ *
+ * @author Richard Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
@@ -36,17 +40,16 @@ public class SubmittersController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating submitters
-     */
     private ObjectCrud<ApiSubmitter> crud() {
         return new SubmitterCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
-     * @param db the name of the db to access
-     * @param submitter the data for the submitter
-     * @return the submitter as created
+     * Returns the api submitter.
+     *
+     * @param db the db
+     * @param submitter the submitter
+     * @return the resulting api submitter
      */
     @PostMapping(value = "/v1/dbs/{db}/submitters")
     public ApiSubmitter create(
@@ -56,8 +59,10 @@ public class SubmittersController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of submitters
+     * Returns the list.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @GetMapping(value = "/v1/dbs/{db}/submitters")
     public List<ApiSubmitter> read(
@@ -66,9 +71,11 @@ public class SubmittersController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the submitter
-     * @return the person
+     * Returns the api submitter.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api submitter
      */
     @GetMapping(value = "/v1/dbs/{db}/submitters/{id}")
     public ApiSubmitter read(
@@ -78,10 +85,12 @@ public class SubmittersController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the submitter to update
-     * @param submitter the data for the submitter
-     * @return the submitter as created
+     * Returns the api submitter.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param submitter the submitter
+     * @return the resulting api submitter
      */
     @PutMapping(value = "/v1/dbs/{db}/submitters/{id}")
     public ApiSubmitter update(
@@ -92,9 +101,11 @@ public class SubmittersController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the submitter
-     * @return the deleted object
+     * Returns the api submitter.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api submitter
      */
     @DeleteMapping(value = "/v1/dbs/{db}/submitters/{id}")
     public ApiSubmitter deleteSubmitter(

@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * Main program for running gedbrowser as a standalone application.
+ * Bootstraps the application.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SpringBootApplication
 @ComponentScan(basePackageClasses = { GeoServiceClient.class, ApplicationInfoImpl.class,

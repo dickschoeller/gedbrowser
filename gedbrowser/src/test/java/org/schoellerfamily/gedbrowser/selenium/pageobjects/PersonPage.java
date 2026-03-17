@@ -9,16 +9,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents person page.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.CommentSize", "PMD.GodClass" })
 @Slf4j
 public final class PersonPage extends PageBase implements MenuPageFacade {
-
-    /** The menu item handler. */
+    /** */
     private final MenuPage menuPage = new MenuPageImpl(this);
-
     /** */
     private static final boolean PRINT_NAVIGATION = "true"
             .equals(System.getProperty("printNavigation", "false"));
@@ -40,6 +42,11 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         this.id = id;
     }
 
+    /**
+     * Gets the index letter.
+     *
+     * @return the index letter
+     */
     @Override
     protected String getIndexLetter() {
         final String title = getExpectedTitleString();
@@ -48,18 +55,16 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         return surname.substring(0, 1);
     }
 
+    /**
+     * Gets the menu page.
+     *
+     * @return the menu page
+     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;
     }
 
-    /**
-     * Build the URL string for this page.
-     *
-     * @param baseUrl the base from which all URLs are derived
-     * @param iD the ID of the person on the page
-     * @return the built url string
-     */
     private String url(final String baseUrl, final String iD) {
         if (StringUtils.isEmpty(baseUrl) || StringUtils.isEmpty(iD)) {
             return "";
@@ -67,12 +72,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         return getBaseUrl() + "person?db=gl120368&id=" + iD;
     }
 
-    /**
-     * Build the URL string for the provided id.
-     *
-     * @param iD the ID of the person linked
-     * @return the built url string
-     */
     private String url(final String iD) {
         return url(getBaseUrl(), iD);
     }
@@ -90,14 +89,18 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
     }
 
     /**
-     * @return newly created page object for this page's father
+     * Returns the person page.
+     *
+     * @return the resulting person page
      */
     public PersonPage navigateFather() {
         return navigate(getFatherLink());
     }
 
     /**
-     * @return newly created page object for this page's mother
+     * Returns the person page.
+     *
+     * @return the resulting person page
      */
     public PersonPage navigateMother() {
         return navigate(getMotherLink());
@@ -115,10 +118,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         return navigate(getChildLink(familyIndex, childIndex));
     }
 
-    /**
-     * @param element the element to click on
-     * @return the newly created page object
-     */
     private PersonPage navigate(final WebElement element) {
         final String newUrl = element.getAttribute("href");
         element.click();
@@ -175,11 +174,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
                 + actual + "]\n";
     }
 
-    /**
-     * Get the father item and return the string contents.
-     *
-     * @return the father's name and ID on this page.
-     */
     private String getFatherString() {
         try {
             final WebElement father = getFather();
@@ -192,11 +186,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         }
     }
 
-    /**
-     * Get the mother item and return the string contents.
-     *
-     * @return the mother's name and ID on this page.
-     */
     private String getMotherString() {
         try {
             final WebElement mother = getMother();
@@ -209,11 +198,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         }
     }
 
-    /**
-     * Find the a tag inside the father element.
-     *
-     * @return the web element for the a tag inside the father element
-     */
     private WebElement getFatherLink() {
         try {
             final WebElement father = getFather();
@@ -226,11 +210,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         }
     }
 
-    /**
-     * Find the element with the ID father.
-     *
-     * @return the father element
-     */
     private WebElement getFather() {
         try {
             return getWebElement(By.id("father"));
@@ -239,11 +218,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         }
     }
 
-    /**
-     * Find the a tag inside the mother element.
-     *
-     * @return the web element for the a tag inside the mother element
-     */
     private WebElement getMotherLink() {
         try {
             final WebElement mother = getMother();
@@ -256,11 +230,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         }
     }
 
-    /**
-     * Find the element with the ID mother.
-     *
-     * @return the mother element
-     */
     private WebElement getMother() {
         try {
             return getWebElement(By.id("mother"));
@@ -269,25 +238,11 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         }
     }
 
-    /**
-     * Find the a tag inside the indexed child element.
-     *
-     * @param familyIndex the index of the family of the child
-     * @param childIndex the index of the desired child
-     * @return the web element for the a tag inside the mother element
-     */
     private WebElement getChildLink(
             final int familyIndex, final int childIndex) {
         return getChild(familyIndex, childIndex).findElement(By.tagName("a"));
     }
 
-    /**
-     * Find the indexed child element.
-     *
-     * @param familyIndex the index of the family of the child
-     * @param childIndex the index of the desired child
-     * @return the web element for the a tag inside the mother element
-     */
     private WebElement getChild(final int familyIndex, final int childIndex) {
         return getWebElement(
                 By.id("family-" + familyIndex + "-child-" + childIndex));
@@ -308,9 +263,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
                 + "], actual: [" + fatherUrl + "]\n";
     }
 
-    /**
-     * @return the father link URL or empty string if not found
-     */
     private String getFatherLinkUrl() {
         final WebElement fatherLink = getFatherLink();
         if (fatherLink == null) {
@@ -338,9 +290,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
                 + "], actual: [" + motherUrl + "]\n";
     }
 
-    /**
-     * @return the mother link URL or empty string if not found
-     */
     private String getMotherLinkUrl() {
         final WebElement motherLink = getMotherLink();
         if (motherLink == null) {
@@ -417,13 +366,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         return status.toString();
     }
 
-    /**
-     * Check the leaf nodes in the tree structure. If no leaves are
-     * defined, return true. If the leaves are defined, compare the
-     * person IDs with expectations.
-     *
-     * @return true if all of the leaves align with expectations.
-     */
     @SuppressWarnings({ "PMD.CyclomaticComplexity",
             "PMD.ModifiedCyclomaticComplexity", "PMD.NPathComplexity",
             "PMD.StdCyclomaticComplexity" })
@@ -514,13 +456,6 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         return true;
     }
 
-    /**
-     * Check a single leaf in the tree.
-     *
-     * @param elementId the id attribute for the table cell
-     * @param personId the person ID expected in that cell.
-     * @return true if the cell contains what is expected
-     */
     private boolean leafCheck(final String elementId, final String personId) {
         final WebElement leaf = getWebElement(By.id(elementId));
         try {
@@ -532,74 +467,47 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
         }
     }
 
-    /**
-     * @return the expected title string for this page
-     */
     private String getExpectedTitleString() {
         return getExpectation().getTitle();
     }
 
-    /**
-     * @return the expected father string for this page
-     */
     private String getExpectedFatherString() {
         return getExpectation().getFatherString();
     }
 
-    /**
-     * @return the expected mother string for this page
-     */
     private String getExpectedMotherString() {
         return getExpectation().getMotherString();
     }
 
-    /**
-     * @return the URL of the father for the current page
-     */
     private String getExpectedFatherUrl() {
         return url(getExpectation().getFatherId());
     }
 
-    /**
-     * @return the URL of the mother for the current page
-     */
     private String getExpectedMotherUrl() {
         return url(getExpectation().getMotherId());
     }
 
-    /**
-     * @return the ID of the first child for the current page
-     */
     private String getExpectedChildOne() {
         return getExpectation().getChildOneId();
     }
 
-    /**
-     * @return the expectation for the current person ID
-     */
     private Expectations getExpectation() {
         return getExpectationsMap().get(id);
     }
 
-    /**
-     * @return the map of ID to expectation
-     */
     private Map<String, Expectations> getExpectationsMap() {
         return getFactory().getExpectationsMap();
     }
 
     /**
-     * @return the ID string for this page
+     * Gets the id.
+     *
+     * @return the id
      */
     public String getId() {
         return id;
     }
 
-    /**
-     * Print the provide string.
-     *
-     * @param string the string to print
-     */
     private void println(final String string) {
         if (PRINT_NAVIGATION) {
             log.info(string);

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import org.junit.jupiter.api.Test;
 
 /**
- * Contract tests for geoservice call abstractions.
+ * Contains tests for geo service call contracts.
  */
 final class GeoServiceCallContractsTest {
 
@@ -24,6 +24,12 @@ final class GeoServiceCallContractsTest {
     @Test
     void testGeoServiceCallExecutorDefaultCallNotPermittedIsFalse() {
         final GeoServiceCallExecutor executor = new GeoServiceCallExecutor() {
+            /**
+             * Returns the t.
+             *
+             * @param supplier the supplier
+             * @return the resulting t
+             */
             @Override
             public <T> T execute(final ThrowingSupplier<T> supplier)
                     throws GeoServiceCallException {

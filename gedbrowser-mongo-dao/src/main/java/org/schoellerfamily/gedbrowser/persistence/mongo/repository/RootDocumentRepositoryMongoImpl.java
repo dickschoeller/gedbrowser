@@ -15,20 +15,36 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents root document repository mongo impl for persistence operations.
  *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public class RootDocumentRepositoryMongoImpl implements
     FindableDocument<Root, RootDocument> {
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The finder value.
+     */
     private final FinderStrategy finder;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
 
+    /**
+     * Finds the by file and string.
+     *
+     * @param filename the filename to use
+     * @param string the string
+     * @return the resulting root document
+     */
     @Override
     public final RootDocument findByFileAndString(
             final String filename, final String string) {
@@ -45,6 +61,13 @@ public class RootDocumentRepositoryMongoImpl implements
         return rootDocument;
     }
 
+    /**
+     * Finds the by root and string.
+     *
+     * @param rootDocument the root document
+     * @param string the string
+     * @return the resulting root document
+     */
     @Override
     public final RootDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -52,6 +75,12 @@ public class RootDocumentRepositoryMongoImpl implements
                 "Not implementable for this document type");
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param filename the filename to use
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<RootDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -67,6 +96,12 @@ public class RootDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param rootDocument the root document
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<RootDocument> findAll(
             final RootDocument rootDocument) {
@@ -82,6 +117,12 @@ public class RootDocumentRepositoryMongoImpl implements
         return rootDocuments;
     }
 
+    /**
+     * Executes count.
+     *
+     * @param filename the filename to use
+     * @return the resulting long
+     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -89,16 +130,34 @@ public class RootDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, RootDocumentMongo.class);
     }
 
+    /**
+     * Returns the long.
+     *
+     * @param rootDocument the root document
+     * @return the resulting long
+     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String lastId(final RootDocument rootDocument) {
         return "";
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String newId(final RootDocument rootDocument) {
         return "";

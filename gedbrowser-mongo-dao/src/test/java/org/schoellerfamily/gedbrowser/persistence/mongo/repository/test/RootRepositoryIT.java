@@ -46,8 +46,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the root repository.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
@@ -90,9 +94,6 @@ final class RootRepositoryIT {
     /** */
     private transient RootDocumentMongo rootDocument;
 
-    /**
-     * @throws IOException because the reader can
-     */
     @BeforeEach
     void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
@@ -102,20 +103,17 @@ final class RootRepositoryIT {
         rootDocument.setGedObject(root);
     }
 
-    /** */
     @AfterEach
     void tearDown() {
         repositoryFixture.clearRepository();
     }
 
-    /** */
     @Test
     void testPersons() {
         final long expectedPersonCount = 16L;
         assertEquals(expectedPersonCount, personDocumentRepository.count(), "Count mismatch");
     }
 
-    /** */
     @Test
     void testPerson() {
         final PersonDocument perdoc = personDocumentRepository
@@ -124,14 +122,12 @@ final class RootRepositoryIT {
         assertEquals("Melissa Robinson/Schoeller/", person.getName().getString(), "Name mismatch");
     }
 
-    /** */
     @Test
     void testFamilies() {
         final long expectedFamilyCount = 6L;
         assertEquals(expectedFamilyCount, familyDocumentRepository.count(), "Should be 6 families");
     }
 
-    /** */
     @Test
     void testFamilyHusband() {
         final String filename = root.getFilename();
@@ -142,7 +138,6 @@ final class RootRepositoryIT {
         assertEquals("I2", h.getToString(), "ID mismatch");
     }
 
-    /** */
     @Test
     void testFamilyWife() {
         final String filename = root.getFilename();
@@ -153,14 +148,12 @@ final class RootRepositoryIT {
         assertEquals("I3", w.getToString(), "ID mismatch");
     }
 
-    /** */
     @Test
     void testSources() {
         final long expectedSourceCount = 9L;
         assertEquals(expectedSourceCount, sourceDocumentRepository.count(), "Count mismatch");
     }
 
-    /** */
     @Test
     void testSource() {
         final SourceDocument soudoc = sourceDocumentRepository
@@ -169,7 +162,6 @@ final class RootRepositoryIT {
         assertEquals("S2", source.getString(), "ID mismatch");
     }
 
-    /** */
     @Test
     void testRoot() {
         final RootDocument rootdoc = rootDocumentRepository.findByFileAndString(root.getFilename(),
@@ -178,7 +170,6 @@ final class RootRepositoryIT {
         assertEquals(newRoot, root, "Should return same root");
     }
 
-    /** */
     @Test
     void testWhole() {
         final Map<String, GedObject> map = root.getObjects();
@@ -188,9 +179,6 @@ final class RootRepositoryIT {
         }
     }
 
-    /**
-     * @param ged the item to check
-     */
     private void assertGedMatch(final GedObject ged) {
         if (ged instanceof Person) {
             assertPersonMatch(ged);
@@ -209,9 +197,6 @@ final class RootRepositoryIT {
         }
     }
 
-    /**
-     * @param ged the item to check
-     */
     private void assertPersonMatch(final GedObject ged) {
         final PersonDocument perdoc = personDocumentRepository
             .findByFileAndString(root.getFilename(), ged.getString());
@@ -219,9 +204,6 @@ final class RootRepositoryIT {
         assertEquals(person, ged, "wrong type");
     }
 
-    /**
-     * @param ged the item to check
-     */
     private void assertSourceMatch(final GedObject ged) {
         final SourceDocument soudoc = sourceDocumentRepository
             .findByFileAndString(root.getFilename(), ged.getString());
@@ -229,9 +211,6 @@ final class RootRepositoryIT {
         assertEquals(source, ged, "wrong type");
     }
 
-    /**
-     * @param ged the item to check
-     */
     private void assertFamilyMatch(final GedObject ged) {
         final FamilyDocument famdoc = familyDocumentRepository
             .findByFileAndString(root.getFilename(), ged.getString());
@@ -239,9 +218,6 @@ final class RootRepositoryIT {
         assertEquals(family, ged, "wrong type");
     }
 
-    /**
-     * @param ged the item to check
-     */
     private void assertHeadMatch(final GedObject ged) {
         final HeadDocument headoc = headDocumentRepository.findByFileAndString(root.getFilename(),
             ged.getString());
@@ -249,9 +225,6 @@ final class RootRepositoryIT {
         assertEquals(head, ged, "wrong type");
     }
 
-    /**
-     * @param ged the item to check
-     */
     private void assertTrailerMatch(final GedObject ged) {
         final TrailerDocument tradoc = trailerDocumentRepository
             .findByFileAndString(root.getFilename(), ged.getString());
@@ -259,9 +232,6 @@ final class RootRepositoryIT {
         assertEquals(person, ged, "wrong type");
     }
 
-    /**
-     * @param ged the item to check
-     */
     private void assertSubmissionMatch(final GedObject ged) {
         final SubmissionDocument subdoc = submissionDocumentRepository
             .findByFileAndString(root.getFilename(), ged.getString());
@@ -269,9 +239,6 @@ final class RootRepositoryIT {
         assertEquals(person, ged, "wrong type");
     }
 
-    /**
-     * @param ged the item to check
-     */
     private void assertSubmitterMatch(final GedObject ged) {
         final SubmitterDocument subdoc = submitterDocumentRepository
             .findByFileAndString(root.getFilename(), ged.getString());
@@ -279,7 +246,6 @@ final class RootRepositoryIT {
         assertEquals(person, ged, "wrong type");
     }
 
-    /** */
     @Test
     void testBogusNameRoot() {
         final RootDocument rootdoc = rootDocumentRepository.findByFileAndString(root.getFilename(),
@@ -287,7 +253,6 @@ final class RootRepositoryIT {
         assertNull(rootdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testBogusFileRoot() {
         final RootDocument rootdoc = rootDocumentRepository.findByFileAndString("Mumbles",
@@ -295,7 +260,6 @@ final class RootRepositoryIT {
         assertNull(rootdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testFindByRoot() {
         final String rootString = root.getString();
@@ -304,20 +268,17 @@ final class RootRepositoryIT {
                 .findByRootAndString(rootDocument, rootString));
     }
 
-    /** */
     @Test
     void testCountRoot() {
         assertEquals(1, rootDocumentRepository.count(rootDocument), "Should only be one root");
     }
 
-    /** */
     @Test
     void testCountFilename() {
         assertEquals(1, rootDocumentRepository.count(rootDocument.getFilename()),
             "Should only be one root");
     }
 
-    /** */
     @Test
     void testFindAllRoot() {
         final Iterable<RootDocument> list = rootDocumentRepository.findAll(rootDocument);
@@ -329,7 +290,6 @@ final class RootRepositoryIT {
         assertEquals(1, count, "Should only be one root");
     }
 
-    /** */
     @Test
     void testFindAllFilename() {
         final Iterable<RootDocument> list = rootDocumentRepository
@@ -342,20 +302,12 @@ final class RootRepositoryIT {
         assertEquals(1, count, "Should only be one root");
     }
 
-    /** */
     @Test
     void testLastId() {
         final String string = rootDocumentRepository.lastId(rootDocument);
         assertEquals("", string, "");
     }
 
-    /**
-     * Wrapper for assertion to bypass PMD check.
-     *
-     * @param message  the identifying message for the AssertionError (null okay)
-     * @param expected expected value
-     * @param actual   actual value
-     */
     private void validate(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }

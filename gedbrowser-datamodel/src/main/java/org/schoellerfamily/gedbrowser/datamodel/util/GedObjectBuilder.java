@@ -13,26 +13,40 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
 
 /**
- * @author Dick Schoeller
+ * Builds ged object instances.
+ *
+ * @author Richard Schoeller
  */
 public final class GedObjectBuilder implements PersonBuilderFacade,
         FamilyBuilderFacade, SourceBuilderFacade, AttributeBuilderFacade {
-    /** */
+    /**
+     * The root value.
+     */
     private final Root root;
 
-    /** */
+    /**
+     * The person builder value.
+     */
     private final PersonBuilder personBuilder;
 
-    /** */
+    /**
+     * The family builder value.
+     */
     private final FamilyBuilder familyBuilder;
 
-    /** */
+    /**
+     * The source builder value.
+     */
     private final SourceBuilder sourceBuilder;
 
-    /** */
+    /**
+     * The attribute builder value.
+     */
     private final AttributeBuilder attributeBuilder;
 
-    /** */
+    /**
+     * Performs ged object factory.
+     */
     private final GedObjectFactory factory = new GedObjectFactory();
 
     /**
@@ -67,21 +81,34 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
         TAGMAP.put("wife", "WIFE");
     }
 
-    /** */
+    /**
+     * Represents the available ged object builder values.
+     */
     private enum Construction {
-        /** */
+        /**
+         * The a t t r i b u t e value.
+         */
         ATTRIBUTE,
-        /** */
+        /**
+         * The h a s i d value.
+         */
         HASID,
-        /** */
+        /**
+         * The n o t e value.
+         */
         NOTE,
-        /** */
+        /**
+         * The r e f e r e n c e value.
+         */
         REFERENCE,
-        /** */
+        /**
+         */
         VALUE
     };
 
-    /** */
+    /**
+     * Represents string.
+     */
     private static final Map<String, Construction> CONSTRUCTION_MAP =
             new HashMap<>();
     static {
@@ -113,16 +140,16 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
     }
 
     /**
-     * Constructor.
+     * Creates a new GedObjectBuilder.
      */
     public GedObjectBuilder() {
         this(new Root());
     }
 
     /**
-     * Constructor.
+     * Creates a new GedObjectBuilder.
      *
-     * @param root root of the data set we're working with
+     * @param root the root
      */
     public GedObjectBuilder(final Root root) {
         this.root = root;
@@ -132,26 +159,51 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
         this.attributeBuilder = new AttributeBuilderImpl(this);
     }
 
+    /**
+     * Gets the root.
+     *
+     * @return the root
+     */
     @Override
     public Root getRoot() {
         return root;
     }
 
+    /**
+     * Gets the person builder.
+     *
+     * @return the person builder
+     */
     @Override
     public PersonBuilder getPersonBuilder() {
         return personBuilder;
     }
 
+    /**
+     * Gets the family builder.
+     *
+     * @return the family builder
+     */
     @Override
     public FamilyBuilder getFamilyBuilder() {
         return familyBuilder;
     }
 
+    /**
+     * Gets the source builder.
+     *
+     * @return the source builder
+     */
     @Override
     public SourceBuilder getSourceBuilder() {
         return sourceBuilder;
     }
 
+    /**
+     * Gets the attribute builder.
+     *
+     * @return the attribute builder
+     */
     @Override
     public AttributeBuilder getAttributeBuilder() {
         return attributeBuilder;
@@ -180,8 +232,10 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
     }
 
     /**
-     * @param string the ID for the submission
-     * @return the submission
+     * Creates the submission.
+     *
+     * @param string the string
+     * @return the resulting submission
      */
     public Submission createSubmission(final String string) {
         final Submission submission =
@@ -191,12 +245,10 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
     }
 
     /**
-     * Create a link to the submission in the head. If head doesn't already
-     * exist create it.
+     * Creates the submission link.
      *
-     * @param submission
-     *            the submission to link
-     * @return the submission link
+     * @param submission the submission
+     * @return the resulting submission link
      */
     public SubmissionLink createSubmissionLink(final Submission submission) {
         Head head = getRoot().find("Head", Head.class);
@@ -211,11 +263,13 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
     }
 
     /**
-     * @param parent the object that will have this as an attribute
-     * @param type the type string
-     * @param string a data string
-     * @param tail additional data string
-     * @return the new object
+     * Creates the event.
+     *
+     * @param parent the parent
+     * @param type the type to use
+     * @param string the event value or identifier
+     * @param tail the trailing value to attach to the event
+     * @return the resulting ged object
      */
     public GedObject createEvent(final GedObject parent, final String type,
             final String string, final String tail) {
@@ -250,10 +304,12 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
     }
 
     /**
-     * @param parent the object that will have this as an attribute
-     * @param type the type string
-     * @param string a data string
-     * @return the new object
+     * Creates the event.
+     *
+     * @param parent the parent
+     * @param type the type to use
+     * @param string the event value or identifier
+     * @return the resulting ged object
      */
     public GedObject createEvent(final GedObject parent, final String type,
             final String string) {

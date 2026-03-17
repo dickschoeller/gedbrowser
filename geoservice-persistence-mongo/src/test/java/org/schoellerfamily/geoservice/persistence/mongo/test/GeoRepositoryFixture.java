@@ -7,9 +7,9 @@ import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRe
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 /**
- * Test fixture for the MongoDB tests. Extends the standard fixture a little.
+ * Provides fixture data for geo repository tests.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GeoRepositoryFixture extends GeoCodeTestFixture {
     /** */
@@ -19,10 +19,10 @@ public final class GeoRepositoryFixture extends GeoCodeTestFixture {
     private final MongoTemplate mongoTemplate;
 
     /**
-     * Constructor.
+     * Creates a new GeoRepositoryFixture.
      *
-     * @param geoDocumentRepository a MongoDB repository for geo documents
-     * @param mongoTemplate a MongoDB template
+     * @param geoDocumentRepository the geo document repository
+     * @param mongoTemplate the mongo template
      */
     public GeoRepositoryFixture(final GeoDocumentRepositoryMongo geoDocumentRepository,
         final MongoTemplate mongoTemplate) {

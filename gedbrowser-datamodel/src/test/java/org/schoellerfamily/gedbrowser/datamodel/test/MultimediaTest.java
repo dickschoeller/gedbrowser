@@ -19,8 +19,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for multimedia.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.TooManyMethods")
 final class MultimediaTest {
@@ -34,7 +38,6 @@ final class MultimediaTest {
     /** */
     private String homeUrl;
 
-    /** */
     @BeforeEach
     void setUp() {
         builder = new GedObjectBuilder();
@@ -50,14 +53,12 @@ final class MultimediaTest {
         filePathString = homeUrl + "images/genealogy/" + "luckybag1924-john-a-hayes.jpg";
     }
 
-    /** */
     @Test
     void testBasicConstruct() {
         final Multimedia mm = new Multimedia(person1, "Multimedia", homeUrl);
         assertEquals(homeUrl, mm.getTail(), "Mismatched tail");
     }
 
-    /** */
     @Test
     void testAppendString() {
         final Multimedia mm = builder.addMultimediaToPerson(person1, homeUrl);
@@ -65,12 +66,6 @@ final class MultimediaTest {
         assertEquals(homeUrl + "genealogy", mm.getTail(), "Mismatched tail");
     }
 
-    /**
-     * @param multimedia the multimedia object to test
-     * @param expParent  the expected parent
-     * @param expString  the expected string
-     * @param expTail    the expected tail
-     */
     private void assertMatch(final Multimedia multimedia, final GedObject expParent,
         final String expString, final String expTail) {
         assertEquals(expParent, multimedia.getParent(), "Parent mismatch");
@@ -78,7 +73,6 @@ final class MultimediaTest {
         assertEquals(expTail, multimedia.getTail(), "Tail mismatch");
     }
 
-    /** */
     @Test
     void testSetGetTail() {
         final Multimedia multimedia;
@@ -87,7 +81,6 @@ final class MultimediaTest {
         assertMatch(multimedia, null, "", "test 1");
     }
 
-    /** */
     @Test
     void testResetToNullGetTail() {
         final Multimedia multimedia;
@@ -97,7 +90,6 @@ final class MultimediaTest {
         assertMatch(multimedia, null, "", "");
     }
 
-    /** */
     @Test
     void testResetToNullAndToNewValueGetTail() {
         final Multimedia multimedia;
@@ -108,7 +100,6 @@ final class MultimediaTest {
         assertMatch(multimedia, null, "", "test 2");
     }
 
-    /** */
     @Test
     void testResetToEmptyGetTail() {
         final Multimedia multimedia;
@@ -120,7 +111,6 @@ final class MultimediaTest {
         assertMatch(multimedia, null, "", "");
     }
 
-    /** */
     @Test
     void testGetFilePathEmpty() {
         final Multimedia multimedia = new Multimedia();
@@ -129,7 +119,6 @@ final class MultimediaTest {
         assertEquals(null, visitor.getFilePath(), "File path mismatch");
     }
 
-    /** */
     @Test
     void testGetFilePathGood() {
         final Multimedia multimedia = new Multimedia();
@@ -148,7 +137,6 @@ final class MultimediaTest {
         assertEquals(filePathString, visitor.getFilePath(), "File path mismatch");
     }
 
-    /** */
     @Test
     void testGetFileFormatGood() {
         final Multimedia multimedia = new Multimedia();
@@ -167,7 +155,6 @@ final class MultimediaTest {
         assertEquals("jpg", visitor.getFormat(), "File format mismatch");
     }
 
-    /** */
     @Test
     void testGetFileFormatEmpty() {
         final Multimedia multimedia = new Multimedia();
@@ -180,7 +167,6 @@ final class MultimediaTest {
         assertEquals(null, visitor.getFormat(), "File format mismatch");
     }
 
-    /** */
     @Test
     void testGetFileFormatPartiallyBuilt() {
         final Multimedia multimedia = new Multimedia();
@@ -189,7 +175,6 @@ final class MultimediaTest {
         assertEquals(null, visitor.getFormat(), "File format mismatch");
     }
 
-    /** */
     @Test
     void testGetFileTitleGood1() {
         final Multimedia multimedia = new Multimedia();
@@ -208,7 +193,6 @@ final class MultimediaTest {
         assertEquals("The title", visitor.getTitle(), "File title mismatch");
     }
 
-    /** */
     @Test
     void testGetFileTitleGood2() {
         final Multimedia multimedia = new Multimedia();
@@ -227,7 +211,6 @@ final class MultimediaTest {
         assertEquals("The title", visitor.getTitle(), "File title mismatch");
     }
 
-    /** */
     @Test
     void testGetFileTitleEmpty() {
         final Multimedia multimedia = new Multimedia();
@@ -264,7 +247,6 @@ final class MultimediaTest {
         );
     }
 
-    /** */
     @Test
     void testIsImageFalse() {
         final Multimedia multimedia = new Multimedia();
@@ -283,7 +265,6 @@ final class MultimediaTest {
         assertFalse(visitor.isImage(), "Expected is not image");
     }
 
-    /** */
     @Test
     void testIsImageEmpty() {
         final Multimedia multimedia = new Multimedia();

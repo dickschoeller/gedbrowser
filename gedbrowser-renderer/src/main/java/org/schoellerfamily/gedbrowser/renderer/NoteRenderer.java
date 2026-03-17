@@ -13,19 +13,20 @@ import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
- * Render a Note.
+ * Renders note output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class NoteRenderer extends GedRenderer<Note>
         implements HeaderHrefRenderer<Note>, IndexHrefRenderer<Note>,
             PlacesHrefRenderer<Note>, SaveHrefRenderer<Note>,
             SourcesHrefRenderer<Note>, SubmittersHrefRenderer<Note> {
     /**
-     * @param gedObject the Note that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new NoteRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public NoteRenderer(final Note gedObject,
             final GedRendererFactory rendererFactory,
@@ -35,13 +36,17 @@ public final class NoteRenderer extends GedRenderer<Note>
     }
 
     /**
-     * @return the ID string of the person.
+     * Gets the id string.
+     *
+     * @return the id string
      */
     public String getIdString() {
         return getGedObject().getString();
     }
 
     /**
+     * Gets the title string.
+     *
      * @return the title string
      */
     public String getTitleString() {
@@ -51,7 +56,9 @@ public final class NoteRenderer extends GedRenderer<Note>
     }
 
     /**
-     * @return the content string
+     * Gets the contents.
+     *
+     * @return the contents
      */
     public String getContents() {
         return getGedObject().getTail().replace("\n", "</p>\n<p>");
@@ -77,7 +84,9 @@ public final class NoteRenderer extends GedRenderer<Note>
     }
 
     /**
-     * @return the &lt;a href&gt; string for this source
+     * Gets the index name html.
+     *
+     * @return the index name html
      */
     public String getIndexNameHtml() {
         return this.getNameIndexRenderer().getIndexName();

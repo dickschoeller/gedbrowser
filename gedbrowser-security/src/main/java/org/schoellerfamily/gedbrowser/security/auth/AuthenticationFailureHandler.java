@@ -10,14 +10,20 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents authentication failure handler.
+ *
+ * @author Richard Schoeller
  */
 @Component
 public class AuthenticationFailureHandler
         extends SimpleUrlAuthenticationFailureHandler {
     /**
-     * {@inheritDoc}
+     * Executes on authentication failure.
+     *
+     * @param request the request
      */
     @Override
     public void onAuthenticationFailure(final HttpServletRequest request,

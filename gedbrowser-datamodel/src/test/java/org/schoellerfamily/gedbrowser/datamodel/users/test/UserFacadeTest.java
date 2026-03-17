@@ -12,32 +12,33 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for user facade.
+ *
+ * @author Richard Schoeller
  */
 class UserFacadeTest {
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private static class UserFacadeImpl implements UserFacade {
         /** */
         private final User user;
 
-        /**
-         * Constructor.
-         *
-         * @param user the user object that we are wrapping
-         */
         UserFacadeImpl(final User user) {
             this.user = user;
         }
 
+        /**
+         * Gets the user.
+         *
+         * @return the user
+         */
         @Override
         public User getUser() {
             return user;
         }
     }
 
-    /** */
     @Test
     void testDefaultUsername() {
         final UserImpl userImpl = new UserImpl();
@@ -45,7 +46,6 @@ class UserFacadeTest {
         assertNull(user.getUsername(), "Expected null user name");
     }
 
-    /** */
     @Test
     void testDefaultFirstname() {
         final UserImpl userImpl = new UserImpl();
@@ -53,7 +53,6 @@ class UserFacadeTest {
         assertNull(user.getFirstname(), "Expected null user first name");
     }
 
-    /** */
     @Test
     void testDefaultLastname() {
         final UserImpl userImpl = new UserImpl();
@@ -61,7 +60,6 @@ class UserFacadeTest {
         assertNull(user.getLastname(), "Expected null last name");
     }
 
-    /** */
     @Test
     void testDefaultEmail() {
         final UserImpl userImpl = new UserImpl();
@@ -69,7 +67,6 @@ class UserFacadeTest {
         assertNull(user.getEmail(), "Expected null email address");
     }
 
-    /** */
     @Test
     void testDefaultPassword() {
         final UserImpl userImpl = new UserImpl();
@@ -77,7 +74,6 @@ class UserFacadeTest {
         assertNull(user.getPassword(), "Expected null password");
     }
 
-    /** */
     @Test
     void testDefaultRoles() {
         final UserImpl userImpl = new UserImpl();
@@ -85,7 +81,6 @@ class UserFacadeTest {
         assertEquals(0, user.getRoles().length, "Expected empty roles list");
     }
 
-    /** */
     @Test
     void testUsername() {
         final UserImpl userImpl = new UserImpl();
@@ -94,7 +89,6 @@ class UserFacadeTest {
         assertEquals("test", user.getUsername(), "Username mismatch");
     }
 
-    /** */
     @Test
     void testFirstname() {
         final UserImpl userImpl = new UserImpl();
@@ -103,7 +97,6 @@ class UserFacadeTest {
         assertEquals("first", user.getFirstname(), "First name mismatch");
     }
 
-    /** */
     @Test
     void testLastname() {
         final UserImpl userImpl = new UserImpl();
@@ -112,7 +105,6 @@ class UserFacadeTest {
         assertEquals("last", user.getLastname(), "Last name mismatch");
     }
 
-    /** */
     @Test
     void testEmail() {
         final UserImpl userImpl = new UserImpl();
@@ -121,7 +113,6 @@ class UserFacadeTest {
         assertEquals("test@test.com", user.getEmail(), "Email mismatch");
     }
 
-    /** */
     @Test
     void testPassword() {
         final UserImpl userImpl = new UserImpl();
@@ -130,7 +121,6 @@ class UserFacadeTest {
         assertEquals("password", user.getPassword(), "Password mismatch");
     }
 
-    /** */
     @Test
     void testSetUsername() {
         final UserImpl userImpl = new UserImpl();
@@ -139,7 +129,6 @@ class UserFacadeTest {
         assertEquals("test", user.getUsername(), "Username mismatch");
     }
 
-    /** */
     @Test
     void testSetFirstname() {
         final UserImpl userImpl = new UserImpl();
@@ -148,7 +137,6 @@ class UserFacadeTest {
         assertEquals("first", user.getFirstname(), "First name mismatch");
     }
 
-    /** */
     @Test
     void testSetLastname() {
         final UserImpl userImpl = new UserImpl();
@@ -157,7 +145,6 @@ class UserFacadeTest {
         assertEquals("last", user.getLastname(), "Last name mismatch");
     }
 
-    /** */
     @Test
     void testSetEmail() {
         final UserImpl userImpl = new UserImpl();
@@ -166,7 +153,6 @@ class UserFacadeTest {
         assertEquals("test@test.com", user.getEmail(), "Email mismatch");
     }
 
-    /** */
     @Test
     void testSetPassword() {
         final UserImpl userImpl = new UserImpl();
@@ -175,7 +161,6 @@ class UserFacadeTest {
         assertEquals("password", user.getPassword(), "Password mismatch");
     }
 
-    /** */
     @Test
     void testNullUserUsername() {
         final UserFacadeImpl user = new UserFacadeImpl(null);
@@ -183,7 +168,6 @@ class UserFacadeTest {
         assertNull(user.getUsername(), "Username should be null");
     }
 
-    /** */
     @Test
     void testNullUserFirstname() {
         final UserFacadeImpl user = new UserFacadeImpl(null);
@@ -191,7 +175,6 @@ class UserFacadeTest {
         assertNull(user.getFirstname(), "First name should be null");
     }
 
-    /** */
     @Test
     void testNullUserLastname() {
         final UserFacadeImpl user = new UserFacadeImpl(null);
@@ -199,7 +182,6 @@ class UserFacadeTest {
         assertNull(user.getLastname(), "Last name should be null");
     }
 
-    /** */
     @Test
     void testNullUserEmail() {
         final UserFacadeImpl user = new UserFacadeImpl(null);
@@ -207,7 +189,6 @@ class UserFacadeTest {
         assertNull(user.getEmail(), "Email should be null");
     }
 
-    /** */
     @Test
     void testNullUserPassword() {
         final UserFacadeImpl user = new UserFacadeImpl(null);
@@ -215,7 +196,6 @@ class UserFacadeTest {
         assertNull(user.getPassword(), "Password should be null");
     }
 
-    /** */
     @Test
     void testOneRole() {
         final UserImpl userImpl = new UserImpl();
@@ -224,7 +204,6 @@ class UserFacadeTest {
         assertEquals(1, user.getRoles().length, "Expected 1 role");
     }
 
-    /** */
     @Test
     void testTwoRoles() {
         final UserImpl userImpl = new UserImpl();
@@ -234,7 +213,6 @@ class UserFacadeTest {
         assertEquals(2, user.getRoles().length, "Expected 2 roles");
     }
 
-    /** */
     @Test
     void testRoleSet() {
         final UserImpl userImpl = new UserImpl();
@@ -244,7 +222,6 @@ class UserFacadeTest {
         assertEquals(1, user.getRoles().length, "Expected 1 role");
     }
 
-    /** */
     @Test
     void testOneRoleContent() {
         final UserImpl userImpl = new UserImpl();
@@ -253,7 +230,6 @@ class UserFacadeTest {
         assertEquals(UserRoleName.USER, user.getRoles()[0], "Mismatched role");
     }
 
-    /** */
     @Test
     void testHasRole() {
         final UserImpl userImpl = new UserImpl();
@@ -264,7 +240,6 @@ class UserFacadeTest {
         assertTrue(user.hasRole(UserRoleName.ADMIN), "Should have admin role");
     }
 
-    /** */
     @Test
     void testWithUserRoleNames() {
         final UserImpl userImpl = new UserImpl();
@@ -274,7 +249,6 @@ class UserFacadeTest {
         assertTrue(user.hasRole(UserRoleName.ADMIN), "Should have admin role");
     }
 
-    /** */
     @Test
     void testHasRoleNegative() {
         final UserImpl userImpl = new UserImpl();
@@ -284,7 +258,6 @@ class UserFacadeTest {
         assertFalse(user.hasRole(UserRoleName.ADMIN), "Should not have admin role");
     }
 
-    /** */
     @Test
     void testClearRoles() {
         final UserImpl userImpl = new UserImpl();
@@ -295,7 +268,6 @@ class UserFacadeTest {
         assertEquals(0, user.getRoles().length, "Expected empty roles");
     }
 
-    /** */
     @Test
     void testNullUserOneRole() {
         final User user = new UserFacadeImpl(null);
@@ -303,7 +275,6 @@ class UserFacadeTest {
         assertEquals(0, user.getRoles().length, "Expected 0 roles");
     }
 
-    /** */
     @Test
     void testNullTwoRoles() {
         final User user = new UserFacadeImpl(null);
@@ -312,7 +283,6 @@ class UserFacadeTest {
         assertEquals(0, user.getRoles().length, "Expected 0 roles");
     }
 
-    /** */
     @Test
     void testNullHasRole() {
         final User user = new UserFacadeImpl(null);

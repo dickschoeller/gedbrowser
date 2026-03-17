@@ -17,8 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for index renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -42,12 +46,6 @@ final class IndexRendererTest {
         userContext = RenderingContext.user(appInfo);
     }
 
-    /**
-     * Prepare expectation string for letters in the index.
-     *
-     * @param letter the letter to link
-     * @return the formatted string.
-     */
     private String letterExpectString(final String letter) {
         return "<a id=\"letter-" + letter + "\" href=\"surnames?db=null&amp;letter=" + letter
             + "\" class=\"name\">[" + letter + "]</a>";

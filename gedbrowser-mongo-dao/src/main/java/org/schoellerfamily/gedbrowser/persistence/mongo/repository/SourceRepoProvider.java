@@ -4,12 +4,14 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implements a mixin that provides the source repository.
+ * Provides source repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface SourceRepoProvider extends HasRepoMap {
     /**
+     * Sets the source document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -18,6 +20,8 @@ public interface SourceRepoProvider extends HasRepoMap {
     }
 
     /**
+     * Gets the source document repository.
+     *
      * @return the repository
      */
     default SourceDocumentRepositoryMongo getSourceDocumentRepository() {

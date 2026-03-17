@@ -10,14 +10,16 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.data.repository.CrudRepository;
 
+
 /**
- * This interface contains default methods that implement the create
- * operations for the classes that declare implementing the interface.
+ * Defines the contract for create operations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  *
  * @param <X> the data model type we are manipulating
+ *
  * @param <Y> the DB type associated with the type X
+ *
  * @param <Z> the Api type associated with the type X
  */
 @SuppressWarnings("PMD.CommentSize")
@@ -36,7 +38,7 @@ public interface CreateOperations<X extends GedObject,
     GedObjectToGedDocumentMongoConverter getConverter();
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      *
      * @param <T> the data type that we are copying
      */

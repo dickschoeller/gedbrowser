@@ -1,27 +1,27 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * Render a cell that is empty but has additional class text
- * for the table displays the ancestor tree.  The extra class
- * cells are used for line drawing.
+ * Renders line cell output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class LineCellRenderer implements CellRenderer {
     /** */
     private final transient String classString;
 
     /**
-     * Constructor.
+     * Executes line cell renderer.
      *
-     * @param classString the classString
+     * @param classString the class string
      */
     public LineCellRenderer(final String classString) {
         this.classString = classString;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public String getNameHtml() {
@@ -29,7 +29,9 @@ public final class LineCellRenderer implements CellRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the cell class.
+     *
+     * @return the cell class
      */
     @Override
     public String getCellClass() {

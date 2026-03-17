@@ -3,13 +3,17 @@ package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 import org.openqa.selenium.WebElement;
 
 /**
- * @author Dick Schoeller
+ * Represents login page.
+ *
+ * @author Richard Schoeller
  */
 public class LoginPage extends PageBase {
     /**
-     * @param factory the factory for creating pages as we navigate
-     * @param previous the previous page
-     * @param baseUrl the base URL of the site
+     * Creates a new LoginPage.
+     *
+     * @param factory the factory
+     * @param previous the previous
+     * @param baseUrl the base url to use
      */
     public LoginPage(final PageFactory factory, final PageBase previous,
             final String baseUrl) {
@@ -17,9 +21,11 @@ public class LoginPage extends PageBase {
     }
 
     /**
-     * @param username the username to enter
-     * @param password the password to enter
-     * @return the page we got here from
+     * Executes login.
+     *
+     * @param username the username to use
+     * @param password the password
+     * @return the resulting page base
      */
     public PageBase login(final String username, final String password) {
         getWebElement("input[name='username'").click();

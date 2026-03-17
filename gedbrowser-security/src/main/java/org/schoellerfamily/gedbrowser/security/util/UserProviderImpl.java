@@ -8,18 +8,26 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author dick
+ * Provides user values to calling code.
  *
+ * @author dick
  */
 @Component
 @RequiredArgsConstructor
 public final class UserProviderImpl implements UserProvider {
-    /** */
+    /**
+     * The service value.
+     */
     private final UserService service;
 
     /**
-     * {@inheritDoc}
+     * Returns the user.
+     *
+     * @param request the request
+     * @return the user
      */
     @Override
     public User getUser(final HttpServletRequest request) {

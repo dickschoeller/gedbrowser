@@ -6,10 +6,14 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * @author Dick Schoeller
+ * Provides a simplified interface for person builder operations.
+ *
+ * @author Richard Schoeller
  */
 public interface PersonBuilderFacade extends PersonBuilder {
     /**
+     * Gets the person builder.
+     *
      * @return the person builder
      */
     PersonBuilder getPersonBuilder();

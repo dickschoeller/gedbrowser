@@ -36,8 +36,12 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PlaceVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for place visitor.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class PlaceVisitorTest {
@@ -50,7 +54,6 @@ final class PlaceVisitorTest {
     /** */
     private transient Person person6;
 
-    /** */
     @BeforeEach
     void setUp() {
         root = new Root();
@@ -103,7 +106,6 @@ final class PlaceVisitorTest {
         builder.addWifeToFamily(family2, person7);
     }
 
-    /** */
     @Test
     void testRootPlaces() {
         final PlaceVisitor visitor = new PlaceVisitor();
@@ -113,7 +115,6 @@ final class PlaceVisitorTest {
         assertEquals(expected, placeStrings.size(), "Wrong number of places");
     }
 
-    /** */
     @Test
     void testPersonPlaces() {
         final PlaceVisitor visitor = new PlaceVisitor();
@@ -122,7 +123,6 @@ final class PlaceVisitorTest {
         assertEquals(2, placeStrings.size(), "Wrong number of places");
     }
 
-    /** */
     @Test
     void testPersonPlaces6() {
         final PlaceVisitor visitor = new PlaceVisitor();
@@ -131,7 +131,6 @@ final class PlaceVisitorTest {
         assertEquals(1, placeStrings.size(), "Wrong number of places");
     }
 
-    /** */
     @Test
     void testFamilyPlaces6() {
         final PlaceVisitor visitor = new PlaceVisitor();
@@ -140,7 +139,6 @@ final class PlaceVisitorTest {
         assertEquals(1, placeStrings.size(), "Wrong number of places");
     }
 
-    /** */
     @Test
     void testNoImpactFromUnrelated() {
         final PlaceVisitor visitor = new PlaceVisitor();
@@ -165,7 +163,9 @@ final class PlaceVisitorTest {
         new Wife().accept(visitor);
         final GedObject gob = new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

@@ -1,14 +1,15 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * Render an empty location in the table that is used for
- * the ancestor tree.
+ * Renders null cell output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class NullCellRenderer implements CellRenderer {
     /**
-     * {@inheritDoc}
+     * Returns the name html.
+     *
+     * @return the name html
      */
     @Override
     public String getNameHtml() {
@@ -16,7 +17,9 @@ public final class NullCellRenderer implements CellRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the cell class.
+     *
+     * @return the cell class
      */
     @Override
     public String getCellClass() {

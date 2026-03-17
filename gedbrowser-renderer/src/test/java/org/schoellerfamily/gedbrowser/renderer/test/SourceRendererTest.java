@@ -27,8 +27,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for source renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -43,16 +47,11 @@ final class SourceRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final SourceRenderer renderer = createRenderer();
@@ -61,10 +60,6 @@ final class SourceRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final SourceRenderer renderer = createRenderer();
@@ -72,10 +67,6 @@ final class SourceRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final SourceRenderer renderer = createRenderer();
@@ -83,10 +74,6 @@ final class SourceRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final SourceRenderer renderer = createRenderer();
@@ -94,10 +81,6 @@ final class SourceRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final SourceRenderer renderer = createRenderer();
@@ -105,17 +88,11 @@ final class SourceRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * @return the renderer
-     */
     private SourceRenderer createRenderer() {
         return new SourceRenderer(new Source(null, new ObjectId("S1")), new GedRendererFactory(),
             anonymousContext);
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testTitleString() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -126,9 +103,6 @@ final class SourceRendererTest {
             "Mismatched title string");
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIdString() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -138,9 +112,6 @@ final class SourceRendererTest {
         assertEquals("S3", renderer.getIdString(), "Mismatched source ID");
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIdAttributes() throws IOException {
         final String[] expects = {
@@ -157,11 +128,6 @@ final class SourceRendererTest {
         }
     }
 
-    /**
-     * Test the generating of an HTML name for inclusion in an index.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testIndexName() throws IOException {
         final Root root = reader.readBigTestSource();
@@ -174,11 +140,6 @@ final class SourceRendererTest {
             renderer.getIndexNameHtml(), "Mismatched index html string");
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testHeadMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -189,11 +150,6 @@ final class SourceRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -204,11 +160,6 @@ final class SourceRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSaveFilename() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -219,11 +170,6 @@ final class SourceRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testIndexMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -235,11 +181,6 @@ final class SourceRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testLivingMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -250,11 +191,6 @@ final class SourceRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSourcesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -265,11 +201,6 @@ final class SourceRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testSubmittersMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -281,11 +212,6 @@ final class SourceRendererTest {
         }
     }
 
-    /**
-     * Test whether the menu items are as expected.
-     *
-     * @throws IOException if can't read data file
-     */
     @Test
     void testPlacesMenuItem() throws IOException {
         final Root root = reader.readFileTestSource();
@@ -296,10 +222,6 @@ final class SourceRendererTest {
         }
     }
 
-    /**
-     * @param source the source
-     * @return the renderer
-     */
     private SourceRenderer createRenderer(final Source source) {
         return new SourceRenderer(source, new GedRendererFactory(), anonymousContext);
     }

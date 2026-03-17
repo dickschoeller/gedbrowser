@@ -3,12 +3,16 @@ package org.schoellerfamily.gedbrowser.reader;
 import java.io.IOException;
 
 /**
- * @author Dick Schoeller
+ * Represents null source.
  *
+ * @author Richard Schoeller
  */
 public class NullSource extends AbstractGedLineSource {
     /**
-     * {@inheritDoc}
+     * Creates the ged line.
+     *
+     * @param parent the parent
+     * @return the resulting abstract ged line
      */
     @Override
     public AbstractGedLine createGedLine(final AbstractGedLine parent)

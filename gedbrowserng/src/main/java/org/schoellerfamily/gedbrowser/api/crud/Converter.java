@@ -7,8 +7,9 @@ import org.schoellerfamily.gedbrowser.api.transformers.DocumentToApiModelTransfo
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for converter.
  *
+ * @author Richard Schoeller
  * @param <Y> the type to convert from
  * @param <Z> the type to convert to
  */

@@ -1,7 +1,7 @@
 package org.schoellerfamily.geoservice.client;
 
 /**
- * Exception raised when a geoservice call cannot be completed by the executor.
+ * Represents an error related to geo service call.
  */
 public class GeoServiceCallException extends Exception {
     /**

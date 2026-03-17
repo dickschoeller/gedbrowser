@@ -25,8 +25,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for spouse crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -163,10 +167,6 @@ final class SpouseCrudIT {
             .withMessage("Object XXXXX of type person not found");
     }
 
-    /**
-     * @param parent the parent
-     * @return the child
-     */
     private ApiPerson createChildOfParent(final ApiPerson parent) {
         final ApiPerson childReqPerson = helper.buildPerson();
         final ChildCrud childCrud = new ChildCrud(loader, toDocConverter, repositoryManager);

@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @author Dick Schoeller
+ * Represents person document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Document(collection = "persons")
 @CompoundIndexes({
@@ -22,16 +24,36 @@ import org.springframework.data.mongodb.core.mapping.Document;
 })
 public final class PersonDocumentMongo extends GedDocumentMongo<Person>
         implements PersonDocument {
-    /** */
+    /**
+     * Creates a new PersonDocumentMongo.
+     */
+    public PersonDocumentMongo() {
+    }
+
+    /**
+     * The index name value.
+     */
     private String indexName;
-    /** */
+    /**
+     * The surname value.
+     */
     private String surname;
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "person";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -47,21 +69,41 @@ public final class PersonDocumentMongo extends GedDocumentMongo<Person>
         surname = gedObject.getSurname();
     }
 
+    /**
+     * Gets the surname.
+     *
+     * @return the surname
+     */
     @Override
     public String getSurname() {
         return surname;
     }
 
+    /**
+     * Gets the index name.
+     *
+     * @return the index name
+     */
     @Override
     public String getIndexName() {
         return indexName;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

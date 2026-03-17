@@ -1,19 +1,23 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 /**
- * @author Dick Schoeller
+ * Represents abstract source in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public abstract class AbstractSource extends GedObject {
     /**
-     * Default constructor.
+     * Creates a new AbstractSource.
      */
     protected AbstractSource() {
         super();
     }
 
     /**
-     * @param parent parent object of this attribute
-     * @param string long version of type string
+     * Creates a new AbstractSource.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     protected AbstractSource(final GedObject parent, final String string) {
         super(parent, string);

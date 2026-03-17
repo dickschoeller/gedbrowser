@@ -16,8 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for null phrase renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -29,7 +33,6 @@ final class NullPhraseRendererTest {
     /** */
     private transient NullPhraseRenderer npr;
 
-    /** */
     @BeforeEach
     void setUp() {
         final DefaultRenderer renderer = new DefaultRenderer(createGedObject(),
@@ -37,13 +40,12 @@ final class NullPhraseRendererTest {
         npr = (NullPhraseRenderer) renderer.getPhraseRenderer();
     }
 
-    /**
-     * @return an anonymous subclass of GedObject for testing
-     */
     private GedObject createGedObject() {
         return new GedObject(null, "THIS IS A STRING") {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {
@@ -52,7 +54,6 @@ final class NullPhraseRendererTest {
         };
     }
 
-    /** */
     @Test
     void testRenderAsPhrase() {
         assertEquals("", npr.renderAsPhrase(), "Expected empty string");

@@ -14,16 +14,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * Data driven tests of the permutations of calling the constructors of
- * Attribute.
+ * Contains tests for attribute constructor.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 final class AttributeConstructorTest {
 
-    /**
-     * @return stream of argument arrays
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         final GedObjectBuilder builder = new GedObjectBuilder();

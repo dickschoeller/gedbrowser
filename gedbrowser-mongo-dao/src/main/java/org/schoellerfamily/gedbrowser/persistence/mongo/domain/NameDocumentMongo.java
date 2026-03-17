@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
@@ -9,15 +11,29 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocume
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents name document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class NameDocumentMongo extends GedDocumentMongo<Name>
         implements NameDocument {
+
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "name";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -31,11 +47,21 @@ public final class NameDocumentMongo extends GedDocumentMongo<Name>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

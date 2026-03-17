@@ -20,8 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the family repository.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { MongoTestConfiguration.class })
@@ -47,9 +51,6 @@ final class FamilyRepositoryIT {
     /** */
     private transient RootDocumentMongo rootDocument;
 
-    /**
-     * @throws IOException because the reader does
-     */
     @BeforeEach
     void setUp() throws IOException {
         root = repositoryFixture.loadRepository();
@@ -59,13 +60,11 @@ final class FamilyRepositoryIT {
         rootDocument.setGedObject(root);
     }
 
-    /** */
     @AfterEach
     void tearDown() {
         repositoryFixture.clearRepository();
     }
 
-    /** */
     @Test
     void testF1() {
         final FamilyDocument famdoc = familyDocumentRepository
@@ -74,7 +73,6 @@ final class FamilyRepositoryIT {
         assertEquals("F1", family.getString(), "Id mismatch");
     }
 
-    /** */
     @Test
     void testF1Root() {
         final FamilyDocument famdoc = familyDocumentRepository.findByRootAndString(rootDocument,
@@ -83,7 +81,6 @@ final class FamilyRepositoryIT {
         assertEquals("F1", family.getString(), "Id mismatch");
     }
 
-    /** */
     @Test
     void testBogus() {
         final FamilyDocument famdoc = familyDocumentRepository
@@ -91,7 +88,6 @@ final class FamilyRepositoryIT {
         assertNull(famdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testBogusRoot() {
         final FamilyDocument famdoc = familyDocumentRepository.findByRootAndString(rootDocument,
@@ -99,21 +95,18 @@ final class FamilyRepositoryIT {
         assertNull(famdoc, "Bogus request should return null");
     }
 
-    /** */
     @Test
     void testCountRoot() {
         assertEquals(FAMILY_COUNT, familyDocumentRepository.count(rootDocument),
             "Should be 6 families");
     }
 
-    /** */
     @Test
     void testCountFilename() {
         assertEquals(FAMILY_COUNT, familyDocumentRepository.count(rootDocument.getFilename()),
             "Should be 6 families");
     }
 
-    /** */
     @Test
     void testFindAllRoot() {
         final Iterable<FamilyDocument> list = familyDocumentRepository.findAll(rootDocument);
@@ -125,7 +118,6 @@ final class FamilyRepositoryIT {
         assertEquals(FAMILY_COUNT, count, "Should be 6 families");
     }
 
-    /** */
     @Test
     void testFindAllFilename() {
         final Iterable<FamilyDocument> list = familyDocumentRepository
@@ -138,27 +130,18 @@ final class FamilyRepositoryIT {
         assertEquals(FAMILY_COUNT, count, "Should be 6 families");
     }
 
-    /** */
     @Test
     void testLastId() {
         final String string = familyDocumentRepository.lastId(rootDocument);
         assertEquals("F10", string, "");
     }
 
-    /** */
     @Test
     void testNewId() {
         final String string = familyDocumentRepository.newId(rootDocument);
         assertEquals("F11", string, "");
     }
 
-    /**
-     * Wrapper for assertion to bypass PMD check.
-     *
-     * @param message  the identifying message for the AssertionError (null okay)
-     * @param expected expected value
-     * @param actual   actual value
-     */
     private void checkEquals(final String message, final Object expected, final Object actual) {
         assertEquals(expected, actual, message);
     }

@@ -26,19 +26,17 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
+
+
 /**
- * This interface provides for using the visitor pattern to accumulate
- * information about a GedObject and its children. This has visitors for all
- * of the "standard" concrete objects and for the base GedObject. That last
- * would be the catch-all, which can be important for anonymous subclasses.
+ * Visitor for the {@link org.schoellerfamily.gedbrowser.datamodel.GedObject} hierarchy.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.TooManyMethods")
 public interface GedObjectVisitor {
     /**
      * Visit an attribute.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param attribute the attribute to visit
      */
@@ -48,7 +46,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a child.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param child the child to visit
      */
@@ -58,7 +55,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a date.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param date the date to visit
      */
@@ -68,7 +64,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a link to a family that a person is a child of.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param famc the link to visit
      */
@@ -78,7 +73,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a family.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param family the family to visit
      */
@@ -88,7 +82,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a link to a family that a person is a spouse of.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param fams the link to visit
      */
@@ -98,7 +91,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a header.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param head the header to visit
      */
@@ -108,7 +100,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a link to the husband of a family.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param husband the link to visit
      */
@@ -118,7 +109,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a link to another object.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param link the link to visit
      */
@@ -128,7 +118,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a multimedia object.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param multimedia the multimedia object to visit
      */
@@ -138,7 +127,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a name.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param name the name to visit
      */
@@ -148,7 +136,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a note.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param note the note to visit
      */
@@ -158,7 +145,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a note.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param noteLink the noteLink to visit
      */
@@ -168,7 +154,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a person.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param person the person to visit
      */
@@ -178,7 +163,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a place.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param place the place to visit
      */
@@ -188,7 +172,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a root.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param root the root to visit
      */
@@ -198,7 +181,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a source.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param source the source to visit
      */
@@ -208,7 +190,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a link to a source.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param sourceLink the link to visit
      */
@@ -218,7 +199,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a submission.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param submission the submission to visit
      */
@@ -228,7 +208,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a submission link.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param submissionLink the submission to visit
      */
@@ -238,7 +217,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a submitter.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param submitter the submitter to visit
      */
@@ -248,7 +226,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a link to a submitter.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param submitterLink the link to visit
      */
@@ -258,7 +235,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a trailer.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param trailer the trailer to visit
      */
@@ -268,7 +244,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a link to the wife of a family.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param wife the link to visit
      */
@@ -278,7 +253,6 @@ public interface GedObjectVisitor {
 
     /**
      * Visit a gedObject that isn't one of the above.
-     * Override the default method if this type contributes to your algorithm.
      *
      * @param gedObject the object to visit
      */

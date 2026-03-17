@@ -1,14 +1,16 @@
 package org.schoellerfamily.gedbrowser.persistence;
 
 /**
- * @author Dick Schoeller
+ * Represents an error related to persistence.
+ *
+ * @author Richard Schoeller
  */
 public class PersistenceException extends RuntimeException {
     /** */
     private static final long serialVersionUID = -2001575196443146690L;
 
     /**
-     * Constructor.
+     * Creates a new PersistenceException.
      */
     public PersistenceException() {
         super();
@@ -16,12 +18,12 @@ public class PersistenceException extends RuntimeException {
     }
 
     /**
-     * Constructor.
+     * Creates a new PersistenceException.
      *
-     * @param message the message string
-     * @param cause the original throwable
-     * @param enableSuppression whether to enable suppression
-     * @param writableStackTrace whether you can write the trace
+     * @param message the message
+     * @param cause the cause
+     * @param enableSuppression the enable suppression
+     * @param writableStackTrace the writable stack trace
      */
     public PersistenceException(final String message,
             final Throwable cause, final boolean enableSuppression,
@@ -30,10 +32,10 @@ public class PersistenceException extends RuntimeException {
     }
 
     /**
-     * Constructor.
+     * Creates a new PersistenceException.
      *
-     * @param message the message string
-     * @param cause the original throwable
+     * @param message the message
+     * @param cause the cause
      */
     public PersistenceException(final String message,
             final Throwable cause) {
@@ -41,18 +43,18 @@ public class PersistenceException extends RuntimeException {
     }
 
     /**
-     * Constructor.
+     * Creates a new PersistenceException.
      *
-     * @param message the message string
+     * @param message the message
      */
     public PersistenceException(final String message) {
         super(message);
     }
 
     /**
-     * Constructor.
+     * Creates a new PersistenceException.
      *
-     * @param cause the original throwable
+     * @param cause the cause
      */
     public PersistenceException(final Throwable cause) {
         super(cause);

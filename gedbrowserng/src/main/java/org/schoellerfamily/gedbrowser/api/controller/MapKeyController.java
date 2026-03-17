@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Exposes Google Maps key for frontend map rendering.
+ * Handles requests for map key.
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
