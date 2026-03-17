@@ -167,7 +167,7 @@ export class ImageUtil {
       if (this.isImage(attribute)) {
         return attribute.tail;
       }
-      if (attribute.attributes && attribute.attributes.length) {
+      if (attribute.attributes?.length) {
         const nestedPoster = this.findPoster(attribute.attributes);
         if (nestedPoster) {
           return nestedPoster;
