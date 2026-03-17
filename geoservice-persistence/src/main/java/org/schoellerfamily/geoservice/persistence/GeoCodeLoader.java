@@ -94,6 +94,13 @@ public class GeoCodeLoader {
      * @author Richard Schoeller
      */
     private interface Loader {
+        /**
+         * Loads the geo code item.
+         *
+         * @param placeName the historical place name
+         * @param modernPlaceName the modern place name
+         * @return the loaded geo code item
+        */
         GeoCodeItem load(String placeName, String modernPlaceName);
     }
 

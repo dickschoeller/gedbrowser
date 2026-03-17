@@ -10,6 +10,9 @@ import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
+import lombok.RequiredArgsConstructor;
+
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.DeserializationFeature;
@@ -24,25 +27,18 @@ import tools.jackson.databind.json.JsonMapper;
  * @author Richard Schoeller
  */
 @Component
+@RequiredArgsConstructor
 public class GeoCodeBackup {
     /** */
     private final GeoCode gcd;
-
+    /**
+     * The object mapper used for JSON serialization and deserialization.
+     */
     private final ObjectMapper mapper = JsonMapper.builder()
             .disable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
             .changeDefaultVisibility(
                 vc -> vc.withVisibility(PropertyAccessor.FIELD, Visibility.ANY))
             .build();
-
-    /**
-     * Creates a new GeoCodeBackup.
-     *
-     * @param gcd the gcd
-     */
-    public GeoCodeBackup(final GeoCode gcd) {
-        this.gcd = gcd;
-    }
-
     /**
      * Executes backup.
      *

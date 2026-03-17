@@ -28,6 +28,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DuplicateCleanupService {
     /** */
+    private static final String ROOTS = "roots";
+    /** */
+    private static final String PERSONS = "persons";
+    /** */
+    private static final String SOURCES = "sources";
+    /** */
+    private static final String SUBMITTERS = "submitters";
+    /** */
     private final MongoTemplate mongoTemplate;
 
     /**
@@ -37,14 +45,14 @@ public class DuplicateCleanupService {
      */
     public Map<String, Integer> cleanup() {
         final Map<String, Integer> deleted = new LinkedHashMap<>();
-        deleted.put("roots", Math.toIntExact(cleanupCollection("roots")));
-        deleted.put("persons", Math.toIntExact(cleanupCollection("persons")));
-        deleted.put("sources", Math.toIntExact(cleanupCollection("sources")));
-        deleted.put("submitters", Math.toIntExact(cleanupCollection("submitters")));
-        final int total = deleted.get("roots")
-            + deleted.get("persons")
-            + deleted.get("sources")
-            + deleted.get("submitters");
+        deleted.put(ROOTS, Math.toIntExact(cleanupCollection(ROOTS)));
+        deleted.put(PERSONS, Math.toIntExact(cleanupCollection(PERSONS)));
+        deleted.put(SOURCES, Math.toIntExact(cleanupCollection(SOURCES)));
+        deleted.put(SUBMITTERS, Math.toIntExact(cleanupCollection(SUBMITTERS)));
+        final int total = deleted.get(ROOTS)
+            + deleted.get(PERSONS)
+            + deleted.get(SOURCES)
+            + deleted.get(SUBMITTERS);
         deleted.put("total", total);
         return deleted;
     }
@@ -56,14 +64,14 @@ public class DuplicateCleanupService {
      */
     public Map<String, Integer> logDuplicates() {
         final Map<String, Integer> duplicates = new LinkedHashMap<>();
-        duplicates.put("roots", logCollectionDuplicates("roots"));
-        duplicates.put("persons", logCollectionDuplicates("persons"));
-        duplicates.put("sources", logCollectionDuplicates("sources"));
-        duplicates.put("submitters", logCollectionDuplicates("submitters"));
-        final int roots = duplicates.get("roots");
-        final int persons = duplicates.get("persons");
-        final int sources = duplicates.get("sources");
-        final int submitters = duplicates.get("submitters");
+        duplicates.put(ROOTS, logCollectionDuplicates(ROOTS));
+        duplicates.put(PERSONS, logCollectionDuplicates(PERSONS));
+        duplicates.put(SOURCES, logCollectionDuplicates(SOURCES));
+        duplicates.put(SUBMITTERS, logCollectionDuplicates(SUBMITTERS));
+        final int roots = duplicates.get(ROOTS);
+        final int persons = duplicates.get(PERSONS);
+        final int sources = duplicates.get(SOURCES);
+        final int submitters = duplicates.get(SUBMITTERS);
         final int total = roots + persons + sources + submitters;
         duplicates.put("total", total);
         return duplicates;
@@ -127,7 +135,7 @@ public class DuplicateCleanupService {
                         collectionName, id);
                     return;
                 }
-                List<Object> ids = idsByKey.get(key);
+                final List<Object> ids = idsByKey.get(key);
                 if (ids == null) {
                     final List<Object> newIds = newIdList();
                     idsByKey.put(key, newIds);
