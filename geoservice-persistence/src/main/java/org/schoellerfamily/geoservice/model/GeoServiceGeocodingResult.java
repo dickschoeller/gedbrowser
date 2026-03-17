@@ -120,21 +120,24 @@ public final class GeoServiceGeocodingResult {
     private void setProperty(final Feature feature, final String propertyName,
         final String... value) {
         if (value != null || feature.getProperty(propertyName) == null) {
-            feature.setProperty(propertyName, Arrays.copyOf(value, value.length));
+            feature.setProperty(propertyName,
+                value == null ? null : Arrays.copyOf(value, value.length));
         }
     }
 
     private void setProperty(final Feature feature, final String propertyName,
         final AddressType... value) {
         if (value != null || feature.getProperty(propertyName) == null) {
-            feature.setProperty(propertyName, Arrays.copyOf(value, value.length));
+            feature.setProperty(propertyName,
+                value == null ? null : Arrays.copyOf(value, value.length));
         }
     }
 
     private void setProperty(final Feature feature, final String propertyName,
         final AddressComponent... value) {
         if (value != null || feature.getProperty(propertyName) == null) {
-            feature.setProperty(propertyName, Arrays.copyOf(value, value.length));
+            feature.setProperty(propertyName,
+                value == null ? null : Arrays.copyOf(value, value.length));
         }
     }
 
