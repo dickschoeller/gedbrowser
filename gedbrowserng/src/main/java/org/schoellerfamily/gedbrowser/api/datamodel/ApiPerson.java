@@ -72,7 +72,7 @@ public class ApiPerson extends ApiExtraLists {
          * @return new person builder instance
          */
         @JsonCreator
-        @SuppressWarnings("java:S1452")
+        @SuppressWarnings({ "java:S1452", "java:S3252" })
         public static ApiPersonBuilder<?, ?> create() {
             return ApiPerson.builder();
         }

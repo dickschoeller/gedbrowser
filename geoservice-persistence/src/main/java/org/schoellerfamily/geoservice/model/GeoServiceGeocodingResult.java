@@ -21,7 +21,17 @@ import com.google.maps.model.AddressType;
 @SuppressWarnings({ "PMD.CommentSize", "java:S1168" })
 public final class GeoServiceGeocodingResult {
     /** */
+    private static final String ADDRESS_COMPONENTS = "addressComponents";
+    /** */
+    private static final String FORMATTED_ADDRESS = "formattedAddress";
+    /** */
+    private static final String PARTIAL_MATCH = "partialMatch";
+    /** */
+    private static final String PLACE_ID = "placeId";
+    /** */
     private static final String POSTCODE_LOCALITIES = "postcodeLocalities";
+    /** */
+    private static final String TYPES = "types";
 
     /**
      * The {@code types} array indicates the type of the returned result. This
@@ -75,30 +85,25 @@ public final class GeoServiceGeocodingResult {
                 && !geometry.getFeatures().isEmpty()) {
             final Feature fg = geometry.getFeatures().get(0);
             if (formattedAddress != null
-                    || fg.getProperty("formattedAddress") == null) {
-                fg.setProperty("formattedAddress", formattedAddress);
+                    || fg.getProperty(FORMATTED_ADDRESS) == null) {
+                fg.setProperty(FORMATTED_ADDRESS, formattedAddress);
             }
-            if (partialMatch || fg.getProperty("partialMatch") == null) {
-                fg.setProperty("partialMatch", Boolean.valueOf(partialMatch));
+            if (partialMatch || fg.getProperty(PARTIAL_MATCH) == null) {
+                fg.setProperty(PARTIAL_MATCH, Boolean.valueOf(partialMatch));
             }
-            if (placeId != null || fg.getProperty("placeId") == null) {
-                fg.setProperty("placeId", placeId);
+            if (placeId != null || fg.getProperty(PLACE_ID) == null) {
+                fg.setProperty(PLACE_ID, placeId);
             }
-            if (postcodeLocalities != null
-                    || fg.getProperty(POSTCODE_LOCALITIES) == null) {
-                if (postcodeLocalities == null) {
-                    fg.setProperty(POSTCODE_LOCALITIES, null);
-                } else {
-                    fg.setProperty(POSTCODE_LOCALITIES, Arrays
-                        .copyOf(postcodeLocalities, postcodeLocalities.length));
-                }
+            if (postcodeLocalities != null) {
+                fg.setProperty(POSTCODE_LOCALITIES,
+                    Arrays.copyOf(postcodeLocalities, postcodeLocalities.length));
             }
-            if (types != null || fg.getProperty("types") == null) {
-                fg.setProperty("types", types);
+            if (types != null || fg.getProperty(TYPES) == null) {
+                fg.setProperty(TYPES, types);
             }
             if (addressComponents != null
-                    || fg.getProperty("addressComponents") == null) {
-                fg.setProperty("addressComponents", addressComponents);
+                || fg.getProperty(ADDRESS_COMPONENTS) == null) {
+                fg.setProperty(ADDRESS_COMPONENTS, addressComponents);
             }
         }
 
@@ -150,7 +155,7 @@ public final class GeoServiceGeocodingResult {
         if (location == null) {
             return null;
         }
-        return location.getProperty("formattedAddress");
+        return location.getProperty(FORMATTED_ADDRESS);
     }
 
     /**
@@ -227,7 +232,7 @@ public final class GeoServiceGeocodingResult {
         if (location == null) {
             return false;
         }
-        return location.getProperty("partialMatch");
+        return location.getProperty(PARTIAL_MATCH);
     }
 
     /**
@@ -241,7 +246,7 @@ public final class GeoServiceGeocodingResult {
         if (location == null) {
             return null;
         }
-        return location.getProperty("placeId");
+        return location.getProperty(PLACE_ID);
     }
 
     @Transient

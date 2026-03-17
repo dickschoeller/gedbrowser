@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Represents root document mongo for persistence operations.
  *
@@ -22,14 +24,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
             def = "{'string': 1, 'filename': 1}",
             unique = true)
 })
+@NoArgsConstructor
 public final class RootDocumentMongo extends GedDocumentMongo<Root>
         implements RootDocument {
-    /**
-     * Creates a new RootDocumentMongo.
-     */
-    public RootDocumentMongo() {
-    }
-
     /**
      * Gets the type.
      *
