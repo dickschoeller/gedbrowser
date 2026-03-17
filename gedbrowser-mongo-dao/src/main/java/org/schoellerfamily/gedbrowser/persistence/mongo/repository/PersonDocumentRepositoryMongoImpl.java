@@ -20,6 +20,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -246,14 +247,9 @@ public final class PersonDocumentRepositoryMongoImpl implements
      *
      * @author Richard Schoeller
      */
+    @NoArgsConstructor
     private static final class PersonDocumentComparator implements
             Comparator<PersonDocument>, Serializable {
-        /**
-         * Creates a new PersonDocumentComparator.
-         */
-        private PersonDocumentComparator() {
-        }
-
         /**
          * The serial version u i d value.
          */

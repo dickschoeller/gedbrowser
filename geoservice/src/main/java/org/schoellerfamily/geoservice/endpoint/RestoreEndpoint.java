@@ -29,6 +29,7 @@ public class RestoreEndpoint extends BaseBackupEndpoint {
      *
      * @param backupManager the backup manager
      * @param gcc the gcc
+     * @param backupFileName the backup file name
      */
     public RestoreEndpoint(final GeoCodeBackup backupManager, final GeoCode gcc,
         @Value("${geoservice.backupfile:/var/lib/gedbrowser/geoservice-backup.json}")

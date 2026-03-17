@@ -9,8 +9,9 @@ import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
  * @author Richard Schoeller
  */
 public final class GeoDocumentMongoFactory {
+    /** Singleton instance. */
     private static final GeoDocumentMongoFactory INSTANCE =
-            new GeoDocumentMongoFactory();
+        new GeoDocumentMongoFactory();
 
     private GeoDocumentMongoFactory() {
         // Empty constructor.

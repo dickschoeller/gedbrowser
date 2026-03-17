@@ -135,7 +135,7 @@ public class DuplicateCleanupService {
                         collectionName, id);
                     return;
                 }
-                List<Object> ids = idsByKey.get(key);
+                final List<Object> ids = idsByKey.get(key);
                 if (ids == null) {
                     final List<Object> newIds = newIdList();
                     idsByKey.put(key, newIds);

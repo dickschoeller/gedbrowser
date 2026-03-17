@@ -39,6 +39,7 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
  */
 @SuppressWarnings({ "java:S1452" })
 public final class GedRendererFactory {
+    /** */
     private static Map<Class<?>, RendererBuilder> builders = Map.ofEntries(
         Map.entry((Class<?>) Husband.class,
             (RendererBuilder) (g, f, r) -> new HusbandRenderer((Husband) g, f, r)),
@@ -95,8 +96,6 @@ public final class GedRendererFactory {
 
     /**
      * Interface for builders for the factory.
-     *
-     * @author Richard Schoeller
      */
     private interface RendererBuilder {
         GedRenderer<? extends GedObject> build(GedObject gedObject, GedRendererFactory factory,

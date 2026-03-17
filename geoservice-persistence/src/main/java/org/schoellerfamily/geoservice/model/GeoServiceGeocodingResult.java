@@ -4,9 +4,9 @@ import java.beans.Transient;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
-import org.apache.commons.collections4.CollectionUtils;
 
 import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressType;
@@ -79,34 +79,6 @@ public final class GeoServiceGeocodingResult {
             final FeatureCollection geometry,
             final AddressType[] types,
             final boolean partialMatch, final String placeId) {
-        this.geometry = geometry;
-        if (geometry != null
-                && geometry.getFeatures() != null
-                && !geometry.getFeatures().isEmpty()) {
-            final Feature fg = geometry.getFeatures().get(0);
-            if (formattedAddress != null
-                    || fg.getProperty(FORMATTED_ADDRESS) == null) {
-                fg.setProperty(FORMATTED_ADDRESS, formattedAddress);
-            }
-            if (partialMatch || fg.getProperty(PARTIAL_MATCH) == null) {
-                fg.setProperty(PARTIAL_MATCH, Boolean.valueOf(partialMatch));
-            }
-            if (placeId != null || fg.getProperty(PLACE_ID) == null) {
-                fg.setProperty(PLACE_ID, placeId);
-            }
-            if (postcodeLocalities != null) {
-                fg.setProperty(POSTCODE_LOCALITIES,
-                    Arrays.copyOf(postcodeLocalities, postcodeLocalities.length));
-            }
-            if (types != null || fg.getProperty(TYPES) == null) {
-                fg.setProperty(TYPES, types);
-            }
-            if (addressComponents != null
-                || fg.getProperty(ADDRESS_COMPONENTS) == null) {
-                fg.setProperty(ADDRESS_COMPONENTS, addressComponents);
-            }
-        }
-
         if (types == null) {
             this.types = null;
         } else {
@@ -118,11 +90,60 @@ public final class GeoServiceGeocodingResult {
         } else {
             this.addressComponents = Arrays.copyOf(addressComponents, addressComponents.length);
         }
+
+        this.geometry = geometry;
+        if (geometry == null || CollectionUtils.isEmpty(geometry.getFeatures())) {
+            return;
+        }
+        final Feature feature = geometry.getFeatures().get(0);
+        setProperty(feature, FORMATTED_ADDRESS, formattedAddress);
+        setProperty(feature, PARTIAL_MATCH, partialMatch);
+        setProperty(feature, PLACE_ID, placeId);
+        setProperty(feature, POSTCODE_LOCALITIES, postcodeLocalities);
+        setProperty(feature, TYPES, types);
+        setProperty(feature, ADDRESS_COMPONENTS, addressComponents);
+    }
+
+    private void setProperty(final Feature feature, final String propertyName, final String value) {
+        if (value != null || feature.getProperty(propertyName) == null) {
+            feature.setProperty(propertyName, value);
+        }
+    }
+
+    private void setProperty(final Feature feature, final String propertyName,
+        final boolean value) {
+        if (value || feature.getProperty(propertyName) == null) {
+            feature.setProperty(propertyName, Boolean.valueOf(value));
+        }
+    }
+
+    private void setProperty(final Feature feature, final String propertyName,
+        final String... value) {
+        if (value != null || feature.getProperty(propertyName) == null) {
+            feature.setProperty(propertyName, Arrays.copyOf(value, value.length));
+        }
+    }
+
+    private void setProperty(final Feature feature, final String propertyName,
+        final AddressType... value) {
+        if (value != null || feature.getProperty(propertyName) == null) {
+            feature.setProperty(propertyName, Arrays.copyOf(value, value.length));
+        }
+    }
+
+    private void setProperty(final Feature feature, final String propertyName,
+        final AddressComponent... value) {
+        if (value != null || feature.getProperty(propertyName) == null) {
+            feature.setProperty(propertyName, Arrays.copyOf(value, value.length));
+        }
     }
 
     /**
-     * {@code addressComponents} is an array containing the separate address
-     * components.
+     * {@code types} array indicates the type of the returned result. This
+     * array contains a set of zero or more tags identifying the type of feature
+     * returned in the result. For example, a geocode of "Chicago" returns
+     * "locality" which indicates that "Chicago" is a city, and also returns
+     * "political" which indicates it is a political entity.
      *
      * @return the array of components
      */

@@ -6,21 +6,17 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Represents has attributes for persistence operations.
  *
  * @author Richard Schoeller
  * @param <G> the associated GedObject subclass
  */
+@NoArgsConstructor
 public abstract class HasAttributes<G extends GedObject>
         implements GedDocument<G> {
-    /**
-     * Creates a new HasAttributes.
-     */
-    public HasAttributes() {
-    }
-
-
     /**
      * The attributes value.
      */

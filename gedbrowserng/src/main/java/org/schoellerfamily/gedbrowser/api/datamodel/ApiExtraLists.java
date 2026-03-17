@@ -92,6 +92,7 @@ public class ApiExtraLists extends ApiHasImages {
          * @param attribute the attribute to add
          * @return this
          */
+        @Override
         public B attribute(final ApiAttribute attribute) {
             if (attribute.isType("fams")) {
                 return fams(attribute);
