@@ -33,7 +33,7 @@
     "@primeng/themes": "^21.0.4",
     "@snyk/protect": "1.1303.1",
     "braces": "^3.0.3",
-    "core-js": "3.48.0",
+    "core-js": "3.49.0",
     "diff": "^8.0.0",
     "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
