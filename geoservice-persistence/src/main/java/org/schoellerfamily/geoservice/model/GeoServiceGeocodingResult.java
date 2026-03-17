@@ -21,17 +21,17 @@ import com.google.maps.model.AddressType;
 @SuppressWarnings({ "PMD.CommentSize", "java:S1168" })
 public final class GeoServiceGeocodingResult {
     /** */
-    private static final String ADDRESS_COMPONENTS = "addressComponents";
+    private static final String PROPERTY_NAME_ADDRESS_COMPONENTS = "addressComponents";
     /** */
-    private static final String FORMATTED_ADDRESS = "formattedAddress";
+    private static final String PROPERTY_NAME_FORMATTED_ADDRESS = "formattedAddress";
     /** */
-    private static final String PARTIAL_MATCH = "partialMatch";
+    private static final String PROPERTY_NAME_PARTIAL_MATCH = "partialMatch";
     /** */
-    private static final String PLACE_ID = "placeId";
+    private static final String PROPERTY_NAME_PLACE_ID = "placeId";
     /** */
-    private static final String POSTCODE_LOCALITIES = "postcodeLocalities";
+    private static final String PROPERTY_NAME_POSTCODE_LOCALITIES = "postcodeLocalities";
     /** */
-    private static final String TYPES = "types";
+    private static final String PROPERTY_NAME_TYPES = "types";
 
     /**
      * The {@code types} array indicates the type of the returned result. This
@@ -96,12 +96,12 @@ public final class GeoServiceGeocodingResult {
             return;
         }
         final Feature feature = geometry.getFeatures().get(0);
-        setProperty(feature, FORMATTED_ADDRESS, formattedAddress);
-        setProperty(feature, PARTIAL_MATCH, partialMatch);
-        setProperty(feature, PLACE_ID, placeId);
-        setProperty(feature, POSTCODE_LOCALITIES, postcodeLocalities);
-        setProperty(feature, TYPES, types);
-        setProperty(feature, ADDRESS_COMPONENTS, addressComponents);
+        setProperty(feature, PROPERTY_NAME_FORMATTED_ADDRESS, formattedAddress);
+        setProperty(feature, PROPERTY_NAME_PARTIAL_MATCH, partialMatch);
+        setProperty(feature, PROPERTY_NAME_PLACE_ID, placeId);
+        setProperty(feature, PROPERTY_NAME_POSTCODE_LOCALITIES, postcodeLocalities);
+        setProperty(feature, PROPERTY_NAME_TYPES, types);
+        setProperty(feature, PROPERTY_NAME_ADDRESS_COMPONENTS, addressComponents);
     }
 
     private void setProperty(final Feature feature, final String propertyName, final String value) {
@@ -179,7 +179,7 @@ public final class GeoServiceGeocodingResult {
         if (location == null) {
             return null;
         }
-        return location.getProperty(FORMATTED_ADDRESS);
+        return location.getProperty(PROPERTY_NAME_FORMATTED_ADDRESS);
     }
 
     /**
@@ -190,7 +190,7 @@ public final class GeoServiceGeocodingResult {
      * @return the postcode localities
      */
     @Transient
-    public String[] getPostcodeLocalities() {
+    public String[] getPropertyNamePostcodeLocalities() {
         final Feature location = getLocation();
         if (location == null) {
             // Null is a valid value for this field, and we want to preserve it if it is
@@ -198,7 +198,7 @@ public final class GeoServiceGeocodingResult {
             // mutability issues.
             return null;
         }
-        return location.getProperty(POSTCODE_LOCALITIES);
+        return location.getProperty(PROPERTY_NAME_POSTCODE_LOCALITIES);
     }
 
     /**
@@ -221,7 +221,7 @@ public final class GeoServiceGeocodingResult {
      *
      * @return the types
      */
-    public AddressType[] getTypes() {
+    public AddressType[] getPropertyNameTypes() {
         if (types == null) {
             // Null is a valid value for this field, and we want to preserve it if it is
             // null. But if it is not null, we want to return a copy of the array to avoid
@@ -256,7 +256,7 @@ public final class GeoServiceGeocodingResult {
         if (location == null) {
             return false;
         }
-        return location.getProperty(PARTIAL_MATCH);
+        return location.getProperty(PROPERTY_NAME_PARTIAL_MATCH);
     }
 
     /**
@@ -270,7 +270,7 @@ public final class GeoServiceGeocodingResult {
         if (location == null) {
             return null;
         }
-        return location.getProperty(PLACE_ID);
+        return location.getProperty(PROPERTY_NAME_PLACE_ID);
     }
 
     @Transient

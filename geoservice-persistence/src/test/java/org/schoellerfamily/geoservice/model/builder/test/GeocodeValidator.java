@@ -58,10 +58,10 @@ public class GeocodeValidator {
             return false;
         }
         if (!validate(result.postcodeLocalities,
-                backupResult.getPostcodeLocalities())) {
+                backupResult.getPropertyNamePostcodeLocalities())) {
             return false;
         }
-        if (!validate(result.types, backupResult.getTypes())) {
+        if (!validate(result.types, backupResult.getPropertyNameTypes())) {
             return false;
         }
         return result.partialMatch == backupResult.isPartialMatch();

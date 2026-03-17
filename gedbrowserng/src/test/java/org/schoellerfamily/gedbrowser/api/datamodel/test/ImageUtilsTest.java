@@ -24,19 +24,20 @@ class ImageUtilsTest {
         this.imageUtils = new ImageUtils();
     }
 
-    @Test
-    void testWrapperIsWrapper() {
+    @ParameterizedTest
+    @ValueSource(strings = {"foo.jpg", "clip.mp4", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"})
+    void testWrapperIsWrapper(final String tail) {
         final ApiAttribute file = ApiAttribute.builder()
             .type("attribute")
             .string("File")
-            .tail("foo.jpg")
+            .tail(tail)
             .build();
         final ApiAttribute multimedia = ApiAttribute.builder()
             .type("multimedia")
             .string("Multimedia")
             .attribute(file)
             .build();
-        assertTrue(imageUtils.isImageWrapper(multimedia), "Should be an image wrapper");
+        assertTrue(imageUtils.isImageWrapper(multimedia), "Should be a media wrapper for: " + tail);
     }
 
     @Test
@@ -139,36 +140,6 @@ class ImageUtilsTest {
             .attributes(java.util.List.of())
             .build();
         assertFalse(imageUtils.isImage(file), "mp4 should not be an image");
-    }
-
-    @Test
-    void testWrapperWithVideoIsWrapper() {
-        final ApiAttribute file = ApiAttribute.builder()
-            .type("attribute")
-            .string("File")
-            .tail("clip.mp4")
-            .build();
-        final ApiAttribute multimedia = ApiAttribute.builder()
-            .type("multimedia")
-            .string("Multimedia")
-            .attribute(file)
-            .build();
-        assertTrue(imageUtils.isImageWrapper(multimedia), "Should be a media wrapper for video");
-    }
-
-    @Test
-    void testWrapperWithYouTubeIsWrapper() {
-        final ApiAttribute file = ApiAttribute.builder()
-            .type("attribute")
-            .string("File")
-            .tail("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-            .build();
-        final ApiAttribute multimedia = ApiAttribute.builder()
-            .type("multimedia")
-            .string("Multimedia")
-            .attribute(file)
-            .build();
-        assertTrue(imageUtils.isImageWrapper(multimedia), "Should be a media wrapper for YouTube");
     }
 
     @Test

@@ -115,6 +115,7 @@ public class DuplicateCleanupService {
         return duplicateCount;
     }
 
+    @SuppressWarnings("PMD.LooseCoupling")
     private Map<String, List<Object>> groupedIdsByKey(final String collectionName) {
         final Query query = new Query();
         query.fields()
@@ -135,20 +136,13 @@ public class DuplicateCleanupService {
                         collectionName, id);
                     return;
                 }
-                final List<Object> ids = idsByKey.get(key);
-                if (ids == null) {
-                    final List<Object> newIds = newIdList();
-                    idsByKey.put(key, newIds);
-                    newIds.add(id);
-                } else {
-                    ids.add(id);
-                }
+                idsByKey.computeIfAbsent(key, k -> newIdList()).add(id);
             });
         }
         return idsByKey;
     }
 
-    private String buildKey(final Document doc) {
+    private String buildKey(final Map<String, Object> doc) {
         final Object filename = doc.get("filename");
         final Object string = doc.get("string");
         if (filename == null || string == null) {
