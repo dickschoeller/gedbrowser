@@ -25,6 +25,7 @@ import com.mongodb.client.result.DeleteResult;
 final class DuplicateCleanupServiceTest {
 
     @Test
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testCleanupDeletesDuplicatesAndAggregatesCounts() {
         final MongoTemplate mongoTemplate = Mockito.mock(MongoTemplate.class);
         final DuplicateCleanupService service = new DuplicateCleanupService(mongoTemplate);
@@ -57,7 +58,8 @@ final class DuplicateCleanupServiceTest {
         assertEquals(0, result.get("persons"));
         assertEquals(2, result.get("sources"));
         assertEquals(0, result.get("submitters"));
-        assertEquals(3, result.get("total"));
+        final int expectedTotal = 1 + 0 + 2 + 0;
+        assertEquals(expectedTotal, result.get("total"));
         verify(mongoTemplate).remove(any(Query.class), eq("roots"));
         verify(mongoTemplate, never()).remove(any(Query.class), eq("persons"));
         verify(mongoTemplate).remove(any(Query.class), eq("sources"));
@@ -65,6 +67,7 @@ final class DuplicateCleanupServiceTest {
     }
 
     @Test
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testLogDuplicatesReportsCountsWithoutDeleting() {
         final MongoTemplate mongoTemplate = Mockito.mock(MongoTemplate.class);
         final DuplicateCleanupService service = new DuplicateCleanupService(mongoTemplate);
@@ -92,7 +95,8 @@ final class DuplicateCleanupServiceTest {
         assertEquals(1, result.get("persons"));
         assertEquals(0, result.get("sources"));
         assertEquals(1, result.get("submitters"));
-        assertEquals(3, result.get("total"));
+        final int expectedTotal = 1 + 1 + 0 + 1;
+        assertEquals(expectedTotal, result.get("total"));
         verify(mongoTemplate, never()).remove(any(Query.class), any(String.class));
     }
 

@@ -33,6 +33,7 @@ public class LoadEndpoint extends BaseGeoCodeEndpoint {
      *
      * @param gcc the gcc
      * @param loader the loader
+     * @param loadFile the load file
      */
     public LoadEndpoint(final GeoCode gcc, final GeoCodeLoader loader,
         @Value("${geoservice.loadfile:/var/lib/gedbrowser/geoservice-loadfile.txt}")

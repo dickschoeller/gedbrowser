@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Richard Schoeller
  */
 @Configuration
+@SuppressWarnings("PMD.TestClassWithoutTestCases")
 public class TestConfiguration {
     /**
      * Creates and configures the calendar provider bean.
@@ -28,8 +29,14 @@ public class TestConfiguration {
         return new CalendarProviderStub();
     }
 
+    /**
+     * Creates and configures the application info bean.
+     *
+     * @param g2g the ged line to ged object transformer
+     * @return the configured application info bean
+     */
     @Bean
-    TestDataReader reader(final GedLineToGedObjectTransformer g2g) {
+    public TestDataReader reader(final GedLineToGedObjectTransformer g2g) {
         return new TestDataReader(g2g);
     }
 

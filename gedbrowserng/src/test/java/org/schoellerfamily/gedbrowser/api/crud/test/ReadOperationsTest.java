@@ -2,13 +2,13 @@ package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.schoellerfamily.gedbrowser.api.crud.ReadOperations;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
@@ -17,22 +17,25 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Contains tests for read operations.
  */
 final class ReadOperationsTest {
 
     @Test
+    @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts", "unchecked" })
     void testReadFiltersNullsDeduplicatesAndSorts() {
-        final FindableDocument<Root, RootDocument> repository = Mockito.mock(FindableDocument.class);
-        final GedObjectFileLoader loader = Mockito.mock(GedObjectFileLoader.class);
-        final TestReadOperations readOperations = new TestReadOperations(repository, loader);
+        final FindableDocument<Root, RootDocument> repository = mock(FindableDocument.class);
+        final GedObjectFileLoader loader = mock(GedObjectFileLoader.class);
+        final ReadOperationsStub readOperations = new ReadOperationsStub(repository, loader);
 
-        final RootDocument root = Mockito.mock(RootDocument.class);
-        final RootDocument nullStringDoc = Mockito.mock(RootDocument.class);
-        final RootDocument bDoc = Mockito.mock(RootDocument.class);
-        final RootDocument aFirst = Mockito.mock(RootDocument.class);
-        final RootDocument aSecond = Mockito.mock(RootDocument.class);
+        final RootDocument root = mock(RootDocument.class);
+        final RootDocument nullStringDoc = mock(RootDocument.class);
+        final RootDocument bDoc = mock(RootDocument.class);
+        final RootDocument aFirst = mock(RootDocument.class);
+        final RootDocument aSecond = mock(RootDocument.class);
 
         when(nullStringDoc.getString()).thenReturn(null);
         when(bDoc.getString()).thenReturn("B");
@@ -53,16 +56,18 @@ final class ReadOperationsTest {
         assertSame(bDoc, result.get(1));
     }
 
-    private static final class TestReadOperations
-            implements ReadOperations<Root, RootDocument, ApiObject> {
+    /**
+     * Test implementation of ReadOperations for testing the default read method.
+     * The read method is the only method that has a default implementation, so we
+     * can just implement the interface.
+     */
+    @RequiredArgsConstructor
+    private static final class ReadOperationsStub
+        implements ReadOperations<Root, RootDocument, ApiObject> {
+        /** */
         private final FindableDocument<Root, RootDocument> repository;
+        /** */
         private final GedObjectFileLoader loader;
-
-        TestReadOperations(final FindableDocument<Root, RootDocument> repository,
-                final GedObjectFileLoader loader) {
-            this.repository = repository;
-            this.loader = loader;
-        }
 
         /**
          * Gets the repository.

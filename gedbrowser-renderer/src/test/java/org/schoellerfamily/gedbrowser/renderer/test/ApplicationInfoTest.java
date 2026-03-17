@@ -13,7 +13,7 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
  *
  * @author Richard Schoeller
  */
-public class ApplicationInfoTest {
+class ApplicationInfoTest {
     /** */
     private ApplicationInfo appInfo;
 

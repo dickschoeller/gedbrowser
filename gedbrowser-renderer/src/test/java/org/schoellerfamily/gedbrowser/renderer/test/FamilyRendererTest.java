@@ -53,6 +53,7 @@ final class FamilyRendererTest {
     /** */
     private transient RenderingContext userContext;
 
+    /** */
     private final transient GedObjectBuilder builder = new GedObjectBuilder();
 
     @BeforeEach

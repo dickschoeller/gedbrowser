@@ -46,6 +46,7 @@ final class PlaceListRendererTest {
     @Autowired
     private ApplicationInfo appInfo;
 
+    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     private Person createJRandom() {

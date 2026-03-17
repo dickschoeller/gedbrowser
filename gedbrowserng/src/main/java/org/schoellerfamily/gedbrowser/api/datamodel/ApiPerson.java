@@ -88,7 +88,7 @@ public class ApiPerson extends ApiExtraLists {
         public B string(final String string) {
             if (StringUtils.isNotBlank(string) && getAttributes() != null) {
                 getAttributes().removeIf(attr -> attr.isType("attribute")
-                    && attr.getString().equals("Reference Number"));
+                    && "Reference Number".equals(attr.getString()));
                 attribute(refn(string));
             }
             return super.string(string);

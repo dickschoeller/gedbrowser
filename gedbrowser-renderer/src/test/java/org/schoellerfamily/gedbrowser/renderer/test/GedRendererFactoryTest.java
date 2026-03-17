@@ -68,9 +68,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  *
  * @author Richard Schoeller
  */
-@SuppressWarnings({ "PMD.ExcessiveImports" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.TooManyMethods" })
 final class GedRendererFactoryTest {
     /** */
     @Autowired
@@ -82,6 +82,7 @@ final class GedRendererFactoryTest {
     /** */
     private transient GedRendererFactory grf;
 
+    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     @BeforeEach

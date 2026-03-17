@@ -45,15 +45,20 @@ class UploadControllerIT {
     /** */
     private MockMvc mockMvc;
 
+    /** */
     private final StorageService service = mock(FileSystemStorageService.class);
 
+    /** */
     private final GedObjectFileLoader loader = mock(GedObjectFileLoader.class);
 
+    /** */
     private final GedObjectToGedDocumentMongoConverter toDocConverter = mock(
         GedObjectToGedDocumentMongoConverter.class);
 
+    /** */
     private final RepositoryManagerMongo repositoryManager = mock(RepositoryManagerMongo.class);
 
+    /** */
     private final UploadController controller = spy(
         new UploadController(loader, toDocConverter, repositoryManager, service));
 

@@ -12,13 +12,17 @@ import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderFacade;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderImpl;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Contains tests for calendar provider facade.
  *
  * @author Richard Schoeller
  */
 class CalendarProviderFacadeTest {
+    /** */
     private final Calendar calendar = Calendar.getInstance();
+    /** */
     private final LocalDate localDate = new LocalDate();
     /** */
     private CalendarProvider mockProvider;
@@ -60,13 +64,10 @@ class CalendarProviderFacadeTest {
      *
      * @author Richard Schoeller
      */
+    @RequiredArgsConstructor
     private final class CalendarProviderFacadeImpl implements CalendarProviderFacade {
         /** */
         private final CalendarProvider provider;
-
-        CalendarProviderFacadeImpl(final CalendarProvider provider) {
-            this.provider = provider;
-        }
 
         /**
          * Returns the calendar provider.

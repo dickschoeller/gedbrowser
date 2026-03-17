@@ -54,6 +54,7 @@ final class IndexByPlaceRendererTest {
     @Autowired
     private transient GeoServiceClient client;
 
+    /** */
     private final GedObjectBuilder builder = new GedObjectBuilder();
 
     /** */

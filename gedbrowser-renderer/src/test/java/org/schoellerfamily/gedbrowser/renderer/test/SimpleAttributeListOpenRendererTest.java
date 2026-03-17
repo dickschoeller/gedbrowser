@@ -33,6 +33,7 @@ final class SimpleAttributeListOpenRendererTest {
     /** */
     private transient SimpleAttributeListOpenRenderer npr;
 
+    /** */
     private final transient GedObject gob = createGedObject();
 
     private GedObject createGedObject() {

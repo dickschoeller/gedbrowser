@@ -2,10 +2,6 @@ package org.schoellerfamily.gedbrowser.security.controller;
 
 import java.util.Map;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
 import org.schoellerfamily.gedbrowser.security.service.impl.CustomUserDetailsService;
@@ -20,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 
@@ -52,13 +51,13 @@ public class AuthenticationController {
      * The expires in value.
      */
     @Value("${jwt.expires_in:600}")
-    private int expiresIn;
+    private final int expiresIn;
 
     /**
      * The cookie value.
      */
     @Value("${jwt.cookie:AUTH-TOKEN}")
-    private String cookie;
+    private final String cookie;
 
     /**
      * Executes refresh authentication token.

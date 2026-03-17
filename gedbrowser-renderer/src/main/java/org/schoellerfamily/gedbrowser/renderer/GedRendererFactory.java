@@ -98,6 +98,14 @@ public final class GedRendererFactory {
      * Interface for builders for the factory.
      */
     private interface RendererBuilder {
+        /**
+         * Builds the renderer.
+         *
+         * @param gedObject the GedObject to be rendered
+         * @param factory the factory creating the renderer
+         * @param renderingContext the context for rendering
+         * @return the renderer
+         */
         GedRenderer<? extends GedObject> build(GedObject gedObject, GedRendererFactory factory,
             RenderingContext renderingContext);
     }

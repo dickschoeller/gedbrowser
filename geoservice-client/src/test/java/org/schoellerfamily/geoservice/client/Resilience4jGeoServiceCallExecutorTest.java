@@ -18,12 +18,13 @@ import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 /**
  * Contains tests for resilience4j geo service call executor.
  */
+@SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
 final class Resilience4jGeoServiceCallExecutorTest {
 
     @Test
     void testExecuteReturnsSupplierValue() throws Exception {
         final Resilience4jGeoServiceCallExecutor executor =
-                new Resilience4jGeoServiceCallExecutor();
+            new Resilience4jGeoServiceCallExecutor();
 
         final String result = executor.execute(() -> "ok");
 
@@ -55,11 +56,11 @@ final class Resilience4jGeoServiceCallExecutorTest {
         final AtomicInteger attempts = new AtomicInteger(0);
 
         final GeoServiceCallException exception = assertThrows(
-                GeoServiceCallException.class,
-                () -> executor.execute(() -> {
-                    attempts.incrementAndGet();
-                    throw new IllegalStateException("unexpected");
-                }));
+            GeoServiceCallException.class,
+            () -> executor.execute(() -> {
+                attempts.incrementAndGet();
+                throw new IllegalStateException("unexpected");
+            }));
         assertInstanceOf(IllegalStateException.class, exception.getCause());
         final int expected = 1;
         assertEquals(expected, attempts.get());
@@ -68,13 +69,13 @@ final class Resilience4jGeoServiceCallExecutorTest {
     @Test
     void testConstructorRejectsInvalidAttemptCount() {
         assertThrows(IllegalArgumentException.class,
-                () -> new Resilience4jGeoServiceCallExecutor(0, 0L));
+            () -> new Resilience4jGeoServiceCallExecutor(0, 0L));
     }
 
     @Test
     void testConstructorRejectsNegativeWaitMillis() {
         assertThrows(IllegalArgumentException.class,
-                () -> new Resilience4jGeoServiceCallExecutor(1, -1L));
+            () -> new Resilience4jGeoServiceCallExecutor(1, -1L));
     }
 
     @Test

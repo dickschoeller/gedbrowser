@@ -34,6 +34,7 @@ import com.google.maps.model.LocationType;
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 final class GeocodeResultBuilderTest extends GeocodeValidator {
+    /** */
     private final GeocodeResultBuilder builder = new GeocodeResultBuilder();
 
     @Test
