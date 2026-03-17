@@ -2,5 +2,19 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^@angular/"],
+      "groupName": "all angular dependencies",
+      "groupSlug": "angular-group"
+    },
+    {
+      "matchDepNames": [
+        "^org\\.springframework(\\.boot|\\.data)?:"
+      ],
+      "groupName": "all spring dependencies",
+      "groupSlug": "all-spring-dependencies"
+    }
   ]
 }
