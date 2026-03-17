@@ -164,6 +164,7 @@ public class PersonsController {
         return !hasUser && new LivingEstimator(person, provider).estimate();
     }
 
+    @SuppressWarnings("java:S3252")
     private ApiPerson createDummyLivingPerson(final String id) {
         return ApiPerson.builder()
             .string(id)

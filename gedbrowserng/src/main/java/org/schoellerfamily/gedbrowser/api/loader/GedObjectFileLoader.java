@@ -31,6 +31,8 @@ public final class GedObjectFileLoader extends GedDocumentFileLoader {
      * @param g2g the g2g
      * @param toDocConverter the to doc converter
      * @param rootDocumentRepository the root document repository
+     * @param gedbrowserHome the gedbrowser home
+     * @param repositoryManagerMongo the repository manager mongo
      */
     public GedObjectFileLoader(final FinderStrategy finder,
             final GedLineToGedObjectTransformer g2g,

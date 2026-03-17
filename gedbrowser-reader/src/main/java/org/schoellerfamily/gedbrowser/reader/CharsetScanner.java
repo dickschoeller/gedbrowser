@@ -30,8 +30,11 @@ public class CharsetScanner {
     private static final String ASCII = "ASCII";
     /** */
     private static final String CP1252 = "Cp1252";
+    /** */
     private static final String UTF_8 = StandardCharsets.UTF_8.name();
+    /** */
     private static final String UTF_16 = StandardCharsets.UTF_16.name();
+    /** */
     private static final Map<String, String> CHARSET_MAP = Map.of(
         "ansel", ANSEL,
         "ansi", CP1252,

@@ -187,11 +187,11 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, AfterViewC
      */
     escapeHtml(text: string | null | undefined): string {
         return (text || '')
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#39;');
     }
 
     private refreshGalleryImages(): void {
