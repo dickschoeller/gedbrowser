@@ -2,3 +2,8 @@ spring:
     jackson:
         serialization:
             INDENT_OUTPUT: true
+
+geoservice:
+    circuit-breaker:
+        open-timeout-millis: 30000
+        reset-timeout-millis: 30000

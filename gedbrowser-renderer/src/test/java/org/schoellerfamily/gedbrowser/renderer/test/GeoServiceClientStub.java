@@ -15,20 +15,14 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
  * @author Richard Schoeller
  */
 public final class GeoServiceClientStub extends GeoServiceClient {
+    /** */
+    private static final int PORT = 8080;
+
     /**
      * Creates a new GeoServiceClientStub.
      */
     public GeoServiceClientStub() {
-        super(null, null, 0, null);
-    }
-
-    /**
-     * Executes init cache.
-     */
-    @Override
-    protected void initCache() {
-        // No-op: avoid starting cache infrastructure (e.g., resilience4j/ehcache)
-        // during renderer tests.
+        super(null, null, "localhost", PORT, "http");
     }
 
     /**
