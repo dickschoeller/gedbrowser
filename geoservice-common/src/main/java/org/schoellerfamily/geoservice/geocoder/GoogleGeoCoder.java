@@ -8,8 +8,6 @@ import com.google.maps.model.GeocodingResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
-
 /**
  * Provides behavior related to google geo coder.
  *

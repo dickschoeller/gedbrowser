@@ -1,18 +1,13 @@
 package org.schoellerfamily.geoservice.client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
@@ -26,13 +21,16 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.Point;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.RequestMatcher;
-import org.springframework.web.client.RestClient;
 
 import com.google.maps.model.AddressType;
 
@@ -41,25 +39,21 @@ import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
 
-
-
 /**
  * Contains tests for geo service client.
  */
 @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts", "PMD.TooManyMethods",
     "PMD.ExcessiveImports", "PMD.CouplingBetweenObjects" })
-final class GeoServiceClientTest {
+@org.springframework.boot.test.context.SpringBootTest(
+    classes = {
+        GeoServiceClientTestApplication.class,
+        GeoServiceClientTestConfig.class
+    },
+    webEnvironment = org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE)
+class GeoServiceClientTest {
+
     /** */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
-    /** */
-    private static final String HOST = "localhost";
-
-    /** */
-    private static final int PORT = 8080;
-
-    /** */
-    private static final String PROTOCOL = "http";
 
     /** */
     private static final double EXPECTED_LATITUDE = 42.0;
@@ -67,17 +61,29 @@ final class GeoServiceClientTest {
     /** */
     private static final double EXPECTED_LONGITUDE = -71.0;
 
+    /** The Spring-managed client under test. */
+    @Autowired
+    private GeoServiceClient client;
+
+    /** The mock server wired to the same {@link RestClient} as the client. */
+    @Autowired
+    private MockRestServiceServer server;
+
+    /** Cache manager configured by {@link GeoServiceCacheConfig}. */
+    @Autowired
+    private CacheManager cacheManager;
+
+    @BeforeEach
+    void resetServer() {
+        server.reset();
+        final Cache cache = geocodeCache();
+        if (cache != null) {
+            cache.clear();
+        }
+    }
+
     @Test
     void testGetReturnsPrimaryResponseWhenDeserializationSucceeds() {
-        final RestClient.Builder builder = RestClient.builder();
-        final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
-        final GeoServiceClient client = new GeoServiceClient(
-            builder.build(),
-            HOST,
-            PORT,
-            PROTOCOL);
-        client.initCache();
-
         final String place = "Primary Place";
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
         final String url = "http://localhost:8080/geocode?name=" + encoded;
@@ -108,76 +114,60 @@ final class GeoServiceClientTest {
         server.verify();
     }
 
-    @Test
-    void testGetReturnsCachedItemWithoutCallingBackend()
-        throws ReflectiveOperationException {
-        final GeoServiceClient client = newClient();
-        final PlaceCache cache = mock(PlaceCache.class);
-        final GeoServiceItem cached =
-            new GeoServiceItem("Cached Place", "Cached Modern Place", null);
-        when(cache.get("Cached Place")).thenReturn(cached);
+        @Test
+        void testGetReturnsCachedItemWithoutCallingBackend() {
+            final String place = "Cached Place";
+            final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
+            final String url = "http://localhost:8080/geocode?name=" + encoded;
 
-        setPrivateField(client, "geocodeCache", cache);
+            final RequestMatcher requestToUrl = request -> {
+                assertEquals(url, request.getURI().toString());
+                assertEquals("GET", request.getMethod().name());
+            };
 
-        final GeoServiceItem item = client.get("Cached Place");
+            server.expect(requestToUrl)
+                    .andRespond(withSuccess("{not-json", MediaType.APPLICATION_JSON));
+            server.expect(requestToUrl)
+                    .andRespond(withSuccess(
+                            """
+                                    {
+                                        "placeName":"Cached Place",
+                                        "modernPlaceName":"Cached Modern Place",
+                                        "result": {
+                                            "formattedAddress":"Cached Address",
+                                            "partialMatch": false,
+                                            "placeId":"cached-place-id",
+                                            "types":["LOCALITY"],
+                                            "postcodeLocalities":[],
+                                            "geometry": {
+                                                "features": [
+                                                    {
+                                                        "id":"cached-feature",
+                                                        "properties":{"locationType":"ROOFTOP"},
+                                                        "geometry": {"coordinates": [-71.0, 42.0]}
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                    """,
+                            MediaType.APPLICATION_JSON));
 
-        assertEquals(cached, item);
-        verify(cache).get("Cached Place");
-        verify(cache, never()).put(anyString(), any());
-    }
+            final GeoServiceItem first = client.get(place);
+            final GeoServiceItem second = client.get(place);
 
-    @Test
-    void testGetUsesDirectFetchWhenCallExecutorIsNull() throws ReflectiveOperationException {
-        final RestClient.Builder builder = RestClient.builder();
-        final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
-        final GeoServiceClient client = new GeoServiceClient(
-            builder.build(),
-            HOST,
-            PORT,
-            PROTOCOL);
-        client.initCache();
-        setPrivateField(client, "callExecutor", null);
-
-        final String place = "Direct Place";
-        final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
-        final String url = "http://localhost:8080/geocode?name=" + encoded;
-
-        final RequestMatcher requestToUrl = request -> {
-            assertEquals(url, request.getURI().toString());
-            assertEquals("GET", request.getMethod().name());
-        };
-
-        server.expect(requestToUrl)
-            .andRespond(withSuccess(
-                """
-                {
-                  "placeName":"Direct Place",
-                  "modernPlaceName":"Direct Modern Place",
-                  "result": null
-                }
-                """,
-                MediaType.APPLICATION_JSON));
-
-        final GeoServiceItem item = client.get(place);
-
-        assertNotNull(item);
-        assertEquals("Direct Place", item.getPlaceName());
-        assertEquals("Direct Modern Place", item.getModernPlaceName());
-        assertNull(item.getResult());
-        server.verify();
-      }
+            assertNotNull(first);
+            assertNotNull(second);
+            assertEquals(first.getPlaceName(), second.getPlaceName());
+            assertNotNull(first.getResult());
+            assertNotNull(second.getResult());
+            assertNotNull(geocodeCache());
+            assertNotNull(geocodeCache().get(place, GeoServiceItem.class));
+            server.verify();
+        }
 
     @Test
     void testGetFallsBackWhenPrimaryDeserializationFails() {
-        final RestClient.Builder builder = RestClient.builder();
-        final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
-        final GeoServiceClient client = new GeoServiceClient(
-            builder.build(),
-            HOST,
-            PORT,
-            PROTOCOL);
-            client.initCache();
-
         final String place = "Fallback Place";
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
         final String url = "http://localhost:8080/geocode?name=" + encoded;
@@ -243,15 +233,6 @@ final class GeoServiceClientTest {
 
     @Test
     void testGetReturnsDefaultItemWhenFallbackAlsoFails() {
-        final RestClient.Builder builder = RestClient.builder();
-        final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
-        final GeoServiceClient client = new GeoServiceClient(
-            builder.build(),
-            HOST,
-            PORT,
-            PROTOCOL);
-        client.initCache();
-
         final String place = "Nowhere";
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
         final String url = "http://localhost:8080/geocode?name=" + encoded;
@@ -279,15 +260,6 @@ final class GeoServiceClientTest {
 
     @Test
     void testGetReturnsDefaultItemWhenFallbackPayloadIsMalformed() {
-        final RestClient.Builder builder = RestClient.builder();
-        final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
-        final GeoServiceClient client = new GeoServiceClient(
-            builder.build(),
-            HOST,
-            PORT,
-            PROTOCOL);
-        client.initCache();
-
         final String place = "Broken Payload";
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
         final String url = "http://localhost:8080/geocode?name=" + encoded;
@@ -315,15 +287,6 @@ final class GeoServiceClientTest {
 
     @Test
     void testGetReturnsDefaultItemWhenFallbackBodyIsMissing() {
-        final RestClient.Builder builder = RestClient.builder();
-        final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
-        final GeoServiceClient client = new GeoServiceClient(
-            builder.build(),
-            HOST,
-            PORT,
-            PROTOCOL);
-        client.initCache();
-
         final String place = "Missing Payload";
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
         final String url = "http://localhost:8080/geocode?name=" + encoded;
@@ -351,15 +314,6 @@ final class GeoServiceClientTest {
 
     @Test
     void testGetReturnsDefaultItemWhenPrimaryBodyIsEmpty() {
-        final RestClient.Builder builder = RestClient.builder();
-        final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
-        final GeoServiceClient client = new GeoServiceClient(
-            builder.build(),
-            HOST,
-            PORT,
-            PROTOCOL);
-        client.initCache();
-
         final String place = "Empty Primary";
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
         final String url = "http://localhost:8080/geocode?name=" + encoded;
@@ -391,15 +345,6 @@ final class GeoServiceClientTest {
     void testGetReturnsDefaultItemWhenDebugLoggingIsEnabled() {
         final Level originalLevel = setGeoServiceClientLogLevel(Level.DEBUG);
         try {
-            final RestClient.Builder builder = RestClient.builder();
-            final MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
-            final GeoServiceClient client = new GeoServiceClient(
-                builder.build(),
-                HOST,
-                PORT,
-                PROTOCOL);
-            client.initCache();
-
             final String place = "Debug Payload";
             final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
             final String url = "http://localhost:8080/geocode?name=" + encoded;
@@ -431,7 +376,6 @@ final class GeoServiceClientTest {
     @Test
     void testBuildGeometrySkipsInvalidFeaturesAndKeepsFirstValidOne()
         throws ReflectiveOperationException {
-        final GeoServiceClient client = newClient();
         final JsonNode featuresNode = OBJECT_MAPPER.readTree(
             """
             [
@@ -454,7 +398,6 @@ final class GeoServiceClientTest {
             """);
 
         final FeatureCollection geometry = invokePrivate(
-            client,
             "buildGeometry",
             JsonNode.class,
             featuresNode);
@@ -476,9 +419,7 @@ final class GeoServiceClientTest {
     @Test
     void testBuildGeometryReturnsEmptyCollectionForNonArrayFeatures()
             throws ReflectiveOperationException {
-        final GeoServiceClient client = newClient();
         final FeatureCollection geometry = invokePrivate(
-            client,
             "buildGeometry",
             JsonNode.class,
             OBJECT_MAPPER.createObjectNode());
@@ -491,9 +432,7 @@ final class GeoServiceClientTest {
       @Test
       void testBuildGeometryReturnsEmptyCollectionForEmptyArrays()
           throws ReflectiveOperationException {
-        final GeoServiceClient client = newClient();
         final FeatureCollection geometry = invokePrivate(
-          client,
           "buildGeometry",
           JsonNode.class,
           OBJECT_MAPPER.createArrayNode());
@@ -506,8 +445,6 @@ final class GeoServiceClientTest {
     @Test
     void testToLocationFeatureRejectsInvalidCoordinateShapes()
             throws ReflectiveOperationException {
-        final GeoServiceClient client = newClient();
-
         final JsonNode missingArrayNode = OBJECT_MAPPER.readTree(
             """
             {
@@ -526,15 +463,14 @@ final class GeoServiceClientTest {
             """);
         final ObjectNode nonFiniteNode = featureNode(Double.NaN, 42.0);
 
-        assertNull(invokePrivate(client, "toLocationFeature", JsonNode.class, missingArrayNode));
-        assertNull(invokePrivate(client, "toLocationFeature", JsonNode.class, shortArrayNode));
-        assertNull(invokePrivate(client, "toLocationFeature", JsonNode.class, nonFiniteNode));
+        assertNull(invokePrivate("toLocationFeature", JsonNode.class, missingArrayNode));
+        assertNull(invokePrivate("toLocationFeature", JsonNode.class, shortArrayNode));
+        assertNull(invokePrivate("toLocationFeature", JsonNode.class, nonFiniteNode));
     }
 
     @Test
     void testToLocationFeatureRejectsInvalidLatitudeValues()
         throws ReflectiveOperationException {
-        final GeoServiceClient client = newClient();
         final JsonNode nonNumericLatitudeNode = OBJECT_MAPPER.readTree(
             """
             {
@@ -546,12 +482,10 @@ final class GeoServiceClientTest {
         final ObjectNode nonFiniteLatitudeNode = featureNode(EXPECTED_LONGITUDE, Double.NaN);
 
         assertNull(invokePrivate(
-            client,
             "toLocationFeature",
             JsonNode.class,
             nonNumericLatitudeNode));
         assertNull(invokePrivate(
-            client,
             "toLocationFeature",
             JsonNode.class,
             nonFiniteLatitudeNode));
@@ -560,10 +494,7 @@ final class GeoServiceClientTest {
     @Test
     void testParseAddressTypesHandlesUnsupportedInputs()
         throws ReflectiveOperationException {
-        final GeoServiceClient client = newClient();
-
         final AddressType[] notArrayTypes = invokePrivate(
-            client,
             "parseAddressTypes",
             JsonNode.class,
             OBJECT_MAPPER.createObjectNode());
@@ -576,7 +507,6 @@ final class GeoServiceClientTest {
             """);
 
         final AddressType[] addressTypes = invokePrivate(
-            client,
             "parseAddressTypes",
             JsonNode.class,
             invalidTypesNode);
@@ -588,10 +518,7 @@ final class GeoServiceClientTest {
     @Test
     void testParseStringArrayAndTextValueHandleEmptyInputs()
         throws ReflectiveOperationException {
-        final GeoServiceClient client = newClient();
-
         final String[] notArrayStrings = invokePrivate(
-            client,
             "parseStringArray",
             JsonNode.class,
             OBJECT_MAPPER.createObjectNode());
@@ -604,22 +531,19 @@ final class GeoServiceClientTest {
             """);
 
         final String[] invalidStrings = invokePrivate(
-            client,
             "parseStringArray",
             JsonNode.class,
             invalidStringsNode);
         assertNotNull(invalidStrings);
         assertEquals(0, invalidStrings.length);
 
-        assertNull(invokePrivate(client, "textValue", JsonNode.class, null));
-        assertNull(invokePrivate(client, "textValue", JsonNode.class, OBJECT_MAPPER.nullNode()));
+        assertNull(invokePrivate("textValue", JsonNode.class, null));
+        assertNull(invokePrivate("textValue", JsonNode.class, OBJECT_MAPPER.nullNode()));
         assertNull(invokePrivate(
-            client,
             "textValue",
             JsonNode.class,
             OBJECT_MAPPER.createObjectNode()));
         assertNull(invokePrivate(
-            client,
             "textValue",
             JsonNode.class,
             OBJECT_MAPPER.readTree("\"   \"")));
@@ -628,7 +552,6 @@ final class GeoServiceClientTest {
     @Test
     void testTextValueReturnsNullWhenStringValueIsNull()
         throws ReflectiveOperationException {
-        final GeoServiceClient client = newClient();
         final JsonNode nullStringNode = mock(JsonNode.class);
 
         when(nullStringNode.isNull()).thenReturn(false);
@@ -636,48 +559,57 @@ final class GeoServiceClientTest {
         when(nullStringNode.asString()).thenReturn(null);
 
         assertNull(invokePrivate(
-            client,
             "textValue",
             JsonNode.class,
             nullStringNode));
     }
 
-    private GeoServiceClient newClient() {
-        final GeoServiceClient client =
-            new GeoServiceClient(RestClient.builder().build(), HOST, PORT, PROTOCOL);
-        client.initCache();
-        return client;
+    @Test
+    void testGetDoesNotCacheItemsWithoutResult() {
+        final String place = "Uncached Place";
+        final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
+        final String url = "http://localhost:8080/geocode?name=" + encoded;
+
+        final RequestMatcher requestToUrl = request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("GET", request.getMethod().name());
+        };
+
+        server.expect(requestToUrl)
+            .andRespond(withSuccess(
+                """
+                {
+                  "placeName":"Uncached Place",
+                  "modernPlaceName":"Uncached Modern Place",
+                  "result": null
+                }
+                """,
+                MediaType.APPLICATION_JSON));
+        server.expect(requestToUrl)
+            .andRespond(withSuccess(
+                """
+                {
+                  "placeName":"Uncached Place",
+                  "modernPlaceName":"Uncached Modern Place",
+                  "result": null
+                }
+                """,
+                MediaType.APPLICATION_JSON));
+
+        final GeoServiceItem first = client.get(place);
+        final GeoServiceItem second = client.get(place);
+
+        assertNotNull(first);
+        assertNotNull(second);
+        assertNull(first.getResult());
+        assertNull(second.getResult());
+        assertNotNull(geocodeCache());
+        assertNull(geocodeCache().get(place, GeoServiceItem.class));
+        server.verify();
     }
 
-    @Test
-    void testDestroyCacheClosesUnderlyingCacheWithoutThrowing() {
-        final GeoServiceClient client = newClient();
-        // Should close the EhcachePlaceCache without throwing.
-        assertDoesNotThrow(client::destroyCache);
-    }
-
-    @Test
-    void testDestroyCacheInvokesCloseOnMockedGeocodeCache() throws ReflectiveOperationException {
-        final GeoServiceClient client =
-            new GeoServiceClient(RestClient.builder().build(), HOST, PORT, PROTOCOL);
-
-        final PlaceCache mockCache = mock(PlaceCache.class);
-        final java.lang.reflect.Field field =
-            GeoServiceClient.class.getDeclaredField("geocodeCache");
-        field.setAccessible(true);
-        field.set(client, mockCache);
-
-        client.destroyCache();
-
-        verify(mockCache).close();
-    }
-
-    @Test
-    void testDestroyCacheDoesNotThrowWhenCacheIsNull() {
-        final GeoServiceClient client =
-            new GeoServiceClient(RestClient.builder().build(), HOST, PORT, PROTOCOL);
-        // geocodeCache remains null (initCache not called); destroyCache should be safe.
-        assertDoesNotThrow(client::destroyCache);
+    private Cache geocodeCache() {
+        return cacheManager.getCache(GeoServiceCacheConfig.GEOCODE_CACHE);
     }
 
     private ObjectNode featureNode(final double lng, final double lat) {
@@ -690,22 +622,12 @@ final class GeoServiceClientTest {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> T invokePrivate(final GeoServiceClient client,
-        final String methodName,
+    private <T> T invokePrivate(final String methodName,
         final Class<?> parameterType,
         final Object argument) throws ReflectiveOperationException {
         final Method method = GeoServiceClient.class.getDeclaredMethod(methodName, parameterType);
         method.setAccessible(true);
         return (T) method.invoke(client, argument);
-    }
-
-    private void setPrivateField(final GeoServiceClient client,
-        final String fieldName,
-        final Object value) throws ReflectiveOperationException {
-        final java.lang.reflect.Field field =
-            GeoServiceClient.class.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        field.set(client, value);
     }
 
     private Level setGeoServiceClientLogLevel(final Level level) {

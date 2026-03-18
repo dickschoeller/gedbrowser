@@ -2,3 +2,15 @@ spring:
     jackson:
         serialization:
             INDENT_OUTPUT: true
+
+resilience4j:
+    retry:
+        instances:
+            geoservice:
+                max-attempts: ${geoservice.retry.max-attempts:3}
+                wait-duration: ${geoservice.retry.wait-millis:500}ms
+
+geoservice:
+    circuit-breaker:
+        open-timeout-millis: 30000
+        reset-timeout-millis: 30000

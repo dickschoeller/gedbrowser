@@ -6,29 +6,25 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.Point;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 
 import com.google.maps.model.AddressType;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Provides client access to geo service.
@@ -39,30 +35,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class GeoServiceClient {
-
-    /** Default cache size used when no property override is provided. */
-    private static final String DEFAULT_CACHE_MAX_SIZE = "1000";
-
-    /** Default cache entry TTL (seconds) used when no property override is provided. */
-    private static final String DEFAULT_CACHE_TTL_SECONDS = "3600";
-
-    /** Default retry attempt count used when no property override is provided. */
-    private static final String DEFAULT_RETRY_MAX_ATTEMPTS = "3";
-
-    /** Default retry wait (milliseconds) used when no property override is provided. */
-    private static final String DEFAULT_RETRY_WAIT_MILLIS = "500";
-
-    /** Parsed default cache max size. */
-    private static final int DEFAULT_CACHE_MAX_SIZE_INT = 1000;
-
-    /** Parsed default cache TTL seconds. */
-    private static final long DEFAULT_CACHE_TTL_SECONDS_LONG = 3600L;
-
-    /** Parsed default retry attempt count. */
-    private static final int DEFAULT_RETRY_MAX_ATTEMPTS_INT = 3;
-
-    /** Parsed default retry wait in milliseconds. */
-    private static final long DEFAULT_RETRY_WAIT_MILLIS_LONG = 500L;
+    /** */
+    private final GeoServiceResilientCaller resilientCaller;
 
     /** */
     private final RestClient restClient;
@@ -82,119 +56,31 @@ public class GeoServiceClient {
     @Value("${geoservice.protocol:http}")
     private final String protocol;
 
-    /** Maximum number of entries in the geocode cache. */
-    @SuppressWarnings("PMD.ImmutableField")
-    @Value("${geoservice.cache.max-size:" + DEFAULT_CACHE_MAX_SIZE + "}")
-    private int cacheMaxSize = DEFAULT_CACHE_MAX_SIZE_INT;
-
-    /** Time-to-live for geocode cache entries in seconds. */
-    @SuppressWarnings("PMD.ImmutableField")
-    @Value("${geoservice.cache.ttl-seconds:" + DEFAULT_CACHE_TTL_SECONDS + "}")
-    private long cacheTtlSeconds = DEFAULT_CACHE_TTL_SECONDS_LONG;
-
-    /** Maximum retry attempts for transient connectivity failures. */
-    @SuppressWarnings("PMD.ImmutableField")
-    @Value("${geoservice.retry.max-attempts:" + DEFAULT_RETRY_MAX_ATTEMPTS + "}")
-    private int retryMaxAttempts = DEFAULT_RETRY_MAX_ATTEMPTS_INT;
-
-    /** Wait duration in milliseconds between retry attempts. */
-    @SuppressWarnings("PMD.ImmutableField")
-    @Value("${geoservice.retry.wait-millis:" + DEFAULT_RETRY_WAIT_MILLIS + "}")
-    private long retryWaitMillis = DEFAULT_RETRY_WAIT_MILLIS_LONG;
-
-    /** Resilience executor, initialized by Spring in {@link #initCache()}. */
-    private GeoServiceCallExecutor callExecutor;
-
-    /**
-     * Geocode result cache keyed by place name, null until {@link #initCache()}
-     * runs.
-     */
-    private PlaceCache geocodeCache;
-
-    /**
-     * Initialise the ehcache after Spring has injected all {@code @Value} fields.
-     * Not called when the client is constructed directly in tests, so all cache
-     * accesses are guarded by a null-check.
-     */
-    @PostConstruct
-    protected void initCache() {
-        callExecutor = createCallExecutor();
-        geocodeCache = createPlaceCache();
-    }
-
-    /**
-     * Closes the geocode cache and releases its resources when the
-     * application context is destroyed.
-     */
-    @PreDestroy
-    protected void destroyCache() {
-        if (geocodeCache != null) {
-            geocodeCache.close();
-        }
-    }
-
-    private GeoServiceCallExecutor createCallExecutor() {
-        return new Resilience4jGeoServiceCallExecutor(retryMaxAttempts, retryWaitMillis);
-    }
-
-    private PlaceCache createPlaceCache() {
-        return new EhcachePlaceCache(cacheMaxSize, cacheTtlSeconds);
-    }
-
     /**
      * Get an item that associates a place name with a canonical place name and coordinates.
      *
      * @param placeName the place name
      * @return the item
      */
+    @Cacheable(
+        cacheNames = "geocode",
+        key = "#placeName",
+        unless = "#result == null || #result.result == null")
     public GeoServiceItem get(final String placeName) {
         log.debug("Get: {}", placeName);
 
-        if (geocodeCache != null) {
-            final GeoServiceItem cached = geocodeCache.get(placeName);
-            if (cached != null) {
-                log.debug("Cache hit for: {}", placeName);
-                return cached;
-            }
-        }
-
         final String url = buildUrl(placeName);
 
-        GeoServiceItem result;
         try {
-            if (callExecutor == null) {
-                result = fetchPrimary(url);
-            } else {
-                result = callExecutor.execute(() -> fetchPrimary(url));
-            }
+            return resilientCaller.fetchPrimary(url);
         } catch (Exception t) {
-            result = handleFetchFailure(url, placeName, t);
+            return handleFetchFailure(url, placeName, t);
         }
-
-        if (geocodeCache != null && result != null && result.getResult() != null) {
-            geocodeCache.put(placeName, result);
-        }
-
-        return result;
     }
 
     private String buildUrl(final String placeName) {
-        return protocol + "://" + host + ":" + port
-                + "/geocode?name=" + URLEncoder.encode(placeName, StandardCharsets.UTF_8);
-    }
-
-    private GeoServiceItem fetchPrimary(final String url) {
-        final GeoServiceItem body = restClient.get()
-                .uri(URI.create(url))
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .toEntity(GeoServiceItem.class)
-                .getBody();
-
-        if (body == null) {
-            throw new IllegalStateException("Empty geoservice response body for " + url);
-        }
-        return body;
+        return "%s://%s:%d/geocode?name=%s"
+            .formatted(protocol, host, port, URLEncoder.encode(placeName, StandardCharsets.UTF_8));
     }
 
     private GeoServiceItem handleFetchFailure(final String url, final String placeName,
@@ -227,8 +113,20 @@ public class GeoServiceClient {
      * @return true when a recovery attempt makes sense
      */
     private boolean shouldAttemptFallbackRecovery(final Throwable t) {
-        return !isConnectivityError(t)
-                && (callExecutor == null || !callExecutor.isCallNotPermitted(t));
+        return !isConnectivityError(t) && !isCircuitBreakerError(t);
+    }
+
+    private boolean isCircuitBreakerError(final Throwable t) {
+        Throwable current = t;
+        while (current != null) {
+            final String typeName = current.getClass().getName();
+            if (current instanceof CallNotPermittedException
+                    || typeName.contains("CircuitBreaker")) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
     }
 
     private boolean isConnectivityError(final Throwable t) {
