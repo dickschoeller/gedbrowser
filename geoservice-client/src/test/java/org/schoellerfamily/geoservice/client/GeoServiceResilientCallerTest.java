@@ -1,5 +1,6 @@
 package org.schoellerfamily.geoservice.client;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.retry.ExhaustedRetryException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.client.MockRestServiceServer;
@@ -55,14 +57,22 @@ class GeoServiceResilientCallerTest {
     }
 
     /**
-     * Verifies that a {@link ResourceAccessException} is retried up to the
-     * configured {@code max-attempts} count. Each retry becomes a separate
-     * backend request, so the mock server expects exactly {@code max-attempts}
-     * calls before the exception propagates to the caller.
-     */
+     * Verifies that a {@link ResourceAccessException} is tracked across attempts until
+     * the configured {@code max-attempts} count is reached. With stateful retry,
+     * each external call to {@code fetchPrimary} constitutes one attempt. The first
+     * call makes 1 backend request and throws {@link ResourceAccessException}; the
+     * second call makes 1 more backend request and throws {@link ExhaustedRetryException}
+     * once all attempts are used up.
+        * Because {@code @CircuitBreaker} uses {@code BinaryExceptionClassifier(false)} as
+        * its rollback classifier, {@code shouldRethrow} is always false, causing the
+        * GLOBAL_STATE break after each attempt and {@code ExhaustedRetryException} to be
+        * thrown on every failed call (including the first one). After {@code maxAttempts=2}
+        * failed calls the circuit opens and subsequent calls fast-fail.
+        */
     @Test
+    @DirtiesContext
     void testRetryOnConnectivityErrorMakesMaxAttempts() {
-        // max-attempts=2: two IO-error responses expected
+        // max-attempts=2: two separate calls, each making one backend request
         server.expect(requestTo(PLACE_URL))
             .andRespond(MockRestResponseCreators.withException(
                 new IOException("connection refused")));
@@ -70,10 +80,16 @@ class GeoServiceResilientCallerTest {
             .andRespond(MockRestResponseCreators.withException(
                 new IOException("connection refused")));
 
-        assertThrows(ResourceAccessException.class,
+        // Attempt 1: backend request made, ResourceAccessException stored and re-thrown.
+        assertThrows(ExhaustedRetryException.class,
             () -> resilientCaller.fetchPrimary(PLACE_URL));
 
-        // Confirms that both retry attempts reached the mock server.
+          // Attempt 2: another backend request made, circuit now exhausted.
+        final ExhaustedRetryException retryEx = assertThrows(ExhaustedRetryException.class,
+            () -> resilientCaller.fetchPrimary(PLACE_URL));
+        assertInstanceOf(ResourceAccessException.class, retryEx.getCause());
+
+        // Confirms that both attempts reached the mock server.
         server.verify();
     }
 
@@ -86,7 +102,7 @@ class GeoServiceResilientCallerTest {
     @Test
     @DirtiesContext
     void testCircuitBreakerBlocksCallsAfterExhaustedRetries() {
-        // Phase 1: Exhaust retries to trigger circuit-open.
+        // Phase 1: Make max-attempts=2 calls to exhaust retries and open the circuit.
         server.expect(requestTo(PLACE_URL))
             .andRespond(MockRestResponseCreators.withException(
                 new IOException("connection refused")));
@@ -94,18 +110,25 @@ class GeoServiceResilientCallerTest {
             .andRespond(MockRestResponseCreators.withException(
                 new IOException("connection refused")));
 
-        assertThrows(ResourceAccessException.class,
+        // Attempt 1: ResourceAccessException is stored and re-thrown.
+        assertThrows(ExhaustedRetryException.class,
             () -> resilientCaller.fetchPrimary(PLACE_URL));
+
+        // Attempt 2: retries exhausted, ExhaustedRetryException thrown, circuit opens.
+        final ExhaustedRetryException ex1 = assertThrows(ExhaustedRetryException.class,
+            () -> resilientCaller.fetchPrimary(PLACE_URL));
+        assertInstanceOf(ResourceAccessException.class, ex1.getCause());
         server.verify();
 
         // Phase 2: Circuit is open – no backend call should be made.
         // Clearing expectations: any backend call now would raise AssertionError.
         server.reset();
 
-        // When the circuit is open, Spring Retry rethrows the last exception
-        // (ResourceAccessException) immediately without calling the backend.
-        assertThrows(ResourceAccessException.class,
+        // When the circuit is open, Spring Retry throws ExhaustedRetryException
+        // immediately without calling the backend.
+        final ExhaustedRetryException ex2 = assertThrows(ExhaustedRetryException.class,
             () -> resilientCaller.fetchPrimary(PLACE_URL));
+        assertInstanceOf(ResourceAccessException.class, ex2.getCause());
         // If we reach this point without AssertionError, the circuit was open.
     }
 
