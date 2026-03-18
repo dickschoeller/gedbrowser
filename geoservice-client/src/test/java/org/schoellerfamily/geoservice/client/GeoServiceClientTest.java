@@ -114,57 +114,57 @@ class GeoServiceClientTest {
         server.verify();
     }
 
-        @Test
-        void testGetReturnsCachedItemWithoutCallingBackend() {
-            final String place = "Cached Place";
-            final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
-            final String url = "http://localhost:8080/geocode?name=" + encoded;
+    @Test
+    void testGetReturnsCachedItemWithoutCallingBackend() {
+        final String place = "Cached Place";
+        final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
+        final String url = "http://localhost:8080/geocode?name=" + encoded;
 
-            final RequestMatcher requestToUrl = request -> {
-                assertEquals(url, request.getURI().toString());
-                assertEquals("GET", request.getMethod().name());
-            };
+        final RequestMatcher requestToUrl = request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("GET", request.getMethod().name());
+        };
 
-            server.expect(requestToUrl)
-                    .andRespond(withSuccess("{not-json", MediaType.APPLICATION_JSON));
-            server.expect(requestToUrl)
-                    .andRespond(withSuccess(
-                            """
-                                    {
-                                        "placeName":"Cached Place",
-                                        "modernPlaceName":"Cached Modern Place",
-                                        "result": {
-                                            "formattedAddress":"Cached Address",
-                                            "partialMatch": false,
-                                            "placeId":"cached-place-id",
-                                            "types":["LOCALITY"],
-                                            "postcodeLocalities":[],
-                                            "geometry": {
-                                                "features": [
-                                                    {
-                                                        "id":"cached-feature",
-                                                        "properties":{"locationType":"ROOFTOP"},
-                                                        "geometry": {"coordinates": [-71.0, 42.0]}
-                                                    }
-                                                ]
-                                            }
-                                        }
-                                    }
-                                    """,
-                            MediaType.APPLICATION_JSON));
+        server.expect(requestToUrl)
+            .andRespond(withSuccess("{not-json", MediaType.APPLICATION_JSON));
+        server.expect(requestToUrl)
+            .andRespond(withSuccess(
+                """
+                {
+                    "placeName":"Cached Place",
+                    "modernPlaceName":"Cached Modern Place",
+                    "result": {
+                        "formattedAddress":"Cached Address",
+                        "partialMatch": false,
+                        "placeId":"cached-place-id",
+                        "types":["LOCALITY"],
+                        "postcodeLocalities":[],
+                        "geometry": {
+                            "features": [
+                                {
+                                    "id":"cached-feature",
+                                    "properties":{"locationType":"ROOFTOP"},
+                                    "geometry": {"coordinates": [-71.0, 42.0]}
+                                }
+                            ]
+                        }
+                    }
+                }
+                """,
+                MediaType.APPLICATION_JSON));
 
-            final GeoServiceItem first = client.get(place);
-            final GeoServiceItem second = client.get(place);
+        final GeoServiceItem first = client.get(place);
+        final GeoServiceItem second = client.get(place);
 
-            assertNotNull(first);
-            assertNotNull(second);
-            assertEquals(first.getPlaceName(), second.getPlaceName());
-            assertNotNull(first.getResult());
-            assertNotNull(second.getResult());
-            assertNotNull(geocodeCache());
-            assertNotNull(geocodeCache().get(place, GeoServiceItem.class));
-            server.verify();
-        }
+        assertNotNull(first);
+        assertNotNull(second);
+        assertEquals(first.getPlaceName(), second.getPlaceName());
+        assertNotNull(first.getResult());
+        assertNotNull(second.getResult());
+        assertNotNull(geocodeCache());
+        assertNotNull(geocodeCache().get(place, GeoServiceItem.class));
+        server.verify();
+    }
 
     @Test
     void testGetFallsBackWhenPrimaryDeserializationFails() {
@@ -429,18 +429,18 @@ class GeoServiceClientTest {
         assertTrue(geometry.getFeatures().isEmpty());
     }
 
-      @Test
-      void testBuildGeometryReturnsEmptyCollectionForEmptyArrays()
-          throws ReflectiveOperationException {
+    @Test
+    void testBuildGeometryReturnsEmptyCollectionForEmptyArrays()
+            throws ReflectiveOperationException {
         final FeatureCollection geometry = invokePrivate(
-          "buildGeometry",
-          JsonNode.class,
-          OBJECT_MAPPER.createArrayNode());
+            "buildGeometry",
+            JsonNode.class,
+            OBJECT_MAPPER.createArrayNode());
 
         assertNotNull(geometry);
         assertNotNull(geometry.getFeatures());
         assertTrue(geometry.getFeatures().isEmpty());
-      }
+    }
 
     @Test
     void testToLocationFeatureRejectsInvalidCoordinateShapes()
