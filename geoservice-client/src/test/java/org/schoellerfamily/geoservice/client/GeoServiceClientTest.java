@@ -29,6 +29,7 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.RequestMatcher;
 
@@ -65,6 +66,10 @@ class GeoServiceClientTest {
     @Autowired
     private GeoServiceClient client;
 
+    /** Mocked resilient caller; prevents real circuit-breaker from interfering. */
+    @MockitoBean
+    private GeoServiceResilientCaller resilientCaller;
+
     /** The mock server wired to the same {@link RestClient} as the client. */
     @Autowired
     private MockRestServiceServer server;
@@ -88,21 +93,8 @@ class GeoServiceClientTest {
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
         final String url = "http://localhost:8080/geocode?name=" + encoded;
 
-        final RequestMatcher requestToUrl = request -> {
-            assertEquals(url, request.getURI().toString());
-            assertEquals("GET", request.getMethod().name());
-        };
-
-        server.expect(requestToUrl)
-            .andRespond(withSuccess(
-                """
-                {
-                  "placeName":"Primary Place",
-                  "modernPlaceName":"Primary Modern Place",
-                  "result": null
-                }
-                """,
-                MediaType.APPLICATION_JSON));
+        final GeoServiceItem expected = new GeoServiceItem("Primary Place", "Primary Modern Place", null);
+        when(resilientCaller.fetchPrimary(url)).thenReturn(expected);
 
         final GeoServiceItem item = client.get(place);
 
@@ -110,61 +102,61 @@ class GeoServiceClientTest {
         assertEquals("Primary Place", item.getPlaceName());
         assertEquals("Primary Modern Place", item.getModernPlaceName());
         assertNull(item.getResult());
-
-        server.verify();
     }
 
-        @Test
-        void testGetReturnsCachedItemWithoutCallingBackend() {
-            final String place = "Cached Place";
-            final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
-            final String url = "http://localhost:8080/geocode?name=" + encoded;
+    @Test
+    void testGetReturnsCachedItemWithoutCallingBackend() {
+        final String place = "Cached Place";
+        final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
+        final String url = "http://localhost:8080/geocode?name=" + encoded;
 
-            final RequestMatcher requestToUrl = request -> {
-                assertEquals(url, request.getURI().toString());
-                assertEquals("GET", request.getMethod().name());
-            };
+        final RequestMatcher requestToUrl = request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("GET", request.getMethod().name());
+        };
 
-            server.expect(requestToUrl)
-                    .andRespond(withSuccess("{not-json", MediaType.APPLICATION_JSON));
-            server.expect(requestToUrl)
-                    .andRespond(withSuccess(
-                            """
-                                    {
-                                        "placeName":"Cached Place",
-                                        "modernPlaceName":"Cached Modern Place",
-                                        "result": {
-                                            "formattedAddress":"Cached Address",
-                                            "partialMatch": false,
-                                            "placeId":"cached-place-id",
-                                            "types":["LOCALITY"],
-                                            "postcodeLocalities":[],
-                                            "geometry": {
-                                                "features": [
-                                                    {
-                                                        "id":"cached-feature",
-                                                        "properties":{"locationType":"ROOFTOP"},
-                                                        "geometry": {"coordinates": [-71.0, 42.0]}
-                                                    }
-                                                ]
-                                            }
-                                        }
-                                    }
-                                    """,
-                            MediaType.APPLICATION_JSON));
+        // Primary fetch fails, triggering fallback raw-JSON parse.
+        when(resilientCaller.fetchPrimary(url)).thenThrow(new RuntimeException("bad JSON"));
 
-            final GeoServiceItem first = client.get(place);
-            final GeoServiceItem second = client.get(place);
+        // Fallback raw JSON fetch returns a well-formed item with a result.
+        server.expect(requestToUrl)
+            .andRespond(withSuccess(
+                """
+                {
+                    "placeName":"Cached Place",
+                    "modernPlaceName":"Cached Modern Place",
+                    "result": {
+                        "formattedAddress":"Cached Address",
+                        "partialMatch": false,
+                        "placeId":"cached-place-id",
+                        "types":["LOCALITY"],
+                        "postcodeLocalities":[],
+                        "geometry": {
+                            "features": [
+                                {
+                                    "id":"cached-feature",
+                                    "properties":{"locationType":"ROOFTOP"},
+                                    "geometry": {"coordinates": [-71.0, 42.0]}
+                                }
+                            ]
+                        }
+                    }
+                }
+                """,
+                MediaType.APPLICATION_JSON));
 
-            assertNotNull(first);
-            assertNotNull(second);
-            assertEquals(first.getPlaceName(), second.getPlaceName());
-            assertNotNull(first.getResult());
-            assertNotNull(second.getResult());
-            assertNotNull(geocodeCache());
-            assertNotNull(geocodeCache().get(place, GeoServiceItem.class));
-            server.verify();
-        }
+        final GeoServiceItem first = client.get(place);
+        final GeoServiceItem second = client.get(place);
+
+        assertNotNull(first);
+        assertNotNull(second);
+        assertEquals(first.getPlaceName(), second.getPlaceName());
+        assertNotNull(first.getResult());
+        assertNotNull(second.getResult());
+        assertNotNull(geocodeCache());
+        assertNotNull(geocodeCache().get(place, GeoServiceItem.class));
+        server.verify();
+    }
 
     @Test
     void testGetFallsBackWhenPrimaryDeserializationFails() {
@@ -196,16 +188,14 @@ class GeoServiceClientTest {
                 }
                 """;
 
-        // First request fails primary mapping and triggers fallback parser.
+        // Primary fetch fails, triggering fallback raw-JSON parse.
+        when(resilientCaller.fetchPrimary(url)).thenThrow(new RuntimeException("bad JSON"));
+
+        // Second request is used by fallback parser as raw JSON.
         final RequestMatcher requestToUrl = request -> {
             assertEquals(url, request.getURI().toString());
             assertEquals("GET", request.getMethod().name());
         };
-
-        server.expect(requestToUrl)
-            .andRespond(withSuccess("{not-json", MediaType.APPLICATION_JSON));
-
-        // Second request is used by fallback parser as raw JSON.
         server.expect(requestToUrl)
             .andRespond(withSuccess(fallbackPayload, MediaType.APPLICATION_JSON));
 
@@ -242,9 +232,10 @@ class GeoServiceClientTest {
           assertEquals("GET", request.getMethod().name());
         };
 
-        server.expect(requestToUrl)
-            .andRespond(withSuccess("{not-json", MediaType.APPLICATION_JSON));
+        // Primary fetch fails, triggering fallback.
+        when(resilientCaller.fetchPrimary(url)).thenThrow(new RuntimeException("bad JSON"));
 
+        // Fallback also fails with empty response.
         server.expect(requestToUrl)
             .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
 
@@ -269,9 +260,10 @@ class GeoServiceClientTest {
             assertEquals("GET", request.getMethod().name());
         };
 
-        server.expect(requestToUrl)
-            .andRespond(withSuccess("{not-json", MediaType.APPLICATION_JSON));
+        // Primary fetch fails, triggering fallback.
+        when(resilientCaller.fetchPrimary(url)).thenThrow(new RuntimeException("bad JSON"));
 
+        // Fallback also returns malformed JSON.
         server.expect(requestToUrl)
             .andRespond(withSuccess("{still-not-json", MediaType.APPLICATION_JSON));
 
@@ -296,9 +288,10 @@ class GeoServiceClientTest {
             assertEquals("GET", request.getMethod().name());
         };
 
-        server.expect(requestToUrl)
-            .andRespond(withSuccess("{not-json", MediaType.APPLICATION_JSON));
+        // Primary fetch fails, triggering fallback.
+        when(resilientCaller.fetchPrimary(url)).thenThrow(new RuntimeException("bad JSON"));
 
+        // Fallback returns 204 No Content.
         server.expect(requestToUrl)
             .andRespond(withStatus(HttpStatus.NO_CONTENT));
 
@@ -323,9 +316,8 @@ class GeoServiceClientTest {
             assertEquals("GET", request.getMethod().name());
         };
 
-        // Primary fetch returns HTTP 204, which yields a null body.
-        server.expect(requestToUrl)
-            .andRespond(withStatus(HttpStatus.NO_CONTENT));
+        // Primary fetch fails (e.g., null body), triggering fallback.
+        when(resilientCaller.fetchPrimary(url)).thenThrow(new RuntimeException("empty body"));
 
         // Fallback raw JSON fetch also has no body.
         server.expect(requestToUrl)
@@ -354,9 +346,10 @@ class GeoServiceClientTest {
                 assertEquals("GET", request.getMethod().name());
             };
 
-            server.expect(requestToUrl)
-                .andRespond(withSuccess("{not-json", MediaType.APPLICATION_JSON));
+            // Primary fetch fails, triggering fallback.
+            when(resilientCaller.fetchPrimary(url)).thenThrow(new RuntimeException("bad JSON"));
 
+            // Fallback also returns malformed JSON.
             server.expect(requestToUrl)
                 .andRespond(withSuccess("{still-not-json", MediaType.APPLICATION_JSON));
 
@@ -429,18 +422,18 @@ class GeoServiceClientTest {
         assertTrue(geometry.getFeatures().isEmpty());
     }
 
-      @Test
-      void testBuildGeometryReturnsEmptyCollectionForEmptyArrays()
-          throws ReflectiveOperationException {
+    @Test
+    void testBuildGeometryReturnsEmptyCollectionForEmptyArrays()
+            throws ReflectiveOperationException {
         final FeatureCollection geometry = invokePrivate(
-          "buildGeometry",
-          JsonNode.class,
-          OBJECT_MAPPER.createArrayNode());
+            "buildGeometry",
+            JsonNode.class,
+            OBJECT_MAPPER.createArrayNode());
 
         assertNotNull(geometry);
         assertNotNull(geometry.getFeatures());
         assertTrue(geometry.getFeatures().isEmpty());
-      }
+    }
 
     @Test
     void testToLocationFeatureRejectsInvalidCoordinateShapes()
@@ -570,31 +563,8 @@ class GeoServiceClientTest {
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
         final String url = "http://localhost:8080/geocode?name=" + encoded;
 
-        final RequestMatcher requestToUrl = request -> {
-            assertEquals(url, request.getURI().toString());
-            assertEquals("GET", request.getMethod().name());
-        };
-
-        server.expect(requestToUrl)
-            .andRespond(withSuccess(
-                """
-                {
-                  "placeName":"Uncached Place",
-                  "modernPlaceName":"Uncached Modern Place",
-                  "result": null
-                }
-                """,
-                MediaType.APPLICATION_JSON));
-        server.expect(requestToUrl)
-            .andRespond(withSuccess(
-                """
-                {
-                  "placeName":"Uncached Place",
-                  "modernPlaceName":"Uncached Modern Place",
-                  "result": null
-                }
-                """,
-                MediaType.APPLICATION_JSON));
+        final GeoServiceItem noResultItem = new GeoServiceItem("Uncached Place", "Uncached Modern Place", null);
+        when(resilientCaller.fetchPrimary(url)).thenReturn(noResultItem);
 
         final GeoServiceItem first = client.get(place);
         final GeoServiceItem second = client.get(place);

@@ -89,6 +89,7 @@
     <mockito.version>5.23.0</mockito.version>
     <spotbugs-annotations.version>4.9.8</spotbugs-annotations.version>
     <resilience4j.version>2.4.0</resilience4j.version>
+    <spring-retry.version>2.0.12</spring-retry.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.14</jacoco-plugin.version>
@@ -862,6 +863,11 @@
         <groupId>io.github.resilience4j</groupId>
         <artifactId>resilience4j-all</artifactId>
         <version>${resilience4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.retry</groupId>
+        <artifactId>spring-retry</artifactId>
+        <version>${spring-retry.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -19,7 +19,6 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 
 import com.google.maps.model.AddressType;
-import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +62,7 @@ public class GeoServiceClient {
      * @return the item
      */
     @Cacheable(
-        cacheNames = "geocode",
+        cacheNames = GeoServiceCacheConfig.GEOCODE_CACHE,
         key = "#placeName",
         unless = "#result == null || #result.result == null")
     public GeoServiceItem get(final String placeName) {
@@ -105,28 +104,16 @@ public class GeoServiceClient {
     /**
      * Returns true when the fallback raw-JSON parse should be attempted.
      * The fallback is only useful for deserialization/conversion failures —
-     * connectivity errors (e.g. {@link ResourceAccessException}) and
-     * circuit-breaker rejections are excluded because re-fetching the URL
-     * would also fail.
+     * connectivity errors (e.g. {@link ResourceAccessException}) are excluded
+     * because re-fetching the URL would also fail.  When the circuit-breaker
+     * is open it rethrows the last {@link ResourceAccessException}, so this
+     * connectivity check also covers the circuit-open case.
      *
      * @param t the exception thrown during the primary fetch
      * @return true when a recovery attempt makes sense
      */
     private boolean shouldAttemptFallbackRecovery(final Throwable t) {
-        return !isConnectivityError(t) && !isCircuitBreakerError(t);
-    }
-
-    private boolean isCircuitBreakerError(final Throwable t) {
-        Throwable current = t;
-        while (current != null) {
-            final String typeName = current.getClass().getName();
-            if (current instanceof CallNotPermittedException
-                    || typeName.contains("CircuitBreaker")) {
-                return true;
-            }
-            current = current.getCause();
-        }
-        return false;
+        return !isConnectivityError(t);
     }
 
     private boolean isConnectivityError(final Throwable t) {
