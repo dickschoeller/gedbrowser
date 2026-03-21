@@ -19,7 +19,7 @@ const rootRouting: ModuleWithProviders<RouterModule> = RouterModule.forRoot([
   { path: '', component: WelcomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [GuestGuard] },
-], { useHash: true });
+], { useHash: true, onSameUrlNavigation: 'reload' });
 
 
 if (environment.production) {

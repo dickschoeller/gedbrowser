@@ -5,7 +5,7 @@ import { WelcomeComponent } from './welcome.component';
 
 const rootRouting: ModuleWithProviders<RouterModule> = RouterModule.forRoot([
   { path: '', component: WelcomeComponent },
-], { useHash: true });
+], { useHash: true, onSameUrlNavigation: 'reload' });
 
 import { UserService } from './services';
 

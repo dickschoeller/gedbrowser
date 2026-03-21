@@ -70,7 +70,7 @@ class GeoServiceClientTest {
     @MockitoBean
     private GeoServiceResilientCaller resilientCaller;
 
-    /** The mock server wired to the same {@link RestClient} as the client. */
+    /** The mock server. */
     @Autowired
     private MockRestServiceServer server;
 
@@ -93,7 +93,8 @@ class GeoServiceClientTest {
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
         final String url = "http://localhost:8080/geocode?name=" + encoded;
 
-        final GeoServiceItem expected = new GeoServiceItem("Primary Place", "Primary Modern Place", null);
+        final GeoServiceItem expected =
+            new GeoServiceItem("Primary Place", "Primary Modern Place", null);
         when(resilientCaller.fetchPrimary(url)).thenReturn(expected);
 
         final GeoServiceItem item = client.get(place);
@@ -563,7 +564,8 @@ class GeoServiceClientTest {
         final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
         final String url = "http://localhost:8080/geocode?name=" + encoded;
 
-        final GeoServiceItem noResultItem = new GeoServiceItem("Uncached Place", "Uncached Modern Place", null);
+        final GeoServiceItem noResultItem =
+            new GeoServiceItem("Uncached Place", "Uncached Modern Place", null);
         when(resilientCaller.fetchPrimary(url)).thenReturn(noResultItem);
 
         final GeoServiceItem first = client.get(place);
