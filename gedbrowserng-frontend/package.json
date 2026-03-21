@@ -54,7 +54,7 @@
     "web-animations-js": "^2.3.2",
     "zone.js": "^0.16.0"
   },
-  "overrides": {
+  "resolutions": {
     "undici": "7.24.5"
   },
   "devDependencies": {
