@@ -55,7 +55,7 @@
     "zone.js": "^0.16.0"
   },
   "overrides": {
-    "undici": "7.24.0"
+    "undici": "7.24.5"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^21.0.0",
