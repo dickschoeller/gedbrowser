@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -87,7 +87,7 @@ public class GeoCodeLoader {
      * @param istream the input stream
      */
     public final void loadAndFind(final InputStream istream) {
-        load(istream, (s1, s2) -> gcc.find(s1, s2));
+        load(istream, gcc::find);
     }
 
     /**
@@ -108,8 +108,7 @@ public class GeoCodeLoader {
         log.debug("Loading the cache from input stream");
         String line;
         try (
-            InputStreamReader isr =
-                    new InputStreamReader(istream, Charset.forName("UTF-8"));
+            InputStreamReader isr = new InputStreamReader(istream, StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
         ) {
             while ((line = br.readLine()) != null) {

@@ -3,6 +3,8 @@ package org.schoellerfamily.gedbrowser.api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 
 
 /**
@@ -11,10 +13,11 @@ import org.springframework.stereotype.Service;
  * @author Richard Schoeller
  */
 @Service
+@RequiredArgsConstructor
 public class GedbrowserPropertiesService {
     /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-    private transient String gedbrowserHome;
+    private final String gedbrowserHome;
 
     /**
      * Get the location of the gedbrowser configuration directory.

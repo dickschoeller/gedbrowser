@@ -31,7 +31,7 @@ public final class GoogleGeoCoder implements GeoCoder {
         final Builder builder = new GeoApiContext.Builder().apiKey(key);
         try (GeoApiContext context = builder.build()) {
             return GeocodingApi.geocode(context, placeName).await();
-        } catch (InterruptedException ie) {
+        } catch (InterruptedException _) {
             Thread.currentThread().interrupt();
             return new GeocodingResult[0];
         } catch (Exception e) {

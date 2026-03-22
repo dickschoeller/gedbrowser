@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 
 import { AuthService } from './auth.service';
 import { AuthApiService } from './auth-api.service';
@@ -173,7 +173,7 @@ describe('AuthService', () => {
     it('should handle logout error gracefully', async () => {
       mockAuthApiService.post.mockReturnValue(of({}));
 
-      await service.logout().toPromise();
+      await firstValueFrom(service.logout());
     });
   });
 
@@ -205,7 +205,7 @@ describe('AuthService', () => {
       const response = { status: 'success' };
       mockAuthApiService.post.mockReturnValue(of(response));
 
-      const result = await service.changePassowrd(passwordChanger).toPromise();
+      const result = await firstValueFrom(service.changePassowrd(passwordChanger));
       expect(result).toEqual(response);
     });
   });

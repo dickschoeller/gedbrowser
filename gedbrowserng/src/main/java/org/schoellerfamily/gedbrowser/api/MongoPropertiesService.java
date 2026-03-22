@@ -3,6 +3,8 @@ package org.schoellerfamily.gedbrowser.api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 
 
 /**
@@ -11,14 +13,15 @@ import org.springframework.stereotype.Service;
  * @author dick
  */
 @Service
+@RequiredArgsConstructor
 public class MongoPropertiesService {
     /** */
     @Value("${spring.data.mongodb.host:localhost}")
-    private transient String host;
+    private final String mongoHost;
 
     /** */
     @Value("${spring.data.mongodb.port:27017}")
-    private transient int port;
+    private final int mongoPort;
 
     /**
      * Get the host name where the MongoDB server resides.
@@ -27,7 +30,7 @@ public class MongoPropertiesService {
      * @return the host name
      */
     public String mongoHost() {
-        return host;
+        return mongoHost;
     }
 
     /**
@@ -36,6 +39,6 @@ public class MongoPropertiesService {
      * @return the port number
      */
     public int mongoPort() {
-        return port;
+        return mongoPort;
     }
 }

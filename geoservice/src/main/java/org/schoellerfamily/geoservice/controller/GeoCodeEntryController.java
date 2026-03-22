@@ -52,7 +52,7 @@ public class GeoCodeEntryController {
         String findName;
         try {
             findName = URLDecoder.decode(name, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException _) {
             findName = name;
         }
         String findModernName;
@@ -63,7 +63,7 @@ public class GeoCodeEntryController {
         } else {
             try {
                 findModernName = URLDecoder.decode(modernName, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException _) {
                 findModernName = modernName;
             }
             final GeoCodeItem find = gcc.find(findName, findModernName);

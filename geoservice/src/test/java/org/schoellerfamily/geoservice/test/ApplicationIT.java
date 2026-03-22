@@ -56,9 +56,9 @@ public class ApplicationIT {
     void testReturnStatus200WhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/geocode?name=Bethlehem,%20PA"))
-                .exchange()
-                .returnResult(Map.class);
+            .uri(URI.create("http://localhost:" + port + "/geocode?name=Bethlehem,%20PA"))
+            .exchange()
+            .returnResult(Map.class);
 
         assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
     }
@@ -67,10 +67,10 @@ public class ApplicationIT {
     void testReturnStatus200WhenSendingRequestWithModern() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port
-                        + "/geocode?name=Bethlehem,%20PA&modernName=Bethlehem,%20PA"))
-                .exchange()
-                .returnResult(Map.class);
+            .uri(URI.create("http://localhost:" + port
+                + "/geocode?name=Bethlehem,%20PA&modernName=Bethlehem,%20PA"))
+            .exchange()
+            .returnResult(Map.class);
 
         assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
     }
@@ -79,9 +79,9 @@ public class ApplicationIT {
     void testReturnPlaceNameSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/geocode?name=Bethlehem,%20PA"))
-                .exchange()
-                .returnResult(Map.class);
+            .uri(URI.create("http://localhost:" + port + "/geocode?name=Bethlehem,%20PA"))
+            .exchange()
+            .returnResult(Map.class);
         assertThat(Optional.ofNullable(entity.getResponseBody())
             .map(b -> b.get("placeName")).orElse(null))
             .isEqualTo("Bethlehem, PA");
@@ -91,11 +91,11 @@ public class ApplicationIT {
     void testReturnPlaceNameSendingRequestWithModern() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port
-                        + "/geocode?name=Bethlehem,%20PA"
-                        + "&modernName=Bethlehem,%20PA"))
-                .exchange()
-                .returnResult(Map.class);
+            .uri(URI.create("http://localhost:" + port
+                + "/geocode?name=Bethlehem,%20PA"
+                + "&modernName=Bethlehem,%20PA"))
+            .exchange()
+            .returnResult(Map.class);
         assertThat(Optional.ofNullable(entity.getResponseBody())
             .map(b -> b.get("placeName")).orElse(null))
             .isEqualTo("Bethlehem, PA");
@@ -105,9 +105,9 @@ public class ApplicationIT {
     void testReturnModernPlaceNameSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/geocode?name=Allentown,%20PA"))
-                .exchange()
-                .returnResult(Map.class);
+            .uri(URI.create("http://localhost:" + port + "/geocode?name=Allentown,%20PA"))
+            .exchange()
+            .returnResult(Map.class);
         assertThat(Optional.ofNullable(entity.getResponseBody())
             .map(b -> b.get("modernPlaceName")).orElse(null))
             .isEqualTo("Allentown, PA");
@@ -117,11 +117,11 @@ public class ApplicationIT {
     void testReturnModernNameSendingRequestWithModernName() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port
-                        + "/geocode?name=Bethlehem,%20Pennsylvania"
-                        + "&modernName=Bethlehem,%20PA"))
-                .exchange()
-                .returnResult(Map.class);
+            .uri(URI.create("http://localhost:" + port
+                + "/geocode?name=Bethlehem,%20Pennsylvania"
+                + "&modernName=Bethlehem,%20PA"))
+            .exchange()
+            .returnResult(Map.class);
         assertThat(Optional.ofNullable(entity.getResponseBody())
             .map(b -> b.get("modernPlaceName")).orElse(null))
             .isEqualTo("Bethlehem, PA");
@@ -131,24 +131,28 @@ public class ApplicationIT {
     void testReturnGeocodeWhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = restTestClient.get()
-                .uri(URI.create("http://localhost:" + port + "/geocode?name=Bethlehem,%20PA"))
-                .exchange()
-                .returnResult(Map.class);
+            .uri(URI.create("http://localhost:" + port + "/geocode?name=Bethlehem,%20PA"))
+            .exchange()
+            .returnResult(Map.class);
 
         assertThat(Optional.ofNullable(entity.getResponseBody())
-            .map(b -> b.get("result")).orElse(null)).isNotNull();
+            .map(b -> b.get("result"))
+            .orElse(null))
+            .isNotNull();
     }
 
     @Test
     void testReturnNullGeocodeWhenSendingRequestToController() {
         @SuppressWarnings("rawtypes")
         final EntityExchangeResult<Map> entity = this.restTestClient.get()
-                .uri(URI.create("http://localhost:" + this.port + "/geocode?name=XYZZY"))
-                .exchange()
-                .returnResult(Map.class);
+            .uri(URI.create("http://localhost:" + this.port + "/geocode?name=XYZZY"))
+            .exchange()
+            .returnResult(Map.class);
 
         assertThat(Optional.ofNullable(entity.getResponseBody())
-            .map(b -> b.get("result")).orElse(null)).isNull();
+            .map(b -> b.get("result"))
+            .orElse(null))
+            .isNull();
     }
 
     @Test

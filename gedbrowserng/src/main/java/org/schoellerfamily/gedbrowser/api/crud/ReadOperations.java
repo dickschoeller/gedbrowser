@@ -105,21 +105,17 @@ public interface ReadOperations<
      * @return the list of objects of the requested type
      */
     default List<Y> read(final RootDocument root) {
-        try {
-            final Iterable<Y> a = getRepository().findAll(root);
-            return java.util.stream.StreamSupport.stream(a.spliterator(), false)
-                .filter(doc -> doc != null && doc.getString() != null)
-                .collect(Collectors.toMap(
-                    Y::getString,
-                    Function.identity(),
-                    (first, second) -> first,
-                    java.util.LinkedHashMap::new))
-                .values().stream()
-                .sorted(new GetStringComparator())
-                .toList();
-        } catch (RuntimeException e) {
-            throw e;
-        }
+        final Iterable<Y> a = getRepository().findAll(root);
+        return java.util.stream.StreamSupport.stream(a.spliterator(), false)
+            .filter(doc -> doc != null && doc.getString() != null)
+            .collect(Collectors.toMap(
+                Y::getString,
+                Function.identity(),
+                (first, second) -> first,
+                java.util.LinkedHashMap::new))
+            .values().stream()
+            .sorted(new GetStringComparator())
+            .toList();
     }
 
     /**

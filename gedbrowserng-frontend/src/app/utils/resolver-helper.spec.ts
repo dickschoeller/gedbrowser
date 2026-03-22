@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ResolverHelper } from './resolver-helper';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 
 describe('ResolverHelper', () => {
   let resolverHelper: ResolverHelper<any>;
@@ -17,7 +17,7 @@ describe('ResolverHelper', () => {
         dataset: 'test-dataset',
         string: 'test-id'
       }
-    } as ActivatedRouteSnapshot;
+    } as unknown as ActivatedRouteSnapshot;
 
     mockState = {} as RouterStateSnapshot;
 
@@ -36,7 +36,7 @@ describe('ResolverHelper', () => {
 
     it('returns observable from service', async () => {
       const result = resolverHelper.resolve(mockRoute, mockState, mockService);
-      const data = await result.toPromise();
+      const data = await firstValueFrom(result);
       expect(data).toEqual({ id: 'test-id', name: 'Test Item' });
     });
 
@@ -67,7 +67,7 @@ describe('ResolverHelper', () => {
       mockService.getOne.mockReturnValue(of({ id: '1', name: 'John', age: 30 }));
 
       const result = typedResolver.resolve(mockRoute, mockState, mockService);
-      const data = await result.toPromise();
+      const data = await firstValueFrom(result);
 
       expect(data.id).toBe('1');
       expect(data.name).toBe('John');
@@ -101,7 +101,7 @@ describe('ResolverHelper', () => {
       mockService.getAll.mockReturnValue(of(mockItems));
 
       const result = resolverHelper.resolveAll(mockRoute, mockState, mockService);
-      const data = await result.toPromise();
+      const data = await firstValueFrom(result);
 
       expect(Array.isArray(data)).toBe(true);
       expect(data.length).toBe(2);
@@ -139,7 +139,7 @@ describe('ResolverHelper', () => {
       mockService.getAll.mockReturnValue(of(items));
 
       const result = typedResolver.resolveAll(mockRoute, mockState, mockService);
-      const data = await result.toPromise();
+      const data = await firstValueFrom(result);
 
       expect(data.length).toBe(2);
       expect(data[0].value).toBe(10);

@@ -82,10 +82,10 @@ public class TopLevelDocumentToApiModelVisitor
     public final void visit(final FamilyDocument document) {
         // Use builder instead of direct constructor
         setBaseObject(ApiFamily.builder()
-                .type(document.getType())
-                .string(document.getString())
-                .attributes(processAttributes(document))
-                .build());
+            .type(document.getType())
+            .string(document.getString())
+            .attributes(processAttributes(document))
+            .build());
     }
 
     /**
@@ -97,11 +97,11 @@ public class TopLevelDocumentToApiModelVisitor
     public final void visit(final SourceDocument document) {
         // Use builder so we can set the title field explicitly
         setBaseObject(ApiSource.builder()
-                .type(document.getType())
-                .string(document.getString())
-                .title(title(document))
-                .attributes(processAttributes(document))
-                .build());
+            .type(document.getType())
+            .string(document.getString())
+            .title(title(document))
+            .attributes(processAttributes(document))
+            .build());
     }
 
     /**
@@ -112,10 +112,10 @@ public class TopLevelDocumentToApiModelVisitor
     @Override
     public final void visit(final HeadDocument document) {
         setBaseObject(ApiHead.builder()
-                .type(document.getType())
-                .string(document.getString())
-                .attributes(processAttributes(document))
-                .build());
+            .type(document.getType())
+            .string(document.getString())
+            .attributes(processAttributes(document))
+            .build());
     }
 
     /**
@@ -126,10 +126,10 @@ public class TopLevelDocumentToApiModelVisitor
     @Override
     public final void visit(final SubmissionDocument document) {
         setBaseObject(ApiSubmission.builder()
-                .type(document.getType())
-                .string(document.getString())
-                .attributes(processAttributes(document))
-                .build());
+            .type(document.getType())
+            .string(document.getString())
+            .attributes(processAttributes(document))
+            .build());
     }
 
     /**
@@ -140,11 +140,11 @@ public class TopLevelDocumentToApiModelVisitor
     @Override
     public final void visit(final SubmitterDocument document) {
         setBaseObject(ApiSubmitter.builder()
-                .type(document.getType())
-                .string(document.getString())
-                .name(name(document))
-                .attributes(processAttributes(document))
-                .build());
+            .type(document.getType())
+            .string(document.getString())
+            .name(name(document))
+            .attributes(processAttributes(document))
+            .build());
     }
 
     /**
@@ -155,10 +155,10 @@ public class TopLevelDocumentToApiModelVisitor
     @Override
     public final void visit(final TrailerDocument document) {
         setBaseObject(ApiObject.builder()
-                .type(document.getType())
-                .string(document.getString())
-                .attributes(processAttributes(document))
-                .build());
+            .type(document.getType())
+            .string(document.getString())
+            .attributes(processAttributes(document))
+            .build());
     }
 
     /**
@@ -169,11 +169,11 @@ public class TopLevelDocumentToApiModelVisitor
     @Override
     public final void visit(final NoteDocument document) {
         setBaseObject(ApiNote.builder()
-                .type(document.getType())
-                .string(document.getString())
-                .tail(document.getTail())
-                .attributes(processAttributes(document))
-                .build());
+            .type(document.getType())
+            .string(document.getString())
+            .tail(document.getTail())
+            .attributes(processAttributes(document))
+            .build());
     }
 
     /**
@@ -184,10 +184,10 @@ public class TopLevelDocumentToApiModelVisitor
     @Override
     public final void visit(final GedDocument<? extends GedObject> document) {
         setBaseObject(ApiObject.builder()
-                .type(document.getType())
-                .string(document.getString())
-                .attributes(processAttributes(document))
-                .build());
+            .type(document.getType())
+            .string(document.getString())
+            .attributes(processAttributes(document))
+            .build());
     }
 
     /**
@@ -203,7 +203,7 @@ public class TopLevelDocumentToApiModelVisitor
             .map(attr -> {
                 final var v = createVisitor();
                 attr.accept(v);
-                return (ApiAttribute) convertToAttribute(v.getBaseObject());
+                return convertToAttribute(v.getBaseObject());
             })
             .toList();
     }

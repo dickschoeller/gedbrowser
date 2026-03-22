@@ -1,6 +1,5 @@
-import { APP_INITIALIZER, ModuleWithProviders, importProvidersFrom } from '@angular/core';
+import { ModuleWithProviders, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
 
-import { initUserFactory } from './app/app.module';
 import { environment } from './environments/environment';
 import { AuthApiService, AuthService, ConfigService, DatasetsService, HeadService, MapKeyService, NoteService, FamilyService, FooService, PersonService, SourceService, SubmitterService, SaveService, UploadService, UserService } from './app/services';
 import { LoginGuard, GuestGuard, AdminGuard } from './app/guards';
@@ -49,12 +48,7 @@ try {
       LoginGuard,
       GuestGuard,
       AdminGuard,
-      {
-        'provide': APP_INITIALIZER,
-        'useFactory': initUserFactory,
-        'deps': [UserService],
-        'multi': true
-      }
+      provideAppInitializer(() => inject(UserService).initUser())
     ]
   });
 } catch (err) {

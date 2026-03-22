@@ -16,7 +16,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
  */
 public abstract class RelationsCrud extends CrudParams implements LinkCrud {
     /** */
-    private final transient CrudHelper helper = new CrudHelper();
+    private final CrudHelper helper = new CrudHelper();
 
     /**
      * Creates a new RelationsCrud.

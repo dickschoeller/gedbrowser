@@ -90,9 +90,9 @@ class ParentsControllerIT {
         final ApiPerson child = helper.createPerson();
         final ApiPerson gotParent = linkParentOfChild(parent, child);
         assertThat(gotParent.getString()).isEqualTo(parent.getString());
-        assertThat(gotParent.getFamss().size()).isEqualTo(1);
+        assertThat(gotParent.getFamss()).hasSize(1);
         final ApiPerson gotChild = helper.getPerson(child);
-        assertThat(gotParent.getFamss().size()).isEqualTo(1);
+        assertThat(gotChild.getFamcs()).hasSize(1);
         assertEquals(gotParent.getFamss().get(0).getString(),
             gotChild.getFamcs().get(0).getString(), "check ids");
     }

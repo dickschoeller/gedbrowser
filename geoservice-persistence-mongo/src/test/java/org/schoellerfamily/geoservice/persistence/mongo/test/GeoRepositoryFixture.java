@@ -1,7 +1,5 @@
 package org.schoellerfamily.geoservice.persistence.mongo.test;
 
-import java.io.IOException;
-
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -33,10 +31,8 @@ public final class GeoRepositoryFixture extends GeoCodeTestFixture {
 
     /**
      * Clear and reload all of the tables in the repository.
-     *
-     * @throws IOException if there is a problem reading the file
      */
-    public void loadRepository() throws IOException {
+    public void loadRepository() {
         geoDocumentRepository.deleteAll();
         // TODO put in a loader
     }

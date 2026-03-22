@@ -299,8 +299,8 @@ class FamilyControllerIT {
             .returnResult(ApiFamily.class);
         assertThat(entity.getStatus()).isEqualTo(HttpStatusCode.valueOf(HttpStatus.OK.value()));
         assertThat(entity.getResponseBody().getType()).isEqualTo(familyRequest.getType());
-        assertThat(entity.getResponseBody().getAttributes().size()).isEqualTo(1);
-        assertThat(entity.getResponseBody().getChildren().size()).isEqualTo(1);
+        assertThat(entity.getResponseBody().getAttributes()).hasSize(1);
+        assertThat(entity.getResponseBody().getChildren()).hasSize(1);
 
         final ApiAttribute aNote = ApiAttribute.builder()
             .type("attribute")
@@ -310,7 +310,7 @@ class FamilyControllerIT {
         final ApiFamily familyPutRequest = entity.getResponseBody().toBuilder()
             .attribute(aNote)
             .build();
-        assertThat(familyPutRequest.getAttributes().size()).isEqualTo(2);
+        assertThat(familyPutRequest.getAttributes()).hasSize(2);
         final EntityExchangeResult<ApiFamily> putResponseEntity = restTestClient.put()
             .uri(URI.create(url + "/" + familyPutRequest.getString()))
             .headers(h -> h.addAll(headers))
@@ -320,8 +320,7 @@ class FamilyControllerIT {
         final ApiFamily familyPutResponse = putResponseEntity.getResponseBody();
         final List<ApiAttribute> attributesPutResponse = familyPutResponse.getAttributes();
         log.info("Attribute list size: {}", attributesPutResponse.size());
-        assertThat(attributesPutResponse.size())
-            .isEqualTo(2);
+        assertThat(attributesPutResponse).hasSize(2);
         for (final ApiAttribute a : attributesPutResponse) {
             log.info("attribute: {} {} {}", a.getType(), a.getString(), a.getTail());
         }

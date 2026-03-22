@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import org.schoellerfamily.geoservice.exception.GeoCodeRuntimeException;
 
@@ -43,7 +44,7 @@ public final class KeyManagerImpl implements KeyManager {
         }
         try (FileInputStream fileStream = new FileInputStream(fileName);
                 InputStreamReader iStreamReader =
-                        new InputStreamReader(fileStream, "UTF-8");
+                    new InputStreamReader(fileStream, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(iStreamReader);) {
             final StringBuilder sb = new StringBuilder();
             final String line = br.readLine();
@@ -69,7 +70,7 @@ public final class KeyManagerImpl implements KeyManager {
         }
         try (FileInputStream fileStream = new FileInputStream(fileName);
                 InputStreamReader iStreamReader =
-                        new InputStreamReader(fileStream, "UTF-8");
+                    new InputStreamReader(fileStream, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(iStreamReader);) {
             final StringBuilder sb = new StringBuilder();
             // Ignore first line, that's the geocoding key

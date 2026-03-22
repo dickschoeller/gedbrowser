@@ -7,10 +7,4 @@ const rootRouting: ModuleWithProviders<RouterModule> = RouterModule.forRoot([
   { path: '', component: WelcomeComponent },
 ], { useHash: true, onSameUrlNavigation: 'reload' });
 
-import { UserService } from './services';
-
-export function initUserFactory(userService: UserService) {
-    return () => userService.initUser();
-}
-
 

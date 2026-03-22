@@ -36,11 +36,10 @@ public class UsersConfiguration {
     }
 
     private SecurityUsers readUserFile() {
-        final UsersReader<SecurityUser, SecurityUsers> usersReader =
-                new UsersReader<>();
+        final UsersReader<SecurityUser, SecurityUsers> usersReader = new UsersReader<>();
         return (SecurityUsers) usersReader.readUserFile(userFile,
-                () -> new SecurityUsers(userFile),
-                () -> new UserImpl()
+            () -> new SecurityUsers(userFile),
+            UserImpl::new
         );
     }
 }
