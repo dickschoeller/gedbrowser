@@ -69,7 +69,8 @@ public final class NoteRenderer extends GedRenderer<Note>
      *
      * @return the list of attribute renderers.
      */
-    @SuppressWarnings("java:S1452")
+    // Suppressed warnings are because of issues related to generics.
+    @SuppressWarnings({ "java:S1452", "java:S6204" })
     public List<GedRenderer<?>> getAttributes() {
         return getGedObject().getAttributes().stream()
             .map(this::createGedRenderer)

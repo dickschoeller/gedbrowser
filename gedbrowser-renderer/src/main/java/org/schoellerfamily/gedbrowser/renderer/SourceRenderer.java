@@ -61,7 +61,8 @@ public final class SourceRenderer extends GedRenderer<Source>
      *
      * @return the list of attribute renderers.
      */
-    @SuppressWarnings("java:S1452")
+    // Suppressed warnings are because of issues related to generics.
+    @SuppressWarnings({ "java:S1452", "java:S6204" })
     public List<GedRenderer<?>> getAttributes() {
         return getGedObject().getAttributes().stream()
             .filter(attribute -> !"Title".equals(attribute.getString()))

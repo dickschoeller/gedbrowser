@@ -145,7 +145,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         final List<RequestMatcher> m =
                 paths.stream()
                 .map(path -> PathPatternRequestMatcher.withDefaults().matcher(path))
-                .collect(Collectors.toUnmodifiableList());
+                .map(RequestMatcher.class::cast)
+                .toList();
         final OrRequestMatcher matchers = new OrRequestMatcher(m);
         return matchers.matches(request);
     }
