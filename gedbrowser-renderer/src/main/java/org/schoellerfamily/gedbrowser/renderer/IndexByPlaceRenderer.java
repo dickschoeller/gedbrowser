@@ -189,7 +189,13 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
             .collect(Collectors.toMap(
                 entry -> client.get(entry.getKey()),
                 Map.Entry::getValue,
-                (v1, v2) -> v1,
+                (v1, v2) -> {
+                    final Set<PersonRenderer> merged =
+                        new TreeSet<>(new PersonRendererComparator());
+                    merged.addAll(v1);
+                    merged.addAll(v2);
+                    return merged;
+                },
                 () -> new TreeMap<>(new GeoServiceItemComparator())
             ));
     }
