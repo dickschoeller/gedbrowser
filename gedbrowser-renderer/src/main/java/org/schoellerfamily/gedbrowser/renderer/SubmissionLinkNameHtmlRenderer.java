@@ -1,22 +1,16 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders submission link name html output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class SubmissionLinkNameHtmlRenderer implements NameHtmlRenderer {
     /** */
     private final SubmissionLinkRenderer submissionLinkRenderer;
-    /**
-     * Creates a new SubmissionLinkNameHtmlRenderer.
-     *
-     * @param submissionLinkRenderer the submission link renderer
-     */
-    public SubmissionLinkNameHtmlRenderer(
-            final SubmissionLinkRenderer submissionLinkRenderer) {
-        this.submissionLinkRenderer = submissionLinkRenderer;
-    }
 
     /**
      * Returns the name html.

@@ -4,25 +4,19 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders person name html output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class PersonNameHtmlRenderer implements NameHtmlRenderer {
     /**
      * Holder for the PersonRenderer that is using this helper.
      */
-    private final transient PersonRenderer personRenderer;
-
-    /**
-     * Creates a new PersonNameHtmlRenderer.
-     *
-     * @param personRenderer the person renderer
-     */
-    protected PersonNameHtmlRenderer(final PersonRenderer personRenderer) {
-        this.personRenderer = personRenderer;
-    }
+    private final PersonRenderer personRenderer;
 
     /**
      * Returns the name html.
@@ -48,9 +42,9 @@ public class PersonNameHtmlRenderer implements NameHtmlRenderer {
         final String spanString = spanString(person);
 
         return "<a href=\"person?db="
-                + person.getDbName() + "&amp;id=" + person.getString()
-                + "\" class=\"name\">" + nameHtml + spanString + " ["
-                + person.getString() + "]" + "</a>";
+            + person.getDbName() + "&amp;id=" + person.getString()
+            + "\" class=\"name\">" + nameHtml + spanString + " ["
+            + person.getString() + "]" + "</a>";
     }
 
     private String spanString(final Person person) {

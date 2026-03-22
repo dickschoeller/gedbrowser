@@ -55,8 +55,7 @@ public class RootDocumentRepositoryMongoImpl implements
         if (rootDocument == null) {
             return null;
         }
-        final Root root =
-                (Root) toObjConverter.createRoot(rootDocument, finder);
+        final Root root = toObjConverter.createRoot(rootDocument, finder);
         rootDocument.setGedObject(root);
         return rootDocument;
     }

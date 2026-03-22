@@ -238,7 +238,7 @@ public final class PersonDocumentRepositoryMongoImpl implements
             final Collection<PersonDocumentMongo> in) {
         return in.stream()
             .sorted(new PersonDocumentComparator())
-            .map(doc -> (PersonDocument) doc)
+            .map(PersonDocument.class::cast)
             .toList();
     }
 

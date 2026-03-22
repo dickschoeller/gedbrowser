@@ -8,7 +8,6 @@ import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.NoArgsConstructor;
@@ -19,11 +18,7 @@ import lombok.NoArgsConstructor;
  * @author Richard Schoeller
  */
 @Document(collection = "sources")
-@CompoundIndexes({
-    @CompoundIndex(name = "source_unique_idx",
-            def = "{'string': 1, 'filename': 1}",
-            unique = true)
-})
+@CompoundIndex(name = "source_unique_idx", def = "{'string': 1, 'filename': 1}", unique = true)
 @NoArgsConstructor
 public final class SourceDocumentMongo extends GedDocumentMongo<Source>
         implements SourceDocument {

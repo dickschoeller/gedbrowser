@@ -148,7 +148,7 @@ public class DuplicateCleanupService {
         if (filename == null || string == null) {
             return null;
         }
-        return String.valueOf(filename) + "\u0000" + String.valueOf(string);
+        return String.valueOf(filename) + "\u0000" + string;
     }
 
     private List<Object> newIdList() {

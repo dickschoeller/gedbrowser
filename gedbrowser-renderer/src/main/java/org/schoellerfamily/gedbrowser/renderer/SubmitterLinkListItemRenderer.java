@@ -1,25 +1,18 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders submitter link list item output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class SubmitterLinkListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the SubmitterLinkRenderer that is using this helper.
      */
-    private final transient SubmitterLinkRenderer submitterLinkRenderer;
-
-    /**
-     * Creates a new SubmitterLinkListItemRenderer.
-     *
-     * @param renderer the renderer
-     */
-    protected SubmitterLinkListItemRenderer(
-            final SubmitterLinkRenderer renderer) {
-        this.submitterLinkRenderer = renderer;
-    }
+    private final SubmitterLinkRenderer submitterLinkRenderer;
 
     /**
      * Executes render as list item.

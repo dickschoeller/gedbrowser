@@ -1,24 +1,18 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders date list item output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public final class DateListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the DateRenderer that is using this helper.
      */
-    private final transient DateRenderer dateRenderer;
-
-    /**
-     * Creates a new DateListItemRenderer.
-     *
-     * @param dateRenderer the date renderer
-     */
-    protected DateListItemRenderer(final DateRenderer dateRenderer) {
-        this.dateRenderer = dateRenderer;
-    }
+    private final DateRenderer dateRenderer;
 
     /**
      * Executes render as list item.

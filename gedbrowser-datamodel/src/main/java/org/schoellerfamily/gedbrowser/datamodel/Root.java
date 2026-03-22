@@ -16,23 +16,22 @@ public final class Root extends AbstractSpecialObject {
     /**
      * The filename value.
      */
-    private transient String filename;
+    private String filename;
 
     /**
      * The dbname value.
      */
-    private transient String dbname;
+    private String dbname;
 
     /**
      * Map of ID strings to GedObjects. This is the complete set of top level GedObjects.
      */
-    private final transient Map<String, GedObject> objects =
-            new HashMap<String, GedObject>();
+    private final Map<String, GedObject> objects = new HashMap<>();
 
     /**
      * Index object that manages index breakdown by Surname -> Complete Name -> Person.
      */
-    private final transient Index surnameIndex;
+    private final Index surnameIndex;
 
     /**
      * Creates a new Root.

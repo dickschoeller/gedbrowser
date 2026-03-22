@@ -65,7 +65,7 @@ public class CharsetScanner {
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException _) {
             log.warn("Could not read file: {}", filename);
         }
         return UTF_8;

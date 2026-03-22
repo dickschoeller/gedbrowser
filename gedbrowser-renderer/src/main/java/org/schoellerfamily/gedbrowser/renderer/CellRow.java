@@ -10,7 +10,7 @@ import java.util.List;
  */
 public final class CellRow {
     /** */
-    private final transient List<CellRenderer> renderers;
+    private final List<CellRenderer> renderers;
 
     /**
      * Creates a new CellRow.
@@ -18,7 +18,7 @@ public final class CellRow {
      * @param columns the columns
      */
     public CellRow(final int columns) {
-        renderers = new ArrayList<CellRenderer>(columns);
+        renderers = new ArrayList<>(columns);
         for (int i = 0; i < columns; i++) {
             renderers.add(createNullCellRenderer());
         }

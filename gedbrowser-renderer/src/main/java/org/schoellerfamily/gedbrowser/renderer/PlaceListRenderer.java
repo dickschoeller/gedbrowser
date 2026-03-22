@@ -20,8 +20,6 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 
 import lombok.extern.slf4j.Slf4j;
 
-
-
 /**
  * Renders place list output for display.
  *
@@ -74,12 +72,12 @@ public final class PlaceListRenderer {
 
     private List<PlaceInfo> geoCodePlaces(final Collection<String> places) {
         return places.stream()
-                .map(client::get)
-                .filter(Objects::nonNull)
-                .filter(item -> item.getResult() != null)
-                .map(this::createPlaceInfo)
-                .filter(Objects::nonNull)
-                .toList();
+            .map(client::get)
+            .filter(Objects::nonNull)
+            .filter(item -> item.getResult() != null)
+            .map(this::createPlaceInfo)
+            .filter(Objects::nonNull)
+            .toList();
     }
 
     private PlaceInfo createPlaceInfo(final GeoServiceItem item) {

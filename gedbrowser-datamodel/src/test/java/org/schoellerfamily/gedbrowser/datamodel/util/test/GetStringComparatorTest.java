@@ -41,7 +41,7 @@ final class GetStringComparatorTest {
         LESSTHAN,
         /** */
         EQUALTO
-    };
+    }
 
     @SuppressWarnings("PMD.MethodReturnsInternalArray")
     static Stream<Arguments> params() {

@@ -2,23 +2,17 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders source name index output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class SourceNameIndexRenderer implements NameIndexRenderer {
     /** */
-    private final transient SourceRenderer sourceRenderer;
-
-    /**
-     * Creates a new SourceNameIndexRenderer.
-     *
-     * @param sourceRenderer the source renderer
-     */
-    public SourceNameIndexRenderer(final SourceRenderer sourceRenderer) {
-        this.sourceRenderer = sourceRenderer;
-    }
+    private final SourceRenderer sourceRenderer;
 
     /**
      * Returns the index name.
@@ -35,8 +29,8 @@ public class SourceNameIndexRenderer implements NameIndexRenderer {
         final String nameHtml = sourceRenderer.getTitleString();
 
         return "<a href=\"source?db=" + source.getDbName() + "&amp;id="
-                + source.getString() + "\" class=\"name\" id=\"source-"
-                + source.getString() + "\">" + nameHtml + " ("
-                + source.getString() + ")</a>";
+            + source.getString() + "\" class=\"name\" id=\"source-"
+            + source.getString() + "\">" + nameHtml + " ("
+            + source.getString() + ")</a>";
     }
 }

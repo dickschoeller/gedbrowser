@@ -9,11 +9,11 @@ package org.schoellerfamily.gedobject.datamodel.factory;
     /**
      * The full string value.
      */
-    private final transient String fullString;
+    private final String fullString;
     /**
      * The factory value.
      */
-    private final transient AbstractGedObjectFactory factory;
+    private final AbstractGedObjectFactory factory;
 
     /* default */ GedToken(final String fullstring,
             final AbstractGedObjectFactory factory) {

@@ -11,7 +11,7 @@ public final class MultimediaAppender implements AppenderStrategy {
     /**
      * The Multimedia that owns this appender.
      */
-    private final transient Multimedia owner;
+    private final Multimedia owner;
 
     /**
      * Creates a new MultimediaAppender.

@@ -2,6 +2,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { firstValueFrom } from 'rxjs';
 
 import { DatasetsService } from './datasets.service';
 
@@ -37,7 +38,7 @@ describe('DatasetsService', () => {
       const datasets = ['db1', 'db2', 'db3'];
 
       const result$ = service.get();
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs');
       expect(req.request.method).toBe('GET');
@@ -50,7 +51,7 @@ describe('DatasetsService', () => {
 
     it('should handle empty dataset list', async () => {
       const result$ = service.get();
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs');
       req.flush([]);
@@ -63,7 +64,7 @@ describe('DatasetsService', () => {
       const datasets = ['schoeller', 'schoeller', 'mini'];
 
       const result$ = service.get();
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs');
       req.flush(datasets);
@@ -73,7 +74,7 @@ describe('DatasetsService', () => {
     });
 
     it('should handle HTTP errors', async () => {
-      const promise = service.get().toPromise();
+      const promise = firstValueFrom(service.get());
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs');
       req.flush('Server error', { status: 500, statusText: 'Internal Server Error' });

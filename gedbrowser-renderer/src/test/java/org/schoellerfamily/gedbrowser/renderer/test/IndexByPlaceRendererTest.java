@@ -154,6 +154,35 @@ final class IndexByPlaceRendererTest {
         assertEquals(1, map.size(), "map is empty");
     }
 
+    @Test
+    void testRenderMergesCollisionsOnSameModernPlaceName() {
+        final Person person = builder.createPerson("I1", "J. Random/Schoeller/");
+        final Attribute birth = builder.createPersonEvent(person, "Birth", "01 JAN 2000");
+        builder.addPlaceToEvent(birth, "Place Variant A, USA");
+
+        final Person person2 = builder.createPerson("I2", "Anonymous/Schoeller/");
+        final Attribute birth2 = builder.createPersonEvent(person2, "Birth", "01 JAN 2001");
+        builder.addPlaceToEvent(birth2, "Place Variant B, USA");
+
+        // Client that maps both place variants to the same modern place name
+        final GeoServiceClient collidingClient = new GeoServiceClientStub() {
+            @Override
+            public GeoServiceItem get(final String placeName) {
+                return new GeoServiceItem(placeName, "Same Modern Place, USA", null);
+            }
+        };
+
+        final IndexByPlaceRenderer ir = new IndexByPlaceRenderer(
+            builder.getRoot(), collidingClient, adminContext);
+        final Map<GeoServiceItem, Set<PersonRenderer>> map = ir.render();
+
+        assertEquals(1, map.size(),
+            "Two place variants mapping to the same modern name should produce 1 entry");
+        final Set<PersonRenderer> persons = map.values().iterator().next();
+        assertEquals(2, persons.size(),
+            "Both persons should be present after merging colliding sets");
+    }
+
     private void assertRenderMatches(final int[] sizes, final RenderingContext context)
         throws IOException {
         final Root root = reader.readBigTestSource();

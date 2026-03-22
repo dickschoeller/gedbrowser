@@ -45,8 +45,7 @@ public final class LivingRenderer extends GedRenderer<Root>
      * @param root the root
      * @param renderingContext the rendering context
      */
-    public LivingRenderer(final Root root,
-            final RenderingContext renderingContext) {
+    public LivingRenderer(final Root root, final RenderingContext renderingContext) {
         super(root, new GedRendererFactory(), renderingContext);
     }
 

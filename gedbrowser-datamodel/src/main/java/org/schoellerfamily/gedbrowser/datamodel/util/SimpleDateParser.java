@@ -5,19 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Parses simple date values from textual input.
  *
  * @author Richard Schoeller
  */
+@NoArgsConstructor
 public class SimpleDateParser {
-    /**
-     * Creates a new SimpleDateParser.
-     */
-    public SimpleDateParser() {
-        // Intentionally empty.
-    }
-
     /**
      * Parses the calendar.
      *
@@ -31,17 +27,17 @@ public class SimpleDateParser {
         try {
             c.setTime(dateParser.parse(dateString));
             return c;
-        } catch (ParseException e) {
+        } catch (ParseException _) {
             dateParser = new SimpleDateFormat("MMM yyyy", Locale.US);
             try {
                 c.setTime(dateParser.parse(dateString));
                 return c;
-            } catch (ParseException e1) {
+            } catch (ParseException __) {
                 dateParser = new SimpleDateFormat("yyyy", Locale.US);
                 try {
                     c.setTime(dateParser.parse(dateString));
                     return c;
-                } catch (ParseException e2) {
+                } catch (ParseException ___) {
                     return null;
                 }
             }

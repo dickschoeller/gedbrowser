@@ -12,18 +12,17 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  * @param <G> the GedObject type to render.
  */
 @SuppressWarnings({ "PMD.AbstractClassWithoutAbstractMethod" })
-public abstract class GedRenderer<G extends GedObject>
-        extends SectionedRenderer {
+public abstract class GedRenderer<G extends GedObject> extends SectionedRenderer {
     /**
      * Beginning of common anchor.
      */
     private static final String A_HREF = "\n    <a href=\"?";
 
     /** */
-    private final transient G gedObject;
+    private final G gedObject;
 
     /** */
-    private final transient GedRendererFactory rendererFactory;
+    private final GedRendererFactory rendererFactory;
 
     /**
      * Executes ged renderer.
@@ -177,16 +176,13 @@ public abstract class GedRenderer<G extends GedObject>
         final StringBuilder builder = new StringBuilder();
         builder.append("\n    <p>");
         if ("Header".equals(omit)) {
-            builder.append(A_HREF + gedObject.getDbName()
-                    + "+Header\">Header</a><br>");
+            builder.append(A_HREF + gedObject.getDbName() + "+Header\">Header</a><br>");
         }
         if ("Surnames".equals(omit)) {
-            builder.append(A_HREF + gedObject.getDbName()
-                    + "+Surnames\">Surnames</a><br>");
+            builder.append(A_HREF + gedObject.getDbName() + "+Surnames\">Surnames</a><br>");
         }
         if ("Index".equals(omit)) {
-            builder.append(A_HREF + gedObject.getDbName()
-                    + "+Index\">Index</a><br>");
+            builder.append(A_HREF + gedObject.getDbName() + "+Index\">Index</a><br>");
         }
         builder.append("\n    </p>");
         return builder.toString();

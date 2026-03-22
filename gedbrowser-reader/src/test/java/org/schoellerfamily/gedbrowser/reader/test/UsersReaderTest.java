@@ -37,6 +37,6 @@ class UsersReaderTest {
 
     private Users<User> readUserFile(final String userFile) {
         final UsersReader<User, Users<User>> usersReader = new UsersReader<>();
-        return usersReader.readUserFile(userFile, () -> new UsersImpl<>(), () -> new UserImpl());
+        return usersReader.readUserFile(userFile, UsersImpl::new, UserImpl::new);
     }
 }

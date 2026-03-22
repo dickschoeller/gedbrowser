@@ -8,8 +8,7 @@ import org.schoellerfamily.gedbrowser.datamodel.AbstractLink;
  * @author Richard Schoeller
  * @param <T> The object type to render.
  */
-public abstract class AbstractLinkRenderer<T extends AbstractLink> extends
-        GedRenderer<T> {
+public abstract class AbstractLinkRenderer<T extends AbstractLink> extends GedRenderer<T> {
     /**
      * Creates a new AbstractLinkRenderer.
      *

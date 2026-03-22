@@ -3,26 +3,19 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders attribute list item output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class AttributeListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the AttributeRenderer that is using this helper.
      */
-    private final transient AttributeRenderer attributeRenderer;
-
-    /**
-     * Creates a new AttributeListItemRenderer.
-     *
-     * @param attributeRenderer the attribute renderer
-     */
-    public AttributeListItemRenderer(
-            final AttributeRenderer attributeRenderer) {
-        this.attributeRenderer = attributeRenderer;
-    }
+    private final AttributeRenderer attributeRenderer;
 
     /**
      * Executes render as list item.
@@ -76,8 +69,7 @@ public class AttributeListItemRenderer implements ListItemRenderer {
                     attributeRenderer.createGedRenderer(subAttr);
             final String html = renderer.renderAsPhrase();
             final boolean currentIsFull = !html.isEmpty();
-            final String separator = renderer.getSeparator(currentIsFull
-                    && previousIsFull);
+            final String separator = renderer.getSeparator(currentIsFull && previousIsFull);
             if (currentIsFull) {
                 previousIsFull = true;
             }

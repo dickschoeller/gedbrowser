@@ -35,8 +35,7 @@ public final class FamilyRenderer extends GedRenderer<Family>
      * @param personRenderer the person renderer
      * @return the spouse
      */
-    public PersonRenderer getSpouse(
-            final PersonRenderer personRenderer) {
+    public PersonRenderer getSpouse(final PersonRenderer personRenderer) {
         final Family family = getGedObject();
         final Person person = personRenderer.getGedObject();
         final Person spouse = (new FamilyNavigator(family)).getSpouse(person);
@@ -53,10 +52,11 @@ public final class FamilyRenderer extends GedRenderer<Family>
         final FamilyNavigator navigator = new FamilyNavigator(family);
         final List<Person> children = navigator.getChildren();
         return children.stream()
-                .map(this::createGedRenderer)
-                .map(renderer -> (PersonRenderer) renderer)
-                .toList();
+            .map(this::createGedRenderer)
+            .map(PersonRenderer.class::cast)
+            .toList();
     }
+
     /**
      * Get the standard amount of indent for this construct.
      *

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 
 import org.schoellerfamily.gedbrowser.datamodel.users.User;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
@@ -30,7 +31,7 @@ public final class UsersReader<T extends User, U extends Users<T>> {
             final UserFactory<T> builder) {
         final Users<T> users = usersFactory.createUsers();
         try (FileInputStream fis = new FileInputStream(userFile);
-                Reader reader = new InputStreamReader(fis, "UTF-8");
+                Reader reader = new InputStreamReader(fis, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(reader);) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -38,7 +39,7 @@ public final class UsersReader<T extends User, U extends Users<T>> {
                 final T user = buildUser(userFields, builder);
                 users.add(user);
             }
-        } catch (IOException e) {
+        } catch (IOException _) {
             final String[] strings = {"guest", "", "", "", "guest", "USER"};
             users.add(buildUser(strings, builder));
         }

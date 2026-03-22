@@ -1,7 +1,6 @@
 package org.schoellerfamily.geoservice.backup;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
@@ -10,10 +9,10 @@ import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 
 import lombok.RequiredArgsConstructor;
-
-import com.fasterxml.jackson.annotation.PropertyAccessor;
+import tools.jackson.core.JacksonException;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.ObjectMapper;
@@ -43,8 +42,9 @@ public class GeoCodeBackup {
      * Executes backup.
      *
      * @param resultFile the result file to use
+     * @throws JacksonException if a JSON processing error occurs
      */
-    public void backup(final File resultFile) throws IOException {
+    public void backup(final File resultFile) throws JacksonException {
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
         final List<GeoServiceItem> list = gcd.allKeys().stream()
             .map(gcd::find)
@@ -57,8 +57,9 @@ public class GeoCodeBackup {
      * Executes recover.
      *
      * @param src the src
+     * @throws JacksonException if a JSON processing error occurs
      */
-    public void recover(final File src) throws IOException {
+    public void recover(final File src) throws JacksonException {
         final List<GeoServiceItem> list = mapper.readValue(src,
                 new TypeReference<List<GeoServiceItem>>() {
                 });

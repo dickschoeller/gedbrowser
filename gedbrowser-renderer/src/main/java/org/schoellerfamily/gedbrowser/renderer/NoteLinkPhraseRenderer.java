@@ -1,23 +1,16 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders note link phrase output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public final class NoteLinkPhraseRenderer implements PhraseRenderer {
     /** */
-    private final transient NoteLinkRenderer nlRenderer;
-
-    /**
-     * Creates a new NoteLinkPhraseRenderer.
-     *
-     * @param renderer the renderer
-     */
-    public NoteLinkPhraseRenderer(
-            final NoteLinkRenderer renderer) {
-        this.nlRenderer = renderer;
-    }
+    private final NoteLinkRenderer nlRenderer;
 
     /**
      * Executes render as phrase.

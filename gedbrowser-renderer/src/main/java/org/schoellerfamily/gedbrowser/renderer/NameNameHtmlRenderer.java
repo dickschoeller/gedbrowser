@@ -2,26 +2,19 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders name name html output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class NameNameHtmlRenderer implements NameHtmlRenderer {
     /**
      * Holder for the NameRenderer that is using this helper.
      */
-    private final transient NameRenderer nameRenderer;
-
-    /**
-     * Creates a new NameNameHtmlRenderer.
-     *
-     * @param nameRenderer the name renderer to use
-     */
-    public NameNameHtmlRenderer(final NameRenderer nameRenderer) {
-        this.nameRenderer = nameRenderer;
-    }
-
+    private final NameRenderer nameRenderer;
 
     /**
      * Returns the name html.

@@ -4,23 +4,17 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders person name index output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class PersonNameIndexRenderer implements NameIndexRenderer {
     /** */
-    private final transient PersonRenderer personRenderer;
-
-    /**
-     * Creates a new PersonNameIndexRenderer.
-     *
-     * @param personRenderer the person renderer
-     */
-    public PersonNameIndexRenderer(final PersonRenderer personRenderer) {
-        this.personRenderer = personRenderer;
-    }
+    private final PersonRenderer personRenderer;
 
     /**
      * Returns the index name.
@@ -50,9 +44,9 @@ public class PersonNameIndexRenderer implements NameIndexRenderer {
         final String deathYear = deathVisitor.getYear();
 
         return "<a href=\"person?db=" + person.getDbName() + "&amp;id="
-                + person.getString() + "\" class=\"name\">" + nameHtml
-                + dateRangeString(birthYear, deathYear) + " ("
-                + person.getString() + ")</a>";
+            + person.getString() + "\" class=\"name\">" + nameHtml
+            + dateRangeString(birthYear, deathYear) + " ("
+            + person.getString() + ")</a>";
     }
 
     private String dateRangeString(final String birthYear,

@@ -16,8 +16,8 @@ public final class TrailerRenderer extends GedRenderer<Trailer> {
      * @param renderingContext the rendering context
      */
     public TrailerRenderer(final Trailer gedObject,
-            final GedRendererFactory rendererFactory,
-            final RenderingContext renderingContext) {
+        final GedRendererFactory rendererFactory,
+        final RenderingContext renderingContext) {
         super(gedObject, rendererFactory, renderingContext);
     }
 }

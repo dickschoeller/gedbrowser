@@ -350,7 +350,7 @@ final class GedObjectVisitorTest {
             gob = gedObject;
             type = "unknown";
         }
-    };
+    }
 
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {

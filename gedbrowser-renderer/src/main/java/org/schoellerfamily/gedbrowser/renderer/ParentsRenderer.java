@@ -70,9 +70,8 @@ public class ParentsRenderer {
 
         GedRenderer.renderPad(builder, pad, true);
         builder.append(
-                " <span class=\"parent label\">" + parentLabel
-                + ":</span> ").append(
-                        parentHtml);
+            " <span class=\"parent label\">" + parentLabel
+            + ":</span> ").append(parentHtml);
 
         GedRenderer.renderPad(builder, pad, true);
         builder.append("</p>");
@@ -87,8 +86,7 @@ public class ParentsRenderer {
         final StringBuilder builder = new StringBuilder();
         final Person father = navigator.getFather();
         if (father != null) {
-            renderParent(builder, 0,
-                    createGedRenderer(father).getNameHtml(), "Father");
+            renderParent(builder, 0, createGedRenderer(father).getNameHtml(), "Father");
         }
         return builder.toString();
     }
@@ -102,8 +100,7 @@ public class ParentsRenderer {
         final StringBuilder builder = new StringBuilder();
         final Person mother = navigator.getMother();
         if (mother != null) {
-            renderParent(builder, 0,
-                    createGedRenderer(mother).getNameHtml(), "Mother");
+            renderParent(builder, 0, createGedRenderer(mother).getNameHtml(), "Mother");
         }
         return builder.toString();
     }

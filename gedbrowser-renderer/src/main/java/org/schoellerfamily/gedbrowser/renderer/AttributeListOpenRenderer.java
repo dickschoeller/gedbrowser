@@ -15,6 +15,5 @@ public interface AttributeListOpenRenderer {
      * @param pad the amount of indentation we need.
      * @param subObject a subobject.
      */
-    void renderAttributeListOpen(StringBuilder builder, int pad,
-            GedObject subObject);
+    void renderAttributeListOpen(StringBuilder builder, int pad, GedObject subObject);
 }

@@ -1,24 +1,18 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders place list item output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class PlaceListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the PlaceRenderer that is using this helper.
      */
-    private final transient PlaceRenderer placeRenderer;
-
-    /**
-     * Creates a new PlaceListItemRenderer.
-     *
-     * @param placeRenderer the place renderer
-     */
-    protected PlaceListItemRenderer(final PlaceRenderer placeRenderer) {
-        this.placeRenderer = placeRenderer;
-    }
+    private final PlaceRenderer placeRenderer;
 
     /**
      * Executes render as list item.

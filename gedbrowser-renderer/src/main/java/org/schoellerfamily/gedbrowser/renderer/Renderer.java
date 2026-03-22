@@ -46,9 +46,8 @@ public interface Renderer {
     default String getSeparator(final boolean separate) {
         if (separate) {
             return ", ";
-        } else {
-            return "";
         }
+        return "";
     }
 
     /**
@@ -61,21 +60,21 @@ public interface Renderer {
      */
     default String getHeaderHtml(final String title, final String keywords) {
         return "Content-type: text/html\n\n"
-                + "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n"
-                + "  \"http://www.w3.org/TR/html4/strict.dtd\">\n"
-                + "<html>\n  <head>\n"
-                + "    <meta http-equiv=\"Content-Type\" "
-                + "content=\"text/html; charset=utf-8\">\n"
-                + "    <meta name=\"Author\" content=\"gedbrowser\">\n"
-                + "    <meta name=\"Description\" content=\"genealogy\">\n"
-                + "    <meta name=\"Keywords\" content=\"genealogy gedbrowser "
-                + keywords + "\">\n"
-                + "    <meta http-equiv=\"Content-Style-Type\" "
-                + "content=\"text/css\">\n"
-                + "    <link href=\"/gedbrowser/gedbrowser.css\" "
-                + "rel=\"stylesheet\" type=\"text/css\">\n"
-                + "    <title>" + title + "</title>\n"
-                + "  </head>\n  <body>\n";
+            + "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n"
+            + "  \"http://www.w3.org/TR/html4/strict.dtd\">\n"
+            + "<html>\n  <head>\n"
+            + "    <meta http-equiv=\"Content-Type\" "
+            + "content=\"text/html; charset=utf-8\">\n"
+            + "    <meta name=\"Author\" content=\"gedbrowser\">\n"
+            + "    <meta name=\"Description\" content=\"genealogy\">\n"
+            + "    <meta name=\"Keywords\" content=\"genealogy gedbrowser "
+            + keywords + "\">\n"
+            + "    <meta http-equiv=\"Content-Style-Type\" "
+            + "content=\"text/css\">\n"
+            + "    <link href=\"/gedbrowser/gedbrowser.css\" "
+            + "rel=\"stylesheet\" type=\"text/css\">\n"
+            + "    <title>" + title + "</title>\n"
+            + "  </head>\n  <body>\n";
     }
 
     /**
