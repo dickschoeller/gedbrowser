@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.security.auth;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
