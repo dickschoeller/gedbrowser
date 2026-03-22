@@ -14,7 +14,7 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
  *
  * @author Richard Schoeller
  */
-public final class GeoServiceClientStub extends GeoServiceClient {
+public class GeoServiceClientStub extends GeoServiceClient {
     /** */
     private static final int PORT = 8080;
 

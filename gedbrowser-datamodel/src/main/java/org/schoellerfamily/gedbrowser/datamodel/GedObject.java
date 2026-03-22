@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.appender.AppenderStrategy;
 import org.schoellerfamily.gedbrowser.datamodel.appender.GedAppender;
-import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
  * Represents ged object in the domain model.
