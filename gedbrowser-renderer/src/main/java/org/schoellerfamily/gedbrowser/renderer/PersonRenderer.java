@@ -113,8 +113,8 @@ public final class PersonRenderer extends GedRenderer<Person>
      * @return the tree rows
      */
     public CellRow[] getTreeRows(final int generations) {
-        final TreeTableRenderer ttr = new TreeTableRenderer(this,
-            confidentialGenCount(generations));
+        final TreeTableRenderer ttr =
+            new TreeTableRenderer(this, confidentialGenCount(generations));
         return ttr.getTreeRows();
     }
 
@@ -125,9 +125,8 @@ public final class PersonRenderer extends GedRenderer<Person>
     private int confidentialGenCount(final int generations) {
         if (isConfidential() || isHiddenLiving()) {
             return 1;
-        } else {
-            return generations;
         }
+        return generations;
     }
 
     /**
@@ -163,6 +162,6 @@ public final class PersonRenderer extends GedRenderer<Person>
         final String surnameLetter = getSurnameLetter();
         final String surname = getSurname();
         return "surnames?db=" + getGedObject().getDbName() + "&letter="
-                + surnameLetter + "#" + surname;
+            + surnameLetter + "#" + surname;
     }
 }

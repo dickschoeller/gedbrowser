@@ -2,23 +2,17 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders application info output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public abstract class ApplicationInfoRenderer implements Renderer {
     /** */
     private final ApplicationInfo applicationInfo;
-
-    /**
-     * Creates a new ApplicationInfoRenderer.
-     *
-     * @param applicationInfo the application info
-     */
-    protected ApplicationInfoRenderer(final ApplicationInfo applicationInfo) {
-        this.applicationInfo = applicationInfo;
-    }
 
     /**
      * Gets the application name.

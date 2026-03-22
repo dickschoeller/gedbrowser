@@ -3,26 +3,19 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders multimedia phrase output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public final class MultimediaPhraseRenderer implements PhraseRenderer {
     /**
      * Holder for the MultimediaRenderer that is using this helper.
      */
-    private final transient MultimediaRenderer multimediaRenderer;
-
-    /**
-     * Creates a new MultimediaPhraseRenderer.
-     *
-     * @param multimediaRenderer the multimedia renderer
-     */
-    protected MultimediaPhraseRenderer(
-            final MultimediaRenderer multimediaRenderer) {
-        this.multimediaRenderer = multimediaRenderer;
-    }
+    private final MultimediaRenderer multimediaRenderer;
 
     /**
      * Executes render as phrase.

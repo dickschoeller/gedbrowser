@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
@@ -71,16 +71,10 @@ public final class NoteRenderer extends GedRenderer<Note>
      */
     @SuppressWarnings("java:S1452")
     public List<GedRenderer<?>> getAttributes() {
-        final Note source = getGedObject();
-        final List<GedRenderer<?>> list = new ArrayList<GedRenderer<?>>();
-        for (final GedObject attribute : source.getAttributes()) {
-            final GedRenderer<?> attributeRenderer =
-                    createGedRenderer(attribute);
-            if (!attributeRenderer.getListItemContents().isEmpty()) {
-                list.add(attributeRenderer);
-            }
-        }
-        return list.stream().toList();
+        return getGedObject().getAttributes().stream()
+            .map(this::createGedRenderer)
+            .filter(renderer -> StringUtils.isNotEmpty(renderer.getListItemContents()))
+            .collect(Collectors.toUnmodifiableList());
     }
 
     /**

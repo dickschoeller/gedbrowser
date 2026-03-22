@@ -3,24 +3,17 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders submitter name index output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class SubmitterNameIndexRenderer implements NameIndexRenderer {
     /** */
-    private final transient SubmitterRenderer submitterRenderer;
-
-    /**
-     * Creates a new SubmitterNameIndexRenderer.
-     *
-     * @param submitterRenderer the submitter renderer
-     */
-    public SubmitterNameIndexRenderer(
-            final SubmitterRenderer submitterRenderer) {
-        this.submitterRenderer = submitterRenderer;
-    }
+    private final SubmitterRenderer submitterRenderer;
 
     /**
      * Returns the index name.
@@ -36,15 +29,15 @@ public class SubmitterNameIndexRenderer implements NameIndexRenderer {
         final String nameHtml = getNameHtml(submitter);
 
         return "<a class=\"name\" href=\"submitter?db=" + submitter.getDbName()
-                + "&amp;id=" + submitter.getString() + "\">" + nameHtml + " ["
-                + submitter.getString() + "]" + "</a>";
+            + "&amp;id=" + submitter.getString() + "\">" + nameHtml + " ["
+            + submitter.getString() + "]" + "</a>";
     }
 
     private String getNameHtml(final Submitter submitter) {
         final GedRenderer<? extends GedObject> renderer =
-                new SimpleNameRenderer(submitter.getName(),
-                        submitterRenderer.getRendererFactory(),
-                        submitterRenderer.getRenderingContext());
+            new SimpleNameRenderer(submitter.getName(),
+                submitterRenderer.getRendererFactory(),
+                submitterRenderer.getRenderingContext());
         return renderer.getNameHtml();
     }
 }

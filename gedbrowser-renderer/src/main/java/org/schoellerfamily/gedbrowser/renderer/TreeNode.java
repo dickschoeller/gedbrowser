@@ -8,11 +8,11 @@ package org.schoellerfamily.gedbrowser.renderer;
  */
 public final class TreeNode<N> {
     /** */
-    private final transient N node;
+    private final N node;
     /** */
-    private transient TreeNode<N> left;
+    private TreeNode<N> left;
     /** */
-    private transient TreeNode<N> right;
+    private TreeNode<N> right;
     /** */
     private int row;
     /** */
@@ -75,9 +75,8 @@ public final class TreeNode<N> {
     public int getHighestRowInTree() {
         if (right == null) {
             return row;
-        } else {
-            return right.getHighestRowInTree();
         }
+        return right.getHighestRowInTree();
     }
 
     /**

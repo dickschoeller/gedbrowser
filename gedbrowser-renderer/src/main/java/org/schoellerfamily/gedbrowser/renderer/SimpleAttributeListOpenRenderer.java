@@ -7,8 +7,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  *
  * @author Richard Schoeller
  */
-public class SimpleAttributeListOpenRenderer implements
-        AttributeListOpenRenderer {
+public class SimpleAttributeListOpenRenderer implements AttributeListOpenRenderer {
     /**
      * Executes render attribute list open.
      *

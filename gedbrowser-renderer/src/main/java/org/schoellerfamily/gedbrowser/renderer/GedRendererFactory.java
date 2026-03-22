@@ -40,7 +40,7 @@ import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 @SuppressWarnings({ "java:S1452" })
 public final class GedRendererFactory {
     /** */
-    private static Map<Class<?>, RendererBuilder> builders = Map.ofEntries(
+    private static final Map<Class<?>, RendererBuilder> BUILDERS = Map.ofEntries(
         Map.entry((Class<?>) Husband.class,
             (RendererBuilder) (g, f, r) -> new HusbandRenderer((Husband) g, f, r)),
         Map.entry((Class<?>) Wife.class,
@@ -133,7 +133,7 @@ public final class GedRendererFactory {
     public GedRenderer<? extends GedObject> create(final GedObject gedObject,
         final RenderingContext renderingContext) {
         if (gedObject != null) {
-            final RendererBuilder builder = builders.get(gedObject.getClass());
+            final RendererBuilder builder = BUILDERS.get(gedObject.getClass());
             if (builder != null) {
                 return builder.build(gedObject, this, renderingContext);
             }

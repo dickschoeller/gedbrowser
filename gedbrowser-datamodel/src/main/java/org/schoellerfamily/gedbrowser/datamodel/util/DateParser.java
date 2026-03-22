@@ -82,7 +82,7 @@ public final class DateParser extends SimpleDateParser {
         /**
          */
         ESTIMATED
-    };
+    }
 
     /**
      * Creates a new DateParser.

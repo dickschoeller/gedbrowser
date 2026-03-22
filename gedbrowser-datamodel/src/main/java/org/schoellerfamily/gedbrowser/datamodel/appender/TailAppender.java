@@ -11,7 +11,7 @@ public final class TailAppender implements AppenderStrategy {
     /**
      * The Attribute that owns this appender.
      */
-    private final transient Tail owner;
+    private final Tail owner;
 
     /**
      * Creates a new TailAppender.

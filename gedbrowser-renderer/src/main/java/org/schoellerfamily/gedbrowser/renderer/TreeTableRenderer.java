@@ -3,28 +3,19 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders tree table output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public final class TreeTableRenderer {
     /** */
-    private final transient int generations;
-
-    /** */
     private final transient PersonRenderer top;
-
-    /**
-     * Creates a new TreeTableRenderer.
-     *
-     * @param top the top
-     * @param generations the generations
-     */
-    public TreeTableRenderer(final PersonRenderer top, final int generations) {
-        this.top = top;
-        this.generations = generations;
-    }
+    /** */
+    private final transient int generations;
 
     /**
      * Gets the tree rows.
@@ -61,15 +52,15 @@ public final class TreeTableRenderer {
         final PersonNavigator navigator = new PersonNavigator(person);
 
         final TreeNode<PersonRenderer> treeNode = new TreeNode<PersonRenderer>(
-                personRenderer, currentDepth, currentDepth);
+            personRenderer, currentDepth, currentDepth);
 
         int row = seedRow;
         if (currentDepth < depthLimit) {
             final Person father = navigator.getFather();
             final PersonRenderer fatherRenderer =
-                    (PersonRenderer) personRenderer.createGedRenderer(father);
+                (PersonRenderer) personRenderer.createGedRenderer(father);
             final TreeNode<PersonRenderer> fatherTreeNode = buildTree(
-                    fatherRenderer, currentDepth + 1, depthLimit, row);
+                fatherRenderer, currentDepth + 1, depthLimit, row);
             treeNode.addLeft(fatherTreeNode);
             row = fatherTreeNode.getHighestRowInTree() + 1;
         }
@@ -79,9 +70,9 @@ public final class TreeTableRenderer {
         if (currentDepth < depthLimit) {
             final Person mother = navigator.getMother();
             final PersonRenderer motherRenderer =
-                    (PersonRenderer) personRenderer.createGedRenderer(mother);
-            final TreeNode<PersonRenderer> motherTreeNode = buildTree(
-                    motherRenderer, currentDepth + 1, depthLimit, row);
+                (PersonRenderer) personRenderer.createGedRenderer(mother);
+            final TreeNode<PersonRenderer> motherTreeNode =
+                buildTree(motherRenderer, currentDepth + 1, depthLimit, row);
             treeNode.addRight(motherTreeNode);
         }
         return treeNode;

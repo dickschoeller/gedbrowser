@@ -104,7 +104,7 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
         /**
          */
         VALUE
-    };
+    }
 
     /**
      * Represents string.

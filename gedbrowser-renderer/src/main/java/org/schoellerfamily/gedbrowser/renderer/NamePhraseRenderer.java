@@ -2,25 +2,19 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders name phrase output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class NamePhraseRenderer implements PhraseRenderer, ComplexRenderer {
     /**
      * The renderer that we are associated with.
      */
-    private final transient NameRenderer nameRenderer;
-
-    /**
-     * Creates a new NamePhraseRenderer.
-     *
-     * @param nameRenderer the name renderer to use
-     */
-    public NamePhraseRenderer(final NameRenderer nameRenderer) {
-        this.nameRenderer = nameRenderer;
-    }
+    private final NameRenderer nameRenderer;
 
     /**
      * Executes render as phrase.

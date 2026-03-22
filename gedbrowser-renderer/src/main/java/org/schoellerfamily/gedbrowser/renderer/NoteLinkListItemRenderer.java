@@ -1,25 +1,18 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders note link list item output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class NoteLinkListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the NoteLinkRenderer that is using this helper.
      */
-    private final transient NoteLinkRenderer noteLinkRenderer;
-
-    /**
-     * Creates a new NoteLinkListItemRenderer.
-     *
-     * @param renderer the renderer
-     */
-    protected NoteLinkListItemRenderer(
-            final NoteLinkRenderer renderer) {
-        this.noteLinkRenderer = renderer;
-    }
+    private final NoteLinkRenderer noteLinkRenderer;
 
     /**
      * Executes render as list item.

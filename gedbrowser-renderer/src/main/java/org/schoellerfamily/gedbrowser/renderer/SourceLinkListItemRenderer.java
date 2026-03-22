@@ -1,25 +1,18 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders source link list item output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class SourceLinkListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the SourceLinkRenderer that is using this helper.
      */
-    private final transient SourceLinkRenderer sourceLinkRenderer;
-
-    /**
-     * Creates a new SourceLinkListItemRenderer.
-     *
-     * @param renderer the renderer
-     */
-    protected SourceLinkListItemRenderer(
-            final SourceLinkRenderer renderer) {
-        this.sourceLinkRenderer = renderer;
-    }
+    private final SourceLinkRenderer sourceLinkRenderer;
 
     /**
      * Executes render as list item.

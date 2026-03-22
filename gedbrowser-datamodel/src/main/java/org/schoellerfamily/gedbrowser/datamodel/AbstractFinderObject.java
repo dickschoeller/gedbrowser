@@ -14,7 +14,7 @@ public abstract class AbstractFinderObject implements FinderObject {
     /**
      * The finder value.
      */
-    private transient FinderStrategy finder;
+    private FinderStrategy finder;
 
     /**
      * Creates a new AbstractFinderObject.

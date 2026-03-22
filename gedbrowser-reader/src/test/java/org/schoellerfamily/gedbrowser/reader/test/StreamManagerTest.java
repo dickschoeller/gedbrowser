@@ -53,7 +53,7 @@ class StreamManagerTest {
         "test...ged",
         "foo\\bar"
     })
-    void testPathsNotFound(final String filename) throws FileNotFoundException {
+    void testPathsNotFound(final String filename) {
         final StreamManager streamManager = new StreamManager(filename);
         assertThrows(FileNotFoundException.class, streamManager::getInputStream);
     }

@@ -1,8 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 
@@ -33,15 +34,10 @@ public interface AttributesRenderer<T extends GedObject> {
      * @return the list of attribute renderers.
      */
     default List<GedRenderer<?>> getAttributes() {
-        final List<GedRenderer<?>> list = new ArrayList<GedRenderer<?>>();
-        final T gob = getGedObject();
-        for (final GedObject attribute : gob.getAttributes()) {
-            final GedRenderer<?> renderer = createGedRenderer(attribute);
-            if (!renderer.getListItemContents().isEmpty()) {
-                list.add(renderer);
-            }
-        }
-        return list.stream().toList();
+        return getGedObject().getAttributes().stream()
+            .map(attribute -> (GedRenderer<?>) createGedRenderer(attribute))
+            .filter(renderer -> StringUtils.isNotEmpty(renderer.getListItemContents()))
+            .collect(Collectors.toUnmodifiableList());
     }
 
 }

@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.SourceVisitor;
 import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
@@ -63,19 +63,11 @@ public final class SourceRenderer extends GedRenderer<Source>
      */
     @SuppressWarnings("java:S1452")
     public List<GedRenderer<?>> getAttributes() {
-        final Source source = getGedObject();
-        final List<GedRenderer<?>> list = new ArrayList<GedRenderer<?>>();
-        for (final GedObject attribute : source.getAttributes()) {
-            final GedRenderer<?> attributeRenderer =
-                    createGedRenderer(attribute);
-            if ("Title".equals(attribute.getString())) {
-                continue;
-            }
-            if (!attributeRenderer.getListItemContents().isEmpty()) {
-                list.add(attributeRenderer);
-            }
-        }
-        return list.stream().toList();
+        return getGedObject().getAttributes().stream()
+            .filter(attribute -> !"Title".equals(attribute.getString()))
+            .map(this::createGedRenderer)
+            .filter(renderer -> StringUtils.isNotEmpty(renderer.getListItemContents()))
+            .collect(Collectors.toUnmodifiableList());
     }
 
     /**

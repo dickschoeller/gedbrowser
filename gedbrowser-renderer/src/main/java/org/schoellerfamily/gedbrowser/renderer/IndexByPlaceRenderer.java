@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -122,8 +123,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
      */
     private void placePerson(final Map<String, Set<PersonRenderer>> aMap,
             final PersonRenderer renderer, final String place) {
-        final Set<PersonRenderer> locatedPersons =
-                personRendererSet(aMap, place);
+        final Set<PersonRenderer> locatedPersons = personRendererSet(aMap, place);
         locatedPersons.add(renderer);
     }
 
@@ -145,8 +145,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
         if (getRenderingContext().isAdmin()) {
             return false;
         }
-        final PersonConfidentialVisitor visitor =
-                new PersonConfidentialVisitor();
+        final PersonConfidentialVisitor visitor = new PersonConfidentialVisitor();
         person.accept(visitor);
         return visitor.isConfidential() || !getRenderingContext().isUser();
     }
@@ -186,14 +185,12 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
      * @return the resulting set
      */
     public Map<GeoServiceItem, Set<PersonRenderer>> render() {
-        final Map<GeoServiceItem, Set<PersonRenderer>> aMap = new TreeMap<>(
-                new GeoServiceItemComparator());
-        final Map<String, Set<PersonRenderer>> map = getWholeIndex();
-        for (final Map.Entry<String, Set<PersonRenderer>> entry
-                : map.entrySet()) {
-            final GeoServiceItem item = client.get(entry.getKey());
-            aMap.put(item, entry.getValue());
-        }
-        return aMap;
+        return getWholeIndex().entrySet().stream()
+            .collect(Collectors.toMap(
+                entry -> client.get(entry.getKey()),
+                Map.Entry::getValue,
+                (v1, v2) -> v1,
+                () -> new TreeMap<>(new GeoServiceItemComparator())
+            ));
     }
 }

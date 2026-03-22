@@ -18,17 +18,17 @@ import lombok.experimental.Accessors;
 @Accessors(makeFinal = true)
 public abstract class AbstractSingleGedLine implements GedObjectHolder {
     /** */
-    private final transient int lineNumber;
+    private final int lineNumber;
     /** */
-    private transient int level;
+    private int level;
     /** */
-    private transient String xref = "";
+    private String xref = "";
     /** */
-    private transient String tag = "";
+    private String tag = "";
     /** */
-    private transient String tail = "";
+    private String tail = "";
     /** */
-    private transient GedObject gedObject;
+    private GedObject gedObject;
 
     /**
      * Executes abstract single ged line.

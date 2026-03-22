@@ -2,27 +2,19 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders simple name phrase output for display.
  *
  * @author Richard Schoeller
  */
-public class SimpleNamePhraseRenderer
-    implements PhraseRenderer, SimpleRenderer {
+@RequiredArgsConstructor
+public class SimpleNamePhraseRenderer implements PhraseRenderer, SimpleRenderer {
     /**
      * The renderer that we are associated with.
      */
-    private final transient SimpleNameRenderer simpleNameRenderer;
-
-    /**
-     * Creates a new SimpleNamePhraseRenderer.
-     *
-     * @param simpleNameRenderer the simple name renderer to use
-     */
-    public SimpleNamePhraseRenderer(
-            final SimpleNameRenderer simpleNameRenderer) {
-        this.simpleNameRenderer = simpleNameRenderer;
-    }
+    private final SimpleNameRenderer simpleNameRenderer;
 
     /**
      * Executes render as phrase.

@@ -35,8 +35,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
      *
      * @param parent the parent
      */
-    protected GedLinkDocumentMongoToGedObjectConverterVisitor(
-            final GedObject parent) {
+    protected GedLinkDocumentMongoToGedObjectConverterVisitor(final GedObject parent) {
         super(parent);
     }
 
@@ -48,7 +47,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
     @Override
     public final void visit(final ChildDocumentMongo document) {
         final Child child = new Child(getParent(), "Child",
-                new ObjectId(document.getString()));
+            new ObjectId(document.getString()));
         child.setFromString(getParent().getString());
         setGedObject(child);
     }
@@ -61,7 +60,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
     @Override
     public final void visit(final FamCDocumentMongo document) {
         final FamC famc = new FamC(getParent(), "Child of Family",
-                new ObjectId(document.getString()));
+            new ObjectId(document.getString()));
         famc.setFromString(getParent().getString());
         setGedObject(famc);
     }
@@ -74,7 +73,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
     @Override
     public final void visit(final FamSDocumentMongo document) {
         final FamS fams = new FamS(getParent(), "Spouse of Family",
-                new ObjectId(document.getString()));
+            new ObjectId(document.getString()));
         fams.setFromString(getParent().getString());
         setGedObject(fams);
     }
@@ -86,7 +85,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
     @Override
     public final void visit(final HusbandDocumentMongo document) {
         final Husband husband = new Husband(getParent(), "Husband",
-                new ObjectId(document.getString()));
+            new ObjectId(document.getString()));
         husband.setFromString(getParent().getString());
         setGedObject(husband);
     }
@@ -98,8 +97,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
      */
     @Override
     public final void visit(final NoteLinkDocumentMongo document) {
-        setGedObject(new NoteLink(getParent(), "Note",
-                new ObjectId(document.getString())));
+        setGedObject(new NoteLink(getParent(), "Note", new ObjectId(document.getString())));
     }
 
     /**
@@ -109,8 +107,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
      */
     @Override
     public final void visit(final SourceLinkDocumentMongo document) {
-        setGedObject(new SourceLink(getParent(), "Source",
-                new ObjectId(document.getString())));
+        setGedObject(new SourceLink(getParent(), "Source", new ObjectId(document.getString())));
     }
 
     /**
@@ -121,7 +118,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
     @Override
     public final void visit(final SubmissionLinkDocumentMongo document) {
         setGedObject(new SubmissionLink(getParent(), "Submission",
-                new ObjectId(document.getString())));
+            new ObjectId(document.getString())));
     }
 
     /**
@@ -132,7 +129,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
     @Override
     public final void visit(final SubmitterLinkDocumentMongo document) {
         setGedObject(new SubmitterLink(getParent(), "Submitter",
-                new ObjectId(document.getString())));
+            new ObjectId(document.getString())));
     }
 
     /**
@@ -142,9 +139,7 @@ public abstract class GedLinkDocumentMongoToGedObjectConverterVisitor
      */
     @Override
     public final void visit(final WifeDocumentMongo document) {
-        final WifeDocumentMongo wifeDocument = (WifeDocumentMongo) document;
-        final Wife wife = new Wife(getParent(), "Wife",
-                new ObjectId(wifeDocument.getString()));
+        final Wife wife = new Wife(getParent(), "Wife", new ObjectId(document.getString()));
         wife.setFromString(getParent().getString());
         setGedObject(wife);
     }

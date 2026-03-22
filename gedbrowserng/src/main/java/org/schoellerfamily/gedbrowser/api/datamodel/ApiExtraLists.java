@@ -62,7 +62,7 @@ public class ApiExtraLists extends ApiHasImages {
         ApiExtraListsBuilder<
             C extends ApiExtraLists,
             B extends ApiExtraLists.ApiExtraListsBuilder<C, B>>
-        extends ApiExtraLists.ApiHasImagesBuilder<C, B> {
+        extends ApiHasImages.ApiHasImagesBuilder<C, B> {
 
         /**
          * Jackson creator to obtain a concrete Lombok builder implementation.

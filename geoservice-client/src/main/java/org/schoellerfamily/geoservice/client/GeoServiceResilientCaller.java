@@ -36,7 +36,7 @@ public class GeoServiceResilientCaller {
      * @return parsed geoservice item.
      */
     @CircuitBreaker(
-        include = ResourceAccessException.class,
+        retryFor = ResourceAccessException.class,
         maxAttemptsExpression = "#{${geoservice.retry.max-attempts:3}}",
         openTimeoutExpression = "#{${geoservice.circuit-breaker.open-timeout-millis:30000}}",
         resetTimeoutExpression = "#{${geoservice.circuit-breaker.reset-timeout-millis:30000}}")

@@ -2,23 +2,17 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders note name index output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class NoteNameIndexRenderer implements NameIndexRenderer {
     /** */
-    private final transient NoteRenderer noteRenderer;
-
-    /**
-     * Creates a new NoteNameIndexRenderer.
-     *
-     * @param noteRenderer the note renderer
-     */
-    public NoteNameIndexRenderer(final NoteRenderer noteRenderer) {
-        this.noteRenderer = noteRenderer;
-    }
+    private final NoteRenderer noteRenderer;
 
     /**
      * Returns the index name.
@@ -35,8 +29,8 @@ public class NoteNameIndexRenderer implements NameIndexRenderer {
         final String nameHtml = noteRenderer.getTitleString();
 
         return "<a href=\"note?db=" + note.getDbName() + "&amp;id="
-                + note.getString() + "\" class=\"name\" id=\"note-"
-                + note.getString() + "\">" + nameHtml + " ("
-                + note.getString() + ")</a>";
+            + note.getString() + "\" class=\"name\" id=\"note-"
+            + note.getString() + "\">" + nameHtml + " ("
+            + note.getString() + ")</a>";
     }
 }

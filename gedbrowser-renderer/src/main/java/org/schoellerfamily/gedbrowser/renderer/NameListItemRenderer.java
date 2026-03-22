@@ -1,24 +1,18 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders name list item output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class NameListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the NameRenderer that is using this helper.
      */
-    private final transient NameRenderer nameRenderer;
-
-    /**
-     * Creates a new NameListItemRenderer.
-     *
-     * @param nameRenderer the name renderer to use
-     */
-    protected NameListItemRenderer(final NameRenderer nameRenderer) {
-        this.nameRenderer = nameRenderer;
-    }
+    private final NameRenderer nameRenderer;
 
     /**
      * Executes render as list item.

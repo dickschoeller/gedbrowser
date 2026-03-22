@@ -4,6 +4,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 
 
@@ -12,22 +13,14 @@ import lombok.Getter;
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @Getter
 public abstract class RenderingContextRenderer implements Renderer {
 
     /** */
     private final RenderingContext renderingContext;
 
-    /**
-     * Creates a new RenderingContextRenderer.
-     *
-     * @param renderingContext the rendering context
-     */
-    protected RenderingContextRenderer(final RenderingContext renderingContext) {
-        this.renderingContext = renderingContext;
-    }
-
-    /**
+        /**
      * Gets the application name.
      *
      * @return the application name
@@ -113,8 +106,10 @@ public abstract class RenderingContextRenderer implements Renderer {
      * @return the escaped string.
      */
     public static final String escapeString(final String input) {
-        return input.replace("&", "&amp;").replace("<", "&lt;")
-                .replace(">", "&gt;").replace("\n", "<br/>\n");
+        return input.replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace("\n", "<br/>\n");
     }
 
     /**

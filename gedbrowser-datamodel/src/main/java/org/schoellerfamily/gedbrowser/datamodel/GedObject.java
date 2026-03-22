@@ -56,17 +56,16 @@ public abstract class GedObject extends AbstractFinderObject
     /**
      * The attributes value.
      */
-    private final transient List<GedObject> attributes =
-            new ArrayList<GedObject>();
+    private final List<GedObject> attributes = new ArrayList<>();
     /**
      * The set value.
      */
-    private final transient boolean set;
+    private final boolean set;
 
     /**
      * The appender value.
      */
-    private transient AppenderStrategy appender;
+    private AppenderStrategy appender;
 
     /**
      * Creates a new GedObject.
@@ -279,11 +278,4 @@ public abstract class GedObject extends AbstractFinderObject
     protected final void setAppender(final AppenderStrategy appender) {
         this.appender = appender;
     }
-
-    /**
-     * Hook for using the visitor design pattern to accumulate information.
-     *
-     * @param visitor the visitor
-     */
-    public abstract void accept(GedObjectVisitor visitor);
 }

@@ -16,5 +16,5 @@ public final class ObjectId {
     /**
      * The id string value.
      */
-    private final transient String idString;
+    private final String idString;
 }

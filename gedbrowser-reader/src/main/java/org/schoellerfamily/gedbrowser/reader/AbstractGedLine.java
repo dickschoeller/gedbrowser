@@ -12,11 +12,10 @@ import java.util.List;
  */
 public abstract class AbstractGedLine extends AbstractSingleGedLine {
     /** */
-    private final transient GedLineSource source;
+    private final GedLineSource source;
 
     /** */
-    private final transient List<AbstractGedLine> children =
-            new ArrayList<AbstractGedLine>();
+    private final List<AbstractGedLine> children = new ArrayList<>();
 
     /**
      * Creates a new AbstractGedLine.

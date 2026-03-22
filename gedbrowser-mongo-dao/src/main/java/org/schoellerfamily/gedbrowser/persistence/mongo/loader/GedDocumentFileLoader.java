@@ -181,7 +181,7 @@ public class GedDocumentFileLoader {
             final GedFile gedFile = new GedFile(filename, dbName, finder, bufferedReader);
             gedFile.readToNext();
             return save(createRoot(dbName, filename, gedFile));
-        } catch (IOException e) {
+        } catch (IOException _) {
             log.warn("Could not read file: {}", filename);
             return null;
         }

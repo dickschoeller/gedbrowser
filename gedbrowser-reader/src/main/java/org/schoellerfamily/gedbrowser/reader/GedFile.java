@@ -12,13 +12,13 @@ import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
  */
 public final class GedFile extends AbstractGedLine {
     /** */
-    private final transient String filename;
+    private final String filename;
 
     /** */
-    private final transient String dbName;
+    private final String dbName;
 
     /** */
-    private final transient FinderStrategy finder;
+    private final FinderStrategy finder;
 
     /**
      * Creates a new GedFile.

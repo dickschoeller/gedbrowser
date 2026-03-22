@@ -32,8 +32,7 @@ public class SubmittersRenderer extends GedRenderer<Root>
      * @param root the root
      * @param renderingContext the rendering context
      */
-    public SubmittersRenderer(final Root root,
-            final RenderingContext renderingContext) {
+    public SubmittersRenderer(final Root root, final RenderingContext renderingContext) {
         super(root, new GedRendererFactory(), renderingContext);
     }
 

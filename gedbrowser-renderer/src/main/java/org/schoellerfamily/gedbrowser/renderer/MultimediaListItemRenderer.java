@@ -3,26 +3,19 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Renders multimedia list item output for display.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public final class MultimediaListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the MultimediaRenderer that is using this helper.
      */
-    private final transient MultimediaRenderer multimediaRenderer;
-
-    /**
-     * Creates a new MultimediaListItemRenderer.
-     *
-     * @param multimediaRenderer the multimedia renderer
-     */
-    public MultimediaListItemRenderer(
-            final MultimediaRenderer multimediaRenderer) {
-        this.multimediaRenderer = multimediaRenderer;
-    }
+    private final MultimediaRenderer multimediaRenderer;
 
     /**
      * Executes render as list item.

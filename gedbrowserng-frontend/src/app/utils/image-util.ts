@@ -187,11 +187,11 @@ export class ImageUtil {
 
   private static youtubeId(url: string): string | null {
     const normalized = (url || '').trim();
-    const shortMatch = normalized.match(/youtu\.be\/([^?&]+)/i);
+    const shortMatch = /youtu\.be\/([^?&]+)/i.exec(normalized);
     if (shortMatch?.[1]) {
       return shortMatch[1];
     }
-    const longMatch = normalized.match(/[?&]v=([^?&]+)/i);
+    const longMatch = /[?&]v=([^?&]+)/i.exec(normalized);
     if (longMatch?.[1]) {
       return longMatch[1];
     }

@@ -49,7 +49,7 @@ public class HasRoles {
     public void addRole(final String role) {
         try {
             roles.add(UserRoleName.valueOf(role));
-        } catch (Exception e) {
+        } catch (Exception _) {
             log.warn("Tried to add unrecognized role: {}", role);
         }
     }

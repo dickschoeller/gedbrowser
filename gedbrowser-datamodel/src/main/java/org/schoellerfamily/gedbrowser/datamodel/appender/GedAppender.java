@@ -16,7 +16,7 @@ public final class GedAppender implements AppenderStrategy {
     /**
      * The GedObject that owns this appender.
      */
-    private final transient GedObject owner;
+    private final GedObject owner;
 
     /**
      * Executes append string.

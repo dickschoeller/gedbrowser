@@ -113,8 +113,8 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      */
     @Override
     public String getFilename(final FinderObject owner) {
-        if (owner instanceof Root) {
-            return ((Root) owner).getTheFilename();
+        if (owner instanceof Root root) {
+            return root.getTheFilename();
         }
         return owner.getFilename();
     }
@@ -127,8 +127,8 @@ public final class RepositoryFinderMongo implements FinderStrategy {
      */
     @Override
     public String getDbName(final FinderObject owner) {
-        if (owner instanceof Root) {
-            return ((Root) owner).getTheDbName();
+        if (owner instanceof Root root) {
+            return root.getTheDbName();
         }
         return owner.getDbName();
     }
@@ -191,8 +191,7 @@ public final class RepositoryFinderMongo implements FinderStrategy {
         final String beginsWith) {
         log.info("Starting findBySurnamesBeginWith");
         final Set<String> surnames = new TreeSet<>();
-        if (owner instanceof Root) {
-            final Root root = (Root) owner;
+        if (owner instanceof Root root) {
             final RootDocumentMongo rootDocument = (RootDocumentMongo) toDocConverter
                 .createGedDocument(root);
             final Collection<PersonDocument> personDocuments = repositoryManager
@@ -216,8 +215,7 @@ public final class RepositoryFinderMongo implements FinderStrategy {
     public Collection<String> findSurnameInitialLetters(final FinderObject owner) {
         log.info("Starting findSurnameInitialLetters");
         final Set<String> matches = new TreeSet<>();
-        if (owner instanceof Root) {
-            final Root root = (Root) owner;
+        if (owner instanceof Root root) {
             final RootDocumentMongo rootDocument = (RootDocumentMongo) toDocConverter
                 .createGedDocument(root);
             final Iterable<PersonDocument> personDocuments = repositoryManager

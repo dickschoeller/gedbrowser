@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public final class NodeCellRenderer implements CellRenderer {
     /** */
-    private final transient PersonRenderer personRenderer;
+    private final PersonRenderer personRenderer;
 
     /**
      * Gets the name html.
@@ -29,8 +29,8 @@ public final class NodeCellRenderer implements CellRenderer {
         if (StringUtils.isBlank(nameHtml)) {
             nameHtml = "&nbsp;&nbsp;&nbsp;";
         }
-        return "<table class=\"bbox\"><tr><td class=\"tree bbox\">"
-                + nameHtml + "</td></tr></table>";
+        return "<table class=\"bbox\"><tr><td class=\"tree bbox\">%s</td></tr></table>"
+            .formatted(nameHtml);
     }
 
     /**

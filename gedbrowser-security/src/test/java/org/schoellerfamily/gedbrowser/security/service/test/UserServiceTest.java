@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,19 +46,14 @@ final class UserServiceTest extends AbstractTest {
     @Test
     void testFindAllWithoutUser() throws AccessDeniedException {
         assertThatExceptionOfType(AccessDeniedException.class)
-        .isThrownBy(() -> findAllIgnoreAnswer());
+        .isThrownBy(userService::findAll);
     }
 
     @Test
     void testFindAllWithUser() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestUser());
         assertThatExceptionOfType(AccessDeniedException.class)
-            .isThrownBy(() -> findAllIgnoreAnswer());
-    }
-
-    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-    private void findAllIgnoreAnswer() {
-        userService.findAll();
+            .isThrownBy(userService::findAll);
     }
 
     @Test

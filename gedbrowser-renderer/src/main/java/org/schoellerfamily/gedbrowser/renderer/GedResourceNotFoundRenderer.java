@@ -41,9 +41,8 @@ public class GedResourceNotFoundRenderer extends RenderingContextRenderer {
     public String getMessage() {
         if (throwable == null) {
             return "Null exception";
-        } else {
-            return throwable.getMessage();
         }
+        return throwable.getMessage();
     }
 
     /**
