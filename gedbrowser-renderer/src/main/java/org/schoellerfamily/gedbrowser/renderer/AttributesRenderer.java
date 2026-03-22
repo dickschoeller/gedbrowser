@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
-
-
 /**
  * Renders attributes output for display.
  *
@@ -15,7 +13,6 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
  *
  * @param <T> the data type being rendered
  */
-@SuppressWarnings("java:S1452")
 public interface AttributesRenderer<T extends GedObject> {
     /**
      * @return the gedobject necessary to render the attributes
@@ -26,6 +23,7 @@ public interface AttributesRenderer<T extends GedObject> {
      * @param attribute a gedobject from the attribute list
      * @return the renderer for that object
      */
+    @SuppressWarnings("java:S1452")
     GedRenderer<? extends GedObject> createGedRenderer(GedObject attribute);
 
     /**
@@ -33,6 +31,8 @@ public interface AttributesRenderer<T extends GedObject> {
      *
      * @return the list of attribute renderers.
      */
+    // Suppressed warnings are because of issues related to generics.
+    @SuppressWarnings({ "java:S1452", "java:S6204" })
     default List<GedRenderer<?>> getAttributes() {
         return getGedObject().getAttributes().stream()
             .map(attribute -> (GedRenderer<?>) createGedRenderer(attribute))
