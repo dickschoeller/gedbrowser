@@ -178,7 +178,8 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
         new AttributeListHelper(this).addAttributes(apiParent);
     }
 
-    /* default */ ApiModelToGedObjectVisitor createVisitor() {
+    @Override
+    public ApiObjectVisitor createVisitor() {
         return new ApiModelToGedObjectVisitor(builder, gedObject);
     }
 }

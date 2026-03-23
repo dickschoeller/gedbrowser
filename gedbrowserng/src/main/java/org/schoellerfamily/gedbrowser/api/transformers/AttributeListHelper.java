@@ -5,6 +5,7 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiObjectVisitor;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 
@@ -15,14 +16,14 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
  */
 public class AttributeListHelper {
     /** */
-    private final ApiModelToGedObjectVisitor parentVisitor;
+    private final ApiObjectVisitor parentVisitor;
 
     /**
      * Executes attribute list helper.
      *
      * @param parentVisitor the parent visitor
      */
-    public AttributeListHelper(final ApiModelToGedObjectVisitor parentVisitor) {
+    public AttributeListHelper(final ApiObjectVisitor parentVisitor) {
         this.parentVisitor = parentVisitor;
     }
 
@@ -40,7 +41,7 @@ public class AttributeListHelper {
     private void addByType(final ApiAttribute apiParent, final String string) {
         for (final ApiAttribute object : apiParent.getAttributes()) {
             if (object.isType(string)) {
-                final ApiModelToGedObjectVisitor visitor = createVisitor();
+                final ApiObjectVisitor visitor = createVisitor();
                 object.accept(visitor);
             }
         }
@@ -50,7 +51,7 @@ public class AttributeListHelper {
             final String... types) {
         for (final ApiAttribute object : apiParent.getAttributes()) {
             if (!matchOne(object, types)) {
-                final ApiModelToGedObjectVisitor visitor = createVisitor();
+                final ApiObjectVisitor visitor = createVisitor();
                 object.accept(visitor);
             }
         }
@@ -104,7 +105,7 @@ public class AttributeListHelper {
 
     private void addToAttributes(final List<ApiAttribute> attributes) {
         for (final ApiObject object : attributes) {
-            final ApiModelToGedObjectVisitor visitor = createVisitor();
+            final ApiObjectVisitor visitor = createVisitor();
             object.accept(visitor);
         }
     }
@@ -116,12 +117,12 @@ public class AttributeListHelper {
      */
     public void addAttributes(final ApiObject apiParent) {
         for (final ApiObject object : apiParent.getAttributes()) {
-            final ApiModelToGedObjectVisitor visitor = createVisitor();
+            final ApiObjectVisitor visitor = createVisitor();
             object.accept(visitor);
         }
     }
 
-    private ApiModelToGedObjectVisitor createVisitor() {
+    private ApiObjectVisitor createVisitor() {
         return parentVisitor.createVisitor();
     }
 

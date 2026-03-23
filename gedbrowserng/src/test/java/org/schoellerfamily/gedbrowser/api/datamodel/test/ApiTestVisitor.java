@@ -16,7 +16,7 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiSubmitter;
  *
  * @author Richard Schoeller
  */
-public class ApiTestVisitor implements ApiObjectVisitor {
+public final class ApiTestVisitor implements ApiObjectVisitor {
     /** */
     private String methodCalled = "";
 
@@ -119,4 +119,8 @@ public class ApiTestVisitor implements ApiObjectVisitor {
         methodCalled = "submitter";
     }
 
+    @Override
+    public ApiObjectVisitor createVisitor() {
+        return new ApiTestVisitor();
+    }
 }
