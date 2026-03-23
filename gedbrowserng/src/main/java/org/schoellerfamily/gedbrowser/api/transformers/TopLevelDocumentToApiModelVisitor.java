@@ -29,8 +29,8 @@ import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
  *
  * @author Richard Schoeller
  */
-public class TopLevelDocumentToApiModelVisitor
-        implements TopLevelGedDocumentVisitor, LifespanBuilder,
+public abstract class TopLevelDocumentToApiModelVisitor
+        implements HasBaseObject, TopLevelGedDocumentVisitor, LifespanBuilder,
         SourceTitleBuilder, SubmitterNameBuilder {
 
     /** The base object created. */
@@ -41,6 +41,7 @@ public class TopLevelDocumentToApiModelVisitor
      *
      * @return the base object
      */
+    @Override
     public final ApiObject getBaseObject() {
         return baseObject;
     }
@@ -201,7 +202,7 @@ public class TopLevelDocumentToApiModelVisitor
     protected List<ApiAttribute> processAttributes(final GedDocument<?> document) {
         return document.getAttributes().stream()
             .map(attr -> {
-                final var v = createVisitor();
+                final GedDocumentTransformerVisitor v = createVisitor();
                 attr.accept(v);
                 return convertToAttribute(v.getBaseObject());
             })
@@ -227,7 +228,5 @@ public class TopLevelDocumentToApiModelVisitor
     /**
      * @return the visitor
      */
-    private DocumentToApiModelVisitor createVisitor() {
-        return new DocumentToApiModelVisitor();
-    }
+    public abstract GedDocumentTransformerVisitor createVisitor();
 }

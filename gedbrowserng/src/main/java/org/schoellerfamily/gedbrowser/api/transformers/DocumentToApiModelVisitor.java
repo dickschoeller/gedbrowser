@@ -6,7 +6,6 @@ import org.schoellerfamily.gedbrowser.persistence.domain.ChildDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.DateDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamCDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.FamSDocument;
-import org.schoellerfamily.gedbrowser.persistence.domain.GedDocumentVisitor;
 import org.schoellerfamily.gedbrowser.persistence.domain.HusbandDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.MultimediaDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.NameDocument;
@@ -25,7 +24,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.WifeDocument;
  */
 public final class DocumentToApiModelVisitor
         extends TopLevelDocumentToApiModelVisitor
-        implements GedDocumentVisitor {
+        implements GedDocumentTransformerVisitor {
     /**
      * Executes visit.
      *
@@ -246,5 +245,10 @@ public final class DocumentToApiModelVisitor
     @Override
     public void visit(final RootDocument document) {
         // Intentionally empty.
+    }
+
+    @Override
+    public GedDocumentTransformerVisitor createVisitor() {
+        return new DocumentToApiModelVisitor();
     }
 }
