@@ -111,7 +111,7 @@ public interface ReadOperations<
             .collect(Collectors.toMap(
                 Y::getString,
                 Function.identity(),
-                (first, second) -> first,
+                (first, _) -> first,
                 java.util.LinkedHashMap::new))
             .values().stream()
             .sorted(new GetStringComparator())

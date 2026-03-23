@@ -3,9 +3,6 @@ package org.schoellerfamily.gedbrowser.api.crud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.transformers.ApiModelToGedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -28,7 +25,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface CreateOperations<X extends GedObject,
             Y extends GedDocument<X>,
             Z extends ApiObject>
-        extends Converter<Y, Z>, NewId<X, Y> {
+        extends Converter<Y, Z>, NewId<X, Y>, BuilderCreator {
     /**
      * @return the DB repository for this type
      */
@@ -51,17 +48,6 @@ public interface CreateOperations<X extends GedObject,
          * @return the copy
          */
         T copy(T original, String id);
-    }
-
-    /**
-     * Creates a GedObjectBuilder for the given root. Override to provide
-     * alternate implementations or mocks for testing.
-     *
-     * @param root the root object
-     * @return a new GedObjectBuilder
-     */
-    default GedObjectBuilder createBuilder(final Root root) {
-        return new GedObjectBuilderImpl(root);
     }
 
     /**
