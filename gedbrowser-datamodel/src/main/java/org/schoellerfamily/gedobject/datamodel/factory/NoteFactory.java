@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating notes.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class NoteFactory extends AbstractGedObjectFactory {
     /** */
     /* default */ static final NoteLinkFactory NOTELINK_FACTORY = new NoteLinkFactory();

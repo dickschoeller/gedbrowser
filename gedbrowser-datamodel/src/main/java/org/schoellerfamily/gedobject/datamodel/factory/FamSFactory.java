@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.FamS;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating fams links.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class FamSFactory extends AbstractGedObjectFactory {
     static {
         put("FAMS", "Spouse of Family", new FamSFactory());

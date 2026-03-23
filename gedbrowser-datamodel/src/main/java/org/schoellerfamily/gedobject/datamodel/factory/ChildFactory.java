@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating children.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class ChildFactory extends AbstractGedObjectFactory {
     static {
         put("CHIL", "Child", new ChildFactory());

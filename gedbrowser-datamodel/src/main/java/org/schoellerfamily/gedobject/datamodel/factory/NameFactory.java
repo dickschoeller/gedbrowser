@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating name links.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class NameFactory extends AbstractGedObjectFactory {
     static {
         put("NAME", "Name", new NameFactory());

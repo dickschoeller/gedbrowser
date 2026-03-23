@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating famc links.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class FamCFactory extends AbstractGedObjectFactory {
     static {
         put("FAMC", "Child of Family", new FamCFactory());

@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 
+/**
+ * Factory for creating sources.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class SourceFactory extends AbstractGedObjectFactory {
     /** */
     /* default */ static final SourceLinkFactory SOURLINK_FACTORY = new SourceLinkFactory();

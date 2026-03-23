@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating attributes.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class AttributeFactory extends AbstractGedObjectFactory {
     /** */
     /* default */ static final AttributeFactory ATTR_FACTORY = new AttributeFactory();

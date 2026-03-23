@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 
+/**
+ * Factory for creating place attributes.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class PlaceFactory extends AbstractGedObjectFactory {
     static {
         put("PLAC", "Place", new PlaceFactory());

@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating heads.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class HeadFactory extends AbstractGedObjectFactory {
     static {
         put("HEAD", "Header", new HeadFactory());

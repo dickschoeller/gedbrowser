@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating roots.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class RootFactory extends AbstractGedObjectFactory {
     static {
         put("ROOT", "Root", new RootFactory());

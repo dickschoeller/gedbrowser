@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating links.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class LinkFactory extends AbstractGedObjectFactory {
     static {
         put("LINK", "Link", new LinkFactory());

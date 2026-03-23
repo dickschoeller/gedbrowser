@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 
+/**
+ * Factory for creating submissions.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class SubmissionFactory extends AbstractGedObjectFactory {
     /** */
     /* default */ static final SubmissionLinkFactory SUBNLINK_FACTORY = new SubmissionLinkFactory();

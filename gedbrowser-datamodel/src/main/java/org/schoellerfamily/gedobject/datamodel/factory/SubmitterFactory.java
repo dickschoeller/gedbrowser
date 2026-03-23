@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 
+/**
+ * Factory for creating submitters.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class SubmitterFactory extends AbstractGedObjectFactory {
     static {
         put("SUBM", "Submitter", new SubmitterFactory());

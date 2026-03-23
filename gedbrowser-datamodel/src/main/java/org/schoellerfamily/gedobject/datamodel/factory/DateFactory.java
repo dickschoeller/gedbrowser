@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating concatenated date attributes.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class DateFactory extends AbstractGedObjectFactory {
     static {
         put("DATE", "Date", new DateFactory());

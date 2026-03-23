@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 
+/**
+ * Factory for creating trailers.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class TrailerFactory extends AbstractGedObjectFactory {
     static {
         put("TRLR", "Trailer", new TrailerFactory());

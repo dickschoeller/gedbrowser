@@ -3,6 +3,11 @@ package org.schoellerfamily.gedobject.datamodel.factory;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
+/**
+ * Factory for creating concatenated attribute lines.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class ConcatenationFactory extends AbstractGedObjectFactory {
     static {
         put("CONC", "Concatenate", new ConcatenationFactory());

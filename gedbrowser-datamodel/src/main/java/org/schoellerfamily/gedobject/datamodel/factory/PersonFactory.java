@@ -4,6 +4,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
+/**
+ * Factory for creating persons.
+ *
+ * @author Richard Schoeller
+ */
 /* default */ class PersonFactory extends AbstractGedObjectFactory {
     static {
         put("INDI", "Person", new PersonFactory());
