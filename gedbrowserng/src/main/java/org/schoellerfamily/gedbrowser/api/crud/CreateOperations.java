@@ -3,6 +3,8 @@ package org.schoellerfamily.gedbrowser.api.crud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.transformers.ApiModelToGedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
@@ -52,6 +54,17 @@ public interface CreateOperations<X extends GedObject,
     }
 
     /**
+     * Creates a GedObjectBuilder for the given root. Override to provide
+     * alternate implementations or mocks for testing.
+     *
+     * @param root the root object
+     * @return a new GedObjectBuilder
+     */
+    default GedObjectBuilder createBuilder(final Root root) {
+        return new GedObjectBuilderImpl(root);
+    }
+
+    /**
      * @param root the root of the db
      * @param in the requested object to create
      * @param copier implements type specific copying
@@ -61,7 +74,7 @@ public interface CreateOperations<X extends GedObject,
             final ApiCopier<Z> copier) {
         final ApiModelToGedObjectVisitor visitor =
             new ApiModelToGedObjectVisitor(
-                new GedObjectBuilderImpl(root.getGedObject()),
+                createBuilder(root.getGedObject()),
                 root.getGedObject());
         final String id = newId(root);
         final Z newObject = copier.copy(in, id);
