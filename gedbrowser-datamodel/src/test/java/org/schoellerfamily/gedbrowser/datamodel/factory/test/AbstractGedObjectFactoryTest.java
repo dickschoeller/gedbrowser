@@ -36,6 +36,7 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 
 
@@ -48,9 +49,9 @@ import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 @SuppressWarnings("PMD.ExcessiveImports")
 final class AbstractGedObjectFactoryTest {
     /** */
-    private static final GedObjectBuilder BUILDER = new GedObjectBuilder();
+    private static final Root ROOT = new Root();
     /** */
-    private static final Root ROOT = BUILDER.getRoot();
+    private static final GedObjectBuilder BUILDER = new GedObjectBuilderImpl(ROOT);
     /** */
     private static final Person PERSON = BUILDER.createPerson("I1", "Richard John/Schoeller/");
     /** */

@@ -31,6 +31,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 
@@ -43,7 +44,7 @@ import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
 final class GedObjectBuilderEventByNameTest {
     /** */
-    private static GedObjectBuilder builder = new GedObjectBuilder();
+    private static GedObjectBuilder builder = new GedObjectBuilderImpl();
     /** */
     @SuppressWarnings("PMD.SingularField")
     private static Root root = builder.getRoot();

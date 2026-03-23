@@ -17,6 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -41,7 +42,7 @@ final class RootTest {
     @BeforeEach
     void setUp() {
         root = new Root("Root");
-        final GedObjectBuilder builder = new GedObjectBuilder(root);
+        final GedObjectBuilder builder = new GedObjectBuilderImpl(root);
         person1 = builder.createPerson("I1", "Richard/Schoeller/");
         person2 = builder.createPerson("I2", "John/Schoeller/");
         person3 = builder.createPerson("I3", "Patricia/Hayes/");

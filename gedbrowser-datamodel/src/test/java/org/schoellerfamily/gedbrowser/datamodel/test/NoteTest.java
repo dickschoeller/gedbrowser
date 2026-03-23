@@ -9,6 +9,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -22,7 +23,7 @@ class NoteTest {
 
     @BeforeEach
     void setUp() {
-        builder = new GedObjectBuilder();
+        builder = new GedObjectBuilderImpl();
     }
 
     @Test

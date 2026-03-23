@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
@@ -90,7 +91,7 @@ final class SubmitterRendererTest {
 
     @Test
     void testIdString() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Submitter submitter = builder.createSubmitter("S1", "Richard John/Schoeller/");
         final SubmitterRenderer renderer = createRenderer(submitter);
         assertEquals("S1", renderer.getIdString(), "Submitter ID mismatch");
@@ -98,7 +99,7 @@ final class SubmitterRendererTest {
 
     @Test
     void testTitleString() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Submitter submitter = builder.createSubmitter("S1", "Richard John/Schoeller/");
         final SubmitterRenderer renderer = createRenderer(submitter);
         assertEquals("Richard John Schoeller", renderer.getTitleString(), "Submitter ID mismatch");

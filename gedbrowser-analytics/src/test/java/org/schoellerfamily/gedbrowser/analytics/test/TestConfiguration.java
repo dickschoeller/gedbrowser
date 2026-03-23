@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.analytics.test;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProviderStub;
 import org.schoellerfamily.gedbrowser.analytics.order.test.OrderAnalyzerTestWrapper;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.reader.GedLineToGedObjectTransformer;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +45,7 @@ public class TestConfiguration {
      */
     @Bean
     public GedObjectBuilder builder() {
-        return new GedObjectBuilder();
+        return new GedObjectBuilderImpl();
     }
 
     /**

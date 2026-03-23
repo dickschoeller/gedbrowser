@@ -136,7 +136,7 @@ public class DuplicateCleanupService {
                         collectionName, id);
                     return;
                 }
-                idsByKey.computeIfAbsent(key, k -> newIdList()).add(id);
+                idsByKey.computeIfAbsent(key, _ -> newIdList()).add(id);
             });
         }
         return idsByKey;

@@ -16,6 +16,7 @@ import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 
@@ -36,7 +37,7 @@ final class ChildTest {
 
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
 
         final Person person1 = builder.createPerson(
                 "I1", "J. Random/Schoeller/");
@@ -92,7 +93,7 @@ final class ChildTest {
 
     @Test
     void testChildUnspecifiedFatherShouldBeUnset() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
         final FamilyNavigator navigator = new FamilyNavigator(child);
@@ -101,7 +102,7 @@ final class ChildTest {
 
     @Test
     void testChildUnspecifiedMotherShouldBeUnset() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
         final FamilyNavigator navigator = new FamilyNavigator(child);
@@ -110,7 +111,7 @@ final class ChildTest {
 
     @Test
     void testChildUnspecifiedPersonShouldBeUnset() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Child child = new Child(family, "Child", new ObjectId("I3"));
         assertFalse(child.getChild().isSet(), "Expected null object");

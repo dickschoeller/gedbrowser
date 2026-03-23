@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 
@@ -27,7 +28,7 @@ final class SubmitterTest {
 
     @Test
     void testSubmitterName() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Submitter submitter = builder.createSubmitter("S1",
                 "Richard John/Schoeller/");
         assertEquals("Richard John/Schoeller/",
@@ -36,7 +37,7 @@ final class SubmitterTest {
 
     @Test
     void testSubmitterSurname() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Submitter submitter = builder.createSubmitter("S1",
                 "Richard John/Schoeller/");
         assertEquals("Schoeller", submitter.getSurname(), "Mismatch surname");
@@ -44,7 +45,7 @@ final class SubmitterTest {
 
     @Test
     void testSubmitterIndexName() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Submitter submitter = builder.createSubmitter("S1",
                 "Richard John/Schoeller/");
         assertEquals("Schoeller, Richard John",
@@ -53,21 +54,21 @@ final class SubmitterTest {
 
     @Test
     void testSubmitterNullName() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Submitter submitter2 = builder.createSubmitter("S2");
         assertEquals("", submitter2.getName().toString(), "Expected null name");
     }
 
     @Test
     void testSubmitterNullSurname() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Submitter submitter2 = builder.createSubmitter("S2");
         assertEquals("?", submitter2.getSurname(), "Expected ? surname");
     }
 
     @Test
     void testSubmitterNullIndexName() {
-        final GedObjectBuilder builder = new GedObjectBuilder(root);
+        final GedObjectBuilder builder = new GedObjectBuilderImpl(root);
         final Submitter submitter2 = builder.createSubmitter("S2");
         assertEquals("?, ?", submitter2.getIndexName(), "Expected ?s index name");
     }

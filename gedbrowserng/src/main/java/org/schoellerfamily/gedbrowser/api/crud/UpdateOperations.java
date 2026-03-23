@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.api.crud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.transformers.ApiModelToGedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
@@ -27,7 +26,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface UpdateOperations<X extends GedObject,
         Y extends GedDocument<X>,
         Z extends ApiObject>
-    extends Converter<Y, Z> {
+    extends Converter<Y, Z>, BuilderCreator {
     /**
      * @return the DB repository for this type
      */
@@ -48,7 +47,7 @@ public interface UpdateOperations<X extends GedObject,
     default Z update(final RootDocument root, final Z in) {
         final ApiModelToGedObjectVisitor visitor =
             new ApiModelToGedObjectVisitor(
-                new GedObjectBuilder(root.getGedObject()),
+                createBuilder(root.getGedObject()),
                 root.getGedObject());
         in.accept(visitor);
         @SuppressWarnings("unchecked")

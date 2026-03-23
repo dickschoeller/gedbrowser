@@ -12,6 +12,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.NameHtmlRenderer;
@@ -46,7 +47,7 @@ final class AnonymousModePersonNameHtmlRendererTest {
 
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         person = builder.createPerson("I1");
         renderingContext = RenderingContext.anonymous(appInfo);
     }
@@ -65,7 +66,7 @@ final class AnonymousModePersonNameHtmlRendererTest {
     @ParameterizedTest
     @MethodSource("nameHtmlCases")
     void testGetNameHtml(final String nameValue) {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person testPerson = builder.createPerson("I1");
         final Name name =
             nameValue.isEmpty() ? new Name(testPerson) : new Name(testPerson, nameValue);
@@ -87,7 +88,7 @@ final class AnonymousModePersonNameHtmlRendererTest {
 
     @Test
     void testGetNameHtmlPersonUnset() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final PersonRenderer personRenderer = new PersonRenderer(
             builder.createPerson(),
             new GedRendererFactory(),
