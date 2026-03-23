@@ -10,6 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
  * @author Richard Schoeller
  */
 /* default */ class SubmitterFactory extends AbstractGedObjectFactory {
+    /** */
+    /* default */ static final SubmitterLinkFactory SUBMLINK_FACTORY = new SubmitterLinkFactory();
+
     static {
         put("SUBM", "Submitter", new SubmitterFactory());
     }
@@ -20,7 +23,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
         if (parent.getParent() == null) {
             return new Submitter(parent, xref);
         } else {
-            return new SubmitterLinkFactory().create(parent, xref, tag, tail);
+            return SUBMLINK_FACTORY.create(parent, xref, tag, tail);
         }
     }
 }
