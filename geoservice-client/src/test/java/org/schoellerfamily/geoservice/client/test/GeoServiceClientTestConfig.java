@@ -1,4 +1,4 @@
-package org.schoellerfamily.geoservice.client;
+package org.schoellerfamily.geoservice.client.test;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;

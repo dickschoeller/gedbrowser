@@ -1,4 +1,4 @@
-package org.schoellerfamily.geoservice.client;
+package org.schoellerfamily.geoservice.client.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -23,6 +23,9 @@ import org.geojson.FeatureCollection;
 import org.geojson.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.schoellerfamily.geoservice.client.GeoServiceCacheConfig;
+import org.schoellerfamily.geoservice.client.GeoServiceClient;
+import org.schoellerfamily.geoservice.client.GeoServiceResilientCaller;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
