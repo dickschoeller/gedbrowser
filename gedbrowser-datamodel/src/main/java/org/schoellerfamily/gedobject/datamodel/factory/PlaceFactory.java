@@ -11,8 +11,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Place;
  */
 /* default */ class PlaceFactory extends AbstractGedObjectFactory {
     static {
-        put("PLAC", "Place", new PlaceFactory());
-        put("PLACE", "Place", new PlaceFactory());
+        final PlaceFactory factory = new PlaceFactory();
+        put("PLAC", "Place", factory);
+        put("PLACE", "Place", factory);
     }
 
     @Override
