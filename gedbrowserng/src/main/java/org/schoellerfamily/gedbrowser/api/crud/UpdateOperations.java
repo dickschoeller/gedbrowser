@@ -68,6 +68,9 @@ public interface UpdateOperations<X extends GedObject,
         try {
             final FindableDocument<X, Y> repo = getRepository();
             final Y oldDoc = repo.findByFileAndString(gob.getFilename(), gob.getString());
+            if (oldDoc == null) {
+                return null;
+            }
             document.setIdString(oldDoc.getIdString());
             return ((CrudRepository<Y, String>) repo).save(document);
         } catch (Exception _) {
