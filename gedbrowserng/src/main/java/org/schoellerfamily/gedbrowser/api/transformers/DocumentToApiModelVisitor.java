@@ -2,11 +2,16 @@ package org.schoellerfamily.gedbrowser.api.transformers;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Visits document to api model elements and applies visitor logic.
  *
  * @author Richard Schoeller
  */
+@Getter
+@Setter
 public final class DocumentToApiModelVisitor implements
         RootDocumentVisitor,
         FamilyDocumentVisitor,
@@ -31,26 +36,9 @@ public final class DocumentToApiModelVisitor implements
         FamSDocumentVisitor,
         HusbandDocumentVisitor,
         WifeDocumentVisitor {
+
     /** The base object created. */
     private ApiObject baseObject;
-
-    /**
-     * Returns the base object.
-      *
-      * @return the base object
-     */
-    public ApiObject getBaseObject() {
-        return baseObject;
-    }
-
-    /**
-     * Sets the base object.
-     *
-     * @param baseObject the base object to set
-     */
-    public void setBaseObject(final ApiObject baseObject) {
-        this.baseObject = baseObject;
-    }
 
     @Override
     public DocumentToApiModelVisitor createVisitor() {
