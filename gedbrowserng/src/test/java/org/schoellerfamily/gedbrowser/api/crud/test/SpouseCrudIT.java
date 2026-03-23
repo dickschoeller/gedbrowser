@@ -207,4 +207,28 @@ final class SpouseCrudIT {
             .returns(reqSpouse.getSurname(), o -> o.getSurname())
             .returns(reqSpouse.getIndexName(), o -> o.getIndexName());
     }
+
+    @Test
+    void testCreateSpouseInFamilyNotFound() {
+        log.info("Beginning testCreateSpouseInFamilyNotFound");
+        final ApiPerson reqSpouse = helper.createAlexander();
+        final ApiPerson resSpouse = crud.createSpouseInFamily(helper.getDb(), "FXXXXX", reqSpouse);
+
+        assertThat(resSpouse)
+            .returns(reqSpouse.getType(), ApiPerson::getType)
+            .returns(reqSpouse.getSurname(), ApiPerson::getSurname)
+            .returns(reqSpouse.getIndexName(), ApiPerson::getIndexName)
+            .returns(0, o -> o.getFamss().size());
+    }
+
+    @Test
+    void testLinkSpouseInFamilyNotFound() {
+        log.info("Beginning testLinkSpouseInFamilyNotFound");
+        final ApiPerson spouse = helper.createPerson();
+        final ApiPerson resSpouse = crud.linkSpouseInFamily(helper.getDb(), "FXXXXX", spouse);
+
+        assertThat(resSpouse)
+            .returns(spouse.getString(), ApiPerson::getString)
+            .returns(0, o -> o.getFamss().size());
+    }
 }
