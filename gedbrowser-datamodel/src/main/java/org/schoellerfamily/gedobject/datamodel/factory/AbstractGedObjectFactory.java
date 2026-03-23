@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedobject.datamodel.factory;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class AbstractGedObjectFactory implements GedObjectFactory {
     /** */
-    protected static final Map<String, GedToken> TOKENS = new TreeMap<>();
+    protected static final Map<String, GedToken> TOKENS = new HashMap<>();
 
     /**
      * Factory method creates the appropriate GedObject from the provided strings.
