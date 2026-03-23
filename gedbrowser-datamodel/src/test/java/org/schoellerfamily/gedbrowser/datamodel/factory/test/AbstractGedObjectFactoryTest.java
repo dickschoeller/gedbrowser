@@ -36,7 +36,7 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 
 
 
@@ -117,19 +117,19 @@ final class AbstractGedObjectFactoryTest {
         { PERSON, "foo", "OBJE", null, new Multimedia(PERSON, "Multimedia", null) },
         // These 2 are funky
         { NOTE, null, "CONC", "y stuff", null }, { NOTE, null, "CONT", "and some more text", null },
-//            {note, null, "CONC", "y stuff",
+//            {note, null, "CONC", "y stuff,
 //                new Attribute(person, "Note", "Some texty stuff")},
-//            {note, null, "CONT", "and some more text",
+//            {note, null, "CONT", "and some more text,
 //                new Attribute(person, "Note",
 //                    "Some text\nand some more text")},
     };
 
     /** */
-    private GedObjectFactory factory;
+    private GedObjectStarterFactory factory;
 
     @BeforeEach
     void setUp() {
-        factory = new GedObjectFactory();
+        factory = new GedObjectStarterFactory();
     }
 
     static Stream<Arguments> params() {

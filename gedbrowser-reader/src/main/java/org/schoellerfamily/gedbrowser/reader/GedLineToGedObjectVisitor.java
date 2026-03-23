@@ -2,7 +2,7 @@ package org.schoellerfamily.gedbrowser.reader;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GedLineToGedObjectVisitor implements GedLineVisitor {
     /** */
-    private final GedObjectFactory factory;
+    private final GedObjectStarterFactory factory;
 
     /**
      * This controls hierarchy.

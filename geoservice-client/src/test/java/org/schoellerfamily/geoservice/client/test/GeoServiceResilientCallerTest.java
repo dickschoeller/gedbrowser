@@ -1,4 +1,4 @@
-package org.schoellerfamily.geoservice.client;
+package org.schoellerfamily.geoservice.client.test;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.schoellerfamily.geoservice.client.GeoServiceResilientCaller;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

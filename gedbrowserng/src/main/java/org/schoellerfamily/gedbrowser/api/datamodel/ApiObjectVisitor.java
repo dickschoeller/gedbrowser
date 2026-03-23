@@ -50,4 +50,11 @@ public interface ApiObjectVisitor {
      * @param submitter the submitter object to visit
      */
     void visit(ApiSubmitter submitter);
+
+    /**
+     * Creates a new visitor for visiting attributes.
+     *
+     * @return the new visitor
+     */
+    ApiObjectVisitor createVisitor();
 }

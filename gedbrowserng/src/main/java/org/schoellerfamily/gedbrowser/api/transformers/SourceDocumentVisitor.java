@@ -1,20 +1,32 @@
 package org.schoellerfamily.gedbrowser.api.transformers;
 
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 import org.schoellerfamily.gedbrowser.persistence.domain.AttributeDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.SourceDocument;
 
 /**
- * Builds source title instances.
+ * The visitor for SourceDocument.
  *
  * @author Richard Schoeller
  */
-public interface SourceTitleBuilder {
+/* default */ interface SourceDocumentVisitor extends GedDocumentBaseVisitor {
+    @Override
+    default void visit(final SourceDocument document) {
+        // Use builder so we can set the title field explicitly
+        setBaseObject(ApiSource.builder()
+            .type(document.getType())
+            .string(document.getString())
+            .title(title(document))
+            .attributes(processAttributes(document))
+            .build());
+    }
+
     /**
      * @param document the document whose title we want
      * @return the title
      */
-    default String title(final SourceDocument document) {
+    private String title(final SourceDocument document) {
         for (final GedDocument<?> g : document.getAttributes()) {
             if ("Title".equals(g.getString())) {
                 final AttributeDocument a = (AttributeDocument) g;
@@ -23,5 +35,4 @@ public interface SourceTitleBuilder {
         }
         return "Unknown";
     }
-
 }

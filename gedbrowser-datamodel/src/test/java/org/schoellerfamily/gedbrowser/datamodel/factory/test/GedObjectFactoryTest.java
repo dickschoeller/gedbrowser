@@ -12,7 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 
 
 /**
@@ -36,7 +36,7 @@ final class GedObjectFactoryTest {
     @MethodSource("params")
     void testFactory(final GedObject parent, final String xref, final String tag,
         final String tail) {
-        final GedObjectFactory factory = new GedObjectFactory();
+        final GedObjectStarterFactory factory = new GedObjectStarterFactory();
         final GedObject gob = factory.create(parent, new ObjectId(xref), tag, tail);
         assertNull(gob, "should always return null");
     }

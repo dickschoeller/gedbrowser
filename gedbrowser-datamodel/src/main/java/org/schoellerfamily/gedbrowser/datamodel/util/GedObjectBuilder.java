@@ -10,7 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
-import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 
 /**
  * Builds ged object instances.
@@ -47,7 +47,7 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
     /**
      * Performs ged object factory.
      */
-    private final GedObjectFactory factory = new GedObjectFactory();
+    private final GedObjectStarterFactory factory = new GedObjectStarterFactory();
 
     /**
      * Map of strings in web service to strings of GEDCOM.
@@ -290,7 +290,7 @@ public final class GedObjectBuilder implements PersonBuilderFacade,
             gob = factory.create(parent, string, tag, tail);
             break;
         case REFERENCE:
-            gob = factory.create(parent, "", tag, "@" + string + "@");
+            gob = factory.create(parent, "", tag, "@%s@".formatted(string));
             break;
         case VALUE:
             gob = factory.create(parent, "", tag, string);

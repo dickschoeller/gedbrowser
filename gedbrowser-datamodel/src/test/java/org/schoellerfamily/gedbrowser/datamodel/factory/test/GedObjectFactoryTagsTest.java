@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 
 
 /**
@@ -120,7 +120,7 @@ final class GedObjectFactoryTagsTest {
     @MethodSource("params")
     void testFactoryResultTag(final GedObject parent, final String tag, final String xref,
         final String expected, final String tail) {
-        final GedObjectFactory factory = new GedObjectFactory();
+        final GedObjectStarterFactory factory = new GedObjectStarterFactory();
         final GedObject gob = factory.create(parent, xref, tag, tail);
         final String actual = (gob == null) ? null : gob.getString();
         assertEquals(expected, actual, "Did not get the expected tag");
