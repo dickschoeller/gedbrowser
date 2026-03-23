@@ -112,8 +112,9 @@ class ParentCrudIT {
     @Test
     void testCreateParentChildNotFound() {
         final String db = helper.getDb();
+        final ApiPerson person = helper.buildPerson();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.createParent(db, "IXXXXX", helper.buildPerson()))
+            .isThrownBy(() -> crud.createParent(db, "IXXXXX", person))
             .withMessage("Object IXXXXX of type person not found");
     }
 
@@ -122,8 +123,9 @@ class ParentCrudIT {
         final ApiPerson child = helper.createPerson();
         final String db = helper.getDb();
         final ApiPerson missingParent = ApiPerson.builder().string("IXXXXX").build();
+        final String childString = child.getString();
         assertThatExceptionOfType(ObjectNotFoundException.class)
-            .isThrownBy(() -> crud.linkParent(db, child.getString(), missingParent))
+            .isThrownBy(() -> crud.linkParent(db, childString, missingParent))
             .withMessage("Object IXXXXX of type person not found");
     }
 }
