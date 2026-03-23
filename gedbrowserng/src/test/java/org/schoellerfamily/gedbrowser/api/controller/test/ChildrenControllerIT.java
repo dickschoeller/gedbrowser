@@ -115,9 +115,9 @@ class ChildrenControllerIT {
             .returnResult(ApiPerson.class);
         final ApiPerson gotChild = childEntity.getResponseBody();
         assertThat(gotChild.getString()).isEqualTo(child.getString());
-        assertThat(gotChild.getFamcs().size()).isEqualTo(1);
+        assertThat(gotChild.getFamcs()).hasSize(1);
         final ApiPerson gotParent = helper.getPerson(parent);
-        assertThat(gotParent.getFamss().size()).isEqualTo(1);
+        assertThat(gotParent.getFamss()).hasSize(1);
         assertEquals(gotParent.getFamss().get(0).getString(),
             gotChild.getFamcs().get(0).getString(), "check ids");
     }

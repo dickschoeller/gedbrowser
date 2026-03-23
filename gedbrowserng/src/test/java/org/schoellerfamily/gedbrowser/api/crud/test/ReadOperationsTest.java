@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -9,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.crud.ReadOperations;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
@@ -54,6 +57,36 @@ final class ReadOperationsTest {
         assertEquals(2, result.size());
         assertSame(aFirst, result.get(0));
         assertSame(bDoc, result.get(1));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void testReadRootThrowsWhenDatasetMissing() {
+        final FindableDocument<Root, RootDocument> repository = mock(FindableDocument.class);
+        final GedObjectFileLoader loader = mock(GedObjectFileLoader.class);
+        final RepositoryManagerMongo repositoryManager = mock(RepositoryManagerMongo.class);
+        final ReadOperationsStub readOperations = new ReadOperationsStub(repository, loader);
+
+        when(loader.loadDocument(repositoryManager, "missing-db")).thenReturn(null);
+
+        assertThrows(DataSetNotFoundException.class,
+            () -> readOperations.readRoot(repositoryManager, "missing-db"));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void testReadThrowsWhenObjectMissing() {
+        final FindableDocument<Root, RootDocument> repository = mock(FindableDocument.class);
+        final GedObjectFileLoader loader = mock(GedObjectFileLoader.class);
+        final RepositoryManagerMongo repositoryManager = mock(RepositoryManagerMongo.class);
+        final RootDocument root = mock(RootDocument.class);
+        final ReadOperationsStub readOperations = new ReadOperationsStub(repository, loader);
+
+        when(loader.loadDocument(repositoryManager, "db")).thenReturn(root);
+        when(repository.findByRootAndString(root, "I999")).thenReturn(null);
+
+        assertThrows(ObjectNotFoundException.class,
+            () -> readOperations.read(repositoryManager, "db", "I999"));
     }
 
     /**

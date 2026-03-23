@@ -1,7 +1,7 @@
 package org.schoellerfamily.geoservice.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
@@ -49,27 +49,16 @@ public class GeoCodeEntryController {
         } else {
             log.debug("Find location: \"{}\", \"{}\"", name, modernName);
         }
-        String findName;
-        try {
-            findName = URLDecoder.decode(name, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            findName = name;
-        }
-        String findModernName;
+        final String findName = URLDecoder.decode(name, StandardCharsets.UTF_8);
         if (StringUtils.isEmpty(modernName)) {
             final GeoCodeItem find = gcc.find(findName);
             final GeocodeResultBuilder builder = new GeocodeResultBuilder();
             return builder.toGeoServiceItem(find);
-        } else {
-            try {
-                findModernName = URLDecoder.decode(modernName, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                findModernName = modernName;
-            }
-            final GeoCodeItem find = gcc.find(findName, findModernName);
-            final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-            return builder.toGeoServiceItem(find);
         }
+        final String findModernName = URLDecoder.decode(modernName, StandardCharsets.UTF_8);
+        final GeoCodeItem find = gcc.find(findName, findModernName);
+        final GeocodeResultBuilder builder = new GeocodeResultBuilder();
+        return builder.toGeoServiceItem(find);
 
     }
 }

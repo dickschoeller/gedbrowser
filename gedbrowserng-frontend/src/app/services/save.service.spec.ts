@@ -2,6 +2,7 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { firstValueFrom } from 'rxjs';
 
 import { SaveService } from './save.service';
 
@@ -40,7 +41,7 @@ describe('SaveService', () => {
       const expectedContent = 'GEDCOM file content';
 
       const result$ = service.getTextFile(dataset);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb/save');
       expect(req.request.method).toBe('GET');
@@ -56,7 +57,7 @@ describe('SaveService', () => {
       const content1 = 'content1';
 
       const result1$ = service.getTextFile(dataset1);
-      const promise1 = result1$.toPromise();
+      const promise1 = firstValueFrom(result1$);
 
       const req1 = httpMock.expectOne('/gedbrowserng/v1/dbs/database1/save');
       req1.flush(content1);
@@ -69,7 +70,7 @@ describe('SaveService', () => {
       const dataset = 'testdb';
 
       const result$ = service.getTextFile(dataset);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb/save');
       req.flush('');
@@ -83,7 +84,7 @@ describe('SaveService', () => {
       const largeContent = 'x'.repeat(100000);
 
       const result$ = service.getTextFile(dataset);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb/save');
       req.flush(largeContent);
@@ -96,7 +97,7 @@ describe('SaveService', () => {
     it('should handle HTTP 404 errors', async () => {
       const dataset = 'notfound';
 
-      const promise = service.getTextFile(dataset).toPromise();
+      const promise = firstValueFrom(service.getTextFile(dataset));
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/notfound/save');
       req.flush('Not found', { status: 404, statusText: 'Not Found' });
@@ -107,7 +108,7 @@ describe('SaveService', () => {
     it('should handle HTTP 500 errors', async () => {
       const dataset = 'testdb';
 
-      const promise = service.getTextFile(dataset).toPromise();
+      const promise = firstValueFrom(service.getTextFile(dataset));
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb/save');
       req.flush('Server error', { status: 500, statusText: 'Internal Server Error' });
@@ -119,7 +120,7 @@ describe('SaveService', () => {
       const dataset = 'mydata';
 
       const result$ = service.getTextFile(dataset);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne((r) => 
         r.url === '/gedbrowserng/v1/dbs/mydata/save' && 
@@ -135,7 +136,7 @@ describe('SaveService', () => {
       const content = 'GEDCOM data';
 
       const result$ = service.getTextFile(dataset);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/test-db_2024/save');
       req.flush(content);

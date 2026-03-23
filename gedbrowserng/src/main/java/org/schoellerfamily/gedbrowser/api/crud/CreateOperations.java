@@ -60,9 +60,9 @@ public interface CreateOperations<X extends GedObject,
     default Z create(final RootDocument root, final Z in,
             final ApiCopier<Z> copier) {
         final ApiModelToGedObjectVisitor visitor =
-                new ApiModelToGedObjectVisitor(
-                        new GedObjectBuilder(root.getGedObject()),
-                        root.getGedObject());
+            new ApiModelToGedObjectVisitor(
+                new GedObjectBuilder(root.getGedObject()),
+                root.getGedObject());
         final String id = newId(root);
         final Z newObject = copier.copy(in, id);
         newObject.accept(visitor);
@@ -82,14 +82,12 @@ public interface CreateOperations<X extends GedObject,
         final Y document = (Y) getConverter().createGedDocument(gob);
         try {
             final FindableDocument<X, Y> repo = getRepository();
-            final Y oldDoc = repo.findByFileAndString(
-                    gob.getFilename(), gob.getString());
+            final Y oldDoc = repo.findByFileAndString(gob.getFilename(), gob.getString());
             if (oldDoc != null) {
                 document.setIdString(oldDoc.getIdString());
             }
-            return ((CrudRepository<Y, String>) repo)
-                    .save(document);
-        } catch (Exception e) {
+            return ((CrudRepository<Y, String>) repo).save(document);
+        } catch (Exception _) {
             return null;
         }
     }

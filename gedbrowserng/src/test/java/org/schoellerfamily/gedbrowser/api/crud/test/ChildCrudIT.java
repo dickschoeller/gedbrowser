@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -148,6 +149,43 @@ class ChildCrudIT {
             .returns(reqPerson.getSurname(), p -> p.getSurname())
             .returns(reqPerson.getIndexName(), p -> p.getIndexName())
             .returns("F4", p -> p.getFamcs().get(0).getString());
+    }
+
+    @Test
+    void testCreateChildInFamilyNotFound() {
+        log.info("Beginning testCreateChildInFamilyNotFound");
+        final ApiPerson reqPerson = helper.createAlexander();
+        final ApiPerson resPerson =
+                crud.createChildInFamily(helper.getDb(), "FXXXXX", reqPerson);
+
+        assertNull(resPerson, "Should return null when family is not found");
+    }
+
+    @Test
+    void testLinkChildInFamilyNotFound() {
+        log.info("Beginning testLinkChildInFamilyNotFound");
+        final ApiPerson child = helper.createPerson();
+
+        final ApiPerson resPerson =
+                crud.linkChildInFamily(helper.getDb(), "FXXXXX", child);
+
+        assertThat(resPerson)
+            .returns(child.getString(), ApiPerson::getString)
+            .returns(0, p -> p.getFamcs().size());
+    }
+
+    @Test
+    void testUnlinkChildFamilyNotFound() {
+        log.info("Beginning testUnlinkChildFamilyNotFound");
+        final ApiPerson parent = helper.createPerson();
+        final ApiPerson child = createChildOfParent(parent);
+        final String famID = child.getFamcs().get(0).getString();
+        final FamilyCrud familyCrud = new FamilyCrud(loader, toDocConverter, repositoryManager);
+        familyCrud.deleteOne(helper.getDb(), famID);
+
+        crud.unlinkChild(helper.getDb(), famID, child.getString());
+        final ApiPerson gotChild = helper.getPerson(child);
+        assertEquals(0, gotChild.getFamcs().size(), "not in family");
     }
 
     @Test

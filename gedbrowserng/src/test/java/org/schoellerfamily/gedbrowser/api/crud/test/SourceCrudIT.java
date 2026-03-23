@@ -71,22 +71,22 @@ class SourceCrudIT {
         final List<ApiSource> list = crud.readAll(helper.getDb());
         final ApiSource firstSource = list.get(0);
         assertThat(firstSource)
-            .returns("S1688", o -> o.getString())
+            .returns("S1688", ApiSource::getString)
             .returns(true, o -> o.getImages().isEmpty())
-            .returns("1841 England Census", o -> o.getTitle());
+            .returns("1841 England Census", ApiSource::getTitle);
         final List<ApiAttribute> attributes = firstSource.getAttributes();
         assertThat(attributes.get(0))
-            .returns("attribute", o -> o.getType())
-            .returns("Author", o -> o.getString())
-            .returns("Ancestry.com", o -> o.getTail());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Author", ApiAttribute::getString)
+            .returns("Ancestry.com", ApiAttribute::getTail);
         assertThat(attributes.get(1))
-            .returns("attribute", o -> o.getType())
-            .returns("Title", o -> o.getString())
-            .returns("1841 England Census", o -> o.getTail());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Title", ApiAttribute::getString)
+            .returns("1841 England Census", ApiAttribute::getTail);
         assertThat(attributes.get(2))
-            .returns("attribute", o -> o.getType())
-            .returns("Published", o -> o.getString())
-            .returns("Provo, UT, USA: The Generations Network, Inc., 2006", o -> o.getTail());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Published", ApiAttribute::getString)
+            .returns("Provo, UT, USA: The Generations Network, Inc., 2006", ApiAttribute::getTail);
     }
 
     @Test
@@ -95,22 +95,22 @@ class SourceCrudIT {
         final List<ApiSource> list = crud.readAll("mini-schoeller");
         final ApiSource firstSource = list.get(0);
         assertThat(firstSource)
-            .returns("S2", o -> o.getString())
+            .returns("S2", ApiSource::getString)
             .returns(true, o -> o.getImages().isEmpty())
-            .returns("Schoeller, Melissa Robinson, birth certificate", o -> o.getTitle());
+            .returns("Schoeller, Melissa Robinson, birth certificate", ApiSource::getTitle);
         final List<ApiAttribute> attributes = firstSource.getAttributes();
         assertThat(attributes.get(0))
-            .returns("attribute", o -> o.getType())
-            .returns("Title", o -> o.getString())
-            .returns("Schoeller, Melissa Robinson, birth certificate", o -> o.getTail());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Title", ApiAttribute::getString)
+            .returns("Schoeller, Melissa Robinson, birth certificate", ApiAttribute::getTail);
         assertThat(attributes.get(1))
-            .returns("attribute", o -> o.getType())
-            .returns("Abbreviation", o -> o.getString())
-            .returns("SchoellerMelissaBirthCert", o -> o.getTail());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Abbreviation", ApiAttribute::getString)
+            .returns("SchoellerMelissaBirthCert", ApiAttribute::getTail);
         assertThat(attributes.get(2))
-            .returns("attribute", o -> o.getType())
-            .returns("Note", o -> o.getString())
-            .returns("We have the original of this document", o -> o.getTail());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Note", ApiAttribute::getString)
+            .returns("We have the original of this document", ApiAttribute::getTail);
     }
 
     @Test
@@ -118,22 +118,22 @@ class SourceCrudIT {
         log.info("Beginning testReadSourcesMiniSchoellerS2");
         final ApiSource firstSource = crud.readOne("mini-schoeller", "S2");
         assertThat(firstSource)
-            .returns("S2", o -> o.getString())
+            .returns("S2", ApiSource::getString)
             .returns(true, o -> o.getImages().isEmpty())
-            .returns("Schoeller, Melissa Robinson, birth certificate", o -> o.getTitle());
+            .returns("Schoeller, Melissa Robinson, birth certificate", ApiSource::getTitle);
         final List<ApiAttribute> attributes = firstSource.getAttributes();
         assertThat(attributes.get(0))
-            .returns("attribute", o -> o.getType())
-            .returns("Title", o -> o.getString())
-            .returns("Schoeller, Melissa Robinson, birth certificate", o -> o.getTail());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Title", ApiAttribute::getString)
+            .returns("Schoeller, Melissa Robinson, birth certificate", ApiAttribute::getTail);
         assertThat(attributes.get(1))
-            .returns("attribute", o -> o.getType())
-            .returns("Abbreviation", o -> o.getString())
-            .returns("SchoellerMelissaBirthCert", o -> o.getTail());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Abbreviation", ApiAttribute::getString)
+            .returns("SchoellerMelissaBirthCert", ApiAttribute::getTail);
         assertThat(attributes.get(2))
-            .returns("attribute", o -> o.getType())
-            .returns("Note", o -> o.getString())
-            .returns("We have the original of this document", o -> o.getTail());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Note", ApiAttribute::getString)
+            .returns("We have the original of this document", ApiAttribute::getTail);
     }
 
     @Test

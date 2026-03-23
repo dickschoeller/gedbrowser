@@ -89,7 +89,7 @@ public class SpouseCrud extends RelationsCrud {
             final ApiFamilyBuilder<?, ?> family = readFamily(db, id).toBuilder();
             addSpouseToFamily(family, newPerson);
             return crudUpdate(db, family.build(), newPerson.build());
-        } catch (ObjectNotFoundException e) {
+        } catch (ObjectNotFoundException _) {
             return newPerson.build();
         }
     }
@@ -110,7 +110,7 @@ public class SpouseCrud extends RelationsCrud {
             final ApiFamilyBuilder<?, ?> family = readFamily(db, id).toBuilder();
             addSpouseToFamily(family, newPerson);
             return crudUpdate(db, family.build(), newPerson.build());
-        } catch (ObjectNotFoundException e) {
+        } catch (ObjectNotFoundException _) {
             return newPerson.build();
         }
     }
@@ -131,7 +131,7 @@ public class SpouseCrud extends RelationsCrud {
             final ApiFamilyBuilder<?, ?> family = readFamily(db, id).toBuilder();
             removeSpouseFromFamily(family, person);
             return crudUpdate(db, family.build(), person.build());
-        } catch (ObjectNotFoundException e) {
+        } catch (ObjectNotFoundException _) {
             final ApiAttribute fams = findFamsAttribute(id, person);
             person.getFamss().remove(fams);
             crudUpdate(db, person.build());

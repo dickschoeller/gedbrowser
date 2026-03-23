@@ -1,11 +1,13 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.Application;
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
 import org.schoellerfamily.gedbrowser.api.crud.ParentCrud;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
@@ -105,5 +107,25 @@ class ParentCrudIT {
             .returns(reqParent.getType(), o -> o.getType())
             .returns(reqParent.getSurname(), o -> o.getSurname())
             .returns(reqParent.getIndexName(), o -> o.getIndexName());
+    }
+
+    @Test
+    void testCreateParentChildNotFound() {
+        final String db = helper.getDb();
+        final ApiPerson person = helper.buildPerson();
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.createParent(db, "IXXXXX", person))
+            .withMessage("Object IXXXXX of type person not found");
+    }
+
+    @Test
+    void testLinkParentParentNotFound() {
+        final ApiPerson child = helper.createPerson();
+        final String db = helper.getDb();
+        final ApiPerson missingParent = ApiPerson.builder().string("IXXXXX").build();
+        final String childString = child.getString();
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.linkParent(db, childString, missingParent))
+            .withMessage("Object IXXXXX of type person not found");
     }
 }

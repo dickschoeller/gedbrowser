@@ -7,9 +7,9 @@ import 'zone.js/testing';
 
 import { getTestBed } from '@angular/core/testing';
 import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
-} from '@angular/platform-browser-dynamic/testing';
+  BrowserTestingModule,
+  platformBrowserTesting
+} from '@angular/platform-browser/testing';
 
 // Patch XMLHttpRequest request headers tracking and response handling for templates
 const originalOpen = XMLHttpRequest.prototype.open;
@@ -85,6 +85,6 @@ XMLHttpRequest.prototype.send = function(body?: any) {
 
 // Initialize the Angular testing environment
 getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
+  BrowserTestingModule,
+  platformBrowserTesting()
 );

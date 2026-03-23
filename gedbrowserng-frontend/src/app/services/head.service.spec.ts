@@ -2,6 +2,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { firstValueFrom } from 'rxjs';
 
 import { HeadService } from './head.service';
 import { ApiHead } from '../models';
@@ -60,7 +61,7 @@ describe('HeadService', () => {
       } as ApiHead;
 
       const result$ = service.getOne(db);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb');
       req.flush(mockHead);
@@ -72,7 +73,7 @@ describe('HeadService', () => {
     it('should handle HTTP errors', async () => {
       const db = 'testdb';
 
-      const promise = service.getOne(db).toPromise();
+      const promise = firstValueFrom(service.getOne(db));
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb');
       req.flush('Not found', { status: 404, statusText: 'Not Found' });
@@ -109,7 +110,7 @@ describe('HeadService', () => {
       } as ApiHead;
 
       const result$ = service.put(db, mockHead);
-      const promise = result$.toPromise();
+      const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb');
       req.flush(mockHead);
@@ -125,7 +126,7 @@ describe('HeadService', () => {
         dataset: db
       } as ApiHead;
 
-      const promise = service.put(db, mockHead).toPromise();
+      const promise = firstValueFrom(service.put(db, mockHead));
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb');
       req.flush('Server error', { status: 500, statusText: 'Internal Server Error' });

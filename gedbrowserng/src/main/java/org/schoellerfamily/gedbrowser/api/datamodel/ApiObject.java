@@ -85,8 +85,7 @@ public class ApiObject implements GetString {
      * @return true if other can equal this
      */
     protected boolean canEqual(final Object other) {
-        final boolean can = other.getClass() == ApiObject.class;
-        return can;
+        return other.getClass() == ApiObject.class;
     }
 
     /**

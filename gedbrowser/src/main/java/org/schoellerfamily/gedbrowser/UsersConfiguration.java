@@ -40,11 +40,7 @@ public class UsersConfiguration {
      * @return the set of users from the user file
      */
     public Users<UserImpl> readUserFile(final String userFile) {
-        final UsersReader<UserImpl, UsersImpl<UserImpl>> usersReader =
-                new UsersReader<>();
-        return usersReader.readUserFile(userFile,
-                () -> new UsersImpl<UserImpl>(),
-                () -> new UserImpl()
-        );
+        final UsersReader<UserImpl, UsersImpl<UserImpl>> usersReader = new UsersReader<>();
+        return usersReader.readUserFile(userFile, UsersImpl::new, UserImpl::new);
     }
 }
