@@ -9,23 +9,17 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiObjectVisitor;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiSource;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Represents attribute list helper.
  *
  * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class AttributeListHelper {
     /** */
     private final ApiObjectVisitor parentVisitor;
-
-    /**
-     * Executes attribute list helper.
-     *
-     * @param parentVisitor the parent visitor
-     */
-    public AttributeListHelper(final ApiObjectVisitor parentVisitor) {
-        this.parentVisitor = parentVisitor;
-    }
 
     /**
      * Executes add attributes.
@@ -125,5 +119,4 @@ public class AttributeListHelper {
     private ApiObjectVisitor createVisitor() {
         return parentVisitor.createVisitor();
     }
-
 }
