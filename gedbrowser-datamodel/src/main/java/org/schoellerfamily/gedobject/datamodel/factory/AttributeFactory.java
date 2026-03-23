@@ -1,18 +1,12 @@
 package org.schoellerfamily.gedobject.datamodel.factory;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.schoellerfamily.gedbrowser.datamodel.Attribute;
+import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 
-/**
- * Represents token table initializer in the domain model.
- *
- * @author Richard Schoeller
- */
-public final class TokenTableInitializer {
-    /**
-     * The token table.
-     */
-    private final Map<String, GedToken> tokens = new HashMap<>();
+/* default */ class AttributeFactory extends AbstractGedObjectFactory {
+    /** */
+    /* default */ static final AttributeFactory ATTR_FACTORY = new AttributeFactory();
 
     /**
      * The list of short and long strings for standard attributes.
@@ -180,57 +174,19 @@ public final class TokenTableInitializer {
             {"WILL", "Will"},
             {"WITN", "Witness"},
             {"XREF", "Cross Reference"},
+            {"RAW", null}
     };
 
-    /**
-     * Creates a new TokenTableInitializer.
-     */
-    public TokenTableInitializer() {
-        initAttributeTokens();
-        initLevel0FactoryTokens();
-        initSpecialFactoryTokens();
-    }
-
-    private void initAttributeTokens() {
+    static {
         for (final String[] pair : ATTRIBUTE_PAIRS) {
-            put(pair[0], pair[1], AbstractGedObjectFactory.ATTR_FACTORY);
+            put(pair[0], pair[1], ATTR_FACTORY);
         }
+
     }
 
-    private void initLevel0FactoryTokens() {
-        put("ROOT", "Root", AbstractGedObjectFactory.ROOT_FACTORY);
-        put("HEAD", "Header", AbstractGedObjectFactory.HEAD_FACTORY);
-        put("FAM", "Family", AbstractGedObjectFactory.FAMILY_FACTORY);
-        put("INDI", "Person", AbstractGedObjectFactory.PERSON_FACTORY);
-        put("NOTE", "Note", AbstractGedObjectFactory.NOTE_FACTORY);
-        put("OBJE", "Multimedia", AbstractGedObjectFactory.MULTIMEDIA_FACTORY);
-        put("SOUR", "Source", AbstractGedObjectFactory.SOURCE_FACTORY);
-        put("SUBM", "Submitter", AbstractGedObjectFactory.SUBMITTER_FACTORY);
-        put("SUBN", "Submission", AbstractGedObjectFactory.SUBMISSION_FACTORY);
-        put("TRLR", "Trailer", AbstractGedObjectFactory.TRAILER_FACTORY);
-    }
-
-    private void initSpecialFactoryTokens() {
-        put("CHIL", "Child", AbstractGedObjectFactory.CHILD_FACTORY);
-        put("CONC", "Concatenate", AbstractGedObjectFactory.CONCAT_FACTORY);
-        put("CONT", "Continuation", AbstractGedObjectFactory.CONTIN_FACTORY);
-        put("DATE", "Date", AbstractGedObjectFactory.DATE_FACTORY);
-        put("FAMC", "Child of Family", AbstractGedObjectFactory.FAMC_FACTORY);
-        put("FAMS", "Spouse of Family", AbstractGedObjectFactory.FAMS_FACTORY);
-        put("HUSB", "Husband", AbstractGedObjectFactory.HUSBAND_FACTORY);
-        put("LINK", "Link", AbstractGedObjectFactory.LINK_FACTORY);
-        put("NAME", "Name", AbstractGedObjectFactory.NAME_FACTORY);
-        put("PLAC", "Place", AbstractGedObjectFactory.PLACE_FACTORY);
-        put("PLACE", "Place", AbstractGedObjectFactory.PLACE_FACTORY);
-        put("WIFE", "Wife", AbstractGedObjectFactory.WIFE_FACTORY);
-    }
-
-    private void put(final String shortstring, final String fullstring,
-            final AbstractGedObjectFactory factory) {
-        tokens.put(shortstring, new GedToken(fullstring, factory));
-    }
-
-    /* default */ Map<String, GedToken> getTokens() {
-        return tokens;
+    @Override
+    public GedObject create(final GedObject parent, final ObjectId xref, final String tag,
+            final String tail) {
+        return new Attribute(parent, tag, tail);
     }
 }
