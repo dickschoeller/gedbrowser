@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Child;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
@@ -31,6 +31,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
@@ -48,7 +49,7 @@ final class GedObjectBuilderTest {
 
     @BeforeEach
     void setUp() {
-        builder = new GedObjectBuilder();
+        builder = new GedObjectBuilderImpl();
     }
 
     // TODO there might be more valid checks of the behaviors of the creators.
@@ -206,7 +207,7 @@ final class GedObjectBuilderTest {
     @Test
     void testFamilyWithIdFind() {
         final Root root = new Root();
-        final GedObjectBuilder builder1 = new GedObjectBuilder(root);
+        final GedObjectBuilder builder1 = new GedObjectBuilderImpl(root);
         final Family family = builder1.createFamily("F1");
         assertEquals(family, root.find("F1", Family.class), "Should have found matching family");
     }

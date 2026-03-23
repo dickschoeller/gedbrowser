@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 
 
@@ -20,7 +20,7 @@ import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 
 final class GedObjectFactoryTagsTest {
     /** */
-    private static final Root ROOT = new GedObjectBuilder().getRoot();
+    private static final Root ROOT = new GedObjectBuilderImpl().getRoot();
     /**
      * Parameters for testing.
      */

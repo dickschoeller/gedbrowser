@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 
@@ -23,7 +24,7 @@ final class GedObjectFactoryTest {
 
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Root root = builder.getRoot();
 
         return Arrays.stream(new Object[][] { { null, null, null, null },

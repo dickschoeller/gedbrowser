@@ -22,6 +22,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -35,7 +36,7 @@ class ApiModelToGedObjectVisitorTest {
 
     @BeforeEach
     void setUp() {
-        builder = new GedObjectBuilder();
+        builder = new GedObjectBuilderImpl();
     }
 
     @Test

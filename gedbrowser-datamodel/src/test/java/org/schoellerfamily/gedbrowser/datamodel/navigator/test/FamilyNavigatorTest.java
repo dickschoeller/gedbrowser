@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -31,7 +32,7 @@ final class FamilyNavigatorTest {
 
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         family1 = builder.createFamily("F1");
         person1 = builder.createPerson("I1", "J. Random/Schoeller/");
         person2 = builder.createPerson("I2", "Anonymous/Schoeller/");

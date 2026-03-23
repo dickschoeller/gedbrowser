@@ -10,6 +10,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -31,7 +32,7 @@ final class HusbandTest {
 
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         person1 = builder.createPerson(
                 "I1", "J. Random/Schoeller/");
         final Person person2 = builder.createPerson(
@@ -105,7 +106,7 @@ final class HusbandTest {
 
     @Test
     void testHusbandGedObjectFatherNotSet() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Husband husband = new Husband(family, "Husband", null);
         assertFalse(husband.getFather().isSet(), "Father should not be set");
@@ -113,7 +114,7 @@ final class HusbandTest {
 
     @Test
     void testHusbandGedObjectStringStringFather() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Husband husband =
                 new Husband(family, "Husband", new ObjectId("@I3@"));

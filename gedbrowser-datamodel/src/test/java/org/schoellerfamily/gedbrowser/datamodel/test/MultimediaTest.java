@@ -7,15 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.MultimediaVisitor;
 
@@ -40,7 +41,7 @@ final class MultimediaTest {
 
     @BeforeEach
     void setUp() {
-        builder = new GedObjectBuilder();
+        builder = new GedObjectBuilderImpl();
         person1 = builder.createPerson("I1", "J. Random/Schoeller/");
         final Person person2 = builder.createPerson("I2", "Anonymous/Schoeller/");
         final Person person3 = builder.createPerson("I3", "Anonymous/Jones/");

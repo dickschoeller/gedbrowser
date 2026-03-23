@@ -22,6 +22,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.writer.GedWriterFile;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
@@ -38,7 +39,7 @@ class GedWriterLineTest {
 
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         gedLineCreator = new GedObjectToGedWriterVisitor();
         final Root root = builder.getRoot();
         root.setFilename("huh.ged");

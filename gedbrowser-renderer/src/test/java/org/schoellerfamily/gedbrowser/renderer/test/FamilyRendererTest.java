@@ -13,6 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.FamilyRenderer;
@@ -54,7 +55,7 @@ final class FamilyRendererTest {
     private transient RenderingContext userContext;
 
     /** */
-    private final transient GedObjectBuilder builder = new GedObjectBuilder();
+    private final transient GedObjectBuilder builder = new GedObjectBuilderImpl();
 
     @BeforeEach
     void setUp() {

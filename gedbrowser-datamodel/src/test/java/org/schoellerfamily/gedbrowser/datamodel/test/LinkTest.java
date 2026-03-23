@@ -13,6 +13,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -26,7 +27,7 @@ final class LinkTest {
     /** */
     private transient Person person1;
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
+    private final GedObjectBuilder builder = new GedObjectBuilderImpl();
 
     @BeforeEach
     void setUp() {

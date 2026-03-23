@@ -21,6 +21,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 import org.schoellerfamily.gedbrowser.writer.creator.GedObjectToGedWriterVisitor;
@@ -85,7 +86,7 @@ class GedWriterLinesTest {
      * @return the resulting list
      */
     public static List<String[]> data() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Root root = builder.getRoot();
         root.setFilename("huh.ged");
         root.setDbName("huh");

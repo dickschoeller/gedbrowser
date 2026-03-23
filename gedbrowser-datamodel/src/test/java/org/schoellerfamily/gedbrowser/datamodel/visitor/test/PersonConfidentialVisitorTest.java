@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonConfidentialVisitor;
 
@@ -15,7 +16,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonConfidentialVisito
  */
 class PersonConfidentialVisitorTest {
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
+    private final GedObjectBuilder builder = new GedObjectBuilderImpl();
 
     @Test
     void testNotConfidential() {

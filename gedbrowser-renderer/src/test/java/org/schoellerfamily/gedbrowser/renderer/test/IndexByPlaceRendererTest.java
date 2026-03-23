@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.IndexByPlaceRenderer;
@@ -55,7 +56,7 @@ final class IndexByPlaceRendererTest {
     private transient GeoServiceClient client;
 
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
+    private final GedObjectBuilder builder = new GedObjectBuilderImpl();
 
     /** */
     private RenderingContext anonymousContext;

@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.SourceLink;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 
@@ -31,7 +32,7 @@ final class HeadTest {
 
     @Test
     void testUsualHead() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Head head = builder.createHead();
         final Source source = builder.createSource("TMG");
         final SourceLink soLink = builder.createSourceLink(head, source);

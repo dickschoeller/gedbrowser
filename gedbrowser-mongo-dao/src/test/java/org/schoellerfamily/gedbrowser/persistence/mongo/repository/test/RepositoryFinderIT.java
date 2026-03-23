@@ -25,6 +25,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Source;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.persistence.mongo.fixture.RepositoryFixture;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -310,7 +311,7 @@ final class RepositoryFinderIT {
 
     @Test
     void testWithWrongGedObjectForRoot() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person = builder.createPerson();
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> {
@@ -334,7 +335,7 @@ final class RepositoryFinderIT {
 
     @Test
     void testFinderFindAllPersonsNotRoot() {
-        final GedObjectBuilder builder = new GedObjectBuilder(root);
+        final GedObjectBuilder builder = new GedObjectBuilderImpl(root);
         final Person person = builder.createPerson();
         assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> {

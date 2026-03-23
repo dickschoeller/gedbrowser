@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -22,7 +23,7 @@ final class FamCConstructorTest {
 
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person1 = builder.createPerson("I1", "J. Random/Schoeller/");
 
         return Arrays.stream(new Object[][] {

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonComparator;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
@@ -32,7 +33,7 @@ class PersonComparatorTest {
 
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         person1 = builder.createPerson("I1",
                 "J. Random/Schoeller/");
         person2 = builder.createPerson("I2",

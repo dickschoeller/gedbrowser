@@ -11,6 +11,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
@@ -22,7 +23,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 @SuppressWarnings({ "PMD.TooManyMethods" })
 final class GedObjectBuilderFamilyTest {
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
+    private final GedObjectBuilder builder = new GedObjectBuilderImpl();
 
     private Person createJRandom() {
         return builder.createPerson("I1", "J. Random/Schoeller/");

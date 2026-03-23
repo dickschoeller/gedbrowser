@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -28,7 +29,7 @@ final class TrailerTest {
     @Test
     void testTrailerGedFoundObjectString() {
         final Root root = new Root("Root");
-        final GedObjectBuilder builder = new GedObjectBuilder(root);
+        final GedObjectBuilder builder = new GedObjectBuilderImpl(root);
         final Trailer trailer = builder.createTrailer();
 
         final GedObject gob = root.find("Trailer");
@@ -36,7 +37,7 @@ final class TrailerTest {
     }
     @Test
     void testTrailerGedObjectString() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Trailer trailer = builder.createTrailer();
         assertEquals("Trailer", trailer.getString(), "Mismatched tag");
     }

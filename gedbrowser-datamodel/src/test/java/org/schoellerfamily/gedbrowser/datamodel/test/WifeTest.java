@@ -14,6 +14,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
@@ -37,7 +38,7 @@ final class WifeTest {
 
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person1 = builder.createPerson("I1");
         person2 = builder.createPerson("I2");
         person3 = builder.createPerson("I3");
@@ -112,7 +113,7 @@ final class WifeTest {
 
     @Test
     void testWifeGedObjectMotherNotSet() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, "Wife", null);
         assertFalse(wife.getMother().isSet(), "Mother should not be set");
@@ -120,7 +121,7 @@ final class WifeTest {
 
     @Test
     void testWifeGedObjectStringMotherNotSet() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, null);
         assertFalse(wife.getMother().isSet(), "Mother should not be set");
@@ -128,7 +129,7 @@ final class WifeTest {
 
     @Test
     void testWifeGedObjectStringStringMother() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
         assertFalse(wife.getMother().isSet(), "Mother should not be set");

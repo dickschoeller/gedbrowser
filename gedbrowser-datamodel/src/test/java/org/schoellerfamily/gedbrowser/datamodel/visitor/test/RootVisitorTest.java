@@ -28,6 +28,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
@@ -44,7 +45,7 @@ final class RootVisitorTest {
     @Test
     void testBasicGetPersons() {
         final Root root = new Root();
-        final GedObjectBuilder builder = new GedObjectBuilder(root);
+        final GedObjectBuilder builder = new GedObjectBuilderImpl(root);
         builder.createPerson("I1", "J. Random/Schoeller/");
         builder.createPerson("I2", "Anonymous/Schoeller/");
         final RootVisitor visitor = new RootVisitor();
