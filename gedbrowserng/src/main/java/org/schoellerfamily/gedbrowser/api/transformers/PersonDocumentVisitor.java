@@ -12,6 +12,7 @@ import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
  */
 /* default */ interface PersonDocumentVisitor extends GedDocumentBaseVisitor {
     @Override
+    @SuppressWarnings("java:S3252")
     default void visit(final PersonDocument document) {
         final ApiLifespan lifespan = buildLifespan(document);
         final ApiPerson person = ApiPerson.builder()
@@ -24,7 +25,6 @@ import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
             .build();
         setBaseObject(person);
     }
-
 
     /**
      * Method to create a lifespan for the provided person.
