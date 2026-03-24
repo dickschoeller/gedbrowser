@@ -68,7 +68,7 @@ public final class TokenHelper {
                 keyBytes = sha512.digest(keyBytes);
             }
             return Keys.hmacShaKeyFor(keyBytes);
-        } catch (Exception e_) {
+        } catch (Exception _) {
             // Fallback: wrap raw bytes (may fail at runtime if too short)
             return new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA512");
         }
