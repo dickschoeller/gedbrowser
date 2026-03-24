@@ -93,10 +93,9 @@ public class WebSecurityConfig {
      *
      * @param http the http security object
      * @return the security filter chain
-     * @throws Exception if there is a problem
      */
     @Bean
-    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(final HttpSecurity http)  {
         // Start with CSRF configuration (kept in helper)
         final HttpSecurity configured = handleCsrf(http);
 
@@ -122,7 +121,7 @@ public class WebSecurityConfig {
         return configured.build();
     }
 
-    private HttpSecurity handleCsrf(final HttpSecurity http) throws Exception {
+    private HttpSecurity handleCsrf(final HttpSecurity http) {
         if ("test".equals(activeProfile)) {
             // Use the lambda-based CsrfConfigurer to disable CSRF in test profile
             http.csrf(csrf -> csrf.disable());

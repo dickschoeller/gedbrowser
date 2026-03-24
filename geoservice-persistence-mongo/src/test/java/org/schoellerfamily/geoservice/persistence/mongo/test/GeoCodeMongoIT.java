@@ -74,7 +74,7 @@ final class GeoCodeMongoIT {
     }
 
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() {
         testFixture.loadRepository();
     }
 

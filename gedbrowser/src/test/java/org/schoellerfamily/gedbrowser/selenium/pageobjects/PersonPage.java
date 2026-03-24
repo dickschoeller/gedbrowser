@@ -181,7 +181,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
                 return "";
             }
             return father.getText();
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return "";
         }
     }
@@ -193,7 +193,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
                 return "";
             }
             return mother.getText();
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return "";
         }
     }
@@ -205,7 +205,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
                 return null;
             }
             return father.findElement(By.tagName("a"));
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return null;
         }
     }
@@ -213,7 +213,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
     private WebElement getFather() {
         try {
             return getWebElement(By.id("father"));
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return null;
         }
     }
@@ -225,7 +225,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
                 return null;
             }
             return mother.findElement(By.tagName("a"));
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return null;
         }
     }
@@ -233,7 +233,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
     private WebElement getMother() {
         try {
             return getWebElement(By.id("mother"));
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return null;
         }
     }
@@ -313,7 +313,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
             final WebElement childLink = getChildLink(1, 1);
             final String childUrl = childLink.getAttribute("href");
             return childUrl.equals(url(childIdString));
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return childIdString == null;
         }
     }
@@ -360,7 +360,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
             status.append("Leaf check failed\n");
         }
         println("        final status check");
-        if (status.length() != 0) {
+        if (!status.isEmpty()) {
             status.insert(0, "Id: " + id + "\n");
         }
         return status.toString();
@@ -462,7 +462,7 @@ public final class PersonPage extends PageBase implements MenuPageFacade {
             final WebElement link = leaf.findElement(By.tagName("a"));
             final String linkUrl = link.getAttribute("href");
             return linkUrl.equals(url(personId));
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return personId == null;
         }
     }

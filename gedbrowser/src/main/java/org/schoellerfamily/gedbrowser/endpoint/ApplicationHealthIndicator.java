@@ -52,7 +52,7 @@ public class ApplicationHealthIndicator implements HealthIndicator {
                 Optional.ofNullable(loader.details(repositoryManager)).orElse(List.of());
             log.debug("    {} datasets", details.size());
             builder.withDetail("datasets", details);
-        } catch (Exception e) {
+        } catch (Exception _) {
             final List<Map<String, Object>> details = List.of();
             log.error("    0 datasets (could not connect to database)");
             builder.withDetail("datasets", details);

@@ -34,7 +34,7 @@ public final class SourcePage extends PageBase implements MenuPageFacade {
     static {
         TITLE_MAP.put("S33651",
                 "Births, Marriages & Deaths Register - S33651 - gl120368");
-    };
+    }
 
     /**
      * PageObject pattern for a page representing a person.

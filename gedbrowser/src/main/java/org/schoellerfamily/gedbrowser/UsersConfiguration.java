@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 public class UsersConfiguration {
     /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-    private transient String gedbrowserHome;
+    private String gedbrowserHome;
 
     /**
      * This is the bean to get the definitions of users that we need
