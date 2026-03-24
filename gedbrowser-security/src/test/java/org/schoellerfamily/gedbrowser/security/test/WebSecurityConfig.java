@@ -95,7 +95,7 @@ public class WebSecurityConfig {
      * @return the security filter chain
      */
     @Bean
-    public SecurityFilterChain filterChain(final HttpSecurity http)  {
+    public SecurityFilterChain filterChain(final HttpSecurity http) {
         // Start with CSRF configuration (kept in helper)
         final HttpSecurity configured = handleCsrf(http);
 
