@@ -220,7 +220,7 @@ final class GeoCodeMongoIT {
     void testNotFounds() {
         log.info("Entering testNotFounds");
         testFixture.loadTestAddresses(gcc);
-        final List<String> expectList = Arrays .asList(testFixture.expectedNotFound());
+        final List<String> expectList = Arrays.asList(testFixture.expectedNotFound());
         final Collection<String> expected = new HashSet<>(expectList);
         final Collection<String> actual = gcc.notFoundKeys();
         assertTrue(compareNotFound(expected, actual), "Some differences in not found sets");
