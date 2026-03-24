@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.time.Instant;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -216,9 +217,9 @@ public final class TokenHelper {
         if (cookies == null) {
             return null;
         }
-        for (int i = 0; i < cookies.length; i++) {
-            if (cookies[i].getName().equals(name)) {
-                return cookies[i];
+        for (final Cookie cookie : cookies) {
+            if (Objects.equals(cookie.getName(), name)) {
+                return cookie;
             }
         }
         return null;
