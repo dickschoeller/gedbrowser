@@ -29,7 +29,7 @@ public class ExceptionHandlingController {
             final ResourceConflictException ex) {
         final ExceptionResponse response =
                 new ExceptionResponse("Conflict", ex.getMessage());
-        return new ResponseEntity<ExceptionResponse>(response,
+        return new ResponseEntity<>(response,
                 HttpStatus.CONFLICT);
     }
 }

@@ -130,7 +130,7 @@ public class PageBase {
         try {
             getWebElement(by);
             return true;
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return false;
         }
     }
@@ -154,7 +154,7 @@ public class PageBase {
     public final boolean isElementPresentAndDisplayed(final By by) {
         try {
             return getWebElement(by).isDisplayed();
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return false;
         }
     }
@@ -270,7 +270,7 @@ public class PageBase {
         try {
             Thread.sleep(MEDIUM_SLEEP * multiplier);
         } catch (InterruptedException e) {
-            // Do nothing
+            Thread.currentThread().interrupt();
         }
     }
     /**

@@ -106,13 +106,12 @@ final class GedFileTest {
         return errors;
     }
 
-    @SuppressWarnings("PMD.UseStringBufferForStringAppends")
     private String formatResult(final List<String> checkResults) {
-        String output = "";
+        final StringBuilder output = new StringBuilder();
         for (final String result : checkResults) {
-            output += "    " + result + "\n";
+            output.append("    ").append(result).append("\n");
         }
-        return output;
+        return output.toString();
     }
 
     private AbstractGedLine readFileTestSource() throws IOException {

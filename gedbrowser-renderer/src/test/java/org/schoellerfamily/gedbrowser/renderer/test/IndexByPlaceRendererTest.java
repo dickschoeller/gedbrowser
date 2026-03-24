@@ -127,7 +127,7 @@ final class IndexByPlaceRendererTest {
     }
 
     @Test
-    void testIndexAsAdminSchoellerPlaceInfo() throws IOException {
+    void testIndexAsAdminSchoellerPlaceInfo() {
         // Have to build what the stub client can deal with.
         // Stub still doesn't return enough interesting things to work on
         // better algorithms.

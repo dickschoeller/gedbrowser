@@ -98,7 +98,7 @@ public final class MenuPageImpl implements MenuPage {
         try {
             getMenu(name);
             return true;
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return false;
         }
     }

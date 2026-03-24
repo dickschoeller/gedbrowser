@@ -42,30 +42,26 @@ public class GeoServiceClientStub extends GeoServiceClient {
             geometry.add(createBox()); // bounds
             geometry.add(createBox()); // viewport
             final GeoServiceGeocodingResult result =
-                    new GeoServiceGeocodingResult(
-                            null, placeName, null, geometry, null, false, null);
+                new GeoServiceGeocodingResult(null, placeName, null, geometry, null, false, null);
             return new GeoServiceItem(placeName, placeName, result);
         }
         if ("Needham, MA, USA".equals(placeName)) {
             final FeatureCollection geometry = new FeatureCollection();
             geometry.add(createLocation());
             final GeoServiceGeocodingResult result =
-                    new GeoServiceGeocodingResult(
-                            null, placeName, null, geometry, null, false, null);
+                new GeoServiceGeocodingResult(null, placeName, null, geometry, null, false, null);
             return new GeoServiceItem(placeName, placeName, result);
         }
         if ("Geometry Null, USA".equals(placeName)) {
             final GeoServiceGeocodingResult result =
-                    new GeoServiceGeocodingResult(
-                            null, placeName, null, null, null, false, null);
+                new GeoServiceGeocodingResult(null, placeName, null, null, null, false, null);
             return new GeoServiceItem(placeName, placeName, result);
         }
         if ("Polygon Only, USA".equals(placeName)) {
             final FeatureCollection geometry = new FeatureCollection();
             geometry.add(createBox());
             final GeoServiceGeocodingResult result =
-                    new GeoServiceGeocodingResult(
-                            null, placeName, null, geometry, null, false, null);
+                new GeoServiceGeocodingResult(null, placeName, null, geometry, null, false, null);
             return new GeoServiceItem(placeName, placeName, result);
         }
         return new GeoServiceItem(placeName, placeName, null);
