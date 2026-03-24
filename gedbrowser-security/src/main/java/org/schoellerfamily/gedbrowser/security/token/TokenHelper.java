@@ -212,12 +212,13 @@ public final class TokenHelper {
      * @return The cookie, or <code>null</code> if not found.
      */
     public Cookie getCookieValueByName(final HttpServletRequest request, final String name) {
-        if (request.getCookies() == null) {
+        final Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
             return null;
         }
-        for (int i = 0; i < request.getCookies().length; i++) {
-            if (request.getCookies()[i].getName().equals(name)) {
-                return request.getCookies()[i];
+        for (int i = 0; i < cookies.length; i++) {
+            if (cookies[i].getName().equals(name)) {
+                return cookies[i];
             }
         }
         return null;
