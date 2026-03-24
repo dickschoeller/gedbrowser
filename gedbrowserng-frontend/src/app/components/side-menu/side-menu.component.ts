@@ -144,7 +144,7 @@ export class SideMenuComponent implements OnInit, OnChanges {
         await firstValueFrom(this.uploadService.uploadGedFile(value));
         this.filesControl.setValue(values);
         this.init();
-      } catch (error) {
+      } catch {
         alert('Error, unable to upload ' + value.name);
         this.filesControl.setValue(values);
       }

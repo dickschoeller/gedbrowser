@@ -67,14 +67,14 @@ XMLHttpRequest.prototype.send = function(body?: any) {
       if (self.onload) {
         try {
           self.onload(loadEvent);
-        } catch (e) { } // NOSONAR typescript:S2486
+        } catch { }
       }
       
       // Trigger readystatechange
       if (self.onreadystatechange) {
         try {
           self.onreadystatechange(new Event('readystatechange'));
-        } catch (e) { } // NOSONAR typescript:S2486
+        } catch { }
       }
     });
     return;

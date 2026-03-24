@@ -175,7 +175,7 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
       .trim();
     try {
       return new Date(strip).toISOString();
-    } catch (exception) { // NOSONAR typescript:S2486
+    } catch {
       return strip;
     }
   }
