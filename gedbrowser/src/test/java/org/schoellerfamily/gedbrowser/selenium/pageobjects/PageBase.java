@@ -269,7 +269,7 @@ public class PageBase {
     protected void sleep(final long multiplier) {
         try {
             Thread.sleep(MEDIUM_SLEEP * multiplier);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException _) {
             Thread.currentThread().interrupt();
         }
     }

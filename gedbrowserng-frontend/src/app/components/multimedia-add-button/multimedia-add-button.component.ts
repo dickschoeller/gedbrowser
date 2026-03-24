@@ -2,8 +2,8 @@ import { Component, Input , Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { HasMultimedia } from '../../interfaces';
-import { ApiAttribute, MultimediaDialogData, MultimediaFileData } from '../../models';
-import { StringUtil, MultimediaDialogHelper } from '../../utils';
+import { ApiAttribute, MultimediaDialogData } from '../../models';
+import { MultimediaDialogHelper } from '../../utils';
 import { MultimediaDialogComponent } from '../multimedia-dialog';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -27,7 +27,7 @@ export class MultimediaAddButtonComponent {
   @Input() parent: HasMultimedia;
   @Input() dataset: string;
 
-  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog) { }
+  constructor(@Inject(MatDialog) public readonly dialog: MatDialog) { }
 
   create(data: MultimediaDialogData) {
     const attribute: ApiAttribute = MultimediaDialogHelper.buildMultimediaAttribute(data);
