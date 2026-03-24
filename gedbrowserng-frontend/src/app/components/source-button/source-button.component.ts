@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
 import { SourceCreator } from '../../bases';
-import { ApiObject, ApiSource, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
+import { ApiSource } from '../../models';
 import { SourceService } from '../../services';
-import { UrlBuilder, NewSourceHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
+import { UrlBuilder, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
@@ -31,8 +31,8 @@ export class SourceButtonComponent extends SourceCreator {
   @Input() dataset: string;
 
   constructor(
-    @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) @Inject(SourceService) public readonly service: SourceService,
-    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
+    @Inject(SourceService) public readonly service: SourceService,
+    @Inject(MatDialog) public readonly dialog: MatDialog,
   ) {
     super(service, dialog);
   }

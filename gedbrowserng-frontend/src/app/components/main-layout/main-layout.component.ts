@@ -1,4 +1,4 @@
-import { Component, Input , Inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MainMenuComponent } from '../main-menu/main-menu.component';
 import { MatDrawerContainer, MatDrawer, MatDrawerContent } from '@angular/material/sidenav';
 import { SideMenuComponent } from '../side-menu/side-menu.component';

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input , Inject } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { saveAs } from 'file-saver';
 import { FileUploadControl, FileUploadValidators, FileUploadComponent } from '@iplab/ngx-file-upload';
@@ -122,7 +123,7 @@ export class SideMenuComponent implements OnInit, OnChanges {
 
   private initFileUpload(): void {
     this.fileUploadControl.setListVisibility(true);
-    this.filesControl.valueChanges.subscribe((values: File[]) => {
+    this.filesControl.valueChanges.subscribe(async (values: File[]) => {
       if (values.length === 0) {
         return;
       }
@@ -139,16 +140,14 @@ export class SideMenuComponent implements OnInit, OnChanges {
         this.filesControl.setValue(values);
         return;
       }
-      this.uploadService.uploadGedFile(value).subscribe(
-        (result) => {
-          this.filesControl.setValue(values);
-          this.init();
-        },
-        (error) => {
-          alert('Error, unable to upload ' + value.name);
-          this.filesControl.setValue(values);
-        }
-      );
+      try {
+        await firstValueFrom(this.uploadService.uploadGedFile(value));
+        this.filesControl.setValue(values);
+        this.init();
+      } catch (error) {
+        alert('Error, unable to upload ' + value.name);
+        this.filesControl.setValue(values);
+      }
     });
   }
 

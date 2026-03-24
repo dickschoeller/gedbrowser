@@ -71,21 +71,21 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
     sex = 'M';
     surname: string;
 
-    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public readonly personService: PersonService,
-        @Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) public readonly familyService: FamilyService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) {
+    constructor(@Inject(PersonService) public readonly personService: PersonService,
+        @Inject(FamilyService) public readonly familyService: FamilyService,
+        @Inject(UserService) private readonly userService: UserService) {
         super(personService);
     }
 
     init(): void {
         const h = this.husbandId();
-        if (h !== '') {
+        if (h === '') {
+            this.surname = this.parent.person.surname;
+        } else {
             this.personService.getOne(this.dataset, h)
                 .subscribe((person: ApiPerson) => {
                     this.surname = person.surname;
                 });
-        } else {
-            this.surname = this.parent.person.surname;
         }
     }
 

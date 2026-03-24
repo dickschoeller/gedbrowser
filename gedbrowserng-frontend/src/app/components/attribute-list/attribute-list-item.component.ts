@@ -66,8 +66,8 @@ export class AttributeListItemComponent extends HasAttributeDialog {
         return this.attribute.attributes;
     }
 
-    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) {
+    constructor(@Inject(MatDialog) public readonly dialog: MatDialog,
+        @Inject(UserService) private readonly userService: UserService) {
         super(dialog);
     }
 

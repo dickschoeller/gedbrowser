@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
 import { NoteCreator } from '../../bases';
-import { ApiObject, ApiNote, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
+import { ApiNote } from '../../models';
 import { NoteService } from '../../services';
-import { UrlBuilder, NewNoteHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
+import { UrlBuilder, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
@@ -30,7 +30,7 @@ export class NoteButtonComponent extends NoteCreator {
   @Input() parent: HasAttributeList;
   @Input() dataset: string;
 
-  constructor(@Inject(NoteService) @Inject(NoteService) @Inject(NoteService) @Inject(NoteService) public readonly service: NoteService, @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog) {
+  constructor(@Inject(NoteService) public readonly service: NoteService, @Inject(MatDialog) public readonly dialog: MatDialog) {
     super(service, dialog);
   }
 
