@@ -216,7 +216,7 @@ describe('SideMenuComponent', () => {
     component.setupItems(dbs);
     expect(component.dbs.length).toBe(4);
     expect(component.dbs[0]).toBe('alice');
-    expect(component.dbs[component.dbs.length - 1]).toBe('david');
+    expect(component.dbs.at(-1)).toBe('david');
   });
 
   it('should deduplicate database entries in setupItems', () => {

@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpEventType, HttpResponse, provideHttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
@@ -140,8 +140,7 @@ describe('UploadService', () => {
 
       service.uploadGedFile(file).subscribe((event) => {
         if (event.type === HttpEventType.Response) {
-          const httpResponse = event as HttpResponse<Object>;
-          expect(httpResponse.body).toEqual(responseData);
+          expect(event.body).toEqual(responseData);
           responseReceived = true;
         }
       });

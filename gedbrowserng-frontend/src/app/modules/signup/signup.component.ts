@@ -208,14 +208,14 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.authService.signup(this.form.value)
             // show me the animation
             .pipe(delay(1000))
-            .subscribe(
-                () => {
+            .subscribe({
+                next: () => {
                     this.authService.login(this.form.value).subscribe(() => {
                         this.userService.getMyInfo().subscribe();
                         this.router.navigate([this.returnUrl]);
                     });
                 },
-                error => {
+                error: error => {
                     this.submitted = false;
                     console.log('Sign up error: ' + JSON.stringify(error));
                     this.notification = {
@@ -223,6 +223,6 @@ export class SignupComponent implements OnInit, OnDestroy {
                         msgBody: error['error'].errorMessage
                     };
                 }
-            );
+            });
     }
 }

@@ -35,6 +35,7 @@ public class ApiPerson extends ApiExtraLists {
      */
     @Builder.Default
     @NonNull
+    @SuppressWarnings("java:S1170")
     private final String indexName = "?, ?";
 
     /**
@@ -42,6 +43,7 @@ public class ApiPerson extends ApiExtraLists {
      */
     @Builder.Default
     @NonNull
+    @SuppressWarnings("java:S1170")
     private final String surname = "?";
 
     /**

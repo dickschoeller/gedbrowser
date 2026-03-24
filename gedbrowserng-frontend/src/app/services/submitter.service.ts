@@ -1,9 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 import { ApiSubmitter } from '../models/api-submitter.model';
-import { ApiService } from './api-service';
 import { ServiceBase } from './service-base';
 
 /**

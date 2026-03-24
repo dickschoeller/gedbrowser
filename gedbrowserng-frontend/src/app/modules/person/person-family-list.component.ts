@@ -161,7 +161,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
 
     private linkRemainingChildren(data: LinkPersonDialogData, mainPerson: ApiPerson): void {
         this.updatePerson(mainPerson);
-        const famss = mainPerson.famss[mainPerson.famss.length - 1];
+        const famss = mainPerson.famss.at(-1)!;
         const ub = new UrlBuilder(this.dataset, 'families', 'children');
         for (const selected of data.selected) {
             this.personService.putLink(ub, famss.string, selected.person)

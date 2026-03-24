@@ -1,10 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 import { ApiFamily } from '../models';
-
-import { ApiService } from './api-service';
 import { ServiceBase } from './service-base';
 
 /**

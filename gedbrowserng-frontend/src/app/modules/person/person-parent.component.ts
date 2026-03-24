@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit } from '@angular/core';
 
-import { ApiAttribute, ApiPerson } from '../../models';
+import { ApiAttribute } from '../../models';
 import { PersonService } from '../../services';
 import { HasFamily } from '../../interfaces/has-family';
 import { PersonGetter } from './person-getter';

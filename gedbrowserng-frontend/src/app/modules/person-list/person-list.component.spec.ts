@@ -70,7 +70,7 @@ describe('PersonListComponent', () => {
     const comp = new PersonListComponent(new StubRouter() as any, new StubPersonService() as any, new StubDialog() as any);
     comp.persons = [new ApiPerson(), new ApiPerson(), new ApiPerson()];
     const opts = comp.pagesizeoptions();
-    expect(opts[opts.length - 1]).toBe(3);
+    expect(opts.at(-1)).toBe(3);
   });
 
   it('applyFilter sets lowercase trimmed filter', () => {

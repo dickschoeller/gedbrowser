@@ -29,6 +29,7 @@ public class ApiTail extends ApiObject {
      */
     @Builder.Default
     @NonNull
+    @SuppressWarnings("java:S1170")
     private final String tail = "";
 
     /**

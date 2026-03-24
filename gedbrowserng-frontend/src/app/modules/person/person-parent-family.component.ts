@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit 
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
-import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
+import { ApiAttribute, ApiFamily } from '../../models';
 import { FamilyService, PersonService, UserService } from '../../services';
 import { RefreshPerson, Saveable, HasPerson, HasFamily } from '../../interfaces';
 import { UrlBuilder } from '../../utils';

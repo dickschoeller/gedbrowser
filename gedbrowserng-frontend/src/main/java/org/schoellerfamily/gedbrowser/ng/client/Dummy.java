@@ -5,6 +5,6 @@ package org.schoellerfamily.gedbrowser.ng.client;
  *
  * @author Richard Schoeller
  */
-public class Dummy {
+public interface Dummy {
     // Empty to force some Javadoc
 }
