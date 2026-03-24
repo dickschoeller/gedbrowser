@@ -1,8 +1,5 @@
 package org.schoellerfamily.gedbrowser.security.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +46,7 @@ public class UserController {
      * @param username the user name
      * @return the user object
      */
-    @RequestMapping(method = GET, value = "/users/{username:.+}")
+    @GetMapping(value = "/users/{username:.+}")
     @PreAuthorize("hasRole('ADMIN')")
     public SecurityUser loadById(final HttpServletRequest request,
             @PathVariable final String username) {
@@ -61,7 +59,7 @@ public class UserController {
      * @param request the http request
      * @return a list of all users
      */
-    @RequestMapping(method = GET, value = "/users")
+    @GetMapping(value = "/users")
     @PreAuthorize("hasRole('ADMIN')")
     public List<SecurityUser> loadAll(final HttpServletRequest request) {
         return userService.findAll();
@@ -72,7 +70,7 @@ public class UserController {
      *
      * @return a result map
      */
-    @RequestMapping(method = GET, value = "/reset-credentials")
+    @GetMapping(value = "/reset-credentials")
     public ResponseEntity<Map<String, String>> resetCredentials() {
       userService.resetCredentials();
       return ResponseEntity.accepted().body(Map.of("result", "success"));
@@ -85,7 +83,7 @@ public class UserController {
      * @param ucBuilder the URI components builder
      * @return the new user
      */
-    @RequestMapping(method = POST, value = "/signup")
+    @PostMapping(value = "/signup")
     public ResponseEntity<SecurityUser> addUser(
             @RequestBody final UserRequest userRequest,
             final UriComponentsBuilder ucBuilder) {
@@ -96,7 +94,7 @@ public class UserController {
                   1L, /* userRequest.getId(),*/ "Username already exists");
         }
         final SecurityUser user = this.userService.save(userRequest);
-        return new ResponseEntity<SecurityUser>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     /**

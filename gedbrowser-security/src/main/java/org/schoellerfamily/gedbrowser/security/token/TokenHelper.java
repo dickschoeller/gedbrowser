@@ -68,7 +68,7 @@ public final class TokenHelper {
                 keyBytes = sha512.digest(keyBytes);
             }
             return Keys.hmacShaKeyFor(keyBytes);
-        } catch (Exception e) {
+        } catch (Exception e_) {
             // Fallback: wrap raw bytes (may fail at runtime if too short)
             return new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA512");
         }
@@ -87,7 +87,7 @@ public final class TokenHelper {
         } catch (io.jsonwebtoken.ExpiredJwtException eje) {
             // Let callers who care about expiration handle it explicitly
             throw eje;
-        } catch (Exception e) {
+        } catch (Exception e_) {
             return null;
         }
     }
@@ -133,7 +133,7 @@ public final class TokenHelper {
         } catch (io.jsonwebtoken.ExpiredJwtException eje) {
             // Let callers who care about expiration handle it explicitly
             throw eje;
-        } catch (Exception e) {
+        } catch (Exception _) {
             return null;
         }
     }
@@ -148,7 +148,7 @@ public final class TokenHelper {
         try {
             final Date expirationDate = getClaimsFromToken(token).getExpiration();
             return expirationDate.compareTo(generateCurrentDate()) > 0;
-        } catch (Exception e) {
+        } catch (Exception _) {
             return false;
         }
     }
@@ -168,7 +168,7 @@ public final class TokenHelper {
                 .expiration(generateExpirationDate())
                 .signWith(getSigningKey())
                 .compact();
-        } catch (Exception e) {
+        } catch (Exception _) {
             return null;
         }
     }
