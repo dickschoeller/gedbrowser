@@ -19,8 +19,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-
-
 /**
  * Represents token helper.
  *
@@ -87,7 +85,7 @@ public final class TokenHelper {
         } catch (io.jsonwebtoken.ExpiredJwtException eje) {
             // Let callers who care about expiration handle it explicitly
             throw eje;
-        } catch (Exception e_) {
+        } catch (Exception _) {
             return null;
         }
     }
