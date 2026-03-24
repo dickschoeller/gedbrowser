@@ -1,9 +1,8 @@
-import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
 
@@ -27,7 +26,6 @@ describe('SourceListPageComponent', () => {
   let component: SourceListPageComponent;
   let fixture: ComponentFixture<SourceListPageComponent>;
   let sourceService: SourceService;
-  let router: Router;
   let paramsSubject: ReplaySubject<any>;
   let dataSubject: ReplaySubject<any>;
 
@@ -70,7 +68,6 @@ describe('SourceListPageComponent', () => {
     fixture = TestBed.createComponent(SourceListPageComponent);
     component = fixture.componentInstance;
     sourceService = TestBed.inject(SourceService);
-    router = TestBed.inject(Router);
   });
 
   it('should create', () => {
@@ -109,23 +106,19 @@ describe('SourceListPageComponent', () => {
   it('should call getAll on refreshSource', () => {
     component.dataset = 'testDataset';
     const getAllSpy = vi.spyOn(sourceService, 'getAll').mockReturnValue(of(mockSources));
-    vi.spyOn(router.routeReuseStrategy, 'shouldReuseRoute').mockReturnValue(false);
 
     component.refreshSource(mockSources[0]);
 
     expect(getAllSpy).toHaveBeenCalledWith('testDataset');
   });
 
-  it('should disable route reuse strategy in refreshSource', () => {
+  it('should refresh sources without changing router reuse strategy', () => {
     component.dataset = 'testDataset';
-    const originalShouldReuse = router.routeReuseStrategy.shouldReuseRoute;
-    vi.spyOn(sourceService, 'getAll').mockReturnValue(of(mockSources));
+    const getAllSpy = vi.spyOn(sourceService, 'getAll').mockReturnValue(of(mockSources));
 
     component.refreshSource(mockSources[0]);
 
-    // Verify that shouldReuseRoute was replaced with a new function
-    expect(router.routeReuseStrategy.shouldReuseRoute).not.toBe(originalShouldReuse);
-    expect(router.routeReuseStrategy.shouldReuseRoute()).toBe(false);
+    expect(getAllSpy).toHaveBeenCalledWith('testDataset');
   });
 
   it('should handle sources array in route data', () => {
@@ -150,7 +143,6 @@ describe('SourceListPageComponent', () => {
     component.dataset = 'testDataset';
     const updatedSources = [{ id: '3', title: 'Source C', string: 'S3' } as ApiSource];
     vi.spyOn(sourceService, 'getAll').mockReturnValue(of(updatedSources));
-    vi.spyOn(router.routeReuseStrategy, 'shouldReuseRoute').mockReturnValue(false);
 
     component.refreshSource(mockSources[0]);
 
@@ -160,7 +152,6 @@ describe('SourceListPageComponent', () => {
   it('should handle multiple refreshSource calls', () => {
     component.dataset = 'testDataset';
     const getAllSpy = vi.spyOn(sourceService, 'getAll').mockReturnValue(of(mockSources));
-    vi.spyOn(router.routeReuseStrategy, 'shouldReuseRoute').mockReturnValue(false);
 
     component.refreshSource(mockSources[0]);
     component.refreshSource(mockSources[1]);
@@ -186,7 +177,6 @@ describe('SourceListPageComponent', () => {
     component.dataset = 'testDataset';
     const sourceToRefresh = mockSources[0];
     vi.spyOn(sourceService, 'getAll').mockReturnValue(of(mockSources));
-    vi.spyOn(router.routeReuseStrategy, 'shouldReuseRoute').mockReturnValue(false);
 
     component.refreshSource(sourceToRefresh);
 

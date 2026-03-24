@@ -9,8 +9,8 @@ export class DatasetsService {
 
   constructor(@Inject(HttpClient) private readonly http: HttpClient) { }
 
-  get(): Observable<Array<String>> {
-    return this.http.get<Array<String>>(this.url()).pipe(
+  get(): Observable<Array<string>> {
+    return this.http.get<Array<string>>(this.url()).pipe(
       map((datasets) => Array.from(new Set(datasets)))
     );
   }

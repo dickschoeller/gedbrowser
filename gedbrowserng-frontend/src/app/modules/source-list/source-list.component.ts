@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild , Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
 import { SourceCreator } from '../../bases/source-creator';
-import { NewSourceHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
-import { NewSourceDialogComponent, ConfirmDialogComponent } from '../../components';
+import { UrlBuilder, ListPage, ListPageHelper } from '../../utils';
+import { ConfirmDialogComponent } from '../../components';
 import { ApiSource } from '../../models';
 import { SourceService } from '../../services';
 import { SourceListPageComponent } from './source-list-page.component';

@@ -8,7 +8,7 @@ function formatValue(value: any): string {
     if (typeof value === 'object') {
         try {
             return JSON.stringify(value);
-        } catch (e) {
+        } catch (e) { // NOSONAR typescript:S2486
             return String(value);
         }
     }

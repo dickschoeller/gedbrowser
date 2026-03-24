@@ -136,9 +136,8 @@ public class ApplicationIT {
             .returnResult(Map.class);
 
         assertThat(Optional.ofNullable(entity.getResponseBody())
-            .map(b -> b.get("result"))
-            .orElse(null))
-            .isNotNull();
+            .map(b -> b.get("result")))
+            .isPresent();
     }
 
     @Test
@@ -150,9 +149,8 @@ public class ApplicationIT {
             .returnResult(Map.class);
 
         assertThat(Optional.ofNullable(entity.getResponseBody())
-            .map(b -> b.get("result"))
-            .orElse(null))
-            .isNull();
+            .map(b -> b.get("result")))
+            .isNotPresent();
     }
 
     @Test

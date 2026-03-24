@@ -1,6 +1,6 @@
 import { RefreshNote } from '../../interfaces';
 import { Component, OnInit, OnChanges , Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { ApiNote } from '../../models';
 import { NoteService } from '../../services';
@@ -18,8 +18,7 @@ export class NoteListPageComponent implements OnInit, OnChanges, RefreshNote {
   notes: Array<ApiNote>;
 
   constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
-    @Inject(NoteService) private readonly noteService: NoteService,
-    @Inject(Router) private readonly router: Router) { }
+    @Inject(NoteService) private readonly noteService: NoteService) { }
 
   ngOnInit(): void {
     this.init();
@@ -42,10 +41,6 @@ export class NoteListPageComponent implements OnInit, OnChanges, RefreshNote {
   }
 
   refreshNote(note: ApiNote): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
-
     this.noteService.getAll(this.dataset).subscribe(
       (notes: Array<ApiNote>) => {
         this.notes = notes.toSorted(ApiComparators.compareNotes);

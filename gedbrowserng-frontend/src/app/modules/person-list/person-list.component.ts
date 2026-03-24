@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild , Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -175,7 +175,7 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
       .trim();
     try {
       return new Date(strip).toISOString();
-    } catch (exception) {
+    } catch (exception) { // NOSONAR typescript:S2486
       return strip;
     }
   }

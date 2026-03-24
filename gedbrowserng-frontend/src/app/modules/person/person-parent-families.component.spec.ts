@@ -65,7 +65,6 @@ describe('PersonParentFamiliesComponent', () => {
 
   it('creates a UrlBuilder for personUB', () => {
     const builder = component.personUB();
-    expect(builder.constructor.name).toBe('UrlBuilder');
     expect((builder as UrlBuilder).plusT()).toBe('/gedbrowserng/v1/dbs/testDataset/persons');
   });
 

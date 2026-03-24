@@ -209,18 +209,18 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.login(this.form.value)
             // show me the animation
             .pipe(delay(1000))
-            .subscribe(
-                () => {
+            .subscribe({
+                next: () => {
                     this.userService.getMyInfo().subscribe();
                     this.router.navigate([this.returnUrl]);
                 },
-                () => {
+                error: () => {
                     this.submitted = false;
                     this.notification = {
                         msgType: 'error',
                         msgBody: 'Incorrect username or password.'
                     };
                 }
-            );
+            });
     }
 }
