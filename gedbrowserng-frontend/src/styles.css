@@ -7,15 +7,15 @@
 /* Custom backgrounds */
 .custom-toolbar-colors {
   background: #b3e2f5 !important;
-  foreground: #000000 !important;
+  color: #000000 !important;
 }
 .custom-main-colors {
   background: #edf7fb !important;
-  foreground: #000000 !important;
+  color: #000000 !important;
 }
 .custom-section-colors {
   background: #f6fafb !important;
-  foreground: #000000 !important;
+  color: #000000 !important;
 }
 
 html, body, app-root, .body, .mat-drawer-container {
