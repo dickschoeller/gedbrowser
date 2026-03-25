@@ -20,11 +20,11 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
 
 @Component({
     selector: 'app-multimedia-gallery',
-    template: `<mat-card>
-    <mat-card-title>
-        <mat-toolbar>
-            <span class="list-toolbar-title">Multimedia</span>
-            <span class="example-fill-remaining-space"></span>
+    template: `<mat-card class="custom-section-colors">
+    <mat-card-title class="custom-section-colors">
+        <mat-toolbar class="custom-section-colors">
+            <span class="list-toolbar-title custom-section-colors">Multimedia</span>
+            <span class="example-fill-remaining-space custom-section-colors"></span>
             @if (hasSignedIn()) {
                 <span>
                     <app-multimedia-add-button [parent]="this" [dataset]="dataset"></app-multimedia-add-button>
@@ -37,8 +37,8 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
     </mat-card-title>
     @if (showMultimedia) {
         @if (galleryImagesList.length) {
-            <mat-card-content>
-                <lightgallery [settings]="lightGallerySettings" [onInit]="onGalleryInit" [onBeforeSlide]="onBeforeSlide">
+            <mat-card-content class="custom-section-colors">
+                <lightgallery [settings]="lightGallerySettings" [onInit]="onGalleryInit" [onBeforeSlide]="onBeforeSlide" class="custom-section-colors">
                     @for (image of galleryImagesList; track image.url; let i = $index) {
                         <a [href]="image.url" [attr.data-src]="image.mediaType === 'video' ? null : image.url" [attr.data-poster]="image.mediaType === 'video' ? image.small : null" [attr.data-sub-html]="escapeHtml(image.description) || 'Image'" [attr.data-gallery-index]="i" [attr.data-video]="image.mediaType === 'video' ? image.videoData : null" class="multimedia-thumb-wrapper">
                             <img [src]="image.small" [alt]="image.description || 'Image'" class="multimedia-thumb multimedia-video-preview" />
@@ -63,7 +63,7 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
             </mat-card-content>
         }
         @if (!galleryImagesList.length) {
-            <mat-card-content></mat-card-content>
+            <mat-card-content class="custom-section-colors"></mat-card-content>
         }
     }
 </mat-card>`,

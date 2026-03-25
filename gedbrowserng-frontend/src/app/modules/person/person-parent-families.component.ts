@@ -17,10 +17,10 @@ import { PersonParentFamilyComponent } from './person-parent-family.component';
 @Component({
     standalone: true,
     selector: 'app-person-parent-families',
-    template: `<mat-card>
+    template: `<mat-card class="custom-section-colors">
   <mat-card-title>
-    <mat-toolbar>
-    <span class="list-toolbar-title">Parents and Siblings</span>
+    <mat-toolbar class="custom-section-colors">
+    <span class="list-toolbar-title custom-section-colors">Parents and Siblings</span>
     <span class="example-fill-remaining-space"></span>
     @if (!person.famcs.length && hasSignedIn()) {
       <span>

@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, ViewChild } from '@angular/core';
 import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar } from '@angular/material/toolbar';
 
 import { PlaceInfo } from '../../models';
 import { environment } from '../../../environments/environment';
@@ -18,16 +21,28 @@ declare global {
 @Component({
   selector: 'app-google-map',
   standalone: true,
-  imports: [CommonModule, MatCard, MatCardTitle, MatCardContent],
+  imports: [CommonModule, MatCard, MatCardTitle, MatCardContent, MatToolbar, MatIconButton, MatIcon],
   template: `@if (hasPlaces()) {
-  <mat-card class="map-card">
-    <mat-card-title>{{ title }}</mat-card-title>
-    <mat-card-content>
-      <div #mapContainer class="map-canvas"></div>
-      @if (loadError) {
-        <div class="map-error">Unable to load Google Maps.</div>
-      }
-    </mat-card-content>
+  <mat-card class="map-card custom-section-colors">
+    <mat-card-title class="custom-section-colors">
+      <mat-toolbar class="custom-section-colors">
+        <span class="list-toolbar-title custom-section-colors">{{ title }}</span>
+        <span class="example-fill-remaining-space custom-section-colors"></span>
+        <button mat-icon-button
+            [attr.aria-label]="showAttributes ? 'Collapse attributes' : 'Expand attributes'"
+            (click)="showAttributes = !showAttributes">
+          <mat-icon>{{ showAttributes ? 'expand_less' : 'expand_more' }}</mat-icon>
+        </button>
+      </mat-toolbar>
+    </mat-card-title>
+    @if (showAttributes) {
+      <mat-card-content class="custom-section-colors">
+        <div #mapContainer class="map-canvas"></div>
+        @if (loadError) {
+          <div class="map-error">Unable to load Google Maps.</div>
+        }
+      </mat-card-content>
+    }
   </mat-card>
 }`,
   styles: [`
@@ -40,6 +55,9 @@ declare global {
   min-height: 260px;
   height: 320px;
   border-radius: 4px;
+  border-thickness: 1px;
+  border-color: rgba(0, 0, 0, 0.12);
+  border-style: solid;
 }
 
 .map-error {
@@ -52,7 +70,22 @@ export class GoogleMapComponent implements AfterViewInit, OnChanges {
   @Input() places: Array<PlaceInfo> | null | undefined = [];
   @Input() apiKey = '';
   @Input() title = 'Places Map';
-  @ViewChild('mapContainer') mapContainer?: ElementRef<HTMLDivElement>;
+  showAttributes = true;
+  private _mapContainer?: ElementRef<HTMLDivElement>;
+  @ViewChild('mapContainer', { read: ElementRef })
+  set mapContainer(el: ElementRef<HTMLDivElement> | undefined) {
+    this._mapContainer = el;
+    if (el) {
+      // Always recreate the map instance when the container is reattached
+      if (this.map) {
+        this.map = null;
+      }
+      this.initializeMap();
+    }
+  }
+  get mapContainer(): ElementRef<HTMLDivElement> | undefined {
+    return this._mapContainer;
+  }
 
   private map: any;
   private markers: any[] = [];
