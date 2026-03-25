@@ -12,7 +12,7 @@ import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-person-parent',
-    template: `{{ label() }}:&nbsp;
+    template: `
 @if (person) {
   <span><a class="name"
     [routerLink]="['/' + dataset + '/persons', person.string]">
@@ -45,16 +45,6 @@ export class PersonParentComponent extends PersonGetter implements OnInit, OnCha
 
   ngOnChanges() {
     this.init(this.dataset, this.attribute.string);
-  }
-
-  label(): string {
-    if (this.attribute.type === 'wife') {
-      return 'Mother';
-    }
-    if (this.attribute.type === 'husband') {
-      return 'Father';
-    }
-    return 'Parent';
   }
 
   familyString(): string {

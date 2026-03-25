@@ -12,7 +12,7 @@ import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 
 @Component({
     selector: 'app-side-menu',
-    template: `<mat-nav-list>
+    template: `<mat-nav-list class="custom-section-colors">
   <a mat-list-item [routerLink]="['/' + dataset + '/header']"><div class="with-icon"><mat-icon inline=true matListIcon>home</mat-icon> Home</div></a>
   <a mat-list-item [routerLink]="['/' + dataset + '/persons']"><div class="with-icon"><mat-icon inline=true matListIcon>people</mat-icon> Persons</div></a>
   <a mat-list-item [routerLink]="['/' + dataset + '/notes']"><div class="with-icon"><mat-icon inline=true matListIcon>comment</mat-icon> Notes</div></a>

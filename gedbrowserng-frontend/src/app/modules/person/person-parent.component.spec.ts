@@ -39,21 +39,6 @@ describe('PersonParentComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('label returns Father for husband', () => {
-    component.attribute = { ...mockAttribute, type: 'husband' };
-    expect(component.label()).toBe('Father');
-  });
-
-  it('label returns Mother for wife', () => {
-    component.attribute = { ...mockAttribute, type: 'wife' };
-    expect(component.label()).toBe('Mother');
-  });
-
-  it('label returns Parent for other types', () => {
-    component.attribute = { ...mockAttribute, type: 'other' };
-    expect(component.label()).toBe('Parent');
-  });
-
   it('familyString delegates to parent', () => {
     expect(component.familyString()).toBe('F123');
   });

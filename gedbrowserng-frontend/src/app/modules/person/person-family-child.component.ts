@@ -22,13 +22,13 @@ import { MatIcon } from '@angular/material/icon';
  */
 @Component({
     selector: 'app-person-family-child',
-    template: `<div class="parent">
+    template: `<div class="parent custom-section-colors">
     @if (person) {
-        <span>
+        <span class="custom-section-colors">
             <a [routerLink]="['/' + dataset + '/persons', person.string]" class="name">{{ person.indexName }} {{ lifespanYearString() }} [{{ person.string }}]</a>
         </span>
     }
-  <span class="example-fill-remaining-space"></span>
+    <span class="example-fill-remaining-space custom-section-colors"></span>
     @if (hasSignedIn()) {
         <span class="hidden">
             <button mat-icon-button matTooltip="Unlink" color="warn" (click)="unlink()">

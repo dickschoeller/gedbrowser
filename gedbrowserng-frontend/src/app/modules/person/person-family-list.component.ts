@@ -24,20 +24,20 @@ import { LinkPersonComponent } from './link-person.component';
     standalone: true,
     selector: 'app-person-family-list',
     template: `<mat-card>
-  <mat-card-title>
-                <mat-toolbar>
-                    <span class="list-toolbar-title">Spouses and Children</span>
-                    <span class="example-fill-remaining-space"></span>
-                    <button mat-icon-button
-                            [attr.aria-label]="showSpousesAndChildren ? 'Collapse spouses and children' : 'Expand spouses and children'"
-                            (click)="showSpousesAndChildren = !showSpousesAndChildren">
-                        <mat-icon>{{ showSpousesAndChildren ? 'expand_less' : 'expand_more' }}</mat-icon>
-                    </button>
-                </mat-toolbar>
+    <mat-card-title class="custom-section-colors">
+    <mat-toolbar class="custom-section-colors">
+    <span class="list-toolbar-title custom-section-colors">Spouses and Children</span>
+    <span class="example-fill-remaining-space custom-section-colors"></span>
+      <button mat-icon-button
+        [attr.aria-label]="showSpousesAndChildren ? 'Collapse spouses and children' : 'Expand spouses and children'"
+        (click)="showSpousesAndChildren = !showSpousesAndChildren">
+        <mat-icon>{{ showSpousesAndChildren ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+    </mat-toolbar>
   </mat-card-title>
     @if (showSpousesAndChildren) {
-  <mat-card-content>
-    <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
+    <mat-card-content class="custom-section-colors">
+    <div cdkDropList class="family-list custom-section-colors" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
       @for (attribute of person.famss; track $index; let i = $index) {
         <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : '' }}">
