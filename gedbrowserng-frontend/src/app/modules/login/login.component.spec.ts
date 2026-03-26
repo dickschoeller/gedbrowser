@@ -176,7 +176,7 @@ describe('LoginComponent', () => {
   });
 
   it('onResetCredentials calls resetCredentials and shows success alert', () => {
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const alertSpy = vi.spyOn(globalThis, 'alert').mockImplementation(() => {});
     vi.spyOn(userService, 'resetCredentials').mockReturnValue(of({ result: 'success' }));
     
     component.onResetCredentials();
@@ -185,7 +185,7 @@ describe('LoginComponent', () => {
   });
 
   it('onResetCredentials shows error alert on failure', () => {
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const alertSpy = vi.spyOn(globalThis, 'alert').mockImplementation(() => {});
     vi.spyOn(userService, 'resetCredentials').mockReturnValue(of({ result: 'failure' }));
     
     component.onResetCredentials();

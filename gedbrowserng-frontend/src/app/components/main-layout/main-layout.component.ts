@@ -1,4 +1,4 @@
-import { Component, Input , Inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MainMenuComponent } from '../main-menu/main-menu.component';
 import { MatDrawerContainer, MatDrawer, MatDrawerContent } from '@angular/material/sidenav';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
@@ -8,7 +8,7 @@ import { SideMenuComponent } from '../side-menu/side-menu.component';
     standalone: true,
     template: `<app-main-menu [dataset]="dataset" (emitToggle)="drawer.toggle()"></app-main-menu>
 <mat-drawer-container>
-  <mat-drawer mode="side" opened="true" #drawer>
+  <mat-drawer mode="side" opened="true" #drawer class="custom-section-colors">
     <app-side-menu [dataset]="dataset"></app-side-menu>
   </mat-drawer>
   <mat-drawer-content>

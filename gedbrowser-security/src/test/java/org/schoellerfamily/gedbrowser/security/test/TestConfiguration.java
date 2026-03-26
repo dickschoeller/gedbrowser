@@ -43,7 +43,7 @@ public class TestConfiguration {
                 new UsersReader<>();
         return (SecurityUsers) usersReader.readUserFile(userFile,
                 () -> new SecurityUsers(userFile),
-                () -> new UserImpl()
+                UserImpl::new
         );
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges , Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { ApiSubmitter } from '../../models';
 import { SubmitterService } from '../../services';
@@ -18,7 +18,6 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
 
   constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
     @Inject(SubmitterService) private readonly submitterService: SubmitterService,
-    @Inject(Router) private readonly router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,10 +41,6 @@ export class SubmitterListPageComponent implements OnInit, OnChanges {
   }
 
   refreshSubmitter(submitter: ApiSubmitter): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
-
     this.submitterService.getAll(this.dataset).subscribe(
       (submitters: Array<ApiSubmitter>) => {
         this.submitters = submitters.toSorted(ApiComparators.compareSubmitters);

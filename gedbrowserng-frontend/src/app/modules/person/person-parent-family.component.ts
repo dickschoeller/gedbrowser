@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit 
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
-import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
+import { ApiAttribute, ApiFamily } from '../../models';
 import { FamilyService, PersonService, UserService } from '../../services';
 import { RefreshPerson, Saveable, HasPerson, HasFamily } from '../../interfaces';
 import { UrlBuilder } from '../../utils';
@@ -16,9 +16,9 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
 @Component({
     standalone: true,
     selector: 'app-person-parent-family',
-    template: `<mat-card>
+    template: `<mat-card class="custom-main-colors">
   <mat-card-title>
-    <mat-toolbar color="primary">
+    <mat-toolbar class="custom-toolbar-colors">
       @for (spouse of family?.spouses; track $index) {<mat-toolbar-row>
           <app-person-parent [dataset]="dataset" [parent]="this"
               [attribute]="spouse"></app-person-parent>
@@ -44,31 +44,32 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
         </mat-toolbar-row>}
     </mat-toolbar>
   </mat-card-title>
-  <mat-card-content>
-<div class="ui-g">
-  <div class="ui-g-1"></div>
-  <div class="ui-g-10">
-    <mat-card>
-      <mat-card-title>
-        <mat-toolbar>
-          Siblings (including self)
-        </mat-toolbar>
-      </mat-card-title>
-      <mat-card-content>
-        <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)"
-            [cdkDropListDisabled]="!hasSignedIn()">
-          @for (child of family?.children; track $index; let i = $index) {
-            <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : '' }}">
-              <app-person-family-child [dataset]="dataset" [parent]="this"
-                  [child]="child" [index]="i"></app-person-family-child>
+  <mat-card-content class="custom-main-colors">
+    <div class="ui-g">
+      <div class="ui-g-1"></div>
+      <div class="ui-g-10">
+        <mat-card>
+          <mat-card-title>
+            <mat-toolbar class="custom-section-colors">
+              <span class="list-toolbar-title">Children</span>
+              <span class="example-fill-remaining-space"></span>
+            </mat-toolbar>
+          </mat-card-title>
+          <mat-card-content class="custom-section-colors">
+            <div cdkDropList class="child-list custom-section-colors" (cdkDropListDropped)="drop($event)"
+                [cdkDropListDisabled]="!hasSignedIn()">
+              @for (child of family?.children; track $index; let i = $index) {
+                <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : '' }}">
+                  <app-person-family-child [dataset]="dataset" [parent]="this"
+                      [child]="child" [index]="i"></app-person-family-child>
+                </div>
+              }
             </div>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="ui-g-1"></div>
-</div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="ui-g-1"></div>
+    </div>
   </mat-card-content>
 </mat-card>`,
     styles: [],

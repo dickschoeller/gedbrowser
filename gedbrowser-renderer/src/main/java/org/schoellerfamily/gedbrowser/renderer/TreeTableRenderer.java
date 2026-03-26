@@ -13,9 +13,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public final class TreeTableRenderer {
     /** */
-    private final transient PersonRenderer top;
+    private final PersonRenderer top;
     /** */
-    private final transient int generations;
+    private final int generations;
 
     /**
      * Gets the tree rows.
@@ -51,7 +51,7 @@ public final class TreeTableRenderer {
         final Person person = personRenderer.getGedObject();
         final PersonNavigator navigator = new PersonNavigator(person);
 
-        final TreeNode<PersonRenderer> treeNode = new TreeNode<PersonRenderer>(
+        final TreeNode<PersonRenderer> treeNode = new TreeNode<>(
             personRenderer, currentDepth, currentDepth);
 
         int row = seedRow;

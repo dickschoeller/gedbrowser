@@ -32,12 +32,12 @@ public class SimpleDateParser {
             try {
                 c.setTime(dateParser.parse(dateString));
                 return c;
-            } catch (ParseException __) {
+            } catch (ParseException _) {
                 dateParser = new SimpleDateFormat("yyyy", Locale.US);
                 try {
                     c.setTime(dateParser.parse(dateString));
                     return c;
-                } catch (ParseException ___) {
+                } catch (ParseException _) {
                     return null;
                 }
             }

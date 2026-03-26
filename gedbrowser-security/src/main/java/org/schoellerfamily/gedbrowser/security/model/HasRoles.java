@@ -46,7 +46,7 @@ public class HasRoles implements Serializable {
         try {
             final UserRoleName valueOf = UserRoleName.valueOf(role);
             roles.add(valueOf);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException _) {
             log.warn("Tried to add an unknown role type: {}", role);
         }
     }

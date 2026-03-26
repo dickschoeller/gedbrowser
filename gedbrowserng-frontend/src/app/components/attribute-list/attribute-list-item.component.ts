@@ -17,7 +17,7 @@ import { SourceButtonComponent } from '../source-button/source-button.component'
 
 @Component({
     selector: 'app-attribute-list-item',
-    template: `<div class="parent">
+    template: `<div class="parent custom-section-colors">
     <b class="attribute-label">{{ attributeUtil.label() }}:&nbsp;</b>
     @if (attributeUtil.contents()) {
         <span>
@@ -66,8 +66,8 @@ export class AttributeListItemComponent extends HasAttributeDialog {
         return this.attribute.attributes;
     }
 
-    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) {
+    constructor(@Inject(MatDialog) public readonly dialog: MatDialog,
+        @Inject(UserService) private readonly userService: UserService) {
         super(dialog);
     }
 

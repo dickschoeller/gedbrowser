@@ -82,7 +82,7 @@ public class ApiExtraLists extends ApiHasImages {
          * @return this
          */
         public B attributes(final List<ApiAttribute> attributes) {
-            attributes.forEach(attribute -> attribute(attribute));
+            attributes.forEach(this::attribute);
             return self();
         }
 

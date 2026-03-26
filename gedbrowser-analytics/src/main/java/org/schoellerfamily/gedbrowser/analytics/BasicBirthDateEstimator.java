@@ -115,18 +115,14 @@ public class BasicBirthDateEstimator extends Estimator {
         }
         final String eventTypeString = getString(gob);
         switch (eventTypeString) {
-        case "Baptism":
-        case "Christening":
-        case "Naming":
+        case "Baptism", "Christening", "Naming":
             date = firstDayOfMonth(date);
             break;
-        case "Bar Mitzvah":
-        case "Bat Mitzvah":
+        case "Bar Mitzvah", "Bat Mitzvah":
             date = firstDayOfMonth(
                     minusYears(date, typicals.ageAtBarMitzvah()));
             break;
-        case "Death":
-        case "Burial":
+        case "Death", "Burial":
             date = minusYearsAdjustToBegin(date, typicals.ageAtDeath());
             break;
         case "Changed":

@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
 
@@ -32,7 +31,6 @@ describe('SubmitterListPageComponent', () => {
   let component: SubmitterListPageComponent;
   let fixture: ComponentFixture<SubmitterListPageComponent>;
   let submitterService: SubmitterService;
-  let router: Router;
   let paramsSubject: ReplaySubject<any>;
   let dataSubject: ReplaySubject<any>;
 
@@ -66,7 +64,6 @@ describe('SubmitterListPageComponent', () => {
     .compileComponents();
 
     submitterService = TestBed.inject(SubmitterService);
-    router = TestBed.inject(Router);
   });
 
   beforeEach(() => {
@@ -138,15 +135,13 @@ describe('SubmitterListPageComponent', () => {
     }).not.toThrow();
   });
 
-  it('should disable route reuse strategy in refreshSubmitter', () => {
+  it('should refresh submitters without changing router reuse strategy', () => {
     component.dataset = 'testDataset';
-    const originalShouldReuse = router.routeReuseStrategy.shouldReuseRoute;
-    vi.spyOn(submitterService, 'getAll').mockReturnValue(of(mockSubmitters));
+    const getAllSpy = vi.spyOn(submitterService, 'getAll').mockReturnValue(of(mockSubmitters));
 
     component.refreshSubmitter(mockSubmitters[0]);
 
-    expect(router.routeReuseStrategy.shouldReuseRoute).not.toBe(originalShouldReuse);
-    expect(router.routeReuseStrategy.shouldReuseRoute()).toBe(false);
+    expect(getAllSpy).toHaveBeenCalledWith('testDataset');
   });
 
   it('should call getAll on refreshSubmitter', () => {

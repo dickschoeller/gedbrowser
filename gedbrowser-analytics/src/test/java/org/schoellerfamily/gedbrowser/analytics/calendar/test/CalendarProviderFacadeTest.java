@@ -98,7 +98,7 @@ class CalendarProviderFacadeTest {
     }
 
     @Test
-    void testImplNow() throws InterruptedException {
+    void testImplNow() {
         final Calendar actual = implProvider.now();
         final long difference = actual.getTimeInMillis() - calendar.getTimeInMillis();
         final long expected = 10;

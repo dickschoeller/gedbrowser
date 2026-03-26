@@ -36,6 +36,7 @@ public class ApiObject implements GetString {
      * A string describing the data type of this object.
      */
     @Builder.Default
+    @SuppressWarnings("java:S1170")
     private final String type = "";
 
     /**
@@ -43,6 +44,7 @@ public class ApiObject implements GetString {
      * be the sub-type and tail will contain the data value.
      */
     @Builder.Default
+    @SuppressWarnings("java:S1170")
     private final String string = "";
 
     /**

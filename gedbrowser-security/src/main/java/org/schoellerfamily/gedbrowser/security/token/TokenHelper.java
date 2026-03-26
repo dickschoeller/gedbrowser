@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.time.Instant;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -18,8 +19,6 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-
-
 
 /**
  * Represents token helper.
@@ -68,7 +67,7 @@ public final class TokenHelper {
                 keyBytes = sha512.digest(keyBytes);
             }
             return Keys.hmacShaKeyFor(keyBytes);
-        } catch (Exception e) {
+        } catch (Exception _) {
             // Fallback: wrap raw bytes (may fail at runtime if too short)
             return new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA512");
         }
@@ -87,7 +86,7 @@ public final class TokenHelper {
         } catch (io.jsonwebtoken.ExpiredJwtException eje) {
             // Let callers who care about expiration handle it explicitly
             throw eje;
-        } catch (Exception e) {
+        } catch (Exception _) {
             return null;
         }
     }
@@ -133,7 +132,7 @@ public final class TokenHelper {
         } catch (io.jsonwebtoken.ExpiredJwtException eje) {
             // Let callers who care about expiration handle it explicitly
             throw eje;
-        } catch (Exception e) {
+        } catch (Exception _) {
             return null;
         }
     }
@@ -148,7 +147,7 @@ public final class TokenHelper {
         try {
             final Date expirationDate = getClaimsFromToken(token).getExpiration();
             return expirationDate.compareTo(generateCurrentDate()) > 0;
-        } catch (Exception e) {
+        } catch (Exception _) {
             return false;
         }
     }
@@ -168,7 +167,7 @@ public final class TokenHelper {
                 .expiration(generateExpirationDate())
                 .signWith(getSigningKey())
                 .compact();
-        } catch (Exception e) {
+        } catch (Exception _) {
             return null;
         }
     }
@@ -214,12 +213,13 @@ public final class TokenHelper {
      * @return The cookie, or <code>null</code> if not found.
      */
     public Cookie getCookieValueByName(final HttpServletRequest request, final String name) {
-        if (request.getCookies() == null) {
+        final Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
             return null;
         }
-        for (int i = 0; i < request.getCookies().length; i++) {
-            if (request.getCookies()[i].getName().equals(name)) {
-                return request.getCookies()[i];
+        for (final Cookie cookie : cookies) {
+            if (Objects.equals(cookie.getName(), name)) {
+                return cookie;
             }
         }
         return null;

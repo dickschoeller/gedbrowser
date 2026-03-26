@@ -126,7 +126,7 @@ describe('SideMenuComponent', () => {
   });
 
   it('should reject non-ged file uploads', async () => {
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const alertSpy = vi.spyOn(globalThis, 'alert').mockImplementation(() => {});
     const uploadSpy = vi.spyOn(mockUploadService, 'uploadGedFile');
     const file = new File(['test content'], 'test.txt', { type: 'application/pdf' });
     component.filesControl.setValue([file], { emitEvent: true });
@@ -179,7 +179,7 @@ describe('SideMenuComponent', () => {
 
   it('should handle upload error gracefully', async () => {
     vi.spyOn(mockUploadService, 'uploadGedFile').mockReturnValue(throwError(() => new Error('Upload failed')));
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const alertSpy = vi.spyOn(globalThis, 'alert').mockImplementation(() => {});
     vi.spyOn(mockDatasetsService, 'get').mockReturnValue(of([]));
 
     const file = new File(['test content'], 'test.ged', { type: 'application/x-gedcom' });
@@ -216,7 +216,7 @@ describe('SideMenuComponent', () => {
     component.setupItems(dbs);
     expect(component.dbs.length).toBe(4);
     expect(component.dbs[0]).toBe('alice');
-    expect(component.dbs[component.dbs.length - 1]).toBe('david');
+    expect(component.dbs.at(-1)).toBe('david');
   });
 
   it('should deduplicate database entries in setupItems', () => {

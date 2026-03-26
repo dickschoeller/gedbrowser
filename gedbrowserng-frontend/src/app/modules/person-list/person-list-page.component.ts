@@ -1,9 +1,9 @@
 import { Component, OnInit, OnChanges , Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { ApiPerson } from '../../models';
 import { PersonService } from '../../services';
-import { ApiComparators, NewPersonHelper } from '../../utils';
+import { ApiComparators } from '../../utils';
 import { PersonListComponent } from './person-list.component';
 
 @Component({
@@ -18,8 +18,7 @@ export class PersonListPageComponent implements OnInit, OnChanges {
   persons: ApiPerson[];
 
   constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
-    @Inject(PersonService) private readonly personService: PersonService,
-    @Inject(Router) private readonly router: Router) { }
+    @Inject(PersonService) private readonly personService: PersonService) { }
 
   ngOnInit(): void {
     this.init();
@@ -45,10 +44,6 @@ export class PersonListPageComponent implements OnInit, OnChanges {
   }
 
   refreshPerson(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
-
     this.personService.getAll(this.dataset).subscribe(
       (persons: Array<ApiPerson>) => {
         if (!persons) {

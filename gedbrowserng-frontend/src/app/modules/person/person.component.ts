@@ -25,13 +25,13 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
     standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
-        <div class="card-header-line">
-          <mat-card-title><mat-icon inline=true>person</mat-icon> {{ person?.indexName }}</mat-card-title>
-          <mat-card-subtitle>{{ lifespanDateString() }} : {{ person?.string }}</mat-card-subtitle>
-        </div>
-    <mat-card-content>
-      <div class="ui-g">
-        <div class="ui-g-12 person-summary-row">
+    <div class="card-header-line custom-main-colors">
+      <mat-card-title><mat-icon inline=true>person</mat-icon> {{ person?.indexName }}</mat-card-title>
+      <mat-card-subtitle>{{ lifespanDateString() }} : {{ person?.string }}</mat-card-subtitle>
+    </div>
+    <mat-card-content class="custom-main-colors">
+      <div class="ui-g custom-main-colors">
+        <div class="ui-g-12 person-summary-row custom-main-colors">
           <div class="attributes-section">
             <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="attributes"
                     [toggleable]="true"></app-attribute-list>
@@ -55,7 +55,7 @@ import { PersonParentFamiliesComponent } from './person-parent-families.componen
         </div>
       </div>
     </mat-card-content>
-    <mat-card-footer>
+    <mat-card-footer class="custom-main-colors">
       @if (person?.refns[0]) {
         <div><b>{{ person.refns[0].string }}:&nbsp;</b> {{ person.refns[0].tail }}</div>
       }
@@ -106,6 +106,7 @@ mat-card-subtitle {
 }
 
 .map-section {
+  margin-top: 10px;
   flex: 1;
   min-width: 0;
 }

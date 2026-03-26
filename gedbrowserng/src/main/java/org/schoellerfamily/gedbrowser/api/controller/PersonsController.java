@@ -44,7 +44,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class PersonsController {
+public final class PersonsController {
 
     /** */
     private final UserService userService;
@@ -151,7 +151,14 @@ public class PersonsController {
         return apiPerson.toBuilder().places(places).build();
     }
 
-    private boolean shouldHideConfidential(final Person person, final boolean hasAdmin) {
+    /**
+     * Determines if confidential information should be hidden.
+     *
+     * @param person the person
+     * @param hasAdmin whether the user has admin privileges
+     * @return true if confidential information should be hidden, false otherwise
+     */
+    public boolean shouldHideConfidential(final Person person, final boolean hasAdmin) {
         if (hasAdmin) {
             return false;
         }
@@ -160,12 +167,25 @@ public class PersonsController {
         return visitor.isConfidential();
     }
 
-    private boolean shouldHideLiving(final Person person, final boolean hasUser) {
+    /**
+     * Determines if living information should be hidden.
+     *
+     * @param person the person
+     * @param hasUser whether the user has user privileges
+     * @return true if living information should be hidden, false otherwise
+     */
+    public boolean shouldHideLiving(final Person person, final boolean hasUser) {
         return !hasUser && new LivingEstimator(person, provider).estimate();
     }
 
+    /**
+     * Creates a dummy living person with the specified id.
+     *
+     * @param id the unique identifier for the dummy person
+     * @return the resulting dummy api person
+     */
     @SuppressWarnings("java:S3252")
-    private ApiPerson createDummyLivingPerson(final String id) {
+    public ApiPerson createDummyLivingPerson(final String id) {
         return ApiPerson.builder()
             .string(id)
             .indexName("Living")

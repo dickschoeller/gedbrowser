@@ -11,8 +11,6 @@ export interface GalleryImage {
 }
 
 export class ImageUtil {
-  constructor() {}
-
   public static imageAttributes(attributes: Array<ApiAttribute>): Array<ApiAttribute> {
     const images: Array<ApiAttribute> = new Array<ApiAttribute>();
     for (const attribute of attributes) {

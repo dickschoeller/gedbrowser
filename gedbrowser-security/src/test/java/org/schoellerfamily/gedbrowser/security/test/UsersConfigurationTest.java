@@ -130,6 +130,6 @@ public final class UsersConfigurationTest {
     private SecurityUsers readUserFile(final String userFile) {
         final UsersReader<SecurityUser, SecurityUsers> usersReader = new UsersReader<>();
         return (SecurityUsers) usersReader.readUserFile(userFile, () -> new SecurityUsers(userFile),
-            () -> new UserImpl());
+            UserImpl::new);
     }
 }

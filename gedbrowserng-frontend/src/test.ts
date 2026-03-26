@@ -50,7 +50,7 @@ XMLHttpRequest.prototype.setRequestHeader = function(header: string, value: stri
 XMLHttpRequest.prototype.send = function(body?: any) {
   const metadata = xhrMetadata.get(this);
   const url = metadata?.originalUrl || '';
-  const self = this as any;
+  const self = this;
   
   // For template/stylesheet requests in tests, return empty content
   if ((url.endsWith('.html') || url.endsWith('.css')) && !url.includes('node_modules')) {
@@ -67,14 +67,14 @@ XMLHttpRequest.prototype.send = function(body?: any) {
       if (self.onload) {
         try {
           self.onload(loadEvent);
-        } catch (e) {}
+        } catch { }
       }
       
       // Trigger readystatechange
       if (self.onreadystatechange) {
         try {
           self.onreadystatechange(new Event('readystatechange'));
-        } catch (e) {}
+        } catch { }
       }
     });
     return;

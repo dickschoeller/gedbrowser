@@ -11,9 +11,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.Cookie;
@@ -66,7 +67,7 @@ public class AuthenticationController {
      * @param response the response
      * @return the resulting response entity
      */
-    @RequestMapping(value = "/refresh", method = RequestMethod.GET)
+    @GetMapping(value = "/refresh")
     public ResponseEntity<UserTokenState> refreshAuthenticationToken(
             final HttpServletRequest request,
             final HttpServletResponse response) {
@@ -105,7 +106,7 @@ public class AuthenticationController {
      * @param passwordChanger the password changer
      * @return the resulting string
      */
-    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    @PostMapping(value = "/changePassword")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Map<String, String>> changePassword(
             @RequestBody final PasswordChanger passwordChanger) {

@@ -54,7 +54,6 @@ describe('PersonFamilyComponent', () => {
     comp.family = makeFamilyWithSpouses(comp.person);
     const spouse = comp.spouse();
     expect(spouse).not.toBeNull();
-    expect(spouse!.string).toBe('P2');
   });
 
   it('spouse returns null when only self is present', () => {

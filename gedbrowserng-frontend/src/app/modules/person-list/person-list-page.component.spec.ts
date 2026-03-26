@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { of, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
 
@@ -27,7 +26,6 @@ describe('PersonListPageComponent', () => {
   let component: PersonListPageComponent;
   let fixture: ComponentFixture<PersonListPageComponent>;
   let personService: PersonService;
-  let router: Router;
   let paramsSubject: ReplaySubject<any>;
   let dataSubject: ReplaySubject<any>;
 
@@ -70,7 +68,6 @@ describe('PersonListPageComponent', () => {
     fixture = TestBed.createComponent(PersonListPageComponent);
     component = fixture.componentInstance;
     personService = TestBed.inject(PersonService);
-    router = TestBed.inject(Router);
   });
 
   it('should create', () => {
@@ -79,7 +76,6 @@ describe('PersonListPageComponent', () => {
 
   it('should subscribe to route params on init', () => {
     vi.spyOn(personService, 'getAll').mockReturnValue(of(mockPersons));
-    vi.spyOn(router.routeReuseStrategy, 'shouldReuseRoute').mockReturnValue(false);
 
     expect(() => {
       component.refreshPerson();
@@ -118,23 +114,19 @@ describe('PersonListPageComponent', () => {
   it('should call getAll on refreshPerson', () => {
     component.dataset = 'testDataset';
     const getAllSpy = vi.spyOn(personService, 'getAll').mockReturnValue(of(mockPersons));
-    vi.spyOn(router.routeReuseStrategy, 'shouldReuseRoute').mockReturnValue(false);
 
     component.refreshPerson();
 
     expect(getAllSpy).toHaveBeenCalledWith('testDataset');
   });
 
-  it('should disable route reuse strategy in refreshPerson', () => {
+  it('should refresh persons without changing router reuse strategy', () => {
     component.dataset = 'testDataset';
-    const originalShouldReuse = router.routeReuseStrategy.shouldReuseRoute;
-    vi.spyOn(personService, 'getAll').mockReturnValue(of(mockPersons));
+    const getAllSpy = vi.spyOn(personService, 'getAll').mockReturnValue(of(mockPersons));
 
     component.refreshPerson();
 
-    // Verify that shouldReuseRoute was replaced with a new function
-    expect(router.routeReuseStrategy.shouldReuseRoute).not.toBe(originalShouldReuse);
-    expect(router.routeReuseStrategy.shouldReuseRoute()).toBe(false);
+    expect(getAllSpy).toHaveBeenCalledWith('testDataset');
   });
 
   it('should handle persons array in route data', () => {
@@ -159,7 +151,6 @@ describe('PersonListPageComponent', () => {
     component.dataset = 'testDataset';
     const updatedPersons = [{ id: '3', name: 'Person C', string: 'P3' } as ApiPerson];
     vi.spyOn(personService, 'getAll').mockReturnValue(of(updatedPersons));
-    vi.spyOn(router.routeReuseStrategy, 'shouldReuseRoute').mockReturnValue(false);
 
     component.refreshPerson();
 
@@ -169,7 +160,6 @@ describe('PersonListPageComponent', () => {
   it('should set persons to empty array when service returns null', () => {
     component.dataset = 'testDataset';
     vi.spyOn(personService, 'getAll').mockReturnValue(of(null as any));
-    vi.spyOn(router.routeReuseStrategy, 'shouldReuseRoute').mockReturnValue(false);
 
     component.refreshPerson();
 
@@ -179,7 +169,6 @@ describe('PersonListPageComponent', () => {
   it('should handle multiple refreshPerson calls', () => {
     component.dataset = 'testDataset';
     const getAllSpy = vi.spyOn(personService, 'getAll').mockReturnValue(of(mockPersons));
-    vi.spyOn(router.routeReuseStrategy, 'shouldReuseRoute').mockReturnValue(false);
 
     component.refreshPerson();
     component.refreshPerson();

@@ -23,28 +23,28 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     <mat-card elevation="5">
       <mat-card-title>{{ title }}</mat-card-title>
       <mat-card-subtitle>gedbrowserng</mat-card-subtitle>
-
-            <mat-card-content>
-                @if (notification) {
-                    <p [class]="notification.msgType">{{ notification.msgBody }}</p>
-                }
-
-                @if (!submitted) {
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-          <mat-form-field>
-            <input matInput formControlName="username" required placeholder="username">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="password" required type="password" placeholder="password">
-          </mat-form-field>
-                    <button type="submit" [disabled]="!loginForm.form.valid" mat-raised-button color="primary">Login</button>
-                    </form>
-                }
+      <mat-card-content>
+        @if (notification) {
+          <p [class]="notification.msgType">{{ notification.msgBody }}</p>
+        }
+        @if (!submitted) {
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <mat-form-field>
+              <input matInput formControlName="username" required placeholder="username">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="password" required type="password" placeholder="password">
+            </mat-form-field>
+            <div class="button-row">
+              <button type="submit" [disabled]="!loginForm.form.valid" mat-raised-button color="primary">Login</button>
+              <button type="button" mat-button color="warn" (click)="onCancel()">Cancel</button>
+            </div>
+          </form>
+        }
         <br/>
-
-                @if (submitted) {
-                    <mat-spinner mode="indeterminate"></mat-spinner>
-                }
+        @if (submitted) {
+          <mat-spinner mode="indeterminate"></mat-spinner>
+        }
       </mat-card-content>
     </mat-card>
   </div>
@@ -53,6 +53,14 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 :host {
     display: block;
     min-height: 100vh;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
 }
 
 .content {
@@ -140,6 +148,14 @@ a {
     imports: [MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatButton, MatProgressSpinner]
 })
 export class LoginComponent implements OnInit, OnDestroy {
+
+        onCancel() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                this.router.navigate(['/']);
+            }
+        }
     title = 'Login';
     form: FormGroup;
 
@@ -209,18 +225,18 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.login(this.form.value)
             // show me the animation
             .pipe(delay(1000))
-            .subscribe(
-                () => {
+            .subscribe({
+                next: () => {
                     this.userService.getMyInfo().subscribe();
                     this.router.navigate([this.returnUrl]);
                 },
-                () => {
+                error: () => {
                     this.submitted = false;
                     this.notification = {
                         msgType: 'error',
                         msgBody: 'Incorrect username or password.'
                     };
                 }
-            );
+            });
     }
 }

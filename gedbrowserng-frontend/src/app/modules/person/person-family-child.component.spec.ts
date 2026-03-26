@@ -206,7 +206,7 @@ describe('PersonFamilyChildComponent', () => {
     });
 
     it('should handle person with no lifespan data', () => {
-      (mockPersonService.getOne as any).mockReturnValue(of(createTestPerson({
+      mockPersonService.getOne.mockReturnValue(of(createTestPerson({
         lifespan: { birthYear: undefined, deathYear: undefined } as any,
       })));
 
@@ -233,7 +233,7 @@ describe('PersonFamilyChildComponent', () => {
 
       component.unlink();
 
-      const [builder, famString, person] = (mockPersonService.deleteLink as any).mock.calls[0];
+      const [builder, famString, person] = mockPersonService.deleteLink.mock.calls[0];
       expect(builder.constructor.name).toBe('UrlBuilder');
       expect((builder as UrlBuilder).plusT()).toBe('/gedbrowserng/v1/dbs/testDataset/families');
       expect(famString).toBe('F1');

@@ -72,7 +72,7 @@ public final class RemotePageWaiter implements PageWaiter {
             Duration.ofSeconds(timeout * multiplier));
         try {
             wait.until(expectation);
-        } catch (Throwable error) {
+        } catch (Throwable _) {
             fail("Timeout waiting for Page Load Request to complete.");
         }
         log.debug("Waiting for maintainerMail");
@@ -80,7 +80,7 @@ public final class RemotePageWaiter implements PageWaiter {
             Duration.ofSeconds(timeout * multiplier));
         try {
             wait2.until(ExpectedConditions.presenceOfElementLocated(By.id("maintainerMail")));
-        } catch (Throwable error) {
+        } catch (Throwable _) {
             fail("Timeout waiting for maintainerMail.");
         }
     }
@@ -111,7 +111,7 @@ public final class RemotePageWaiter implements PageWaiter {
             Duration.ofSeconds(timeout * multiplier));
         try {
             wait3.until(ExpectedConditions.urlToBe(newUrl));
-        } catch (Throwable error) {
+        } catch (Throwable _) {
             fail("Timeout waiting for url.");
         }
         waitForPageLoaded(driver);
