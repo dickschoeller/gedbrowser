@@ -56,8 +56,8 @@
 
     <!-- These all step forward together -->
     <spring.version>7.0.6</spring.version>
-    <spring-boot.version>4.0.4</spring-boot.version>
-    <spring-boot-maven.version>4.0.4</spring-boot-maven.version>
+    <spring-boot.version>4.0.5</spring-boot.version>
+    <spring-boot-maven.version>4.0.5</spring-boot-maven.version>
     <spring-data-mongodb.version>5.0.4</spring-data-mongodb.version>
     <spring-data-commons.version>4.0.4</spring-data-commons.version>
     <!-- -->
@@ -97,7 +97,7 @@
     <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
     <checkstyle-version>13.3.0</checkstyle-version>
     <pmd-plugin.version>3.28.0</pmd-plugin.version>
-    <pmd-version>7.22.0</pmd-version>
+    <pmd-version>7.23.0</pmd-version>
     <build-helper-plugin.version>3.6.1</build-helper-plugin.version>
     <jxr-plugin.version>3.6.0</jxr-plugin.version>
     <compiler-plugin.version>3.15.0</compiler-plugin.version>
