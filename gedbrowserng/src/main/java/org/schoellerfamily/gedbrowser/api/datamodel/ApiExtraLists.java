@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.api.datamodel;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -9,20 +10,20 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
+
+
 /**
- * The extra lists that some objects have.
+ * Represents api extra lists in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuperBuilder(toBuilder = true)
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@Jacksonized
-@JsonDeserialize(builder = ApiExtraLists.ApiExtraListsBuilderImpl.class)
+@JsonDeserialize(builder = ApiExtraLists.ApiExtraListsBuilder.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "famss", "famcs", "refns", "changes" })
 public class ApiExtraLists extends ApiHasImages {
@@ -61,7 +62,18 @@ public class ApiExtraLists extends ApiHasImages {
         ApiExtraListsBuilder<
             C extends ApiExtraLists,
             B extends ApiExtraLists.ApiExtraListsBuilder<C, B>>
-        extends ApiExtraLists.ApiHasImagesBuilder<C, B> {
+        extends ApiHasImages.ApiHasImagesBuilder<C, B> {
+
+        /**
+         * Jackson creator to obtain a concrete Lombok builder implementation.
+         *
+         * @return new extra-lists builder instance
+         */
+        @JsonCreator
+        @SuppressWarnings({ "java:S1452", "java:S3252" })
+        public static ApiExtraListsBuilder<?, ?> create() {
+            return ApiExtraLists.builder();
+        }
 
         /**
          * Add a list of attributes.
@@ -70,7 +82,7 @@ public class ApiExtraLists extends ApiHasImages {
          * @return this
          */
         public B attributes(final List<ApiAttribute> attributes) {
-            attributes.forEach(attribute -> attribute(attribute));
+            attributes.forEach(this::attribute);
             return self();
         }
 
@@ -80,6 +92,7 @@ public class ApiExtraLists extends ApiHasImages {
          * @param attribute the attribute to add
          * @return this
          */
+        @Override
         public B attribute(final ApiAttribute attribute) {
             if (attribute.isType("fams")) {
                 return fams(attribute);
@@ -135,8 +148,10 @@ public class ApiExtraLists extends ApiHasImages {
     }
 
     /**
-     * Is the other object of exactly the same type as this one? All overrides
-     * should use the same approach.
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
      */
     @Override
     public boolean canEqual(final Object other) {

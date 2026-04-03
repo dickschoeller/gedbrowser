@@ -2,26 +2,27 @@ package org.schoellerfamily.gedbrowser.api.datamodel;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
+
+
 /**
- * The family data model object for the API.
+ * Represents api family in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuperBuilder(toBuilder = true)
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@Jacksonized
-@JsonDeserialize(builder = ApiFamily.ApiFamilyBuilderImpl.class)
+@JsonDeserialize(builder = ApiFamily.ApiFamilyBuilder.class)
 @JsonPropertyOrder({ "children", "spouses" })
 public class ApiFamily extends ApiHasImages {
     /**
@@ -36,6 +37,11 @@ public class ApiFamily extends ApiHasImages {
     @Singular
     private final List<ApiAttribute> spouses;
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public final void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
@@ -52,6 +58,17 @@ public class ApiFamily extends ApiHasImages {
             C extends ApiFamily,
             B extends ApiFamilyBuilder<C, B>>
         extends ApiHasImagesBuilder<C, B> {
+        /**
+         * Jackson creator to obtain a concrete Lombok builder implementation.
+         *
+         * @return new family builder instance
+         */
+        @JsonCreator
+        @SuppressWarnings("java:S1452")
+        public static ApiFamilyBuilder<?, ?> create() {
+            return ApiFamily.builder();
+        }
+
         /**
          * Add an attribute to the correct list based on its type.
          *
@@ -117,8 +134,10 @@ public class ApiFamily extends ApiHasImages {
     }
 
     /**
-     * Is the other object of exactly the same type as this one? All overrides
-     * should use the same approach.
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
      */
     @Override
     public final boolean canEqual(final Object other) {

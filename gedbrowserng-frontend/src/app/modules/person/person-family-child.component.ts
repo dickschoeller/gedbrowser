@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit } from '@angular/core';
 
-import { ApiAttribute, ApiPerson } from '../../models';
+import { ApiAttribute } from '../../models';
 import { PersonService, UserService } from '../../services';
 import { HasFamily } from '../../interfaces/has-family';
 import { HasPerson } from '../../interfaces/has-person';
@@ -22,13 +22,13 @@ import { MatIcon } from '@angular/material/icon';
  */
 @Component({
     selector: 'app-person-family-child',
-    template: `<div class="parent">
+    template: `<div class="parent custom-section-colors">
     @if (person) {
-        <span>
+        <span class="custom-section-colors">
             <a [routerLink]="['/' + dataset + '/persons', person.string]" class="name">{{ person.indexName }} {{ lifespanYearString() }} [{{ person.string }}]</a>
         </span>
     }
-  <span class="example-fill-remaining-space"></span>
+    <span class="example-fill-remaining-space custom-section-colors"></span>
     @if (hasSignedIn()) {
         <span class="hidden">
             <button mat-icon-button matTooltip="Unlink" color="warn" (click)="unlink()">
@@ -47,8 +47,10 @@ export class PersonFamilyChildComponent extends PersonGetter
     @Input() index: number;
 
     constructor(@Inject(PersonService) personService: PersonService,
-        @Inject(UserService) private readonly userService: UserService) {
-        super(personService);
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(NgZone) zone: NgZone,
+        @Inject(ChangeDetectorRef) cdr: ChangeDetectorRef) {
+        super(personService, zone, cdr);
         this.famMemberType = 'children';
     }
 

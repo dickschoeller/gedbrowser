@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of note link.
+ *
+ * @author Richard Schoeller
  */
 public interface NoteLinkDocument extends GedDocument<NoteLink> {
     @Override

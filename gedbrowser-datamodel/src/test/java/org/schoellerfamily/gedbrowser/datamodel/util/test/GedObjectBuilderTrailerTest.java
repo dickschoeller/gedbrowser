@@ -4,17 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object builder trailer.
+ *
+ * @author Richard Schoeller
  */
 final class GedObjectBuilderTrailerTest {
 
-    /** */
     @Test
     void testCreateTrailer() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Trailer trailer = builder.createTrailer();
         assertEquals("Trailer", trailer.getString(), "Mismatched tag");
     }

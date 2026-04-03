@@ -4,16 +4,25 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents ged appender in the domain model.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public final class GedAppender implements AppenderStrategy {
     /**
      * The GedObject that owns this appender.
      */
-    private final transient GedObject owner;
+    private final GedObject owner;
 
+    /**
+     * Executes append string.
+     *
+     * @param appendage the appendage
+     */
     @Override
     public void appendString(final String appendage) {
         owner.setString(owner.getString().concat(appendage));

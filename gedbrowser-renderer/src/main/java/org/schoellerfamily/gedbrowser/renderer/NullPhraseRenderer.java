@@ -1,11 +1,15 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders null phrase output for display.
+ *
+ * @author Richard Schoeller
  */
 public class NullPhraseRenderer implements PhraseRenderer {
     /**
-     * {@inheritDoc}
+     * Returns the string.
+     *
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

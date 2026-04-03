@@ -11,22 +11,19 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * Data driven tests of the permutations of calling the constructors of
- * Attribute.
+ * Contains tests for attribute constructor.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 final class AttributeConstructorTest {
 
-    /**
-     * @return stream of argument arrays
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person1 = builder.createPerson("I1", "J. Random/Schoeller/");
 
         return Arrays.stream(new Object[][] { { null, null, null, null, "", "" },

@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 /**
- * Class represents the ID strings for a pair of parents.
+ * Represents parent ids.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class ParentIds {
     /** */
@@ -12,10 +12,10 @@ public final class ParentIds {
     private final String mother;
 
     /**
-     * Constructor.
+     * Creates a new ParentIds.
      *
-     * @param father father's id
-     * @param mother mother's id
+     * @param father the father
+     * @param mother the mother
      */
     public ParentIds(final String father, final String mother) {
         this.father = father;
@@ -23,14 +23,18 @@ public final class ParentIds {
     }
 
     /**
-     * @return the father's id
+     * Gets the f.
+     *
+     * @return the f
      */
     public String getF() {
         return father;
     }
 
     /**
-     * @return the mother's id
+     * Gets the m.
+     *
+     * @return the m
      */
     public String getM() {
         return mother;

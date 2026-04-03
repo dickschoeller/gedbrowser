@@ -31,15 +31,20 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object builder event by name.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CouplingBetweenObjects", "PMD.ExcessiveImports" })
 final class GedObjectBuilderEventByNameTest {
     /** */
-    private static GedObjectBuilder builder = new GedObjectBuilder();
+    private static GedObjectBuilder builder = new GedObjectBuilderImpl();
     /** */
     @SuppressWarnings("PMD.SingularField")
     private static Root root = builder.getRoot();
@@ -83,11 +88,6 @@ final class GedObjectBuilderEventByNameTest {
         { person, "submitterlink", "SUB1", "", SubmitterLink.class, "Submitter", "SUB1" },
         { person, "submissionlink", "SUBN", "", SubmissionLink.class, "Submission", "SUBN" }, };
 
-    /**
-     * Provide parameter combinations: (visited, type).
-     *
-     * @return stream of arguments
-     */
     private static Stream<Arguments> params() {
         return Arrays.stream(PARAMETERS).map(Arguments::of);
     }

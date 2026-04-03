@@ -21,8 +21,12 @@ import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Renders living output for display.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class LivingRenderer extends GedRenderer<Root>
@@ -36,18 +40,19 @@ public final class LivingRenderer extends GedRenderer<Root>
     private static final int ANCIENT = 100;
 
     /**
-     * Constructor.
+     * Creates a new LivingRenderer.
      *
-     * @param root root of data set
-     * @param renderingContext the context that we are rendering in
+     * @param root the root
+     * @param renderingContext the rendering context
      */
-    public LivingRenderer(final Root root,
-            final RenderingContext renderingContext) {
+    public LivingRenderer(final Root root, final RenderingContext renderingContext) {
         super(root, new GedRendererFactory(), renderingContext);
     }
 
     /**
-     * @return the buckets by 10 year bands
+     * Gets the buckets.
+     *
+     * @return the buckets
      */
     public List<Bucket> getBuckets() {
         log.info("Starting LivingRenderer.getBuckets()");
@@ -99,7 +104,7 @@ public final class LivingRenderer extends GedRenderer<Root>
     }
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     @Getter
     public static final class Bucket {
@@ -111,11 +116,11 @@ public final class LivingRenderer extends GedRenderer<Root>
         private final List<PersonRenderer> persons;
 
         /**
-         * Constructor.
+         * Executes bucket.
          *
-         * @param lower lower bound for this bucket
-         * @param upper upper bound for this bucket
-         * @param persons collection of persons in this bucket
+         * @param lower the lower
+         * @param upper the upper
+         * @param persons the persons
          */
         public Bucket(final Integer lower, final Integer upper,
                 final Collection<PersonRenderer> persons) {

@@ -8,25 +8,35 @@ import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.NoArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Represents trailer document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Document(collection = "trailers")
-@CompoundIndexes({
-    @CompoundIndex(name = "trailer_unique_idx",
-            def = "{'string': 1, 'filename': 1}",
-            unique = true)
-})
+@CompoundIndex(name = "trailer_unique_idx", def = "{'string': 1, 'filename': 1}", unique = true)
+@NoArgsConstructor
 public final class TrailerDocumentMongo extends GedDocumentMongo<Trailer>
         implements TrailerDocument {
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "trailer";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -40,11 +50,21 @@ public final class TrailerDocumentMongo extends GedDocumentMongo<Trailer>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

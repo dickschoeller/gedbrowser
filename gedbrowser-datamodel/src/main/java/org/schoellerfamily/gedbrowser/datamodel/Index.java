@@ -11,7 +11,9 @@ import java.util.TreeSet;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents index in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public final class Index {
     // TODO It would be nice to organize the last by date, but to do that, we
@@ -20,10 +22,6 @@ public final class Index {
 
     /**
      * The storage for the index.
-     *
-     * Structure: TreeMap<"Surname", TreeMap<"Surname, Given", TreeSet<"ID">>>
-     * This allows us to organize by surname and then surname,given and finally
-     * the set of IDs that have the same surname,given.
      */
     private final SortedMap<String,
             SortedMap<String, SortedSet<String>>> surnameIndex = new TreeMap<>();
@@ -34,7 +32,9 @@ public final class Index {
     private final Root mRoot;
 
     /**
-     * @param root the root object for this index.
+     * Creates a new Index.
+     *
+     * @param root the root
      */
     public Index(final Root root) {
         this.mRoot = root;
@@ -63,38 +63,28 @@ public final class Index {
         }
     }
 
-    /**
-     * Find the map of full names to a sets of IDs for the given surname. If the
-     * surname is not already present, create a new map and add it to the index.
-     *
-     * @param surname surname to search
-     * @return the associated map
-     */
     private SortedMap<String, SortedSet<String>> findNamesPerSurname(final String surname) {
         return surnameIndex.computeIfAbsent(surname, k -> new TreeMap<>());
     }
 
-    /**
-     * Find the set of IDs associated with a full name in the provided map.
-     *
-     * @param indexName the full name in index form
-     * @param names the map of full names to sets of IDs
-     * @return the set of ID strings
-     */
     private SortedSet<String> findIdsPerName(final String indexName,
             final SortedMap<String, SortedSet<String>> names) {
         return names.computeIfAbsent(indexName, k -> new TreeSet<>());
     }
 
     /**
-     * @return the number of surnames in the index
+     * Returns the int.
+     *
+     * @return the resulting int
      */
     public int surnameCount() {
         return surnameIndex.size();
     }
 
     /**
-     * @return the set of surnames in the index
+     * Gets the surnames.
+     *
+     * @return the surnames
      */
     public Set<String> getSurnames() {
         return Collections.unmodifiableSet(surnameIndex.keySet());
@@ -120,12 +110,6 @@ public final class Index {
     // TODO want a method to provide the total count of names.
     // TODO want a method to provide the IDs per name/surname.
 
-    /**
-     * Get map of full names to sets of IDs for the provided surname.
-     *
-     * @param surname the surname to search.
-     * @return the map
-     */
     private Map<String, SortedSet<String>> getNamesPerSurnameMap(
             final String surname) {
         if (!surnameIndex.containsKey(surname)) {

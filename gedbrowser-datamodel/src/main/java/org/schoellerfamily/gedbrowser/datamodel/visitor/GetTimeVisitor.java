@@ -1,21 +1,26 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 
 /**
- * @author Dick Schoeller
+ * Visits get time elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class GetTimeVisitor implements GedObjectVisitor {
+
     /**
      * Accumulates the best time information.
      */
     private String timeString = "";
 
     /**
-     * Visit an Attribute. We will look at the attributes of this Attribute
-     * for Dates. Once one is found, quit.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public void visit(final Attribute attribute) {

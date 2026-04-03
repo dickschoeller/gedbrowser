@@ -3,10 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer.application;
 import java.util.Map;
 
 /**
- * This interface is for obtaining commonly interesting information about the
- * running application.
+ * Defines the contract for application info.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface ApplicationInfo {
 

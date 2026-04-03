@@ -6,9 +6,11 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 /**
+ * Defines the contract for new id.
+ *
  * @param <X> the data model type we are creating
  * @param <Y> the DB type associated with the type X
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface NewId<X extends GedObject, Y extends GedDocument<X>> {
     /**

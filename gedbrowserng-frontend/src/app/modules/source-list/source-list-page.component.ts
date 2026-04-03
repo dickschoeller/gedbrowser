@@ -1,6 +1,6 @@
 import { RefreshSource } from '../../interfaces';
 import { Component, OnInit, OnChanges , Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { ApiSource } from '../../models';
 import { SourceService } from '../../services';
@@ -18,8 +18,7 @@ export class SourceListPageComponent implements OnInit, OnChanges, RefreshSource
   sources: Array<ApiSource>;
 
   constructor(@Inject(ActivatedRoute) private readonly route: ActivatedRoute,
-    @Inject(SourceService) private readonly sourceService: SourceService,
-    @Inject(Router) private readonly router: Router) { }
+    @Inject(SourceService) private readonly sourceService: SourceService) { }
 
   ngOnInit(): void {
     this.init();
@@ -42,10 +41,6 @@ export class SourceListPageComponent implements OnInit, OnChanges, RefreshSource
   }
 
   refreshSource(source: ApiSource): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
-
     this.sourceService.getAll(this.dataset).subscribe(
       (sources: Array<ApiSource>) => {
         this.sources = sources.toSorted(ApiComparators.compareSources);

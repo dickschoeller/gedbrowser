@@ -1,4 +1,4 @@
-import { Component, Input , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone } from '@angular/core';
 
 import { ApiAttribute, ApiFamily, ApiPerson, AttributeDialogData, SelectItem } from '../../models';
 import { FamilyService, PersonService, UserService } from '../../services';
@@ -31,54 +31,55 @@ import { PersonFamilyChildListComponent } from './person-family-child-list.compo
 @Component({
     standalone: true,
     selector: 'app-person-family',
-    template: `<mat-card>
+    template: `<mat-card class="custom-main-colors">
   <mat-card-title>
-        <mat-toolbar color="primary">Family {{ index + 1 }}
-            @if (spouse()) { <span>&nbsp;-&nbsp;</span> }
-            @if (spouse()) {
-                <app-person-family-spouse
-                        [dataset]="dataset" [parent]="this" [attribute]="spouse()"></app-person-family-spouse>
-            }
-            @if (spouse() && hasSignedIn()) {
-                <span>
-                    <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
-                        <mat-icon matListIcon>link_off</mat-icon></button>
-                </span>
-            }
-            @if (!spouse()) {
-                <span class="example-fill-remaining-space"></span>
-            }
-            @if (!spouse() && hasSignedIn()) {
-                <span>
-                    <app-new-person
-                            [sex]="sex" [surname]="surname" [label]="'Create spouse'"
-                            (emitOK)="createPerson($event)"></app-new-person>
-                    <app-link-person
-                            [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
-                            (emitOK)="linkPerson($event)"></app-link-person>
-                    <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
-                        <mat-icon matListIcon>link_off</mat-icon></button>
-                </span>
-            }
+    <mat-toolbar class="custom-toolbar-colors">Family {{ index + 1 }}
+      @if (spouse()) { <span>&nbsp;-&nbsp;</span> }
+      @if (spouse()) {
+        <app-person-family-spouse
+            [dataset]="dataset" [parent]="this" [attribute]="spouse()"></app-person-family-spouse>
+      }
+      @if (spouse() && hasSignedIn()) {
+        <span>
+          <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
+            <mat-icon matListIcon>link_off</mat-icon>
+          </button>
+        </span>
+      }
+      @if (!spouse()) {
+        <span class="example-fill-remaining-space"></span>
+      }
+      @if (!spouse() && hasSignedIn()) {
+        <span>
+          <app-new-person
+              [sex]="sex" [surname]="surname" [label]="'Create spouse'"
+              (emitOK)="createPerson($event)"></app-new-person>
+          <app-link-person
+              [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link parent'"
+              (emitOK)="linkPerson($event)"></app-link-person>
+          <button mat-icon-button matTooltip="Unlink self from family" color="accent" (click)="unlink()">
+          <mat-icon matListIcon>link_off</mat-icon></button>
+        </span>
+      }
     </mat-toolbar>
   </mat-card-title>
-  <mat-card-content>
-  <div class="ui-g">
-    <div class="ui-g-1"></div>
-    <div class="ui-g-10">
-      <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="family?.attributes"
-          [styleClass]="'ui-panel-titlebar-success'"></app-attribute-list>
+    <mat-card-content class="custom-main-colors">
+    <div class="ui-g">
+      <div class="ui-g-1"></div>
+      <div class="ui-g-10">
+        <app-attribute-list [dataset]="dataset" [parent]="this" [attributes]="family?.attributes"
+            [styleClass]="'ui-panel-titlebar-success'"></app-attribute-list>
+      </div>
+      <div class="ui-g-1"></div>
     </div>
-    <div class="ui-g-1"></div>
-  </div>
-  <div class="ui-g">
-    <div class="ui-g-1"></div>
-    <div class="ui-g-10">
-      <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="family?.images"
-          [styleClass]="'ui-panel-titlebar-success'"></app-multimedia-gallery>
+    <div class="ui-g">
+      <div class="ui-g-1"></div>
+      <div class="ui-g-10">
+        <app-multimedia-gallery [dataset]="dataset" [parent]="this" [multimedia]="family?.images"
+            [styleClass]="'ui-panel-titlebar-success'"></app-multimedia-gallery>
+      </div>
+      <div class="ui-g-1"></div>
     </div>
-    <div class="ui-g-1"></div>
-  </div>
     @if (family?.children) {
         <app-person-family-child-list
                 [children]="family?.children" [family]="family" [parent]="this"
@@ -127,16 +128,21 @@ export class PersonFamilyComponent extends InitablePersonCreator
 
     constructor(@Inject(FamilyService) private readonly familyService: FamilyService,
         @Inject(PersonService) public readonly personService: PersonService,
-        @Inject(UserService) private readonly userService: UserService) {
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(NgZone) private readonly zone: NgZone,
+        @Inject(ChangeDetectorRef) private readonly cdr: ChangeDetectorRef) {
         super(personService);
     }
 
     init(): void {
         this.familyService.getOne(this.dataset, this.string)
             .subscribe((family: ApiFamily) => {
-                this.family = family;
-                this.attributes = family.attributes;
-                this.initialized = true;
+                this.zone.run(() => {
+                    this.family = family;
+                    this.attributes = family.attributes;
+                    this.initialized = true;
+                    this.cdr.markForCheck();
+                });
             });
         this.surname = '?';
         this.sex = NewPersonHelper.guessPartnerSex(this.person);
@@ -176,7 +182,12 @@ export class PersonFamilyComponent extends InitablePersonCreator
 
     save() {
         this.familyService.put(this.dataset, this.family).subscribe(
-            (data: ApiFamily) => this.family = data);
+            (data: ApiFamily) => {
+                this.zone.run(() => {
+                    this.family = data;
+                    this.cdr.markForCheck();
+                });
+            });
     }
 
     options(): Array<SelectItem> {
@@ -194,7 +205,12 @@ export class PersonFamilyComponent extends InitablePersonCreator
     unlink(): void {
         const ub: UrlBuilder = new UrlBuilder(this.dataset, 'families', 'spouses');
         this.personService.deleteLink(ub, this.family.string, this.person)
-            .subscribe((data: ApiPerson) => { this.parent.refreshPerson(); });
+            .subscribe(() => {
+                this.zone.run(() => {
+                    this.parent.refreshPerson();
+                    this.cdr.markForCheck();
+                });
+            });
     }
 
     spouseLinked(person: ApiPerson): boolean {

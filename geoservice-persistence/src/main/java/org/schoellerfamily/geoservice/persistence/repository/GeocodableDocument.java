@@ -3,7 +3,9 @@ package org.schoellerfamily.geoservice.persistence.repository;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of geocodable.
+ *
+ * @author Richard Schoeller
  */
 public interface GeocodableDocument {
     /**

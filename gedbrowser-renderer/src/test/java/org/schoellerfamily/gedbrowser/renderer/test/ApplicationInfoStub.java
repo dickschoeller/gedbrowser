@@ -4,11 +4,15 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
 /**
- * @author Dick Schoeller
+ * Provides a stub implementation for application info.
+ *
+ * @author Richard Schoeller
  */
 public final class ApplicationInfoStub implements ApplicationInfo {
     /**
-     * {@inheritDoc}
+     * Returns the application name.
+     *
+     * @return the application name
      */
     @Override
     public String getApplicationName() {
@@ -16,7 +20,9 @@ public final class ApplicationInfoStub implements ApplicationInfo {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the version.
+     *
+     * @return the version
      */
     @Override
     public String getVersion() {
@@ -24,7 +30,9 @@ public final class ApplicationInfoStub implements ApplicationInfo {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the maintainer email.
+     *
+     * @return the maintainer email
      */
     @Override
     public String getMaintainerEmail() {
@@ -32,7 +40,9 @@ public final class ApplicationInfoStub implements ApplicationInfo {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the maintainer name.
+     *
+     * @return the maintainer name
      */
     @Override
     public String getMaintainerName() {
@@ -40,7 +50,9 @@ public final class ApplicationInfoStub implements ApplicationInfo {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the application u r l.
+     *
+     * @return the application u r l
      */
     @Override
     public String getApplicationURL() {
@@ -48,7 +60,9 @@ public final class ApplicationInfoStub implements ApplicationInfo {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the home u r l.
+     *
+     * @return the home u r l
      */
     @Override
     public String getHomeURL() {

@@ -16,17 +16,31 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents family document repository mongo impl for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor
 public class FamilyDocumentRepositoryMongoImpl implements
     FindableDocument<Family, FamilyDocument>, LastId<FamilyDocumentMongo> {
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
+    /**
+     * Finds the by file and string.
+     *
+     * @param filename the filename to use
+     * @return the resulting family document
+     */
     @Override
     public final FamilyDocument findByFileAndString(final String filename,
             final String string) {
@@ -43,6 +57,13 @@ public class FamilyDocumentRepositoryMongoImpl implements
         return familyDocument;
     }
 
+    /**
+     * Finds the by root and string.
+     *
+     * @param rootDocument the root document
+     * @param string the string
+     * @return the resulting family document
+     */
     @Override
     public final FamilyDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -56,6 +77,12 @@ public class FamilyDocumentRepositoryMongoImpl implements
         return familyDocument;
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param filename the filename to use
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<FamilyDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -71,6 +98,12 @@ public class FamilyDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param rootDocument the root document
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<FamilyDocument> findAll(
             final RootDocument rootDocument) {
@@ -86,6 +119,12 @@ public class FamilyDocumentRepositoryMongoImpl implements
         return familyDocuments;
     }
 
+    /**
+     * Executes count.
+     *
+     * @param filename the filename to use
+     * @return the resulting long
+     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -93,17 +132,35 @@ public class FamilyDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, FamilyDocumentMongo.class);
     }
 
+    /**
+     * Returns the long.
+     *
+     * @param rootDocument the root document
+     * @return the resulting long
+     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, FamilyDocumentMongo.class,
                 rootDocument.getFilename(), "F");
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, FamilyDocumentMongo.class,

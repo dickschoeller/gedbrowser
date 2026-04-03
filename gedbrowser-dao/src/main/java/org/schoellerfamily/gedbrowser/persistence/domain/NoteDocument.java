@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of note.
+ *
+ * @author Richard Schoeller
  */
 public interface NoteDocument extends GedDocument<Note> {
     /**

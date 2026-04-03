@@ -1,6 +1,5 @@
 import { MultimediaDialogData, ApiAttribute, MultimediaFileData, MultimediaFormat, MultimediaSourceType } from '../models';
 import { ArrayUtil } from './array-util';
-import { ImageUtil } from './image-util';
 import { StringUtil } from './string-util';
 export class MultimediaDialogHelper {
   public static buildMultimediaAttribute(data: MultimediaDialogData): ApiAttribute {
@@ -32,7 +31,7 @@ export class MultimediaDialogHelper {
     };
   }
 
-  public static buildMultimediaDialogData(multimedias: Array<ApiAttribute>, dialogIndex?: number | 0): MultimediaDialogData {
+  public static buildMultimediaDialogData(multimedias: Array<ApiAttribute>, dialogIndex?: number): MultimediaDialogData {
     const files: Array<MultimediaFileData> = new Array<MultimediaFileData>();
     if (ArrayUtil.isEmpty(multimedias)) {
       return { title: 'Title', files: [], note: '' };

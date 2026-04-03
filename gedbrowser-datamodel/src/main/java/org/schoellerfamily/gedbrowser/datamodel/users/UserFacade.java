@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.users;
 
 /**
- * @author Dick Schoeller
+ * Provides a simplified interface for user operations.
+ *
+ * @author Richard Schoeller
  */
 public interface UserFacade extends User {
     /**

@@ -4,9 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 
 /**
- * Exception thrown when an object is not found.
+ * Represents an error related to object not found.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class ObjectNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 3L;
@@ -21,12 +21,12 @@ public class ObjectNotFoundException extends RuntimeException {
     private final transient RenderingContext context;
 
     /**
-     * Constructor.
+     * Creates a new ObjectNotFoundException.
      *
-     * @param message     the message to display
-     * @param id          the ID of the object not found
-     * @param datasetName the name of the dataset being searched
-     * @param context     the rendering context
+     * @param message the message
+     * @param id the unique identifier for the target
+     * @param datasetName the dataset name to use
+     * @param context the context
      */
     public ObjectNotFoundException(final String message, final String id, final String datasetName,
         final RenderingContext context) {

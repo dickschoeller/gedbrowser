@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel.appender;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for appender strategy.
+ *
+ * @author Richard Schoeller
  */
 public interface AppenderStrategy {
     /**

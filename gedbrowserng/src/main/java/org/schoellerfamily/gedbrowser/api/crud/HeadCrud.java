@@ -13,8 +13,12 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents head crud.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class HeadCrud
@@ -23,8 +27,10 @@ public class HeadCrud
         ObjectCrud<ApiHead> {
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Creates a new HeadCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public HeadCrud(final GedObjectFileLoader loader,
@@ -34,7 +40,9 @@ public class HeadCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the repository.
+     *
+     * @return the repository
      */
     @Override
     public FindableDocument<Head, HeadDocument> getRepository() {
@@ -42,7 +50,9 @@ public class HeadCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the ged class.
+     *
+     * @return the ged class
      */
     @Override
     public Class<Head> getGedClass() {
@@ -50,10 +60,11 @@ public class HeadCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param head a head object to create
-     * @return the head
-     * @throws UnsupportedOperationException always
+     * Creates the one.
+     *
+     * @param db the db
+     * @param head the head
+     * @return the resulting api head
      */
     public ApiHead createOne(final String db, final ApiHead head) {
         throw new UnsupportedOperationException(
@@ -61,8 +72,10 @@ public class HeadCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the one head
+     * Executes read one.
+     *
+     * @param db the db
+     * @return the resulting api head
      */
     public ApiHead readOne(final String db) {
         log.info("Entering head, db: {}", db);
@@ -70,9 +83,11 @@ public class HeadCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id is not used here (just filling an API)
-     * @return the one head
+     * Returns the api head.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api head
      */
     @Override
     public ApiHead readOne(final String db, final String id) {
@@ -80,8 +95,10 @@ public class HeadCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of heads
+     * Executes read all.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @Override
     public List<ApiHead> readAll(final String db) {
@@ -90,9 +107,11 @@ public class HeadCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param head the data for the head
-     * @return the head as created
+     * Executes update head.
+     *
+     * @param db the db
+     * @param head the head
+     * @return the resulting api head
      */
     public ApiHead updateHead(final String db, final ApiHead head) {
         log.info("Entering update head in db: {}", db);
@@ -100,10 +119,12 @@ public class HeadCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the head (ignored)
-     * @param head the data for the head
-     * @return the head as created
+     * Executes update one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param head the head
+     * @return the resulting api head
      */
     @Override
     public ApiHead updateOne(final String db, final String id,
@@ -113,10 +134,11 @@ public class HeadCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of a head object to delete
-     * @return the head
-     * @throws UnsupportedOperationException always
+     * Executes delete one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api head
      */
     public ApiHead deleteOne(final String db, final String id) {
         throw new UnsupportedOperationException(

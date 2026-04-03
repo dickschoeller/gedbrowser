@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.DateListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DateRenderer;
@@ -18,8 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for date list item renderer.
+ *
+ * @author Richard Schoeller
  */
 @ContextConfiguration(classes = { TestConfiguration.class })
 @ExtendWith(SpringExtension.class)
@@ -40,10 +45,9 @@ final class DateListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person = builder.createPerson();
         attribute = builder.createPersonEvent(person, "String");
         date = builder.addDateToGedObject(attribute, "14 December 1958");
@@ -53,7 +57,6 @@ final class DateListItemRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetRenderAsListItem() {
         final DateRenderer dRenderer = new DateRenderer(date, new GedRendererFactory(),
@@ -66,7 +69,6 @@ final class DateListItemRendererTest {
             string, "Rendered string doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetRenderAsListItem2() {
         final DateRenderer dRenderer = new DateRenderer(date2, new GedRendererFactory(),
@@ -79,7 +81,6 @@ final class DateListItemRendererTest {
             "Rendered string doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetRenderAsListItemEmpty() {
         final DateRenderer dRenderer = new DateRenderer(new Date(attribute, ""),
@@ -91,7 +92,6 @@ final class DateListItemRendererTest {
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
     @Test
     void testGetRenderAsListItemNull() {
         final DateRenderer dRenderer = new DateRenderer(new Date(attribute, null),

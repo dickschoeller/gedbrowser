@@ -2,10 +2,9 @@ import { Component, Input , Inject } from '@angular/core';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasFamily, HasPerson, RefreshPerson, Saveable, LinkCheck } from '../../interfaces';
-import { LinkPersonDialogComponent } from '../../components';
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
 import { PersonService, FamilyService, UserService } from '../../services';
-import { UrlBuilder, LifespanUtil } from '../../utils';
+import { UrlBuilder } from '../../utils';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -27,33 +26,33 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
   <div class="ui-g-10">
     <mat-card>
       <mat-card-title>
-        <mat-toolbar>
-          Children
+        <mat-toolbar class="custom-section-colors">
+          <span class="list-toolbar-title">Children</span>
           <span class="example-fill-remaining-space"></span>
-                    @if (hasSignedIn()) {
-                        <span>
-                            <app-new-person
-                                    [sex]="sex" [surname]="surname" [label]="'Create child'"
-                                    color="primary"
-                                    (emitOK)="createPerson($event)"></app-new-person>
-                            <app-link-person
-                                    [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link child'"
-                                    color="primary"
-                                    (emitOK)="linkChild($event)"></app-link-person>
-                        </span>
-                    }
+          @if (hasSignedIn()) {
+            <span>
+              <app-new-person
+                  [sex]="sex" [surname]="surname" [label]="'Create child'"
+                  color="primary"
+                  (emitOK)="createPerson($event)"></app-new-person>
+              <app-link-person
+                  [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link child'"
+                  color="primary"
+                  (emitOK)="linkChild($event)"></app-link-person>
+            </span>
+          }
         </mat-toolbar>
       </mat-card-title>
-      <mat-card-content>
-                <div cdkDropList class="child-list" (cdkDropListDropped)="drop($event)"
-                        [cdkDropListDisabled]="!hasSignedIn()">
-                    @for (child of children; track $index; let i = $index) {
-                        <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : '' }}">
-                            <app-person-family-child [child]="child" [index]="i"
-                                    [parent]="this" [dataset]="dataset"></app-person-family-child>
-                        </div>
-                    }
-                </div>
+    <mat-card-content class="custom-section-colors">
+        <div cdkDropList class="child-list custom-section-colors" (cdkDropListDropped)="drop($event)"
+            [cdkDropListDisabled]="!hasSignedIn()">
+          @for (child of children; track $index; let i = $index) {
+            <div cdkDrag class="{{ hasSignedIn() ? 'child-box' : '' }}">
+              <app-person-family-child [child]="child" [index]="i"
+                  [parent]="this" [dataset]="dataset"></app-person-family-child>
+            </div>
+          }
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
@@ -72,21 +71,21 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
     sex = 'M';
     surname: string;
 
-    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public readonly personService: PersonService,
-        @Inject(FamilyService) @Inject(FamilyService) @Inject(FamilyService) public readonly familyService: FamilyService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) {
+    constructor(@Inject(PersonService) public readonly personService: PersonService,
+        @Inject(FamilyService) public readonly familyService: FamilyService,
+        @Inject(UserService) private readonly userService: UserService) {
         super(personService);
     }
 
     init(): void {
         const h = this.husbandId();
-        if (h !== '') {
+        if (h === '') {
+            this.surname = this.parent.person.surname;
+        } else {
             this.personService.getOne(this.dataset, h)
                 .subscribe((person: ApiPerson) => {
                     this.surname = person.surname;
                 });
-        } else {
-            this.surname = this.parent.person.surname;
         }
     }
 

@@ -14,10 +14,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for wife.
+ *
+ * @author Richard Schoeller
  */
 final class WifeTest {
     /** */
@@ -33,10 +36,9 @@ final class WifeTest {
     /** */
     private transient Wife wife2b;
 
-    /** */
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person1 = builder.createPerson("I1");
         person2 = builder.createPerson("I2");
         person3 = builder.createPerson("I3");
@@ -52,20 +54,12 @@ final class WifeTest {
         wife2b = builder.addWifeToFamily(family2, person5);
     }
 
-    /** */
     @Test
     void testEmptyGetMother() {
         final Wife wife = new Wife();
         assertFalse(wife.getMother().isSet(), "Should not be set");
     }
 
-    /**
-     * Parameterized mother equality checks.
-     *
-     * @param wifeIndex           which wife to test (1=wife1,2=wife2a,3=wife2b)
-     * @param expectedMotherIndex expected value of getMother() for the wife
-     *                            (0=null,2=person2,3=person3)
-     */
     @ParameterizedTest(name = "mother[{index}] wife{0} => person{1}")
     @MethodSource("motherCases")
     void testGetMotherParameterized(final int wifeIndex, final int expectedMotherIndex) {
@@ -83,11 +77,6 @@ final class WifeTest {
         );
     }
 
-    /**
-     * Parameterized spouse isSet checks.
-     * @param wifeIndex which wife to test (1=wife1,2=wife2a,3=wife2b)
-     * @param expectedIsSet expected value of isSet() for the spouse of the wife
-     */
     @ParameterizedTest(name = "spouseIsSet[{index}] wife{0} => isSet={1}")
     @MethodSource("spouseIsSetCases")
     void testGetSpouseIsSetParameterized(final int wifeIndex, final boolean expectedIsSet) {
@@ -105,12 +94,6 @@ final class WifeTest {
         );
     }
 
-    /**
-     * Parameterized spouse equality checks.
-     *
-     * @param wifeIndex           which wife to test (1=wife1,2=wife2a,3=wife2b)
-     * @param expectedSpouseIndex expected value of getSpouse() for the wife
-     */
     @ParameterizedTest(name = "spouse[{index}] wife{0} => person{1}")
     @MethodSource("spouseCases")
     void testGetSpouseParameterized(final int wifeIndex, final int expectedSpouseIndex) {
@@ -128,39 +111,30 @@ final class WifeTest {
         );
     }
 
-    /** */
     @Test
     void testWifeGedObjectMotherNotSet() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, "Wife", null);
         assertFalse(wife.getMother().isSet(), "Mother should not be set");
     }
 
-    /** */
     @Test
     void testWifeGedObjectStringMotherNotSet() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, null);
         assertFalse(wife.getMother().isSet(), "Mother should not be set");
     }
 
-    /** */
     @Test
     void testWifeGedObjectStringStringMother() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Wife wife = new Wife(family, WIFE_TAG, new ObjectId("@I3@"));
         assertFalse(wife.getMother().isSet(), "Mother should not be set");
     }
 
-    /**
-     * Helper to map an index to one of the wife fields set up in @BeforeEach.
-     *
-     * @param idx 1-based index of the wife
-     * @return corresponding Wife instance
-     */
     @SuppressWarnings("magicnumber")
     private Wife getWifeByIndex(final int idx) {
         switch (idx) {
@@ -175,13 +149,6 @@ final class WifeTest {
         }
     }
 
-    /**
-     * Helper to map an index to the persons set up in @BeforeEach.
-     * 0 for null, 2->person2, 3->person3
-     *
-     * @param idx index code
-     * @return corresponding Person or null
-     */
     @SuppressWarnings("magicnumber")
     private Person getPersonByIndex(final int idx) {
         switch (idx) {

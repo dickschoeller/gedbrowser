@@ -8,10 +8,14 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 
 /**
- * @author Dick Schoeller
+ * Provides a simplified interface for family builder operations.
+ *
+ * @author Richard Schoeller
  */
 public interface FamilyBuilderFacade extends FamilyBuilder {
     /**
+     * Gets the family builder.
+     *
      * @return the family builder
      */
     FamilyBuilder getFamilyBuilder();

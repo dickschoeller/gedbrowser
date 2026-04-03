@@ -11,8 +11,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Exposes operations for the load and find endpoint.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @Endpoint(id = "loadAndFind")
@@ -24,11 +28,11 @@ public class LoadAndFindEndpoint extends BaseGeoCodeEndpoint {
     private final String loadFile;
 
     /**
-     * Constructor.
+     * Creates a new LoadAndFindEndpoint.
      *
-     * @param gcc a geocode
-     * @param loader file loader
-     * @param loadFile the file to load
+     * @param gcc the gcc
+     * @param loader the loader
+     * @param loadFile the load file
      */
     public LoadAndFindEndpoint(final GeoCode gcc, final GeoCodeLoader loader,
         @Value("${geoservice.loadfile:/var/lib/gedbrowser/geoservice-loadfile.txt}")
@@ -39,14 +43,18 @@ public class LoadAndFindEndpoint extends BaseGeoCodeEndpoint {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the id.
+     *
+     * @return the id
      */
     public final String getId() {
         return "loadAndFind";
     }
 
     /**
-     * @return the list of strings
+     * Returns the list.
+     *
+     * @return the resulting list
      */
     @ReadOperation
     public List<String> invokeEndpoint() {
@@ -54,7 +62,7 @@ public class LoadAndFindEndpoint extends BaseGeoCodeEndpoint {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes geo code action.
      */
     @Override
     public void geoCodeAction() {

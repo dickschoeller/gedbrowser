@@ -9,8 +9,12 @@ import org.springframework.context.annotation.Configuration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to selenium.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @Slf4j
@@ -22,7 +26,9 @@ public class SeleniumConfig {
     private final long timeout;
 
     /**
-     * @return the page waiter
+     * Creates and configures the page waiter bean.
+     *
+     * @return the configured page waiter bean
      */
     @Bean
     public PageWaiter pageWaiter() {

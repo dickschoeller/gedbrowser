@@ -20,11 +20,12 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Main module of a Spring Boot application to provide cached geocode lookups
- * for GedBrowser.
+ * Bootstraps the application.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ComponentScan(basePackages = { "org.schoellerfamily.geoservice" })
 @EnableAutoConfiguration
@@ -45,14 +46,18 @@ public class Application {
     private final GeoDocumentRepositoryMongo repositoryMongo;
 
     /**
-     * @param args usual command line arguments are handled by Spring Boot.
+     * Starts the application.
+     *
+     * @param args the command-line arguments
      */
     public static void main(final String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
     /**
-     * @return the persistence manager
+     * Creates and configures the geo code bean.
+     *
+     * @return the configured geo code bean
      */
     @Bean
     public GeoCode persistenceManager() {
@@ -63,7 +68,9 @@ public class Application {
     }
 
     /**
-     * @return the backup manager
+     * Creates and configures the application info bean.
+     *
+     * @return the configured application info bean
      */
     @Bean
     public ApplicationInfo appInfo() {
@@ -71,7 +78,9 @@ public class Application {
     }
 
     /**
-     * @return the geocodeloader
+     * Creates and configures the geo code loader bean.
+     *
+     * @return the configured geo code loader bean
      */
     @Bean
     public GeoCodeLoader loader() {
@@ -79,7 +88,9 @@ public class Application {
     }
 
     /**
-     * @return the manager of google keys
+     * Creates and configures the key manager bean.
+     *
+     * @return the configured key manager bean
      */
     @Bean
     public KeyManager keyManager() {
@@ -90,7 +101,9 @@ public class Application {
     }
 
     /**
-     * @return the geocoder
+     * Creates and configures the geo coder bean.
+     *
+     * @return the configured geo coder bean
      */
     @Bean
     public GeoCoder geoCoder() {

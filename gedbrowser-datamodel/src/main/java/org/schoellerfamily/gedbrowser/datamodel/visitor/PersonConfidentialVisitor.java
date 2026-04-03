@@ -1,31 +1,37 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * Visitor for determining a person's relationships.
+ * Visits person confidential elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class PersonConfidentialVisitor implements GedObjectVisitor {
+
     /**
      * Has a confidential setting.
      */
     private boolean isConfidential;
 
     /**
-     * @return true if this person is confidential
+     * Checks whether confidential.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isConfidential() {
         return isConfidential;
     }
 
     /**
-     * Visit an Attribute. Certain Attributes contribute interest data.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public void visit(final Attribute attribute) {
@@ -36,10 +42,9 @@ public final class PersonConfidentialVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Person. Look through the attributes of a Person for
-     * relationships (FamC and FamS) and interesting Attributes.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Person)
+     * @param person the person
      */
     @Override
     public void visit(final Person person) {

@@ -1,11 +1,13 @@
 package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.api.Application;
+import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
 import org.schoellerfamily.gedbrowser.api.crud.ParentCrud;
 import org.schoellerfamily.gedbrowser.api.crud.PersonCrud;
@@ -20,8 +22,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for parent crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -47,9 +53,6 @@ class ParentCrudIT {
     /** */
     private CrudTestHelper helper;
 
-    /**
-     * Set up some base objects.
-     */
     @BeforeEach
     void setUp() {
         helper = new CrudTestHelper(new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -57,7 +60,6 @@ class ParentCrudIT {
         crud = new ParentCrud(loader, toDocConverter, repositoryManager);
     }
 
-    /** */
     @Test
     void testCreateParent() {
         final ApiPerson child = helper.createPerson();
@@ -71,7 +73,6 @@ class ParentCrudIT {
             .isEqualTo(gotChild.getFamcs().get(0).getString());
     }
 
-    /** */
     @Test
     void testLinkParent() {
         final ApiPerson inParent = helper.createPerson();
@@ -86,7 +87,6 @@ class ParentCrudIT {
             gotChild.getFamcs().get(0).getString(), "check ids");
     }
 
-    /** */
     @Test
     void testGetPersonsMiniSchoellerI2AddParent() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddParent");
@@ -98,7 +98,6 @@ class ParentCrudIT {
             .returns(reqParent.getIndexName(), o -> o.getIndexName());
     }
 
-    /** */
     @Test
     void testGetPersonsMiniSchoellerI2AddParent2() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddParent2");
@@ -108,5 +107,25 @@ class ParentCrudIT {
             .returns(reqParent.getType(), o -> o.getType())
             .returns(reqParent.getSurname(), o -> o.getSurname())
             .returns(reqParent.getIndexName(), o -> o.getIndexName());
+    }
+
+    @Test
+    void testCreateParentChildNotFound() {
+        final String db = helper.getDb();
+        final ApiPerson person = helper.buildPerson();
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.createParent(db, "IXXXXX", person))
+            .withMessage("Object IXXXXX of type person not found");
+    }
+
+    @Test
+    void testLinkParentParentNotFound() {
+        final ApiPerson child = helper.createPerson();
+        final String db = helper.getDb();
+        final ApiPerson missingParent = ApiPerson.builder().string("IXXXXX").build();
+        final String childString = child.getString();
+        assertThatExceptionOfType(ObjectNotFoundException.class)
+            .isThrownBy(() -> crud.linkParent(db, childString, missingParent))
+            .withMessage("Object IXXXXX of type person not found");
     }
 }

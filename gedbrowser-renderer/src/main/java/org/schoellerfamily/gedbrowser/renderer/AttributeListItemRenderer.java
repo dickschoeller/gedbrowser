@@ -3,27 +3,27 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders attribute list item output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class AttributeListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the AttributeRenderer that is using this helper.
      */
-    private final transient AttributeRenderer attributeRenderer;
+    private final AttributeRenderer attributeRenderer;
 
     /**
-     * Constructor.
+     * Executes render as list item.
      *
-     * @param attributeRenderer the renderer that this is associated with.
-     */
-    public AttributeListItemRenderer(
-            final AttributeRenderer attributeRenderer) {
-        this.attributeRenderer = attributeRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -39,7 +39,9 @@ public class AttributeListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {
@@ -67,8 +69,7 @@ public class AttributeListItemRenderer implements ListItemRenderer {
                     attributeRenderer.createGedRenderer(subAttr);
             final String html = renderer.renderAsPhrase();
             final boolean currentIsFull = !html.isEmpty();
-            final String separator = renderer.getSeparator(currentIsFull
-                    && previousIsFull);
+            final String separator = renderer.getSeparator(currentIsFull && previousIsFull);
             if (currentIsFull) {
                 previousIsFull = true;
             }

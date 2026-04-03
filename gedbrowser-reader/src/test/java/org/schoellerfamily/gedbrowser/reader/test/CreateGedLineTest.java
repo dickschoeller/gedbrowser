@@ -11,15 +11,12 @@ import org.schoellerfamily.gedbrowser.reader.AbstractGedLine;
 import org.schoellerfamily.gedbrowser.reader.GedLine;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for create ged line.
+ *
+ * @author Richard Schoeller
  */
 class CreateGedLineTest {
 
-    /**
-     * Parameter source for tests.
-     *
-     * @return stream of arguments
-     */
     static Stream<Arguments> params() {
         return Stream.of(
                 Arguments.of("0 HEAD", 0, "HEAD", "", ""),
@@ -31,13 +28,6 @@ class CreateGedLineTest {
         );
     }
 
-    /**
-     * @param line the line to parse
-     * @param level the expected level
-     * @param tag the expected tag
-     * @param tail the expected tail
-     * @param xref the expected xref
-     */
     @ParameterizedTest
     @MethodSource("params")
     void testCreateGedLineNullString(final String line, final int level,

@@ -23,7 +23,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMo
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Visits top level ged document mongo to ged object elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
         implements TopLevelGedDocumentMongoVisitor {
@@ -38,75 +40,128 @@ public abstract class TopLevelGedDocumentMongoToGedObjectVisitor
     private GedObject gedObject;
 
     /**
-     * @param parent the parent of the object we are going to create
+     * Creates a new TopLevelGedDocumentMongoToGedObjectVisitor.
+     *
+     * @param parent the parent
      */
     protected TopLevelGedDocumentMongoToGedObjectVisitor(final GedObject parent) {
         this.parent = parent;
     }
 
     /**
-     * @return the parent gedObject of the one we are going to create
+     * Gets the parent.
+     *
+     * @return the parent
      */
     public GedObject getParent() {
         return parent;
     }
 
     /**
-     * @param gedObject the created gedObject
+     * Sets the ged object.
+     *
+     * @param gedObject the ged object
      */
     public void setGedObject(final GedObject gedObject) {
         this.gedObject = gedObject;
     }
 
     /**
-     * @return the created object
+     * Gets the ged object.
+     *
+     * @return the ged object
      */
     public GedObject getGedObject() {
         return gedObject;
     }
 
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final PersonDocumentMongo document) {
         gedObject = new Person(parent, new ObjectId(document.getString()));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final FamilyDocumentMongo document) {
         gedObject = new Family(parent, new ObjectId(document.getString()));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final SourceDocumentMongo document) {
         gedObject = new Source(parent, new ObjectId(document.getString()));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final HeadDocumentMongo document) {
         gedObject = new Head(parent, "Header");
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final SubmissionDocumentMongo document) {
         gedObject = new Submission(parent, new ObjectId(document.getString()));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final SubmitterDocumentMongo document) {
         gedObject = new Submitter(parent, new ObjectId(document.getString()));
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final TrailerDocumentMongo document) {
         gedObject = new Trailer(parent, document.getString());
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(final NoteDocumentMongo document) {
         gedObject = new Note(parent, new ObjectId(document.getString()),
                 document.getTail());
     }
 
+    /**
+     * Executes visit.
+     *
+     * @param document the document
+     */
     @Override
     public final void visit(
         final GedDocumentMongo<? extends GedObject> document) {

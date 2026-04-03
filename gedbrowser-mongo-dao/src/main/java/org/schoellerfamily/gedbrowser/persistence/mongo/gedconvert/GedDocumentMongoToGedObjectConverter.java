@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
@@ -9,14 +11,19 @@ import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.GedDocumentMongo;
 
 /**
- * @author Dick Schoeller
+ * Represents ged document mongo to ged object converter for persistence operations.
  *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public class GedDocumentMongoToGedObjectConverter {
+
     /**
-     * @param parent the parent object
-     * @param document the document to transform
-     * @return the transformation result
+     * Creates the ged object.
+     *
+     * @param parent the parent
+     * @param document the document to convert
+     * @return the resulting ged object
      */
     public GedObject createGedObject(final GedObject parent,
             final GedDocument<?> document) {
@@ -39,9 +46,11 @@ public class GedDocumentMongoToGedObjectConverter {
     }
 
     /**
-     * @param document the repository document for this root
-     * @param finder the repository finder instance
-     * @return the root object.
+     * Creates the root.
+     *
+     * @param document the document
+     * @param finder the finder strategy to attach to the root
+     * @return the resulting root
      */
     public Root createRoot(final RootDocument document,
             final FinderStrategy finder) {

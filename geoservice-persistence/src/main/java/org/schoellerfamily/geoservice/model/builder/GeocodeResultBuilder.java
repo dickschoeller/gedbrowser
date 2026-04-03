@@ -17,10 +17,9 @@ import com.google.maps.model.LatLng;
 import com.google.maps.model.LocationType;
 
 /**
- * Builder class to convert between our own geocoding results and
- * Google's types.
+ * Builds geocode result instances.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GeocodeResultBuilder
         implements BoundsBuilder, BoxBuilder, PointBuilder, FeatureBuilder {
@@ -64,9 +63,9 @@ public final class GeocodeResultBuilder
         result.partialMatch = gsResult.isPartialMatch();
         result.placeId = gsResult.getPlaceId();
         // This is safe because the gs object returns a copy of its array.
-        result.postcodeLocalities = gsResult.getPostcodeLocalities();
+        result.postcodeLocalities = gsResult.getPropertyNamePostcodeLocalities();
         // This is safe because the gs object returns a copy of its array.
-        result.types = gsResult.getTypes();
+        result.types = gsResult.getPropertyNameTypes();
         return result;
     }
 

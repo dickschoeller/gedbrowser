@@ -1,5 +1,6 @@
 export * from './attribute-dialog';
 export * from './attribute-list';
+export * from './confirm-dialog';
 export * from './link-dialog';
 export * from './link-person-dialog';
 export * from './main-menu';
@@ -13,6 +14,7 @@ export * from './new-submitter-dialog';
 export * from './note-button';
 export * from './source-button';
 export * from './submitter-button';
+export * from './google-map';
 
 export * from './main-layout';
 export * from './side-menu';

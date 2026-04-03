@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of source.
+ *
+ * @author Richard Schoeller
  */
 public interface SourceDocument extends GedDocument<Source> {
     @Override

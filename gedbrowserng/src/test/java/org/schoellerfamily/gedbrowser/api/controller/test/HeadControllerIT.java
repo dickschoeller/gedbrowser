@@ -15,8 +15,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the head controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,7 +40,6 @@ class HeadControllerIT {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testGetHeadGl120368() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368";
@@ -53,7 +56,6 @@ class HeadControllerIT {
                 "3C8079D5-1C5A-4473-8939-6631E48D01BB"));
     }
 
-    /** */
     @Test
     void testGetHeadMiniSchoeller() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/mini-schoeller";
@@ -70,7 +72,6 @@ class HeadControllerIT {
                 "\"tail\" : \"TMG\""));
     }
 
-    /** */
     @Test
     void testGetHeadBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -79,7 +80,8 @@ class HeadControllerIT {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
+                EntityExchangeResult::getStatus)
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "  \"cause\" : null",
                 "  \"stackTrace\" : [ ]",

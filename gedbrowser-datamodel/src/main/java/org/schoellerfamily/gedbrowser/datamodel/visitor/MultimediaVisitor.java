@@ -1,38 +1,56 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 
 /**
- * @author Dick Schoeller
+ * Visits multimedia elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class MultimediaVisitor implements GedObjectVisitor {
-    /** */
+
+    /**
+     * The file path value.
+     */
     private String filePath;
 
-    /** */
+    /**
+     * The format value.
+     */
     private String format;
 
-    /** */
+    /**
+     * The title value.
+     */
     private String title;
 
     /**
-     * @return the file name of the multimedia item
+     * Gets the file path.
+     *
+     * @return the file path
      */
     public String getFilePath() {
         return filePath;
     }
 
     /**
-     * @return the file format of the multimedia item
+     * Gets the format.
+     *
+     * @return the format
      */
     public String getFormat() {
         return format;
     }
 
     /**
-     * @return whether the type is an image type
+     * Checks whether image.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isImage() {
         final String form = getFormat();
@@ -43,17 +61,52 @@ public final class MultimediaVisitor implements GedObjectVisitor {
     }
 
     /**
-     * @return the title of the multimedia item
+     * Checks whether video.
+     *
+     * @return true if the condition is met; otherwise false
+     */
+    public boolean isVideo() {
+        final String form = getFormat();
+        return "avi".equalsIgnoreCase(form)
+                || "mp4".equalsIgnoreCase(form)
+                || "mov".equalsIgnoreCase(form)
+                || "m4v".equalsIgnoreCase(form)
+                || "mpg".equalsIgnoreCase(form)
+                || "mpeg".equalsIgnoreCase(form)
+                || "webm".equalsIgnoreCase(form);
+    }
+
+    /**
+     * Checks whether you tube.
+     *
+     * @return true if the condition is met; otherwise false
+     */
+    public boolean isYouTube() {
+        return "youtube".equalsIgnoreCase(getFormat());
+    }
+
+    /**
+     * Checks whether media.
+     *
+     * @return true if the condition is met; otherwise false
+     */
+    public boolean isMedia() {
+        return isImage() || isVideo() || isYouTube();
+    }
+
+    /**
+     * Gets the title.
+     *
+     * @return the title
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * Visit an Attribute. The values of specific attributes are gathered for
-     * later use.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public void visit(final Attribute attribute) {
@@ -73,10 +126,9 @@ public final class MultimediaVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Multimedia. This is the primary focus of the visitation. From
-     * here, interesting information is gathered from the attributes.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Multimedia)
+     * @param multimedia the multimedia
      */
     @Override
     public void visit(final Multimedia multimedia) {

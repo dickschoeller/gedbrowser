@@ -3,12 +3,17 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * @author Dick Schoeller
+ * Renders simple attribute list open output for display.
+ *
+ * @author Richard Schoeller
  */
-public class SimpleAttributeListOpenRenderer implements
-        AttributeListOpenRenderer {
+public class SimpleAttributeListOpenRenderer implements AttributeListOpenRenderer {
     /**
-     * {@inheritDoc}
+     * Executes render attribute list open.
+     *
+     * @param builder the builder
+     * @param pad the pad
+     * @param subObject the sub object
      */
     @Override
     public final void renderAttributeListOpen(final StringBuilder builder,

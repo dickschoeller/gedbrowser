@@ -16,8 +16,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the head controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,7 +40,6 @@ class HeadControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testHeadController() {
         final String url = "http://localhost:" + port
@@ -61,7 +64,6 @@ class HeadControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testHeadControllerSchoeller() {
         final String url = "http://localhost:" + port
@@ -86,7 +88,6 @@ class HeadControllerIT implements MenuTestHelper {
                     getMenu("mini-schoeller", "A"));
     }
 
-    /** */
     @Test
     void testHeadControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()

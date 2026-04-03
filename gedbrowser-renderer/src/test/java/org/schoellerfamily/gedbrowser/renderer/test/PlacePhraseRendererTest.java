@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Place;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.PlacePhraseRenderer;
@@ -18,8 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for place phrase renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -37,10 +42,9 @@ final class PlacePhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person = builder.createPerson();
         attribute = new Attribute(person, "String", "");
         person.addAttribute(attribute);
@@ -49,7 +53,6 @@ final class PlacePhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetRenderAsPhrase() {
         final PlaceRenderer dRenderer = new PlaceRenderer(place,
@@ -60,7 +63,6 @@ final class PlacePhraseRendererTest {
         assertEquals("Fayetteville, NC", string, "Rendered string doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetRenderAsListItemEmpty() {
         final PlaceRenderer dRenderer = new PlaceRenderer(
@@ -72,7 +74,6 @@ final class PlacePhraseRendererTest {
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
     @Test
     void testGetRenderAsListItemNull() {
         final PlaceRenderer dRenderer = new PlaceRenderer(

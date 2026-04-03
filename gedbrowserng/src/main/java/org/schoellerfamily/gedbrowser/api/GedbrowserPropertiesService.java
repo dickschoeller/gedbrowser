@@ -3,21 +3,23 @@ package org.schoellerfamily.gedbrowser.api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
+
+
+
 /**
- * @author Dick Schoeller
+ * Provides services for gedbrowser properties.
+ *
+ * @author Richard Schoeller
  */
 @Service
+@RequiredArgsConstructor
+@Getter
+@Accessors(fluent = true)
 public class GedbrowserPropertiesService {
     /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-    private transient String gedbrowserHome;
-
-    /**
-     * Get the location of the gedbrowser configuration directory.
-     * Defaults to /var/lib/gedbrowser.
-     * @return the location string
-     */
-    public String gedbrowserHome() {
-        return gedbrowserHome;
-    }
+    private final String gedbrowserHome;
 }

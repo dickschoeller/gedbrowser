@@ -1,10 +1,9 @@
 package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 /**
- * Class represents the IDs of 16 great-great-grandparents who are the leaves in
- * an ancestor tree.
+ * Represents great great grand parent ids.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GreatGreatGrandParentIds {
     /** */
@@ -13,8 +12,10 @@ public final class GreatGreatGrandParentIds {
     private final GreatGrandParentIds mothers;
 
     /**
-     * @param fathers father's great grand parents
-     * @param mothers mother's great grand parents
+     * Creates a new GreatGreatGrandParentIds.
+     *
+     * @param fathers the fathers
+     * @param mothers the mothers
      */
     public GreatGreatGrandParentIds(final GreatGrandParentIds fathers,
             final GreatGrandParentIds mothers) {
@@ -23,6 +24,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the ffff.
+     *
      * @return the ffff
      */
     public String getFfff() {
@@ -30,6 +33,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the fffm.
+     *
      * @return the fffm
      */
     public String getFffm() {
@@ -37,6 +42,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the ffmf.
+     *
      * @return the ffmf
      */
     public String getFfmf() {
@@ -44,6 +51,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the ffmm.
+     *
      * @return the ffmm
      */
     public String getFfmm() {
@@ -51,6 +60,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the fmff.
+     *
      * @return the fmff
      */
     public String getFmff() {
@@ -58,6 +69,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the fmfm.
+     *
      * @return the fmfm
      */
     public String getFmfm() {
@@ -65,6 +78,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the fmmf.
+     *
      * @return the fmmf
      */
     public String getFmmf() {
@@ -72,6 +87,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the fmmm.
+     *
      * @return the fmmm
      */
     public String getFmmm() {
@@ -79,6 +96,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the mfff.
+     *
      * @return the mfff
      */
     public String getMfff() {
@@ -86,6 +105,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the mffm.
+     *
      * @return the mffm
      */
     public String getMffm() {
@@ -93,6 +114,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the mfmf.
+     *
      * @return the mfmf
      */
     public String getMfmf() {
@@ -100,6 +123,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the mfmm.
+     *
      * @return the mfmm
      */
     public String getMfmm() {
@@ -107,6 +132,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the mmff.
+     *
      * @return the mmff
      */
     public String getMmff() {
@@ -114,6 +141,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the mmfm.
+     *
      * @return the mmfm
      */
     public String getMmfm() {
@@ -121,6 +150,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the mmmf.
+     *
      * @return the mmmf
      */
     public String getMmmf() {
@@ -128,6 +159,8 @@ public final class GreatGreatGrandParentIds {
     }
 
     /**
+     * Gets the mmmm.
+     *
      * @return the mmmm
      */
     public String getMmmm() {

@@ -15,8 +15,12 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Creates web driver instances.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 @Component
@@ -39,18 +43,15 @@ public class WebDriverFactory {
     private final String platform;
 
     /**
-     * @param testName pass the test name in for building the saucelabs info
-     * @return the webdriver
-     * @throws MalformedURLException if there is a bogus URL
+     * Creates and returns a new remote web driver.
+     *
+     * @param testName the test name to use
+     * @return the resulting remote web driver
      */
     public RemoteWebDriver webDriver(final String testName) throws MalformedURLException {
         return new RemoteWebDriver(getRemoteUrl(), getCapabilities(testName));
     }
 
-    /**
-     * @return the selenium server URL
-     * @throws MalformedURLException if there is a bad URL
-     */
     private URL getRemoteUrl() throws MalformedURLException {
         if (useSauceLabs()) {
             log.info("Using Sauce Labs remote URL");
@@ -63,10 +64,6 @@ public class WebDriverFactory {
         }
     }
 
-    /**
-     * @param testName pass the test name in for building the saucelabs info
-     * @return the capabilities structure
-     */
     private MutableCapabilities getCapabilities(final String testName) {
         log.info("Capabilities name: {}, version: {}, platform: {}", browserName, browserVersion,
             platform);
@@ -112,9 +109,6 @@ public class WebDriverFactory {
         return capabilities;
     }
 
-    /**
-     * @return true if SAUCE_USERNAME is defined in the environment
-     */
     private boolean useSauceLabs() {
         return env.getProperty("SAUCE_USERNAME") != null;
     }

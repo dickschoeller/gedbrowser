@@ -1,4 +1,4 @@
-import { Component, Input , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
@@ -8,6 +8,8 @@ import { UrlBuilder, NewPersonHelper } from '../../utils';
 import { PersonService, UserService } from '../../services';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { PersonFamilyComponent } from './person-family.component';
 import { NewPersonComponent } from './new-person.component';
 import { LinkPersonComponent } from './link-person.component';
@@ -22,11 +24,20 @@ import { LinkPersonComponent } from './link-person.component';
     standalone: true,
     selector: 'app-person-family-list',
     template: `<mat-card>
-  <mat-card-title>
-    <mat-toolbar>Spouses and Children</mat-toolbar>
+    <mat-card-title class="custom-section-colors">
+    <mat-toolbar class="custom-section-colors">
+    <span class="list-toolbar-title custom-section-colors">Spouses and Children</span>
+    <span class="example-fill-remaining-space custom-section-colors"></span>
+      <button mat-icon-button
+        [attr.aria-label]="showSpousesAndChildren ? 'Collapse spouses and children' : 'Expand spouses and children'"
+        (click)="showSpousesAndChildren = !showSpousesAndChildren">
+        <mat-icon>{{ showSpousesAndChildren ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+    </mat-toolbar>
   </mat-card-title>
-  <mat-card-content>
-    <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
+    @if (showSpousesAndChildren) {
+    <mat-card-content class="custom-section-colors">
+    <div cdkDropList class="family-list custom-section-colors" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
       @for (attribute of person.famss; track $index; let i = $index) {
         <div cdkDrag class="{{ hasSignedIn() ? 'family-box' : '' }}">
@@ -37,27 +48,36 @@ import { LinkPersonComponent } from './link-person.component';
       }
     </div>
     @if (hasSignedIn()) {
-      <app-new-person
-          [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
-          color="primary"
-          (emitOK)="createSpouse($event)"></app-new-person>
-      <app-link-person
-          [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link spouse'"
-          color="primary"
-          (emitOK)="linkSpouse($event)"></app-link-person>
-      <app-new-person
-          [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
-          color="primary"
-          (emitOK)="createChild($event)"></app-new-person>
-      <app-link-person
-          [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link children'"
-          color="primary"
-          (emitOK)="linkChildren($event)"></app-link-person>
+      <div class="family-action-buttons">
+        <app-new-person
+            [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
+            color="primary"
+            (emitOK)="createSpouse($event)"></app-new-person>
+        <app-link-person
+            [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link spouse'"
+            color="primary"
+            (emitOK)="linkSpouse($event)"></app-link-person>
+        <app-new-person
+            [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
+            color="primary"
+            (emitOK)="createChild($event)"></app-new-person>
+        <app-link-person
+            [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link children'"
+            color="primary"
+            (emitOK)="linkChildren($event)"></app-link-person>
+      </div>
     }
   </mat-card-content>
+    }
 </mat-card>`,
-    styles: [],
-    imports: [MatCard, MatCardTitle, MatToolbar, MatCardContent, CdkDropList, CdkDrag, PersonFamilyComponent, NewPersonComponent, LinkPersonComponent]
+    styles: [`
+.family-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+`],
+    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, MatCardContent, CdkDropList, CdkDrag, PersonFamilyComponent, NewPersonComponent, LinkPersonComponent]
 })
 export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {
     @Input() dataset: string;
@@ -67,11 +87,19 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
     childSurname: string;
     partnerSex: string;
     childSex = 'M';
+    showSpousesAndChildren = true;
     _ub: UrlBuilder;
 
-    constructor(@Inject(PersonService) @Inject(PersonService) @Inject(PersonService) @Inject(PersonService) public readonly personService: PersonService,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) {
+    constructor(@Inject(PersonService) public readonly personService: PersonService,
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(NgZone) private readonly zone: NgZone,
+        @Inject(ChangeDetectorRef) private readonly cdr: ChangeDetectorRef) {
         super(personService);
+    }
+
+    override ngOnChanges(): void {
+        this.init();
+        this.cdr.markForCheck();
     }
 
     init() {
@@ -94,10 +122,16 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
 
     refreshPerson(): void {
         this.personService.getOne(this.dataset, this.person.string).subscribe(
-            (person: ApiPerson) => this.updatePerson(person));
+            (person: ApiPerson) => {
+                this.zone.run(() => {
+                    this.updatePerson(person);
+                    this.cdr.markForCheck();
+                });
+            });
     }
 
     private updatePerson(person: ApiPerson) {
+        this.person = person;
         this.parent.person = person;
     }
 
@@ -127,7 +161,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
 
     private linkRemainingChildren(data: LinkPersonDialogData, mainPerson: ApiPerson): void {
         this.updatePerson(mainPerson);
-        const famss = mainPerson.famss[mainPerson.famss.length - 1];
+        const famss = mainPerson.famss.at(-1);
         const ub = new UrlBuilder(this.dataset, 'families', 'children');
         for (const selected of data.selected) {
             this.personService.putLink(ub, famss.string, selected.person)

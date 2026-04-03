@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.domain;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.GedDocumentLoader;
@@ -9,18 +11,34 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocume
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents attribute document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class AttributeDocumentMongo extends GedDocumentMongo<Attribute>
         implements AttributeDocument {
-    /** */
+
+    /**
+     * The tail value.
+     */
     private String tail;
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "attribute";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -35,21 +53,41 @@ public final class AttributeDocumentMongo extends GedDocumentMongo<Attribute>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Sets the tail.
+     *
+     * @param tail the tail
+     */
     @Override
     public void setTail(final String tail) {
         this.tail = tail;
     }
 
+    /**
+     * Gets the tail.
+     *
+     * @return the tail
+     */
     @Override
     public String getTail() {
         return this.tail;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

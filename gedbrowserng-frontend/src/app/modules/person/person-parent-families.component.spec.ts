@@ -1,11 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of } from 'rxjs';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { PersonParentFamiliesComponent } from './person-parent-families.component';
-import { PersonService, UserService } from '../../services';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { ApiPerson } from '../../models';
-import { UrlBuilder } from '../../utils';
+import { PersonService, UserService } from '../../services';
+import { PersonParentFamiliesComponent } from './person-parent-families.component';
 
 const createPerson = (overrides: Partial<ApiPerson> = {}): ApiPerson => ({
   string: 'P1',
@@ -65,8 +64,7 @@ describe('PersonParentFamiliesComponent', () => {
 
   it('creates a UrlBuilder for personUB', () => {
     const builder = component.personUB();
-    expect(builder.constructor.name).toBe('UrlBuilder');
-    expect((builder as UrlBuilder).plusT()).toBe('/gedbrowserng/v1/dbs/testDataset/persons');
+    expect(builder.plusT()).toBe('/gedbrowserng/v1/dbs/testDataset/persons');
   });
 
   it('returns person anchor', () => {

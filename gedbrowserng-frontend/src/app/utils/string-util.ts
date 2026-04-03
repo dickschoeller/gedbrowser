@@ -3,7 +3,7 @@ export class StringUtil {
     if (input.trim().length <= length) {
       return input.trim();
     }
-    return input.trim().substr(0, length) + '...';
+    return input.trim().substring(0, length) + '...';
   }
 
   /**

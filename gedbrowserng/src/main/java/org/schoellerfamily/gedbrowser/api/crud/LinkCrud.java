@@ -7,7 +7,9 @@ import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for link crud.
+ *
+ * @author Richard Schoeller
  */
 public interface LinkCrud extends NewCruds {
 

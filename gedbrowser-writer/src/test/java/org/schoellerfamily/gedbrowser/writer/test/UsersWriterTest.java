@@ -13,7 +13,9 @@ import org.schoellerfamily.gedbrowser.reader.users.UsersReader;
 import org.schoellerfamily.gedbrowser.writer.users.UsersWriter;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for users writer.
+ *
+ * @author Richard Schoeller
  */
 class UsersWriterTest {
     /** */
@@ -44,13 +46,9 @@ class UsersWriterTest {
         assertEquals(1, users.size(), "should be the one dummy because of failure");
     }
 
-    /**
-     * @param userFile the user file to read
-     * @return the set of users from the user file
-     */
     private Users<User> readUserFile(final String userFile) {
         final UsersReader<User, Users<User>> usersReader = new UsersReader<>();
-        return usersReader.readUserFile(userFile, () -> new UsersImpl<>(), () -> new UserImpl());
+        return usersReader.readUserFile(userFile, UsersImpl::new, UserImpl::new);
     }
 
     private void writeUserFile(final String userFile) {

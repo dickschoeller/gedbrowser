@@ -10,7 +10,9 @@ import org.schoellerfamily.gedbrowser.selenium.pageobjects.GreatGreatGrandParent
 import org.schoellerfamily.gedbrowser.selenium.pageobjects.ParentIds;
 
 /**
- * @author Dick Schoeller
+ * Provides support for testing default expectations behavior.
+ *
+ * @author Richard Schoeller
  */
 public final class DefaultExpectations {
 
@@ -256,7 +258,9 @@ public final class DefaultExpectations {
     }
 
     /**
-     * @return default expectations
+     * Creates a value.
+     *
+     * @return the resulting expectations>
      */
     public Map<String, Expectations> create() {
         return EXPECTATIONS_MAP;

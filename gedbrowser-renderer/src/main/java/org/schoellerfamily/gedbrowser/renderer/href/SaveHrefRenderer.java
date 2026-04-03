@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer.href;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * Provides the pattern of returning the href to save the current data set.
+ * Renders save href output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  * @param <T> the GedObject type to render
  */
 public interface SaveHrefRenderer<T extends GedObject> {

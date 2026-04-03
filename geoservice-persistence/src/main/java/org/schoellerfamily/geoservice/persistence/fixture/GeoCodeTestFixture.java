@@ -7,7 +7,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 
 /**
- * @author Dick Schoeller
+ * Provides fixture data for geo code test tests.
+ *
+ * @author Richard Schoeller
  */
 public class GeoCodeTestFixture {
 
@@ -96,18 +98,14 @@ public class GeoCodeTestFixture {
     };
 
     /**
-     * @return table of addresses
+     * Adds ress table.
+     *
+     * @return the resulting string[][]
      */
     public final String[][] addressTable() {
         return cloneArray(ADDRESS_TABLE);
     }
 
-    /**
-     * Clones the provided array.
-     *
-     * @param src the input array
-     * @return a new clone of the provided array
-     */
     @SuppressWarnings({ "PMD.UseVarargs" })
     private String[][] cloneArray(final String[][] src) {
         final int length = src.length;
@@ -119,7 +117,9 @@ public class GeoCodeTestFixture {
     }
 
     /**
-     * @return table of addresses
+     * Returns the string array.
+     *
+     * @return the resulting string array
      */
     public final String[] expectedNotFound() {
         return Arrays.copyOf(EXPECT_TO_NOT_FIND, EXPECT_TO_NOT_FIND.length);
@@ -154,14 +154,6 @@ public class GeoCodeTestFixture {
         load(addressTable(), gcc);
     }
 
-    /**
-     * Load the cache from an array of strings. Particularly valuable for
-     * testing. Each string has planeName|modernPlaceName. The second part can
-     * be empty.
-     *
-     * @param strings the array of strings
-     * @param gcc the geocode to load
-     */
     private void load(final String[][] strings, final GeoCode gcc) {
         for (final String[] line : strings) {
             if (line.length < 2 || StringUtils.isEmpty(line[1])) {

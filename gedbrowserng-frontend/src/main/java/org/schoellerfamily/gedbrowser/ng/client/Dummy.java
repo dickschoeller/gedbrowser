@@ -1,8 +1,10 @@
 package org.schoellerfamily.gedbrowser.ng.client;
 
 /**
- * @author Dick Schoeller
+ * Provides a placeholder type used to force Javadoc generation in the frontend module.
+ *
+ * @author Richard Schoeller
  */
-public class Dummy {
+public interface Dummy {
     // Empty to force some Javadoc
 }

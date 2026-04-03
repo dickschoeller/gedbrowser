@@ -16,8 +16,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the index controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -42,7 +46,6 @@ class IndexControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testIndexControllerC() {
         final String url = URL_TEMPLATE.formatted(port, "gl120368", "C");
@@ -61,7 +64,6 @@ class IndexControllerIT implements MenuTestHelper {
                     getMenu("C"));
     }
 
-    /** */
     @Test
     void testIndexControllerB() {
         final String url = URL_TEMPLATE.formatted(port, "gl120368", "B");
@@ -80,7 +82,6 @@ class IndexControllerIT implements MenuTestHelper {
                     getMenu("B"));
     }
 
-    /** */
     @Test
     void testIndexControllerBadDataSet() {
         final String url = URL_TEMPLATE.formatted(port, "XYZZY", "A");
@@ -95,7 +96,6 @@ class IndexControllerIT implements MenuTestHelper {
                 .asString().contains("Data set not found");
     }
 
-    /** */
     @Test
     void testIndexControllerLetter() {
         final String url = URL_TEMPLATE.formatted(port, "gl120368", "q");

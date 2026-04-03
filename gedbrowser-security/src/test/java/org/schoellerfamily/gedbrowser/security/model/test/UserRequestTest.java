@@ -7,52 +7,47 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for user request.
+ *
+ * @author Richard Schoeller
  */
 class UserRequestTest {
-    /** */
     @Test
     void testDefaultUsername() {
         final UserRequest request = new UserRequest();
         assertNull(request.getUsername(), "should default to null");
     }
 
-    /** */
     @Test
     void testDefaultFirstname() {
         final UserRequest request = new UserRequest();
         assertNull(request.getFirstname(), "should default to null");
     }
 
-    /** */
     @Test
     void testDefaultLastname() {
         final UserRequest request = new UserRequest();
         assertNull(request.getLastname(), "should default to null");
     }
 
-    /** */
     @Test
     void testDefaultPassword() {
         final UserRequest request = new UserRequest();
         assertNull(request.getPassword(), "should default to null");
     }
 
-    /** */
     @Test
     void testDefaultEmail() {
         final UserRequest request = new UserRequest();
         assertNull(request.getEmail(), "should default to null");
     }
 
-    /** */
     @Test
     void testDefaultId() {
         final UserRequest request = new UserRequest();
         assertNull(request.getId(), "should default to null");
     }
 
-    /** */
     @Test
     void testSetUsername() {
         final UserRequest request = new UserRequest();
@@ -60,7 +55,6 @@ class UserRequestTest {
         assertEquals("user", request.getUsername(), "should match set value");
     }
 
-    /** */
     @Test
     void testSetFirstname() {
         final UserRequest request = new UserRequest();
@@ -68,7 +62,6 @@ class UserRequestTest {
         assertEquals("first", request.getFirstname(), "should match set value");
     }
 
-    /** */
     @Test
     void testSetLastname() {
         final UserRequest request = new UserRequest();
@@ -76,7 +69,6 @@ class UserRequestTest {
         assertEquals("last", request.getLastname(), "should match set value");
     }
 
-    /** */
     @Test
     void testSetPassword() {
         final UserRequest request = new UserRequest();
@@ -84,7 +76,6 @@ class UserRequestTest {
         assertEquals("pass", request.getPassword(), "should match set value");
     }
 
-    /** */
     @Test
     void testSetEmail() {
         final UserRequest request = new UserRequest();
@@ -92,7 +83,6 @@ class UserRequestTest {
         assertEquals("email@email.com", request.getEmail(), "should match set value");
     }
 
-    /** */
     @Test
     void testSetId() {
         final UserRequest request = new UserRequest();

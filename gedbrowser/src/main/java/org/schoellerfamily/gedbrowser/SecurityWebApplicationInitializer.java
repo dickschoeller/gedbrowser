@@ -3,9 +3,9 @@ package org.schoellerfamily.gedbrowser;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 /**
- * Initializes the Spring Security filters.
+ * Represents security web application initializer.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class SecurityWebApplicationInitializer
         extends AbstractSecurityWebApplicationInitializer {

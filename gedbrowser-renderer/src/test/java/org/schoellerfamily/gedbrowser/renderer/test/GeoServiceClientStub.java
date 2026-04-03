@@ -10,42 +10,63 @@ import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 
 /**
- * @author Dick Schoeller
+ * Provides a stub implementation for geo service client.
+ *
+ * @author Richard Schoeller
  */
-public final class GeoServiceClientStub extends GeoServiceClient {
+public class GeoServiceClientStub extends GeoServiceClient {
+    /** */
+    private static final int PORT = 8080;
+
     /**
-     * Constructor.
+     * Creates a new GeoServiceClientStub.
      */
     public GeoServiceClientStub() {
-        super(null, null, 0, null);
+        super(null, null, "localhost", PORT, "http");
     }
 
+    /**
+     * Gets the value.
+     *
+     * @param placeName the place name to use
+     * @return the value
+     */
     @Override
     public GeoServiceItem get(final String placeName) {
+        if ("Null Item, USA".equals(placeName)) {
+            return null;
+        }
         if ("Needham, Massachusetts, USA".equals(placeName)) {
             final FeatureCollection geometry = new FeatureCollection();
             geometry.add(createLocation()); // location
             geometry.add(createBox()); // bounds
             geometry.add(createBox()); // viewport
             final GeoServiceGeocodingResult result =
-                    new GeoServiceGeocodingResult(
-                            null, placeName, null, geometry, null, false, null);
+                new GeoServiceGeocodingResult(null, placeName, null, geometry, null, false, null);
             return new GeoServiceItem(placeName, placeName, result);
         }
         if ("Needham, MA, USA".equals(placeName)) {
             final FeatureCollection geometry = new FeatureCollection();
             geometry.add(createLocation());
             final GeoServiceGeocodingResult result =
-                    new GeoServiceGeocodingResult(
-                            null, placeName, null, geometry, null, false, null);
+                new GeoServiceGeocodingResult(null, placeName, null, geometry, null, false, null);
+            return new GeoServiceItem(placeName, placeName, result);
+        }
+        if ("Geometry Null, USA".equals(placeName)) {
+            final GeoServiceGeocodingResult result =
+                new GeoServiceGeocodingResult(null, placeName, null, null, null, false, null);
+            return new GeoServiceItem(placeName, placeName, result);
+        }
+        if ("Polygon Only, USA".equals(placeName)) {
+            final FeatureCollection geometry = new FeatureCollection();
+            geometry.add(createBox());
+            final GeoServiceGeocodingResult result =
+                new GeoServiceGeocodingResult(null, placeName, null, geometry, null, false, null);
             return new GeoServiceItem(placeName, placeName, result);
         }
         return new GeoServiceItem(placeName, placeName, null);
     }
 
-    /**
-     * @return the location feature
-     */
     private Feature createLocation() {
         final Point point = new Point(-71.2377548, 42.2809285);
         final Feature feature = new Feature();
@@ -53,9 +74,6 @@ public final class GeoServiceClientStub extends GeoServiceClient {
         return feature;
     }
 
-    /**
-     * @return the bounding box feature
-     */
     private Feature createBox() {
         final double confidence = .01;
         final Polygon polygon = new Polygon(

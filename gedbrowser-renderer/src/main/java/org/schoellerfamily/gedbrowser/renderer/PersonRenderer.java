@@ -16,9 +16,9 @@ import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
- * Render a Person.
+ * Renders person output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class PersonRenderer extends GedRenderer<Person>
         implements HeaderHrefRenderer<Person>, IndexHrefRenderer<Person>,
@@ -37,10 +37,11 @@ public final class PersonRenderer extends GedRenderer<Person>
     private final ParentsRenderer parentsRenderer;
 
     /**
-     * @param gedObject the Person that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the user context we are rendering in
+     * Creates a new PersonRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public PersonRenderer(final Person gedObject,
             final GedRendererFactory rendererFactory,
@@ -64,14 +65,18 @@ public final class PersonRenderer extends GedRenderer<Person>
     }
 
     /**
-     * @return the ID string of the person.
+     * Gets the id string.
+     *
+     * @return the id string
      */
     public String getIdString() {
         return getGedObject().getString();
     }
 
     /**
-     * @return the list of renderers for the families of the person.
+     * Gets the families.
+     *
+     * @return the families
      */
     public List<FamilyRenderer> getFamilies() {
         if (isConfidential() || isHiddenLiving()) {
@@ -102,12 +107,14 @@ public final class PersonRenderer extends GedRenderer<Person>
     }
 
     /**
-     * @param generations the number of generations to display.
-     * @return the 2D array of cells.
+     * Returns the tree rows.
+     *
+     * @param generations the generations
+     * @return the tree rows
      */
     public CellRow[] getTreeRows(final int generations) {
-        final TreeTableRenderer ttr = new TreeTableRenderer(this,
-            confidentialGenCount(generations));
+        final TreeTableRenderer ttr =
+            new TreeTableRenderer(this, confidentialGenCount(generations));
         return ttr.getTreeRows();
     }
 
@@ -118,13 +125,14 @@ public final class PersonRenderer extends GedRenderer<Person>
     private int confidentialGenCount(final int generations) {
         if (isConfidential() || isHiddenLiving()) {
             return 1;
-        } else {
-            return generations;
         }
+        return generations;
     }
 
     /**
-     * @return whether the current person is confidential.
+     * Checks whether confidential.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isConfidential() {
         if (getRenderingContext().isAdmin()) {
@@ -136,17 +144,24 @@ public final class PersonRenderer extends GedRenderer<Person>
     }
 
     /**
-     * @return whether the current person is hidden due to living status.
+     * Checks whether hidden living.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isHiddenLiving() {
         return !getRenderingContext().isUser() && le.estimate();
     }
 
+    /**
+     * Gets the index href.
+     *
+     * @return the index href
+     */
     @Override
     public String getIndexHref() {
         final String surnameLetter = getSurnameLetter();
         final String surname = getSurname();
         return "surnames?db=" + getGedObject().getDbName() + "&letter="
-                + surnameLetter + "#" + surname;
+            + surnameLetter + "#" + surname;
     }
 }

@@ -6,7 +6,9 @@ import org.schoellerfamily.gedbrowser.security.model.SecurityUser;
 import org.schoellerfamily.gedbrowser.security.model.UserRequest;
 
 /**
- * @author Dick Schoeller
+ * Provides services for user.
+ *
+ * @author Richard Schoeller
  */
 public interface UserService {
     /**

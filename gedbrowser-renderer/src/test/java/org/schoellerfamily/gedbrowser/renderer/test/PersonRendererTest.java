@@ -27,8 +27,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for person renderer.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods", "PMD.ExcessiveImports" })
 @ExtendWith(SpringExtension.class)
@@ -535,10 +539,6 @@ final class PersonRendererTest {
         }
     }
 
-    /**
-     * @param person the person
-     * @return the renderer
-     */
     private PersonRenderer createRenderer(final Person person) {
         return new PersonRenderer(person, new GedRendererFactory(), userContext);
     }

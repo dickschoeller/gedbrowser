@@ -14,8 +14,12 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents person crud.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class PersonCrud
@@ -24,8 +28,10 @@ public class PersonCrud
         ObjectCrud<ApiPerson> {
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Creates a new PersonCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public PersonCrud(final GedObjectFileLoader loader,
@@ -35,7 +41,9 @@ public class PersonCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the repository.
+     *
+     * @return the repository
      */
     @Override
     public FindableDocument<Person, PersonDocument> getRepository() {
@@ -43,7 +51,9 @@ public class PersonCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the ged class.
+     *
+     * @return the ged class
      */
     @Override
     public Class<Person> getGedClass() {
@@ -68,8 +78,10 @@ public class PersonCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of persons
+     * Executes read all.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @Override
     public List<ApiPerson> readAll(final String db) {
@@ -78,9 +90,11 @@ public class PersonCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the person
-     * @return the person
+     * Executes read one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api person
      */
     @Override
     public ApiPerson readOne(final String db, final String id) {
@@ -90,10 +104,12 @@ public class PersonCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person to update
-     * @param person the data for the person
-     * @return the person as created
+     * Executes update one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @Override
     public ApiPerson updateOne(final String db, final String id,
@@ -109,9 +125,11 @@ public class PersonCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the person
-     * @return the deleted person object
+     * Executes delete one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api person
      */
     @Override
     public ApiPerson deleteOne(final String db, final String id) {

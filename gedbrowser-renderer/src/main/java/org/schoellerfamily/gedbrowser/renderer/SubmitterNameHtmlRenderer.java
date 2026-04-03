@@ -3,25 +3,22 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders submitter name html output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class SubmitterNameHtmlRenderer implements NameHtmlRenderer {
     /** */
-    private final transient SubmitterRenderer submitterRenderer;
+    private final SubmitterRenderer submitterRenderer;
 
     /**
-     * Constructor.
+     * Returns the name html.
      *
-     * @param submitterRenderer the associated submitterRenderer
-     */
-    public SubmitterNameHtmlRenderer(
-            final SubmitterRenderer submitterRenderer) {
-        this.submitterRenderer = submitterRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @return the name html
      */
     @Override
     public String getNameHtml() {
@@ -30,9 +27,9 @@ public class SubmitterNameHtmlRenderer implements NameHtmlRenderer {
             return "";
         }
         final GedRenderer<? extends GedObject> renderer =
-                new SimpleNameRenderer(submitter.getName(),
-                        submitterRenderer.getRendererFactory(),
-                        submitterRenderer.getRenderingContext());
+            new SimpleNameRenderer(submitter.getName(),
+                submitterRenderer.getRendererFactory(),
+                submitterRenderer.getRenderingContext());
         return renderer.getNameHtml();
     }
 

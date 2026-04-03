@@ -4,12 +4,14 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implements a mixin that provides the submitter repository.
+ * Provides submitter repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface SubmitterRepoProvider extends HasRepoMap {
     /**
+     * Sets the submitter document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -19,6 +21,8 @@ public interface SubmitterRepoProvider extends HasRepoMap {
     }
 
     /**
+     * Gets the submitter document repository.
+     *
      * @return the repository
      */
     default SubmitterDocumentRepositoryMongo getSubmitterDocumentRepository() {

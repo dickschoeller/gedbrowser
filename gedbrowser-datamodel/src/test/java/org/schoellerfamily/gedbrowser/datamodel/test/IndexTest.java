@@ -1,8 +1,8 @@
 package org.schoellerfamily.gedbrowser.datamodel.test;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.Set;
 
@@ -11,10 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for index.
+ *
+ * @author Richard Schoeller
  */
 final class IndexTest {
 
@@ -54,7 +57,7 @@ final class IndexTest {
     private final Root root = new Root();
 
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder(root);
+    private final GedObjectBuilder builder = new GedObjectBuilderImpl(root);
 
     @BeforeEach
     void setUp() {
@@ -164,7 +167,6 @@ final class IndexTest {
 
     }
 
-    /** */
     @Test
     void testGetIdsPerNameMe() {
         final Set<String> set = root.getIndex()

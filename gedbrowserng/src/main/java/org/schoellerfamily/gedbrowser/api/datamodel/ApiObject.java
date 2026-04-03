@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.schoellerfamily.gedbrowser.datamodel.GetString;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -14,20 +15,20 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
+
+
 /**
- * The base class for all API data model objects.
+ * Represents api object in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuperBuilder(toBuilder = true)
 @Getter
 @EqualsAndHashCode
-@Jacksonized
-@JsonDeserialize(builder = ApiObject.ApiObjectBuilderImpl.class)
+@JsonDeserialize(builder = ApiObject.ApiObjectBuilder.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "type", "string", "attributes" })
 public class ApiObject implements GetString {
@@ -35,6 +36,7 @@ public class ApiObject implements GetString {
      * A string describing the data type of this object.
      */
     @Builder.Default
+    @SuppressWarnings("java:S1170")
     private final String type = "";
 
     /**
@@ -42,6 +44,7 @@ public class ApiObject implements GetString {
      * be the sub-type and tail will contain the data value.
      */
     @Builder.Default
+    @SuppressWarnings("java:S1170")
     private final String string = "";
 
     /**
@@ -51,6 +54,8 @@ public class ApiObject implements GetString {
     private final List<ApiAttribute> attributes;
 
     /**
+     * Executes accept.
+     *
      * @param visitor the visitor
      */
     public void accept(final ApiObjectVisitor visitor) {
@@ -71,12 +76,6 @@ public class ApiObject implements GetString {
         return "attribute".equals(getType()) && dt.equalsIgnoreCase(getString());
     }
 
-    /**
-     * Turn a URL encoded string into a decoded string.
-     *
-     * @param t type string to decode
-     * @return decoded string
-     */
     private String decode(final String t) {
         return URLDecoder.decode(t, StandardCharsets.UTF_8);
     }
@@ -88,8 +87,7 @@ public class ApiObject implements GetString {
      * @return true if other can equal this
      */
     protected boolean canEqual(final Object other) {
-        final boolean can = other.getClass() == ApiObject.class;
-        return can;
+        return other.getClass() == ApiObject.class;
     }
 
     /**
@@ -102,6 +100,17 @@ public class ApiObject implements GetString {
     public abstract static class ApiObjectBuilder<
         C extends ApiObject,
         B extends ApiObjectBuilder<C, B>> {
+
+        /**
+         * Jackson creator to obtain a concrete Lombok builder implementation.
+         *
+         * @return new object builder instance
+         */
+        @JsonCreator
+        @SuppressWarnings("java:S1452")
+        public static ApiObjectBuilder<?, ?> create() {
+            return ApiObject.builder();
+        }
 
         /**
          * Get the type value.

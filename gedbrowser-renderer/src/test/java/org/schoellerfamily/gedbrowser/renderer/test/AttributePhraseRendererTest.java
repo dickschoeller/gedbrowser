@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.AttributePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.AttributeRenderer;
@@ -17,8 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for attribute phrase renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -39,10 +44,9 @@ final class AttributePhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person = builder.createPerson();
         attribute1 = new Attribute(person, "String", "");
         attribute2 = new Attribute(person, "String", "Strung");
@@ -56,7 +60,6 @@ final class AttributePhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsPhraseEmpty() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute1,
@@ -67,7 +70,6 @@ final class AttributePhraseRendererTest {
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
     @Test
     void testRenderAsPhraseString() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute2,
@@ -78,7 +80,6 @@ final class AttributePhraseRendererTest {
         assertEquals("Strung", string, "Rendered string doesn't match expectation");
     }
 
-    /** */
     @Test
     void testRenderAsPhrase() {
         final AttributeRenderer aRenderer = new AttributeRenderer(attribute3,

@@ -9,31 +9,45 @@ import org.springframework.security.core.GrantedAuthority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * A basic user record.
+ * Represents user impl.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class UserImpl extends HasRoles implements SecurityUser {
-    /** */
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
 
-    /** */
+    /**
+     * The username value.
+     */
     private String username;
 
-    /** */
+    /**
+     * The firstname value.
+     */
     private String firstname;
 
-    /** */
+    /**
+     * The lastname value.
+     */
     private String lastname;
 
-    /** */
+    /**
+     * The email value.
+     */
     private String email;
 
-    /** */
+    /**
+     * The password value.
+     */
     private String password;
 
     /**
-     * {@inheritDoc}
+     * Returns the username.
+     *
+     * @return the username
      */
     @Override
     public String getUsername() {
@@ -41,14 +55,18 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     }
 
     /**
-     * @param username the username
+     * Sets the username.
+     *
+     * @param username the username to use
      */
     public void setUsername(final String username) {
         this.username = username;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the firstname.
+     *
+     * @return the firstname
      */
     @Override
     public String getFirstname() {
@@ -56,14 +74,18 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     }
 
     /**
-     * @param firstname the user's first name
+     * Sets the firstname.
+     *
+     * @param firstname the firstname to use
      */
     public void setFirstname(final String firstname) {
         this.firstname = firstname;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the lastname.
+     *
+     * @return the lastname
      */
     @Override
     public String getLastname() {
@@ -71,14 +93,18 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     }
 
     /**
-     * @param lastname the user's last name
+     * Sets the lastname.
+     *
+     * @param lastname the lastname to use
      */
     public void setLastname(final String lastname) {
         this.lastname = lastname;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the email.
+     *
+     * @return the email
      */
     @Override
     public String getEmail() {
@@ -86,14 +112,18 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     }
 
     /**
-     * @param email the user's email address
+     * Sets the email.
+     *
+     * @param email the email
      */
     public void setEmail(final String email) {
         this.email = email;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the password.
+     *
+     * @return the password
      */
     @Override
     public String getPassword() {
@@ -101,7 +131,9 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the password.
+     *
+     * @param password the password
      */
     @Override
     public void setPassword(final String password) {
@@ -109,7 +141,9 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether account non expired.
+     *
+     * @return true if the condition is met; otherwise false
      */
     @JsonIgnore
     @Override
@@ -118,7 +152,9 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether account non locked.
+     *
+     * @return true if the condition is met; otherwise false
      */
     @JsonIgnore
     @Override
@@ -127,7 +163,9 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether credentials non expired.
+     *
+     * @return true if the condition is met; otherwise false
      */
     @JsonIgnore
     @Override
@@ -136,7 +174,9 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether enabled.
+     *
+     * @return true if the condition is met; otherwise false
      */
     @JsonIgnore
     @Override
@@ -145,7 +185,9 @@ public final class UserImpl extends HasRoles implements SecurityUser {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the authorities.
+     *
+     * @return the authorities
      */
     @JsonIgnore
     @Override
@@ -155,10 +197,6 @@ public final class UserImpl extends HasRoles implements SecurityUser {
             .toList();
     }
 
-    /**
-     * @param role the role to map to an authority
-     * @return the authority
-     */
     private Authority createAuthority(final UserRoleName role) {
         return Authority.builder()
             .userRoleName(role)

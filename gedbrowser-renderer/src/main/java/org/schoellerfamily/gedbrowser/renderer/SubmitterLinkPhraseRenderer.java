@@ -1,26 +1,23 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders submitter link phrase output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class SubmitterLinkPhraseRenderer implements PhraseRenderer {
     /**
      * Holder for the SubmitterLinkRenderer that is using this helper.
      */
-    private final transient SubmitterLinkRenderer slRenderer;
+    private final SubmitterLinkRenderer slRenderer;
 
     /**
-     * Constructor.
+     * Returns the string.
      *
-     * @param renderer the renderer that this is associated with.
-     */
-    protected SubmitterLinkPhraseRenderer(
-            final SubmitterLinkRenderer renderer) {
-        this.slRenderer = renderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

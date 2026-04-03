@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 /**
- * @author Dick Schoeller
+ * Renders person name output for display.
+ *
+ * @author Richard Schoeller
  */
 public interface PersonNameRenderer {
     /**
@@ -34,15 +36,14 @@ public interface PersonNameRenderer {
      * @return the name string in title format.
      */
     default String getTitleName() {
-        final Name name = getGedObject().getName();
         if (isConfidential()) {
             return "Confidential";
         } else if (isHiddenLiving()) {
             return "Living";
-        } else {
-            final GedRenderer<?> nameRenderer = createGedRenderer(name);
-            return nameRenderer.getNameHtml();
         }
+        final Name name = getGedObject().getName();
+        final GedRenderer<?> nameRenderer = createGedRenderer(name);
+        return nameRenderer.getNameHtml();
     }
 
     /**
@@ -72,9 +73,8 @@ public interface PersonNameRenderer {
     default String getSurname() {
         if (isConfidential() || isHiddenLiving()) {
             return "?";
-        } else {
-            return getGedObject().getSurname();
         }
+        return getGedObject().getSurname();
     }
 
     /**
@@ -83,8 +83,7 @@ public interface PersonNameRenderer {
     default String getSurnameLetter() {
         if (isConfidential() || isHiddenLiving()) {
             return "?";
-        } else {
-            return getGedObject().getSurnameLetter();
         }
+        return getGedObject().getSurnameLetter();
     }
 }

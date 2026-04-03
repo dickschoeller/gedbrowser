@@ -5,23 +5,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.schoellerfamily.gedbrowser.datamodel.Note;
+import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.Note;
-import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
-import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.NoteLinkListItemRenderer;
 import org.schoellerfamily.gedbrowser.renderer.NoteLinkRenderer;
+import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for note link list item renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -36,10 +41,9 @@ final class NoteLinkListItemRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         person = builder.createPerson("I1");
         final Root root = builder.getRoot();
         final Note note1 = new Note(root, new ObjectId("N1"));
@@ -50,7 +54,6 @@ final class NoteLinkListItemRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsListItem() {
         final NoteLink noteLink = new NoteLink(person, "NOTE", new ObjectId("N1"));
@@ -67,7 +70,6 @@ final class NoteLinkListItemRendererTest {
             builder.toString(), "Rendered html doesn't match expectation");
     }
 
-    /** */
     @Test
     void testRenderAsListItemWithTitle() {
         final NoteLink sourceLink = new NoteLink(person, "NOTE", new ObjectId("N2"));

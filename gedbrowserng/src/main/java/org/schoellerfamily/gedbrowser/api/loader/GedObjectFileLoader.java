@@ -14,23 +14,25 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Loads a GedObject from a file into a MongoDB database. Returns the root as a GedObject.
+ * Represents ged object file loader.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @Slf4j
 public final class GedObjectFileLoader extends GedDocumentFileLoader {
     /**
-     * Constructor.
+     * Creates a new GedObjectFileLoader.
      *
-     * @param finder finds objects in the database
-     * @param g2g convert GedLine to a GedObject
-     * @param toDocConverter convert a GedObject to a GedDocumentMongo
-     * @param rootDocumentRepository access root objects in the database
-     * @param gedbrowserHome location of files for initialization
-     * @param repositoryManagerMongo the repository manager
+     * @param finder the finder
+     * @param g2g the g2g
+     * @param toDocConverter the to doc converter
+     * @param rootDocumentRepository the root document repository
+     * @param gedbrowserHome the gedbrowser home
+     * @param repositoryManagerMongo the repository manager mongo
      */
     public GedObjectFileLoader(final FinderStrategy finder,
             final GedLineToGedObjectTransformer g2g,

@@ -4,24 +4,22 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders person name index output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class PersonNameIndexRenderer implements NameIndexRenderer {
     /** */
-    private final transient PersonRenderer personRenderer;
+    private final PersonRenderer personRenderer;
 
     /**
-     * Constructor.
+     * Returns the index name.
      *
-     * @param personRenderer the associated personRenderer
-     */
-    public PersonNameIndexRenderer(final PersonRenderer personRenderer) {
-        this.personRenderer = personRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @return the index name
      */
     @Override
     public final String getIndexName() {
@@ -46,16 +44,11 @@ public class PersonNameIndexRenderer implements NameIndexRenderer {
         final String deathYear = deathVisitor.getYear();
 
         return "<a href=\"person?db=" + person.getDbName() + "&amp;id="
-                + person.getString() + "\" class=\"name\">" + nameHtml
-                + dateRangeString(birthYear, deathYear) + " ("
-                + person.getString() + ")</a>";
+            + person.getString() + "\" class=\"name\">" + nameHtml
+            + dateRangeString(birthYear, deathYear) + " ("
+            + person.getString() + ")</a>";
     }
 
-    /**
-     * @param birthYear birth year string
-     * @param deathYear death year string
-     * @return nicely formatted range string
-     */
     private String dateRangeString(final String birthYear,
             final String deathYear) {
         if (birthYear.isEmpty() && deathYear.isEmpty()) {

@@ -4,25 +4,23 @@ import java.util.Arrays;
 
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders simple name name index output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public final class SimpleNameNameIndexRenderer
     implements NameIndexRenderer, SimpleRenderer {
     /** */
-    private final transient SimpleNameRenderer nameRenderer;
+    private final SimpleNameRenderer nameRenderer;
 
     /**
-     * Constructor.
+     * Returns the index name.
      *
-     * @param nameRenderer the NameRenderer that is using this helper.
-     */
-    public SimpleNameNameIndexRenderer(final SimpleNameRenderer nameRenderer) {
-        this.nameRenderer = nameRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @return the index name
      */
     @Override
     public String getIndexName() {
@@ -35,13 +33,14 @@ public final class SimpleNameNameIndexRenderer
         final String surname = escapeString(name.getSurname());
         final String suffix = escapeString(name.getSuffix());
 
-        return " " + separate(
-                wrap("<span class=\"surname\">", surname, "</span>"),
-                prefix, suffix);
+        return " " + separate(wrap("<span class=\"surname\">", surname, "</span>"), prefix, suffix);
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the string.
+     *
+     * @param args the command-line arguments
+     * @return the resulting string
      */
     @Override
     public String separate(final String... args) {

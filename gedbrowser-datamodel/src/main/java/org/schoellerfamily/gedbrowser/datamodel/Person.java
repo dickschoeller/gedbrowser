@@ -1,27 +1,33 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.NameableVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents person in the domain model.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Person extends GedObject implements Nameable {
-    /**
-     * Default constructor.
-     */
-    public Person() {
-        super();
-    }
 
     /**
-     * @param parent parent object of this person
-     * @param xref cross reference to this person
+     * Creates a new Person.
+     *
+     * @param parent the parent
+     * @param xref the xref
      */
     public Person(final GedObject parent, final ObjectId xref) {
         super(parent, xref.getIdString());
     }
 
+    /**
+     * Gets the surname.
+     *
+     * @return the surname
+     */
     @Override
     public String getSurname() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -29,6 +35,11 @@ public final class Person extends GedObject implements Nameable {
         return visitor.getSurname();
     }
 
+    /**
+     * Gets the index name.
+     *
+     * @return the index name
+     */
     @Override
     public String getIndexName() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -36,6 +47,11 @@ public final class Person extends GedObject implements Nameable {
         return visitor.getIndexName();
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     @Override
     public Name getName() {
         final NameableVisitor visitor = new NameableVisitor();
@@ -44,12 +60,19 @@ public final class Person extends GedObject implements Nameable {
     }
 
     /**
-     * @return the first letter of the surname (or a question mark)
+     * Gets the surname letter.
+     *
+     * @return the surname letter
      */
     public String getSurnameLetter() {
         return getSurname().substring(0, 1);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

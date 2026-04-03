@@ -6,7 +6,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { UserService, User } from './user.service';
 import { AuthApiService } from './auth-api.service';
 import { ConfigService } from './config.service';
-import { of, throwError } from 'rxjs';
+import { firstValueFrom, of, throwError } from 'rxjs';
 
 describe('UserService', () => {
   let service: UserService;
@@ -150,14 +150,14 @@ describe('UserService', () => {
     it('returns user observable', async () => {
       mockAuthApiService.get.mockReturnValue(of(mockUser));
 
-      const result = await service.getMyInfo().toPromise();
+      const result = await firstValueFrom(service.getMyInfo());
       expect(result).toEqual(mockUser);
     });
 
     it('updates currentUser', async () => {
       mockAuthApiService.get.mockReturnValue(of(mockUser));
 
-      await service.getMyInfo().toPromise();
+      await firstValueFrom(service.getMyInfo());
       expect(service.currentUser).toEqual(mockUser);
     });
 
@@ -165,7 +165,7 @@ describe('UserService', () => {
       const error = new Error('Failed');
       mockAuthApiService.get.mockReturnValue(throwError(() => error));
 
-      await expect(service.getMyInfo().toPromise()).rejects.toEqual(error);
+      await expect(firstValueFrom(service.getMyInfo())).rejects.toEqual(error);
     });
   });
 
@@ -182,14 +182,14 @@ describe('UserService', () => {
       const users = [mockUser];
       mockAuthApiService.get.mockReturnValue(of(users));
 
-      const result = await service.getAll().toPromise();
+      const result = await firstValueFrom(service.getAll());
       expect(result).toEqual(users);
     });
 
     it('returns empty array when no users', async () => {
       mockAuthApiService.get.mockReturnValue(of([]));
 
-      const result = await service.getAll().toPromise();
+      const result = await firstValueFrom(service.getAll());
       expect(result.length).toBe(0);
     });
 
@@ -197,7 +197,7 @@ describe('UserService', () => {
       const error = new Error('Fetch failed');
       mockAuthApiService.get.mockReturnValue(throwError(() => error));
 
-      await expect(service.getAll().toPromise()).rejects.toEqual(error);
+      await expect(firstValueFrom(service.getAll())).rejects.toEqual(error);
     });
   });
 });

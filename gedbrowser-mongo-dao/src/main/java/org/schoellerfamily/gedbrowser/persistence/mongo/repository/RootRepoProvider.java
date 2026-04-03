@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
 /**
- * Implements a mixin that provides the root repository.
+ * Provides root repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface RootRepoProvider extends HasRepoMap {
 }

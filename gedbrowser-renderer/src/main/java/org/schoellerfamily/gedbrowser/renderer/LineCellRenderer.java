@@ -1,38 +1,26 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
- * Render a cell that is empty but has additional class text
- * for the table displays the ancestor tree.  The extra class
- * cells are used for line drawing.
+ * Renders line cell output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor
+@Getter
 public final class LineCellRenderer implements CellRenderer {
     /** */
-    private final transient String classString;
+    private final String cellClass;
 
     /**
-     * Constructor.
+     * Returns the name html.
      *
-     * @param classString the classString
-     */
-    public LineCellRenderer(final String classString) {
-        this.classString = classString;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @return the name html
      */
     @Override
     public String getNameHtml() {
         return "&nbsp;&nbsp;&nbsp;";
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getCellClass() {
-        return classString;
     }
 }

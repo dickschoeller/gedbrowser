@@ -2,26 +2,24 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Place;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders place phrase output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class PlacePhraseRenderer implements PhraseRenderer {
     /**
      * Holder for the PlaceRenderer that is using this helper.
      */
-    private final transient PlaceRenderer placeRenderer;
+    private final PlaceRenderer placeRenderer;
 
     /**
-     * Constructor.
+     * Executes render as phrase.
      *
-     * @param placeRenderer the renderer that this is associated with.
-     */
-    protected PlacePhraseRenderer(final PlaceRenderer placeRenderer) {
-        this.placeRenderer = placeRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

@@ -4,7 +4,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * @author Dick Schoeller
+ * Renders person life span output for display.
+ *
+ * @author Richard Schoeller
  */
 public interface PersonLifeSpanRenderer {
     /**

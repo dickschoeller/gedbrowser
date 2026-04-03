@@ -5,20 +5,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import lombok.NoArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Parses simple date values from textual input.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public class SimpleDateParser {
     /**
-     * Constructor.
-     */
-    public SimpleDateParser() {
-        // Intentionally empty.
-    }
-
-    /**
-     * @param dateString the string being parsed into a calendar
-     * @return the output string
+     * Parses the calendar.
+     *
+     * @param dateString the date string
+     * @return the resulting calendar
      */
     protected final Calendar parseCalendar(final String dateString) {
         SimpleDateFormat dateParser = new SimpleDateFormat("dd MMM yyyy",
@@ -27,17 +27,17 @@ public class SimpleDateParser {
         try {
             c.setTime(dateParser.parse(dateString));
             return c;
-        } catch (ParseException e) {
+        } catch (ParseException _) {
             dateParser = new SimpleDateFormat("MMM yyyy", Locale.US);
             try {
                 c.setTime(dateParser.parse(dateString));
                 return c;
-            } catch (ParseException e1) {
+            } catch (ParseException _) {
                 dateParser = new SimpleDateFormat("yyyy", Locale.US);
                 try {
                     c.setTime(dateParser.parse(dateString));
                     return c;
-                } catch (ParseException e2) {
+                } catch (ParseException _) {
                     return null;
                 }
             }
@@ -45,42 +45,54 @@ public class SimpleDateParser {
     }
 
     /**
-     * @param c the calendar to manipulate
+     * Executes add day.
+     *
+     * @param c the c
      */
     protected final void addDay(final Calendar c) {
         c.add(Calendar.DAY_OF_MONTH, 1);
     }
 
     /**
-     * @param c the calendar to manipulate
+     * Executes subtract day.
+     *
+     * @param c the c
      */
     protected final void subtractDay(final Calendar c) {
         c.add(Calendar.DAY_OF_MONTH, -1);
     }
 
     /**
-     * @param c the calendar to manipulate
+     * Executes subtract month.
+     *
+     * @param c the c
      */
     protected final void subtractMonth(final Calendar c) {
         c.add(Calendar.MONTH, -1);
     }
 
     /**
-     * @param c the calendar to manipulate
+     * Executes add month.
+     *
+     * @param c the c
      */
     protected final void addMonth(final Calendar c) {
         c.add(Calendar.MONTH, 1);
     }
 
     /**
-     * @param c the calendar to manipulate
+     * Executes subtract year.
+     *
+     * @param c the c
      */
     protected final void subtractYear(final Calendar c) {
         c.add(Calendar.YEAR, 1);
     }
 
     /**
-     * @param c the calendar to manipulate
+     * Executes add year.
+     *
+     * @param c the c
      */
     protected final void addYear(final Calendar c) {
         c.add(Calendar.YEAR, -1);

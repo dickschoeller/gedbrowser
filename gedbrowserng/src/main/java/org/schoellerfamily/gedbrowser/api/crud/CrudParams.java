@@ -5,10 +5,9 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 
 /**
- * This class manages sharing the basic configurations for CRUD behavior among
- * several cooperating CRUD processors.
+ * Represents crud params.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class CrudParams {
     /** */
@@ -21,8 +20,10 @@ public class CrudParams {
     private final RepositoryManagerMongo repositoryManager;
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Executes crud params.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public CrudParams(final GedObjectFileLoader loader,
@@ -52,6 +53,8 @@ public class CrudParams {
     }
 
     /**
+     * Gets the repository manager.
+     *
      * @return the repository manager
      */
     public final RepositoryManagerMongo getRepositoryManager() {

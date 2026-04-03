@@ -1,15 +1,43 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
 .content {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 mat-card {
+  width: min(100%, 400px);
   max-width: 400px;
   text-align: center;
   animation: fadein 1s;
   -o-animation: fadein 1s;  /* Opera */
   -moz-animation: fadein 1s;  /* Firefox */
   -webkit-animation: fadein 1s;  /* Safari and Chrome */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+mat-form-field {
+  display: block !important;
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  display: block !important;
+  width: 100%;
 }
 
 mat-input-container {
@@ -37,7 +65,8 @@ button {
 
 @media screen and (max-width: 599px) {
   .content {
-    display: block !important;
+    min-height: 100vh;
+    display: flex !important;
   }
   mat-card {
     display: block !important;

@@ -10,10 +10,11 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.Source;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for source.
+ *
+ * @author Richard Schoeller
  */
 final class SourceTest {
-    /** */
     @Test
     void testSourceGedObjectCompare() {
         final Root root = new Root("Root");
@@ -23,14 +24,12 @@ final class SourceTest {
         assertEquals(source, gob, "Found wrong source");
     }
 
-    /** */
     @Test
     void testSourceGedObjectGetString() {
         final Source source = new Source();
         assertTrue(source.getString().isEmpty(), "Source string should be empty");
     }
 
-    /** */
     @Test
     void testSourceGedObjectStringGetString() {
         final Root root = new Root("Root");

@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for head.
+ *
+ * @author Richard Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
@@ -30,16 +34,15 @@ public class HeadController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating the DB header
-     */
     private ObjectCrud<ApiHead> crud() {
         return new HeadCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of sources
+     * Returns the api head.
+     *
+     * @param db the db
+     * @return the resulting api head
      */
     @GetMapping(value = "/v1/dbs/{db}")
     public ApiHead read(@PathVariable final String db) {

@@ -1,5 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Builder;
@@ -7,19 +8,20 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonPOJOBuilder;
+
+
 
 /**
- * An object that has a tail string.
+ * Represents api tail in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuperBuilder(toBuilder = true)
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@Jacksonized
-@JsonDeserialize(builder = ApiTail.ApiTailBuilderImpl.class)
+@JsonDeserialize(builder = ApiTail.ApiTailBuilder.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiTail extends ApiObject {
     /**
@@ -27,11 +29,37 @@ public class ApiTail extends ApiObject {
      */
     @Builder.Default
     @NonNull
+    @SuppressWarnings("java:S1170")
     private final String tail = "";
 
     /**
-     * Is the other object of exactly the same type as this one? All overrides
-     * should use the same approach.
+     * The Builder for ApiTail.
+     *
+     * @param <C> the class to be built
+     * @param <B> the type of the builder
+     */
+    @JsonPOJOBuilder(withPrefix = "")
+    public abstract static class ApiTailBuilder<
+            C extends ApiTail,
+            B extends ApiTailBuilder<C, B>>
+        extends ApiObjectBuilder<C, B> {
+        /**
+         * Jackson creator to obtain a concrete Lombok builder implementation.
+         *
+         * @return new tail builder instance
+         */
+        @JsonCreator
+        @SuppressWarnings("java:S1452")
+        public static ApiTailBuilder<?, ?> create() {
+            return ApiTail.builder();
+        }
+    }
+
+    /**
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
      */
     @Override
     public boolean canEqual(final Object other) {

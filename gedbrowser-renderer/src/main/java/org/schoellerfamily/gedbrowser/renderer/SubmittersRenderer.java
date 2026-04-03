@@ -13,8 +13,12 @@ import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Renders submitters output for display.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class SubmittersRenderer extends GedRenderer<Root>
@@ -23,18 +27,19 @@ public class SubmittersRenderer extends GedRenderer<Root>
         SourcesHrefRenderer<Root>, SubmittersHrefRenderer<Root> {
 
     /**
-     * Constructor.
+     * Creates a new SubmittersRenderer.
      *
-     * @param root root of data set
-     * @param renderingContext the context that we are rendering in
+     * @param root the root
+     * @param renderingContext the rendering context
      */
-    public SubmittersRenderer(final Root root,
-            final RenderingContext renderingContext) {
+    public SubmittersRenderer(final Root root, final RenderingContext renderingContext) {
         super(root, new GedRendererFactory(), renderingContext);
     }
 
     /**
-     * @return the collection of submitters
+     * Gets the submitters.
+     *
+     * @return the submitters
      */
     public Collection<SubmitterRenderer> getSubmitters() {
         log.info("Starting getSubmitters");

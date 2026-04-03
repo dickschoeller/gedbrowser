@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit } from '@angular/core';
 
-import { ApiAttribute, ApiPerson } from '../../models';
+import { ApiAttribute } from '../../models';
 import { PersonService, UserService } from '../../services';
 import { HasFamily } from '../../interfaces/has-family';
 import { PersonGetter } from './person-getter';
@@ -36,7 +36,22 @@ import { MatIcon } from '@angular/material/icon';
             <mat-icon matListIcon>link_off</mat-icon></button>
     </span>
 }`,
-    styles: [],
+        styles: [`
+:host {
+    display: inline-flex;
+    align-items: center;
+}
+
+:host .parent {
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+}
+
+:host .name {
+    line-height: inherit;
+}
+`],
     imports: [RouterLink, MatIconButton, MatTooltip, MatIcon]
 })
 export class PersonFamilySpouseComponent extends PersonGetter
@@ -46,8 +61,10 @@ export class PersonFamilySpouseComponent extends PersonGetter
     @Input() attribute: ApiAttribute;
 
     constructor(@Inject(PersonService) personService: PersonService,
-        @Inject(UserService) private readonly userService: UserService) {
-        super(personService);
+        @Inject(UserService) private readonly userService: UserService,
+        @Inject(NgZone) zone: NgZone,
+        @Inject(ChangeDetectorRef) cdr: ChangeDetectorRef) {
+        super(personService, zone, cdr);
         this.famMemberType = 'spouses';
     }
 

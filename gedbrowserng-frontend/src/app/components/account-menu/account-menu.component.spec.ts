@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { of } from 'rxjs';
@@ -45,5 +45,32 @@ describe('AccountMenuComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should initialize user from user service', () => {
+    const user = { firstname: 'Grace', lastname: 'Hopper' } as any;
+    mockUserService.currentUser = user;
+
+    component.ngOnInit();
+
+    expect(component.user).toBe(user);
+  });
+
+  it('should return current router url', () => {
+    const router: any = TestBed.inject(Router);
+    Object.defineProperty(router, 'url', { get: () => '/profile' });
+
+    expect(component.currentUrl()).toBe('/profile');
+  });
+
+  it('should logout and navigate to current url', () => {
+    const router: any = TestBed.inject(Router);
+    const navigateSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true);
+    vi.spyOn(component, 'currentUrl').mockReturnValue('/dataset/persons');
+
+    component.logout();
+
+    expect(mockAuthService.logout).toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalledWith(['/dataset/persons']);
   });
 });

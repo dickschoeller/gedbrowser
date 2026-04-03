@@ -30,18 +30,17 @@ import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
+
+
 /**
- * Factory to create the appropriate type of renderer based on the type of the
- * GedObject.
+ * Creates ged renderer instances.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "java:S1452" })
 public final class GedRendererFactory {
-    /**
-     * Dispatcher for factory.
-     */
-    private static Map<Class<?>, RendererBuilder> builders = Map.ofEntries(
+    /** */
+    private static final Map<Class<?>, RendererBuilder> BUILDERS = Map.ofEntries(
         Map.entry((Class<?>) Husband.class,
             (RendererBuilder) (g, f, r) -> new HusbandRenderer((Husband) g, f, r)),
         Map.entry((Class<?>) Wife.class,
@@ -97,15 +96,15 @@ public final class GedRendererFactory {
 
     /**
      * Interface for builders for the factory.
-     *
-     * @author Dick Schoeller
      */
     private interface RendererBuilder {
         /**
-         * @param gedObject        a gedobject to render
-         * @param factory          the factory that we're working with
-         * @param renderingContext the current rendering context
-         * @return the appropriate renderer
+         * Builds the renderer.
+         *
+         * @param gedObject the GedObject to be rendered
+         * @param factory the factory creating the renderer
+         * @param renderingContext the context for rendering
+         * @return the renderer
          */
         GedRenderer<? extends GedObject> build(GedObject gedObject, GedRendererFactory factory,
             RenderingContext renderingContext);
@@ -134,7 +133,7 @@ public final class GedRendererFactory {
     public GedRenderer<? extends GedObject> create(final GedObject gedObject,
         final RenderingContext renderingContext) {
         if (gedObject != null) {
-            final RendererBuilder builder = builders.get(gedObject.getClass());
+            final RendererBuilder builder = BUILDERS.get(gedObject.getClass());
             if (builder != null) {
                 return builder.build(gedObject, this, renderingContext);
             }

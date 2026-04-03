@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * @author Dick Schoeller
+ * Visits top level ged document elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface TopLevelGedDocumentVisitor {
     /**

@@ -7,10 +7,14 @@ import java.util.Map;
 import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 
 /**
- * @author Dick Schoeller
+ * Represents security users.
+ *
+ * @author Richard Schoeller
  */
 public final class SecurityUsers implements Users<SecurityUser> {
-    /** Holds the known users. */
+    /**
+     * The string value.
+     */
     private final Map<String, SecurityUser> users = new HashMap<>();
 
     /**
@@ -19,14 +23,19 @@ public final class SecurityUsers implements Users<SecurityUser> {
     private final String userFileName;
 
     /**
-     * @param userFileName the name of the file for persisting the users
+     * Creates a new SecurityUsers.
+     *
+     * @param userFileName the user file name to use
      */
     public SecurityUsers(final String userFileName) {
         this.userFileName = userFileName;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the security user.
+     *
+     * @param user the user
+     * @return the resulting security user
      */
     @Override
     public SecurityUser add(final SecurityUser user) {
@@ -34,7 +43,10 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the security user.
+     *
+     * @param user the user
+     * @return the resulting security user
      */
     @Override
     public SecurityUser remove(final SecurityUser user) {
@@ -42,7 +54,10 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the value.
+     *
+     * @param username the username to use
+     * @return the value
      */
     @Override
     public SecurityUser get(final String username) {
@@ -50,7 +65,7 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes clear.
      */
     @Override
     public void clear() {
@@ -58,7 +73,9 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the iterator.
+     *
+     * @return the resulting iterator
      */
     @Override
     public Iterator<SecurityUser> iterator() {
@@ -66,7 +83,9 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the int.
+     *
+     * @return the resulting int
      */
     @Override
     public int size() {
@@ -74,7 +93,9 @@ public final class SecurityUsers implements Users<SecurityUser> {
     }
 
     /**
-     * @return the name of the file persisting the users
+     * Gets the user file name.
+     *
+     * @return the user file name
      */
     public String getUserFileName() {
         return userFileName;

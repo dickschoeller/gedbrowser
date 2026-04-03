@@ -4,33 +4,33 @@ import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
 
 /**
- * This factory is used to create GeoCodeItem objects from GeoDocumentMongo
- * objects and vice versa.
+ * Creates geo document mongo instances.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class GeoDocumentMongoFactory {
-    /** */
+    /** Singleton instance. */
     private static final GeoDocumentMongoFactory INSTANCE =
-            new GeoDocumentMongoFactory();
+        new GeoDocumentMongoFactory();
 
-    /**
-     * Constructor.
-     */
     private GeoDocumentMongoFactory() {
         // Empty constructor.
     }
 
     /**
-     * @return the singleton
+     * Gets the instance.
+     *
+     * @return the instance
      */
     public static GeoDocumentMongoFactory getInstance() {
         return INSTANCE;
     }
 
     /**
-     * @param gci the input geocode item
-     * @return the output geo document for persistence
+     * Creates the geo document.
+     *
+     * @param gci the gci
+     * @return the resulting geo document
      */
     public GeoDocument createGeoDocument(final GeoCodeItem gci) {
         final GeoDocument retval = new GeoDocumentMongo();
@@ -41,8 +41,10 @@ public final class GeoDocumentMongoFactory {
     }
 
     /**
-     * @param gd the input geodocument
-     * @return the output geocode item
+     * Creates the geo code item.
+     *
+     * @param gd the gd
+     * @return the resulting geo code item
      */
     public GeoCodeItem createGeoCodeItem(final GeoDocument gd) {
         if (gd == null) {

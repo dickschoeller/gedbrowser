@@ -31,7 +31,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import tools.jackson.databind.ObjectMapper;
 
+
+
 /**
+ * Contains integration tests for the upload controller.
+ *
  * @author Richard Schoeller
  */
 @ExtendWith(MockitoExtension.class)
@@ -58,16 +62,12 @@ class UploadControllerIT {
     private final UploadController controller = spy(
         new UploadController(loader, toDocConverter, repositoryManager, service));
 
-    /** */
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         is = controller.getClass().getClassLoader().getResourceAsStream("mini-schoeller.ged");
     }
 
-    /**
-     * @throws Exception if something goes wrong.
-     */
     @Test
     void testUploadController() throws Exception {
         final MockMultipartFile mockMultipartFile = new MockMultipartFile("file",

@@ -9,7 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 
 /**
- * @author Dick Schoeller
+ * Visits identified record line elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface IdentifiedRecordLineVisitor extends GedObjectLineVisitor {
     /**

@@ -8,8 +8,7 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGe
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,8 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for upload.
+ *
+ * @author Richard Schoeller
  */
 @CrossOrigin(origins = { "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @RestController
@@ -53,9 +56,7 @@ public class UploadController {
      * @param file the file being sent
      * @return the head object for that file
      */
-    @RequestMapping(value = "/v1/upload",
-        method = RequestMethod.POST,
-        consumes = "multipart/form-data")
+    @PostMapping(value = "/v1/upload", consumes = "multipart/form-data")
     public final ApiHead upload(@RequestParam("file") final MultipartFile file) {
         final String originalFilename = file.getOriginalFilename();
         if (ObjectUtils.isEmpty(originalFilename)) {

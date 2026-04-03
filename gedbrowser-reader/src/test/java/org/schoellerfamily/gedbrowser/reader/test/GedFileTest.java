@@ -24,8 +24,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged file.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -36,11 +40,6 @@ final class GedFileTest {
     @Autowired
     private transient GedLineToGedObjectTransformer g2g;
 
-    /**
-     * Test GedLine with an array input.
-     *
-     * @throws IOException never.
-     */
     @Test
     void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
@@ -58,11 +57,6 @@ final class GedFileTest {
         log.info(spouses.get(0).toString());
     }
 
-    /**
-     * Test GedLine with an array input.
-     *
-     * @throws IOException never.
-     */
     @Test
     void testFactoryGedFileHead() throws IOException {
         final AbstractGedLine top = readFileTestSource();
@@ -73,10 +67,6 @@ final class GedFileTest {
                 "Problems in head:\n" + formatResult(headsCheckResults));
     }
 
-    /**
-     * @param head the header to check
-     * @return list of problem descriptions
-     */
     private List<String> checkHeads(final Head head) {
         final List<String> errors = new ArrayList<>();
         if (head == null) {
@@ -116,31 +106,19 @@ final class GedFileTest {
         return errors;
     }
 
-    /**
-     * @param checkResults array
-     * @return a nicely build up string
-     */
-    @SuppressWarnings("PMD.UseStringBufferForStringAppends")
     private String formatResult(final List<String> checkResults) {
-        String output = "";
+        final StringBuilder output = new StringBuilder();
         for (final String result : checkResults) {
-            output += "    " + result + "\n";
+            output.append("    ").append(result).append("\n");
         }
-        return output;
+        return output.toString();
     }
 
-    /**
-     * Read data for tests available to prepare data for tests.
-     *
-     * @return a populated GedLine parse tree.
-     * @throws IOException because reader might throw.
-     */
     private AbstractGedLine readFileTestSource() throws IOException {
         return TestResourceReader.readFileTestSource(
                 "mini-schoeller.ged");
     }
 
-    /** */
     @Test
     void testFactoryGedLineHeadString() {
         final AbstractGedLine line = GedLine.createGedLine(
@@ -148,7 +126,6 @@ final class GedFileTest {
         assertMatch(line, 0, "HEAD", "", "");
     }
 
-    /** */
     @Test
     void testFactoryGedLineSourString() {
         final AbstractGedLine line = GedLine.createGedLine(
@@ -156,7 +133,6 @@ final class GedFileTest {
         assertMatch(line, 1, "SOUR", "TMG", "");
     }
 
-    /** */
     @Test
     void testFactoryGedLineOneSubmString() {
         final AbstractGedLine line = GedLine.createGedLine(
@@ -164,7 +140,6 @@ final class GedFileTest {
         assertMatch(line, 1, "SUBM", "@SUB1@", "");
     }
 
-    /** */
     @Test
     void testFactoryGedLineZeroSubmString() {
         final AbstractGedLine line = GedLine.createGedLine(
@@ -172,7 +147,6 @@ final class GedFileTest {
         assertMatch(line, 0, "SUBM", "", "SUB1");
     }
 
-    /** */
     @Test
     void testFactoryGedLineNameString() {
         final AbstractGedLine line = GedLine.createGedLine(
@@ -180,7 +154,6 @@ final class GedFileTest {
         assertMatch(line, 1, "NAME", "Richard Schoeller", "");
     }
 
-    /** */
     @Test
     void testFactoryGedLineAddrString() {
         final AbstractGedLine line = GedLine.createGedLine(
@@ -188,13 +161,6 @@ final class GedFileTest {
         assertMatch(line, 1, "ADDR", "242 Marked Tree Road", "");
     }
 
-    /**
-     * @param line the line that is being checked
-     * @param expectedLevel the expected level value
-     * @param expectedTag the expected tag string
-     * @param expectedTail the expected tail string
-     * @param expectedXref the expected reference string
-     */
     private void assertMatch(final AbstractGedLine line,
             final int expectedLevel, final String expectedTag,
             final String expectedTail, final String expectedXref) {

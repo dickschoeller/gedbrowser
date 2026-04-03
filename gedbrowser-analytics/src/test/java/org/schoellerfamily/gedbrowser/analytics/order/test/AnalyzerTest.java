@@ -5,7 +5,9 @@ import org.schoellerfamily.gedbrowser.datamodel.util.FamilyBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.util.PersonBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for analyzer.
+ *
+ * @author Richard Schoeller
  */
 public interface AnalyzerTest {
     /**

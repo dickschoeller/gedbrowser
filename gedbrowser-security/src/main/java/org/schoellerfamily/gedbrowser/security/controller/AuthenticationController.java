@@ -2,10 +2,6 @@ package org.schoellerfamily.gedbrowser.security.controller;
 
 import java.util.Map;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.schoellerfamily.gedbrowser.security.model.UserTokenState;
 import org.schoellerfamily.gedbrowser.security.model.UserTokenStateImpl;
 import org.schoellerfamily.gedbrowser.security.service.impl.CustomUserDetailsService;
@@ -15,43 +11,63 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for authentication.
+ *
+ * @author Richard Schoeller
  */
 @RestController
 @RequestMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class AuthenticationController {
-    /** */
+    /**
+     * The user details service value.
+     */
     private final CustomUserDetailsService userDetailsService;
 
-    /** */
+    /**
+     * The authentication manager value.
+     */
     private final AuthenticationManager authenticationManager;
 
-    /** */
+    /**
+     * The token helper value.
+     */
     private final TokenHelper tokenHelper;
 
-    /** */
+    /**
+     * The expires in value.
+     */
     @Value("${jwt.expires_in:600}")
-    private int expiresIn;
-
-    /** */
-    @Value("${jwt.cookie:AUTH-TOKEN}")
-    private String cookie;
+    private final int expiresIn;
 
     /**
+     * The cookie value.
+     */
+    @Value("${jwt.cookie:AUTH-TOKEN}")
+    private final String cookie;
+
+    /**
+     * Executes refresh authentication token.
+     *
      * @param request the request
      * @param response the response
-     * @return the response entity
+     * @return the resulting response entity
      */
-    @RequestMapping(value = "/refresh", method = RequestMethod.GET)
+    @GetMapping(value = "/refresh")
     public ResponseEntity<UserTokenState> refreshAuthenticationToken(
             final HttpServletRequest request,
             final HttpServletResponse response) {
@@ -67,11 +83,6 @@ public class AuthenticationController {
         }
     }
 
-    /**
-     * @param response the http response
-     * @param authToken the authentication token
-     * @return the response
-     */
     private ResponseEntity<UserTokenState> doRefresh(final HttpServletResponse response,
             final String authToken) {
         final String refreshedToken = tokenHelper.refreshToken(authToken);
@@ -90,10 +101,12 @@ public class AuthenticationController {
     }
 
     /**
-     * @param passwordChanger the data carrier for password change
-     * @return the response entity
+     * Executes change password.
+     *
+     * @param passwordChanger the password changer
+     * @return the resulting string
      */
-    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    @PostMapping(value = "/changePassword")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Map<String, String>> changePassword(
             @RequestBody final PasswordChanger passwordChanger) {
@@ -105,15 +118,21 @@ public class AuthenticationController {
     /**
      * This will probably eventually be private or public, not default.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     /* default */ static final class PasswordChanger {
-        /** */
+        /**
+         * The old password value.
+         */
         private String oldPassword;
-        /** */
+        /**
+         * The new password value.
+         */
         private String newPassword;
 
         /**
+         * Gets the old password.
+         *
          * @return the old password
          */
         public String getOldPassword() {
@@ -121,6 +140,8 @@ public class AuthenticationController {
         }
 
         /**
+         * Sets the old password.
+         *
          * @param oldPassword the old password
          */
         public void setOldPassword(final String oldPassword) {
@@ -128,6 +149,8 @@ public class AuthenticationController {
         }
 
         /**
+         * Gets the new password.
+         *
          * @return the new password
          */
         public String getNewPassword() {
@@ -135,6 +158,8 @@ public class AuthenticationController {
         }
 
         /**
+         * Sets the new password.
+         *
          * @param newPassword the new password
          */
         public void setNewPassword(final String newPassword) {

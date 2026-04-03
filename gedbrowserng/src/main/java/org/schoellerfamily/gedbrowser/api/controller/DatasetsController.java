@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for datasets.
+ *
+ * @author Richard Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
@@ -38,6 +42,7 @@ public final class DatasetsController {
         final List<String> list =
             StreamSupport.stream(all.spliterator(), false)
                 .map(m -> m.getDbName())
+                .distinct()
                 .toList();
         log.info("length: {}", list.size());
         return list;

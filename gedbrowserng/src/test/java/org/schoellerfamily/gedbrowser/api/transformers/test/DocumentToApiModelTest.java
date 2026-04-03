@@ -16,10 +16,11 @@ import org.schoellerfamily.gedbrowser.persistence.domain.TrailerDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.TrailerDocumentMongo;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for document to api model.
+ *
+ * @author Richard Schoeller
  */
 class DocumentToApiModelTest {
-    /** */
     @Test
     void basicTrailerTest() {
         final TrailerDocument document = new TrailerDocumentMongo();
@@ -30,7 +31,6 @@ class DocumentToApiModelTest {
         assertEquals("trailer", baseObject.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void basicObjectTest() {
         final GedDocument<GedObject> document = new GedDocumentStub();
@@ -42,11 +42,13 @@ class DocumentToApiModelTest {
     }
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private final class GedDocumentStub implements GedDocument<GedObject> {
         /**
-         * {@inheritDoc}
+         * Returns the id string.
+         *
+         * @return the id string
          */
         @Override
         public String getIdString() {
@@ -54,7 +56,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Sets the id string.
+         *
+         * @param idString the id string
          */
         @Override
         public void setIdString(final String idString) {
@@ -62,7 +66,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Returns the type.
+         *
+         * @return the type
          */
         @Override
         public String getType() {
@@ -70,7 +76,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Returns the string.
+         *
+         * @return the string
          */
         @Override
         public String getString() {
@@ -78,7 +86,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Sets the string.
+         *
+         * @param string the string
          */
         @Override
         public void setString(final String string) {
@@ -86,7 +96,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Returns the filename.
+         *
+         * @return the filename
          */
         @Override
         public String getFilename() {
@@ -94,7 +106,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Sets the filename.
+         *
+         * @param filename the filename to use
          */
         @Override
         public void setFilename(final String filename) {
@@ -102,7 +116,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Returns the db name.
+         *
+         * @return the db name
          */
         @Override
         public String getDbName() {
@@ -110,7 +126,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Sets the db name.
+         *
+         * @param dbName the db name to use
          */
         @Override
         public void setDbName(final String dbName) {
@@ -118,7 +136,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Returns the ged object.
+         *
+         * @return the ged object
          */
         @Override
         public GedObject getGedObject() {
@@ -126,7 +146,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Sets the ged object.
+         *
+         * @param gedObject the ged object
          */
         @Override
         public void setGedObject(final GedObject gedObject) {
@@ -134,7 +156,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Returns the attributes.
+         *
+         * @return the attributes
          */
         @Override
         public List<GedDocument<? extends GedObject>> getAttributes() {
@@ -142,7 +166,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Sets the attributes.
+         *
+         * @param attributes the attributes
          */
         @Override
         public void setAttributes(final List<GedDocument<? extends GedObject>> attributes) {
@@ -150,7 +176,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Executes add attribute.
+         *
+         * @param attribute the attribute
          */
         @Override
         public void addAttribute(final GedDocument<?> attribute) {
@@ -158,7 +186,7 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Executes clear attributes.
          */
         @Override
         public void clearAttributes() {
@@ -166,7 +194,10 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Loads the ged object.
+         *
+         * @param loader the loader
+         * @param ged the ged
          */
         @Override
         public void loadGedObject(final GedDocumentLoader loader, final GedObject ged) {
@@ -174,7 +205,9 @@ class DocumentToApiModelTest {
         }
 
         /**
-         * {@inheritDoc}
+         * Executes accept.
+         *
+         * @param visitor the visitor
          */
         @Override
         public void accept(final GedDocumentVisitor visitor) {

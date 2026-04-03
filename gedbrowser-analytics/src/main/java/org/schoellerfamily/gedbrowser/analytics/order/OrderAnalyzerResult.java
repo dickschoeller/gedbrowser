@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Holds the result of an order analysis.
+ * Represents the result of order analyzer processing.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class OrderAnalyzerResult {
     /** Current status of the analysis. */
@@ -15,7 +15,7 @@ public final class OrderAnalyzerResult {
     private final List<String> mismatches = new ArrayList<>();
 
     /**
-     * Constructor.
+     * Creates a new OrderAnalyzerResult.
      */
     public OrderAnalyzerResult() {
         correct = true;

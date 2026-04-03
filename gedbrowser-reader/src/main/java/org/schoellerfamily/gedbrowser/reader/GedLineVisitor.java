@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.reader;
 
 /**
- * @author Dick Schoeller
+ * Visits ged line elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface GedLineVisitor {
     /**

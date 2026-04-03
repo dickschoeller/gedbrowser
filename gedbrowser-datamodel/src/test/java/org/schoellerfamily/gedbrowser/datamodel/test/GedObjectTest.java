@@ -23,8 +23,12 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged object.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.TooManyMethods" })
 final class GedObjectTest {
@@ -45,21 +49,19 @@ final class GedObjectTest {
 
     /** */
     private static final class GedObjectWrapper extends GedObject {
-        /**
-         * @param parent parent object of this object
-         */
         private GedObjectWrapper(final GedObject parent) {
             super(parent);
         }
 
-        /**
-         * @param parent parent object of this object
-         * @param string long version of type string
-         */
         private GedObjectWrapper(final GedObject parent, final String string) {
             super(parent, string);
         }
 
+        /**
+         * Executes accept.
+         *
+         * @param visitor the visitor
+         */
         @Override
         public void accept(final GedObjectVisitor visitor) {
             visitor.visit(this);
@@ -154,9 +156,6 @@ final class GedObjectTest {
             "Should have found same family");
     }
 
-    /**
-     * @return the new GedObject
-     */
     private GedObject createGedObject() {
         return new GedObjectWrapper(root, GOB_TAG);
     }

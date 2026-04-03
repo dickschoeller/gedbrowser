@@ -1,16 +1,18 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * @author Dick Schoeller
+ * Renders attributes output for display.
+ *
+ * @author Richard Schoeller
  *
  * @param <T> the data type being rendered
  */
-@SuppressWarnings("java:S1452")
 public interface AttributesRenderer<T extends GedObject> {
     /**
      * @return the gedobject necessary to render the attributes
@@ -21,6 +23,7 @@ public interface AttributesRenderer<T extends GedObject> {
      * @param attribute a gedobject from the attribute list
      * @return the renderer for that object
      */
+    @SuppressWarnings("java:S1452")
     GedRenderer<? extends GedObject> createGedRenderer(GedObject attribute);
 
     /**
@@ -28,16 +31,13 @@ public interface AttributesRenderer<T extends GedObject> {
      *
      * @return the list of attribute renderers.
      */
+    // Suppressed warnings are because of issues related to generics.
+    @SuppressWarnings({ "java:S1452", "java:S6204" })
     default List<GedRenderer<?>> getAttributes() {
-        final List<GedRenderer<?>> list = new ArrayList<GedRenderer<?>>();
-        final T gob = getGedObject();
-        for (final GedObject attribute : gob.getAttributes()) {
-            final GedRenderer<?> renderer = createGedRenderer(attribute);
-            if (!renderer.getListItemContents().isEmpty()) {
-                list.add(renderer);
-            }
-        }
-        return list.stream().toList();
+        return getGedObject().getAttributes().stream()
+            .map(attribute -> (GedRenderer<?>) createGedRenderer(attribute))
+            .filter(renderer -> StringUtils.isNotEmpty(renderer.getListItemContents()))
+            .collect(Collectors.toUnmodifiableList());
     }
 
 }

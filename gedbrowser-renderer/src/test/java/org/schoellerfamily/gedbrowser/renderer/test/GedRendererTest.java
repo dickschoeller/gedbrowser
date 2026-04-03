@@ -29,8 +29,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -48,17 +52,12 @@ final class GedRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         homeUrl = "http://www.schoellerfamily.org/";
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
@@ -67,10 +66,6 @@ final class GedRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
@@ -78,10 +73,6 @@ final class GedRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
@@ -89,10 +80,6 @@ final class GedRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
@@ -100,10 +87,6 @@ final class GedRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final GedRenderer<GedObject> renderer = createRenderer();
@@ -111,16 +94,12 @@ final class GedRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * @return the renderer for testing
-     */
     private GedRenderer<GedObject> createRenderer() {
         return new GedRenderer<GedObject>(createGedObject(), new GedRendererFactory(),
             anonymousContext) {
         };
     }
 
-    /** */
     @Test
     void testGetTrailerHtmlEmpty() {
         final Root root = new Root();
@@ -145,7 +124,6 @@ final class GedRendererTest {
             renderer.getTrailerHtml(""), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetHeaderHtml() {
         final Root root = new Root();
@@ -169,7 +147,6 @@ final class GedRendererTest {
             "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetTrailerHtml() {
         final Root root = new Root();
@@ -193,7 +170,6 @@ final class GedRendererTest {
             renderer.getTrailerHtml(), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testHasRoleAdminFalse() {
         final Root root = new Root();
@@ -202,7 +178,6 @@ final class GedRendererTest {
         assertFalse(renderer.hasRole("ADMIN"), "Expected admin to be false");
     }
 
-    /** */
     @Test
     void testHasRoleUserTrue() {
         final Root root = new Root();
@@ -219,7 +194,6 @@ final class GedRendererTest {
         assertTrue(renderer.hasRole("USER"), "Expected user to be true");
     }
 
-    /** */
     @Test
     void testHasRoleUserFalse() {
         final Root root = new Root();
@@ -228,7 +202,6 @@ final class GedRendererTest {
         assertFalse(renderer.hasRole("USER"), "Expected user to be false");
     }
 
-    /** */
     @Test
     void testUserGetFirstname() {
         final Root root = new Root();
@@ -237,7 +210,6 @@ final class GedRendererTest {
         assertEquals("Ursula", renderer.getUserFirstname(), "Expected user to be Ursula");
     }
 
-    /** */
     @Test
     void testGetTrailerHtmlHeader() {
         final Root root = new Root();
@@ -262,7 +234,6 @@ final class GedRendererTest {
             renderer.getTrailerHtml("Header"), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetTrailerHtmlSurnames() {
         final Root root = new Root();
@@ -287,7 +258,6 @@ final class GedRendererTest {
             renderer.getTrailerHtml("Surnames"), "Rendered string does not match expectation");
     }
 
-    /** */
     @Test
     void testGetTrailerHtmlIndex() {
         final Root root = new Root();
@@ -312,18 +282,12 @@ final class GedRendererTest {
             renderer.getTrailerHtml("Index"), "Rendered string does not match expectation");
     }
 
-    /**
-     * Test the home URL. Always www.schoellerfamily.org at this point.
-     */
     @Test
     void testGetHomeUrl() {
         final GedRenderer<GedObject> renderer = createRenderer();
         assertEquals(homeUrl, renderer.getHomeUrl(), "Home URL does not match expectation");
     }
 
-    /**
-     * Test the living reference.
-     */
     @Test
     void testGetLivingHref() {
         final GedRenderer<GedObject> renderer = createRenderer();
@@ -331,9 +295,6 @@ final class GedRendererTest {
             "Living href does not match expectation");
     }
 
-    /**
-     * Test the calendar provider.
-     */
     @Test
     void testGetCalendarProvider() {
         final GedRenderer<GedObject> renderer = createRenderer();
@@ -342,13 +303,12 @@ final class GedRendererTest {
         assertEquals("20151214", nowString, "Should match fixed past date for testing");
     }
 
-    /**
-     * @return an anonymous subclass of GedObject for testing
-     */
     private GedObject createGedObject() {
         return new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {
@@ -357,11 +317,6 @@ final class GedRendererTest {
         };
     }
 
-    /**
-     * Get today as a date string. This emulates what happens in the renderers.
-     *
-     * @return the date string.
-     */
     private static String getDateString() {
         final java.util.Date javaDate = new java.util.Date();
         return DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault()).format(javaDate);

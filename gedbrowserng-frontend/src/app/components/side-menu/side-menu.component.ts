@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input , Inject } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { saveAs } from 'file-saver';
 import { FileUploadControl, FileUploadValidators, FileUploadComponent } from '@iplab/ngx-file-upload';
@@ -11,7 +12,7 @@ import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 
 @Component({
     selector: 'app-side-menu',
-    template: `<mat-nav-list>
+    template: `<mat-nav-list class="custom-section-colors">
   <a mat-list-item [routerLink]="['/' + dataset + '/header']"><div class="with-icon"><mat-icon inline=true matListIcon>home</mat-icon> Home</div></a>
   <a mat-list-item [routerLink]="['/' + dataset + '/persons']"><div class="with-icon"><mat-icon inline=true matListIcon>people</mat-icon> Persons</div></a>
   <a mat-list-item [routerLink]="['/' + dataset + '/notes']"><div class="with-icon"><mat-icon inline=true matListIcon>comment</mat-icon> Notes</div></a>
@@ -122,7 +123,7 @@ export class SideMenuComponent implements OnInit, OnChanges {
 
   private initFileUpload(): void {
     this.fileUploadControl.setListVisibility(true);
-    this.filesControl.valueChanges.subscribe((values: File[]) => {
+    this.filesControl.valueChanges.subscribe(async (values: File[]) => {
       if (values.length === 0) {
         return;
       }
@@ -139,22 +140,21 @@ export class SideMenuComponent implements OnInit, OnChanges {
         this.filesControl.setValue(values);
         return;
       }
-      this.uploadService.uploadGedFile(value).subscribe(
-        (result) => {
-          this.filesControl.setValue(values);
-          this.init();
-        },
-        (error) => {
-          alert('Error, unable to upload ' + value.name);
-          this.filesControl.setValue(values);
-        }
-      );
+      try {
+        await firstValueFrom(this.uploadService.uploadGedFile(value));
+        this.filesControl.setValue(values);
+        this.init();
+      } catch {
+        alert('Error, unable to upload ' + value.name);
+        this.filesControl.setValue(values);
+      }
     });
   }
 
   setupItems(dbs: Array<string>): void {
     this.dbs = new Array<string>();
-    for (const db of dbs.toSorted((a, b) => a.localeCompare(b))) {
+    const uniqueDbs = Array.from(new Set(dbs));
+    for (const db of uniqueDbs.toSorted((a, b) => a.localeCompare(b))) {
       this.dbs.push(db);
     }
   }

@@ -6,8 +6,12 @@ import org.schoellerfamily.geoservice.persistence.GeoCode;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Exposes operations for the base geo code endpoint.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public abstract class BaseGeoCodeEndpoint {

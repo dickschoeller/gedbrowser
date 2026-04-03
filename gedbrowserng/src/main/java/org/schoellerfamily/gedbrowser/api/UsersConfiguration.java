@@ -10,8 +10,12 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to users.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @RequiredArgsConstructor
@@ -31,15 +35,11 @@ public class UsersConfiguration {
         return readUserFile();
     }
 
-    /**
-     * @return the set of users from the user file
-     */
     private SecurityUsers readUserFile() {
-        final UsersReader<SecurityUser, SecurityUsers> usersReader =
-                new UsersReader<>();
+        final UsersReader<SecurityUser, SecurityUsers> usersReader = new UsersReader<>();
         return (SecurityUsers) usersReader.readUserFile(userFile,
-                () -> new SecurityUsers(userFile),
-                () -> new UserImpl()
+            () -> new SecurityUsers(userFile),
+            UserImpl::new
         );
     }
 }

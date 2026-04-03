@@ -9,22 +9,23 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for note.
+ *
+ * @author Richard Schoeller
  */
 class NoteTest {
     /** */
     private GedObjectBuilder builder;
 
-    /** */
     @BeforeEach
     void setUp() {
-        builder = new GedObjectBuilder();
+        builder = new GedObjectBuilderImpl();
     }
 
-    /** */
     @Test
     void testNoteGedObjectCompare() {
         final Root root = builder.getRoot();
@@ -34,21 +35,18 @@ class NoteTest {
         assertEquals(note, gob, "Found wrong note");
     }
 
-    /** */
     @Test
     void testNoteGedObjectGetString() {
         final Note note = new Note();
         assertTrue(note.getString().isEmpty(), "Note string should be empty");
     }
 
-    /** */
     @Test
     void testNoteGedObjectGetTail() {
         final Note note = new Note();
         assertTrue(note.getTail().isEmpty(), "Note string should be empty");
     }
 
-    /** */
     @Test
     void testNoteGedObjectSetTailNull() {
         final Note note = new Note();
@@ -56,7 +54,6 @@ class NoteTest {
         assertTrue(note.getTail().isEmpty(), "Note string should be empty");
     }
 
-    /** */
     @Test
     void testNoteGedObjectSetTailEmpty() {
         final Note note = new Note();
@@ -64,7 +61,6 @@ class NoteTest {
         assertTrue(note.getTail().isEmpty(), "Note string should be empty");
     }
 
-    /** */
     @Test
     void testNoteGedObjectStringGetString() {
         final Root root = builder.getRoot();
@@ -73,7 +69,6 @@ class NoteTest {
         assertEquals("N1", note.getString(), "Expected note 1");
     }
 
-    /** */
     @Test
     void testNoteGetSubmitterText() {
         final Root root = builder.getRoot();
@@ -82,7 +77,6 @@ class NoteTest {
         assertEquals("Some note text", note.getTail(), "Expected note 1");
     }
 
-    /** */
     @Test
     void testNoteGetSubmitterTextAppend() {
         final Root root = builder.getRoot();

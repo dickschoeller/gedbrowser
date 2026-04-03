@@ -19,8 +19,12 @@ import com.mongodb.client.MongoDatabase;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Provides fixture data for repository tests.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public final class RepositoryFixture {

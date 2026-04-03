@@ -1,15 +1,21 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for parentable object.
+ *
+ * @author Richard Schoeller
  */
 public interface ParentableObject {
     /**
+     * Gets the parent.
+     *
      * @return the parent object
      */
     GedObject getParent();
 
     /**
+     * Gets the parent filename.
+     *
      * @return the filename provided by the parent
      */
     default String getParentFilename() {
@@ -20,6 +26,8 @@ public interface ParentableObject {
     }
 
     /**
+     * Gets the parent db name.
+     *
      * @return the filename provided by the parent
      */
     default String getParentDbName() {

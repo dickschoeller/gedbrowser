@@ -1,15 +1,19 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders ged resource not found output for display.
+ *
+ * @author Richard Schoeller
  */
 public class GedResourceNotFoundRenderer extends RenderingContextRenderer {
     /** */
     private final Throwable throwable;
 
     /**
-     * @param throwable the cause
-     * @param context the rendering context
+     * Creates a new GedResourceNotFoundRenderer.
+     *
+     * @param throwable the throwable
+     * @param context the context
      */
     public GedResourceNotFoundRenderer(final Throwable throwable,
             final RenderingContext context) {
@@ -18,7 +22,10 @@ public class GedResourceNotFoundRenderer extends RenderingContextRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the string.
+     *
+     * @param omit the omit
+     * @return the resulting string
      */
     @Override
     public String menuInsertions(final String omit) {
@@ -27,18 +34,21 @@ public class GedResourceNotFoundRenderer extends RenderingContextRenderer {
     }
 
     /**
-     * @return the message to display
+     * Gets the message.
+     *
+     * @return the message
      */
     public String getMessage() {
         if (throwable == null) {
             return "Null exception";
-        } else {
-            return throwable.getMessage();
         }
+        return throwable.getMessage();
     }
 
     /**
-     * @return the exception that got us here.
+     * Gets the exception.
+     *
+     * @return the exception
      */
     public Throwable getException() {
         return throwable;

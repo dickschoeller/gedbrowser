@@ -3,22 +3,22 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.datamodel.NoteLink;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders note link name index output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public class NoteLinkNameIndexRenderer implements NameIndexRenderer {
     /** */
     private final NoteLinkRenderer noteLinkRenderer;
 
     /**
-     * @param noteLinkRenderer the associated object renderer
-     */
-    public NoteLinkNameIndexRenderer(final NoteLinkRenderer noteLinkRenderer) {
-        this.noteLinkRenderer = noteLinkRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * Returns the index name.
+     *
+     * @return the index name
      */
     @Override
     public String getIndexName() {
@@ -34,8 +34,8 @@ public class NoteLinkNameIndexRenderer implements NameIndexRenderer {
             return noteLink.getToString();
         }
         final NoteRenderer noteRenderer =
-                (NoteRenderer) new GedRendererFactory().create(note,
-                        noteLinkRenderer.getRenderingContext());
+            (NoteRenderer) new GedRendererFactory().create(note,
+                noteLinkRenderer.getRenderingContext());
         return noteRenderer.getIndexNameHtml();
     }
 

@@ -12,10 +12,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * This does the work of reading getting geocode items from MongoDB.
+ * Provides behavior related to geo document repository mongo impl.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor
@@ -24,6 +26,12 @@ public class GeoDocumentRepositoryMongoImpl
     /** */
     private final MongoTemplate mongoTemplate;
 
+    /**
+     * Finds a value.
+     *
+     * @param placeName the place name to use
+     * @return the resulting geo document
+     */
     @Override
     public final GeoDocument find(final String placeName) {
         final Query searchQuery =

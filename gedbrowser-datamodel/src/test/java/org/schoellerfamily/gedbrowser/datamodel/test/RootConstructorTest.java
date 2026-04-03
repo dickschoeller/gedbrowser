@@ -12,12 +12,11 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for root constructor.
+ *
+ * @author Richard Schoeller
  */
 final class RootConstructorTest {
-    /**
-     * @return collection of parameter arrays
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
         return Arrays.stream(

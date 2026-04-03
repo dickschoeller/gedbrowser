@@ -7,9 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Submission;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implements a mixin that provides the submission repository.
+ * Provides submission repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface SubmissionRepoProvider {
     /**
@@ -20,6 +20,8 @@ public interface SubmissionRepoProvider {
     Map<Class<? extends GedObject>, Object> getMap();
 
     /**
+     * Sets the submission document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -29,6 +31,8 @@ public interface SubmissionRepoProvider {
     }
 
     /**
+     * Gets the submission document repository.
+     *
      * @return the repository
      */
     default SubmissionDocumentRepositoryMongo getSubmissionDocumentRepository() {

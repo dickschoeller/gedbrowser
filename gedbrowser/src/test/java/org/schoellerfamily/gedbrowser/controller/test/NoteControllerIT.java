@@ -16,8 +16,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the note controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,7 +40,6 @@ class NoteControllerIT implements MenuTestHelper {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testNoteControllerN1() {
         final String url = "http://localhost:" + port + "/gedbrowser/note?db=gl120368&id=N1";
@@ -53,7 +56,6 @@ class NoteControllerIT implements MenuTestHelper {
                     getMenu("A"));
     }
 
-    /** */
     @Test
     void testNoteControllerBadDataSet() {
         final EntityExchangeResult<String> entity = restTestClient.get()
@@ -67,7 +69,6 @@ class NoteControllerIT implements MenuTestHelper {
                 .asString().contains("Data set not found");
     }
 
-    /** */
     @Test
     void testNoteControllerBadNote() {
         final EntityExchangeResult<String> entity = restTestClient.get()

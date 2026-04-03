@@ -55,13 +55,14 @@ describe('NoteListComponent', () => {
     const comp = new NoteListComponent(new StubRouter() as any, new StubNoteService() as any, new StubDialog() as any);
     comp.notes = [new ApiNote(), new ApiNote()];
     const opts = comp.pagesizeoptions();
-    expect(opts[opts.length - 1]).toBe(2);
+    expect(opts.at(-1)).toBe(2);
   });
 
   it('delete calls service and refreshes parent', () => {
     const router = new StubRouter();
     const svc = new StubNoteService();
     const dlg = new StubDialog();
+    dlg.result = true;
     const comp = new NoteListComponent(router as any, svc as any, dlg as any);
     comp.parent = new StubParent() as any;
     const note = new ApiNote();

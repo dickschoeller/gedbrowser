@@ -30,27 +30,30 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
         @if (!submitted) {
           <form [formGroup]="form" (ngSubmit)="onSubmit()" #signupForm="ngForm">
-          <mat-form-field>
-            <mat-label>Username</mat-label>
-            <input matInput formControlName="username" required>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input matInput formControlName="password" required type="password">
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>First Name</mat-label>
-            <input matInput formControlName="firstname">
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Last Name</mat-label>
-            <input matInput formControlName="lastname">
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email">
-          </mat-form-field>
-          <button type="submit" [disabled]="!signupForm.form.valid" mat-raised-button color="primary">Sign up</button>
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" required type="password">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstname">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastname">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email">
+            </mat-form-field>
+            <div class="button-row">
+              <button type="submit" [disabled]="!signupForm.form.valid" mat-raised-button color="primary">Sign up</button>
+              <button type="button" mat-button color="warn" (click)="onCancel()">Cancel</button>
+            </div>
           </form>
         }
         <br>
@@ -62,10 +65,108 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     </mat-card>
   </div>
 </div>`,
-    styles: [],
+    styles: [`
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.content {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+mat-card {
+  width: min(100%, 400px);
+  max-width: 400px;
+  text-align: center;
+  animation: fadein 1s;
+  -o-animation: fadein 1s;
+  -moz-animation: fadein 1s;
+  -webkit-animation: fadein 1s;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+mat-form-field {
+  display: block !important;
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  display: block !important;
+  width: 100%;
+}
+
+mat-input-container {
+  display: block;
+}
+
+mat-spinner {
+  width: 25px;
+  height: 25px;
+  margin: 20px auto 0 auto;
+}
+
+button {
+  display: block;
+  width: 100%;
+}
+
+.error {
+  color: #D50000;
+}
+
+.success {
+  color: #8BC34A;
+}
+
+@media screen and (max-width: 599px) {
+  .content {
+    min-height: 100vh;
+    display: flex !important;
+  }
+  mat-card {
+    display: block !important;
+    max-width: 999px;
+  }
+}
+
+a {
+  text-decoration: none;
+  cursor: auto;
+  color: #FFFFFF;
+}
+`],
     imports: [MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton, MatProgressSpinner]
 })
 export class SignupComponent implements OnInit, OnDestroy {
+
+      onCancel() {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          this.router.navigate(['/']);
+        }
+      }
     title = 'Login';
     form: FormGroup;
 
@@ -126,14 +227,14 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.authService.signup(this.form.value)
             // show me the animation
             .pipe(delay(1000))
-            .subscribe(
-                () => {
+            .subscribe({
+                next: () => {
                     this.authService.login(this.form.value).subscribe(() => {
                         this.userService.getMyInfo().subscribe();
                         this.router.navigate([this.returnUrl]);
                     });
                 },
-                error => {
+                error: error => {
                     this.submitted = false;
                     console.log('Sign up error: ' + JSON.stringify(error));
                     this.notification = {
@@ -141,6 +242,6 @@ export class SignupComponent implements OnInit, OnDestroy {
                         msgBody: error['error'].errorMessage
                     };
                 }
-            );
+            });
     }
 }

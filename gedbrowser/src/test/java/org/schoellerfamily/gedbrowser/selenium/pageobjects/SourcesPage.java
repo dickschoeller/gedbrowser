@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * @author Dick Schoeller
+ * Represents sources page.
+ *
+ * @author Richard Schoeller
  */
 public final class SourcesPage extends PageBase implements MenuPageFacade {
     /** */
@@ -22,14 +24,21 @@ public final class SourcesPage extends PageBase implements MenuPageFacade {
         super(factory, previous, baseUrl, "sources?db=schoeller");
     }
 
+    /**
+     * Gets the menu page.
+     *
+     * @return the menu page
+     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;
     }
 
     /**
-     * @param id the ID of the source to click
-     * @return the page object for that
+     * Executes click source.
+     *
+     * @param id the unique identifier for the target
+     * @return the resulting source page
      */
     public SourcePage clickSource(final String id) {
         final WebElement element = getWebElement(By.id(id));

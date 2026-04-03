@@ -4,26 +4,24 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders person name html output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class PersonNameHtmlRenderer implements NameHtmlRenderer {
     /**
      * Holder for the PersonRenderer that is using this helper.
      */
-    private final transient PersonRenderer personRenderer;
+    private final PersonRenderer personRenderer;
 
     /**
-     * Constructor.
+     * Returns the name html.
      *
-     * @param personRenderer the PersonRenderer that is using this helper.
-     */
-    protected PersonNameHtmlRenderer(final PersonRenderer personRenderer) {
-        this.personRenderer = personRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @return the name html
      */
     @Override
     public final String getNameHtml() {
@@ -44,15 +42,11 @@ public class PersonNameHtmlRenderer implements NameHtmlRenderer {
         final String spanString = spanString(person);
 
         return "<a href=\"person?db="
-                + person.getDbName() + "&amp;id=" + person.getString()
-                + "\" class=\"name\">" + nameHtml + spanString + " ["
-                + person.getString() + "]" + "</a>";
+            + person.getDbName() + "&amp;id=" + person.getString()
+            + "\" class=\"name\">" + nameHtml + spanString + " ["
+            + person.getString() + "]" + "</a>";
     }
 
-    /**
-     * @param person the person whose lifespan we are getting
-     * @return the lifespan string (can be empty)
-     */
     private String spanString(final Person person) {
         final GetDateVisitor birthVisitor = new GetDateVisitor("Birth");
         person.accept(birthVisitor);

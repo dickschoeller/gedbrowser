@@ -16,8 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for birth date from ancestors estimator.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -26,17 +30,26 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
     @Autowired
     private GedObjectBuilder builder;
 
+    /**
+     * Returns the person builder.
+     *
+     * @return the resulting person builder
+     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
+    /**
+     * Returns the family builder.
+     *
+     * @return the resulting family builder
+     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;
     }
 
-    /** */
     @Test
     void testFromParentsMarriageWithDate() {
         final Person person1 = createJRandom();
@@ -62,7 +75,6 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromParentsMarriageWithoutDate() {
         final Person person1 = createJRandom();
@@ -88,7 +100,6 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromGrandparentsMarriageWithoutDate() {
         final Person person1 = createJRandom();
@@ -117,7 +128,6 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromParentBirthWithDate() {
         final Person person1 = createJRandom();
@@ -142,7 +152,6 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromParentBirthWithoutDate() {
         final Person person1 = createJRandom();
@@ -167,7 +176,6 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromMotherBirthWithDateNoFather() {
         final Person person2 = createAnonymousSchoeller();
@@ -190,7 +198,6 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromMotherBirthWithoutDateNoFather() {
         final Person person2 = createAnonymousSchoeller();
@@ -213,7 +220,6 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromFatherBirthWithDateNoMother() {
         final Person person1 = createJRandom();
@@ -236,7 +242,6 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromFatherBirthWithoutDateNoMother() {
         final Person person1 = createJRandom();
@@ -259,7 +264,6 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromParentOtherWithDate() {
         final Person person1 = createJRandom();
@@ -284,7 +288,6 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /** */
     @Test
     void testFromParentOtherWithoutDate() {
         final Person person1 = createJRandom();
@@ -309,19 +312,10 @@ class BirthDateFromAncestorsEstimatorTest implements AnalyzerTest {
         assertMatch(expected, actual);
     }
 
-    /**
-     * @param expected expected date
-     * @param actual actual date
-     */
     private void assertMatch(final LocalDate expected, final LocalDate actual) {
         assertTrue(expected.isEqual(actual), mismatchString(expected, actual));
     }
 
-    /**
-     * @param expected expected date
-     * @param actual actual date
-     * @return string describing the mismatch
-     */
     private String mismatchString(final LocalDate expected,
             final LocalDate actual) {
         return "Don't match! expected: " + expected + ", actual: " + actual;

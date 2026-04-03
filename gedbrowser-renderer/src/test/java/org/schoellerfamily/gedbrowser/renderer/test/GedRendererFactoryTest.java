@@ -27,6 +27,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.renderer.AttributeRenderer;
@@ -61,12 +62,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for ged renderer factory.
+ *
+ * @author Richard Schoeller
  */
-@SuppressWarnings({ "PMD.ExcessiveImports" })
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
+@SuppressWarnings({ "PMD.ExcessiveImports", "PMD.TooManyMethods" })
 final class GedRendererFactoryTest {
     /** */
     @Autowired
@@ -79,134 +84,115 @@ final class GedRendererFactoryTest {
     private transient GedRendererFactory grf;
 
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
+    private final GedObjectBuilder builder = new GedObjectBuilderImpl();
 
-    /** */
     @BeforeEach
     void setUp() {
         grf = new GedRendererFactory();
     }
 
-    /** */
     @Test
     void testGetHusbandRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Husband(), provider, appInfo);
         assertTrue(gedRenderer instanceof HusbandRenderer, "Expected HusbandRenderer");
     }
 
-    /** */
     @Test
     void testGetWifeRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Wife(), provider, appInfo);
         assertTrue(gedRenderer instanceof WifeRenderer, "Expected WifeRenderer");
     }
 
-    /** */
     @Test
     void testGetPersonRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(builder.createPerson(), provider, appInfo);
         assertTrue(gedRenderer instanceof PersonRenderer, "Expected PersonRenderer");
     }
 
-    /** */
     @Test
     void testGetPlaceRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Place(), provider, appInfo);
         assertTrue(gedRenderer instanceof PlaceRenderer, "Expected PlaceRenderer");
     }
 
-    /** */
     @Test
     void testGetNameRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Name(null), provider, appInfo);
         assertTrue(gedRenderer instanceof NameRenderer, "Expected NameRenderer");
     }
 
-    /** */
     @Test
     void testGetSubmitterNameRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Name(new Submitter()), provider, appInfo);
         assertTrue(gedRenderer instanceof SimpleNameRenderer, "Expected SimpleNameRenderer");
     }
 
-    /** */
     @Test
     void testGetAttributeRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(builder.createAttribute(), provider, appInfo);
         assertTrue(gedRenderer instanceof AttributeRenderer, "Expected AttributeRenderer");
     }
 
-    /** */
     @Test
     void testGetChildRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Child(), provider, appInfo);
         assertTrue(gedRenderer instanceof ChildRenderer, "Expected ChildRenderer");
     }
 
-    /** */
     @Test
     void testGetDateRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Date(null), provider, appInfo);
         assertTrue(gedRenderer instanceof DateRenderer, "Expected DateRenderer");
     }
 
-    /** */
     @Test
     void testGetFamCRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new FamC(), provider, appInfo);
         assertTrue(gedRenderer instanceof FamCRenderer, "Expected FamCRenderer");
     }
 
-    /** */
     @Test
     void testGetFamilyRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(builder.createFamily(), provider, appInfo);
         assertTrue(gedRenderer instanceof FamilyRenderer, "Expected FamilyRenderer");
     }
 
-    /** */
     @Test
     void testGetFamSRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new FamS(), provider, appInfo);
         assertTrue(gedRenderer instanceof FamSRenderer, "Expected FamSRenderer");
     }
 
-    /** */
     @Test
     void testGetHeadRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Head(null, "Header"), provider, appInfo);
         assertTrue(gedRenderer instanceof HeadRenderer, "Expected HeadRenderer");
     }
 
-    /** */
     @Test
     void testGetRootRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Root(), provider, appInfo);
         assertTrue(gedRenderer instanceof RootRenderer, "Expected RootRenderer");
     }
 
-    /** */
     @Test
     void testGetSourceRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Source(), provider, appInfo);
         assertTrue(gedRenderer instanceof SourceRenderer, "Expected SourceRenderer");
     }
 
-    /** */
     @Test
     void testGetSourceLinkRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new SourceLink(), provider, appInfo);
         assertTrue(gedRenderer instanceof SourceLinkRenderer, "Expected SourceLinkRenderer");
     }
 
-    /** */
     @Test
     void testGetSubmissionRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Submission(), provider, appInfo);
         assertTrue(gedRenderer instanceof SubmissionRenderer, "Expected SubmissionRenderer");
     }
 
-    /** */
     @Test
     void testGetSubmissionLinkRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new SubmissionLink(), provider, appInfo);
@@ -214,21 +200,18 @@ final class GedRendererFactoryTest {
             "Expected SubmissionLinkRenderer");
     }
 
-    /** */
     @Test
     void testGetSubmitterRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Submitter(), provider, appInfo);
         assertTrue(gedRenderer instanceof SubmitterRenderer, "Expected SubmitterRenderer");
     }
 
-    /** */
     @Test
     void testGetSubmitterLinkRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new SubmitterLink(), provider, appInfo);
         assertTrue(gedRenderer instanceof SubmitterLinkRenderer, "Expected SubmitterLinkRenderer");
     }
 
-    /** */
     @Test
     void testGetTrailerRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Trailer(null, "Trailer"), provider,
@@ -236,41 +219,36 @@ final class GedRendererFactoryTest {
         assertTrue(gedRenderer instanceof TrailerRenderer, "Expected TrailerRenderer");
     }
 
-    /** */
     @Test
     void testGetLinkRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Link(null), provider, appInfo);
         assertTrue(gedRenderer instanceof LinkRenderer, "Expected LinkRenderer");
     }
 
-    /** */
     @Test
     void testGetDefaultRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(createGedObject(), provider, appInfo);
         assertTrue(gedRenderer instanceof DefaultRenderer, "Expected DefaultRenderer");
     }
 
-    /** */
     @Test
     void testGetNoteRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new Note(), provider, appInfo);
         assertTrue(gedRenderer instanceof NoteRenderer, "Expected NoteRenderer");
     }
 
-    /** */
     @Test
     void testGetNoteLinkRenderer() {
         final GedRenderer<?> gedRenderer = grf.create(new NoteLink(), provider, appInfo);
         assertTrue(gedRenderer instanceof NoteLinkRenderer, "Expected NoteLinkRenderer");
     }
 
-    /**
-     * @return an anonymous subclass of GedObject for testing
-     */
     private GedObject createGedObject() {
         return new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

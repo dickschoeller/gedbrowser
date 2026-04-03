@@ -6,11 +6,15 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 /**
- * @author Dick Schoeller
+ * Represents date util in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public class DateUtil {
     /**
-     * @return a date attribute for today
+     * Executes today date attribute.
+     *
+     * @return the resulting api attribute
      */
     public ApiAttribute todayDateAttribute() {
         final java.util.Date date = new java.util.Date();
@@ -28,10 +32,6 @@ public class DateUtil {
             .build();
     }
 
-    /**
-     * @param day a day number
-     * @return as a two digit string
-     */
     private String twoDigit(final int day) {
         final int ten = 10;
         if (day >= ten) {

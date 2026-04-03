@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryManagerMongo;
+import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
 import org.schoellerfamily.gedbrowser.security.service.UserService;
 import org.schoellerfamily.gedbrowser.security.util.RequestUserUtil;
 import org.springframework.security.access.AccessDeniedException;
@@ -31,15 +32,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for persons.
+ *
+ * @author Richard Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class PersonsController {
+public final class PersonsController {
 
     /** */
     private final UserService userService;
@@ -56,18 +61,20 @@ public class PersonsController {
     /** */
     private final GedObjectToGedDocumentMongoConverter toDocConverter;
 
-    /**
-     * @return the CRUD object for manipulating persons
-     */
+    /** */
+    private final PersonGeoService personGeoService;
+
     private ObjectCrud<ApiPerson> crud() {
         return new PersonCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
-     * @param request the servlet request object
-     * @param db the name of the db to access
-     * @param person the data for the person
-     * @return the person as created
+     * Executes create.
+     *
+     * @param request the request
+     * @param db the db
+     * @param person the person
+     * @return the resulting api person
      */
     @PostMapping(value = "/v1/dbs/{db}/persons")
     public ApiPerson create(
@@ -82,9 +89,11 @@ public class PersonsController {
     }
 
     /**
-     * @param request the servlet request coming in
-     * @param db the name of the db to access
-     * @return the list of persons
+     * Executes read.
+     *
+     * @param request the request
+     * @param db the db
+     * @return the resulting list
      */
     @GetMapping(value = "/v1/dbs/{db}/persons")
     public List<ApiPerson> read(final HttpServletRequest request,
@@ -100,30 +109,35 @@ public class PersonsController {
         final boolean hasUser = requestUserUtil.hasUser();
         final boolean hasAdmin = requestUserUtil.hasAdmin();
         final OperationsEnabler<?> enabler = (OperationsEnabler<?>) crud();
-        final List<ApiPerson> list = allPersons.stream()
-            .filter(doc -> {
-                final Person person = doc.getGedObject();
-                return !shouldHideConfidential(person, hasAdmin)
-                    && !shouldHideLiving(person, hasUser);
-            })
-            .map(doc -> (ApiPerson) enabler.getD2dm().convert(doc))
-            .toList();
+        final List<ApiPerson> list = new java.util.ArrayList<>();
+        for (final PersonDocument doc : allPersons) {
+            final Person person = doc.getGedObject();
+            if (!shouldHideConfidential(person, hasAdmin)
+                    && !shouldHideLiving(person, hasUser)) {
+                final ApiPerson apiPerson = (ApiPerson) enabler.getD2dm().convert(doc);
+                list.add(apiPerson);
+            }
+        }
         log.info("Done hiding list of persons");
         return list;
     }
 
     /**
-     * @param request the servlet request coming in
-     * @param db the name of the db to access
-     * @param id the ID of the person
-     * @return the person
+     * Executes read.
+     *
+     * @param request the request
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api person
      */
     @GetMapping(value = "/v1/dbs/{db}/persons/{id}")
     public ApiPerson read(
             final HttpServletRequest request,
             @PathVariable final String db,
             @PathVariable final String id) {
-        final Person person = ((PersonCrud) crud()).read(repositoryManager, db, id).getGedObject();
+        final PersonCrud personCrud = (PersonCrud) crud();
+        final PersonDocument personDoc = personCrud.read(repositoryManager, db, id);
+        final Person person = personDoc.getGedObject();
         final RequestUserUtil util = new RequestUserUtil(request, userService);
         if (shouldHideConfidential(person, util.hasAdmin())) {
             throw new ObjectNotFoundException("person not found", "ApiPerson", db, id);
@@ -132,10 +146,19 @@ public class PersonsController {
             return createDummyLivingPerson(id);
         }
         log.info("entering read person: {}", id);
-        return crud().readOne(db, id);
+        final ApiPerson apiPerson = personCrud.getD2dm().convert(personDoc);
+        final List<PlaceInfo> places = personGeoService.fetchPlaces(person, util);
+        return apiPerson.toBuilder().places(places).build();
     }
 
-    private boolean shouldHideConfidential(final Person person, final boolean hasAdmin) {
+    /**
+     * Determines if confidential information should be hidden.
+     *
+     * @param person the person
+     * @param hasAdmin whether the user has admin privileges
+     * @return true if confidential information should be hidden, false otherwise
+     */
+    public boolean shouldHideConfidential(final Person person, final boolean hasAdmin) {
         if (hasAdmin) {
             return false;
         }
@@ -144,17 +167,25 @@ public class PersonsController {
         return visitor.isConfidential();
     }
 
-    private boolean shouldHideLiving(final Person person, final boolean hasUser) {
+    /**
+     * Determines if living information should be hidden.
+     *
+     * @param person the person
+     * @param hasUser whether the user has user privileges
+     * @return true if living information should be hidden, false otherwise
+     */
+    public boolean shouldHideLiving(final Person person, final boolean hasUser) {
         return !hasUser && new LivingEstimator(person, provider).estimate();
     }
 
     /**
-     * Create a minimal person for return, who is only identified as living.
+     * Creates a dummy living person with the specified id.
      *
-     * @param id the person ID
-     * @return the dummy person
+     * @param id the unique identifier for the dummy person
+     * @return the resulting dummy api person
      */
-    private ApiPerson createDummyLivingPerson(final String id) {
+    @SuppressWarnings("java:S3252")
+    public ApiPerson createDummyLivingPerson(final String id) {
         return ApiPerson.builder()
             .string(id)
             .indexName("Living")
@@ -163,11 +194,13 @@ public class PersonsController {
     }
 
     /**
-     * @param request the servlet request coming in
-     * @param db the name of the db to access
-     * @param id the id of the person to update
-     * @param person the data for the person
-     * @return the person as created
+     * Executes update.
+     *
+     * @param request the request
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     @PutMapping(value = "/v1/dbs/{db}/persons/{id}")
     public ApiPerson update(
@@ -184,10 +217,12 @@ public class PersonsController {
     }
 
     /**
-     * @param request the servlet request coming in
-     * @param db the name of the db to access
-     * @param id the ID of the person
-     * @return the deleted person object
+     * Executes delete.
+     *
+     * @param request the request
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api person
      */
     @DeleteMapping(value = "/v1/dbs/{db}/persons/{id}")
     public ApiPerson delete(

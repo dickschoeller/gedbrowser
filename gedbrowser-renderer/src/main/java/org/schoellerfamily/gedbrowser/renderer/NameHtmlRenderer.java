@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * Provides the method for rendering a name string in HTML.
+ * Renders name html output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface NameHtmlRenderer {
     /**

@@ -8,10 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * Encapsulates the estimation methods associated with look at a person's
- * spouses.
+ * Represents birth date from spouses estimator.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class BirthDateFromSpousesEstimator extends Estimator {
     /** Hold the person we are estimating. */
@@ -20,8 +19,9 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
     private final Typicals typicals;
 
     /**
-     * Constructor.
-     * @param person the person whose dates we are estimating
+     * Creates a new BirthDateFromSpousesEstimator.
+     *
+     * @param person the person
      */
     public BirthDateFromSpousesEstimator(final Person person) {
         this.person = person;
@@ -29,9 +29,11 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
     }
 
     /**
-     * @param localDate if not null we already have a better estimate
-     * @param shortEstimate whether to do a short estimate or a deep estimate
-     * @return the estimate from own marriages
+     * Executes estimate.
+     *
+     * @param localDate the local date
+     * @param shortEstimate the short estimate
+     * @return the resulting local date
      */
     @SuppressWarnings("java:S3776")
     public LocalDate estimate(final LocalDate localDate,
@@ -78,8 +80,10 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
     }
 
     /**
-     * @param localDate if not null we already have a better estimate
-     * @return estimate from spouses' ancestors
+     * Executes estimate from ancestors.
+     *
+     * @param localDate the local date
+     * @return the resulting local date
      */
     @SuppressWarnings("java:S3776")
     public LocalDate estimateFromAncestors(final LocalDate localDate) {
@@ -113,32 +117,16 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
         return date;
     }
 
-    /**
-     * @param bde a birth date estimator to use
-     * @return the estimated birth date as a LocalDate
-     */
     private LocalDate shortEstimate(final BirthDateEstimator bde) {
         return bde.shortEstimate();
     }
 
-    /**
-     * @param bde a birth date estimator to use
-     * @param localDate if not null we already have a better estimate
-     * @param shortEstimate whether to do a short estimate or a deep estimate
-     * @return the estimate from own marriages
-     */
     private LocalDate estimateFromSpouse(final BirthDateEstimator bde,
             final LocalDate localDate,
             final boolean shortEstimate) {
         return bde.estimateFromSpouses(localDate, shortEstimate);
     }
 
-    /**
-     * Estimate for the ancestors of the person in the provided bde.
-     *
-     * @param bde estimator for that person
-     * @return the estimate
-     */
     private LocalDate ancestorsEstimate(final BirthDateEstimator bde) {
         return bde.ancestorsEstimate();
     }

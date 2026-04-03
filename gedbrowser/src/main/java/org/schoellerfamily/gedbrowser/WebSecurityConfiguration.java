@@ -16,10 +16,12 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Configures web security for the application.
+ * Configures components related to web security.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableWebSecurity
@@ -80,12 +82,6 @@ public class WebSecurityConfiguration {
         }
     }
 
-    /**
-     * Create an array of role names from an array of roles.
-     *
-     * @param roles the user's roles
-     * @return the names of the user's roles
-     */
     @SuppressWarnings({ "PMD.UseVarargs" })
     private String[] createRoleStrings(final UserRoleName[] roles) {
         return new String[roles.length];

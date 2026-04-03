@@ -9,9 +9,9 @@ import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
 /**
- * Analyze the order of children for display for this person.
+ * Analyzes children order data and ordering behavior.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
     /** Format for child order problem message. */
@@ -25,10 +25,10 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
     private final Person person;
 
     /**
-     * Constructor.
+     * Creates a new ChildrenOrderAnalyzer.
      *
-     * @param person the person being analyzed
-     * @param result the result accumulator
+     * @param person the person
+     * @param result the result
      */
     public ChildrenOrderAnalyzer(final Person person,
             final OrderAnalyzerResult result) {
@@ -37,6 +37,11 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
         this.result = result;
     }
 
+    /**
+     * Executes analyze.
+     *
+     * @return the resulting order analyzer result
+     */
     @Override
     public OrderAnalyzerResult analyze() {
         final PersonNavigator navigator = new PersonNavigator(person);
@@ -47,11 +52,6 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
         return result;
     }
 
-    /**
-     * Analyze the order of children in one family.
-     *
-     * @param family the family
-     */
     private void analyzeFamily(final Family family) {
         Person prevChild = null;
         final FamilyNavigator navigator = new FamilyNavigator(family);
@@ -60,13 +60,6 @@ public final class ChildrenOrderAnalyzer extends AbstractOrderAnalyzer {
         }
     }
 
-    /**
-     * Check the order of one child against the previous dated child.
-     *
-     * @param child the child
-     * @param prevChild the previous child
-     * @return the current child if dated
-     */
     private Person analyzeChild(final Person child, final Person prevChild) {
         Person retChild = prevChild;
         if (retChild == null) {

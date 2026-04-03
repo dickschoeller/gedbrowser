@@ -1,11 +1,9 @@
 package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 /**
- * This interface defines the methods that manipulate pages that have menu
- * items displayed. Designed for implementation and inclusion using the
- * mixin facade pattern.
+ * Defines the contract for menu page.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface MenuPage {
     /**

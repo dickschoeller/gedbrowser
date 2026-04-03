@@ -29,19 +29,23 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for person visitor.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class PersonVisitorTest {
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
+    private final GedObjectBuilder builder = new GedObjectBuilderImpl();
 
-    /** */
     @Test
     void testEmptyGetFamily() {
         final Person person =
@@ -51,7 +55,6 @@ final class PersonVisitorTest {
         assertFalse(visitor.getFamily().isSet(), "Should be no family");
     }
 
-    /** */
     @Test
     void testGetFamily() {
         final Person person =
@@ -63,7 +66,6 @@ final class PersonVisitorTest {
         assertSame(family, visitor.getFamily(), "Unmatched family");
     }
 
-    /** */
     @Test
     void testGetFirstFamily() {
         final Person person =
@@ -77,7 +79,6 @@ final class PersonVisitorTest {
         assertSame(family, visitor.getFamily(), "Unmatched family");
     }
 
-    /** */
     @Test
     void testGetFirstFamiliesC() {
         final Person person =
@@ -93,7 +94,6 @@ final class PersonVisitorTest {
                 "Expected both families to be present");
     }
 
-    /** */
     @Test
     void testNoFamilyFromUnrelated() {
         final PersonVisitor visitor = new PersonVisitor();
@@ -119,7 +119,9 @@ final class PersonVisitorTest {
         new Wife().accept(visitor);
         final GedObject gob = new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

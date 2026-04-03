@@ -1,14 +1,13 @@
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 
 import { PersonComponent } from './person.component';
-import { PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService } from '../../services';
+import { PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService, MapKeyService } from '../../services';
 import { ApiPerson, ApiAttribute, ApiLifespan } from '../../models';
 
 // Mock component to replace the child app-main-layout
@@ -110,6 +109,7 @@ describe('PersonComponent', () => {
       { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
       { provide: AuthApiService, useValue: { request: () => {} } },
       { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      { provide: MapKeyService, useValue: { getMapKey: () => of('PLUGH') } },
       {
         provide: ActivatedRoute,
         useValue: {
@@ -180,6 +180,7 @@ describe('PersonComponent', () => {
       { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
       { provide: AuthApiService, useValue: { request: () => {} } },
       { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+      { provide: MapKeyService, useValue: { getMapKey: () => of('PLUGH') } },
       {
         provide: ActivatedRoute,
         useValue: {
@@ -205,5 +206,39 @@ describe('PersonComponent', () => {
     const component2 = fixture2.componentInstance;
     fixture2.detectChanges();
     expect(component2.attributes).toEqual([]);
+  });
+
+  it('reads map key on init', () => {
+    expect(component.googleMapsApiKey).toBe('PLUGH');
+  });
+
+  it('normalizes a single place object into mapPlaces', () => {
+    const singlePlace = { placeName: 'Needham', location: { coordinates: [-71.2377548, 42.2809285] } };
+    const normalized = (component as any).normalizePlaces(singlePlace);
+    expect(normalized).toEqual([singlePlace]);
+  });
+
+  it('normalizes object map payload and filters non-place values', () => {
+    const payload = {
+      one: { placeName: 'A', southwest: [1, 2] },
+      two: { nope: true },
+      three: { placeName: 'B', northeast: [3, 4] }
+    };
+    const normalized = (component as any).normalizePlaces(payload);
+    expect(normalized.length).toBe(2);
+    expect(normalized[0].placeName).toBe('A');
+    expect(normalized[1].placeName).toBe('B');
+  });
+
+  it('returns empty list for null place payload', () => {
+    const normalized = (component as any).normalizePlaces(null);
+    expect(normalized).toEqual([]);
+  });
+
+  it('hasMapPlaces reflects mapPlaces length', () => {
+    component.mapPlaces = [];
+    expect(component.hasMapPlaces()).toBe(false);
+    component.mapPlaces = [{ placeName: 'Needham', location: [0, 0] }];
+    expect(component.hasMapPlaces()).toBe(true);
   });
 });

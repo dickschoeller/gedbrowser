@@ -11,10 +11,11 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for api person.
+ *
+ * @author Richard Schoeller
  */
 final class ApiPersonTest {
-    /** */
     @Test
     void testDefaultConstructorType() {
         final ApiPerson o = ApiPerson.builder()
@@ -27,7 +28,6 @@ final class ApiPersonTest {
         assertEquals("", o.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testDefaultConstructorString() {
         final ApiPerson o = ApiPerson.builder()
@@ -40,7 +40,6 @@ final class ApiPersonTest {
         assertEquals("", o.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testDefaultConstructorAttributes() {
         final ApiPerson o = ApiPerson.builder()
@@ -53,7 +52,6 @@ final class ApiPersonTest {
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testConstructorType() {
         final ApiPerson o = ApiPerson.builder()
@@ -66,35 +64,30 @@ final class ApiPersonTest {
         assertEquals("type", o.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testConstructorString() {
         final ApiPerson o = createPerson();
         assertEquals("string", o.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testConstructorIndexName() {
         final ApiPerson o = createPerson();
         assertEquals("index name", o.getIndexName(), "indexname mismatch");
     }
 
-    /** */
     @Test
     void testConstructorSurname() {
         final ApiPerson o = createPerson();
         assertEquals("surname", o.getSurname(), "surname mismatch");
     }
 
-    /** */
     @Test
     void testConstructorNoAttributes() {
         final ApiPerson o = createPerson();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testConstructorWithAttributes() {
         final ApiPerson o = ApiPerson.builder()
@@ -111,7 +104,6 @@ final class ApiPersonTest {
         assertEquals(1, o.getAttributes().size(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testIsType() {
         final ApiPerson o = ApiPerson.builder()
@@ -124,7 +116,6 @@ final class ApiPersonTest {
         assertTrue(o.isType("person"), "type mismatch");
     }
 
-    /** */
     @Test
     void testAccept() {
         final ApiPerson o = createPerson();
@@ -133,7 +124,6 @@ final class ApiPersonTest {
         assertEquals("person", visitor.getMethodCalled(), "Method mismatch");
     }
 
-    /** */
     @Test
     void testImage() {
         final ApiAttribute multimedia = ApiAttribute.builder()
@@ -149,7 +139,6 @@ final class ApiPersonTest {
         assertTrue(o.getImages().contains(multimedia), "Should contain multimedia");
     }
 
-    /** */
     @Test
     void testOneImage() {
         final ApiAttribute multimedia = ApiAttribute.builder()
@@ -165,7 +154,6 @@ final class ApiPersonTest {
         assertEquals(1, o.getImages().size(), "Should contain 1 image");
     }
 
-    /** */
     @Test
     void testNoImages() {
         final ApiPerson o = createPerson();

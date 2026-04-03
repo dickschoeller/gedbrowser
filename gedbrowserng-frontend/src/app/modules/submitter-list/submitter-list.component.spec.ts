@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -13,7 +13,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 
@@ -130,6 +129,7 @@ describe('SubmitterListComponent', () => {
     const refreshSubmitterSpy = vi.spyOn(component.parent, 'refreshSubmitter');
 
     vi.spyOn(submitterService, 'delete').mockReturnValue(of(mockSubmitters[0]));
+    vi.spyOn(dialog, 'open').mockReturnValue({ afterClosed: () => of(true) } as any);
 
     component.delete(mockSubmitters[0]);
 
@@ -182,6 +182,7 @@ describe('SubmitterListComponent', () => {
     component.dataset = 'testDataset';
     const deleteSpy = vi.spyOn(submitterService, 'delete').mockReturnValue(of(mockSubmitters[0]));
     const refreshSpy = vi.spyOn(component.parent, 'refreshSubmitter');
+    vi.spyOn(dialog, 'open').mockReturnValue({ afterClosed: () => of(true) } as any);
 
     component.delete(mockSubmitters[0]);
 

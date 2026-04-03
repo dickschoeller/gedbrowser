@@ -21,8 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for null list item renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -44,6 +48,11 @@ final class NullListItemRendererTest {
 
     private GedObject createGedObject() {
         return new GedObject() {
+            /**
+             * Executes accept.
+             *
+             * @param visitor the visitor
+             */
             @Override
             public void accept(final GedObjectVisitor visitor) {
                 visitor.visit(this);

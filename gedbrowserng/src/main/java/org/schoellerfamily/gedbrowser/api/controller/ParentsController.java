@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Handles requests for parents.
+ *
+ * @author Richard Schoeller
  */
 @CrossOrigin(origins = {
         "http://largo.schoellerfamily.org:4200", "http://localhost:4200" })
@@ -32,18 +36,17 @@ public class ParentsController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
-    /**
-     * @return the CRUD object for manipulating spouses
-     */
     private ParentCrud parentCrud() {
         return new ParentCrud(loader, toDocConverter, repositoryManager);
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
-     * @param person the data for the spouse
-     * @return the person as created
+     * Creates the parent.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api object
      */
     @PostMapping(value = "/v1/dbs/{db}/persons/{id}/parents")
     public ApiObject createParent(@PathVariable final String db,
@@ -53,10 +56,12 @@ public class ParentsController {
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the person whose spouse we are adding
-     * @param person the data for the spouse
-     * @return the person as created
+     * Returns the api object.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api object
      */
     @PutMapping(value = "/v1/dbs/{db}/persons/{id}/parents")
     public ApiObject linkParent(@PathVariable final String db,

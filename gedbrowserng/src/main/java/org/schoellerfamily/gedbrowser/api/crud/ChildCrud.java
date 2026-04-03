@@ -11,15 +11,21 @@ import org.schoellerfamily.gedbrowser.persistence.mongo.repository.RepositoryMan
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents child crud.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class ChildCrud extends RelationsCrud {
 
     /**
-     * @param loader            the file loader that we will use
-     * @param toDocConverter    the document converter
+     * Creates a new ChildCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public ChildCrud(final GedObjectFileLoader loader,
@@ -29,10 +35,12 @@ public final class ChildCrud extends RelationsCrud {
     }
 
     /**
-     * @param db     the name of the db to access
-     * @param id     the id of the person whose child we are adding
-     * @param person the data for the child
-     * @return the person linking to the old person
+     * Creates the child.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     public ApiPerson createChild(final String db, final String id, final ApiPerson person) {
         log.info("Entering create child in db: {} for person {}", db, id);
@@ -45,10 +53,12 @@ public final class ChildCrud extends RelationsCrud {
     }
 
     /**
-     * @param db     the name of the db to update
-     * @param id     the id of the person who will be a parent in new family
-     * @param person the person object to link as a child
-     * @return the person post modification
+     * Executes link child.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     public ApiPerson linkChild(final String db, final String id, final ApiPerson person) {
         log.info(
@@ -63,10 +73,12 @@ public final class ChildCrud extends RelationsCrud {
     }
 
     /**
-     * @param db     the name of the db to access
-     * @param id     the id of the family whose child we are adding
-     * @param person the data for the spouse
-     * @return the person linking to the new person
+     * Creates the child in family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     public ApiPerson createChildInFamily(final String db, final String id, final ApiPerson person) {
         log.info("Entering create child in db: {} for family {}", db, id);
@@ -75,16 +87,18 @@ public final class ChildCrud extends RelationsCrud {
             final ApiPersonBuilder<?, ?> newPerson = createPerson(db, person).toBuilder();
             addChildToFamily(family, newPerson);
             return crudUpdate(db, family.build(), newPerson.build());
-        } catch (ObjectNotFoundException e) {
+        } catch (ObjectNotFoundException _) {
             return null;
         }
     }
 
     /**
-     * @param db     the name of the db to access
-     * @param id     the id of the family whose child we are linking
-     * @param person the data for the child (only need the string field)
-     * @return the person linking to the new person
+     * Executes link child in family.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param person the person
+     * @return the resulting api person
      */
     public ApiPerson linkChildInFamily(final String db, final String id, final ApiPerson person) {
         log.info("Entering link person: {} in db: {} as a child of family: {}", person.getString(),
@@ -94,16 +108,18 @@ public final class ChildCrud extends RelationsCrud {
             final ApiFamilyBuilder<?, ?> family = readFamily(db, id).toBuilder();
             addChildToFamily(family, foundPerson);
             return crudUpdate(db, family.build(), foundPerson.build());
-        } catch (ObjectNotFoundException e) {
+        } catch (ObjectNotFoundException _) {
             return foundPerson.build();
         }
     }
 
     /**
-     * @param db    the name of the db to access
-     * @param id    the id of the family whose child we are unlinking
-     * @param child the id of the child to unlink
-     * @return the person linking to the new person
+     * Executes unlink child.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param child the child
+     * @return the resulting api person
      */
     public ApiPerson unlinkChild(final String db, final String id, final String child) {
         log.info("Entering unlink person: {} in db: {} from family: {}", child, db, id);
@@ -113,14 +129,16 @@ public final class ChildCrud extends RelationsCrud {
             final ApiFamilyBuilder<?, ?> family = readFamily(db, id).toBuilder();
             removeChildFromFamily(family, child);
             return crudUpdate(db, family.build(), childPerson.build());
-        } catch (ObjectNotFoundException e) {
+        } catch (ObjectNotFoundException _) {
             return crudUpdate(db, childPerson.build());
         }
     }
 
     /**
-     * @param fid    the family referred to by the famc link to remove
-     * @param person the person to remove from
+     * Executes remove family from child.
+     *
+     * @param fid the unique identifier for f
+     * @param person the person
      */
     protected void removeFamilyFromChild(final String fid, final ApiPersonBuilder<?, ?> person) {
         for (final ApiAttribute famc : person.getFamcs()) {
@@ -131,10 +149,6 @@ public final class ChildCrud extends RelationsCrud {
         }
     }
 
-    /**
-     * @param family the family to remove from
-     * @param cid    the person who referred to by the child link to remove
-     */
     private void removeChildFromFamily(final ApiFamilyBuilder<?, ?> family, final String cid) {
         for (final ApiAttribute childlink : family.getChildren()) {
             if (childlink.getString().equals(cid)) {
@@ -145,7 +159,11 @@ public final class ChildCrud extends RelationsCrud {
     }
 
     /**
-     * {@inheritDoc}
+     * Indicates whether the link we are looking for.
+     *
+     * @param attribute the attribute
+     * @param id the unique identifier for the target
+     * @return true if the condition is met; otherwise false
      */
     @Override
     public boolean isTheLinkWeAreLookingFor(final ApiAttribute attribute, final String id) {

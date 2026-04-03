@@ -9,41 +9,72 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for application info.
+ *
+ * @author Richard Schoeller
  */
-public class ApplicationInfoTest {
+class ApplicationInfoTest {
     /** */
     private ApplicationInfo appInfo;
 
-    /** */
     @BeforeEach
     void setUp() {
         appInfo = new ApplicationInfo() {
+            /**
+             * Gets the application name.
+             *
+             * @return the application name
+             */
             @Override
             public String getApplicationName() {
                 return "renderer";
             }
 
+            /**
+             * Gets the version.
+             *
+             * @return the version
+             */
             @Override
             public String getVersion() {
                 return "1";
             }
 
+            /**
+             * Gets the maintainer email.
+             *
+             * @return the maintainer email
+             */
             @Override
             public String getMaintainerEmail() {
                 return "schoeller@comcast.net";
             }
 
+            /**
+             * Gets the maintainer name.
+             *
+             * @return the maintainer name
+             */
             @Override
             public String getMaintainerName() {
                 return "Richard Schoeller";
             }
 
+            /**
+             * Gets the application u r l.
+             *
+             * @return the application u r l
+             */
             @Override
             public String getApplicationURL() {
                 return "https://www.schoellerfamily.org/";
             }
 
+            /**
+             * Gets the home u r l.
+             *
+             * @return the home u r l
+             */
             @Override
             public String getHomeURL() {
                 return "https://www.schoellerfamily.org/";

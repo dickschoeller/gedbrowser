@@ -11,11 +11,12 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+
 
 /**
- * @author Dick Schoeller
+ * Exposes operations for the restore endpoint.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @Endpoint(id = "restore")
@@ -24,11 +25,11 @@ public class RestoreEndpoint extends BaseBackupEndpoint {
     private final GeoCodeBackup backupManager;
 
     /**
-     * Constructor.
+     * Creates a new RestoreEndpoint.
      *
      * @param backupManager the backup manager
-     * @param gcc a geocode
-     * @param backupFileName the file name to backup to
+     * @param gcc the gcc
+     * @param backupFileName the backup file name
      */
     public RestoreEndpoint(final GeoCodeBackup backupManager, final GeoCode gcc,
         @Value("${geoservice.backupfile:/var/lib/gedbrowser/geoservice-backup.json}")
@@ -38,13 +39,20 @@ public class RestoreEndpoint extends BaseBackupEndpoint {
         this.backupManager = backupManager;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     @Override
     public final String getId() {
         return "restore";
     }
 
     /**
-     * @return the list of strings
+     * Returns the list.
+     *
+     * @return the resulting list
      */
     @ReadOperation
     public List<String> invokeEndpoint() {
@@ -52,11 +60,12 @@ public class RestoreEndpoint extends BaseBackupEndpoint {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes action.
+     *
+     * @param backupFile the backup file to use
      */
     @Override
-    public void action(final File backupFile)
-            throws JsonParseException, JsonMappingException, IOException {
+    public void action(final File backupFile) throws IOException {
         backupManager.recover(backupFile);
     }
 }

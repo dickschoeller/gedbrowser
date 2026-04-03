@@ -7,9 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 
 /**
- * Render an Family.
+ * Renders family output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class FamilyRenderer extends GedRenderer<Family>
         implements AttributesRenderer<Family> {
@@ -17,10 +17,11 @@ public final class FamilyRenderer extends GedRenderer<Family>
     private static final int INDENT_INCREMENT = 2;
 
     /**
-     * @param gedObject the Family that we are going to render.
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new FamilyRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public FamilyRenderer(final Family gedObject,
             final GedRendererFactory rendererFactory,
@@ -29,11 +30,12 @@ public final class FamilyRenderer extends GedRenderer<Family>
     }
 
     /**
-     * @param personRenderer the person renderer whose page we are on
-     * @return the spouses renderer.
+     * Returns the spouse.
+     *
+     * @param personRenderer the person renderer
+     * @return the spouse
      */
-    public PersonRenderer getSpouse(
-            final PersonRenderer personRenderer) {
+    public PersonRenderer getSpouse(final PersonRenderer personRenderer) {
         final Family family = getGedObject();
         final Person person = personRenderer.getGedObject();
         final Person spouse = (new FamilyNavigator(family)).getSpouse(person);
@@ -41,17 +43,20 @@ public final class FamilyRenderer extends GedRenderer<Family>
     }
 
     /**
-     * @return the list of renderers for the children in this family.
+     * Gets the children.
+     *
+     * @return the children
      */
     public List<PersonRenderer> getChildren() {
         final Family family = getGedObject();
         final FamilyNavigator navigator = new FamilyNavigator(family);
         final List<Person> children = navigator.getChildren();
         return children.stream()
-                .map(this::createGedRenderer)
-                .map(renderer -> (PersonRenderer) renderer)
-                .toList();
+            .map(this::createGedRenderer)
+            .map(PersonRenderer.class::cast)
+            .toList();
     }
+
     /**
      * Get the standard amount of indent for this construct.
      *

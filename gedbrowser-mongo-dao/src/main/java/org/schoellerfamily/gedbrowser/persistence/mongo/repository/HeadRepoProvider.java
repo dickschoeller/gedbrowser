@@ -7,9 +7,9 @@ import org.schoellerfamily.gedbrowser.datamodel.Head;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Implements a mixin that provides the head repository.
+ * Provides head repo values to calling code.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public interface HeadRepoProvider {
     /**
@@ -20,6 +20,8 @@ public interface HeadRepoProvider {
     Map<Class<? extends GedObject>, Object> getMap();
 
     /**
+     * Sets the head document repository.
+     *
      * @param repository the repository
      */
     @Autowired
@@ -28,6 +30,8 @@ public interface HeadRepoProvider {
     }
 
     /**
+     * Gets the head document repository.
+     *
      * @return the repository
      */
     default HeadDocumentRepositoryMongo getHeadDocumentRepository() {

@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
 /**
- * @author Dick Schoeller
+ * Renders list item output for display.
+ *
+ * @author Richard Schoeller
  */
 public interface ListItemRenderer {
     /**

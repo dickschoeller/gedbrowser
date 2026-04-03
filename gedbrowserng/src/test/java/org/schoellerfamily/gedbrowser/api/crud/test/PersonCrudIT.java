@@ -29,8 +29,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for person crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -59,7 +63,6 @@ class PersonCrudIT {
     /** */
     private FamilyCrud familyCrud;
 
-    /** */
     @BeforeEach
     void setUp() {
         crud = new PersonCrud(loader, toDocConverter, repositoryManager);
@@ -67,7 +70,6 @@ class PersonCrudIT {
         helper = new CrudTestHelper(crud, familyCrud);
     }
 
-    /** */
     @Test
     void testGetPersonsGl120368() {
         log.info("Beginning testGetPersonsGl120368");
@@ -81,7 +83,6 @@ class PersonCrudIT {
             .returns(true, p -> p.getAttributes().get(0).getTail().isEmpty());
     }
 
-    /** */
     @Test
     void testGetPersonsMiniSchoeller() {
         log.info("Beginning testGetPersonsMiniSchoeller");
@@ -95,7 +96,6 @@ class PersonCrudIT {
             .returns(true, p -> p.getAttributes().get(0).getTail().isEmpty());
     }
 
-    /** */
     @Test
     void testGetPersonsMiniSchoellerI2() {
         log.info("Beginning testGetPersonsMiniSchoellerI2");
@@ -108,7 +108,6 @@ class PersonCrudIT {
             .returns(true, p -> p.getAttributes().get(0).getTail().isEmpty());
     }
 
-    /** */
     @Test
     void testGetPersonsMiniSchoellerXyzzy() {
         log.info("Beginning testGetPersonsMiniSchoellerXyzzy");
@@ -117,7 +116,6 @@ class PersonCrudIT {
             .withMessage("Object Xyzzy of type person not found");
     }
 
-    /** */
     @Test
     void testCreatePersonsSimple() {
         log.info("Beginning testCreatePersonsSimple");
@@ -136,7 +134,6 @@ class PersonCrudIT {
             .returns(true, p -> !p.getString().isEmpty());
     }
 
-    /** */
     @Test
     void testCreatePersonsWithName() {
         log.info("Beginning testCreatePersonsWithName");
@@ -150,9 +147,6 @@ class PersonCrudIT {
             .returns(true, p -> !p.getString().isEmpty());
     }
 
-    /**
-     * @return the newly created person
-     */
     private ApiPerson createRJS() {
         return ApiPerson.builder()
             .type("person")
@@ -175,7 +169,6 @@ class PersonCrudIT {
             .build();
     }
 
-    /** */
     @Test
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeletePerson() {
@@ -194,7 +187,6 @@ class PersonCrudIT {
             .withMessage("Object " + id + " of type person not found");
     }
 
-    /** */
     @Test
     void testDeleteSpouseLinkedPerson() {
         log.info("Beginning testDeleteSpouseLinkedPerson");
@@ -231,7 +223,6 @@ class PersonCrudIT {
             .returns(gotP2.getString(), f -> f.getSpouses().get(0).getString());
     }
 
-    /** */
     @Test
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeleteChildLinkedPerson() {
@@ -265,7 +256,6 @@ class PersonCrudIT {
             .returns(0, f -> f.getChildren().size());
     }
 
-    /** */
     @Test
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testDeletePersonNotFound() {
@@ -276,7 +266,6 @@ class PersonCrudIT {
             .withMessage("Object XXXXXXX of type person not found");
     }
 
-    /** */
     @Test
     void testDeletePersonDatabaseNotFound() {
         log.info("Beginning testDeletePersonDatabaseNotFound");
@@ -285,7 +274,6 @@ class PersonCrudIT {
             .withMessage("Data set XYZZY not found");
     }
 
-    /** */
     @Test
     @SuppressWarnings({ "PMD.UnitTestContainsTooManyAsserts" })
     void testUpdatePersonWithNote() {

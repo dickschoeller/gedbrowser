@@ -8,28 +8,40 @@ import org.schoellerfamily.gedbrowser.persistence.domain.NoteDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.NoArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Represents note document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Document(collection = "notes")
-@CompoundIndexes({
-    @CompoundIndex(name = "note_unique_idx",
-            def = "{'string': 1, 'filename': 1}",
-            unique = true)
-})
+@CompoundIndex(name = "note_unique_idx", def = "{'string': 1, 'filename': 1}", unique = true)
+@NoArgsConstructor
 public final class NoteDocumentMongo extends GedDocumentMongo<Note>
         implements NoteDocument {
-    /** */
+    /**
+     * The tail value.
+     */
     private String tail;
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "note";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -44,21 +56,41 @@ public final class NoteDocumentMongo extends GedDocumentMongo<Note>
         loader.loadAttributes(this, gedObject.getAttributes());
     }
 
+    /**
+     * Gets the tail.
+     *
+     * @return the tail
+     */
     @Override
     public String getTail() {
         return tail;
     }
 
+    /**
+     * Sets the tail.
+     *
+     * @param tail the tail
+     */
     @Override
     public void setTail(final String tail) {
         this.tail = tail;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

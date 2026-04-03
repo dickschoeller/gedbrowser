@@ -7,8 +7,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Provides support for testing order analyzer test wrapper behavior.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class OrderAnalyzerTestWrapper {
@@ -26,12 +30,6 @@ public final class OrderAnalyzerTestWrapper {
         return result;
     }
 
-    /**
-     * Dump the analysis result for this person.
-     *
-     * @param person the person whose analysis was done
-     * @param result the result
-     */
     private void dump(final Person person, final OrderAnalyzerResult result) {
         log.info("{}: {}",
             person.getName().getString(), getOkString(result));
@@ -41,10 +39,6 @@ public final class OrderAnalyzerTestWrapper {
         }
     }
 
-    /**
-     * @param result the result
-     * @return appropriate string
-     */
     private String getOkString(final OrderAnalyzerResult result) {
         if (result.isCorrect()) {
             return "OK";

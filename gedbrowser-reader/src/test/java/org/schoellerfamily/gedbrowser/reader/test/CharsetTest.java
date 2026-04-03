@@ -15,8 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for charset.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -25,9 +29,6 @@ class CharsetTest {
     @Autowired
     private transient TestDataReader reader;
 
-    /**
-     * @throws IOException if there is an error reading the file.
-     */
     @Test
     void testANSEL() throws IOException {
         final Root root = reader.readFileTestSource("ansel.ged");
@@ -41,9 +42,6 @@ class CharsetTest {
                 "String not converted correctly");
     }
 
-    /**
-     * @throws IOException if there is an error reading the file.
-     */
     @Test
     void testANSI() throws IOException {
         final Root root = reader.readFileTestSource("ansi.ged");

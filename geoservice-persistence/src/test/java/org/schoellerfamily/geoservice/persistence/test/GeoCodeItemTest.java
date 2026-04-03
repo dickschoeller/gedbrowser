@@ -15,19 +15,21 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.Geometry;
 import com.google.maps.model.LatLng;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for geo code item.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessivePublicCount" })
 final class GeoCodeItemTest {
-    /** */
     @Test
     void testEqualsSelf() {
         final GeoCodeItem gcce = new GeoCodeItem("temp");
         assertEquals(gcce, gcce, "Test of equals should match self");
     }
 
-    /** */
     @Test
     @SuppressWarnings("java:S3415")
     void testNotEqualsNull() {
@@ -35,7 +37,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce, null, "Test of equals should not match null");
     }
 
-    /** */
     @Test
     void testEqualsPlaceName() {
         final GeoCodeItem gcce0 = new GeoCodeItem("temp");
@@ -43,7 +44,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Items constructed the same should match");
     }
 
-    /** */
     @Test
     void testNotEqualsPlaceName() {
         final GeoCodeItem gcce0 = new GeoCodeItem("xyzzy");
@@ -51,7 +51,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with different place names should not match");
     }
 
-    /** */
     @Test
     void testEqualsPlaceAndNulls() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", (String) null);
@@ -59,7 +58,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Items constructed the same should match");
     }
 
-    /** */
     @Test
     void testNotEqualsPlaceAndNullOne() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", (String) null);
@@ -67,7 +65,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with different modern name should not match");
     }
 
-    /** */
     @Test
     void testNotEqualsPlaceAndNullTwo() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "foo");
@@ -75,7 +72,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1);
     }
 
-    /** */
     @Test
     void testEqualsPlaceAndModern() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "temp");
@@ -83,7 +79,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Items constructed the same should match");
     }
 
-    /** */
     @Test
     void testNotEqualsPlaceNotModern() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "xyzzy");
@@ -91,7 +86,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with different modern names should not match");
     }
 
-    /** */
     @Test
     void testNotEqualsNotPlaceYesModern() {
         final GeoCodeItem gcce0 = new GeoCodeItem("xyzzy", "temp");
@@ -99,7 +93,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with different names should not match");
     }
 
-    /** */
     @Test
     void testNotEqualsNotPlaceNotModern() {
         final GeoCodeItem gcce0 = new GeoCodeItem("xyzzy", "foo");
@@ -107,7 +100,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with different everything should not match");
     }
 
-    /** */
     @Test
     void testEqualsPlaceModernAndNullResult() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", "temp", null);
@@ -115,7 +107,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Items constructed the same should match");
     }
 
-    /** */
     @Test
     @SuppressWarnings("java:S3415")
     void testNotEqualsClassMismatch() {
@@ -123,7 +114,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, "tamp", "Items of different types should not match");
     }
 
-    /** */
     @Test
     void testNotEqualsNullPlaceName0() {
         final GeoCodeItem gcce0 = new GeoCodeItem(null);
@@ -131,7 +121,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with name should not match empty (order 0)");
     }
 
-    /** */
     @Test
     void testNotEqualsNullPlaceName1() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp");
@@ -139,7 +128,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with name should not match empty (order 1)");
     }
 
-    /** */
     @Test
     void testNotEqualsNullModernName0() {
         final GeoCodeItem gcce0 = new GeoCodeItem(null, (String) null);
@@ -147,7 +135,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with modern should not match empty (order 0)");
     }
 
-    /** */
     @Test
     void testNotEqualsNullModernName1() {
         final GeoCodeItem gcce0 = new GeoCodeItem(null, "tamp");
@@ -155,7 +142,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with modern should not match empty (order 1)");
     }
 
-    /** */
     @Test
     void testEqualsBothNullPlaceName() {
         final GeoCodeItem gcce0 = new GeoCodeItem(null);
@@ -163,7 +149,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Items constructed the same should match");
     }
 
-    /** */
     @Test
     void testNotEqualsNullPlaceName0NullModern() {
         final GeoCodeItem gcce0 = new GeoCodeItem(null, (String) null);
@@ -171,7 +156,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with name should not match empty (order 0)");
     }
 
-    /** */
     @Test
     void testNotEqualsNullPlaceName1NullModern() {
         final GeoCodeItem gcce0 = new GeoCodeItem("tamp", (String) null);
@@ -179,11 +163,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items with name should not match empty (order 1)");
     }
 
-    /**
-     * Provides test data for formatted address inequality tests.
-     *
-     * @return stream of arguments containing two formatted addresses
-     */
     private static Stream<Arguments> formattedAddressProvider() {
         return Stream.of(
             Arguments.of("Tempe", "Tampe"),
@@ -192,12 +171,6 @@ final class GeoCodeItemTest {
         );
     }
 
-    /**
-     * Test that geocode items with different formatted addresses are not equal.
-     *
-     * @param address0 the formatted address for the first geocoding result
-     * @param address1 the formatted address for the second geocoding result
-     */
     @ParameterizedTest
     @MethodSource("formattedAddressProvider")
     void testNotEqualsPlaceModernAndDifferentResultString(
@@ -211,7 +184,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Differences in the geo result should not match");
     }
 
-    /** */
     @Test
     void testEqualsPlaceModernAndNullContents() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -221,7 +193,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Items built the same should match");
     }
 
-    /** */
     @Test
     void testEqualsPlaceModernAndSameResult() {
         final GeocodingResult gr = new GeocodingResult();
@@ -231,7 +202,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Items built the same should match");
     }
 
-    /** */
     @Test
     void testEqualsPlaceAndSameResult() {
         final GeocodingResult gr = new GeocodingResult();
@@ -241,7 +211,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Items built the same should match");
     }
 
-    /** */
     @Test
     void testNotEqualsPlaceModernAndNullResult0() {
         final GeocodingResult gr = new GeocodingResult();
@@ -251,7 +220,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Items built the same should match");
     }
 
-    /** */
     @Test
     void testNotEqualsPlaceModernAndNullResult1() {
         final GeocodingResult gr = new GeocodingResult();
@@ -261,7 +229,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Null geocode result should not match non-null");
     }
 
-    /** */
     @Test
     void testEqualsPlaceModernAndLikeResult() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -273,7 +240,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Different but identical geo results should match");
     }
 
-    /** */
     @Test
     void testEqualsByEmptyGeometry() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -287,7 +253,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Different but identical geo results should match");
     }
 
-    /** */
     @Test
     void testEqualsByGeometry() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -303,7 +268,6 @@ final class GeoCodeItemTest {
         assertEquals(gcce0, gcce1, "Different but identical geo results should match");
     }
 
-    /** */
     @Test
     void testNotEqualsNullGeometry0() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -317,7 +281,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Genuinely different geo results should not match");
     }
 
-    /** */
     @Test
     void testNotEqualsNullGeometry1() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -331,7 +294,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Genuinely different geo results should not match");
     }
 
-    /** */
     @Test
     void testNotEqualsEmptyGeometry0() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -346,7 +308,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Genuinely different geo results should not match");
     }
 
-    /** */
     @Test
     void testNotEqualsEmptyGeometry1() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -361,7 +322,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Genuinely different geo results should not match");
     }
 
-    /** */
     @Test
     void testNotEqualsByLocation() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -377,7 +337,6 @@ final class GeoCodeItemTest {
         assertNotEquals(gcce0, gcce1, "Should have detected lat/lng difference");
     }
 
-    /** */
     @Test
     void testGetPlaceName() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -386,7 +345,6 @@ final class GeoCodeItemTest {
         assertEquals("tamp", gcce0.getPlaceName(), "Expected matching field value");
     }
 
-    /** */
     @Test
     void testGetModernName() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -395,7 +353,6 @@ final class GeoCodeItemTest {
         assertEquals("temp", gcce0.getModernPlaceName(), "Expected matching field value");
     }
 
-    /** */
     @Test
     void testGetGeocodingResult() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -404,7 +361,6 @@ final class GeoCodeItemTest {
         assertEquals(gr0, gcce0.getGeocodingResult(), "Expected matching field value");
     }
 
-    /** */
     @Test
     void testHashCodeNull() {
         final GeoCodeItem gcce = new GeoCodeItem(null);
@@ -412,7 +368,6 @@ final class GeoCodeItemTest {
         assertEquals(expected, gcce.hashCode(), "Aren't hash codes special");
     }
 
-    /** */
     @Test
     void testHashCodeName() {
         final GeoCodeItem gcce = new GeoCodeItem("name");
@@ -420,7 +375,6 @@ final class GeoCodeItemTest {
         assertEquals(expected, gcce.hashCode(), "And more stupid hash code tests");
     }
 
-    /** */
     @Test
     void testHashCodeNameModern() {
         final GeoCodeItem gcce = new GeoCodeItem("name", "modern");
@@ -428,7 +382,6 @@ final class GeoCodeItemTest {
         assertEquals(expected, gcce.hashCode(), "One more twice");
     }
 
-    /** */
     @Test
     void testHashCodeNameModernResult() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -438,7 +391,6 @@ final class GeoCodeItemTest {
         assertEquals(-expected, gcce.hashCode(), "Enough fields and wrap makes negative");
     }
 
-    /** */
     @Test
     void testHashCodeNameModernResultGeometry() {
         final GeocodingResult gr0 = new GeocodingResult();
@@ -449,7 +401,6 @@ final class GeoCodeItemTest {
         assertEquals(-expected, gcce.hashCode(), "Another negative");
     }
 
-    /** */
     @Test
     void testHashCodeNameModernResultLocation() {
         final GeocodingResult gr0 = new GeocodingResult();

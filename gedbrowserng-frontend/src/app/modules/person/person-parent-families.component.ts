@@ -1,4 +1,4 @@
-import { Component, Input , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { InitablePersonCreator } from '../../bases';
@@ -8,6 +8,8 @@ import { PersonService, UserService } from '../../services';
 import { UrlBuilder } from '../../utils';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { NewPersonComponent } from './new-person.component';
 import { LinkPersonComponent } from './link-person.component';
 import { PersonParentFamilyComponent } from './person-parent-family.component';
@@ -15,10 +17,10 @@ import { PersonParentFamilyComponent } from './person-parent-family.component';
 @Component({
     standalone: true,
     selector: 'app-person-parent-families',
-    template: `<mat-card>
+    template: `<mat-card class="custom-section-colors">
   <mat-card-title>
-    <mat-toolbar>
-    Parents and Siblings
+    <mat-toolbar class="custom-section-colors">
+    <span class="list-toolbar-title custom-section-colors">Parents and Siblings</span>
     <span class="example-fill-remaining-space"></span>
     @if (!person.famcs.length && hasSignedIn()) {
       <span>
@@ -32,8 +34,14 @@ import { PersonParentFamilyComponent } from './person-parent-family.component';
             (emitOK)="linkPerson($event)"></app-link-person>
       </span>
     }
+    <button mat-icon-button
+        [attr.aria-label]="showParentsAndSiblings ? 'Collapse parents and siblings' : 'Expand parents and siblings'"
+        (click)="showParentsAndSiblings = !showParentsAndSiblings">
+      <mat-icon>{{ showParentsAndSiblings ? 'expand_less' : 'expand_more' }}</mat-icon>
+    </button>
     </mat-toolbar>
   </mat-card-title>
+  @if (showParentsAndSiblings) {
   <mat-card-content>
     <div cdkDropList class="family-list" (cdkDropListDropped)="drop($event)"
         [cdkDropListDisabled]="!hasSignedIn()">
@@ -45,9 +53,10 @@ import { PersonParentFamilyComponent } from './person-parent-family.component';
       }
     </div>
   </mat-card-content>
+  }
 </mat-card>`,
     styles: [],
-    imports: [MatCard, MatCardTitle, MatToolbar, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, CdkDrag, PersonParentFamilyComponent]
+    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, CdkDrag, PersonParentFamilyComponent]
 })
 export class PersonParentFamiliesComponent extends InitablePersonCreator
   implements HasLifespan, HasPerson, RefreshPerson, Saveable {
@@ -55,13 +64,21 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
   @Input() parent: HasPerson & HasLifespan & Saveable;
   @Input() person: ApiPerson;
   sex = 'M';
+  showParentsAndSiblings = true;
   get surname(): string {
     return this.person.surname;
   }
 
   constructor(@Inject(PersonService) public readonly personService: PersonService,
-    @Inject(UserService) private readonly userService: UserService) {
+    @Inject(UserService) private readonly userService: UserService,
+    @Inject(NgZone) private readonly zone: NgZone,
+    @Inject(ChangeDetectorRef) private readonly cdr: ChangeDetectorRef) {
     super(personService);
+  }
+
+  override ngOnChanges(): void {
+    this.init();
+    this.cdr.markForCheck();
   }
 
   init(): void {
@@ -78,7 +95,13 @@ export class PersonParentFamiliesComponent extends InitablePersonCreator
 
   refreshPerson() {
     this.personService.getOne(this.dataset, this.person.string).subscribe(
-      (data: ApiPerson) => this.parent.person = data);
+      (data: ApiPerson) => {
+        this.zone.run(() => {
+          this.person = data;
+          this.parent.person = data;
+          this.cdr.markForCheck();
+        });
+      });
   }
 
   spouseLinked(person: ApiPerson): boolean {

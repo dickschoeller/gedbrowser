@@ -3,13 +3,20 @@ package org.schoellerfamily.gedbrowser.api;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents dummy encoder.
+ *
+ * @author Richard Schoeller
  */
 @Component
 public class DummyEncoder implements PasswordEncoder {
     /**
-     * {@inheritDoc}
+     * Returns the string.
+     *
+     * @param rawPassword the raw password
+     * @return the resulting string
      */
     @Override
     public String encode(final CharSequence rawPassword) {
@@ -17,7 +24,11 @@ public class DummyEncoder implements PasswordEncoder {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes matches.
+     *
+     * @param rawPassword the raw password
+     * @param encodedPassword the encoded password to use
+     * @return the resulting boolean
      */
     @Override
     public boolean matches(final CharSequence rawPassword,

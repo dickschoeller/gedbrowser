@@ -1,25 +1,26 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders place list item output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class PlaceListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the PlaceRenderer that is using this helper.
      */
-    private final transient PlaceRenderer placeRenderer;
+    private final PlaceRenderer placeRenderer;
 
     /**
-     * Constructor.
+     * Executes render as list item.
      *
-     * @param placeRenderer the renderer that this is associated with.
-     */
-    protected PlaceListItemRenderer(final PlaceRenderer placeRenderer) {
-        this.placeRenderer = placeRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -30,7 +31,9 @@ public class PlaceListItemRenderer implements ListItemRenderer {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {

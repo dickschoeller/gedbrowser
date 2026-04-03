@@ -9,14 +9,20 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents rest authentication entry point.
+ *
+ * @author Richard Schoeller
  */
 @Component
 public final class RestAuthenticationEntryPoint
         implements AuthenticationEntryPoint {
     /**
-     * {@inheritDoc}
+     * Executes commence.
+     *
+     * @param request the request
      */
     @Override
     public void commence(final HttpServletRequest request,

@@ -1,9 +1,9 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.schoellerfamily.gedbrowser.datamodel.GedObject;
+import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.gedbrowser.datamodel.Note;
 import org.schoellerfamily.gedbrowser.renderer.href.HeaderHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.IndexHrefRenderer;
@@ -13,19 +13,20 @@ import org.schoellerfamily.gedbrowser.renderer.href.SourcesHrefRenderer;
 import org.schoellerfamily.gedbrowser.renderer.href.SubmittersHrefRenderer;
 
 /**
- * Render a Note.
+ * Renders note output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class NoteRenderer extends GedRenderer<Note>
         implements HeaderHrefRenderer<Note>, IndexHrefRenderer<Note>,
             PlacesHrefRenderer<Note>, SaveHrefRenderer<Note>,
             SourcesHrefRenderer<Note>, SubmittersHrefRenderer<Note> {
     /**
-     * @param gedObject the Note that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new NoteRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public NoteRenderer(final Note gedObject,
             final GedRendererFactory rendererFactory,
@@ -35,13 +36,17 @@ public final class NoteRenderer extends GedRenderer<Note>
     }
 
     /**
-     * @return the ID string of the person.
+     * Gets the id string.
+     *
+     * @return the id string
      */
     public String getIdString() {
         return getGedObject().getString();
     }
 
     /**
+     * Gets the title string.
+     *
      * @return the title string
      */
     public String getTitleString() {
@@ -51,7 +56,9 @@ public final class NoteRenderer extends GedRenderer<Note>
     }
 
     /**
-     * @return the content string
+     * Gets the contents.
+     *
+     * @return the contents
      */
     public String getContents() {
         return getGedObject().getTail().replace("\n", "</p>\n<p>");
@@ -62,22 +69,19 @@ public final class NoteRenderer extends GedRenderer<Note>
      *
      * @return the list of attribute renderers.
      */
-    @SuppressWarnings("java:S1452")
+    // Suppressed warnings are because of issues related to generics.
+    @SuppressWarnings({ "java:S1452", "java:S6204" })
     public List<GedRenderer<?>> getAttributes() {
-        final Note source = getGedObject();
-        final List<GedRenderer<?>> list = new ArrayList<GedRenderer<?>>();
-        for (final GedObject attribute : source.getAttributes()) {
-            final GedRenderer<?> attributeRenderer =
-                    createGedRenderer(attribute);
-            if (!attributeRenderer.getListItemContents().isEmpty()) {
-                list.add(attributeRenderer);
-            }
-        }
-        return list.stream().toList();
+        return getGedObject().getAttributes().stream()
+            .map(this::createGedRenderer)
+            .filter(renderer -> StringUtils.isNotEmpty(renderer.getListItemContents()))
+            .collect(Collectors.toUnmodifiableList());
     }
 
     /**
-     * @return the &lt;a href&gt; string for this source
+     * Gets the index name html.
+     *
+     * @return the index name html
      */
     public String getIndexNameHtml() {
         return this.getNameIndexRenderer().getIndexName();

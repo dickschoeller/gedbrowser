@@ -26,8 +26,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for note crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -53,7 +57,6 @@ class NoteCrudIT {
     /** */
     private CrudTestHelper helper;
 
-    /** */
     @BeforeEach
     void setUp() {
         helper = new CrudTestHelper(new PersonCrud(loader, toDocConverter, repositoryManager),
@@ -61,58 +64,54 @@ class NoteCrudIT {
         crud = new NoteCrud(loader, toDocConverter, repositoryManager);
     }
 
-    /** */
     @Test
     void testReadNotesGl120368() {
         log.info("Beginning testReadNotesGl120368");
         final List<ApiNote> list = crud.readAll(helper.getDb());
         assertThat(list.get(0))
-            .returns("N1", o -> o.getString())
-            .returns("_P_CCINFO 1-1319", o -> o.getTail());
+            .returns("N1", ApiNote::getString)
+            .returns("_P_CCINFO 1-1319", ApiNote::getTail);
         assertThat(list.get(1))
-            .returns("N2", o -> o.getString())
-            .returns("_P_CCINFO 1-1319", o -> o.getTail());
+            .returns("N2", ApiNote::getString)
+            .returns("_P_CCINFO 1-1319", ApiNote::getTail);
     }
 
-    /** */
     @Test
     @SuppressWarnings({ "java:S6126" })
     void testReadNotesGl120368N13() {
         log.info("Beginning testReadNotesGl120368N13");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N13");
-        assertThat(resNote).returns("N13", o -> o.getString());
+        assertThat(resNote).returns("N13", ApiNote::getString);
         final String expected = "_P_CCINFO 1-1319\n"
             + "Suffolk County Record Office, Parish Register, St Mary"
             + " Magdalene, Debenham, Suffolk, England, Baptisms 1813-\n"
             + "1864 (FB47/D1/10), Samuel son of William Amass & Marianne"
             + " Thurston alias Amass of Debenham Butcher was\n"
             + "baptised by George Smalley vicar on 23/3/1828.";
-        assertThat(resNote).returns(expected, o -> o.getTail());
+        assertThat(resNote).returns(expected, ApiNote::getTail);
     }
 
-    /** */
     @Test
     void testReadNotesGl120368N66() {
         log.info("Beginning testReadNotesGl120368N66");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N66");
         assertThat(resNote)
-            .returns("N66", o -> o.getString())
-            .returns("_P_CCINFO 1-1319", o -> o.getTail());
+            .returns("N66", ApiNote::getString)
+            .returns("_P_CCINFO 1-1319", ApiNote::getTail);
         final ApiAttribute changed = resNote.getAttributes().get(0);
         assertThat(changed)
-            .returns("attribute", o -> o.getType())
-            .returns("Changed", o -> o.getString());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Changed", ApiAttribute::getString);
         assertThat(changed.getAttributes().get(0))
-            .returns("date", o -> o.getType())
-            .returns("22 APR 2007", o -> o.getString());
+            .returns("date", ApiAttribute::getType)
+            .returns("22 APR 2007", ApiAttribute::getString);
     }
 
-    /** */
     @Test
     void testReadNotesGl120368N1932() {
         log.info("Beginning testReadNotesGl120368N1932");
         final ApiNote resNote = crud.readOne(helper.getDb(), "N1932");
-        assertThat(resNote).returns("N1932", o -> o.getString());
+        assertThat(resNote).returns("N1932", ApiNote::getString);
         final String expected = "Prince Philip, born at Mon Repos, Corfu 10"
             + " June 1921, renounced his rights to the throne of Greece"
             + " and was naturalised in Great Britain taking the surname of"
@@ -129,29 +128,28 @@ class NoteCrudIT {
             + " and Northern Ireland (born at 17 Bruton St, London W1 21"
             + " April 1926), and has issue (see GREAT BRITAIN - Almanach"
             + " de Gotha 1998; 1999; 2000).";
-        assertThat(resNote).returns(expected, o -> o.getTail());
+        assertThat(resNote).returns(expected, ApiNote::getTail);
         final List<ApiAttribute> attributes = resNote.getAttributes();
         assertThat(attributes.get(0))
-            .returns("sourcelink", o -> o.getType())
-            .returns("S33734", o -> o.getString());
+            .returns("sourcelink", ApiAttribute::getType)
+            .returns("S33734", ApiAttribute::getString);
         assertThat(attributes.get(0).getAttributes().get(0))
-            .returns("Note", o -> o.getString())
-            .returns("Record originated in...", o -> o.getTail());
+            .returns("Note", ApiAttribute::getString)
+            .returns("Record originated in...", ApiAttribute::getTail);
         assertThat(attributes.get(1))
-            .returns("sourcelink", o -> o.getType())
-            .returns("S33716", o -> o.getString());
+            .returns("sourcelink", ApiAttribute::getType)
+            .returns("S33716", ApiAttribute::getString);
         assertThat(attributes.get(1).getAttributes().get(0))
-            .returns("Note", o -> o.getString())
-            .returns("Record originated in...", o -> o.getTail());
+            .returns("Note", ApiAttribute::getString)
+            .returns("Record originated in...", ApiAttribute::getTail);
         assertThat(attributes.get(2))
-            .returns("attribute", o -> o.getType())
-            .returns("Changed", o -> o.getString());
+            .returns("attribute", ApiAttribute::getType)
+            .returns("Changed", ApiAttribute::getString);
         assertThat(attributes.get(2).getAttributes().get(0))
-            .returns("date", o -> o.getType())
-            .returns("8 MAR 2008", o -> o.getString());
+            .returns("date", ApiAttribute::getType)
+            .returns("8 MAR 2008", ApiAttribute::getString);
     }
 
-    /** */
     @Test
     void testReadNotesGl120368Xyzzy() {
         log.info("Beginning testReadNotesGl120368N1932");
@@ -161,7 +159,6 @@ class NoteCrudIT {
             .withMessage("Object Xyzzy of type note not found");
     }
 
-    /** */
     @Test
     void testCreateNotesSimple() {
         log.info("Beginning testCreateNotesSimple");
@@ -172,10 +169,9 @@ class NoteCrudIT {
             .attributes(List.of())
             .build();
         final ApiNote resNote = crud.createOne(helper.getDb(), reqNote);
-        assertThat(resNote).returns(reqNote.getTail(), o -> o.getTail());
+        assertThat(resNote).returns(reqNote.getTail(), ApiNote::getTail);
     }
 
-    /** */
     @Test
     void testDeleteNote() {
         log.info("Beginning testDeleteNote");
@@ -195,7 +191,6 @@ class NoteCrudIT {
             .withMessage("Object " + id + " of type note not found");
     }
 
-    /** */
     @Test
     void testDeleteNoteNotFound() {
         log.info("Beginning testDeleteNoteNotFound");
@@ -205,7 +200,6 @@ class NoteCrudIT {
             .withMessage("Object XXXXXXX of type note not found");
     }
 
-    /** */
     @Test
     void testDeleteNoteDatabaseNotFound() {
         log.info("Beginning testDeleteNoteDatabaseNotFound");
@@ -214,7 +208,6 @@ class NoteCrudIT {
             .withMessage("Data set XYZZY not found");
     }
 
-    /** */
     @Test
     void testUpdateNoteWithNote() {
         log.info("Beginning testUpdateNoteWithNote");
@@ -227,7 +220,7 @@ class NoteCrudIT {
             .tail("Top level note")
             .build();
         final ApiNote resNote = crud.createOne(db, reqNote);
-        assertThat(resNote).returns(reqNote.getType(), o -> o.getType());
+        assertThat(resNote).returns(reqNote.getType(), ApiNote::getType);
 
         final ApiNote modNote = resNote.toBuilder()
             .attribute(ApiAttribute.builder()

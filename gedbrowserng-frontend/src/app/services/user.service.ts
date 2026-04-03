@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AuthApiService } from './auth-api.service';
@@ -18,10 +19,10 @@ export class UserService {
       // Race the refresh request against a short timeout so the APP_INITIALIZER
       // does not prevent the app from bootstrapping if the backend is slow or
       // unreachable. If the refresh completes later it will still update currentUser.
-      const refreshPromise = this.apiService.get(this.config.refresh_token_url).toPromise()
+      const refreshPromise = firstValueFrom(this.apiService.get(this.config.refresh_token_url))
           .then(res => {
               if (res?.accessToken != null) {
-                  return this.getMyInfo().toPromise().then((user: User) => this.currentUser = user );
+            return firstValueFrom(this.getMyInfo()).then((user: User) => this.currentUser = user );
               }
               return null;
           })

@@ -4,22 +4,30 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * @author Dick Schoeller
+ * Represents token based authentication.
+ *
+ * @author Richard Schoeller
  */
 public final class TokenBasedAuthentication
         extends AbstractAuthenticationToken {
-    /** */
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
-    /** */
+    /**
+     * The token value.
+     */
     private final String token;
-    /** */
+    /**
+     * The principle value.
+     */
     private final UserDetails principle;
 
     /**
-     * Constructor.
+     * Creates a new TokenBasedAuthentication.
      *
-     * @param principle the details about the user
-     * @param token the new token
+     * @param principle the principle
+     * @param token the token
      */
     public TokenBasedAuthentication(final UserDetails principle, final String token) {
         super(principle.getAuthorities());
@@ -27,16 +35,31 @@ public final class TokenBasedAuthentication
         this.token = token;
     }
 
+    /**
+     * Checks whether authenticated.
+     *
+     * @return true if the condition is met; otherwise false
+     */
     @Override
     public boolean isAuthenticated() {
         return true;
     }
 
+    /**
+     * Gets the credentials.
+     *
+     * @return the credentials
+     */
     @Override
     public Object getCredentials() {
         return token;
     }
 
+    /**
+     * Gets the principal.
+     *
+     * @return the principal
+     */
     @Override
     public UserDetails getPrincipal() {
         return principle;

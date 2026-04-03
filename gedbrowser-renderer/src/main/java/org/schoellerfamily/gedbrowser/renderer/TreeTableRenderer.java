@@ -3,27 +3,24 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders tree table output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public final class TreeTableRenderer {
     /** */
-    private final transient int generations;
-
+    private final PersonRenderer top;
     /** */
-    private final transient PersonRenderer top;
+    private final int generations;
 
     /**
-     * @param top the main person renderer that this tree is for.
-     * @param generations number of tree generations to render.
-     */
-    public TreeTableRenderer(final PersonRenderer top, final int generations) {
-        this.top = top;
-        this.generations = generations;
-    }
-
-    /**
-     * @return the 2D array of cells.
+     * Gets the tree rows.
+     *
+     * @return the tree rows
      */
     public CellRow[] getTreeRows() {
         final TreeNode<PersonRenderer> treeNode = buildTree(top, 0, generations - 1, 0);
@@ -35,19 +32,18 @@ public final class TreeTableRenderer {
         return treeCellRenderers;
     }
 
-    /**
-     * @return a new cell row.
-     */
     private CellRow createCellRow() {
         return new CellRow(generations * 2 - 1);
     }
 
     /**
-     * @param personRenderer the person renderer associated with the top node.
-     * @param currentDepth 0 based depth into the tree.
-     * @param depthLimit highest depth allowed.
-     * @param seedRow initial row.
-     * @return list ordered from top to bottom of the entries in the tree.
+     * Builds the tree.
+     *
+     * @param personRenderer the person renderer
+     * @param currentDepth the current depth
+     * @param depthLimit the depth limit
+     * @param seedRow the seed row
+     * @return the resulting tree node
      */
     public static TreeNode<PersonRenderer> buildTree(
             final PersonRenderer personRenderer, final int currentDepth,
@@ -55,16 +51,16 @@ public final class TreeTableRenderer {
         final Person person = personRenderer.getGedObject();
         final PersonNavigator navigator = new PersonNavigator(person);
 
-        final TreeNode<PersonRenderer> treeNode = new TreeNode<PersonRenderer>(
-                personRenderer, currentDepth, currentDepth);
+        final TreeNode<PersonRenderer> treeNode = new TreeNode<>(
+            personRenderer, currentDepth, currentDepth);
 
         int row = seedRow;
         if (currentDepth < depthLimit) {
             final Person father = navigator.getFather();
             final PersonRenderer fatherRenderer =
-                    (PersonRenderer) personRenderer.createGedRenderer(father);
+                (PersonRenderer) personRenderer.createGedRenderer(father);
             final TreeNode<PersonRenderer> fatherTreeNode = buildTree(
-                    fatherRenderer, currentDepth + 1, depthLimit, row);
+                fatherRenderer, currentDepth + 1, depthLimit, row);
             treeNode.addLeft(fatherTreeNode);
             row = fatherTreeNode.getHighestRowInTree() + 1;
         }
@@ -74,18 +70,14 @@ public final class TreeTableRenderer {
         if (currentDepth < depthLimit) {
             final Person mother = navigator.getMother();
             final PersonRenderer motherRenderer =
-                    (PersonRenderer) personRenderer.createGedRenderer(mother);
-            final TreeNode<PersonRenderer> motherTreeNode = buildTree(
-                    motherRenderer, currentDepth + 1, depthLimit, row);
+                (PersonRenderer) personRenderer.createGedRenderer(mother);
+            final TreeNode<PersonRenderer> motherTreeNode =
+                buildTree(motherRenderer, currentDepth + 1, depthLimit, row);
             treeNode.addRight(motherTreeNode);
         }
         return treeNode;
     }
 
-    /**
-     * @param cellRows the table that we are working with.
-     * @param treeNode the tree whose data we are adding.
-     */
     private void addToTable(final CellRow[] cellRows,
             final TreeNode<PersonRenderer> treeNode) {
         final int column = treeNode.getColumn() * 2;
@@ -118,9 +110,6 @@ public final class TreeTableRenderer {
         }
     }
 
-    /**
-     * @return a cell with the class set for a vertical line.
-     */
     private LineCellRenderer createVerticalLineCell() {
         return new LineCellRenderer("v");
     }

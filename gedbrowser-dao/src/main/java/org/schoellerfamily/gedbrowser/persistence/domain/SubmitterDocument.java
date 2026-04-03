@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of submitter.
+ *
+ * @author Richard Schoeller
  */
 public interface SubmitterDocument extends GedDocument<Submitter> {
     @Override

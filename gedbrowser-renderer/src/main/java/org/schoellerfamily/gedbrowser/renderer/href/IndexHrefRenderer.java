@@ -3,10 +3,9 @@ package org.schoellerfamily.gedbrowser.renderer.href;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * Provides the pattern of returning an index query. The default goes to the
- * letter A.
+ * Renders index href output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  * @param <T> the GedObject type to render
  */
 public interface IndexHrefRenderer<T extends GedObject> {

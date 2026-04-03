@@ -7,14 +7,15 @@ import java.util.List;
 
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Exposes operations for the base backup endpoint.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -29,12 +30,9 @@ public abstract class BaseBackupEndpoint {
      * Do the backup related action.
      *
      * @param backupFile which backup file mean
-     * @throws JsonParseException if the JSON doesn't parse
-     * @throws JsonMappingException if JSON won't map to the data types
      * @throws IOException if the file can't be accessed
      */
-    public abstract void action(File backupFile)
-            throws JsonParseException, JsonMappingException, IOException;
+    public abstract void action(File backupFile) throws IOException;
 
     /**
      * Return an identifier for logging. Subclasses currently implement

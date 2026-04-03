@@ -1,0 +1,157 @@
+package org.schoellerfamily.gedbrowser.api.endpoint;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+
+import org.bson.Document;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
+
+import com.mongodb.client.result.DeleteResult;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+
+
+/**
+ * Provides services for duplicate cleanup.
+ */
+@Component
+@RequiredArgsConstructor
+@Slf4j
+public class DuplicateCleanupService {
+    /** */
+    private static final String ROOTS = "roots";
+    /** */
+    private static final String PERSONS = "persons";
+    /** */
+    private static final String SOURCES = "sources";
+    /** */
+    private static final String SUBMITTERS = "submitters";
+    /** */
+    private final MongoTemplate mongoTemplate;
+
+    /**
+     * Executes cleanup.
+     *
+     * @return the resulting integer>
+     */
+    public Map<String, Integer> cleanup() {
+        final Map<String, Integer> deleted = new LinkedHashMap<>();
+        deleted.put(ROOTS, Math.toIntExact(cleanupCollection(ROOTS)));
+        deleted.put(PERSONS, Math.toIntExact(cleanupCollection(PERSONS)));
+        deleted.put(SOURCES, Math.toIntExact(cleanupCollection(SOURCES)));
+        deleted.put(SUBMITTERS, Math.toIntExact(cleanupCollection(SUBMITTERS)));
+        final int total = deleted.get(ROOTS)
+            + deleted.get(PERSONS)
+            + deleted.get(SOURCES)
+            + deleted.get(SUBMITTERS);
+        deleted.put("total", total);
+        return deleted;
+    }
+
+    /**
+     * Log discovered duplicate IDs without deleting any documents.
+     *
+     * @return number of duplicate documents per collection and total count
+     */
+    public Map<String, Integer> logDuplicates() {
+        final Map<String, Integer> duplicates = new LinkedHashMap<>();
+        duplicates.put(ROOTS, logCollectionDuplicates(ROOTS));
+        duplicates.put(PERSONS, logCollectionDuplicates(PERSONS));
+        duplicates.put(SOURCES, logCollectionDuplicates(SOURCES));
+        duplicates.put(SUBMITTERS, logCollectionDuplicates(SUBMITTERS));
+        final int roots = duplicates.get(ROOTS);
+        final int persons = duplicates.get(PERSONS);
+        final int sources = duplicates.get(SOURCES);
+        final int submitters = duplicates.get(SUBMITTERS);
+        final int total = roots + persons + sources + submitters;
+        duplicates.put("total", total);
+        return duplicates;
+    }
+
+    private long cleanupCollection(final String collectionName) {
+        final Map<String, List<Object>> idsByKey = groupedIdsByKey(collectionName);
+
+        long deletedCount = 0L;
+        for (final List<Object> ids : idsByKey.values()) {
+            if (ids.size() <= 1) {
+                continue;
+            }
+            // Ensure deterministic behavior: sort IDs before deciding which one to keep
+            ids.sort(Comparator.comparing(Object::toString));
+            final List<Object> idsToDelete = ids.subList(1, ids.size());
+            final Query deleteQuery = Query.query(Criteria.where("_id").in(idsToDelete));
+            final DeleteResult deleteResult =
+                mongoTemplate.remove(deleteQuery, collectionName);
+            deletedCount += deleteResult.getDeletedCount();
+        }
+        return deletedCount;
+    }
+
+    private int logCollectionDuplicates(final String collectionName) {
+        final Map<String, List<Object>> idsByKey = groupedIdsByKey(collectionName);
+        int duplicateCount = 0;
+        for (final Map.Entry<String, List<Object>> entry : idsByKey.entrySet()) {
+            final List<Object> ids = entry.getValue();
+            if (ids.size() <= 1) {
+                continue;
+            }
+            final int duplicates = ids.size() - 1;
+            duplicateCount += duplicates;
+            log.warn("Duplicate group in {}: key={} ids={} duplicates={}",
+                collectionName, entry.getKey(), ids, duplicates);
+        }
+        if (duplicateCount == 0) {
+            log.info("No duplicates found in {}", collectionName);
+        }
+        return duplicateCount;
+    }
+
+    @SuppressWarnings("PMD.LooseCoupling")
+    private Map<String, List<Object>> groupedIdsByKey(final String collectionName) {
+        final Query query = new Query();
+        query.fields()
+            .include("_id")
+            .include("filename")
+            .include("string");
+        final Map<String, List<Object>> idsByKey = new LinkedHashMap<>();
+        try (Stream<Document> documents =
+                mongoTemplate.stream(query, Document.class, collectionName)) {
+            documents.forEach(doc -> {
+                final Object id = doc.get("_id");
+                if (id == null) {
+                    return;
+                }
+                final String key = buildKey(doc);
+                if (key == null) {
+                    log.warn("Skipping document without valid filename/string in {}: id={}",
+                        collectionName, id);
+                    return;
+                }
+                idsByKey.computeIfAbsent(key, _ -> newIdList()).add(id);
+            });
+        }
+        return idsByKey;
+    }
+
+    private String buildKey(final Map<String, Object> doc) {
+        final Object filename = doc.get("filename");
+        final Object string = doc.get("string");
+        if (filename == null || string == null) {
+            return null;
+        }
+        return String.valueOf(filename) + "\u0000" + string;
+    }
+
+    private List<Object> newIdList() {
+        return new ArrayList<>();
+    }
+}

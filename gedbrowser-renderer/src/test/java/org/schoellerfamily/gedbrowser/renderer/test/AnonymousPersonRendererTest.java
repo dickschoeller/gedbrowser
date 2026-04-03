@@ -17,6 +17,7 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.CellRenderer;
@@ -36,8 +37,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for anonymous person renderer.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.TooManyMethods" })
 @ExtendWith(SpringExtension.class)
@@ -312,11 +317,8 @@ final class AnonymousPersonRendererTest {
             "Mismatched renderer type");
     }
 
-    /**
-     * @return the renderer
-     */
     private PersonRenderer createRenderer() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person = builder.createPerson("I1");
         return new PersonRenderer(person, new GedRendererFactory(), anonymousContext);
     }
@@ -339,14 +341,6 @@ final class AnonymousPersonRendererTest {
         }
     }
 
-    /**
-     * Perform a check for a particular cell.
-     *
-     * @param treeCells the person's cells
-     * @param i         the current index
-     * @param cc        the current cell class string
-     * @param nameHtml  the current name string
-     */
     private void assertCellMatch(final String[] treeCells, final int i, final String cc,
         final String nameHtml) {
         assertEquals(TREE_CELL_CLASSES[i], cc, "Cell class mismatch");

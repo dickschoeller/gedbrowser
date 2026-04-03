@@ -15,18 +15,33 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents submission document repository mongo impl for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor
 public class SubmissionDocumentRepositoryMongoImpl implements
     FindableDocument<Submission, SubmissionDocument>,
     LastId<SubmissionDocumentMongo> {
-    /** */
+    /**
+     * The mongo template value.
+     */
     private final MongoTemplate mongoTemplate;
-    /** */
+    /**
+     * The to obj converter value.
+     */
     private final GedDocumentMongoToGedObjectConverter toObjConverter;
+    /**
+     * Finds the by file and string.
+     *
+     * @param filename the filename to use
+     * @param string the string
+     * @return the resulting submission document
+     */
     @Override
     public final SubmissionDocument findByFileAndString(
             final String filename, final String string) {
@@ -43,6 +58,13 @@ public class SubmissionDocumentRepositoryMongoImpl implements
         return submDocument;
     }
 
+    /**
+     * Finds the by root and string.
+     *
+     * @param rootDocument the root document
+     * @param string the string
+     * @return the resulting submission document
+     */
     @Override
     public final SubmissionDocument findByRootAndString(
             final RootDocument rootDocument, final String string) {
@@ -56,6 +78,12 @@ public class SubmissionDocumentRepositoryMongoImpl implements
         return submissionDocument;
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param filename the filename to use
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<SubmissionDocument> findAll(final String filename) {
         final Query searchQuery =
@@ -71,6 +99,12 @@ public class SubmissionDocumentRepositoryMongoImpl implements
             }).toList();
     }
 
+    /**
+     * Finds the all.
+     *
+     * @param rootDocument the root document
+     * @return the resulting iterable
+     */
     @Override
     public final Iterable<SubmissionDocument> findAll(
             final RootDocument rootDocument) {
@@ -86,6 +120,12 @@ public class SubmissionDocumentRepositoryMongoImpl implements
         return submissionDocuments;
     }
 
+    /**
+     * Executes count.
+     *
+     * @param filename the filename to use
+     * @return the resulting long
+     */
     @Override
     public final long count(final String filename) {
         final Query searchQuery =
@@ -93,17 +133,35 @@ public class SubmissionDocumentRepositoryMongoImpl implements
         return mongoTemplate.count(searchQuery, SubmissionDocumentMongo.class);
     }
 
+    /**
+     * Returns the long.
+     *
+     * @param rootDocument the root document
+     * @return the resulting long
+     */
     @Override
     public final long count(final RootDocument rootDocument) {
         return count(rootDocument.getFilename());
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String lastId(final RootDocument rootDocument) {
         return lastId(mongoTemplate, SubmissionDocumentMongo.class,
                 rootDocument.getFilename(), "SUBN");
     }
 
+    /**
+     * Returns the string.
+     *
+     * @param rootDocument the root document
+     * @return the resulting string
+     */
     @Override
     public final String newId(final RootDocument rootDocument) {
         return newId(mongoTemplate, SubmissionDocumentMongo.class,

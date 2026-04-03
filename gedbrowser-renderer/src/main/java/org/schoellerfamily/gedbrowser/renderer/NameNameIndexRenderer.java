@@ -2,25 +2,22 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.Name;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders name name index output for display.
+ *
+ * @author Richard Schoeller
  */
-public final class NameNameIndexRenderer
-    implements NameIndexRenderer, ComplexRenderer {
+@RequiredArgsConstructor
+public final class NameNameIndexRenderer implements NameIndexRenderer, ComplexRenderer {
     /** */
-    private final transient NameRenderer nameRenderer;
+    private final NameRenderer nameRenderer;
 
     /**
-     * Constructor.
+     * Returns the index name.
      *
-     * @param nameRenderer the NameRenderer that is using this helper.
-     */
-    public NameNameIndexRenderer(final NameRenderer nameRenderer) {
-        this.nameRenderer = nameRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @return the index name
      */
     @Override
     public String getIndexName() {

@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import org.schoellerfamily.geoservice.exception.GeoCodeRuntimeException;
 
 /**
- * Implementation of managing geocoding keys.
+ * Provides behavior related to key manager impl.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class KeyManagerImpl implements KeyManager {
     /** */
@@ -23,16 +24,18 @@ public final class KeyManagerImpl implements KeyManager {
     private String mapKey;
 
     /**
-     * Constructor.
+     * Creates a new KeyManagerImpl.
      *
-     * @param fileName the name of the file to read.
+     * @param fileName the file name to use
      */
     public KeyManagerImpl(final String fileName) {
         this.fileName = fileName;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the geocoding key.
+     *
+     * @return the geocoding key
      */
     @Override
     public String getGeocodingKey() {
@@ -41,7 +44,7 @@ public final class KeyManagerImpl implements KeyManager {
         }
         try (FileInputStream fileStream = new FileInputStream(fileName);
                 InputStreamReader iStreamReader =
-                        new InputStreamReader(fileStream, "UTF-8");
+                    new InputStreamReader(fileStream, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(iStreamReader);) {
             final StringBuilder sb = new StringBuilder();
             final String line = br.readLine();
@@ -56,7 +59,9 @@ public final class KeyManagerImpl implements KeyManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the maps key.
+     *
+     * @return the maps key
      */
     @Override
     public String getMapsKey() {
@@ -65,7 +70,7 @@ public final class KeyManagerImpl implements KeyManager {
         }
         try (FileInputStream fileStream = new FileInputStream(fileName);
                 InputStreamReader iStreamReader =
-                        new InputStreamReader(fileStream, "UTF-8");
+                    new InputStreamReader(fileStream, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(iStreamReader);) {
             final StringBuilder sb = new StringBuilder();
             // Ignore first line, that's the geocoding key

@@ -6,34 +6,49 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents ged document mongo for persistence operations.
  *
+ * @author Richard Schoeller
  * @param <G> the associated GedObject subclass
  */
 @Setter
 @Getter
+@NoArgsConstructor
 public abstract class GedDocumentMongo<G extends GedObject>
         extends HasAttributes<G> implements Accepts {
-    /** */
+    /**
+     * The id string value.
+     */
     @Id
     private String idString;
 
-    /** */
+    /**
+     * The string value.
+     */
     @Indexed
     private String string;
 
-    /** */
+    /**
+     * The filename value.
+     */
     @Indexed
     private String filename;
 
-    /** */
+    /**
+     * The db name value.
+     */
     @Indexed
     private String dbName;
 
-    /** */
+    /**
+     * The ged object value.
+     */
     @Transient
     private G gedObject;
 }

@@ -15,11 +15,15 @@ import { AttributeListComponent } from '../../components/attribute-list/attribut
     standalone: true,
     template: `<app-main-layout [dataset]="dataset">
   <mat-card>
-    <mat-card-title><mat-icon inline=true>comment</mat-icon> {{ truncateNote(70) }}</mat-card-title>
-    <mat-card-subtitle>{{ note?.string }}</mat-card-subtitle>
+        <div class="card-header-line">
+          <mat-card-title><mat-icon inline=true>comment</mat-icon> {{ truncateNote(70) }}</mat-card-title>
+          <mat-card-subtitle>{{ note?.string }}</mat-card-subtitle>
+        </div>
     <mat-card-content>
       <p class="multi_lines_text">{{ note?.tail }}</p>
-      <app-attribute-list [dataset]="dataset" [attributes]="note?.attributes" [parent]="this" [showAdd]="false" [showNotes]="false" [showSubmitters]="false"></app-attribute-list>
+      <div class="attributes-section">
+        <app-attribute-list [dataset]="dataset" [attributes]="note?.attributes" [parent]="this" [showAdd]="false" [showNotes]="false" [showSubmitters]="false"></app-attribute-list>
+      </div>
     </mat-card-content>
   </mat-card>
 </app-main-layout>`,
@@ -29,27 +33,27 @@ import { AttributeListComponent } from '../../components/attribute-list/attribut
 }
 
 mat-card-title {
-  padding-left: 10px;
-  padding-top: 10px;
-  padding-right: 0;
-  padding-bottom: 0;
+  margin: 0;
+  padding: 0;
 }
 
 mat-card-title mat-icon {
-  margin-left: 10px;
   margin-right: 10px;
 }
 
 mat-card-subtitle {
-  padding-left: 60px;
-  padding-bottom: 10px;
-  padding-right: 0;
-  padding-top: 0;
+  align-self: center;
+  margin: 0;
+  padding: 0;
 }
 
 .mat-icon {
     vertical-align: top;
     font-size: 1.25em;
+}
+
+.attributes-section {
+  margin-top: 10px;
 }
     `],
     imports: [MainLayoutComponent, MatCard, MatCardTitle, MatIcon, MatCardSubtitle, MatCardContent, AttributeListComponent]

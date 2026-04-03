@@ -14,8 +14,12 @@ import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to mock mvc.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @RequiredArgsConstructor
@@ -30,15 +34,14 @@ public class MockMvcConfig {
     private static final int PORT = 8080;
 
     /**
-     * @return the request builder
+     * Returns the request builder.
+     *
+     * @return the resulting request builder
      */
     public RequestBuilder mockRequestBuilder() {
         return null;
     }
 
-    /**
-     * @return the mock MVC
-     */
     private MockMvc mockMvc() {
         final DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(wac);
         return builder.addFilter(filter, "", "")

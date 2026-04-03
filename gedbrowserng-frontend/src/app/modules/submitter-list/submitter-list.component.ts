@@ -1,16 +1,15 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild , Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
 import { SubmitterCreator } from '../../bases/submitter-creator';
-import { NewSubmitterDialogComponent } from '../../components/';
-import { NewSubmitterDialogData } from '../../models';
+import { ConfirmDialogComponent } from '../../components/';
 import { ApiSubmitter } from '../../models';
 import { SubmitterService } from '../../services';
-import { NewSubmitterHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
+import { UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { SubmitterListPageComponent } from './submitter-list-page.component';
 import { MainLayoutComponent } from '../../components/main-layout/main-layout.component';
 import { MatCard, MatCardTitle, MatCardContent, MatCardHeader } from '@angular/material/card';
@@ -184,9 +183,16 @@ export class SubmitterListComponent extends SubmitterCreator implements AfterVie
     this.navigate(id);
   }
 
-  delete(source: ApiSubmitter) {
-    this.submitterService.delete(this.dataset, source).subscribe((s: ApiSubmitter) => {
-      this.refreshSubmitter(s);
+  delete(submitter: ApiSubmitter) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Are you sure you want to delete this submitter?' }
+    });
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.submitterService.delete(this.dataset, submitter).subscribe((s: ApiSubmitter) => {
+          this.refreshSubmitter(s);
+        });
+      }
     });
   }
 }

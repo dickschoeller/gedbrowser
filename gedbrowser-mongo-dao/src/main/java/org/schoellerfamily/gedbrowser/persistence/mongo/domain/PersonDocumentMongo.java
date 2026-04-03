@@ -8,30 +8,44 @@ import org.schoellerfamily.gedbrowser.persistence.domain.PersonDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.GedDocumentMongoVisitor;
 import org.schoellerfamily.gedbrowser.persistence.mongo.domain.visitor.TopLevelGedDocumentMongoVisitor;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.NoArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Represents person document mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
 @Document(collection = "persons")
-@CompoundIndexes({
-    @CompoundIndex(name = "person_unique_idx",
-            def = "{'string': 1, 'filename': 1}",
-            unique = true)
-})
+@CompoundIndex(name = "person_unique_idx", def = "{'string': 1, 'filename': 1}", unique = true)
+@NoArgsConstructor
 public final class PersonDocumentMongo extends GedDocumentMongo<Person>
         implements PersonDocument {
-    /** */
+    /**
+     * The index name value.
+     */
     private String indexName;
-    /** */
+    /**
+     * The surname value.
+     */
     private String surname;
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     @Override
     public String getType() {
         return "person";
     }
 
+    /**
+     * Loads the ged object.
+     *
+     * @param loader the loader
+     */
     @Override
     public void loadGedObject(final GedDocumentLoader loader,
             final GedObject ged) {
@@ -47,21 +61,41 @@ public final class PersonDocumentMongo extends GedDocumentMongo<Person>
         surname = gedObject.getSurname();
     }
 
+    /**
+     * Gets the surname.
+     *
+     * @return the surname
+     */
     @Override
     public String getSurname() {
         return surname;
     }
 
+    /**
+     * Gets the index name.
+     *
+     * @return the index name
+     */
     @Override
     public String getIndexName() {
         return indexName;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final TopLevelGedDocumentMongoVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedDocumentMongoVisitor visitor) {
         visitor.visit(this);

@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 /**
- * @author Dick Schoeller
+ * Represents abstract link in the domain model.
+ *
+ * @author Richard Schoeller
  */
 public abstract class AbstractLink extends GedObject {
     /**
@@ -14,15 +16,16 @@ public abstract class AbstractLink extends GedObject {
     private String toString = "";
 
     /**
-     * Default constructor.
+     * Creates a new AbstractLink.
      */
     protected AbstractLink() {
         super();
     }
 
     /**
-     * @param parent
-     *            parent object of this link
+     * Creates a new AbstractLink.
+     *
+     * @param parent the parent
      */
     protected AbstractLink(final GedObject parent) {
         super(parent);
@@ -30,10 +33,10 @@ public abstract class AbstractLink extends GedObject {
     }
 
     /**
-     * @param parent
-     *            parent object of this link
-     * @param string
-     *            long version of type string
+     * Creates a new AbstractLink.
+     *
+     * @param parent the parent
+     * @param string the string
      */
     protected AbstractLink(final GedObject parent, final String string) {
         super(parent, string);
@@ -41,12 +44,11 @@ public abstract class AbstractLink extends GedObject {
     }
 
     /**
-     * @param parent
-     *            parent object of this link
-     * @param string
-     *            long version of type string
-     * @param tail
-     *            ID string of referred object
+     * Creates a new AbstractLink.
+     *
+     * @param parent the parent
+     * @param string the string
+     * @param tail the object ID tail
      */
     protected AbstractLink(final GedObject parent, final String string,
             final ObjectId tail) {
@@ -55,9 +57,9 @@ public abstract class AbstractLink extends GedObject {
     }
 
     /**
-     * @param xref
-     *            the reference ID of the object this link points to. May
-     *            contain bracketing '@' characters.
+     * Executes init link.
+     *
+     * @param xref the xref
      */
     public final void initLink(final ObjectId xref) {
         if (getParent() == null) {
@@ -74,15 +76,18 @@ public abstract class AbstractLink extends GedObject {
     }
 
     /**
-     * @return the ID of the object this links from.
+     * Gets the from string.
+     *
+     * @return the from string
      */
     public final String getFromString() {
         return fromString;
     }
 
     /**
-     * @param fromString
-     *            the ID of the object this links from.
+     * Sets the from string.
+     *
+     * @param fromString the from string
      */
     public final void setFromString(final String fromString) {
         if (fromString == null) {
@@ -93,15 +98,18 @@ public abstract class AbstractLink extends GedObject {
     }
 
     /**
-     * @return the ID of the object this links to.
+     * Gets the to string.
+     *
+     * @return the to string
      */
     public final String getToString() {
         return toString;
     }
 
     /**
-     * @param toString
-     *            the ID of the object this links to.
+     * Sets the to string.
+     *
+     * @param toString the to string
      */
     public final void setToString(final String toString) {
         if (toString == null) {

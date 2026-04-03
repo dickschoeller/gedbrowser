@@ -10,14 +10,17 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
+import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
+
+
+/**
+ * Contains tests for ged object factory tags.
+ */
 
 final class GedObjectFactoryTagsTest {
-    /**
-     * The root object for testing.
-     */
-    private static final Root ROOT = new GedObjectBuilder().getRoot();
+    /** */
+    private static final Root ROOT = new GedObjectBuilderImpl().getRoot();
     /**
      * Parameters for testing.
      */
@@ -109,9 +112,6 @@ final class GedObjectFactoryTagsTest {
         { ROOT, "XREF", null, "Cross Reference", null }, { ROOT, "FOOBAR", null, "FOOBAR", null },
         { ROOT, null, null, "", null }, };
 
-    /**
-     * @return the collection of test parameters
-     */
     static Stream<Arguments> params() {
         return Arrays.stream(PARAMETERS).map(Arguments::of);
     }
@@ -120,7 +120,7 @@ final class GedObjectFactoryTagsTest {
     @MethodSource("params")
     void testFactoryResultTag(final GedObject parent, final String tag, final String xref,
         final String expected, final String tail) {
-        final GedObjectFactory factory = new GedObjectFactory();
+        final GedObjectStarterFactory factory = new GedObjectStarterFactory();
         final GedObject gob = factory.create(parent, xref, tag, tail);
         final String actual = (gob == null) ? null : gob.getString();
         assertEquals(expected, actual, "Did not get the expected tag");

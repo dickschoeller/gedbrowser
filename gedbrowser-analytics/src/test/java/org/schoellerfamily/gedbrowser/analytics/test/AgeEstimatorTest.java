@@ -16,8 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for age estimator.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -29,22 +33,26 @@ final class AgeEstimatorTest implements AnalyzerTest {
     @Autowired
     private GedObjectBuilder builder;
 
+    /**
+     * Returns the person builder.
+     *
+     * @return the resulting person builder
+     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
+    /**
+     * Returns the family builder.
+     *
+     * @return the resulting family builder
+     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;
     }
 
-    /**
-     * Test against a variety of birth date formats.
-     *
-     * @param birthDate birth date string
-     * @param expectedAge expected age in years
-     */
     @ParameterizedTest(name = "birth={0} -> age={1}")
     @CsvSource({
         "'14 DEC 1958', 57",
@@ -75,12 +83,6 @@ final class AgeEstimatorTest implements AnalyzerTest {
                 "estimate does not match expected value of " + expectedAge);
     }
 
-    /**
-     * Test formatting for years/months/days estimation.
-     *
-     * @param birthDate birth date string
-     * @param expected expected formatted age string
-     */
     @ParameterizedTest(name = "birth={0} -> {1}")
     @CsvSource({
         "'13 DEC 1960', '55 years, 1 day'",

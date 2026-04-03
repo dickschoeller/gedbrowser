@@ -28,10 +28,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Abstract base class for controllers.
+ * Handles requests for abstract.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 @Slf4j

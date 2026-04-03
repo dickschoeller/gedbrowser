@@ -2,17 +2,21 @@ package org.schoellerfamily.gedbrowser.reader;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
-import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Visits ged line to ged object elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public class GedLineToGedObjectVisitor implements GedLineVisitor {
     /** */
-    private final GedObjectFactory factory;
+    private final GedObjectStarterFactory factory;
 
     /**
      * This controls hierarchy.
@@ -25,14 +29,18 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
     private GedObject gedObject;
 
     /**
-     * @return the gedObject that we created
+     * Gets the ged object.
+     *
+     * @return the ged object
      */
     public GedObject getGedObject() {
         return gedObject;
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param gedline the gedline
      */
     @Override
     public void visit(final GedLine gedline) {
@@ -43,7 +51,9 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes visit.
+     *
+     * @param gedfile the gedfile to use
      */
     @Override
     public void visit(final GedFile gedfile) {
@@ -59,9 +69,6 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
         gedObject = root;
     }
 
-    /**
-     * @return get the parent GedObject
-     */
     private GedObject parentGob() {
         if (parent == null) {
             return null;
@@ -69,10 +76,6 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
         return parent.getGedObject();
     }
 
-    /**
-     * @param gob the gob being filled in
-     * @param current the current line
-     */
     private void populateGob(final GedObject gob,
             final AbstractGedLine current) {
         if (gob != null) {
@@ -82,10 +85,6 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
         }
     }
 
-    /**
-     * @param gob the gob being filled in
-     * @param current the current line
-     */
     private void createChildren(final GedObject gob,
             final AbstractGedLine current) {
         for (final AbstractGedLine child : current.getChildren()) {
@@ -95,10 +94,6 @@ public class GedLineToGedObjectVisitor implements GedLineVisitor {
         }
     }
 
-    /**
-     * @param current current line, parent in the new visitor
-     * @return the new visitor
-     */
     private GedLineToGedObjectVisitor createVisitor(
             final AbstractGedLine current) {
         return new GedLineToGedObjectVisitor(factory, current);

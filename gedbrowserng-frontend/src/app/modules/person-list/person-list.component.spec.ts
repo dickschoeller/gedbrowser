@@ -4,6 +4,15 @@ import { of } from 'rxjs';
 import { PersonListComponent } from './person-list.component';
 import { ApiPerson } from '../../models';
 
+import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+
+import {PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService} from '../../services';
+import {PersonListResolverService} from './person-list-resolver.service';
+
 class StubRouter {
   navigated: string[] | null = null;
   navigate(path: string[]) { this.navigated = path; }
@@ -61,7 +70,7 @@ describe('PersonListComponent', () => {
     const comp = new PersonListComponent(new StubRouter() as any, new StubPersonService() as any, new StubDialog() as any);
     comp.persons = [new ApiPerson(), new ApiPerson(), new ApiPerson()];
     const opts = comp.pagesizeoptions();
-    expect(opts[opts.length - 1]).toBe(3);
+    expect(opts.at(-1)).toBe(3);
   });
 
   it('applyFilter sets lowercase trimmed filter', () => {
@@ -85,7 +94,9 @@ describe('PersonListComponent', () => {
   it('navigate composes route path and delete refreshes', () => {
     const router = new StubRouter();
     const svc = new StubPersonService();
-    const comp = new PersonListComponent(router as any, svc as any, new StubDialog() as any);
+    const dlg = new StubDialog();
+    dlg.result = true;
+    const comp = new PersonListComponent(router as any, svc as any, dlg as any);
     comp.dataset = 'ds';
     comp.p = new StubParent() as any;
     comp.navigate('P1');
@@ -94,15 +105,6 @@ describe('PersonListComponent', () => {
     expect(svc.deleted).toBe(true);
   });
 });
-import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
-
-import {PersonService, DatasetsService, SaveService, UploadService, UserService, AuthService, AuthApiService, ConfigService} from '../../services';
-import {PersonListComponent} from './person-list.component';
-import {PersonListResolverService} from './person-list-resolver.service';
 
 // Mock component to replace the child app-main-layout
 @Component({

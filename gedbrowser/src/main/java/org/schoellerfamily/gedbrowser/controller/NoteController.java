@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Listen for requests for the note page.
+ * Handles requests for note.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Controller
 @Slf4j
@@ -32,14 +34,14 @@ public class NoteController extends DatedDataController {
     private final String gedbrowserHome;
 
     /**
-     * Constructor.
+     * Creates a new NoteController.
      *
-     * @param appInfo           the application info
-     * @param users             info about the known application users
-     * @param loader            enable loading gedcom files
-     * @param provider          enable calendar processing
-     * @param repositoryManager enable data storage
-     * @param gedbrowserHome    location of data files for initialization
+     * @param appInfo the app info
+     * @param users the users
+     * @param loader the loader
+     * @param provider the provider
+     * @param repositoryManager the repository manager
+     * @param gedbrowserHome the gedbrowser home
      */
     public NoteController(final ApplicationInfo appInfo, final Users<? extends User> users,
         final GedObjectFileLoader loader, final CalendarProvider provider,

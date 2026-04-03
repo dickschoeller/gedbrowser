@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.datamodel.visitor;
 
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +15,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
 
 /**
- * Visitor for determining a person's relationships.
+ * Visits person elements and applies visitor logic.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class PersonVisitor implements GedObjectVisitor {
+
     /**
      * The person that we seem to be visiting.
      */
@@ -122,7 +126,9 @@ public final class PersonVisitor implements GedObjectVisitor {
     }
 
     /**
-     * @return list of all families that this person is a child of
+     * Gets the families c.
+     *
+     * @return the families c
      */
     public List<Family> getFamiliesC() {
         final List<Family> families = new ArrayList<>();
@@ -136,23 +142,27 @@ public final class PersonVisitor implements GedObjectVisitor {
     }
 
     /**
-     * @return true if a death attribute is found
+     * Checks whether death attribute.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean hasDeathAttribute() {
         return hasDeathAttribute;
     }
 
     /**
-     * @return true if this person is confidential
+     * Checks whether confidential.
+     *
+     * @return true if the condition is met; otherwise false
      */
     public boolean isConfidential() {
         return isConfidential;
     }
 
     /**
-     * Visit an Attribute. Certain Attributes contribute interest data.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Attribute)
+     * @param attribute the attribute
      */
     @Override
     public void visit(final Attribute attribute) {
@@ -166,9 +176,9 @@ public final class PersonVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a FamC. We will build up a collection of Navigators to the FamCs.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(FamC)
+     * @param famc the famc
      */
     @Override
     public void visit(final FamC famc) {
@@ -176,9 +186,9 @@ public final class PersonVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a FamS. We will build up a collection of Navigators to the FamSs.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(FamS)
+     * @param fams the fams
      */
     @Override
     public void visit(final FamS fams) {
@@ -190,10 +200,9 @@ public final class PersonVisitor implements GedObjectVisitor {
     }
 
     /**
-     * Visit a Person. Look through the attributes of a Person for
-     * relationships (FamC and FamS) and interesting Attributes.
+     * Executes visit.
      *
-     * @see GedObjectVisitor#visit(Person)
+     * @param person the person
      */
     @Override
     public void visit(final Person person) {

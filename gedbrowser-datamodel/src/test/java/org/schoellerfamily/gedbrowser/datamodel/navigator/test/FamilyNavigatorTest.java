@@ -12,10 +12,13 @@ import org.schoellerfamily.gedbrowser.datamodel.FamC;
 import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.FamilyNavigator;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for family navigator.
+ *
+ * @author Richard Schoeller
  */
 final class FamilyNavigatorTest {
     /** */
@@ -27,10 +30,9 @@ final class FamilyNavigatorTest {
     /** */
     private transient Person person3;
 
-    /** */
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         family1 = builder.createFamily("F1");
         person1 = builder.createPerson("I1", "J. Random/Schoeller/");
         person2 = builder.createPerson("I2", "Anonymous/Schoeller/");
@@ -46,35 +48,30 @@ final class FamilyNavigatorTest {
         builder.addChildToFamily(family3, person5);
     }
 
-    /** */
     @Test
     void testGetFather() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         assertEquals(person1, navigator.getFather(), "Father mismatch");
     }
 
-    /** */
     @Test
     void testGetHusband() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         assertEquals(person1.getString(), navigator.getHusband().getToString(), "Husband mismatch");
     }
 
-    /** */
     @Test
     void testGetMother() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         assertEquals(person2, navigator.getMother(), "Mother mismatch");
     }
 
-    /** */
     @Test
     void testGetWife() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
         assertEquals(person2.getString(), navigator.getWife().getToString(), "Wife mismatch");
     }
 
-    /** */
     @Test
     void testGetChildren() {
         final FamilyNavigator navigator = new FamilyNavigator(family1);
@@ -83,7 +80,6 @@ final class FamilyNavigatorTest {
             "Expected child to be in children");
     }
 
-    /** */
     @Test
     void testNullFamily() {
         final FamC famc = new FamC(null, "F8888", null);

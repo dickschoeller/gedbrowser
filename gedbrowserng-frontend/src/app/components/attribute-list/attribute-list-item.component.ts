@@ -7,6 +7,7 @@ import { UserService } from '../../services';
 import { AttributeDialogHelper, AttributeAnalyzer } from '../../utils';
 
 import { HasAttributeDialog } from './has-attribute-dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { AttributeListItemDetailListComponent } from './attribute-list-item-detail-list.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -16,8 +17,8 @@ import { SourceButtonComponent } from '../source-button/source-button.component'
 
 @Component({
     selector: 'app-attribute-list-item',
-    template: `<div class="parent">
-    <b>{{ attributeUtil.label() }}:&nbsp;</b>
+    template: `<div class="parent custom-section-colors">
+    <b class="attribute-label">{{ attributeUtil.label() }}:&nbsp;</b>
     @if (attributeUtil.contents()) {
         <span>
             @if (href()) {
@@ -65,8 +66,8 @@ export class AttributeListItemComponent extends HasAttributeDialog {
         return this.attribute.attributes;
     }
 
-    constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
-        @Inject(UserService) @Inject(UserService) @Inject(UserService) private readonly userService: UserService) {
+    constructor(@Inject(MatDialog) public readonly dialog: MatDialog,
+        @Inject(UserService) private readonly userService: UserService) {
         super(dialog);
     }
 
@@ -89,9 +90,16 @@ export class AttributeListItemComponent extends HasAttributeDialog {
     }
 
     delete(): void {
-        const index = this.attributeList.indexOf(this.attribute);
-        this.attributeList.splice(index, 1);
-        this.parent.save();
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            data: { message: 'Are you sure you want to delete this attribute?' }
+        });
+        dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+            if (confirmed) {
+                const index = this.attributeList.indexOf(this.attribute);
+                this.attributeList.splice(index, 1);
+                this.parent.save();
+            }
+        });
     }
 
     href() {

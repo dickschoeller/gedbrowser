@@ -1,35 +1,41 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
-import org.apache.commons.lang3.StringUtils;
+import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.schoellerfamily.gedbrowser.renderer.PlaceInfo;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Singular;
 import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonPOJOBuilder;
 
+
+
 /**
- * A person in the API data model.
+ * Represents api person in the domain model.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuperBuilder(toBuilder = true)
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@Jacksonized
-@JsonDeserialize(builder = ApiPerson.ApiPersonBuilderImpl.class)
-@JsonPropertyOrder({ "indexName", "surname", "lifeSpan" })
+@JsonDeserialize(builder = ApiPerson.ApiPersonBuilder.class)
+@JsonPropertyOrder({ "indexName", "surname", "lifeSpan", "places" })
 public class ApiPerson extends ApiExtraLists {
     /**
      * The name in a form that is usable for indexing.
      */
     @Builder.Default
     @NonNull
+    @SuppressWarnings("java:S1170")
     private final String indexName = "?, ?";
 
     /**
@@ -37,12 +43,19 @@ public class ApiPerson extends ApiExtraLists {
      */
     @Builder.Default
     @NonNull
+    @SuppressWarnings("java:S1170")
     private final String surname = "?";
 
     /**
      * The lifespan of this person.
      */
     private final ApiLifespan lifespan;
+
+    /**
+     * The list of places associated with this person.
+     */
+    @Singular(value = "place")
+    private final List<PlaceInfo> places;
 
     /**
      * The Builder for ApiPerson.
@@ -56,6 +69,17 @@ public class ApiPerson extends ApiExtraLists {
             B extends ApiPersonBuilder<C, B>>
         extends ApiExtraListsBuilder<C, B> {
         /**
+         * Jackson creator to obtain a concrete Lombok builder implementation.
+         *
+         * @return new person builder instance
+         */
+        @JsonCreator
+        @SuppressWarnings({ "java:S1452", "java:S3252" })
+        public static ApiPersonBuilder<?, ?> create() {
+            return ApiPerson.builder();
+        }
+
+        /**
          * Sets the string field and also extracts the reference number
          * attribute from it.
          *
@@ -66,18 +90,12 @@ public class ApiPerson extends ApiExtraLists {
         public B string(final String string) {
             if (StringUtils.isNotBlank(string) && getAttributes() != null) {
                 getAttributes().removeIf(attr -> attr.isType("attribute")
-                    && attr.getString().equals("Reference Number"));
+                    && "Reference Number".equals(attr.getString()));
                 attribute(refn(string));
             }
             return super.string(string);
         }
 
-        /**
-         * Returns the reference number attribute extracted from the person string.
-         *
-         * @param string the person string
-         * @return the reference number extracted from that
-         */
         private ApiAttribute refn(final String string) {
             return ApiAttribute.builder()
                 .type("attribute")
@@ -111,14 +129,21 @@ public class ApiPerson extends ApiExtraLists {
         return indexName;
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public final void accept(final ApiObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     /**
-     * Is the other object of exactly the same type as this one? All overrides
-     * should use the same approach.
+     * Returns the boolean.
+     *
+     * @param other the other
+     * @return the resulting boolean
      */
     @Override
     public final boolean canEqual(final Object other) {

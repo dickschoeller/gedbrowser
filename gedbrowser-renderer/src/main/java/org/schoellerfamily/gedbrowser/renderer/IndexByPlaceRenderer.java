@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
@@ -23,8 +24,12 @@ import org.schoellerfamily.geoservice.model.GeoServiceItemComparator;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Renders index by place output for display.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class IndexByPlaceRenderer extends GedRenderer<Root>
@@ -39,11 +44,11 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
     private final Map<String, Set<PersonRenderer>> theMap;
 
     /**
-     * Constructor.
+     * Creates a new IndexByPlaceRenderer.
      *
-     * @param root root of data set
-     * @param client the geoservice client to use
-     * @param renderingContext the context that we are rendering in
+     * @param root the root
+     * @param client the client
+     * @param renderingContext the rendering context
      */
     public IndexByPlaceRenderer(final Root root,
             final GeoServiceClient client,
@@ -118,8 +123,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
      */
     private void placePerson(final Map<String, Set<PersonRenderer>> aMap,
             final PersonRenderer renderer, final String place) {
-        final Set<PersonRenderer> locatedPersons =
-                personRendererSet(aMap, place);
+        final Set<PersonRenderer> locatedPersons = personRendererSet(aMap, place);
         locatedPersons.add(renderer);
     }
 
@@ -141,29 +145,34 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
         if (getRenderingContext().isAdmin()) {
             return false;
         }
-        final PersonConfidentialVisitor visitor =
-                new PersonConfidentialVisitor();
+        final PersonConfidentialVisitor visitor = new PersonConfidentialVisitor();
         person.accept(visitor);
         return visitor.isConfidential() || !getRenderingContext().isUser();
     }
 
     /**
-     * @return the complete index
+     * Gets the whole index.
+     *
+     * @return the whole index
      */
     public Map<String, Set<PersonRenderer>> getWholeIndex() {
         return theMap;
     }
 
     /**
-     * @return collection of place names
+     * Gets the places.
+     *
+     * @return the places
      */
     public Set<String> getPlaces() {
         return getWholeIndex().keySet();
     }
 
     /**
-     * @param place the place name
-     * @return persons in the place
+     * Returns the persons at place.
+     *
+     * @param place the place
+     * @return the persons at place
      */
     public Set<PersonRenderer> getPersonsAtPlace(final String place) {
         log.info("In getPersonsAtPlace");
@@ -171,17 +180,23 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
     }
 
     /**
-     * @return a map of geoservice results to sets of persons
+     * Executes render.
+     *
+     * @return the resulting set
      */
     public Map<GeoServiceItem, Set<PersonRenderer>> render() {
-        final Map<GeoServiceItem, Set<PersonRenderer>> aMap = new TreeMap<>(
-                new GeoServiceItemComparator());
-        final Map<String, Set<PersonRenderer>> map = getWholeIndex();
-        for (final Map.Entry<String, Set<PersonRenderer>> entry
-                : map.entrySet()) {
-            final GeoServiceItem item = client.get(entry.getKey());
-            aMap.put(item, entry.getValue());
-        }
-        return aMap;
+        return getWholeIndex().entrySet().stream()
+            .collect(Collectors.toMap(
+                entry -> client.get(entry.getKey()),
+                Map.Entry::getValue,
+                (v1, v2) -> {
+                    final Set<PersonRenderer> merged =
+                        new TreeSet<>(new PersonRendererComparator());
+                    merged.addAll(v1);
+                    merged.addAll(v2);
+                    return merged;
+                },
+                () -> new TreeMap<>(new GeoServiceItemComparator())
+            ));
     }
 }

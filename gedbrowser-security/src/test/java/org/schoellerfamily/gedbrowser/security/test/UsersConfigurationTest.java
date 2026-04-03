@@ -16,8 +16,12 @@ import org.schoellerfamily.gedbrowser.security.model.UserImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for users configuration.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class })
 public final class UsersConfigurationTest {
@@ -123,13 +127,9 @@ public final class UsersConfigurationTest {
         }
     }
 
-    /**
-     * @param userFile the user file to read
-     * @return the set of users from the user file
-     */
     private SecurityUsers readUserFile(final String userFile) {
         final UsersReader<SecurityUser, SecurityUsers> usersReader = new UsersReader<>();
         return (SecurityUsers) usersReader.readUserFile(userFile, () -> new SecurityUsers(userFile),
-            () -> new UserImpl());
+            UserImpl::new);
     }
 }

@@ -1,22 +1,21 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders source link phrase output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor
 public final class SourceLinkPhraseRenderer implements PhraseRenderer {
     /** */
-    private final transient SourceLinkRenderer slRenderer;
+    private final SourceLinkRenderer slRenderer;
 
     /**
-     * @param renderer the associated source link renderer;
-     */
-    public SourceLinkPhraseRenderer(
-            final SourceLinkRenderer renderer) {
-        this.slRenderer = renderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * Executes render as phrase.
+     *
+     * @return the resulting string
      */
     @Override
     public String renderAsPhrase() {

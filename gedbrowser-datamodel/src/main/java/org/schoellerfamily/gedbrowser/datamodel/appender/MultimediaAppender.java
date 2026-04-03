@@ -3,24 +3,30 @@ package org.schoellerfamily.gedbrowser.datamodel.appender;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 
 /**
- * @author Dick Schoeller
+ * Represents multimedia appender in the domain model.
  *
+ * @author Richard Schoeller
  */
 public final class MultimediaAppender implements AppenderStrategy {
     /**
      * The Multimedia that owns this appender.
      */
-    private final transient Multimedia owner;
+    private final Multimedia owner;
 
     /**
-     * Constructor.
+     * Creates a new MultimediaAppender.
      *
-     * @param owner the Attribute that owns this appender.
+     * @param owner the owner
      */
     public MultimediaAppender(final Multimedia owner) {
         this.owner = owner;
     }
 
+    /**
+     * Executes append string.
+     *
+     * @param appendage the appendage
+     */
     @Override
     public void appendString(final String appendage) {
         owner.setTail(owner.getTail().concat(appendage));

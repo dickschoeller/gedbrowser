@@ -1,16 +1,15 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild , Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
 import { NoteCreator } from '../../bases';
-import { NewNoteDialogComponent } from '../../components';
-import { NewNoteDialogData } from '../../models';
-import { ApiNote, NewPersonDialogData } from '../../models';
+import { ConfirmDialogComponent } from '../../components';
+import { ApiNote } from '../../models';
 import { NoteService } from '../../services';
-import { NewNoteHelper, UrlBuilder, ListPage, ListPageHelper } from '../../utils';
+import { UrlBuilder, ListPage, ListPageHelper } from '../../utils';
 import { NoteListPageComponent } from './note-list-page.component';
 import { MainLayoutComponent } from '../../components/main-layout/main-layout.component';
 import { MatCard, MatCardTitle, MatCardContent, MatCardHeader } from '@angular/material/card';
@@ -184,8 +183,15 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
   }
 
   delete(note: ApiNote) {
-    this.noteService.delete(this.dataset, note).subscribe((n: ApiNote) => {
-      this.refreshNote(n);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Are you sure you want to delete this note?' }
+    });
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.noteService.delete(this.dataset, note).subscribe((n: ApiNote) => {
+          this.refreshNote(n);
+        });
+      }
     });
   }
 

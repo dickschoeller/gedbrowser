@@ -15,10 +15,10 @@ import com.saucelabs.saucebindings.junit5.SauceBindingsExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Example test that demonstrates using the SauceBindings JUnit 5 extension
- * directly. This test is disabled by default and intended as a template for
- * running against Sauce Labs.
+ * Contains integration tests for sauce bindings example.
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = SeleniumConfig.class)
@@ -29,7 +29,11 @@ class SauceBindingsExampleIT {
     @Autowired
     private WebDriverFactory driverFactory;
 
-    /** Sauce Labs extension to manage WebDriver lifecycle. */
+    /**
+     * Executes sauce bindings extension.
+     *
+     * @return the resulting new
+     */
     @RegisterExtension
     @SuppressWarnings("checkstyle:visibilitymodifier")
     public final SauceBindingsExtension sauceExtension = new SauceBindingsExtension();

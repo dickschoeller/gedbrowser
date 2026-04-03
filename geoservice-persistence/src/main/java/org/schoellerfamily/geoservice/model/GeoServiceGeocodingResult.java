@@ -4,23 +4,34 @@ import java.beans.Transient;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
-import org.apache.commons.collections4.CollectionUtils;
 
 import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressType;
 
+
+
 /**
- * A variant of Google's GeocodingResult that will work with Jackson
- * serialization to JSON.
+ * Represents the result of geo service geocoding processing.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.CommentSize", "java:S1168" })
 public final class GeoServiceGeocodingResult {
     /** */
-    private static final String POSTCODE_LOCALITIES = "postcodeLocalities";
+    private static final String PROPERTY_NAME_ADDRESS_COMPONENTS = "addressComponents";
+    /** */
+    private static final String PROPERTY_NAME_FORMATTED_ADDRESS = "formattedAddress";
+    /** */
+    private static final String PROPERTY_NAME_PARTIAL_MATCH = "partialMatch";
+    /** */
+    private static final String PROPERTY_NAME_PLACE_ID = "placeId";
+    /** */
+    private static final String PROPERTY_NAME_POSTCODE_LOCALITIES = "postcodeLocalities";
+    /** */
+    private static final String PROPERTY_NAME_TYPES = "types";
 
     /**
      * The {@code types} array indicates the type of the returned result. This
@@ -52,15 +63,15 @@ public final class GeoServiceGeocodingResult {
     }
 
     /**
-     * @param addressComponents
-     *            an array containing the separate address components
-     * @param formattedAddress human readable address string
-     * @param postcodeLocalities
-     *            an array denoting all of the addresses in the postal code
-     * @param geometry location information
-     * @param types an array describing the applicable location types
-     * @param partialMatch true if this is a partial match
-     * @param placeId unique identifier for the place
+     * Creates a new GeoServiceGeocodingResult.
+     *
+     * @param addressComponents the address components
+     * @param formattedAddress the formatted address
+     * @param postcodeLocalities the postcode localities to use
+     * @param geometry the geometry
+     * @param types the types to use
+     * @param partialMatch the partial match
+     * @param placeId the unique identifier for place
      */
     public GeoServiceGeocodingResult(
             final AddressComponent[] addressComponents,
@@ -68,24 +79,6 @@ public final class GeoServiceGeocodingResult {
             final FeatureCollection geometry,
             final AddressType[] types,
             final boolean partialMatch, final String placeId) {
-        this.geometry = geometry;
-        if (geometry != null
-                && geometry.getFeatures() != null
-                && !geometry.getFeatures().isEmpty()) {
-            final Feature fg = geometry.getFeatures().get(0);
-            fg.setProperty("formattedAddress", formattedAddress);
-            fg.setProperty("partialMatch", Boolean.valueOf(partialMatch));
-            fg.setProperty("placeId", placeId);
-            if (postcodeLocalities == null) {
-                fg.setProperty(POSTCODE_LOCALITIES, null);
-            } else {
-                fg.setProperty(POSTCODE_LOCALITIES, Arrays
-                        .copyOf(postcodeLocalities, postcodeLocalities.length));
-            }
-            fg.setProperty("types", types);
-            fg.setProperty("addressComponents", addressComponents);
-        }
-
         if (types == null) {
             this.types = null;
         } else {
@@ -97,11 +90,63 @@ public final class GeoServiceGeocodingResult {
         } else {
             this.addressComponents = Arrays.copyOf(addressComponents, addressComponents.length);
         }
+
+        this.geometry = geometry;
+        if (geometry == null || CollectionUtils.isEmpty(geometry.getFeatures())) {
+            return;
+        }
+        final Feature feature = geometry.getFeatures().get(0);
+        setProperty(feature, PROPERTY_NAME_FORMATTED_ADDRESS, formattedAddress);
+        setProperty(feature, PROPERTY_NAME_PARTIAL_MATCH, partialMatch);
+        setProperty(feature, PROPERTY_NAME_PLACE_ID, placeId);
+        setProperty(feature, PROPERTY_NAME_POSTCODE_LOCALITIES, postcodeLocalities);
+        setProperty(feature, PROPERTY_NAME_TYPES, types);
+        setProperty(feature, PROPERTY_NAME_ADDRESS_COMPONENTS, addressComponents);
+    }
+
+    private void setProperty(final Feature feature, final String propertyName, final String value) {
+        if (value != null || feature.getProperty(propertyName) == null) {
+            feature.setProperty(propertyName, value);
+        }
+    }
+
+    private void setProperty(final Feature feature, final String propertyName,
+        final boolean value) {
+        if (value || feature.getProperty(propertyName) == null) {
+            feature.setProperty(propertyName, Boolean.valueOf(value));
+        }
+    }
+
+    private void setProperty(final Feature feature, final String propertyName,
+        final String... value) {
+        if (value != null || feature.getProperty(propertyName) == null) {
+            feature.setProperty(propertyName,
+                value == null ? null : Arrays.copyOf(value, value.length));
+        }
+    }
+
+    private void setProperty(final Feature feature, final String propertyName,
+        final AddressType... value) {
+        if (value != null || feature.getProperty(propertyName) == null) {
+            feature.setProperty(propertyName,
+                value == null ? null : Arrays.copyOf(value, value.length));
+        }
+    }
+
+    private void setProperty(final Feature feature, final String propertyName,
+        final AddressComponent... value) {
+        if (value != null || feature.getProperty(propertyName) == null) {
+            feature.setProperty(propertyName,
+                value == null ? null : Arrays.copyOf(value, value.length));
+        }
     }
 
     /**
-     * {@code addressComponents} is an array containing the separate address
-     * components.
+     * {@code types} array indicates the type of the returned result. This
+     * array contains a set of zero or more tags identifying the type of feature
+     * returned in the result. For example, a geocode of "Chicago" returns
+     * "locality" which indicates that "Chicago" is a city, and also returns
+     * "political" which indicates it is a political entity.
      *
      * @return the array of components
      */
@@ -134,7 +179,7 @@ public final class GeoServiceGeocodingResult {
         if (location == null) {
             return null;
         }
-        return location.getProperty("formattedAddress");
+        return location.getProperty(PROPERTY_NAME_FORMATTED_ADDRESS);
     }
 
     /**
@@ -145,7 +190,7 @@ public final class GeoServiceGeocodingResult {
      * @return the postcode localities
      */
     @Transient
-    public String[] getPostcodeLocalities() {
+    public String[] getPropertyNamePostcodeLocalities() {
         final Feature location = getLocation();
         if (location == null) {
             // Null is a valid value for this field, and we want to preserve it if it is
@@ -153,7 +198,7 @@ public final class GeoServiceGeocodingResult {
             // mutability issues.
             return null;
         }
-        return location.getProperty(POSTCODE_LOCALITIES);
+        return location.getProperty(PROPERTY_NAME_POSTCODE_LOCALITIES);
     }
 
     /**
@@ -176,7 +221,7 @@ public final class GeoServiceGeocodingResult {
      *
      * @return the types
      */
-    public AddressType[] getTypes() {
+    public AddressType[] getPropertyNameTypes() {
         if (types == null) {
             // Null is a valid value for this field, and we want to preserve it if it is
             // null. But if it is not null, we want to return a copy of the array to avoid
@@ -211,7 +256,7 @@ public final class GeoServiceGeocodingResult {
         if (location == null) {
             return false;
         }
-        return location.getProperty("partialMatch");
+        return location.getProperty(PROPERTY_NAME_PARTIAL_MATCH);
     }
 
     /**
@@ -225,16 +270,9 @@ public final class GeoServiceGeocodingResult {
         if (location == null) {
             return null;
         }
-        return location.getProperty("placeId");
+        return location.getProperty(PROPERTY_NAME_PLACE_ID);
     }
 
-    /**
-     * Return the location. It is in the form of a GeoJSON feature.
-     * Much of the descriptive data from Google is in the properties
-     * of that feature.
-     *
-     * @return the location feature
-     */
     @Transient
     private Feature getLocation() {
         if (geometry == null) {

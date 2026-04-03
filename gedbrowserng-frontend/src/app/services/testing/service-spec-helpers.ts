@@ -136,6 +136,20 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       expect(result).toEqual(entities);
     });
 
+    it('should deduplicate entities with same ID string', async () => {
+      const entities = [createEntity(id), createEntity(id), createEntity(altId)];
+
+      const result$ = getService().getAll(testDb);
+      const promise = firstValueFrom(result$);
+
+      const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}`);
+      expect(req.request.method).toBe('GET');
+      req.flush(entities);
+
+      const result = await promise;
+      expect(result).toEqual([createEntity(id), createEntity(altId)]);
+    });
+
     if (includeEmptyListTest) {
       it('should handle empty list', async () => {
         const result$ = getService().getAll(testDb);

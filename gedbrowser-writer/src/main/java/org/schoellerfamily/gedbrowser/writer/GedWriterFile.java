@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.writer;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 /**
- * @author Dick Schoeller
+ * Represents ged writer file.
+ *
+ * @author Richard Schoeller
  */
 public class GedWriterFile extends GedWriterLine {
     /** */
@@ -12,7 +14,9 @@ public class GedWriterFile extends GedWriterLine {
     private final String dbName;
 
     /**
-     * @param root the root object of this structure
+     * Creates a new GedWriterFile.
+     *
+     * @param root the root
      */
     public GedWriterFile(final Root root) {
         super(-1, root, "");
@@ -21,14 +25,18 @@ public class GedWriterFile extends GedWriterLine {
     }
 
     /**
-     * @return the filename for this file
+     * Gets the filename.
+     *
+     * @return the filename
      */
     public String getFilename() {
         return filename;
     }
 
     /**
-     * @return the DB name for this file
+     * Gets the db name.
+     *
+     * @return the db name
      */
     public String getDbName() {
         return dbName;

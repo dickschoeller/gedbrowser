@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.selenium.pageobjects;
 
 /**
- * @author Dick Schoeller
+ * Represents submitter page.
+ *
+ * @author Richard Schoeller
  */
 public final class SubmitterPage extends PageBase implements MenuPageFacade {
     /** */
@@ -11,10 +13,12 @@ public final class SubmitterPage extends PageBase implements MenuPageFacade {
     private final MenuPage menuPage = new MenuPageImpl(this);
 
     /**
-     * @param factory the factory for creating more page objects
-     * @param previous the previous page object
-     * @param baseUrl the base URL for this test
-     * @param id the ID of the current submitter
+     * Creates a new SubmitterPage.
+     *
+     * @param factory the factory
+     * @param previous the previous
+     * @param baseUrl the base url to use
+     * @param id the unique identifier for the target
      */
     public SubmitterPage(final PageFactory factory, final PageBase previous,
             final String baseUrl, final String id) {
@@ -22,13 +26,20 @@ public final class SubmitterPage extends PageBase implements MenuPageFacade {
         this.id = id;
     }
 
+    /**
+     * Gets the menu page.
+     *
+     * @return the menu page
+     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;
     }
 
     /**
-     * @return the submitter ID for this page.
+     * Gets the id.
+     *
+     * @return the id
      */
     public String getId() {
         return id;

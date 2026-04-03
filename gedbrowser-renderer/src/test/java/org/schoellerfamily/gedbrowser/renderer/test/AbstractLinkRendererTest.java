@@ -20,8 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for abstract link renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -33,16 +37,11 @@ final class AbstractLinkRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
@@ -51,10 +50,6 @@ final class AbstractLinkRendererTest {
             "renderer is not of the right type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
@@ -62,10 +57,6 @@ final class AbstractLinkRendererTest {
             "renderer is not of the right type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
@@ -73,10 +64,6 @@ final class AbstractLinkRendererTest {
             "renderer is not of the right type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
@@ -84,10 +71,6 @@ final class AbstractLinkRendererTest {
             "renderer is not of the right type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final AbstractLinkRenderer<?> renderer = createRenderer();
@@ -95,24 +78,18 @@ final class AbstractLinkRendererTest {
             "renderer is not of the right type");
     }
 
-    /**
-     * @return the renderer
-     */
     private AbstractLinkRenderer<?> createRenderer() {
         return new AbstractLinkRenderer<AbstractLink>(createAbstractLink(),
             new GedRendererFactory(), anonymousContext) {
         };
     }
 
-    /**
-     * Create an anonymous subclass of AbstractLink for testing.
-     *
-     * @return the link
-     */
     private AbstractLink createAbstractLink() {
         return new AbstractLink(null) {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

@@ -12,10 +12,12 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Listen for requests for the login page.
+ * Handles requests for login.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Controller
 @Slf4j
@@ -77,13 +79,6 @@ public class LoginController {
         return LOGIN;
     }
 
-    /**
-     * Try to figure out where to go after login. We have to do a
-     * few tricks in order to carry that around.
-     *
-     * @param request the request object
-     * @return the URL
-     */
     private String loginDestinationUrl(final HttpServletRequest request) {
         final HttpSession session = request.getSession();
         final String requestReferer = request.getHeader(REFERER);
@@ -98,12 +93,6 @@ public class LoginController {
         }
     }
 
-    /**
-     * Decide if we want to use this referer.
-     *
-     * @param referer the referer string
-     * @return true if it is one we would want to go to
-     */
     private boolean useReferer(final String referer) {
         return referer != null && referer.contains(servletPath)
                 && !referer.contains(LOGIN);

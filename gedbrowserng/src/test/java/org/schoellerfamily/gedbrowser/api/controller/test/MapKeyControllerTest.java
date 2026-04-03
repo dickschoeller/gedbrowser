@@ -1,0 +1,84 @@
+package org.schoellerfamily.gedbrowser.api.controller.test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+import org.schoellerfamily.gedbrowser.api.controller.MapKeyController;
+import org.schoellerfamily.geoservice.keys.KeyManager;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+
+/**
+ * Contains tests for the map key controller.
+ */
+
+final class MapKeyControllerTest {
+
+    @Test
+    void testReadMapKeyReturnsKeyWhenManagerSucceeds() {
+        final KeyManager keyManager = new KeyManager() {
+            /**
+             * Gets the geocoding key.
+             *
+             * @return the geocoding key
+             */
+            @Override
+            public String getGeocodingKey() {
+                return "GEO";
+            }
+
+            /**
+             * Gets the maps key.
+             *
+             * @return the maps key
+             */
+            @Override
+            public String getMapsKey() {
+                return "MAP-KEY";
+            }
+        };
+
+        final MapKeyController controller = new MapKeyController(keyManager);
+
+        final ResponseEntity<Map<String, String>> response = controller.readMapKey();
+        assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
+        assertEquals("MAP-KEY", response.getBody().get("key"));
+    }
+
+    @Test
+    void testReadMapKeyReturns500WhenManagerThrows() {
+        final KeyManager keyManager = new KeyManager() {
+            /**
+             * Gets the geocoding key.
+             *
+             * @return the geocoding key
+             */
+            @Override
+            public String getGeocodingKey() {
+                return "GEO";
+            }
+
+            /**
+             * Gets the maps key.
+             *
+             * @return the maps key
+             */
+            @Override
+            public String getMapsKey() {
+                throw new IllegalStateException("missing key");
+            }
+        };
+
+        final MapKeyController controller = new MapKeyController(keyManager);
+
+        final ResponseEntity<Map<String, String>> response = controller.readMapKey();
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            response.getStatusCode().value());
+        assertNull(response.getBody());
+    }
+}

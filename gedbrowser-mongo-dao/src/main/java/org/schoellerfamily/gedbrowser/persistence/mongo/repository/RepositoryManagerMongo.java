@@ -1,17 +1,23 @@
 package org.schoellerfamily.gedbrowser.persistence.mongo.repository;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * @author Dick Schoeller
+ * Represents repository manager mongo for persistence operations.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public class RepositoryManagerMongo extends MappedRepositoryManagerMongo
         implements RootRepoProvider, PersonRepoProvider, FamilyRepoProvider, SourceRepoProvider,
             HeadRepoProvider, SubmissionRepoProvider, SubmitterRepoProvider, TrailerRepoProvider,
             NoteRepoProvider {
+
     /**
      * Get a repository based on the class of ged object we are working with.
      *

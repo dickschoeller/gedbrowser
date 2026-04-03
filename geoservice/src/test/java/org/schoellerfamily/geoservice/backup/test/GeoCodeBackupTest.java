@@ -25,9 +25,9 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Tests for backup manager for cached geocode lookups.
+ * Contains tests for geo code backup.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class,
@@ -44,7 +44,7 @@ final class GeoCodeBackupTest {
     /**
      * Setup the configurations for this test class.
      *
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     @Configuration
     @RequiredArgsConstructor
@@ -53,7 +53,9 @@ final class GeoCodeBackupTest {
         private GeoCoder geoCoder;
 
         /**
-         * @return the persistence manager
+         * Creates and configures the geo code bean.
+         *
+         * @return the configured geo code bean
          */
         @Bean
         public GeoCode persistenceManager() {
@@ -61,7 +63,9 @@ final class GeoCodeBackupTest {
         }
 
         /**
-         * @return the geocoder
+         * Creates and configures the geo coder bean.
+         *
+         * @return the configured geo coder bean
          */
         @Bean
         public GeoCoder geoCoder() {
@@ -72,9 +76,6 @@ final class GeoCodeBackupTest {
         }
     }
 
-    /**
-     * @throws IOException if backup file can't be written or read
-     */
     @Test
     void testBackupRestoreBasic() throws IOException {
         gcd.clear();
@@ -90,9 +91,6 @@ final class GeoCodeBackupTest {
         }
     }
 
-    /**
-     * @throws IOException if backup file can't be written or read
-     */
     @Test
     void testBackupRestore() throws IOException {
         gcd.clear();

@@ -8,12 +8,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents authority.
+ *
+ * @author Richard Schoeller
  */
 @Builder
 public final class Authority implements GrantedAuthority {
-    /** */
+    /**
+     * The serial version u i d value.
+     */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -24,7 +30,9 @@ public final class Authority implements GrantedAuthority {
     private final UserRoleName userRoleName;
 
     /**
-     * {@inheritDoc}
+     * Returns the authority.
+     *
+     * @return the authority
      */
     @Override
     public String getAuthority() {

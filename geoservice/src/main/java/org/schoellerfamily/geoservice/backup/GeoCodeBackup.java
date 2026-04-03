@@ -1,7 +1,6 @@
 package org.schoellerfamily.geoservice.backup;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
@@ -11,43 +10,41 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.RequiredArgsConstructor;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+
+
 
 /**
- * Implements backup and recover of the contents of the geocode data set.
+ * Provides behavior related to geo code backup.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
+@RequiredArgsConstructor
 public class GeoCodeBackup {
     /** */
     private final GeoCode gcd;
-
-    /** */
-    private final ObjectMapper mapper = new ObjectMapper();
-
     /**
-     * Constructor.
+     * The object mapper used for JSON serialization and deserialization.
+     */
+    private final ObjectMapper mapper = JsonMapper.builder()
+            .disable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
+            .changeDefaultVisibility(
+                vc -> vc.withVisibility(PropertyAccessor.FIELD, Visibility.ANY))
+            .build();
+    /**
+     * Executes backup.
      *
-     * @param gcd a geocode
+     * @param resultFile the result file to use
+     * @throws JacksonException if a JSON processing error occurs
      */
-    public GeoCodeBackup(final GeoCode gcd) {
-        this.gcd = gcd;
-        mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
-    }
-
-    /**
-     * @param resultFile the file to write to
-     * @throws JsonGenerationException if can't generate JSON
-     * @throws JsonMappingException if can't figure out what stuff is for JSON
-     * @throws IOException if file IO problems
-     */
-    public void backup(final File resultFile)
-            throws JsonGenerationException, JsonMappingException, IOException {
+    public void backup(final File resultFile) throws JacksonException {
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
         final List<GeoServiceItem> list = gcd.allKeys().stream()
             .map(gcd::find)
@@ -57,13 +54,12 @@ public class GeoCodeBackup {
     }
 
     /**
-     * @param src the file to read from
-     * @throws JsonParseException if can't parse JSON
-     * @throws JsonMappingException if can't figure out what stuff is for JSON
-     * @throws IOException if file IO problems
+     * Executes recover.
+     *
+     * @param src the src
+     * @throws JacksonException if a JSON processing error occurs
      */
-    public void recover(final File src)
-            throws JsonParseException, JsonMappingException, IOException {
+    public void recover(final File src) throws JacksonException {
         final List<GeoServiceItem> list = mapper.readValue(src,
                 new TypeReference<List<GeoServiceItem>>() {
                 });

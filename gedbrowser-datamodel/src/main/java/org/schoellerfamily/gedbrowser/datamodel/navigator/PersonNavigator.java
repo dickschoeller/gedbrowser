@@ -7,17 +7,25 @@ import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.PersonVisitor;
 
 /**
- * @author Dick Schoeller
+ * Navigates relationships for person.
+ *
+ * @author Richard Schoeller
  */
 public final class PersonNavigator {
-    /** */
+    /**
+     * The person value.
+     */
     private final Person person;
 
-    /** */
+    /**
+     * The visitor value.
+     */
     private final PersonVisitor visitor;
 
     /**
-     * @param person the person to navigate
+     * Creates a new PersonNavigator.
+     *
+     * @param person the person
      */
     public PersonNavigator(final Person person) {
         this.person = person;
@@ -26,7 +34,9 @@ public final class PersonNavigator {
     }
 
     /**
-     * @return the person that is navigated
+     * Gets the person.
+     *
+     * @return the person
      */
     public Person getPerson() {
         return person;
@@ -78,7 +88,9 @@ public final class PersonNavigator {
     }
 
     /**
-     * @return list of all families that this person is a child of
+     * Gets the families c.
+     *
+     * @return the families c
      */
     public List<Family> getFamiliesC() {
         return visitor.getFamiliesC();

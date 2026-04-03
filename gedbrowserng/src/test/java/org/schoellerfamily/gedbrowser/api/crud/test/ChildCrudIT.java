@@ -2,6 +2,7 @@ package org.schoellerfamily.gedbrowser.api.crud.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +22,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for child crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -49,7 +54,6 @@ class ChildCrudIT {
     /** */
     private CrudTestHelper helper;
 
-    /** */
     @BeforeEach
     void setUp() {
         helper = new CrudTestHelper(
@@ -58,7 +62,6 @@ class ChildCrudIT {
         crud = new ChildCrud(loader, toDocConverter, repositoryManager);
     }
 
-    /** */
     @Test
     void testCreateChild() {
         log.info("Beginning testCreateChildInFamily2");
@@ -70,7 +73,6 @@ class ChildCrudIT {
                 gotParent.getFamss().get(0).getString(), "Child should be in family");
     }
 
-    /** */
     @Test
     void testLinkChildInFamily() {
         log.info("Beginning testLinkChildInFamily");
@@ -86,7 +88,6 @@ class ChildCrudIT {
         assertEquals(secondChild.getString(), family.getChildren().get(1).getString());
     }
 
-    /** */
     @Test
     void testLinkChild() {
         log.info("Beginning testLinkChild");
@@ -105,7 +106,6 @@ class ChildCrudIT {
             .returns(gotChild.getFamcs().get(0).getString(), p -> p.getFamss().get(0).getString());
     }
 
-    /** */
     @Test
     void testUnlinkChild() {
         final ApiPerson parent = helper.createPerson();
@@ -118,16 +118,11 @@ class ChildCrudIT {
         assertEquals(0, gotChild.getFamcs().size(), "not in family");
     }
 
-    /**
-     * @param parent the parent
-     * @return the child
-     */
     private ApiPerson createChildOfParent(final ApiPerson parent) {
         final ApiPerson child = helper.buildPerson();
         return crud.createChild(helper.getDb(), parent.getString(), child);
     }
 
-    /** */
     @Test
     void testCreateChildInFamily() {
         log.info("Beginning testCreateChildInFamily");
@@ -142,7 +137,6 @@ class ChildCrudIT {
             .returns("F1", p -> p.getFamcs().get(0).getString());
     }
 
-    /** */
     @Test
     void testCreateChildInFamily2() {
         log.info("Beginning testCreateChildInFamily2");
@@ -157,7 +151,43 @@ class ChildCrudIT {
             .returns("F4", p -> p.getFamcs().get(0).getString());
     }
 
-    /** */
+    @Test
+    void testCreateChildInFamilyNotFound() {
+        log.info("Beginning testCreateChildInFamilyNotFound");
+        final ApiPerson reqPerson = helper.createAlexander();
+        final ApiPerson resPerson =
+                crud.createChildInFamily(helper.getDb(), "FXXXXX", reqPerson);
+
+        assertNull(resPerson, "Should return null when family is not found");
+    }
+
+    @Test
+    void testLinkChildInFamilyNotFound() {
+        log.info("Beginning testLinkChildInFamilyNotFound");
+        final ApiPerson child = helper.createPerson();
+
+        final ApiPerson resPerson =
+                crud.linkChildInFamily(helper.getDb(), "FXXXXX", child);
+
+        assertThat(resPerson)
+            .returns(child.getString(), ApiPerson::getString)
+            .returns(0, p -> p.getFamcs().size());
+    }
+
+    @Test
+    void testUnlinkChildFamilyNotFound() {
+        log.info("Beginning testUnlinkChildFamilyNotFound");
+        final ApiPerson parent = helper.createPerson();
+        final ApiPerson child = createChildOfParent(parent);
+        final String famID = child.getFamcs().get(0).getString();
+        final FamilyCrud familyCrud = new FamilyCrud(loader, toDocConverter, repositoryManager);
+        familyCrud.deleteOne(helper.getDb(), famID);
+
+        crud.unlinkChild(helper.getDb(), famID, child.getString());
+        final ApiPerson gotChild = helper.getPerson(child);
+        assertEquals(0, gotChild.getFamcs().size(), "not in family");
+    }
+
     @Test
     void testGetPersonsMiniSchoellerI2AddChild() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddChild");
@@ -171,7 +201,6 @@ class ChildCrudIT {
             .returns(reqChild.getIndexName(), c -> c.getIndexName());
     }
 
-    /** */
     @Test
     void testGetPersonsMiniSchoellerI2AddChild2() {
         log.info("Beginning testGetPersonsMiniSchoellerI2AddChild2");

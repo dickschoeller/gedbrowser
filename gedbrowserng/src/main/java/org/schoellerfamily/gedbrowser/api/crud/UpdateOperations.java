@@ -3,28 +3,30 @@ package org.schoellerfamily.gedbrowser.api.crud;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.transformers.ApiModelToGedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
-import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.persistence.domain.GedDocument;
 import org.schoellerfamily.gedbrowser.persistence.domain.RootDocument;
 import org.schoellerfamily.gedbrowser.persistence.mongo.gedconvert.GedObjectToGedDocumentMongoConverter;
 import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 import org.springframework.data.repository.CrudRepository;
 
+
+
 /**
- * This interface contains default methods that implement the update
- * operations for the classes that declare implementing the interface.
+ * Defines the contract for update operations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  *
  * @param <X> the data model type we are manipulating
+ *
  * @param <Y> the DB type associated with the type X
+ *
  * @param <Z> the Api type associated with the type X
  */
 @SuppressWarnings("PMD.CommentSize")
 public interface UpdateOperations<X extends GedObject,
         Y extends GedDocument<X>,
         Z extends ApiObject>
-    extends Converter<Y, Z> {
+    extends Converter<Y, Z>, BuilderCreator {
     /**
      * @return the DB repository for this type
      */
@@ -44,9 +46,9 @@ public interface UpdateOperations<X extends GedObject,
      */
     default Z update(final RootDocument root, final Z in) {
         final ApiModelToGedObjectVisitor visitor =
-                new ApiModelToGedObjectVisitor(
-                        new GedObjectBuilder(root.getGedObject()),
-                        root.getGedObject());
+            new ApiModelToGedObjectVisitor(
+                createBuilder(root.getGedObject()),
+                root.getGedObject());
         in.accept(visitor);
         @SuppressWarnings("unchecked")
         final X gob = (X) visitor.getGedObject();
@@ -64,12 +66,13 @@ public interface UpdateOperations<X extends GedObject,
         final Y document = (Y) getConverter().createGedDocument(gob);
         try {
             final FindableDocument<X, Y> repo = getRepository();
-            final Y oldDoc = repo.findByFileAndString(
-                    gob.getFilename(), gob.getString());
+            final Y oldDoc = repo.findByFileAndString(gob.getFilename(), gob.getString());
+            if (oldDoc == null) {
+                return null;
+            }
             document.setIdString(oldDoc.getIdString());
-            return ((CrudRepository<Y, String>) repo)
-                    .save(document);
-        } catch (Exception e) {
+            return ((CrudRepository<Y, String>) repo).save(document);
+        } catch (Exception _) {
             return null;
         }
     }

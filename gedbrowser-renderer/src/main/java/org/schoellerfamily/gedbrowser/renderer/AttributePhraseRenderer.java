@@ -1,30 +1,26 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders attribute phrase output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public final class AttributePhraseRenderer implements PhraseRenderer {
     /**
      * Holder for the AttributeRenderer that is using this helper.
      */
-    private final transient AttributeRenderer attributeRenderer;
+    private final AttributeRenderer attributeRenderer;
 
     /**
-     * Constructor.
+     * Returns the string.
      *
-     * @param attributeRenderer the renderer that this is associated with.
-     */
-    protected AttributePhraseRenderer(
-            final AttributeRenderer attributeRenderer) {
-        this.attributeRenderer = attributeRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @return the resulting string
      */
     @Override
     public String renderAsPhrase() {
-        return RenderingContextRenderer.escapeString(attributeRenderer.getGedObject()
-                .getTail());
+        return RenderingContextRenderer.escapeString(attributeRenderer.getGedObject().getTail());
     }
 }

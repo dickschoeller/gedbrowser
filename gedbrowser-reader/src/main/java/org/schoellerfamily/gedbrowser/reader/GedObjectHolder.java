@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.reader;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for ged object holder.
+ *
+ * @author Richard Schoeller
  */
 public interface GedObjectHolder {
     /**

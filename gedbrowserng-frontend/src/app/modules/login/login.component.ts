@@ -23,36 +23,139 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     <mat-card elevation="5">
       <mat-card-title>{{ title }}</mat-card-title>
       <mat-card-subtitle>gedbrowserng</mat-card-subtitle>
-
-            <mat-card-content>
-                @if (notification) {
-                    <p [class]="notification.msgType">{{ notification.msgBody }}</p>
-                }
-
-                @if (!submitted) {
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-          <mat-form-field>
-            <input matInput formControlName="username" required placeholder="username">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput formControlName="password" required type="password" placeholder="password">
-          </mat-form-field>
-                    <button type="submit" [disabled]="!loginForm.form.valid" mat-raised-button color="primary">Login</button>
-                    </form>
-                }
+      <mat-card-content>
+        @if (notification) {
+          <p [class]="notification.msgType">{{ notification.msgBody }}</p>
+        }
+        @if (!submitted) {
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <mat-form-field>
+              <input matInput formControlName="username" required placeholder="username">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="password" required type="password" placeholder="password">
+            </mat-form-field>
+            <div class="button-row">
+              <button type="submit" [disabled]="!loginForm.form.valid" mat-raised-button color="primary">Login</button>
+              <button type="button" mat-button color="warn" (click)="onCancel()">Cancel</button>
+            </div>
+          </form>
+        }
         <br/>
-
-                @if (submitted) {
-                    <mat-spinner mode="indeterminate"></mat-spinner>
-                }
+        @if (submitted) {
+          <mat-spinner mode="indeterminate"></mat-spinner>
+        }
       </mat-card-content>
     </mat-card>
   </div>
 </div>`,
-    styles: [],
+        styles: [`
+:host {
+    display: block;
+    min-height: 100vh;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.content {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+mat-card {
+    width: min(100%, 400px);
+    max-width: 400px;
+    text-align: center;
+    animation: fadein 1s;
+    -o-animation: fadein 1s;
+    -moz-animation: fadein 1s;
+    -webkit-animation: fadein 1s;
+
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+mat-form-field {
+    display: block !important;
+    width: 100%;
+}
+
+.mat-mdc-form-field {
+    display: block !important;
+    width: 100%;
+}
+
+mat-input-container {
+    display: block;
+}
+
+mat-spinner {
+    width: 25px;
+    height: 25px;
+    margin: 20px auto 0 auto;
+}
+
+button {
+    display: block;
+    width: 100%;
+}
+
+.error {
+    color: #D50000;
+}
+
+.success {
+    color: #8BC34A;
+}
+
+
+@media screen and (max-width: 599px) {
+
+    .content {
+        min-height: 100vh;
+        display: flex !important;
+    }
+
+    mat-card {
+        display: block !important;
+        max-width: 999px;
+    }
+
+}
+
+a {
+    text-decoration: none;
+    cursor: auto;
+    color: #FFFFFF;
+}
+`],
     imports: [MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatButton, MatProgressSpinner]
 })
 export class LoginComponent implements OnInit, OnDestroy {
+
+        onCancel() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                this.router.navigate(['/']);
+            }
+        }
     title = 'Login';
     form: FormGroup;
 
@@ -122,18 +225,18 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.login(this.form.value)
             // show me the animation
             .pipe(delay(1000))
-            .subscribe(
-                () => {
+            .subscribe({
+                next: () => {
                     this.userService.getMyInfo().subscribe();
                     this.router.navigate([this.returnUrl]);
                 },
-                () => {
+                error: () => {
                     this.submitted = false;
                     this.notification = {
                         msgType: 'error',
                         msgBody: 'Incorrect username or password.'
                     };
                 }
-            );
+            });
     }
 }

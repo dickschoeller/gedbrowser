@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { HasAttributeList } from '../../interfaces';
 import { SubmitterCreator } from '../../bases';
-import { ApiObject, ApiSubmitter, ApiAttribute, LinkDialogData, LinkItem } from '../../models';
+import { ApiSubmitter } from '../../models';
 import { SubmitterService } from '../../services';
-import { UrlBuilder, NewSubmitterHelper, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
+import { UrlBuilder, ApiComparators, LinkHelper, Refresher, LinkDialogLauncher, UnlinkHelper } from '../../utils';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
@@ -31,8 +31,8 @@ export class SubmitterButtonComponent extends SubmitterCreator {
   @Input() dataset: string;
 
   constructor(
-    @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) @Inject(SubmitterService) public readonly service: SubmitterService,
-    @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog,
+    @Inject(SubmitterService) public readonly service: SubmitterService,
+    @Inject(MatDialog) public readonly dialog: MatDialog,
   ) {
     super(service, dialog);
   }

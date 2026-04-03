@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Multimedia;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.GedRendererFactory;
 import org.schoellerfamily.gedbrowser.renderer.MultimediaPhraseRenderer;
@@ -18,8 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for multimedia phrase renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -40,10 +45,9 @@ final class MultimediaPhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person = builder.createPerson();
 
         multimedia1 = new Multimedia(person, "Multimedia", "");
@@ -70,7 +74,6 @@ final class MultimediaPhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testRenderAsPhraseEmpty() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia1,
@@ -81,7 +84,6 @@ final class MultimediaPhraseRendererTest {
         assertEquals("<a href=\"file1.jpg\">Title 1</a>", string, "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testRenderAsPhraseString() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia2,
@@ -92,7 +94,6 @@ final class MultimediaPhraseRendererTest {
         assertEquals("<a href=\"file2.html\">Title 2</a>", string, "Rendered string mismatch");
     }
 
-    /** */
     @Test
     void testRenderAsPhrase() {
         final MultimediaRenderer aRenderer = new MultimediaRenderer(multimedia3,

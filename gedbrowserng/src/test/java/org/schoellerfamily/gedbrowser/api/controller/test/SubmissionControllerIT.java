@@ -24,8 +24,12 @@ import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the submission controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(
     classes = { Application.class, TestConfiguration.class },
@@ -46,7 +50,6 @@ class SubmissionControllerIT {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testGetSubmissionsGl120368() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/submissions";
@@ -66,7 +69,6 @@ class SubmissionControllerIT {
         assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
-    /** */
     @Test
     void testGetSubmissionsMiniSchoeller() {
         final String url = "http://localhost:" + port
@@ -82,7 +84,6 @@ class SubmissionControllerIT {
         assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
-    /** */
     @Test
     void testGetSubmissionsGl120368B1() {
         final String url = "http://localhost:" + port
@@ -103,7 +104,6 @@ class SubmissionControllerIT {
         assertThat(entity.getResponseBody()).isEqualTo(bodyFragment);
     }
 
-    /** */
     @Test
     void testGetSubmissionsGl120368Xyzzy() {
         final String url = "http://localhost:" + port
@@ -118,9 +118,6 @@ class SubmissionControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testCreateSubmissionsSimple() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/submissions";
@@ -185,9 +182,6 @@ class SubmissionControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteSubmissionNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -210,9 +204,6 @@ class SubmissionControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteSubmissionDatabaseNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -235,9 +226,6 @@ class SubmissionControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testUpdateSubmissionWithNote() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/submissions";

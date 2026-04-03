@@ -1,7 +1,7 @@
 package org.schoellerfamily.gedbrowser.security.model;
 
 /**
- * Carries the state of a user's access token.
+ * Represents user token state impl.
  */
 public class UserTokenStateImpl implements UserTokenState {
     /**
@@ -15,7 +15,7 @@ public class UserTokenStateImpl implements UserTokenState {
     private Long expiresIn;
 
     /**
-     * Constructor.
+     * Creates a new UserTokenStateImpl.
      */
     public UserTokenStateImpl() {
         this.accessToken = "";
@@ -23,10 +23,10 @@ public class UserTokenStateImpl implements UserTokenState {
     }
 
     /**
-     * Constructor.
+     * Creates a new UserTokenStateImpl.
      *
-     * @param accessToken the token string
-     * @param expiresIn the time until token expiration in ?????
+     * @param accessToken the access token
+     * @param expiresIn the expires in
      */
     public UserTokenStateImpl(final String accessToken, final long expiresIn) {
         this.accessToken = accessToken;
@@ -34,7 +34,9 @@ public class UserTokenStateImpl implements UserTokenState {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the access token.
+     *
+     * @return the access token
      */
     @Override
     public String getAccessToken() {
@@ -51,7 +53,9 @@ public class UserTokenStateImpl implements UserTokenState {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the expires in.
+     *
+     * @return the expires in
      */
     @Override
     public Long getExpiresIn() {
@@ -59,9 +63,9 @@ public class UserTokenStateImpl implements UserTokenState {
     }
 
     /**
-     * Set the time of token expiration in ???
+     * Set the time of token expiration in seconds.
      *
-     * @param expiresIn the time until token expiration in ???
+     * @param expiresIn the time until token expiration in seconds
      */
     public void setExpiresIn(final Long expiresIn) {
         this.expiresIn = expiresIn;

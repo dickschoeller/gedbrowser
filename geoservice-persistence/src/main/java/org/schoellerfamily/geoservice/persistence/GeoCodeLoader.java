@@ -5,19 +5,19 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Provides the means to pre-load the cache with some expected places. This is
- * the primary means by which we provide different modern place names for
- * places in the cache.
+ * Provides behavior related to geo code loader.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -87,37 +87,28 @@ public class GeoCodeLoader {
      * @param istream the input stream
      */
     public final void loadAndFind(final InputStream istream) {
-        load(istream, (s1, s2) -> gcc.find(s1, s2));
+        load(istream, gcc::find);
     }
 
     /**
-     * @author Dick Schoeller
+     * @author Richard Schoeller
      */
     private interface Loader {
         /**
-         * Do whatever the load load operation requires.
+         * Loads the geo code item.
          *
-         * @param placeName the place name
-         * @param modernPlaceName the modern place name for geocoding
-         * @return a geocodeitem
-         */
+         * @param placeName the historical place name
+         * @param modernPlaceName the modern place name
+         * @return the loaded geo code item
+        */
         GeoCodeItem load(String placeName, String modernPlaceName);
     }
 
-    /**
-     * Read places from an input stream. The format is | separated. It may
-     * contain just a historical place name or both historical and modern
-     * places names.
-     *
-     * @param istream the input stream
-     * @param loader what to do with each line
-     */
     private void load(final InputStream istream, final Loader loader) {
         log.debug("Loading the cache from input stream");
         String line;
         try (
-            InputStreamReader isr =
-                    new InputStreamReader(istream, Charset.forName("UTF-8"));
+            InputStreamReader isr = new InputStreamReader(istream, StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
         ) {
             while ((line = br.readLine()) != null) {

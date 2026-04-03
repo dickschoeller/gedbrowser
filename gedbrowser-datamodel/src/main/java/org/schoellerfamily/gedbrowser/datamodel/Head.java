@@ -1,43 +1,38 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents head in the domain model.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Head extends AbstractSpecialObject {
-    /**
-     * Default constructor.
-     */
-    public Head() {
-        super();
-    }
 
     /**
-     * @param parent parent object of this object
-     * @param tag long version of type string
+     * Creates a new Head.
+     *
+     * @param parent the parent
+     * @param tag the tag
      */
     public Head(final GedObject parent, final String tag) {
         super(parent, tag);
     }
 
     /**
-     * @param parent parent object of this child
-     * @param tag long version of type string
-     * @param tail additional text to append to the string
+     * Creates a new Head.
+     *
+     * @param parent the parent
+     * @param tag the tag
+     * @param tail the tail
      */
     public Head(final GedObject parent, final String tag, final String tail) {
         super(parent, buildParentString(tag, tail));
     }
 
-    /**
-     * The parent can only take one string. If we need to, concatenate the
-     * strings. The argument tag should never be empty, but tail could be.
-     *
-     * @param tag tag string
-     * @param tail tail string
-     * @return the constructed string
-     */
     private static String buildParentString(final String tag,
             final String tail) {
         if (tail.isEmpty()) {
@@ -47,6 +42,11 @@ public final class Head extends AbstractSpecialObject {
         }
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

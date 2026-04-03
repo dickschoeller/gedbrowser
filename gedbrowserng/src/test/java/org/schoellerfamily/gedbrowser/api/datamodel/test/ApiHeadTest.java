@@ -13,10 +13,11 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for api head.
+ *
+ * @author Richard Schoeller
  */
 class ApiHeadTest {
-    /** */
     @Test
     void testDefaultConstructorType() {
         final ApiHead o = ApiHead.builder()
@@ -27,7 +28,6 @@ class ApiHeadTest {
         assertEquals("", o.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testDefaultConstructorString() {
         final ApiHead o = ApiHead.builder()
@@ -38,7 +38,6 @@ class ApiHeadTest {
         assertEquals("", o.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testDefaultConstructorAttributes() {
         final ApiHead o = ApiHead.builder()
@@ -49,28 +48,24 @@ class ApiHeadTest {
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testConstructorType() {
         final ApiHead o = ApiHead.builder().type("type").string("string").build();
         assertEquals("type", o.getType(), "type mismatch");
     }
 
-    /** */
     @Test
     void testConstructorString() {
         final ApiHead o = ApiHead.builder().type("type").string("string").build();
         assertEquals("string", o.getString(), "string mismatch");
     }
 
-    /** */
     @Test
     void testConstructorNoAttributes() {
         final ApiHead o = ApiHead.builder().type("type").string("string").build();
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testConstructorNullAttributes() {
         final ApiHead o = ApiHead.builder()
@@ -81,7 +76,6 @@ class ApiHeadTest {
         assertTrue(o.getAttributes().isEmpty(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testConstructorWithAttributes() {
         final List<ApiAttribute> attributes = List.of(ApiAttribute.builder()
@@ -98,14 +92,12 @@ class ApiHeadTest {
         assertEquals(1, o.getAttributes().size(), "attributes mismatch");
     }
 
-    /** */
     @Test
     void testIsType() {
         final ApiHead o = ApiHead.builder().type("type").string("string").build();
         assertTrue(o.isType("type"), "isType mismatch");
     }
 
-    /** */
     @Test
     void testAccept() {
         final ApiHead o = ApiHead.builder().type("type").string("string").build();
@@ -114,7 +106,6 @@ class ApiHeadTest {
         assertEquals("head", visitor.getMethodCalled(), "Method mismatch");
     }
 
-    /** */
     @Test
     void testHashAndEquals() {
         EqualsVerifier.forClass(ApiHead.class).suppress(Warning.STRICT_INHERITANCE).verify();

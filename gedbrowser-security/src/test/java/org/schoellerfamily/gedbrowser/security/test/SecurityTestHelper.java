@@ -13,20 +13,23 @@ import org.apache.commons.io.FilenameUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
+ * Provides support for testing security test helper behavior.
+ *
  * @author dick
  */
 @Slf4j
 public final class SecurityTestHelper {
 
-    /**
-     * Private constructor.
-     */
     private SecurityTestHelper() {
         // Empty
     }
     /**
-     * @param userFile the path of the file to reset
+     * Executes reset user file.
+     *
+     * @param userFile the user file to use
      */
     public static void resetUserFile(final String userFile) {
         log.info("resetting {}", userFile);

@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Add our application specific information to the info endpoint.
+ * Contributes application info information to a larger response.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Component
 @RequiredArgsConstructor
@@ -21,7 +23,9 @@ public final class ApplicationInfoContributor implements InfoContributor {
     private final ApplicationInfo appInfo;
 
     /**
-     * {@inheritDoc}
+     * Executes contribute.
+     *
+     * @param builder the builder
      */
     @Override
     public void contribute(final Builder builder) {

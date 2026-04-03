@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * @author Dick Schoeller
+ * Represents index page.
+ *
+ * @author Richard Schoeller
  */
 public final class IndexPage extends PageBase implements MenuPageFacade {
     /** */
@@ -41,11 +43,21 @@ public final class IndexPage extends PageBase implements MenuPageFacade {
         this.letter = letter;
     }
 
+    /**
+     * Gets the index letter.
+     *
+     * @return the index letter
+     */
     @Override
     protected String getIndexLetter() {
         return letter;
     }
 
+    /**
+     * Gets the menu page.
+     *
+     * @return the menu page
+     */
     @Override
     public MenuPage getMenuPage() {
         return menuPage;
@@ -64,12 +76,6 @@ public final class IndexPage extends PageBase implements MenuPageFacade {
         return getFactory().createPersonPage(this, getBaseUrl(), id);
     }
 
-    /**
-     * Return the link to the person requested.
-     *
-     * @param id the ID string of the person link to click
-     * @return the web element for the a tag inside the mother element
-     */
     private WebElement getPerson(final String id) {
         return getWebElement(
                 By.id(id)).findElement(By.tagName("a"));
@@ -91,8 +97,10 @@ public final class IndexPage extends PageBase implements MenuPageFacade {
     }
 
     /**
-     * @param newLetter the letter link we want to manipulate
-     * @return the element for that letter
+     * Returns the letter.
+     *
+     * @param newLetter the new letter
+     * @return the letter
      */
     protected WebElement getLetter(final String newLetter) {
         return getWebElement(By.id("letter-" + newLetter));

@@ -8,16 +8,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+
 /**
- * Configures beans for interacting with users data.
+ * Configures components related to users.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Configuration
 public class UsersConfiguration {
     /** */
     @Value("${gedbrowser.home:/var/lib/gedbrowser}")
-    private transient String gedbrowserHome;
+    private String gedbrowserHome;
 
     /**
      * This is the bean to get the definitions of users that we need
@@ -38,11 +40,7 @@ public class UsersConfiguration {
      * @return the set of users from the user file
      */
     public Users<UserImpl> readUserFile(final String userFile) {
-        final UsersReader<UserImpl, UsersImpl<UserImpl>> usersReader =
-                new UsersReader<>();
-        return usersReader.readUserFile(userFile,
-                () -> new UsersImpl<UserImpl>(),
-                () -> new UserImpl()
-        );
+        final UsersReader<UserImpl, UsersImpl<UserImpl>> usersReader = new UsersReader<>();
+        return usersReader.readUserFile(userFile, UsersImpl::new, UserImpl::new);
     }
 }

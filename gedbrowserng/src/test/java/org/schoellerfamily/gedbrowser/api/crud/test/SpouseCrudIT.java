@@ -25,8 +25,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for spouse crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -163,10 +167,6 @@ final class SpouseCrudIT {
             .withMessage("Object XXXXX of type person not found");
     }
 
-    /**
-     * @param parent the parent
-     * @return the child
-     */
     private ApiPerson createChildOfParent(final ApiPerson parent) {
         final ApiPerson childReqPerson = helper.buildPerson();
         final ChildCrud childCrud = new ChildCrud(loader, toDocConverter, repositoryManager);
@@ -206,5 +206,29 @@ final class SpouseCrudIT {
             .returns(reqSpouse.getType(), o -> o.getType())
             .returns(reqSpouse.getSurname(), o -> o.getSurname())
             .returns(reqSpouse.getIndexName(), o -> o.getIndexName());
+    }
+
+    @Test
+    void testCreateSpouseInFamilyNotFound() {
+        log.info("Beginning testCreateSpouseInFamilyNotFound");
+        final ApiPerson reqSpouse = helper.createAlexander();
+        final ApiPerson resSpouse = crud.createSpouseInFamily(helper.getDb(), "FXXXXX", reqSpouse);
+
+        assertThat(resSpouse)
+            .returns(reqSpouse.getType(), ApiPerson::getType)
+            .returns(reqSpouse.getSurname(), ApiPerson::getSurname)
+            .returns(reqSpouse.getIndexName(), ApiPerson::getIndexName)
+            .returns(0, o -> o.getFamss().size());
+    }
+
+    @Test
+    void testLinkSpouseInFamilyNotFound() {
+        log.info("Beginning testLinkSpouseInFamilyNotFound");
+        final ApiPerson spouse = helper.createPerson();
+        final ApiPerson resSpouse = crud.linkSpouseInFamily(helper.getDb(), "FXXXXX", spouse);
+
+        assertThat(resSpouse)
+            .returns(spouse.getString(), ApiPerson::getString)
+            .returns(0, o -> o.getFamss().size());
     }
 }

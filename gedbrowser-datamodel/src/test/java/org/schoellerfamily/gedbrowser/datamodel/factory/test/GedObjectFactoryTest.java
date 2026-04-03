@@ -11,17 +11,20 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
+
+
+/**
+ * Contains tests for ged object factory.
+ */
 
 final class GedObjectFactoryTest {
 
-    /**
-     * @return parameters to test
-     */
     @SuppressWarnings("checkstyle:nowhitespaceafter")
     static Stream<Arguments> params() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Root root = builder.getRoot();
 
         return Arrays.stream(new Object[][] { { null, null, null, null },
@@ -34,7 +37,7 @@ final class GedObjectFactoryTest {
     @MethodSource("params")
     void testFactory(final GedObject parent, final String xref, final String tag,
         final String tail) {
-        final GedObjectFactory factory = new GedObjectFactory();
+        final GedObjectStarterFactory factory = new GedObjectStarterFactory();
         final GedObject gob = factory.create(parent, new ObjectId(xref), tag, tail);
         assertNull(gob, "should always return null");
     }

@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.FamC;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of fam c.
+ *
+ * @author Richard Schoeller
  */
 public interface FamCDocument extends GedDocument<FamC> {
     @Override

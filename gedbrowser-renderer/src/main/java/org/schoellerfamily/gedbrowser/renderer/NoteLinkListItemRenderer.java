@@ -1,26 +1,26 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders note link list item output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class NoteLinkListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the NoteLinkRenderer that is using this helper.
      */
-    private final transient NoteLinkRenderer noteLinkRenderer;
+    private final NoteLinkRenderer noteLinkRenderer;
 
     /**
-     * Constructor.
+     * Executes render as list item.
      *
-     * @param renderer the renderer that this is associated with.
-     */
-    protected NoteLinkListItemRenderer(
-            final NoteLinkRenderer renderer) {
-        this.noteLinkRenderer = renderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -29,16 +29,15 @@ public class NoteLinkListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
-    /**
-     * @param builder the string builder that we will be appending to.
-     */
     private void renderListItemContents(final StringBuilder builder) {
         builder.append("<span class=\"label\">Note:</span> ");
         builder.append(noteLinkRenderer.getIndexName());
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {

@@ -10,7 +10,9 @@ import org.schoellerfamily.gedbrowser.datamodel.users.Users;
 import org.schoellerfamily.gedbrowser.datamodel.users.UsersImpl;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for users impl.
+ *
+ * @author Richard Schoeller
  */
 final class UsersImplTest {
     @Test

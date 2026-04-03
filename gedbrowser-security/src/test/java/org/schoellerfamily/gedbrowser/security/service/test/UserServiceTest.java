@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for the user service.
+ *
+ * @author Richard Schoeller
  */
 final class UserServiceTest extends AbstractTest {
 
@@ -45,23 +46,14 @@ final class UserServiceTest extends AbstractTest {
     @Test
     void testFindAllWithoutUser() throws AccessDeniedException {
         assertThatExceptionOfType(AccessDeniedException.class)
-        .isThrownBy(() -> findAllIgnoreAnswer());
+        .isThrownBy(userService::findAll);
     }
 
     @Test
     void testFindAllWithUser() throws AccessDeniedException {
         mockAuthenticatedUser(buildTestUser());
         assertThatExceptionOfType(AccessDeniedException.class)
-            .isThrownBy(() -> findAllIgnoreAnswer());
-    }
-
-    /**
-     * Using this to test the findAll method without caring about the return value,
-     * just whether it throws a runtime exception or not.
-     */
-    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-    private void findAllIgnoreAnswer() {
-        userService.findAll();
+            .isThrownBy(userService::findAll);
     }
 
     @Test

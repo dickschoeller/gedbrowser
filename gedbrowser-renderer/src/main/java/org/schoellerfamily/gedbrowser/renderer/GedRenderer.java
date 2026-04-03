@@ -2,31 +2,34 @@ package org.schoellerfamily.gedbrowser.renderer;
 
 import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 
+
+
 /**
- * Base class for rendering GedObjects.
+ * Renders ged output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
+ *
  * @param <G> the GedObject type to render.
  */
 @SuppressWarnings({ "PMD.AbstractClassWithoutAbstractMethod" })
-public abstract class GedRenderer<G extends GedObject>
-        extends SectionedRenderer {
+public abstract class GedRenderer<G extends GedObject> extends SectionedRenderer {
     /**
      * Beginning of common anchor.
      */
     private static final String A_HREF = "\n    <a href=\"?";
 
     /** */
-    private final transient G gedObject;
+    private final G gedObject;
 
     /** */
-    private final transient GedRendererFactory rendererFactory;
+    private final GedRendererFactory rendererFactory;
 
     /**
-     * @param gedObject the GedObject that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Executes ged renderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     protected GedRenderer(final G gedObject,
             final GedRendererFactory rendererFactory,
@@ -37,30 +40,38 @@ public abstract class GedRenderer<G extends GedObject>
     }
 
     /**
-     * @return a name string cleaned for HTML usage.
+     * Gets the name html.
+     *
+     * @return the name html
      */
     public final String getNameHtml() {
         return getNameHtmlRenderer().getNameHtml();
     }
 
     /**
-     * @return a name string in index format.
+     * Gets the index name.
+     *
+     * @return the index name
      */
     public final String getIndexName() {
         return getNameIndexRenderer().getIndexName();
     }
 
     /**
-     * @return the GedObject
+     * Gets the ged object.
+     *
+     * @return the ged object
      */
     public final G getGedObject() {
         return gedObject;
     }
 
     /**
-     * @param builder Buffer for holding the rendition
-     * @param newLine put in a new line for each line.
-     * @return the builder
+     * Executes render new line.
+     *
+     * @param builder the builder
+     * @param newLine the new line
+     * @return the resulting string builder
      */
     protected static final StringBuilder renderNewLine(
             final StringBuilder builder, final boolean newLine) {
@@ -88,9 +99,10 @@ public abstract class GedRenderer<G extends GedObject>
     }
 
     /**
-     * @param attribute
-     *            The sub-object to render.
-     * @return The renderer.
+     * Creates the ged renderer.
+     *
+     * @param attribute the attribute
+     * @return the resulting ged object>
      */
     @SuppressWarnings("java:S1452")
     public final GedRenderer<? extends GedObject> createGedRenderer(
@@ -99,35 +111,45 @@ public abstract class GedRenderer<G extends GedObject>
     }
 
     /**
-     * @return this object as a phrase to be inserted in a sentence
+     * Returns the string.
+     *
+     * @return the resulting string
      */
     public final String renderAsPhrase() {
         return getPhraseRenderer().renderAsPhrase();
     }
 
     /**
-     * @return the factory
+     * Gets the renderer factory.
+     *
+     * @return the renderer factory
      */
     protected final GedRendererFactory getRendererFactory() {
         return rendererFactory;
     }
 
     /**
-     * @return the string field from the underlying GED object.
+     * Gets the string.
+     *
+     * @return the string
      */
     public final String getString() {
         return gedObject.getString();
     }
 
     /**
-     * @return the inner part of the item as it would be in a list.
+     * Gets the list item contents.
+     *
+     * @return the list item contents
      */
     public final String getListItemContents() {
         return getListItemRenderer().getListItemContents();
     }
 
     /**
-     * @return the href string to the living estimator.
+     * Gets the living href.
+     *
+     * @return the living href
      */
     public final String getLivingHref() {
         return "living?db=" + getDbName(getGedObject());
@@ -144,23 +166,23 @@ public abstract class GedRenderer<G extends GedObject>
     }
 
     /**
-     * {@inheritDoc}
+     * Executes menu insertions.
+     *
+     * @param omit the omit
+     * @return the resulting string
      */
     @Override
     public final String menuInsertions(final String omit) {
         final StringBuilder builder = new StringBuilder();
         builder.append("\n    <p>");
         if ("Header".equals(omit)) {
-            builder.append(A_HREF + gedObject.getDbName()
-                    + "+Header\">Header</a><br>");
+            builder.append(A_HREF + gedObject.getDbName() + "+Header\">Header</a><br>");
         }
         if ("Surnames".equals(omit)) {
-            builder.append(A_HREF + gedObject.getDbName()
-                    + "+Surnames\">Surnames</a><br>");
+            builder.append(A_HREF + gedObject.getDbName() + "+Surnames\">Surnames</a><br>");
         }
         if ("Index".equals(omit)) {
-            builder.append(A_HREF + gedObject.getDbName()
-                    + "+Index\">Index</a><br>");
+            builder.append(A_HREF + gedObject.getDbName() + "+Index\">Index</a><br>");
         }
         builder.append("\n    </p>");
         return builder.toString();

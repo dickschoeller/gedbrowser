@@ -3,17 +3,18 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.SubmissionLink;
 
 /**
- * Render a SubmissionLink.
+ * Renders submission link output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class SubmissionLinkRenderer extends
         AbstractLinkRenderer<SubmissionLink> {
     /**
-     * @param gedObject the SubmissionLink that we are going to render
-     * @param rendererFactory the factory that creates the renderers for the
-     *        attributes
-     * @param renderingContext the context that we are rendering in
+     * Creates a new SubmissionLinkRenderer.
+     *
+     * @param gedObject the ged object
+     * @param rendererFactory the renderer factory
+     * @param renderingContext the rendering context
      */
     public SubmissionLinkRenderer(final SubmissionLink gedObject,
             final GedRendererFactory rendererFactory,

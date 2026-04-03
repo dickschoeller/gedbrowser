@@ -1,26 +1,32 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
+import lombok.NoArgsConstructor;
+
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 
 /**
- * @author Dick Schoeller
+ * Represents family in the domain model.
+ *
+ * @author Richard Schoeller
  */
+@NoArgsConstructor
 public final class Family extends GedObject {
-    /**
-     * Default constructor.
-     */
-    public Family() {
-        super();
-    }
 
     /**
-     * @param parent parent object of this family
-     * @param xref cross reference to this family
+     * Creates a new Family.
+     *
+     * @param parent the parent
+     * @param xref the xref
      */
     public Family(final GedObject parent, final ObjectId xref) {
         super(parent, xref.getIdString());
     }
 
+    /**
+     * Executes accept.
+     *
+     * @param visitor the visitor
+     */
     @Override
     public void accept(final GedObjectVisitor visitor) {
         visitor.visit(this);

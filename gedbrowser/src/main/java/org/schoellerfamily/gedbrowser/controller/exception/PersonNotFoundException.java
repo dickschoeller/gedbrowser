@@ -4,22 +4,24 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+
+
 /**
- * Exception thrown when a person is not found.
+ * Represents an error related to person not found.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Person not found")
 public final class PersonNotFoundException extends ObjectNotFoundException {
     private static final long serialVersionUID = 3L;
 
     /**
-     * Constructor.
+     * Creates a new PersonNotFoundException.
      *
-     * @param message the message to display
-     * @param personId the ID of the person not found
-     * @param datasetName the name of the dataset being searched
-     * @param context the rendering context
+     * @param message the message
+     * @param personId the unique identifier for person
+     * @param datasetName the dataset name to use
+     * @param context the context
      */
     public PersonNotFoundException(final String message, final String personId,
             final String datasetName, final RenderingContext context) {

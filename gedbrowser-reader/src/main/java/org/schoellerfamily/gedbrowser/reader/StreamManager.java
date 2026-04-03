@@ -9,9 +9,9 @@ import java.nio.file.Paths;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Can open a stream either in an absolute file location or in the classpath.
+ * Manages stream operations.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public class StreamManager {
 
@@ -26,18 +26,18 @@ public class StreamManager {
     private final String filename;
 
     /**
-     * Constructor.
+     * Creates a new StreamManager.
      *
-     * @param filename the name of the file that we are opening
+     * @param filename the filename to use
      */
     public StreamManager(final String filename) {
         this.filename = filename;
     }
 
     /**
+     * Gets the input stream.
+     *
      * @return the input stream
-     * @throws FileNotFoundException if the file can't be opened
-     * @throws IllegalArgumentException if the filename contains path traversal sequences
      */
     public InputStream getInputStream() throws FileNotFoundException {
         // Treat obvious filesystem paths (absolute/relative paths, files
@@ -67,12 +67,6 @@ public class StreamManager {
         return is;
     }
 
-    /**
-     * Validates that a file path does not contain path traversal sequences.
-     *
-     * @param filePath the file path to validate
-     * @throws IllegalArgumentException if filePath contains path traversal sequences
-     */
     private void validateFilePath(final String filePath) {
         if (StringUtils.isEmpty(filePath)) {
             throw new IllegalArgumentException("File path cannot be null or empty");
@@ -86,12 +80,6 @@ public class StreamManager {
         checkForPathTraversal(filePath);
     }
 
-    /**
-     * Validates that a resource path does not contain path traversal sequences.
-     *
-     * @param resourcePath the resource path to validate
-     * @throws IllegalArgumentException if resourcePath contains path traversal sequences
-     */
     private void validateResourcePath(final String resourcePath) {
         if (StringUtils.isEmpty(resourcePath)) {
             throw new IllegalArgumentException("Resource path cannot be null or empty");
@@ -106,12 +94,6 @@ public class StreamManager {
         checkForPathTraversal(resourcePath);
     }
 
-    /**
-     * Checks if a path contains ".." as a path component, which indicates a path traversal attempt.
-     *
-     * @param pathString the path string to check
-     * @throws IllegalArgumentException if the path contains ".." as a path component
-     */
     private void checkForPathTraversal(final String pathString) {
         final Path path = Paths.get(pathString);
         for (final Path part : path) {

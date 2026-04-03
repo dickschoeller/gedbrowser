@@ -17,10 +17,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Name;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for root.
+ *
+ * @author Richard Schoeller
  */
 final class RootTest {
     /** */
@@ -36,11 +39,10 @@ final class RootTest {
     /** */
     private transient Family family;
 
-    /** */
     @BeforeEach
     void setUp() {
         root = new Root("Root");
-        final GedObjectBuilder builder = new GedObjectBuilder(root);
+        final GedObjectBuilder builder = new GedObjectBuilderImpl(root);
         person1 = builder.createPerson("I1", "Richard/Schoeller/");
         person2 = builder.createPerson("I2", "John/Schoeller/");
         person3 = builder.createPerson("I3", "Patricia/Hayes/");
@@ -56,7 +58,6 @@ final class RootTest {
         builder.addWifeToFamily(family2, person4);
     }
 
-    /** */
     @Test
     void testOneArgInsertAndFind() {
         final Root rt = new Root("Root");
@@ -69,31 +70,26 @@ final class RootTest {
         assertEquals(person, root.find("I2"), "Person mismatch");
     }
 
-    /** */
     @Test
     void testFindI1() {
         assertEquals(person1, root.find("I1"), "Person mismatch");
     }
 
-    /** */
     @Test
     void testFindI2() {
         assertEquals(person2, root.find("I2"), "Person mismatch");
     }
 
-    /** */
     @Test
     void testFindI3() {
         assertEquals(person3, root.find("I3"), "Person mismatch");
     }
 
-    /** */
     @Test
     void testFindF1() {
         assertEquals(family, root.find("F1"), "Family mismatch");
     }
 
-    /** */
     @Test
     void testGetObjects() {
         final Person person4 = new Person(root, new ObjectId("I4"));
@@ -107,7 +103,6 @@ final class RootTest {
             && objects.keySet().contains("F1"), "Content mismatch");
     }
 
-    /** */
     @Test
     void testGetObjectsNull() {
         final Root localRoot = new Root();
@@ -116,40 +111,34 @@ final class RootTest {
         assertFalse(objects.isEmpty(), "Null object should not be inserted");
     }
 
-    /** */
     @Test
     void testGetFilenameInitiallyNull() {
         assertNull(root.getFilename(), "Filename should initially be null");
     }
 
-    /** */
     @Test
     void testSetGetFilename() {
         root.setFilename("foo.ged");
         assertEquals("foo.ged", root.getFilename(), "Filename should be set");
     }
 
-    /** */
     @Test
     void testGetDbNameInitiallyNull() {
         assertNull(root.getDbName(), "DB name should initially be null");
     }
 
-    /** */
     @Test
     void testSetGetDbName() {
         root.setDbName("foo");
         assertEquals("foo", root.getDbName(), "DB name should be set");
     }
 
-    /** */
     @Test
     void testIndexInitiallyEmpty() {
         final Index index = root.getIndex();
         assertEquals(0, index.surnameCount(), "Index should be empty");
     }
 
-    /** */
     @Test
     void testIndex() {
         final Index index = root.getIndex();

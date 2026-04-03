@@ -36,23 +36,24 @@ import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
-import org.schoellerfamily.gedobject.datamodel.factory.AbstractGedObjectFactory.GedObjectFactory;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
+import org.schoellerfamily.gedobject.datamodel.factory.GedObjectStarterFactory;
+
+
 
 /**
- * @author Dick Schoeller
+ * Contains tests for abstract ged object factory.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class AbstractGedObjectFactoryTest {
-
     /** */
-    private static final GedObjectBuilder BUILDER = new GedObjectBuilder();
-
+    private static final Root ROOT = new Root();
     /** */
-    private static final Root ROOT = BUILDER.getRoot();
-
+    private static final GedObjectBuilder BUILDER = new GedObjectBuilderImpl(ROOT);
     /** */
     private static final Person PERSON = BUILDER.createPerson("I1", "Richard John/Schoeller/");
-
     /** */
     private static final Attribute NOTE = new Attribute(PERSON, "Note", "Some text");
 
@@ -117,25 +118,21 @@ final class AbstractGedObjectFactoryTest {
         { PERSON, "foo", "OBJE", null, new Multimedia(PERSON, "Multimedia", null) },
         // These 2 are funky
         { NOTE, null, "CONC", "y stuff", null }, { NOTE, null, "CONT", "and some more text", null },
-//            {note, null, "CONC", "y stuff",
+//            {note, null, "CONC", "y stuff,
 //                new Attribute(person, "Note", "Some texty stuff")},
-//            {note, null, "CONT", "and some more text",
+//            {note, null, "CONT", "and some more text,
 //                new Attribute(person, "Note",
 //                    "Some text\nand some more text")},
     };
 
     /** */
-    private GedObjectFactory factory;
+    private GedObjectStarterFactory factory;
 
-    /** */
     @BeforeEach
     void setUp() {
-        factory = new GedObjectFactory();
+        factory = new GedObjectStarterFactory();
     }
 
-    /**
-     * @return the collection of test parameters
-     */
     static Stream<Arguments> params() {
         PERSON.addAttribute(NOTE);
         return Arrays.stream(PARAMETERS).map(Arguments::of);

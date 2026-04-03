@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.api.datamodel;
 
 /**
- * @author Dick Schoeller
+ * Visits api object elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface ApiObjectVisitor {
     /**
@@ -48,4 +50,11 @@ public interface ApiObjectVisitor {
      * @param submitter the submitter object to visit
      */
     void visit(ApiSubmitter submitter);
+
+    /**
+     * Creates a new visitor for visiting attributes.
+     *
+     * @return the new visitor
+     */
+    ApiObjectVisitor createVisitor();
 }

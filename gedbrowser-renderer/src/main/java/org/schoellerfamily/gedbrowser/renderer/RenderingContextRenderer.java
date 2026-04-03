@@ -4,60 +4,86 @@ import org.schoellerfamily.gedbrowser.datamodel.GedObject;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserRoleName;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+
 
 /**
- * Some base rendering behaviors outside of the context of GedObject rendering.
- * This provides methods that can be used in the context of error pages, etc.
+ * Renders rendering context output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @Getter
 public abstract class RenderingContextRenderer implements Renderer {
 
     /** */
     private final RenderingContext renderingContext;
 
-    /**
-     * Constructor.
+        /**
+     * Gets the application name.
      *
-     * @param renderingContext the context that we are rendering in
+     * @return the application name
      */
-    protected RenderingContextRenderer(final RenderingContext renderingContext) {
-        this.renderingContext = renderingContext;
-    }
-
     @Override
     public final String getApplicationName() {
         return renderingContext.getApplicationName();
     }
 
+    /**
+     * Gets the application u r l.
+     *
+     * @return the application u r l
+     */
     @Override
     public final String getApplicationURL() {
         return renderingContext.getApplicationURL();
     }
 
+    /**
+     * Gets the home url.
+     *
+     * @return the home url
+     */
     @Override
     public final String getHomeUrl() {
         return renderingContext.getHomeURL();
     }
 
+    /**
+     * Gets the maintainer email.
+     *
+     * @return the maintainer email
+     */
     @Override
     public final String getMaintainerEmail() {
         return renderingContext.getMaintainerEmail();
     }
 
+    /**
+     * Gets the maintainer name.
+     *
+     * @return the maintainer name
+     */
     @Override
     public final String getMaintainerName() {
         return renderingContext.getMaintainerName();
     }
 
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
     @Override
     public final String getVersion() {
         return renderingContext.getVersion();
     }
 
     /**
-     * @return user's first name
+     * Gets the user firstname.
+     *
+     * @return the user firstname
      */
     public final String getUserFirstname() {
         return renderingContext.getFirstname();
@@ -80,8 +106,10 @@ public abstract class RenderingContextRenderer implements Renderer {
      * @return the escaped string.
      */
     public static final String escapeString(final String input) {
-        return input.replace("&", "&amp;").replace("<", "&lt;")
-                .replace(">", "&gt;").replace("\n", "<br/>\n");
+        return input.replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace("\n", "<br/>\n");
     }
 
     /**

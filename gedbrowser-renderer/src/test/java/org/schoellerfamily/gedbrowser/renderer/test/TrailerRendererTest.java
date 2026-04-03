@@ -19,8 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for trailer renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -32,16 +36,11 @@ final class TrailerRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testAttributeListOpenRenderer() {
         final TrailerRenderer renderer = createRenderer();
@@ -50,10 +49,6 @@ final class TrailerRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testListItemRenderer() {
         final TrailerRenderer renderer = createRenderer();
@@ -61,10 +56,6 @@ final class TrailerRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameHtmlRenderer() {
         final TrailerRenderer renderer = createRenderer();
@@ -72,10 +63,6 @@ final class TrailerRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testNameIndexRenderer() {
         final TrailerRenderer renderer = createRenderer();
@@ -83,10 +70,6 @@ final class TrailerRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * Test that we are using the appropriate sub-renderers. We will test the
-     * sub-renderers directly.
-     */
     @Test
     void testPhraseRenderer() {
         final TrailerRenderer renderer = createRenderer();
@@ -94,9 +77,6 @@ final class TrailerRendererTest {
             "Wrong renderer type");
     }
 
-    /**
-     * @return the renderer
-     */
     private TrailerRenderer createRenderer() {
         return new TrailerRenderer(new Trailer(null, "Trailer"), new GedRendererFactory(),
             anonymousContext);

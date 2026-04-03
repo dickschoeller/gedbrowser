@@ -2,6 +2,10 @@ gedbrowser:
     home: /var/lib/gedbrowser
     userFile: /var/lib/gedbrowser/userFile.csv
 
+geoservice:
+    port: ${GEOSERVICE_PORT:8082}
+    keyfile: ${GEOSERVICE_KEYFILE:/var/lib/gedbrowser/google-geocoding-key}
+
 server:
     servlet:
         context-path: /gedbrowserng

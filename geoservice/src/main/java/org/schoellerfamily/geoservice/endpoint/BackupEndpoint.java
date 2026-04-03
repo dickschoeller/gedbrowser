@@ -11,11 +11,12 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+
 
 /**
- * @author Dick Schoeller
+ * Exposes operations for the backup endpoint.
+ *
+ * @author Richard Schoeller
  */
 @Component
 @Endpoint(id = "backup")
@@ -24,11 +25,11 @@ public class BackupEndpoint extends BaseBackupEndpoint {
     private final GeoCodeBackup backupManager;
 
     /**
-     * Constructor.
+     * Creates a new BackupEndpoint.
      *
-     * @param backupManager
-     * @param gcc
-     * @param backupFileName
+     * @param backupManager the backup manager
+     * @param gcc the gcc
+     * @param backupFileName the backup file name
      */
     public BackupEndpoint(final GeoCodeBackup backupManager, final GeoCode gcc,
         @Value("${geoservice.backupfile:/var/lib/gedbrowser/geoservice-backup.json}")
@@ -38,22 +39,33 @@ public class BackupEndpoint extends BaseBackupEndpoint {
         this.backupManager = backupManager;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     @Override
     public final String getId() {
         return "backup";
     }
 
     /**
-     * @return the list of strings
+     * Returns the list.
+     *
+     * @return the resulting list
      */
     @ReadOperation
     public List<String> invokeEndpoint() {
         return super.invoke();
     }
 
+    /**
+     * Executes action.
+     *
+     * @param backupFile the backup file to use
+     */
     @Override
-    public final void action(final File backupFile)
-            throws JsonParseException, JsonMappingException, IOException {
+    public final void action(final File backupFile) throws IOException {
         backupManager.backup(backupFile);
     }
 }

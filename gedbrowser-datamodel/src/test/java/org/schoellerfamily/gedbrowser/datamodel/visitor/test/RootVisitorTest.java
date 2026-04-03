@@ -28,20 +28,24 @@ import org.schoellerfamily.gedbrowser.datamodel.Submitter;
 import org.schoellerfamily.gedbrowser.datamodel.SubmitterLink;
 import org.schoellerfamily.gedbrowser.datamodel.Trailer;
 import org.schoellerfamily.gedbrowser.datamodel.Wife;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.RootVisitor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for root visitor.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.ExcessiveImports")
 final class RootVisitorTest {
-    /** */
     @Test
     void testBasicGetPersons() {
         final Root root = new Root();
-        final GedObjectBuilder builder = new GedObjectBuilder(root);
+        final GedObjectBuilder builder = new GedObjectBuilderImpl(root);
         builder.createPerson("I1", "J. Random/Schoeller/");
         builder.createPerson("I2", "Anonymous/Schoeller/");
         final RootVisitor visitor = new RootVisitor();
@@ -49,7 +53,6 @@ final class RootVisitorTest {
         assertEquals(2, visitor.getPersons().size(), "Expected 2 persons");
     }
 
-    /** */
     @Test
     void testNoPersonsFromUnrelated() {
         final RootVisitor visitor = new RootVisitor();
@@ -77,7 +80,9 @@ final class RootVisitorTest {
         new Wife().accept(visitor);
         final GedObject gob = new GedObject() {
             /**
-             * {@inheritDoc}
+             * Executes accept.
+             *
+             * @param visitor the visitor
              */
             @Override
             public void accept(final GedObjectVisitor visitor) {

@@ -8,7 +8,9 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GedObjectVisitor;
 import org.schoellerfamily.gedbrowser.writer.GedWriterLine;
 
 /**
- * @author Dick Schoeller
+ * Visits ged object line elements and applies visitor logic.
+ *
+ * @author Richard Schoeller
  */
 public interface GedObjectLineVisitor extends GedObjectVisitor {
     /** The maximum length of line content. */

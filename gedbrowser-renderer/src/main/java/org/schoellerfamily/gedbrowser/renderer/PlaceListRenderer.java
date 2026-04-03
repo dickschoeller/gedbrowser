@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.renderer;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
@@ -20,9 +21,9 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Generates the collection of places for a provided person.
+ * Renders place list output for display.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 public final class PlaceListRenderer {
@@ -36,9 +37,11 @@ public final class PlaceListRenderer {
     private final LivingEstimator le;
 
     /**
+     * Creates a new PlaceListRenderer.
+     *
      * @param person the person
-     * @param client the geoservice client
-     * @param renderingContext the current rendering context
+     * @param client the client
+     * @param renderingContext the rendering context
      */
     public PlaceListRenderer(final Person person,
             final GeoServiceClient client,
@@ -50,7 +53,9 @@ public final class PlaceListRenderer {
     }
 
     /**
-     * @return the list of place information
+     * Executes render.
+     *
+     * @return the resulting list
      */
     public List<PlaceInfo> render() {
         if (person == null || client == null) {
@@ -65,59 +70,83 @@ public final class PlaceListRenderer {
         return geoCodePlaces(places);
     }
 
-    /**
-     * @param places the place to code
-     * @return the list of geocode results
-     */
     private List<PlaceInfo> geoCodePlaces(final Collection<String> places) {
         return places.stream()
-                .map(client::get)
-                .filter(item -> item.getResult() != null)
-                .map(this::createPlaceInfo)
-                .toList();
+            .map(client::get)
+            .filter(Objects::nonNull)
+            .filter(item -> item.getResult() != null)
+            .map(this::createPlaceInfo)
+            .filter(Objects::nonNull)
+            .toList();
     }
 
-    /**
-     * @param item the geoservice item containing the data
-     * @return the new place information
-     */
     private PlaceInfo createPlaceInfo(final GeoServiceItem item) {
         final GeoServiceGeocodingResult result = item.getResult();
+        if (result == null || result.getGeometry() == null) {
+            return null;
+        }
         final FeatureCollection featureCollection = result.getGeometry();
         final List<Feature> features = featureCollection.getFeatures();
-        final Feature locationFeature = features.get(0);
-        final Point locationPoint = (Point) locationFeature.getGeometry();
+        if (features == null || features.isEmpty()) {
+            return null;
+        }
+
+        final Point locationPoint = firstPoint(features);
+        if (locationPoint == null) {
+            log.debug("No location point feature for place: {}", item.getPlaceName());
+            return null;
+        }
         final LngLatAlt location = locationPoint.getCoordinates();
-        if (features.size() > 2) {
-            final Feature viewportFeature = features.get(2);
-            if (viewportFeature == null) {
-                log.info("Features size > 2 but viewport null for: {}", item.getPlaceName());
-            } else {
-                final Polygon viewportPolygon = (Polygon) viewportFeature
-                        .getGeometry();
-                final List<List<LngLatAlt>> viewportRings = viewportPolygon
-                        .getCoordinates();
-                final List<LngLatAlt> viewportOutline = viewportRings.get(0);
-                final LngLatAlt southwest = viewportOutline.get(0);
-                final LngLatAlt northeast = viewportOutline.get(2);
-                return new PlaceInfo(item.getPlaceName(), location, southwest,
-                        northeast);
-            }
+
+        final Polygon viewportPolygon = firstPolygon(features);
+        final PlaceInfo bounded = buildBoundedPlaceInfo(
+                item.getPlaceName(), location, viewportPolygon);
+        if (bounded != null) {
+            return bounded;
         }
         return new PlaceInfo(item.getPlaceName(), location.getLatitude(),
                 location.getLongitude());
     }
 
-    /**
-     * @return whether the current person is hidden because living.
-     */
+    private PlaceInfo buildBoundedPlaceInfo(final String placeName,
+            final LngLatAlt location, final Polygon viewportPolygon) {
+        if (viewportPolygon == null) {
+            return null;
+        }
+        final List<List<LngLatAlt>> viewportRings = viewportPolygon.getCoordinates();
+        if (viewportRings == null || viewportRings.isEmpty()) {
+            return null;
+        }
+        final List<LngLatAlt> viewportOutline = viewportRings.get(0);
+        if (viewportOutline == null || viewportOutline.size() <= 2) {
+            return null;
+        }
+        return new PlaceInfo(placeName, location,
+                viewportOutline.get(0), viewportOutline.get(2));
+    }
+
+    private Point firstPoint(final List<Feature> features) {
+        for (final Feature feature : features) {
+            if (feature != null && feature.getGeometry() instanceof Point point) {
+                return point;
+            }
+        }
+        return null;
+    }
+
+    private Polygon firstPolygon(final List<Feature> features) {
+        for (final Feature feature : features) {
+            if (feature != null && feature.getGeometry() instanceof Polygon polygon) {
+                return polygon;
+            }
+        }
+        return null;
+    }
+
     private boolean isHiddenLiving() {
         return !renderingContext.isUser() && le.estimate();
     }
 
-    /**
-     * @return whether the current person is hidden because confidential.
-     */
     private boolean isHiddenConfidential() {
         if (renderingContext.isAdmin()) {
             return false;

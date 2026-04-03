@@ -16,6 +16,7 @@
     <main.basedir>${project.parent.basedir}</main.basedir>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>org.schoellerfamily.gedbrowser.api.Application</start-class>
+    <geoservice.port>8082</geoservice.port>
     <config-dir>${project.parent.basedir}/config</config-dir>
     <sonar.java.spotbugs.reportPaths>${project.build.directory}/spotbugsXml.xml</sonar.java.spotbugs.reportPaths>
     <sonar.java.pmd.reportPaths>${project.build.directory}/pmd.xml</sonar.java.pmd.reportPaths>
@@ -68,10 +69,18 @@
       <groupId>org.schoellerfamily.gedbrowser</groupId>
       <artifactId>gedbrowser-security</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.schoellerfamily.gedbrowser</groupId>
+      <artifactId>geoservice-client</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-json</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -266,6 +275,10 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
           <mainClass>${start-class}</mainClass>
+          <jvmArguments>-Dgeoservice.port=${geoservice.port}</jvmArguments>
+          <systemPropertyVariables>
+            <geoservice.port>${geoservice.port}</geoservice.port>
+          </systemPropertyVariables>
         </configuration>
         <executions>
           <execution>
@@ -315,6 +328,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <systemPropertyVariables>
+            <geoservice.port>8082</geoservice.port>
+          </systemPropertyVariables>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -322,6 +340,9 @@
         <configuration>
           <classesDirectory>${project.build.outputDirectory}</classesDirectory>
           <useModulePath>false</useModulePath>
+          <systemPropertyVariables>
+            <geoservice.port>8082</geoservice.port>
+          </systemPropertyVariables>
         </configuration>
       </plugin>
     </plugins>

@@ -6,11 +6,12 @@ import org.openqa.selenium.WebElement;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * This implementation of MenuPage methods. Designed for use behind a Java 8
- * mixin facade.
+ * Represents menu page impl.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @RequiredArgsConstructor
 public final class MenuPageImpl implements MenuPage {
@@ -19,6 +20,11 @@ public final class MenuPageImpl implements MenuPage {
      */
     private final PageBase page;
 
+    /**
+     * Executes click index.
+     *
+     * @return the resulting index page
+     */
     @Override
     public IndexPage clickIndex() {
         final WebElement element = getMenu("index");
@@ -30,6 +36,11 @@ public final class MenuPageImpl implements MenuPage {
                 page.getIndexLetter());
     }
 
+    /**
+     * Executes click sources.
+     *
+     * @return the resulting sources page
+     */
     @Override
     public SourcesPage clickSources() {
         final WebElement element = getMenu("sources");
@@ -38,6 +49,11 @@ public final class MenuPageImpl implements MenuPage {
         return page.getFactory().createSourcesPage(page, page.getBaseUrl());
     }
 
+    /**
+     * Executes click submitters.
+     *
+     * @return the resulting submitters page
+     */
     @Override
     public SubmittersPage clickSubmitters() {
         final WebElement element = getMenu("submitters");
@@ -46,6 +62,11 @@ public final class MenuPageImpl implements MenuPage {
         return page.getFactory().createSubmittersPage(page, page.getBaseUrl());
     }
 
+    /**
+     * Executes click login.
+     *
+     * @return the resulting login page
+     */
     @Override
     public LoginPage clickLogin() {
         final WebElement element = page.getWebElement("a[href='login']");
@@ -54,6 +75,11 @@ public final class MenuPageImpl implements MenuPage {
         return page.getFactory().createLoginPage(page, page.getBaseUrl());
     }
 
+    /**
+     * Executes click logout.
+     *
+     * @return the resulting page base
+     */
     @Override
     public PageBase clickLogout() {
         final WebElement element = page.getWebElement("input[class='menubar']");
@@ -61,20 +87,22 @@ public final class MenuPageImpl implements MenuPage {
         return page;
     }
 
+    /**
+     * Checks whether menu present.
+     *
+     * @param name the name to use
+     * @return true if the condition is met; otherwise false
+     */
     @Override
     public boolean isMenuPresent(final String name) {
         try {
             getMenu(name);
             return true;
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException _) {
             return false;
         }
     }
 
-    /**
-     * @param name the name of the menu item
-     * @return the element for that menu item
-     */
     private WebElement getMenu(final String name) {
         return page.getWebElement(By.id(name + "-menu"));
     }

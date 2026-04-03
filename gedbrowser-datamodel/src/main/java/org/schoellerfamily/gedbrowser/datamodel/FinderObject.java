@@ -6,11 +6,15 @@ import java.util.List;
 import org.schoellerfamily.gedbrowser.datamodel.finder.FinderStrategy;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for finder object.
+ *
+ * @author Richard Schoeller
  */
 public interface FinderObject
     extends VisitableObject, ParentableObject, InsertableObject, StringObject {
     /**
+     * Performs find.
+     *
      * @param <T> the type to return
      * @param str the ID string of the object you're looking for
      * @param clazz the class object of the type you're looking for
@@ -19,17 +23,23 @@ public interface FinderObject
     <T extends GedObject> T find(String str, Class<T> clazz);
 
     /**
+     * Performs find.
+     *
      * @param str the ID string of the object being sought
      * @return the object found from the searching the top level object list
      */
     GedObject find(String str);
 
     /**
+     * Gets the filename.
+     *
      * @return the filename associated with this data set
      */
     String getFilename();
 
     /**
+     * Gets the db name.
+     *
      * @return the filename associated with this data set
      */
     String getDbName();
@@ -42,23 +52,31 @@ public interface FinderObject
     void setFinder(FinderStrategy finder);
 
     /**
+     * Finds the by surname.
+     *
      * @param surname the surname of the persons being sought.
      * @return collection of matches.
      */
     Collection<Person> findBySurname(String surname);
 
     /**
+     * Finds the by surnames begin with.
+     *
      * @param beginsWith the string that the surnames should beginWith.
      * @return collection of matches.
      */
     Collection<String> findBySurnamesBeginWith(String beginsWith);
 
     /**
+     * Finds the surname initial letters.
+     *
      * @return the collection of initial letters
      */
     Collection<String> findSurnameInitialLetters();
 
     /**
+     * Finds the in parent.
+     *
      * @param str the ID string of the object being sought
      * @return the object found from the searching the top level object list
      */
@@ -70,6 +88,8 @@ public interface FinderObject
     }
 
     /**
+     * Finds the in parent.
+     *
      * @param <T> the type to return
      * @param str the ID string of the object you're looking for
      * @param clazz the class object of the type you're looking for
@@ -81,6 +101,8 @@ public interface FinderObject
     }
 
     /**
+     * Finds the in parent by surname.
+     *
      * @param surname the surname of persons being sought.
      * @return collection of matches.
      */
@@ -93,6 +115,8 @@ public interface FinderObject
     }
 
     /**
+     * Finds the in parent by surnames begin with.
+     *
      * @param beginsWith the string that the surnames should beginWith.
      * @return collection of matches.
      */
@@ -102,6 +126,8 @@ public interface FinderObject
     }
 
     /**
+     * Finds the in parent surname initial letters.
+     *
      * @return the collection of initial letters
      */
     default Collection<String> findInParentSurnameInitialLetters() {
@@ -110,7 +136,9 @@ public interface FinderObject
 
 
     /**
-     * @param <T> the type to look for
+     * Finds the in parent.
+     *
+     * @param <T> the type to return
      * @param clazz the type we're looking for
      * @return the collection of objects of the type
      */

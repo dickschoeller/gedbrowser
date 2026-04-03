@@ -4,10 +4,12 @@ import org.schoellerfamily.gedbrowser.renderer.RenderingContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+
+
 /**
- * Exception thrown when a source cannot be found.
+ * Represents an error related to source not found.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Source not found")
 public final class SourceNotFoundException extends ObjectNotFoundException {
@@ -15,12 +17,12 @@ public final class SourceNotFoundException extends ObjectNotFoundException {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructor.
+     * Creates a new SourceNotFoundException.
      *
-     * @param message the message to display
-     * @param sourceId the ID of the source not found
-     * @param datasetName the name of the dataset being searched
-     * @param context the rendering context
+     * @param message the message
+     * @param sourceId the unique identifier for source
+     * @param datasetName the dataset name to use
+     * @param context the context
      */
     public SourceNotFoundException(final String message, final String sourceId,
             final String datasetName, final RenderingContext context) {

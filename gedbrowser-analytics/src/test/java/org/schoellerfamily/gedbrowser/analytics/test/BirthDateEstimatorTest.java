@@ -27,8 +27,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for birth date estimator.
+ *
+ * @author Richard Schoeller
  */
 @SuppressWarnings({ "PMD.ExcessiveClassLength" })
 @ExtendWith(SpringExtension.class)
@@ -41,11 +45,21 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
     @Autowired
     private transient GedLineToGedObjectTransformer g2g;
 
+    /**
+     * Returns the person builder.
+     *
+     * @return the resulting person builder
+     */
     @Override
     public PersonBuilder personBuilder() {
         return builder;
     }
 
+    /**
+     * Returns the family builder.
+     *
+     * @return the resulting family builder
+     */
     @Override
     public FamilyBuilder familyBuilder() {
         return builder;
@@ -378,14 +392,6 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /**
-     * Test for persons for who the algorithm fails to come up with
-     * a birth date.
-     *
-     * TODO this test exercises stuff not test elsewhere. Fix that.
-     *
-     * @throws IOException if the file can't be read
-     */
     @Test
     void testFactoryGedFile() throws IOException {
         final AbstractGedLine top = readFileTestSource();
@@ -592,24 +598,11 @@ final class BirthDateEstimatorTest implements AnalyzerTest {
         assertEquals(expected, actual, "Dates should match");
     }
 
-    /**
-     * Wrap calls to the constructor, so that we avoid the creation in
-     * loops warning.
-     *
-     * @param person the person to estimate
-     * @return the new estimator
-     */
     private BirthDateEstimator createBirthEstimator(final Person person) {
         return new BirthDateEstimator(
                 person);
     }
 
-    /**
-     * Read data for tests available to prepare data for tests.
-     *
-     * @return a populated GedLine parse tree.
-     * @throws IOException because reader might throw.
-     */
     private AbstractGedLine readFileTestSource() throws IOException {
         return TestResourceReader.readFileTestSource("gl120368.ged");
     }

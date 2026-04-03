@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.persistence.domain;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 
 /**
- * @author Dick Schoeller
+ * Represents the persisted form of attribute.
+ *
+ * @author Richard Schoeller
  */
 public interface AttributeDocument extends GedDocument<Attribute> {
     /**

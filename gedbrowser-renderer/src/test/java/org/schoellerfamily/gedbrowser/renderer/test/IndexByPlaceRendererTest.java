@@ -15,6 +15,7 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.Root;
 import org.schoellerfamily.gedbrowser.datamodel.users.UserImpl;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.reader.testreader.TestDataReader;
 import org.schoellerfamily.gedbrowser.renderer.IndexByPlaceRenderer;
@@ -29,8 +30,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for index by place renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -51,7 +56,7 @@ final class IndexByPlaceRendererTest {
     private transient GeoServiceClient client;
 
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
+    private final GedObjectBuilder builder = new GedObjectBuilderImpl();
 
     /** */
     private RenderingContext anonymousContext;
@@ -73,9 +78,6 @@ final class IndexByPlaceRendererTest {
         adminContext = new RenderingContext(admin, appInfo, provider);
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIndexAsAnon() throws IOException {
         // Living check is too slow. Turned off display
@@ -86,9 +88,6 @@ final class IndexByPlaceRendererTest {
         assertRenderMatches(sizes, anonymousContext);
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIndexAsUser() throws IOException {
         @SuppressWarnings("checkstyle:nowhitespaceafter")
@@ -96,9 +95,6 @@ final class IndexByPlaceRendererTest {
         assertRenderMatches(sizes, userContext);
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIndexAsAdmin() throws IOException {
         @SuppressWarnings("checkstyle:nowhitespaceafter")
@@ -106,9 +102,6 @@ final class IndexByPlaceRendererTest {
         assertRenderMatches(sizes, adminContext);
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
     void testIndexAsAdminSchoeller() throws IOException {
         // Test can only be run with my data.
@@ -129,20 +122,12 @@ final class IndexByPlaceRendererTest {
         assertEquals(expected, map.size(), "maps size wrong");
     }
 
-    /**
-     * A common person creator.
-     *
-     * @return the person
-     */
     private Person createJRandom() {
         return builder.createPerson("I1", "J. Random/Schoeller/");
     }
 
-    /**
-     * @throws IOException because the reader can
-     */
     @Test
-    void testIndexAsAdminSchoellerPlaceInfo() throws IOException {
+    void testIndexAsAdminSchoellerPlaceInfo() {
         // Have to build what the stub client can deal with.
         // Stub still doesn't return enough interesting things to work on
         // better algorithms.
@@ -170,13 +155,35 @@ final class IndexByPlaceRendererTest {
         assertEquals(1, map.size(), "map is empty");
     }
 
-    /**
-     * Do all the work for a specific context.
-     *
-     * @param sizes   the sizes
-     * @param context the context
-     * @throws IOException if file can't be read
-     */
+    @Test
+    void testRenderMergesCollisionsOnSameModernPlaceName() {
+        final Person person = builder.createPerson("I1", "J. Random/Schoeller/");
+        final Attribute birth = builder.createPersonEvent(person, "Birth", "01 JAN 2000");
+        builder.addPlaceToEvent(birth, "Place Variant A, USA");
+
+        final Person person2 = builder.createPerson("I2", "Anonymous/Schoeller/");
+        final Attribute birth2 = builder.createPersonEvent(person2, "Birth", "01 JAN 2001");
+        builder.addPlaceToEvent(birth2, "Place Variant B, USA");
+
+        // Client that maps both place variants to the same modern place name
+        final GeoServiceClient collidingClient = new GeoServiceClientStub() {
+            @Override
+            public GeoServiceItem get(final String placeName) {
+                return new GeoServiceItem(placeName, "Same Modern Place, USA", null);
+            }
+        };
+
+        final IndexByPlaceRenderer ir = new IndexByPlaceRenderer(
+            builder.getRoot(), collidingClient, adminContext);
+        final Map<GeoServiceItem, Set<PersonRenderer>> map = ir.render();
+
+        assertEquals(1, map.size(),
+            "Two place variants mapping to the same modern name should produce 1 entry");
+        final Set<PersonRenderer> persons = map.values().iterator().next();
+        assertEquals(2, persons.size(),
+            "Both persons should be present after merging colliding sets");
+    }
+
     private void assertRenderMatches(final int[] sizes, final RenderingContext context)
         throws IOException {
         final Root root = reader.readBigTestSource();

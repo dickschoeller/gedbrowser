@@ -2,6 +2,11 @@ package org.schoellerfamily.gedbrowser.security.token.test;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.time.Duration;
 
@@ -11,11 +16,15 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.security.token.TokenHelper;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for token helper.
+ *
+ * @author Richard Schoeller
  */
-public class TokenHelperTest {
+class TokenHelperTest {
     /** */
     private static final String KEY = "mySecret";
     /** */
@@ -23,9 +32,6 @@ public class TokenHelperTest {
     /** */
     private TokenHelper tokenHelper;
 
-    /**
-     * Setup token helper for testing.
-     */
     @BeforeEach
     void setUp() {
         tokenHelper = new TokenHelper("none", KEY, 1, "Authorization", "AUTH-TOKEN");
@@ -33,9 +39,6 @@ public class TokenHelperTest {
         DateTimeUtils.setCurrentMillisFixed(twentyMillis);
     }
 
-    /**
-     * Test expired token.
-     */
     @Test
     @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
     void testGenerateTokenExpired() {
@@ -44,5 +47,58 @@ public class TokenHelperTest {
             .atMost(Duration.ofSeconds(TOKEN_EXPIRY_TIMEOUT_SECONDS))
             .untilAsserted(() -> assertThatExceptionOfType(ExpiredJwtException.class)
                 .isThrownBy(() -> tokenHelper.parseClaimsOrThrow(token)));
+    }
+
+    @Test
+    void testGetUsernameFromMalformedToken() {
+        final String malformedToken = "not.a.valid.token";
+        assertNull(tokenHelper.getUsernameFromToken(malformedToken));
+    }
+
+    @Test
+    void testGetUsernameFromExpiredTokenThrows() {
+        final String token = tokenHelper.generateToken("fanjin");
+        await()
+            .atMost(Duration.ofSeconds(TOKEN_EXPIRY_TIMEOUT_SECONDS))
+            .untilAsserted(() -> assertThatExceptionOfType(ExpiredJwtException.class)
+                .isThrownBy(() -> tokenHelper.getUsernameFromToken(token)));
+    }
+
+    @Test
+    void testCanTokenBeRefreshedFromMalformedToken() {
+        final String malformedToken = "not even jwt";
+        assertFalse(tokenHelper.canTokenBeRefreshed(malformedToken));
+    }
+
+    @Test
+    void testRefreshExpiredTokenReturnsNull() {
+        final String token = tokenHelper.generateToken("fanjin");
+        await()
+            .atMost(Duration.ofSeconds(TOKEN_EXPIRY_TIMEOUT_SECONDS))
+            .untilAsserted(() -> assertNull(tokenHelper.refreshToken(token)));
+    }
+
+    @Test
+    void testGetCookieValueByNameNullCookies() {
+        final HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getCookies()).thenReturn(null);
+        assertNull(tokenHelper.getCookieValueByName(request, "AUTH-TOKEN"));
+    }
+
+    @Test
+    void testGetCookieValueByNameNoMatch() {
+        final HttpServletRequest request = mock(HttpServletRequest.class);
+        final Cookie other = new Cookie("OTHER", "value");
+        when(request.getCookies()).thenReturn(new Cookie[]{other});
+        assertNull(tokenHelper.getCookieValueByName(request, "AUTH-TOKEN"));
+    }
+
+    @Test
+    void testGetCookieValueByNameFound() {
+        final HttpServletRequest request = mock(HttpServletRequest.class);
+        final Cookie target = new Cookie("AUTH-TOKEN", "mytoken");
+        final Cookie other = new Cookie("OTHER", "value");
+        when(request.getCookies()).thenReturn(new Cookie[]{other, target});
+        assertEquals(target, tokenHelper.getCookieValueByName(request, "AUTH-TOKEN"));
     }
 }

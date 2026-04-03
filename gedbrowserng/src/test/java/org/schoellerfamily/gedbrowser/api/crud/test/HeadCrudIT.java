@@ -19,8 +19,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for head crud.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class, TestConfiguration.class },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -43,14 +47,12 @@ class HeadCrudIT {
     /** */
     private HeadCrud crud;
 
-    /** */
     @BeforeEach
     void setUp() {
         crud = new HeadCrud(loader, toDocConverter, repositoryManager);
     }
 
 
-    /** */
     @Test
     void testGetHeadGl120368() {
         log.info("beginning testGetHeadGl120368");
@@ -60,7 +62,6 @@ class HeadCrudIT {
             .returns("Header", o -> o.getString());
     }
 
-    /** */
     @Test
     void testGetHeadMiniSchoeller() {
         log.info("beginning testGetHeadMiniSchoeller");
@@ -70,7 +71,6 @@ class HeadCrudIT {
             .returns("Header", o -> o.getString());
     }
 
-    /** */
     @Test
     void testGetHeadBadDataSet() {
         log.info("beginning testGetHeadBadDataSet");

@@ -34,4 +34,22 @@ describe('MainMenuComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should initialize title on init', () => {
+    component.dataset = 'demo';
+    component.ngOnInit();
+    expect(component.title).toBe('gedbrowserng - demo');
+  });
+
+  it('should refresh title on changes', () => {
+    component.dataset = 'next';
+    component.ngOnChanges();
+    expect(component.title).toBe('gedbrowserng - next');
+  });
+
+  it('should emit toggle event', () => {
+    const emitSpy = vi.spyOn(component.emitToggle, 'emit');
+    component.toggle();
+    expect(emitSpy).toHaveBeenCalled();
+  });
 });

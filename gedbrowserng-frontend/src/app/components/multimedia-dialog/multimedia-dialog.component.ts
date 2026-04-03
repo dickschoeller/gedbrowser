@@ -1,9 +1,9 @@
-import { Component, Inject, Input, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 
-import { MultimediaDialogData, MultimediaFileData, MultimediaFormat, MultimediaSourceType } from '../../models';
+import { MultimediaDialogData, MultimediaFormat, MultimediaSourceType } from '../../models';
 import { SelectItem } from '../../models/select-item';
 import { UserService } from '../../services';
 import { MatToolbar } from '@angular/material/toolbar';

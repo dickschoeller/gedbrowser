@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, OnChanges , Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit } from '@angular/core';
 
-import { ApiAttribute, ApiPerson } from '../../models';
+import { ApiAttribute } from '../../models';
 import { PersonService } from '../../services';
 import { HasFamily } from '../../interfaces/has-family';
 import { PersonGetter } from './person-getter';
@@ -12,7 +12,7 @@ import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-person-parent',
-    template: `{{ label() }}:&nbsp;
+    template: `
 @if (person) {
   <span><a class="name"
     [routerLink]="['/' + dataset + '/persons', person.string]">
@@ -32,8 +32,10 @@ export class PersonParentComponent extends PersonGetter implements OnInit, OnCha
   @Input() parent: HasFamily & RefreshPerson;
   @Input() attribute: ApiAttribute;
 
-  constructor(@Inject(PersonService) personService: PersonService) {
-    super(personService);
+  constructor(@Inject(PersonService) personService: PersonService,
+    @Inject(NgZone) zone: NgZone,
+    @Inject(ChangeDetectorRef) cdr: ChangeDetectorRef) {
+    super(personService, zone, cdr);
     this.famMemberType = 'spouses';
   }
 
@@ -43,16 +45,6 @@ export class PersonParentComponent extends PersonGetter implements OnInit, OnCha
 
   ngOnChanges() {
     this.init(this.dataset, this.attribute.string);
-  }
-
-  label(): string {
-    if (this.attribute.type === 'wife') {
-      return 'Mother';
-    }
-    if (this.attribute.type === 'husband') {
-      return 'Father';
-    }
-    return 'Parent';
   }
 
   familyString(): string {

@@ -1,26 +1,26 @@
 package org.schoellerfamily.gedbrowser.renderer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders submission link list item output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class SubmissionLinkListItemRenderer implements ListItemRenderer {
     /**
      * Holder for the SubmissionLinkRenderer that is using this helper.
      */
-    private final transient SubmissionLinkRenderer submissionLinkRenderer;
+    private final SubmissionLinkRenderer submissionLinkRenderer;
 
     /**
-     * Constructor.
+     * Executes render as list item.
      *
-     * @param renderer the renderer that this is associated with.
-     */
-    protected SubmissionLinkListItemRenderer(
-            final SubmissionLinkRenderer renderer) {
-        this.submissionLinkRenderer = renderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param builder the builder
+     * @param newLine the new line
+     * @param pad the pad
+     * @return the resulting string builder
      */
     @Override
     public final StringBuilder renderAsListItem(final StringBuilder builder,
@@ -29,16 +29,15 @@ public class SubmissionLinkListItemRenderer implements ListItemRenderer {
         return builder;
     }
 
-    /**
-     * @param builder the string builder that we will be appending to.
-     */
     private void renderListItemContents(final StringBuilder builder) {
         builder.append("<span class=\"label\">Submission:</span> ");
         builder.append(submissionLinkRenderer.getNameHtml());
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the list item contents.
+     *
+     * @return the list item contents
      */
     @Override
     public final String getListItemContents() {

@@ -24,8 +24,12 @@ import org.springframework.test.web.servlet.client.EntityExchangeResult;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.client.RestClientException;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains integration tests for the source controller.
+ *
+ * @author Richard Schoeller
  */
 @SpringBootTest(classes = { Application.class,
     TestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -46,7 +50,6 @@ class SourceControllerIT {
     @LocalServerPort
     private int port;
 
-    /** */
     @Test
     void testReadSourcesGl120368() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/sources";
@@ -79,7 +82,6 @@ class SourceControllerIT {
         assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
-    /** */
     @Test
     void testReadSourcesMiniSchoeller() {
         final String url = "http://localhost:" + port
@@ -106,7 +108,6 @@ class SourceControllerIT {
         assertThat(entity.getResponseBody()).startsWith(bodyFragment);
     }
 
-    /** */
     @Test
     void testReadSourcesMiniSchoellerS2() {
         final String url = "http://localhost:" + port
@@ -133,7 +134,6 @@ class SourceControllerIT {
         assertThat(entity.getResponseBody()).isEqualTo(bodyFragment);
     }
 
-    /** */
     @Test
     void testReadSourcesMiniSchoellerXyzzy() {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/mini-schoeller"
@@ -147,9 +147,6 @@ class SourceControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testCreateSourcesSimple() throws RestClientException {
         final String url = "http://localhost:" + port + "/gedbrowserng/v1/dbs/gl120368/sources";
@@ -171,9 +168,6 @@ class SourceControllerIT {
         assertThat(resBody.getType()).isEqualTo(reqBody.getType());
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteSource() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -223,9 +217,6 @@ class SourceControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteSourceNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();
@@ -248,9 +239,6 @@ class SourceControllerIT {
             .isEqualTo(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()));
     }
 
-    /**
-     * @throws RestClientException if we can't talk to rest server
-     */
     @Test
     void testDeleteSubmitterDatabaseNotFound() throws RestClientException {
         final HttpHeaders headers = new HttpHeaders();

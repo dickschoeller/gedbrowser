@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.gedbrowser.datamodel.Attribute;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 import org.schoellerfamily.gedbrowser.renderer.DatePhraseRenderer;
 import org.schoellerfamily.gedbrowser.renderer.DateRenderer;
@@ -18,8 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+
 /**
- * @author Dick Schoeller
+ * Contains tests for date phrase renderer.
+ *
+ * @author Richard Schoeller
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfiguration.class })
@@ -40,10 +45,9 @@ final class DatePhraseRendererTest {
     /** */
     private RenderingContext anonymousContext;
 
-    /** */
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Person person = builder.createPerson();
         attribute = builder.createPersonEvent(person, "String");
         date = builder.addDateToGedObject(attribute, "14 December 1958");
@@ -53,7 +57,6 @@ final class DatePhraseRendererTest {
         anonymousContext = RenderingContext.anonymous(appInfo);
     }
 
-    /** */
     @Test
     void testGetRenderAsPhrase() {
         final DateRenderer dRenderer = new DateRenderer(date, new GedRendererFactory(),
@@ -64,7 +67,6 @@ final class DatePhraseRendererTest {
             "Rendered date string doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetRenderAsPhrase2() {
         final DateRenderer dRenderer = new DateRenderer(date2, new GedRendererFactory(),
@@ -74,7 +76,6 @@ final class DatePhraseRendererTest {
         assertEquals("14 December 1958", string, "Rendered date string doesn't match expectation");
     }
 
-    /** */
     @Test
     void testGetRenderAsPhraseEmpty() {
         final DateRenderer dRenderer = new DateRenderer(new Date(attribute, ""),
@@ -84,7 +85,6 @@ final class DatePhraseRendererTest {
         assertEquals("", string, "Expected empty string");
     }
 
-    /** */
     @Test
     void testGetRenderAsPhraseNull() {
         final DateRenderer dRenderer = new DateRenderer(new Date(attribute, null),

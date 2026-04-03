@@ -15,11 +15,12 @@ import org.schoellerfamily.gedbrowser.datamodel.Root;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * Reads the top of a GEDCOM file, looking for the CHAR tag to determine how
- * to read the file.
+ * Represents charset scanner.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Slf4j
 public class CharsetScanner {
@@ -33,9 +34,7 @@ public class CharsetScanner {
     private static final String UTF_8 = StandardCharsets.UTF_8.name();
     /** */
     private static final String UTF_16 = StandardCharsets.UTF_16.name();
-    /**
-     * Holds the mapping between GEDCOM known charsets and Java known charsets.
-     */
+    /** */
     private static final Map<String, String> CHARSET_MAP = Map.of(
         "ansel", ANSEL,
         "ansi", CP1252,
@@ -46,8 +45,10 @@ public class CharsetScanner {
         "ascii", ASCII);
 
     /**
-     * @param filename the name of the file to scan
-     * @return the Java charset name
+     * Executes charset.
+     *
+     * @param filename the filename to use
+     * @return the resulting string
      */
     public String charset(final String filename) {
         try (InputStream fis = new StreamManager(filename).getInputStream()) {
@@ -64,32 +65,26 @@ public class CharsetScanner {
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException _) {
             log.warn("Could not read file: {}", filename);
         }
         return UTF_8;
     }
 
-    /**
-     * @param line the input line
-     * @return true if this line is the charset line
-     */
     private boolean isCharset(final String line) {
         return line.startsWith("1 CHAR");
     }
 
-    /**
-     * @param line the input line
-     * @return the charset found there
-     */
     private String extractCharsetFromLine(final String line) {
         final int space = line.lastIndexOf(' ') + 1;
         return gedcomCharsetToJava(line.substring(space));
     }
 
     /**
-     * @param root the root of the dataset that we are working with
-     * @return the Java charset name
+     * Executes charset.
+     *
+     * @param root the root
+     * @return the resulting string
      */
     public String charset(final Root root) {
         final GedObject gob = root.getAttributes().get(0);
@@ -99,12 +94,6 @@ public class CharsetScanner {
         return UTF_8;
     }
 
-    /**
-     * Find the GEDCOM charset in the attributes of the header.
-     *
-     * @param gob the header ged object
-     * @return the GEDCOM charset
-     */
     private String findCharsetInHeader(final GedObject gob) {
         for (final GedObject hgob : gob.getAttributes()) {
             if ("Character Set".equals(hgob.getString())) {
@@ -115,8 +104,10 @@ public class CharsetScanner {
     }
 
     /**
-     * @param charset the GEDCOM charset name
-     * @return the Java charset name
+     * Executes gedcom charset to java.
+     *
+     * @param charset the charset to process
+     * @return the resulting string
      */
     public String gedcomCharsetToJava(final String charset) {
         final String javaCharset = CHARSET_MAP

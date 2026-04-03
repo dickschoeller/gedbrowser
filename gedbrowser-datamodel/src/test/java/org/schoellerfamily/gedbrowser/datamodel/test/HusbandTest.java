@@ -10,10 +10,13 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Husband;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for husband.
+ *
+ * @author Richard Schoeller
  */
 final class HusbandTest {
     /** */
@@ -27,10 +30,9 @@ final class HusbandTest {
     /** */
     private transient Husband husband2b;
 
-    /** */
     @BeforeEach
     void setUp() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         person1 = builder.createPerson(
                 "I1", "J. Random/Schoeller/");
         final Person person2 = builder.createPerson(
@@ -51,80 +53,68 @@ final class HusbandTest {
                 builder.addHusbandToFamily(family2, person5);
     }
 
-    /** */
     @Test
     void testEmptyGetFather() {
         final Husband husband = new Husband();
         assertFalse(husband.getFather().isSet(), "Should not be set");
     }
 
-    /** */
     @Test
     void testGetFather1() {
         assertEquals(person1, husband1.getFather(), "Person mismatch");
     }
 
-    /** */
     @Test
     void testGetFather2a() {
         assertEquals(person1, husband2a.getFather(), "Person mismatch");
     }
 
-    /** */
     @Test
     void testGetFather2b() {
         assertEquals(person3, husband2b.getFather(), "Person mismatch");
     }
 
-    /** */
     @Test
     void testGetSpouseIsSet1() {
         assertTrue(husband1.getSpouse().isSet(), "Husband should be set");
     }
 
-    /** */
     @Test
     void testGetSpouseIsSet2a() {
         assertTrue(husband2a.getSpouse().isSet(), "Husband should be set");
     }
 
-    /** */
     @Test
     void testGetSpouseIsSet2b() {
         assertTrue(husband2b.getSpouse().isSet(), "Husband should be set");
     }
 
-    /** */
     @Test
     void testGetSpouse1() {
         assertEquals(person1, husband1.getSpouse(), "Person mismatch");
     }
 
-    /** */
     @Test
     void testGetSpouse2a() {
         assertEquals(person1, husband2a.getSpouse(), "Person mismatch");
     }
 
-    /** */
     @Test
     void testGetSpouse2b() {
         assertEquals(person3, husband2b.getSpouse(), "Person mismatch");
     }
 
-    /** */
     @Test
     void testHusbandGedObjectFatherNotSet() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Husband husband = new Husband(family, "Husband", null);
         assertFalse(husband.getFather().isSet(), "Father should not be set");
     }
 
-    /** */
     @Test
     void testHusbandGedObjectStringStringFather() {
-        final GedObjectBuilder builder = new GedObjectBuilder();
+        final GedObjectBuilder builder = new GedObjectBuilderImpl();
         final Family family = builder.createFamily("F1");
         final Husband husband =
                 new Husband(family, "Husband", new ObjectId("@I3@"));

@@ -39,10 +39,12 @@ import com.mongodb.client.MongoClients;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * Configuration class for MongoDB access.
+ * Configures components related to mongo.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableMongoRepositories(
@@ -118,7 +120,9 @@ public class MongoConfiguration {
     }
 
     /**
-     * @return the RestClient builder
+     * Creates and configures the builder bean.
+     *
+     * @return the configured builder bean
      */
     @Bean
     public RestClient.Builder restClientBuilder() {

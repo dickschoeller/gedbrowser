@@ -13,9 +13,9 @@ import org.schoellerfamily.gedbrowser.datamodel.util.DateParser;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 /**
- * Class carries out estimation of the age of a person based on birth date and some provided date.
+ * Represents age estimator.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 public final class AgeEstimator {
     /** Which person are we estimating. */

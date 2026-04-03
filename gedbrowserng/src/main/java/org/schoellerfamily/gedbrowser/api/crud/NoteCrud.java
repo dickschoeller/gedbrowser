@@ -13,8 +13,12 @@ import org.schoellerfamily.gedbrowser.persistence.repository.FindableDocument;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 /**
- * @author Dick Schoeller
+ * Represents note crud.
+ *
+ * @author Richard Schoeller
  */
 @Slf4j
 public class NoteCrud
@@ -23,8 +27,10 @@ public class NoteCrud
         ObjectCrud<ApiNote> {
 
     /**
-     * @param loader the file loader that we will use
-     * @param toDocConverter the document converter
+     * Creates a new NoteCrud.
+     *
+     * @param loader the loader
+     * @param toDocConverter the to doc converter
      * @param repositoryManager the repository manager
      */
     public NoteCrud(final GedObjectFileLoader loader,
@@ -34,7 +40,9 @@ public class NoteCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the repository.
+     *
+     * @return the repository
      */
     @Override
     public FindableDocument<Note, NoteDocument> getRepository() {
@@ -42,7 +50,9 @@ public class NoteCrud
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the ged class.
+     *
+     * @return the ged class
      */
     @Override
     public Class<Note> getGedClass() {
@@ -50,9 +60,11 @@ public class NoteCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param note the data for the note
-     * @return the note as created
+     * Creates the one.
+     *
+     * @param db the db
+     * @param note the note
+     * @return the resulting api note
      */
     @Override
     public ApiNote createOne(final String db,
@@ -63,8 +75,10 @@ public class NoteCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @return the list of notes
+     * Executes read all.
+     *
+     * @param db the db
+     * @return the resulting list
      */
     @Override
     public List<ApiNote> readAll(
@@ -74,9 +88,11 @@ public class NoteCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the note
-     * @return the note
+     * Executes read one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api note
      */
     @Override
     public ApiNote readOne(
@@ -88,10 +104,12 @@ public class NoteCrud
 
 
     /**
-     * @param db the name of the db to access
-     * @param id the id of the note to update
-     * @param note the data for the note
-     * @return the note as created
+     * Executes update one.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @param note the note
+     * @return the resulting api note
      */
     @Override
     public ApiNote updateOne(final String db,
@@ -105,9 +123,11 @@ public class NoteCrud
     }
 
     /**
-     * @param db the name of the db to access
-     * @param id the ID of the note
-     * @return the deleted object
+     * Returns the api note.
+     *
+     * @param db the db
+     * @param id the unique identifier for the target
+     * @return the resulting api note
      */
     @Override
     public ApiNote deleteOne(

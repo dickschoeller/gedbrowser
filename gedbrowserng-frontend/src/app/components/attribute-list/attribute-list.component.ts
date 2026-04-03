@@ -21,13 +21,13 @@ import { AttributeListItemComponent } from './attribute-list-item.component';
 @Component({
     selector: 'app-attribute-list',
     standalone: true,
-    template: `<mat-card>
-  <mat-card-title>
-    <mat-toolbar>
-      Attributes
-      <span class="example-fill-remaining-space"></span>
+    template: `<mat-card class="custom-section-colors">
+    <mat-card-title class="custom-section-colors">
+    <mat-toolbar class="custom-section-colors">
+    <span class="list-toolbar-title custom-section-colors">Attributes</span>
+    <span class="example-fill-remaining-space custom-section-colors"></span>
             @if (hasSignedIn()) {
-                <span>
+                <span class="custom-section-colors">
                     <button (click)="openCreateAttributeDialog()" mat-icon-button color="primary"
                             matTooltip="Add attribute"><mat-icon>add_box</mat-icon></button>
                     @if (showNotes) {
@@ -41,13 +41,19 @@ import { AttributeListItemComponent } from './attribute-list-item.component';
                     }
                 </span>
             }
+            <button mat-icon-button
+                    [attr.aria-label]="showAttributes ? 'Collapse attributes' : 'Expand attributes'"
+                    (click)="showAttributes = !showAttributes">
+                <mat-icon>{{ showAttributes ? 'expand_less' : 'expand_more' }}</mat-icon>
+            </button>
     </mat-toolbar>
   </mat-card-title>
-  <mat-card-content>
-        <div cdkDropList class="attribute-list" (cdkDropListDropped)="drop($event)"
+    @if (showAttributes) {
+    <mat-card-content class="custom-section-colors">
+        <div cdkDropList class="attribute-list custom-section-colors" (cdkDropListDropped)="drop($event)"
                 [cdkDropListDisabled]="!hasSignedIn()">
             @for (attribute of attributes; track $index; let i = $index) {
-                <div cdkDrag class="{{ hasSignedIn() ? 'attribute-box' : '' }}">
+                <div cdkDrag class="{{ hasSignedIn() ? 'attribute-box' : '' }} custom-section-colors">
                     <app-attribute-list-item
                             [parent]="parent" [dataset]="dataset" [attribute]="attribute"
                             [attributeList]="attributes" [index]="i"></app-attribute-list-item>
@@ -55,6 +61,7 @@ import { AttributeListItemComponent } from './attribute-list-item.component';
             }
         </div>
   </mat-card-content>
+    }
 </mat-card>`,
     styles: [],
     imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatTooltip, MatIcon, NoteButtonComponent, SourceButtonComponent, SubmitterButtonComponent, MatCardContent, CdkDropList, CdkDrag, AttributeListItemComponent]
@@ -69,6 +76,7 @@ export class AttributeListComponent extends HasAttributeDialog implements OnInit
     @Input() showNotes = true;
     @Input() showSources = true;
     @Input() showSubmitters = true;
+    showAttributes = true;
 
     index;
     attributeDialogHelper = new AttributeDialogHelper(this);

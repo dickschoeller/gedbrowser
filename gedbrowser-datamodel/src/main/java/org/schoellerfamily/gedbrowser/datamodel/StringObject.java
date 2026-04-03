@@ -1,7 +1,9 @@
 package org.schoellerfamily.gedbrowser.datamodel;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for string object.
+ *
+ * @author Richard Schoeller
  */
 public interface StringObject {
     /**

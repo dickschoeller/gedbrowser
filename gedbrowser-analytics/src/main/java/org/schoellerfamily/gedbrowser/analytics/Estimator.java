@@ -15,12 +15,12 @@ import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
 import lombok.NoArgsConstructor;
 
+
+
 /**
- * Base class for estimators. Primarily contains useful methods to avoid
- * Demeter. Note we have stopped checking Demeter in PMD, but it is still a good
- * rule.
+ * Represents estimator.
  *
- * @author Dick Schoeller
+ * @author Richard Schoeller
  */
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 @NoArgsConstructor

@@ -3,26 +3,24 @@ package org.schoellerfamily.gedbrowser.renderer;
 import org.schoellerfamily.gedbrowser.datamodel.Date;
 import org.schoellerfamily.gedbrowser.datamodel.visitor.GetDateVisitor;
 
+import lombok.RequiredArgsConstructor;
+
 /**
- * @author Dick Schoeller
+ * Renders date phrase output for display.
+ *
+ * @author Richard Schoeller
  */
+@RequiredArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class DatePhraseRenderer implements PhraseRenderer {
     /**
      * Holder for the DateRenderer that is using this helper.
      */
-    private final transient DateRenderer dateRenderer;
+    private final DateRenderer dateRenderer;
 
     /**
-     * Constructor.
+     * Executes render as phrase.
      *
-     * @param dateRenderer the renderer that this is associated with.
-     */
-    protected DatePhraseRenderer(final DateRenderer dateRenderer) {
-        this.dateRenderer = dateRenderer;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @return the resulting string
      */
     @Override
     public final String renderAsPhrase() {

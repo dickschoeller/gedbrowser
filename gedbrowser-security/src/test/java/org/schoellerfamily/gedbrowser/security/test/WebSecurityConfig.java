@@ -23,8 +23,12 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 
 import lombok.RequiredArgsConstructor;
 
+
+
 /**
- * @author Dick Schoeller
+ * Configures components related to web security.
+ *
+ * @author Richard Schoeller
  */
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
@@ -89,10 +93,9 @@ public class WebSecurityConfig {
      *
      * @param http the http security object
      * @return the security filter chain
-     * @throws Exception if there is a problem
      */
     @Bean
-    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(final HttpSecurity http) {
         // Start with CSRF configuration (kept in helper)
         final HttpSecurity configured = handleCsrf(http);
 
@@ -118,15 +121,7 @@ public class WebSecurityConfig {
         return configured.build();
     }
 
-    /**
-     * Work from the http security object and enable or disable CSRF handling, as
-     * requested in the application properties.
-     *
-     * @param http the http security objec
-     * @return the http security object
-     * @throws Exception if there is a problem
-     */
-    private HttpSecurity handleCsrf(final HttpSecurity http) throws Exception {
+    private HttpSecurity handleCsrf(final HttpSecurity http) {
         if ("test".equals(activeProfile)) {
             // Use the lambda-based CsrfConfigurer to disable CSRF in test profile
             http.csrf(csrf -> csrf.disable());

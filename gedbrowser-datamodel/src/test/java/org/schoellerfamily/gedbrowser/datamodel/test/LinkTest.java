@@ -13,19 +13,21 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Link;
 import org.schoellerfamily.gedbrowser.datamodel.ObjectId;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
+import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilderImpl;
 import org.schoellerfamily.gedbrowser.datamodel.util.GedObjectBuilder;
 
 /**
- * @author Dick Schoeller
+ * Contains tests for link.
+ *
+ * @author Richard Schoeller
  */
 final class LinkTest {
     /** */
     private static final String LINK_TEST = "Link";
     /** */
     private transient Person person1;
-
     /** */
-    private final GedObjectBuilder builder = new GedObjectBuilder();
+    private final GedObjectBuilder builder = new GedObjectBuilderImpl();
 
     @BeforeEach
     void setUp() {
@@ -116,11 +118,6 @@ final class LinkTest {
         );
     }
 
-    /**
-     * @param link the link to check
-     * @param expectedFromString the expected from string
-     * @param expectedToString the expected to string
-     */
     private void assertMatch(final Link link, final String expectedFromString,
             final String expectedToString) {
         assertEquals(expectedFromString, link.getFromString(), "From string mismatch");

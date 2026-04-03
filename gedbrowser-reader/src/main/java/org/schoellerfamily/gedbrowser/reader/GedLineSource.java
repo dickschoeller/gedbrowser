@@ -3,7 +3,9 @@ package org.schoellerfamily.gedbrowser.reader;
 import java.io.IOException;
 
 /**
- * @author Dick Schoeller
+ * Defines the contract for ged line source.
+ *
+ * @author Richard Schoeller
  */
 public interface GedLineSource {
     /**
