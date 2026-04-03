@@ -136,20 +136,20 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@angular-devkit/architect@0.2102.5", "@angular-devkit/architect@>= 0.2100.0 < 0.2200.0":
-  version "0.2102.5"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.2102.5.tgz#4dd8a75e40058970c7242bdcef703cf4dccc1198"
-  integrity sha512-9xE7G177R9G9Kte+4AtbEMlEeZUupnvdBUMVBlZRa/n4UDUyAkB/vj58KrzRCCIVQ/ypHVMwUilaDTO484dd+g==
-  dependencies:
-    "@angular-devkit/core" "21.2.5"
-    rxjs "7.8.2"
-
 "@angular-devkit/architect@0.2102.6":
   version "0.2102.6"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.2102.6.tgz#65eae4f7a9e422ade7c5e9d9e5d9b811aecf12d5"
   integrity sha512-h4qybKypR7OuwcTHPQI1zRm7abXgmPiV49vI2UeMtVVY/GKzru9gMexcYmWabzEyBY8w6VSfWjV2X+eit2EhDQ==
   dependencies:
     "@angular-devkit/core" "21.2.6"
+    rxjs "7.8.2"
+
+"@angular-devkit/architect@>= 0.2100.0 < 0.2200.0":
+  version "0.2102.5"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.2102.5.tgz#4dd8a75e40058970c7242bdcef703cf4dccc1198"
+  integrity sha512-9xE7G177R9G9Kte+4AtbEMlEeZUupnvdBUMVBlZRa/n4UDUyAkB/vj58KrzRCCIVQ/ypHVMwUilaDTO484dd+g==
+  dependencies:
+    "@angular-devkit/core" "21.2.5"
     rxjs "7.8.2"
 
 "@angular-devkit/build-angular@^21.0.0":
@@ -3368,10 +3368,10 @@
   dependencies:
     undici-types "~7.18.0"
 
-"@types/node@24.12.0":
-  version "24.12.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.12.0.tgz#6222e028210e5322e4f4f6767f8d88e5ea3b33d2"
-  integrity sha512-GYDxsZi3ChgmckRT9HPU0WEhKLP08ev/Yfcq2AstjrDASOYCSXeyjDsHg4v5t4jOj7cyDX3vmprafKlWIG9MXQ==
+"@types/node@24.12.2":
+  version "24.12.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.12.2.tgz#353cb161dbf1785ea25e8829ba7ec574c5c629ac"
+  integrity sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==
   dependencies:
     undici-types "~7.16.0"
 
