@@ -31,7 +31,7 @@
     "@fontsource/noto-sans-tc": "^5.2.9",
     "@iplab/ngx-file-upload": "^21.0.0",
     "@primeng/themes": "^21.0.4",
-    "@snyk/protect": "1.1303.2",
+    "@snyk/protect": "1.1304.0",
     "braces": "^3.0.3",
     "core-js": "3.49.0",
     "diff": "8.0.4",
@@ -70,18 +70,18 @@
     "@angular/language-service": "21.2.7",
     "@eslint/js": "9.39.4",
     "@types/node": "24.12.2",
-    "@typescript-eslint/types": "8.58.0",
-    "@typescript-eslint/utils": "8.58.0",
-    "@vitest/coverage-v8": "4.1.2",
+    "@typescript-eslint/types": "8.58.1",
+    "@typescript-eslint/utils": "8.58.1",
+    "@vitest/coverage-v8": "4.1.4",
     "eslint": "9.39.4",
     "express": "^5.0.0",
     "express-rate-limit": "8.3.2",
-    "jsdom": "29.0.1",
+    "jsdom": "29.0.2",
     "puppeteer": "24.40.0",
     "ts-node": "~10.9.0",
     "typescript": "^6.0.0",
     "typescript-eslint": "^8.53.1",
-    "vitest": "4.1.2"
+    "vitest": "4.1.4"
   },
   "snyk": true
 }
