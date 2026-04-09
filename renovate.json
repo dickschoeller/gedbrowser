@@ -5,6 +5,7 @@
   ],
   "automerge": true,
   "platformAutomerge": true,
+  "rebaseWhen": "behind-base-branch",
   "packageRules": [
     {
       "matchPackagePatterns": ["^@angular/"],
