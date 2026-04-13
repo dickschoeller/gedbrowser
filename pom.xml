@@ -65,8 +65,8 @@
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
     <google-maps-services.version>2.2.0</google-maps-services.version>
-    <jackson-core.version>3.1.1</jackson-core.version>
-    <jackson-databind.version>3.1.1</jackson-databind.version>
+    <jackson-core.version>3.1.2</jackson-core.version>
+    <jackson-databind.version>3.1.2</jackson-databind.version>
     <jackson-annotations.version>2.21</jackson-annotations.version>
     <old-jackson.version>2.21.2</old-jackson.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
