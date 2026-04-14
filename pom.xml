@@ -65,8 +65,8 @@
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
     <google-maps-services.version>2.2.0</google-maps-services.version>
-    <jackson-core.version>3.1.1</jackson-core.version>
-    <jackson-databind.version>3.1.1</jackson-databind.version>
+    <jackson-core.version>3.1.2</jackson-core.version>
+    <jackson-databind.version>3.1.2</jackson-databind.version>
     <jackson-annotations.version>2.21</jackson-annotations.version>
     <old-jackson.version>2.21.2</old-jackson.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
@@ -75,7 +75,7 @@
     <junit-jupiter.version>6.0.3</junit-jupiter.version>
     <junit-platform.version>6.0.3</junit-platform.version>
     <saucebindings-junit5.version>1.5.0</saucebindings-junit5.version>
-    <selenium.version>4.42.0</selenium.version>
+    <selenium.version>4.43.0</selenium.version>
     <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
 
     <geojson-jackson.version>3.0</geojson-jackson.version>

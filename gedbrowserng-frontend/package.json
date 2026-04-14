@@ -34,7 +34,7 @@
     "@snyk/protect": "1.1304.0",
     "braces": "^3.0.3",
     "core-js": "3.49.0",
-    "diff": "8.0.4",
+    "diff": "9.0.0",
     "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
     "fstream": "^1.0.12",
@@ -44,7 +44,7 @@
     "ngx-page-scroll-core": "^15.0.1",
     "npm": "11.12.1",
     "primeicons": "^7.0.0",
-    "primeng": "21.1.5",
+    "primeng": "21.1.6",
     "rxjs": "^7.8.2",
     "snyk": "1.1304.0",
     "sshpk": "^1.16.1",
@@ -55,7 +55,7 @@
     "zone.js": "^0.16.0"
   },
   "resolutions": {
-    "undici": "7.24.7"
+    "undici": "7.25.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^21.0.0",
@@ -70,8 +70,8 @@
     "@angular/language-service": "21.2.8",
     "@eslint/js": "9.39.4",
     "@types/node": "24.12.2",
-    "@typescript-eslint/types": "8.58.1",
-    "@typescript-eslint/utils": "8.58.1",
+    "@typescript-eslint/types": "8.58.2",
+    "@typescript-eslint/utils": "8.58.2",
     "@vitest/coverage-v8": "4.1.4",
     "eslint": "9.39.4",
     "express": "^5.0.0",
