@@ -182,8 +182,8 @@ describe('LoginComponent', () => {
     
     expect(navigateSpy).toHaveBeenCalledWith(['/dashboard']);
     
-    vi.useRealTimers();
-  });
+      queryParamMap: of(convertToParamMap({})),
+      queryParams: of({}),
 
   it('onSubmit handles login failure', async () => {
     vi.useFakeTimers();
@@ -199,8 +199,8 @@ describe('LoginComponent', () => {
     
     expect(component.submitted).toBeFalsy();
     expect(component.notification).toEqual({
-      msgType: 'error',
-      msgBody: 'Incorrect username or password.'
+      queryParamMap: of(convertToParamMap({})),
+      queryParams: of({}),
     });
     
     vi.useRealTimers();
