@@ -126,8 +126,22 @@ describe('LoginComponent', () => {
     expect(component.returnUrl).toBe('/dashboard');
   });
 
+  it('sets return url from route params when query params do not provide it', async () => {
+    queryParamMapSubject.next({
+      get: (_key: string) => null
+    });
+    paramMapSubject.next({
+      get: (key: string) => key === 'returnUrl' ? '/protected' : null
+    });
+    await new Promise(resolve => setTimeout(resolve, 0));
+    expect(component.returnUrl).toBe('/protected');
+  });
+
   it('defaults return url to / when not provided', async () => {
     queryParamMapSubject.next({
+      get: (_key: string) => null
+    });
+    paramMapSubject.next({
       get: (_key: string) => null
     });
     await new Promise(resolve => setTimeout(resolve, 0));
