@@ -224,6 +224,8 @@ describe('LoginComponent', () => {
   it('uses snapshot paramMap when query streams are unavailable', () => {
     const legacyComponent = createComponentWithRoute({
       paramMap: of({ get: (_key: string) => null }),
+      queryParamMap: undefined,
+      queryParams: undefined,
       snapshot: {
         queryParamMap: { get: (_key: string) => null },
         paramMap: { get: (key: string) => key === 'returnUrl' ? '/from-snapshot-param-map' : null },
@@ -239,6 +241,8 @@ describe('LoginComponent', () => {
   it('uses snapshot params when snapshot paramMap has no returnUrl', () => {
     const legacyComponent = createComponentWithRoute({
       paramMap: of({ get: (_key: string) => null }),
+      queryParamMap: undefined,
+      queryParams: undefined,
       snapshot: {
         queryParamMap: { get: (_key: string) => null },
         paramMap: { get: (_key: string) => null },
