@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Router, ActivatedRoute, provideRouter } from '@angular/router';
@@ -17,6 +17,27 @@ describe('LoginComponent', () => {
   let router: Router;
   let paramMapSubject: BehaviorSubject<any>;
   let queryParamMapSubject: BehaviorSubject<any>;
+
+  const createComponentWithRoute = (routeStub: Partial<ActivatedRoute>) => {
+    const manualUserService = {
+      getMyInfo: vi.fn().mockReturnValue(of({})),
+      resetCredentials: vi.fn().mockReturnValue(of({ result: 'success' }))
+    } as unknown as UserService;
+    const manualAuthService = {
+      login: vi.fn().mockReturnValue(of({}))
+    } as unknown as AuthService;
+    const manualRouter = {
+      navigate: vi.fn()
+    } as unknown as Router;
+
+    return new LoginComponent(
+      manualUserService,
+      manualAuthService,
+      manualRouter,
+      routeStub as ActivatedRoute,
+      TestBed.inject(FormBuilder)
+    );
+  };
 
   beforeEach(async () => {
     paramMapSubject = new BehaviorSubject<any>({
@@ -135,6 +156,84 @@ describe('LoginComponent', () => {
     });
     await new Promise(resolve => setTimeout(resolve, 0));
     expect(component.notification).toBeUndefined();
+  });
+
+  it('uses legacy route params when paramMap is unavailable', () => {
+    const legacyComponent = createComponentWithRoute({
+      params: of({ msgType: 'info', msgBody: 'legacy message' }),
+      queryParamMap: of({ get: (_key: string) => null }),
+      snapshot: {
+        paramMap: { get: (_key: string) => null },
+        params: {}
+      }
+    });
+
+    legacyComponent.ngOnInit();
+
+    expect(legacyComponent.notification).toEqual({
+      msgType: 'info',
+      msgBody: 'legacy message'
+    });
+  });
+
+  it('uses queryParams when queryParamMap is unavailable', () => {
+    const legacyComponent = createComponentWithRoute({
+      paramMap: of({ get: (_key: string) => null }),
+      queryParams: of({ returnUrl: '/from-query-params' }),
+      snapshot: {
+        paramMap: { get: (_key: string) => '/from-snapshot-param-map' },
+        params: { returnUrl: '/from-snapshot-params' }
+      }
+    });
+
+    legacyComponent.ngOnInit();
+
+    expect(legacyComponent.returnUrl).toBe('/from-query-params');
+  });
+
+  it('uses snapshot paramMap when query streams are unavailable', () => {
+    const legacyComponent = createComponentWithRoute({
+      paramMap: of({ get: (_key: string) => null }),
+      snapshot: {
+        queryParamMap: { get: (_key: string) => null },
+        paramMap: { get: (key: string) => key === 'returnUrl' ? '/from-snapshot-param-map' : null },
+        params: {}
+      }
+    });
+
+    legacyComponent.ngOnInit();
+
+    expect(legacyComponent.returnUrl).toBe('/from-snapshot-param-map');
+  });
+
+  it('uses snapshot params when snapshot paramMap has no returnUrl', () => {
+    const legacyComponent = createComponentWithRoute({
+      paramMap: of({ get: (_key: string) => null }),
+      snapshot: {
+        queryParamMap: { get: (_key: string) => null },
+        paramMap: { get: (_key: string) => null },
+        params: { returnUrl: '/from-snapshot-params' }
+      }
+    });
+
+    legacyComponent.ngOnInit();
+
+    expect(legacyComponent.returnUrl).toBe('/from-snapshot-params');
+  });
+
+  it('defaults to / when no returnUrl sources are present in fallback mode', () => {
+    const legacyComponent = createComponentWithRoute({
+      paramMap: of({ get: (_key: string) => null }),
+      snapshot: {
+        queryParamMap: { get: (_key: string) => null },
+        paramMap: { get: (_key: string) => null },
+        params: {}
+      }
+    });
+
+    legacyComponent.ngOnInit();
+
+    expect(legacyComponent.returnUrl).toBe('/');
   });
 
   it('onSubmit sets submitted flag and calls login', async () => {
