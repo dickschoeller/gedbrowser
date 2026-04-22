@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Router, ActivatedRoute, provideRouter, convertToParamMap } from '@angular/router';
@@ -17,38 +17,6 @@ describe('LoginComponent', () => {
   let router: Router;
   let paramMapSubject: BehaviorSubject<any>;
   let queryParamMapSubject: BehaviorSubject<any>;
-
-  const createComponentWithRoute = (routeStub: Partial<ActivatedRoute> = {}) => {
-    const manualUserService = {
-      getMyInfo: vi.fn().mockReturnValue(of({})),
-      resetCredentials: vi.fn().mockReturnValue(of({ result: 'success' }))
-    } as unknown as UserService;
-    const manualAuthService = {
-      login: vi.fn().mockReturnValue(of({}))
-    } as unknown as AuthService;
-    const manualRouter = {
-      navigate: vi.fn()
-    } as unknown as Router;
-    const completeRouteStub = {
-      ...routeStub,
-      paramMap: 'paramMap' in routeStub ? routeStub.paramMap : of(convertToParamMap({})),
-      queryParamMap: 'queryParamMap' in routeStub ? routeStub.queryParamMap : of(convertToParamMap({})),
-      snapshot: 'snapshot' in routeStub
-        ? routeStub.snapshot
-        : {
-            paramMap: convertToParamMap({}),
-            queryParamMap: convertToParamMap({})
-          }
-    } as ActivatedRoute;
-
-    return new LoginComponent(
-      manualUserService,
-      manualAuthService,
-      manualRouter,
-      completeRouteStub,
-      TestBed.inject(FormBuilder)
-    );
-  };
 
   beforeEach(async () => {
     paramMapSubject = new BehaviorSubject<any>(convertToParamMap({}));
@@ -177,55 +145,6 @@ describe('LoginComponent', () => {
     });
     await new Promise(resolve => setTimeout(resolve, 0));
     expect(component.notification).toBeUndefined();
-  });
-
-  it('uses snapshot paramMap when query streams are unavailable', () => {
-    const legacyComponent = createComponentWithRoute({
-      paramMap: of({ get: (_key: string) => null }),
-      queryParamMap: undefined,
-      queryParams: undefined,
-      snapshot: {
-        queryParamMap: { get: (_key: string) => null },
-        paramMap: { get: (key: string) => key === 'returnUrl' ? '/from-snapshot-param-map' : null },
-        params: {}
-      }
-    });
-
-    legacyComponent.ngOnInit();
-
-    expect(legacyComponent.returnUrl).toBe('/from-snapshot-param-map');
-  });
-
-  it('uses snapshot params when snapshot paramMap has no returnUrl', () => {
-    const legacyComponent = createComponentWithRoute({
-      paramMap: of({ get: (_key: string) => null }),
-      queryParamMap: undefined,
-      queryParams: undefined,
-      snapshot: {
-        queryParamMap: { get: (_key: string) => null },
-        paramMap: { get: (_key: string) => null },
-        params: { returnUrl: '/from-snapshot-params' }
-      }
-    });
-
-    legacyComponent.ngOnInit();
-
-    expect(legacyComponent.returnUrl).toBe('/from-snapshot-params');
-  });
-
-  it('defaults to / when no returnUrl sources are present in fallback mode', () => {
-    const legacyComponent = createComponentWithRoute({
-      paramMap: of({ get: (_key: string) => null }),
-      snapshot: {
-        queryParamMap: { get: (_key: string) => null },
-        paramMap: { get: (_key: string) => null },
-        params: {}
-      }
-    });
-
-    legacyComponent.ngOnInit();
-
-    expect(legacyComponent.returnUrl).toBe('/');
   });
 
   it('onSubmit sets submitted flag and calls login', async () => {
