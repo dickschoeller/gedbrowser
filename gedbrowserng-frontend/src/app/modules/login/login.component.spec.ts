@@ -31,13 +31,14 @@ describe('LoginComponent', () => {
     } as unknown as Router;
     const completeRouteStub = {
       ...routeStub,
-      paramMap: routeStub.paramMap ?? of(convertToParamMap({})),
-      queryParamMap: routeStub.queryParamMap ?? of(convertToParamMap({})),
-      snapshot: {
-        paramMap: convertToParamMap({}),
-        queryParamMap: convertToParamMap({}),
-        ...(routeStub.snapshot ?? {})
-      }
+      paramMap: 'paramMap' in routeStub ? routeStub.paramMap : of(convertToParamMap({})),
+      queryParamMap: 'queryParamMap' in routeStub ? routeStub.queryParamMap : of(convertToParamMap({})),
+      snapshot: 'snapshot' in routeStub
+        ? routeStub.snapshot
+        : {
+            paramMap: convertToParamMap({}),
+            queryParamMap: convertToParamMap({})
+          }
     } as ActivatedRoute;
 
     return new LoginComponent(
