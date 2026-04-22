@@ -209,6 +209,7 @@ describe('LoginComponent', () => {
   it('uses queryParams when queryParamMap is unavailable', () => {
     const legacyComponent = createComponentWithRoute({
       paramMap: of({ get: (_key: string) => null }),
+      queryParamMap: undefined,
       queryParams: of({ returnUrl: '/from-query-params' }),
       snapshot: {
         paramMap: { get: (_key: string) => '/from-snapshot-param-map' },
