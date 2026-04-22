@@ -157,7 +157,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             }
         }
     title = 'Login';
-    form: FormGroup;
+    form!: FormGroup;
 
     /**
      * Boolean used in telling the UI
@@ -170,9 +170,9 @@ export class LoginComponent implements OnInit, OnDestroy {
      * Notification message from received
      * form request or router
      */
-    notification: DisplayMessage;
+    notification?: DisplayMessage;
 
-    returnUrl: string;
+    returnUrl = '/';
     private readonly ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(
@@ -187,8 +187,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.route.params.pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe((params: DisplayMessage) => {
-                this.notification = params;
+            .subscribe((params) => {
+                const msgType = params['msgType'];
+                const msgBody = params['msgBody'];
+                this.notification = msgType && msgBody ? { msgType, msgBody } : undefined;
             });
         // get return url from route parameters or default to '/'
         this.route.paramMap.subscribe(params => this.returnUrl = params.get('returnUrl') || '/');
