@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { Router, ActivatedRoute, provideRouter } from '@angular/router';
+import { Router, ActivatedRoute, provideRouter, convertToParamMap } from '@angular/router';
 import { of, throwError, BehaviorSubject } from 'rxjs';
 
 import { LoginComponent } from './login.component';
@@ -18,7 +18,7 @@ describe('LoginComponent', () => {
   let paramMapSubject: BehaviorSubject<any>;
   let queryParamMapSubject: BehaviorSubject<any>;
 
-  const createComponentWithRoute = (routeStub: Partial<ActivatedRoute>) => {
+  const createComponentWithRoute = (routeStub: Partial<ActivatedRoute> = {}) => {
     const manualUserService = {
       getMyInfo: vi.fn().mockReturnValue(of({})),
       resetCredentials: vi.fn().mockReturnValue(of({ result: 'success' }))
@@ -29,23 +29,29 @@ describe('LoginComponent', () => {
     const manualRouter = {
       navigate: vi.fn()
     } as unknown as Router;
+    const completeRouteStub = {
+      ...routeStub,
+      paramMap: routeStub.paramMap ?? of(convertToParamMap({})),
+      queryParamMap: routeStub.queryParamMap ?? of(convertToParamMap({})),
+      snapshot: {
+        paramMap: convertToParamMap({}),
+        queryParamMap: convertToParamMap({}),
+        ...(routeStub.snapshot ?? {})
+      }
+    } as ActivatedRoute;
 
     return new LoginComponent(
       manualUserService,
       manualAuthService,
       manualRouter,
-      routeStub as ActivatedRoute,
+      completeRouteStub,
       TestBed.inject(FormBuilder)
     );
   };
 
   beforeEach(async () => {
-    paramMapSubject = new BehaviorSubject<any>({
-      get: (_key: string) => null
-    });
-    queryParamMapSubject = new BehaviorSubject<any>({
-      get: (_key: string) => null
-    });
+    paramMapSubject = new BehaviorSubject<any>(convertToParamMap({}));
+    queryParamMapSubject = new BehaviorSubject<any>(convertToParamMap({}));
 
     await TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
