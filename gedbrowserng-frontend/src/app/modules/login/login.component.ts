@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy , Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, combineLatest } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
 
 import { DisplayMessage } from '../../models';
@@ -157,7 +157,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             }
         }
     title = 'Login';
-    form: FormGroup;
+    form!: FormGroup;
 
     /**
      * Boolean used in telling the UI
@@ -170,9 +170,9 @@ export class LoginComponent implements OnInit, OnDestroy {
      * Notification message from received
      * form request or router
      */
-    notification: DisplayMessage;
+    notification?: DisplayMessage;
 
-    returnUrl: string;
+    returnUrl = '/';
     private readonly ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(
@@ -186,12 +186,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.route.params.pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe((params: DisplayMessage) => {
-                this.notification = params;
+        this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((params) => {
+                const msgType = params.get('msgType');
+                const msgBody = params.get('msgBody');
+                this.notification = msgType && msgBody ? { msgType, msgBody } : undefined;
             });
-        // get return url from route parameters or default to '/'
-        this.route.paramMap.subscribe(params => this.returnUrl = params.get('returnUrl') || '/');
+        // get return url from query parameters first, then route parameters, or default to '/'
+        combineLatest([this.route.queryParamMap, this.route.paramMap])
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(([queryParams, routeParams]) => this.returnUrl =
+                queryParams.get('returnUrl') ||
+                routeParams.get('returnUrl') ||
+                '/');
         this.form = this.formBuilder.group({
             username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])]
