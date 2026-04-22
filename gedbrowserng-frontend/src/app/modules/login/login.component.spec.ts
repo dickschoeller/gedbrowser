@@ -183,10 +183,19 @@ describe('LoginComponent', () => {
       params: of({ msgType: 'info', msgBody: 'legacy message' }),
       queryParamMap: of({ get: (_key: string) => null }),
       snapshot: {
-        paramMap: { get: (_key: string) => null },
         params: {}
       }
     });
+    const legacyRoute = TestBed.inject(ActivatedRoute) as ActivatedRoute & {
+      paramMap?: typeof legacyComponent['route']['paramMap'];
+      snapshot: ActivatedRoute['snapshot'] & { paramMap?: ActivatedRoute['snapshot']['paramMap'] };
+    };
+    legacyRoute.paramMap = undefined;
+    legacyRoute.snapshot = {
+      ...legacyRoute.snapshot,
+      paramMap: undefined,
+      params: {}
+    };
 
     legacyComponent.ngOnInit();
 
