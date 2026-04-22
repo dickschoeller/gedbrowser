@@ -186,43 +186,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        if (this.route.paramMap) {
-            this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe))
-                .subscribe((params) => {
-                    const msgType = params.get('msgType');
-                    const msgBody = params.get('msgBody');
-                    this.notification = msgType && msgBody ? { msgType, msgBody } : undefined;
-                });
-        } else if (this.route.params) {
-            this.route.params.pipe(takeUntil(this.ngUnsubscribe))
-                .subscribe((params) => {
-                    const msgType = params && params.msgType;
-                    const msgBody = params && params.msgBody;
-                    this.notification = msgType && msgBody ? { msgType, msgBody } : undefined;
-                });
-        }
+        this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((params) => {
+                const msgType = params.get('msgType');
+                const msgBody = params.get('msgBody');
+                this.notification = msgType && msgBody ? { msgType, msgBody } : undefined;
+            });
         // get return url from query parameters first, then route parameters, or default to '/'
-        if (this.route.queryParamMap && this.route.paramMap) {
-            combineLatest([this.route.queryParamMap, this.route.paramMap])
-                .pipe(takeUntil(this.ngUnsubscribe))
-                .subscribe(([queryParams, routeParams]) => this.returnUrl =
-                    queryParams.get('returnUrl') ||
-                    routeParams.get('returnUrl') ||
-                    '/');
-        } else if (this.route.queryParams && this.route.params) {
-            combineLatest([this.route.queryParams, this.route.params])
-                .pipe(takeUntil(this.ngUnsubscribe))
-                .subscribe(([queryParams, routeParams]) => this.returnUrl =
-                    queryParams?.returnUrl ||
-                    routeParams?.returnUrl ||
-                    '/');
-        } else {
-            this.returnUrl =
-                this.route.snapshot.queryParamMap?.get('returnUrl') ||
-                this.route.snapshot.paramMap.get('returnUrl') ||
-                this.route.snapshot.params?.returnUrl ||
-                '/';
-        }
+        combineLatest([this.route.queryParamMap, this.route.paramMap])
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(([queryParams, routeParams]) => this.returnUrl =
+                queryParams.get('returnUrl') ||
+                routeParams.get('returnUrl') ||
+                '/');
         this.form = this.formBuilder.group({
             username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])]
