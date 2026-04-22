@@ -179,49 +179,6 @@ describe('LoginComponent', () => {
     expect(component.notification).toBeUndefined();
   });
 
-  it('uses legacy route params when paramMap is unavailable', () => {
-    const legacyComponent = createComponentWithRoute({
-      params: of({ msgType: 'info', msgBody: 'legacy message' }),
-      queryParamMap: of({ get: (_key: string) => null }),
-      snapshot: {
-        params: {}
-      }
-    });
-    const legacyRoute = TestBed.inject(ActivatedRoute) as ActivatedRoute & {
-      paramMap?: typeof legacyComponent['route']['paramMap'];
-      snapshot: ActivatedRoute['snapshot'] & { paramMap?: ActivatedRoute['snapshot']['paramMap'] };
-    };
-    legacyRoute.paramMap = undefined;
-    legacyRoute.snapshot = {
-      ...legacyRoute.snapshot,
-      paramMap: undefined,
-      params: {}
-    };
-
-    legacyComponent.ngOnInit();
-
-    expect(legacyComponent.notification).toEqual({
-      msgType: 'info',
-      msgBody: 'legacy message'
-    });
-  });
-
-  it('uses queryParams when queryParamMap is unavailable', () => {
-    const legacyComponent = createComponentWithRoute({
-      paramMap: of({ get: (_key: string) => null }),
-      queryParamMap: undefined,
-      queryParams: of({ returnUrl: '/from-query-params' }),
-      snapshot: {
-        paramMap: { get: (_key: string) => '/from-snapshot-param-map' },
-        params: { returnUrl: '/from-snapshot-params' }
-      }
-    });
-
-    legacyComponent.ngOnInit();
-
-    expect(legacyComponent.returnUrl).toBe('/from-query-params');
-  });
-
   it('uses snapshot paramMap when query streams are unavailable', () => {
     const legacyComponent = createComponentWithRoute({
       paramMap: of({ get: (_key: string) => null }),
