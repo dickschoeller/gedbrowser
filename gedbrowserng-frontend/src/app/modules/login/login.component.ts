@@ -186,10 +186,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.route.params.pipe(takeUntil(this.ngUnsubscribe))
+        this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((params) => {
-                const msgType = params['msgType'];
-                const msgBody = params['msgBody'];
+                const msgType = params.get('msgType');
+                const msgBody = params.get('msgBody');
                 this.notification = msgType && msgBody ? { msgType, msgBody } : undefined;
             });
         // get return url from route parameters or default to '/'
