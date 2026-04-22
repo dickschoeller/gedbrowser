@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy , Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, combineLatest } from 'rxjs';
 import { takeUntil, delay } from 'rxjs/operators';
 
 import { DisplayMessage } from '../../models';
@@ -202,27 +202,25 @@ export class LoginComponent implements OnInit, OnDestroy {
                 });
         }
         // get return url from query parameters first, then route parameters, or default to '/'
-        if (this.route.queryParamMap) {
-            this.route.queryParamMap
+        if (this.route.queryParamMap && this.route.paramMap) {
+            combineLatest([this.route.queryParamMap, this.route.paramMap])
                 .pipe(takeUntil(this.ngUnsubscribe))
-                .subscribe(params => this.returnUrl =
-                    params.get('returnUrl') ||
-                    this.route.snapshot.paramMap.get('returnUrl') ||
-                    this.route.snapshot.params?.returnUrl ||
+                .subscribe(([queryParams, routeParams]) => this.returnUrl =
+                    queryParams.get('returnUrl') ||
+                    routeParams.get('returnUrl') ||
                     '/');
-        } else if (this.route.queryParams) {
-            this.route.queryParams
+        } else if (this.route.queryParams && this.route.params) {
+            combineLatest([this.route.queryParams, this.route.params])
                 .pipe(takeUntil(this.ngUnsubscribe))
-                .subscribe(params => this.returnUrl =
-                    params?.returnUrl ||
-                    this.route.snapshot.paramMap.get('returnUrl') ||
-                    this.route.snapshot.params?.returnUrl ||
+                .subscribe(([queryParams, routeParams]) => this.returnUrl =
+                    queryParams?.returnUrl ||
+                    routeParams?.returnUrl ||
                     '/');
         } else {
             this.returnUrl =
                 this.route.snapshot.queryParamMap?.get('returnUrl') ||
-                this.route.snapshot.params?.returnUrl ||
                 this.route.snapshot.paramMap.get('returnUrl') ||
+                this.route.snapshot.params?.returnUrl ||
                 '/';
         }
         this.form = this.formBuilder.group({
