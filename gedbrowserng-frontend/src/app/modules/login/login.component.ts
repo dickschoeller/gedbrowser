@@ -193,7 +193,9 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.notification = msgType && msgBody ? { msgType, msgBody } : undefined;
             });
         // get return url from route parameters or default to '/'
-        this.route.paramMap.subscribe(params => this.returnUrl = params.get('returnUrl') || '/');
+        this.route.paramMap
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(params => this.returnUrl = params.get('returnUrl') || '/');
         this.form = this.formBuilder.group({
             username: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])]
