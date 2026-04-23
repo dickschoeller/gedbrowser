@@ -81,7 +81,7 @@
     <geojson-jackson.version>3.0</geojson-jackson.version>
     <slf4j.version>2.0.17</slf4j.version>
     <anselcharset.version>1.1</anselcharset.version>
-    <commons-io.version>2.21.0</commons-io.version>
+    <commons-io.version>2.22.0</commons-io.version>
     <commons-lang3.version>3.20.0</commons-lang3.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
     <assertj.version>3.27.7</assertj.version>
