@@ -56,8 +56,8 @@
 
     <!-- These all step forward together -->
     <spring.version>7.0.7</spring.version>
-    <spring-boot.version>4.0.5</spring-boot.version>
-    <spring-boot-maven.version>4.0.5</spring-boot-maven.version>
+    <spring-boot.version>4.0.6</spring-boot.version>
+    <spring-boot-maven.version>4.0.6</spring-boot-maven.version>
     <spring-data-mongodb.version>5.0.5</spring-data-mongodb.version>
     <spring-data-commons.version>4.0.5</spring-data-commons.version>
     <!-- -->
@@ -869,6 +869,11 @@
         <artifactId>spring-retry</artifactId>
         <version>${spring-retry.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.gisgraphy</groupId>
+        <artifactId>gisgraphy-utils</artifactId>
+	<version>3.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -887,6 +892,11 @@
     <repository>
       <id>clojars</id>
       <url>https://clojars.org/repo/</url>
+    </repository>
+    <repository>
+      <id>gisgraphy</id>
+      <name>gisgraphy</name>
+      <url>http://gisgraphy.free.fr/mavenrepo/</url>
     </repository>
   </repositories>
 
@@ -912,4 +922,5 @@
       </build>
     </profile>
   </profiles>
+
 </project>

@@ -6,6 +6,10 @@
   "automerge": true,
   "platformAutomerge": true,
   "rebaseWhen": "behind-base-branch",
+  "registryUrls": [
+    "https://repo.maven.apache.org/maven2",
+    "http://gisgraphy.free.fr/mavenrepo/"
+  ],
   "packageRules": [
     {
       "matchPackagePatterns": ["^@angular/"],

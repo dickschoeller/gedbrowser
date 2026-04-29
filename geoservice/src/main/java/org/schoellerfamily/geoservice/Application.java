@@ -2,6 +2,7 @@ package org.schoellerfamily.geoservice;
 
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
+import org.schoellerfamily.geoservice.geocoder.GisgraphyGeoCoder;
 import org.schoellerfamily.geoservice.geocoder.GoogleGeoCoder;
 import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
 import org.schoellerfamily.geoservice.keys.KeyManager;
@@ -35,6 +36,18 @@ public class Application {
     /** */
     @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
     private final String keyfile;
+
+    /** */
+    @Value("${geoservice.geocoder:google}")
+    private final String geocoder;
+
+    /** */
+    @Value("${geoservice.gisgraphy.url:http://services.gisgraphy.com}")
+    private final String gisgraphyUrl;
+
+    /** */
+    @Value("${geoservice.gisgraphy.country:US}")
+    private final String gisgraphyCountry;
 
     /** */
     private GeoCode gcc;
@@ -112,6 +125,10 @@ public class Application {
         }
         if ("stub".equals(keyfile)) {
             geoCoder = new StubGeoCoder(new String[0]);
+            return geoCoder;
+        }
+        if ("gisgraphy".equalsIgnoreCase(geocoder)) {
+            geoCoder = new GisgraphyGeoCoder(gisgraphyUrl, gisgraphyCountry);
             return geoCoder;
         }
         final String key = keyManager().getGeocodingKey();

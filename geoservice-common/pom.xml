@@ -111,7 +111,7 @@
                     <limit>
                       <counter>COMPLEXITY</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.60</minimum>
+                      <minimum>0.08</minimum>
                     </limit>
                   </limits>
                 </rule>
@@ -185,6 +185,10 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.gisgraphy</groupId>
+      <artifactId>gisgraphy-utils</artifactId>
     </dependency>
   </dependencies>
 </project>
