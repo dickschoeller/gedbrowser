@@ -3,12 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { Router, ActivatedRoute, provideRouter } from '@angular/router';
+import { Router, ActivatedRoute, provideRouter, convertToParamMap } from '@angular/router';
 import { of, throwError, BehaviorSubject } from 'rxjs';
 
 import { LoginComponent } from './login.component';
 import { AuthService, UserService, AuthApiService, ConfigService } from '../../services';
-import { DisplayMessage } from '../../models';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -16,14 +15,12 @@ describe('LoginComponent', () => {
   let authService: AuthService;
   let userService: UserService;
   let router: Router;
-  let paramSubject: BehaviorSubject<any>;
   let paramMapSubject: BehaviorSubject<any>;
+  let queryParamMapSubject: BehaviorSubject<any>;
 
   beforeEach(async () => {
-    paramSubject = new BehaviorSubject<DisplayMessage>({});
-    paramMapSubject = new BehaviorSubject<any>({
-      get: (key: string) => null
-    });
+    paramMapSubject = new BehaviorSubject<any>(convertToParamMap({}));
+    queryParamMapSubject = new BehaviorSubject<any>(convertToParamMap({}));
 
     await TestBed.configureTestingModule({
     schemas: [NO_ERRORS_SCHEMA],
@@ -39,8 +36,11 @@ describe('LoginComponent', () => {
       {
         provide: ActivatedRoute,
         useValue: {
-          params: paramSubject.asObservable(),
-          paramMap: paramMapSubject.asObservable()
+          paramMap: paramMapSubject.asObservable(),
+          queryParamMap: queryParamMapSubject.asObservable(),
+          snapshot: {
+            paramMap: { get: (_key: string) => null }
+          }
         }
       }
     ]
@@ -93,27 +93,58 @@ describe('LoginComponent', () => {
     expect(password?.valid).toBeTruthy();
   });
 
-  it('sets return url from route params', async () => {
-    paramMapSubject.next({
+  it('sets return url from query params', async () => {
+    queryParamMapSubject.next({
       get: (key: string) => key === 'returnUrl' ? '/dashboard' : null
     });
     await new Promise(resolve => setTimeout(resolve, 0));
     expect(component.returnUrl).toBe('/dashboard');
   });
 
-  it('defaults return url to / when not provided', async () => {
+  it('sets return url from route params when query params do not provide it', async () => {
+    queryParamMapSubject.next({
+      get: (_key: string) => null
+    });
     paramMapSubject.next({
-      get: (key: string) => null
+      get: (key: string) => key === 'returnUrl' ? '/protected' : null
+    });
+    await new Promise(resolve => setTimeout(resolve, 0));
+    expect(component.returnUrl).toBe('/protected');
+  });
+
+  it('defaults return url to / when not provided', async () => {
+    queryParamMapSubject.next({
+      get: (_key: string) => null
+    });
+    paramMapSubject.next({
+      get: (_key: string) => null
     });
     await new Promise(resolve => setTimeout(resolve, 0));
     expect(component.returnUrl).toBe('/');
   });
 
-  it('sets notification from route params', async () => {
-    const message: DisplayMessage = { msgType: 'info', msgBody: 'Test message' };
-    paramSubject.next(message);
+  it('sets notification from paramMap msgType and msgBody', async () => {
+    paramMapSubject.next({
+      get: (key: string) => key === 'msgType' ? 'info' : key === 'msgBody' ? 'Test message' : null
+    });
     await new Promise(resolve => setTimeout(resolve, 0));
-    expect(component.notification).toEqual(message);
+    expect(component.notification).toEqual({ msgType: 'info', msgBody: 'Test message' });
+  });
+
+  it('clears notification when paramMap has no msgType or msgBody', async () => {
+    paramMapSubject.next({
+      get: (_key: string) => null
+    });
+    await new Promise(resolve => setTimeout(resolve, 0));
+    expect(component.notification).toBeUndefined();
+  });
+
+  it('clears notification when paramMap has msgType but no msgBody', async () => {
+    paramMapSubject.next({
+      get: (key: string) => key === 'msgType' ? 'error' : null
+    });
+    await new Promise(resolve => setTimeout(resolve, 0));
+    expect(component.notification).toBeUndefined();
   });
 
   it('onSubmit sets submitted flag and calls login', async () => {
