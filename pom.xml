@@ -67,7 +67,7 @@
     <google-maps-services.version>2.2.0</google-maps-services.version>
     <jackson-core.version>3.1.3</jackson-core.version>
     <jackson-databind.version>3.1.3</jackson-databind.version>
-    <jackson-jaxrs-json-provider.version>3.1.2</jackson-jaxrs-json-provider.version>
+    <jackson-jaxrs-json-provider.version>3.1.3</jackson-jaxrs-json-provider.version>
     <jackson-annotations.version>2.21</jackson-annotations.version>
     <old-jackson.version>2.21.3</old-jackson.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
