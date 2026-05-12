@@ -7044,10 +7044,10 @@ netmask@^2.0.2:
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-2.1.1.tgz#80043d265b53aa521b3bd01e8fcdf353f9e1e81e"
   integrity sha512-eonl3sLUha+S1GzTPxychyhnUzKyeQkZ7jLjKrBagJgPla13F+uQ71HgpFefyHgqrjEbCPkDArxYsjY8/+gLKA==
 
-ngx-page-scroll-core@^15.0.1:
-  version "15.0.1"
-  resolved "https://registry.yarnpkg.com/ngx-page-scroll-core/-/ngx-page-scroll-core-15.0.1.tgz#981f95cbe30db31fa95173c9a6646ffdcbefa858"
-  integrity sha512-RdMWR7rFGGrAqhOzJqZ3KKnKgYQGuxsBOpOMtYGzsuNtH39WoT8GUndLkWSIZTyWe/rnCPbaNksqKUgQWzQE+A==
+ngx-page-scroll-core@^16.0.0:
+  version "16.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-page-scroll-core/-/ngx-page-scroll-core-16.0.0.tgz#59122cbeb2d0469dd016fc19de9f656ddb294199"
+  integrity sha512-9ep0Ql08yLAvREKznAsObhWeXDa58ZPB/ZgvVTgYcBLef48HxiuM4iKmRoxmJdiUrFWOt/wP0llSgz+DXYYkTA==
   dependencies:
     tslib "^2.6.2"
 
