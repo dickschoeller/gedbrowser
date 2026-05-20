@@ -60,6 +60,7 @@
     <spring-boot-maven.version>4.0.6</spring-boot-maven.version>
     <spring-data-mongodb.version>5.0.5</spring-data-mongodb.version>
     <spring-data-commons.version>4.0.5</spring-data-commons.version>
+    <tomcat-embed.version>11.0.22</tomcat-embed.version>
     <!-- -->
 
     <cglib.version>3.3.0</cglib.version>
@@ -544,6 +545,21 @@
         <version>${spring.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-core</artifactId>
+	<version>${tomcat-embed.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-el</artifactId>
+	<version>${tomcat-embed.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-websocket</artifactId>
+	<version>${tomcat-embed.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
         <version>${spring.version}</version>
@@ -870,6 +886,11 @@
         <artifactId>spring-retry</artifactId>
         <version>${spring-retry.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.gisgraphy</groupId>
+        <artifactId>gisgraphy-utils</artifactId>
+	<version>3.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -888,6 +909,11 @@
     <repository>
       <id>clojars</id>
       <url>https://clojars.org/repo/</url>
+    </repository>
+    <repository>
+      <id>gisgraphy</id>
+      <name>gisgraphy</name>
+      <url>http://gisgraphy.free.fr/mavenrepo/</url>
     </repository>
   </repositories>
 
@@ -913,4 +939,5 @@
       </build>
     </profile>
   </profiles>
+
 </project>
