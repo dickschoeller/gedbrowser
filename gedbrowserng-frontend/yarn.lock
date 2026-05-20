@@ -1693,9 +1693,9 @@
     levn "^0.4.1"
 
 "@exodus/bytes@^1.11.0", "@exodus/bytes@^1.15.0", "@exodus/bytes@^1.6.0":
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/@exodus/bytes/-/bytes-1.15.0.tgz#54479e0f406cbad024d6fe1c3190ecca4468df3b"
-  integrity sha512-UY0nlA+feH81UGSHv92sLEPLCeZFjXOuHhrIo0HQydScuQc8s0A7kL/UdgwgDq8g8ilksmuoF35YVTNphV2aBQ==
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/@exodus/bytes/-/bytes-1.15.1.tgz#b13bc464ca162c17abf0837fb3a11aeab79e45d1"
+  integrity sha512-S6mL0yNB/Abt9Ei4tq8gDhcczc4S3+vQ4ra7vxnAf+YHC02srtqxKKZghx2Dq6p0e66THKwR6r8N6P95wEty7Q==
 
 "@fontsource/noto-sans-tc@^5.2.9":
   version "5.2.9"
@@ -3378,9 +3378,9 @@
   integrity sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==
 
 "@types/node@*":
-  version "25.9.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.9.0.tgz#4823e66e0f486bfd8d9019fb445fbbb9e6f77348"
-  integrity sha512-AOQwYUNolgy3VosiRqXrACUXTN8nJUtPl7FJXMqZVyxiiCLhQuG3jXKvCS1ALr+Y2OmZhzzLVlYPEqJaiqkaJQ==
+  version "25.9.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.9.1.tgz#3bda556db500ae4319c08e7fc9ab94f19013ba0b"
+  integrity sha512-xfrlY7UD5rMJk3ZVJP8BNzS28J36YJg+xp+LPXV1TdWxr8uMH5A860QNxYDGQe/ylDSgjxE52Q9VnO7p75tJxg==
   dependencies:
     undici-types ">=7.24.0 <7.24.7"
 
@@ -4868,9 +4868,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.5.328:
-  version "1.5.359"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.359.tgz#51d3f2dd176a357b3390759b552c74cd4b6abe8e"
-  integrity sha512-8lPELWuYZIWk7NDvCNthtmMw/7Q5Wu25NpM4djFMHBmk8DubPAtL4YTOp7ou0e7HyJtwkVlWv8XMLURnrtgJQw==
+  version "1.5.360"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.360.tgz#7faf4231324c7f8d49c5c0938e8712f623d8b8d7"
+  integrity sha512-GkcBt6YYAw9SxFWn+xVar4cLVGlXVuswwtRLBozi2zp0GjXs4ZnOrqV4zbXzg35n7w81hCkyJNYicgXlVHAmBA==
 
 emoji-regex@^10.3.0:
   version "10.6.0"
@@ -6581,9 +6581,9 @@ log-update@^6.1.0:
     wrap-ansi "^9.0.0"
 
 lru-cache@^11.0.0, lru-cache@^11.1.0, lru-cache@^11.2.1, lru-cache@^11.3.5:
-  version "11.4.0"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-11.4.0.tgz#87a577bfa71f7c94dfd71692874b859d1ca41a28"
-  integrity sha512-W+R+kFL4HgVxONq2bhXPi3bGpzGe/yEhVOp233qw9wCRtgncJ15P3bC+e4zZMu4Cq7d+WAJjXGW0uUkifhcatA==
+  version "11.5.0"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-11.5.0.tgz#14117229fd25bc9c67936e32de90ca047488c97a"
+  integrity sha512-5YgH9UJd7wVb9hIouI2adWpgqrrICkt070Dnj8EUY1+B4B2P9eRLPAkAAo6NICA7CEhOIeBHl46u9zSNpNu7zA==
 
 lru-cache@^5.1.1:
   version "5.1.1"
