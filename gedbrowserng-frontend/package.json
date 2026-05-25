@@ -55,7 +55,7 @@
     "zone.js": "^0.16.0"
   },
   "resolutions": {
-    "undici": "7.25.0"
+    "undici": "7.26.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "21.2.12",
