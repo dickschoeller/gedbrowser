@@ -2852,15 +2852,12 @@
   resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.7.2.tgz#0ded7f74bddf191f0e16aea34b593a7fcffa94b5"
   integrity sha512-pmEbSfP0Phf9W9RweiM66zXnkn73ZeKyYINElbX3uZ2+stzzaba2svLAl3B1pHVcRw5t43O0VciaGe4ye2EXKw==
 
-"@puppeteer/browsers@3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@puppeteer/browsers/-/browsers-3.0.3.tgz#61388895e2f3665b59491152d204b3d9096bddd6"
-  integrity sha512-v3YaiGpzUTgOZkHBFR0iZg58Vto25SqBQxfLUXDiofJccwVl6Mlr7BdLCS1NZgxikdeIHf936cxYWL9IZp3tow==
+"@puppeteer/browsers@3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@puppeteer/browsers/-/browsers-3.0.4.tgz#79fa2e450f9e54f758f806d4cfc6202795c9284f"
+  integrity sha512-HGM8iAmGTf+Y7t0373szVbTmt3d7vPkYL/1bpOkOFO0YUYLgSeuYBCzESklogNPvOBnZ/MRD5f07OkpqH1trtA==
   dependencies:
-    debug "^4.4.3"
-    progress "^2.0.3"
-    semver "^7.7.4"
-    tar-fs "^3.1.1"
+    modern-tar "^0.7.6"
     yargs "^17.7.2"
 
 "@rolldown/binding-android-arm64@1.0.0-rc.4":
@@ -4845,10 +4842,10 @@ detect-node@^2.0.4:
   resolved "https://registry.yarnpkg.com/detect-node/-/detect-node-2.1.0.tgz#c9c70775a49c3d03bc2c06d9a73be550f978f8b1"
   integrity sha512-T0NIuQpnTvFDATNuHN5roPwSBG83rFsuO+MXXH9/3N1eFbn4wcPjttvjMLEPWJ0RGUYgQE7cGgS3tNxbqCGM7g==
 
-devtools-protocol@0.0.1608973:
-  version "0.0.1608973"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.1608973.tgz#56e0a2a999b06d416ee928ca06aeba95a5880515"
-  integrity sha512-Tpm17fxYzt+J7VrGdc1k8YdRqS3YV7se/M6KeemEqvUbq/n7At1rWVuXMxQgpWkdwSdIEKYbU//Bve+Shm4YNQ==
+devtools-protocol@0.0.1624250:
+  version "0.0.1624250"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.1624250.tgz#b1dc2ad512c049a8dc2f4e2de42000045a5d749d"
+  integrity sha512-YFAat/lOiIk0ARmBweG+ygrEcbZrq5B9urRyUoeQKp53MlidHXE2TmTbxKcaXoQj7u/aX+jebDO4BW55rs0WwA==
 
 diff@9.0.0:
   version "9.0.0"
@@ -6538,6 +6535,11 @@ lightningcss@^1.32.0:
     lightningcss-win32-arm64-msvc "1.32.0"
     lightningcss-win32-x64-msvc "1.32.0"
 
+lilconfig@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-3.1.3.tgz#a1bcfd6257f9585bf5ae14ceeebb7b559025e4c4"
+  integrity sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==
+
 lines-and-columns@^1.1.6:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
@@ -6913,6 +6915,11 @@ mitt@^3.0.1:
   integrity sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==
   dependencies:
     minimist "^1.2.6"
+
+modern-tar@^0.7.6:
+  version "0.7.6"
+  resolved "https://registry.yarnpkg.com/modern-tar/-/modern-tar-0.7.6.tgz#a01edcd55b976a2b191d857456e8abb7208a8199"
+  integrity sha512-sweCIVXzx1aIGTCdzcMlSZt1h8k5Tmk08VNAuRk3IU28XamGiOH5ypi11g6De2CH7PhYqSSnGy2A/EFhbWnVKg==
 
 mrmime@2.0.1:
   version "2.0.1"
@@ -7670,11 +7677,6 @@ proggy@^4.0.0:
   resolved "https://registry.yarnpkg.com/proggy/-/proggy-4.0.0.tgz#85fa89d7c81bc3fb77992a80f47bb1e17c610fa3"
   integrity sha512-MbA4R+WQT76ZBm/5JUpV9yqcJt92175+Y0Bodg3HgiXzrmKu7Ggq+bpn6y6wHH+gN9NcyKn3yg1+d47VaKwNAQ==
 
-progress@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
-  integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
-
 promise-all-reject-late@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-all-reject-late/-/promise-all-reject-late-1.0.1.tgz#f8ebf13483e5ca91ad809ccc2fcf25f26f8643c2"
@@ -7726,29 +7728,28 @@ punycode@^2.1.0, punycode@^2.3.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.1.tgz#027422e2faec0b25e1549c3e1bd8309b9133b6e5"
   integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
 
-puppeteer-core@25.0.4:
-  version "25.0.4"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-25.0.4.tgz#35c9e421ce71651dfc85d381eb5fdb5e72279df5"
-  integrity sha512-K1LQKDP6w1rIr1jUyN9obH16TO/DCy86k3q+FBd2prGY+TStxhFySxmaZZuRF+0D3BJXjwCYFke7tMHCH4olTA==
+puppeteer-core@25.1.0:
+  version "25.1.0"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-25.1.0.tgz#5e2510eff3c3a166e0e9a436d307eb6ed06da44c"
+  integrity sha512-jKzy5y4WG6uNuFbTWgW1D7mqoT9o0nllc/6a1DGF775T1mPmgw3scdFEtEq67yVFikavQmbYq6NLfbTfxHSlqQ==
   dependencies:
-    "@puppeteer/browsers" "3.0.3"
+    "@puppeteer/browsers" "3.0.4"
     chromium-bidi "16.0.1"
-    debug "^4.4.3"
-    devtools-protocol "0.0.1608973"
+    devtools-protocol "0.0.1624250"
     typed-query-selector "^2.12.2"
-    webdriver-bidi-protocol "0.4.1"
-    ws "^8.20.0"
+    webdriver-bidi-protocol "0.4.2"
+    ws "^8.21.0"
 
-puppeteer@25.0.4:
-  version "25.0.4"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-25.0.4.tgz#c149dc345a64753162816ffe68eac9eef7e78064"
-  integrity sha512-QFdBAuNOqL0I+AdARTlRR1KcgPk0fo0dU127e1ZQFVxb9QPcpBDIiQp/dMgdbyLXHpF2GRjC/OezDmjKcLCKYw==
+puppeteer@25.1.0:
+  version "25.1.0"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-25.1.0.tgz#7660e4d3373821f48debc774c0c84c9e13a72dbf"
+  integrity sha512-7L6/0JM7XStK99lIL4xQySyNEXNfII6pk0BxkI5kKBTOhR7AsoQiv067YTsE/rIXxQiq9ajlO4WcqBjS/FWK1A==
   dependencies:
-    "@puppeteer/browsers" "3.0.3"
+    "@puppeteer/browsers" "3.0.4"
     chromium-bidi "16.0.1"
-    cosmiconfig "^9.0.0"
-    devtools-protocol "0.0.1608973"
-    puppeteer-core "25.0.4"
+    devtools-protocol "0.0.1624250"
+    lilconfig "^3.1.3"
+    puppeteer-core "25.1.0"
     typed-query-selector "^2.12.2"
 
 pvtsutils@^1.3.6:
@@ -8171,7 +8172,7 @@ semver@^6.3.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.0.0, semver@^7.1.1, semver@^7.3.2, semver@^7.3.5, semver@^7.3.7, semver@^7.5.3, semver@^7.5.4, semver@^7.6.2, semver@^7.6.3, semver@^7.7.2, semver@^7.7.3, semver@^7.7.4, semver@^7.8.0:
+semver@^7.0.0, semver@^7.1.1, semver@^7.3.2, semver@^7.3.5, semver@^7.3.7, semver@^7.5.3, semver@^7.5.4, semver@^7.6.2, semver@^7.6.3, semver@^7.7.2, semver@^7.7.3, semver@^7.8.0:
   version "7.8.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.8.1.tgz#bf4970b5e70fda0686363cc18bfe8805d5ed957e"
   integrity sha512-rkVq3IXh+4FDGch+KwzX3aV9W3kO54GyEgpvBzSyctDA6Xtd7RJQV1xmXbeQp5v7+VzLOfVqiutSE6GICgPFvg==
@@ -8629,7 +8630,7 @@ tapable@^2.2.1, tapable@^2.3.0, tapable@^2.3.3:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.3.3.tgz#5da7c9992c46038221267985ab28421a8879f160"
   integrity sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==
 
-tar-fs@3.1.2, tar-fs@^3.1.1:
+tar-fs@3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/tar-fs/-/tar-fs-3.1.2.tgz#114b012f54796f31e62f3e57792820a80b83ae6e"
   integrity sha512-QGxxTxxyleAdyM3kpFs14ymbYmNFrfY+pHj7Z8FgtbZ7w2//VAgLMac7sT6nRpIHjppXO2AwwEOg0bPFVRcmXw==
@@ -9096,10 +9097,10 @@ web-animations-js@^2.3.2:
   resolved "https://registry.yarnpkg.com/web-animations-js/-/web-animations-js-2.3.2.tgz#a51963a359c543f97b47c7d4bc2d811f9fc9e153"
   integrity sha512-TOMFWtQdxzjWp8qx4DAraTWTsdhxVSiWa6NkPFSaPtZ1diKUxTn4yTix73A1euG1WbSOMMPcY51cnjTIHrGtDA==
 
-webdriver-bidi-protocol@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/webdriver-bidi-protocol/-/webdriver-bidi-protocol-0.4.1.tgz#d411e7b8e158408d83bb166b0b4f1054fa3f077e"
-  integrity sha512-ARrjNjtWRRs2w4Tk7nqrf2gBI0QXWuOmMCx2hU+1jUt6d00MjMxURrhxhGbrsoiZKJrhTSTzbIrc554iKI10qw==
+webdriver-bidi-protocol@0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/webdriver-bidi-protocol/-/webdriver-bidi-protocol-0.4.2.tgz#f51bb71c2606e90e3d5727607c728b25d617b58b"
+  integrity sha512-VSV+fzfChirL3e7jay2yUC7B4HQCGtEWEg/MSSQbK+qWbqeGlRLlXTzPpYr3XGUvbpDHumWZBJxgesg4N7dbtA==
 
 webidl-conversions@^8.0.1:
   version "8.0.1"
@@ -9303,7 +9304,7 @@ write-file-atomic@^7.0.0:
   dependencies:
     signal-exit "^4.0.1"
 
-ws@^8.18.0, ws@^8.20.0:
+ws@^8.18.0, ws@^8.21.0:
   version "8.21.0"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.21.0.tgz#012e413fc07429945121b0c153158c4343086951"
   integrity sha512-Vsp28b7DRcimFQvrqu2Wek3z1iYxDCWqHYB8Qsnk/S4RfaCQzPGPyBNuVjJV3cd6UiKtUtp6sNM77gWvzcCH+g==
