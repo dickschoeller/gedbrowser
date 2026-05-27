@@ -21,7 +21,7 @@ spring:
 
 geoservice:
     keyfile: /var/lib/gedbrowser/google-geocoding-key
-    geocoder: gisgraphy
+    geocoder: google
     gisgraphy:
         url: http://services.gisgraphy.com
         country: US
