@@ -191,4 +191,16 @@
       <artifactId>gisgraphy-utils</artifactId>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>clojars</id>
+      <url>https://clojars.org/repo/</url>
+    </repository>
+    <repository>
+      <id>gisgraphy</id>
+      <name>gisgraphy</name>
+      <url>http://gisgraphy.free.fr/mavenrepo/</url>
+    </repository>
+  </repositories>
 </project>
