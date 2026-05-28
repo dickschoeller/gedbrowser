@@ -123,7 +123,8 @@
       <nonProxyHosts>*.ariba.com|*.sap.corp|*.corp.sap</nonProxyHosts>
     </proxy>
   </proxies -->
-  <repositories>
+
+  <!-- repositories>
     <repository>
       <id>clojars</id>
       <url>https://clojars.org/repo/</url>
@@ -134,6 +135,16 @@
       <url>http://gisgraphy.free.fr/mavenrepo/</url>
       <allowInsecureProtocol>true</allowInsecureProtocol>
     </repository>
-  </repositories>
+  </repositories -->
 
+  <mirrors>
+    <!-- This dummy mirror unblocks HTTP repositories -->
+    <mirror>
+      <id>dummy-http-blocker</id>
+      <mirrorOf>dummy</mirrorOf>
+      <name>Dummy Mirror to override default HTTP block</name>
+      <url>http://0.0.0.0/</url>
+      <blocked>false</blocked>
+    </mirror>
+  </mirrors>
 </settings>
