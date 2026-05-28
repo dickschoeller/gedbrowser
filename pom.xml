@@ -913,7 +913,7 @@
     <repository>
       <id>gisgraphy</id>
       <name>gisgraphy</name>
-      <url>http://gisgraphy.free.fr/mavenrepo/</url>
+      <url>https://www.schoellerfamily.org/mavenrepo/</url>
     </repository>
   </repositories>
 
