@@ -70,7 +70,7 @@
     <jackson-databind.version>3.1.4</jackson-databind.version>
     <jackson-jaxrs-json-provider.version>3.1.4</jackson-jaxrs-json-provider.version>
     <jackson-annotations.version>2.22</jackson-annotations.version>
-    <old-jackson.version>2.21.4</old-jackson.version>
+    <old-jackson.version>2.22.0</old-jackson.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.14.2</joda-time.version>
 
