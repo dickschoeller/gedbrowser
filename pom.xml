@@ -70,7 +70,8 @@
     <jackson-databind.version>3.1.4</jackson-databind.version>
     <jackson-jaxrs-json-provider.version>3.1.4</jackson-jaxrs-json-provider.version>
     <jackson-annotations.version>2.22</jackson-annotations.version>
-    <old-jackson.version>2.21.4</old-jackson.version>
+    <old-jackson-core.version>2.21.4</old-jackson-core.version>
+    <old-jackson-databind.version>2.22.0</old-jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.14.2</joda-time.version>
 
@@ -698,12 +699,12 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>${old-jackson.version}</version>
+        <version>${old-jackson-databind.version}</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-core</artifactId>
-        <version>${old-jackson.version}</version>
+        <version>${old-jackson-core.version}</version>
       </dependency>
       <dependency>
         <groupId>org.gedcom4j</groupId>
