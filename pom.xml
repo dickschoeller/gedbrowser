@@ -92,7 +92,7 @@
     <mockito.version>5.23.0</mockito.version>
     <spotbugs-annotations.version>4.10.1</spotbugs-annotations.version>
     <resilience4j.version>2.4.0</resilience4j.version>
-    <spring-retry.version>2.0.12</spring-retry.version>
+    <spring-retry.version>2.0.13</spring-retry.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.15</jacoco-plugin.version>
