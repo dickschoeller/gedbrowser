@@ -66,9 +66,9 @@
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
     <google-maps-services.version>2.2.0</google-maps-services.version>
-    <jackson-core.version>3.1.4</jackson-core.version>
-    <jackson-databind.version>3.1.4</jackson-databind.version>
-    <jackson-jaxrs-json-provider.version>3.1.4</jackson-jaxrs-json-provider.version>
+    <jackson-core.version>3.2.0</jackson-core.version>
+    <jackson-databind.version>3.2.0</jackson-databind.version>
+    <jackson-jaxrs-json-provider.version>3.2.0</jackson-jaxrs-json-provider.version>
     <jackson-annotations.version>2.22</jackson-annotations.version>
     <old-jackson-core.version>2.22.0</old-jackson-core.version>
     <old-jackson-databind.version>2.22.0</old-jackson-databind.version>
@@ -92,11 +92,11 @@
     <mockito.version>5.23.0</mockito.version>
     <spotbugs-annotations.version>4.10.1</spotbugs-annotations.version>
     <resilience4j.version>2.4.0</resilience4j.version>
-    <spring-retry.version>2.0.12</spring-retry.version>
+    <spring-retry.version>2.0.13</spring-retry.version>
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.15</jacoco-plugin.version>
-    <spotbugs-plugin.version>4.9.8.3</spotbugs-plugin.version>
+    <spotbugs-plugin.version>4.9.8.4</spotbugs-plugin.version>
     <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
     <checkstyle-version>13.5.0</checkstyle-version>
     <pmd-plugin.version>3.28.0</pmd-plugin.version>
