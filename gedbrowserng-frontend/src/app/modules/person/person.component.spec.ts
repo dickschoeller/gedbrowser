@@ -142,8 +142,10 @@ describe('PersonComponent', () => {
     component.person = mockPerson;
     component.dataset = 'ds';
     const spy = vi.spyOn(TestBed.inject(PersonService), 'put').mockReturnValue(of(mockPerson));
+    const getOneSpy = vi.spyOn(TestBed.inject(PersonService), 'getOne').mockReturnValue(of(mockPerson));
     component.save();
     expect(spy).toHaveBeenCalledWith('ds', mockPerson);
+    expect(getOneSpy).toHaveBeenCalledWith('ds', mockPerson.string);
   });
 
   it('options returns array of SelectItem', () => {

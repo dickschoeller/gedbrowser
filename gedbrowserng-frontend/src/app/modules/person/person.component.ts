@@ -264,7 +264,25 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
   save() {
     this.service.put(this.dataset, this.person).subscribe(
       (data: ApiPerson) => {
-        this.person = data;
+        const personId = data?.string || this.person?.string;
+        if (!personId) {
+          this.zone.run(() => {
+            this.person = data;
+            this.person.attributes = this.person?.attributes || [];
+            this.attributes = this.person.attributes;
+            this.cdr.markForCheck();
+          });
+          return;
+        }
+
+        this.service.getOne(this.dataset, personId).subscribe((fresh: ApiPerson) => {
+          this.zone.run(() => {
+            this.person = fresh;
+            this.person.attributes = this.person?.attributes || [];
+            this.attributes = this.person.attributes;
+            this.cdr.markForCheck();
+          });
+        });
       }
     );
   }
