@@ -887,11 +887,6 @@
         <artifactId>spring-retry</artifactId>
         <version>${spring-retry.version}</version>
       </dependency>
-      <dependency>
-        <groupId>com.gisgraphy</groupId>
-        <artifactId>gisgraphy-utils</artifactId>
-	<version>3.0</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -910,11 +905,6 @@
     <repository>
       <id>clojars</id>
       <url>https://clojars.org/repo/</url>
-    </repository>
-    <repository>
-      <id>gisgraphy</id>
-      <name>gisgraphy</name>
-      <url>https://www.schoellerfamily.org/mavenrepo/</url>
     </repository>
   </repositories>
 

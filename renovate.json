@@ -8,8 +8,7 @@
   "rebaseWhen": "behind-base-branch",
   "registryUrls": [
     "https://repo.maven.apache.org/maven2",
-    "https://www.schoellerfamily.org/mavenrepo",
-    "http://gisgraphy.free.fr/mavenrepo/"
+    "https://www.schoellerfamily.org/mavenrepo"
   ],
   "packageRules": [
     {
