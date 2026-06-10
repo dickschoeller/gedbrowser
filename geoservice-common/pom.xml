@@ -186,21 +186,12 @@
       <artifactId>spring-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.gisgraphy</groupId>
-      <artifactId>gisgraphy-utils</artifactId>
-    </dependency>
   </dependencies>
 
   <repositories>
     <repository>
       <id>clojars</id>
       <url>https://clojars.org/repo/</url>
-    </repository>
-    <repository>
-      <id>gisgraphy</id>
-      <name>gisgraphy</name>
-      <url>https://www.schoellerfamily.org/mavenrepo/</url>
     </repository>
   </repositories>
 </project>
