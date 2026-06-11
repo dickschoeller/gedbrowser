@@ -148,6 +148,22 @@ describe('PersonComponent', () => {
     expect(getOneSpy).toHaveBeenCalledWith('ds', mockPerson.string);
   });
 
+  it('save falls back to the put response when no person id is available', () => {
+    const personWithoutId = { attributes: [] } as ApiPerson;
+    const putResponse = { attributes: [] } as ApiPerson;
+    component.person = personWithoutId;
+    component.dataset = 'ds';
+
+    const putSpy = vi.spyOn(TestBed.inject(PersonService), 'put').mockReturnValue(of(putResponse));
+    const getOneSpy = vi.spyOn(TestBed.inject(PersonService), 'getOne').mockReturnValue(of(mockPerson));
+
+    component.save();
+
+    expect(putSpy).toHaveBeenCalledWith('ds', personWithoutId);
+    expect(getOneSpy).not.toHaveBeenCalled();
+    expect(component.person).toBe(putResponse);
+  });
+
   it('options returns array of SelectItem', () => {
     const opts = component.options();
     expect(Array.isArray(opts)).toBe(true);
@@ -214,10 +230,63 @@ describe('PersonComponent', () => {
     expect(component.googleMapsApiKey).toBe('PLUGH');
   });
 
+  it('initializes an empty map key when the service returns no key', async () => {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        PersonComponent,
+        MockMainLayoutComponent,
+        MockAttributeListComponent,
+        MockMultimediaGalleryComponent,
+        MockPersonFamilyListComponent,
+        MockPersonParentFamiliesComponent
+      ],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        PersonService,
+        { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
+        { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
+        { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+        { provide: UserService, useValue: { currentUser: null } },
+        { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
+        { provide: AuthApiService, useValue: { request: () => {} } },
+        { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
+        { provide: MapKeyService, useValue: { getMapKey: () => of('') } },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ dataset: 'testDataset' }),
+            data: of({ dataset: 'testDataset', person: mockPerson })
+          }
+        }
+      ]
+    }).compileComponents();
+
+    const fixture2 = TestBed.createComponent(PersonComponent);
+    const component2 = fixture2.componentInstance;
+    fixture2.detectChanges();
+
+    expect(component2.googleMapsApiKey).toBe('');
+  });
+
   it('normalizes a single place object into mapPlaces', () => {
     const singlePlace = { placeName: 'Needham', location: { coordinates: [-71.2377548, 42.2809285] } };
     const normalized = (component as any).normalizePlaces(singlePlace);
     expect(normalized).toEqual([singlePlace]);
+  });
+
+  it('returns the same array for an array place payload', () => {
+    const places = [
+      { placeName: 'A', location: { coordinates: [1, 2] } },
+      { placeName: 'B', southwest: [3, 4] }
+    ];
+
+    const normalized = (component as any).normalizePlaces(places);
+
+    expect(normalized).toBe(places);
   });
 
   it('normalizes object map payload and filters non-place values', () => {
@@ -232,6 +301,23 @@ describe('PersonComponent', () => {
     expect(normalized[1].placeName).toBe('B');
   });
 
+  it('returns an empty array for object payloads without place data', () => {
+    const payload = {
+      one: { nope: true },
+      two: { alsoNope: true }
+    };
+
+    const normalized = (component as any).normalizePlaces(payload);
+
+    expect(normalized).toEqual([]);
+  });
+
+  it('returns an empty array for primitive place payloads', () => {
+    const normalized = (component as any).normalizePlaces('not-a-place');
+
+    expect(normalized).toEqual([]);
+  });
+
   it('returns empty list for null place payload', () => {
     const normalized = (component as any).normalizePlaces(null);
     expect(normalized).toEqual([]);
@@ -242,5 +328,18 @@ describe('PersonComponent', () => {
     expect(component.hasMapPlaces()).toBe(false);
     component.mapPlaces = [{ placeName: 'Needham', location: [0, 0] }];
     expect(component.hasMapPlaces()).toBe(true);
+  });
+
+  it('canRenderMap requires both map places and a map key', () => {
+    component.mapPlaces = [];
+    component.googleMapsApiKey = 'PLUGH';
+    expect(component.canRenderMap()).toBe(false);
+
+    component.mapPlaces = [{ placeName: 'Needham', location: [0, 0] }];
+    component.googleMapsApiKey = '';
+    expect(component.canRenderMap()).toBe(false);
+
+    component.googleMapsApiKey = 'PLUGH';
+    expect(component.canRenderMap()).toBe(true);
   });
 });
