@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 
 import { PersonComponent } from './person.component';
@@ -86,40 +86,57 @@ describe('PersonComponent', () => {
     images: []
   } as ApiPerson;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [
-        PersonComponent,
-        MockMainLayoutComponent,
-        MockAttributeListComponent,
-        MockMultimediaGalleryComponent,
-        MockPersonFamilyListComponent,
-        MockPersonParentFamiliesComponent
-    ],
-    providers: [
+  const mockImports = [
+    PersonComponent,
+    MockMainLayoutComponent,
+    MockAttributeListComponent,
+    MockMultimediaGalleryComponent,
+    MockPersonFamilyListComponent,
+    MockPersonParentFamiliesComponent
+  ];
+
+  function buildProviders(mapKey: string, person: any) {
+    return [
       provideRouter([]),
       provideHttpClient(),
       provideHttpClientTesting(),
       PersonService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
-      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
-      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: SaveService, useValue: { getTextFile: (_dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (_file: File) => of({ success: true }) } },
       { provide: UserService, useValue: { currentUser: null } },
       { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
       { provide: AuthApiService, useValue: { request: () => {} } },
       { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
-      { provide: MapKeyService, useValue: { getMapKey: () => of('PLUGH') } },
+      { provide: MapKeyService, useValue: { getMapKey: () => of(mapKey) } },
       {
         provide: ActivatedRoute,
         useValue: {
           params: of({ dataset: 'testDataset' }),
-          data: of({ dataset: 'testDataset', person: mockPerson })
+          data: of({ dataset: 'testDataset', person })
         }
       }
-    ]
-})
-    .compileComponents();
+    ];
+  }
+
+  async function createFixture(mapKey: string, person: any): Promise<ComponentFixture<PersonComponent>> {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: mockImports,
+      providers: buildProviders(mapKey, person)
+    }).compileComponents();
+    const f = TestBed.createComponent(PersonComponent);
+    f.detectChanges();
+    return f;
+  }
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: mockImports,
+      providers: buildProviders('PLUGH', mockPerson)
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -139,11 +156,60 @@ describe('PersonComponent', () => {
   });
 
   it('save calls service.put', () => {
+    const fresh = { ...mockPerson, places: { placeName: 'Boston', location: { coordinates: [1, 2] } } } as unknown as ApiPerson;
     component.person = mockPerson;
     component.dataset = 'ds';
     const spy = vi.spyOn(TestBed.inject(PersonService), 'put').mockReturnValue(of(mockPerson));
+    const getOneSpy = vi.spyOn(TestBed.inject(PersonService), 'getOne').mockReturnValue(of(fresh));
     component.save();
     expect(spy).toHaveBeenCalledWith('ds', mockPerson);
+    expect(getOneSpy).toHaveBeenCalledWith('ds', mockPerson.string);
+    expect(component.mapPlaces).toEqual([(fresh as any).places]);
+  });
+
+  it('save falls back to the put response when no person id is available', () => {
+    const personWithoutId = { attributes: [] } as ApiPerson;
+    const putResponse = { attributes: [] } as ApiPerson;
+    component.person = personWithoutId;
+    component.dataset = 'ds';
+
+    const putSpy = vi.spyOn(TestBed.inject(PersonService), 'put').mockReturnValue(of(putResponse));
+    const getOneSpy = vi.spyOn(TestBed.inject(PersonService), 'getOne').mockReturnValue(of(mockPerson));
+
+    component.save();
+
+    expect(putSpy).toHaveBeenCalledWith('ds', personWithoutId);
+    expect(getOneSpy).not.toHaveBeenCalled();
+    expect(component.person).toBe(putResponse);
+  });
+
+  it('updates mapPlaces from the save response when no person id is available', () => {
+    const place = { placeName: 'Needham', location: { coordinates: [1, 2] } };
+    const personWithoutId = { attributes: [] } as ApiPerson;
+    const putResponse = { attributes: [], places: place } as unknown as ApiPerson;
+    component.person = personWithoutId;
+    component.dataset = 'ds';
+
+    vi.spyOn(TestBed.inject(PersonService), 'put').mockReturnValue(of(putResponse));
+    vi.spyOn(TestBed.inject(PersonService), 'getOne').mockReturnValue(of(mockPerson));
+
+    component.save();
+
+    expect(component.mapPlaces).toEqual([place]);
+  });
+
+  it('keeps the put response when reload fails', () => {
+    const putResponse = { ...mockPerson, places: { placeName: 'Needham', location: { coordinates: [1, 2] } } } as unknown as ApiPerson;
+    component.person = mockPerson;
+    component.dataset = 'ds';
+
+    vi.spyOn(TestBed.inject(PersonService), 'put').mockReturnValue(of(putResponse));
+    vi.spyOn(TestBed.inject(PersonService), 'getOne').mockReturnValue(throwError(() => new Error('refresh failed')));
+
+    component.save();
+
+    expect(component.person).toBe(putResponse);
+    expect(component.mapPlaces).toEqual([(putResponse as any).places]);
   });
 
   it('options returns array of SelectItem', () => {
@@ -159,63 +225,43 @@ describe('PersonComponent', () => {
   });
 
   it('ngOnInit falls back to empty attributes when none provided', async () => {
-    TestBed.resetTestingModule();
-    await TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [PersonComponent,
-      MockMainLayoutComponent,
-      MockAttributeListComponent,
-      MockMultimediaGalleryComponent,
-      MockPersonFamilyListComponent,
-      MockPersonParentFamiliesComponent],
-    providers: [
-      provideRouter([]),
-      provideHttpClient(),
-      provideHttpClientTesting(),
-      PersonService,
-      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
-      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
-      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
-      { provide: UserService, useValue: { currentUser: null } },
-      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
-      { provide: AuthApiService, useValue: { request: () => {} } },
-      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
-      { provide: MapKeyService, useValue: { getMapKey: () => of('PLUGH') } },
-      {
-        provide: ActivatedRoute,
-        useValue: {
-          params: of({ dataset: 'testDataset' }),
-          data: of({
-            dataset: 'testDataset',
-            person: {
-              attributes: undefined,
-              lifespan: {},
-                        refns: [{ string: '', tail: '' }],
-                        changes: [{ string: '', attributes: [{ string: '' }] }],
-                        famss: [],
-                        famcs: [],
-                        images: []
-                    }
-                })
-            }
-        }
-    ]
-}).compileComponents();
-
-    const fixture2 = TestBed.createComponent(PersonComponent);
-    const component2 = fixture2.componentInstance;
-    fixture2.detectChanges();
-    expect(component2.attributes).toEqual([]);
+    const personWithNoAttributes = {
+      attributes: undefined,
+      lifespan: {},
+      refns: [{ string: '', tail: '' }],
+      changes: [{ string: '', attributes: [{ string: '' }] }],
+      famss: [],
+      famcs: [],
+      images: []
+    };
+    const fixture2 = await createFixture('PLUGH', personWithNoAttributes);
+    expect(fixture2.componentInstance.attributes).toEqual([]);
   });
 
   it('reads map key on init', () => {
     expect(component.googleMapsApiKey).toBe('PLUGH');
   });
 
+  it('initializes an empty map key when the service returns no key', async () => {
+    const fixture2 = await createFixture('', mockPerson);
+    expect(fixture2.componentInstance.googleMapsApiKey).toBe('');
+  });
+
   it('normalizes a single place object into mapPlaces', () => {
     const singlePlace = { placeName: 'Needham', location: { coordinates: [-71.2377548, 42.2809285] } };
     const normalized = (component as any).normalizePlaces(singlePlace);
     expect(normalized).toEqual([singlePlace]);
+  });
+
+  it('returns the same array for an array place payload', () => {
+    const places = [
+      { placeName: 'A', location: { coordinates: [1, 2] } },
+      { placeName: 'B', southwest: [3, 4] }
+    ];
+
+    const normalized = (component as any).normalizePlaces(places);
+
+    expect(normalized).toBe(places);
   });
 
   it('normalizes object map payload and filters non-place values', () => {
@@ -230,6 +276,23 @@ describe('PersonComponent', () => {
     expect(normalized[1].placeName).toBe('B');
   });
 
+  it('returns an empty array for object payloads without place data', () => {
+    const payload = {
+      one: { nope: true },
+      two: { alsoNope: true }
+    };
+
+    const normalized = (component as any).normalizePlaces(payload);
+
+    expect(normalized).toEqual([]);
+  });
+
+  it('returns an empty array for primitive place payloads', () => {
+    const normalized = (component as any).normalizePlaces('not-a-place');
+
+    expect(normalized).toEqual([]);
+  });
+
   it('returns empty list for null place payload', () => {
     const normalized = (component as any).normalizePlaces(null);
     expect(normalized).toEqual([]);
@@ -240,5 +303,18 @@ describe('PersonComponent', () => {
     expect(component.hasMapPlaces()).toBe(false);
     component.mapPlaces = [{ placeName: 'Needham', location: [0, 0] }];
     expect(component.hasMapPlaces()).toBe(true);
+  });
+
+  it('canRenderMap requires both map places and a map key', () => {
+    component.mapPlaces = [];
+    component.googleMapsApiKey = 'PLUGH';
+    expect(component.canRenderMap()).toBe(false);
+
+    component.mapPlaces = [{ placeName: 'Needham', location: [0, 0] }];
+    component.googleMapsApiKey = '';
+    expect(component.canRenderMap()).toBe(false);
+
+    component.googleMapsApiKey = 'PLUGH';
+    expect(component.canRenderMap()).toBe(true);
   });
 });
