@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 
 import { PersonComponent } from './person.component';
@@ -156,13 +156,15 @@ describe('PersonComponent', () => {
   });
 
   it('save calls service.put', () => {
+    const fresh = { ...mockPerson, places: { placeName: 'Boston', location: { coordinates: [1, 2] } } } as unknown as ApiPerson;
     component.person = mockPerson;
     component.dataset = 'ds';
     const spy = vi.spyOn(TestBed.inject(PersonService), 'put').mockReturnValue(of(mockPerson));
-    const getOneSpy = vi.spyOn(TestBed.inject(PersonService), 'getOne').mockReturnValue(of(mockPerson));
+    const getOneSpy = vi.spyOn(TestBed.inject(PersonService), 'getOne').mockReturnValue(of(fresh));
     component.save();
     expect(spy).toHaveBeenCalledWith('ds', mockPerson);
     expect(getOneSpy).toHaveBeenCalledWith('ds', mockPerson.string);
+    expect(component.mapPlaces).toEqual([(fresh as any).places]);
   });
 
   it('save falls back to the put response when no person id is available', () => {
@@ -179,6 +181,35 @@ describe('PersonComponent', () => {
     expect(putSpy).toHaveBeenCalledWith('ds', personWithoutId);
     expect(getOneSpy).not.toHaveBeenCalled();
     expect(component.person).toBe(putResponse);
+  });
+
+  it('updates mapPlaces from the save response when no person id is available', () => {
+    const place = { placeName: 'Needham', location: { coordinates: [1, 2] } };
+    const personWithoutId = { attributes: [] } as ApiPerson;
+    const putResponse = { attributes: [], places: place } as unknown as ApiPerson;
+    component.person = personWithoutId;
+    component.dataset = 'ds';
+
+    vi.spyOn(TestBed.inject(PersonService), 'put').mockReturnValue(of(putResponse));
+    vi.spyOn(TestBed.inject(PersonService), 'getOne').mockReturnValue(of(mockPerson));
+
+    component.save();
+
+    expect(component.mapPlaces).toEqual([place]);
+  });
+
+  it('keeps the put response when reload fails', () => {
+    const putResponse = { ...mockPerson, places: { placeName: 'Needham', location: { coordinates: [1, 2] } } } as unknown as ApiPerson;
+    component.person = mockPerson;
+    component.dataset = 'ds';
+
+    vi.spyOn(TestBed.inject(PersonService), 'put').mockReturnValue(of(putResponse));
+    vi.spyOn(TestBed.inject(PersonService), 'getOne').mockReturnValue(throwError(() => new Error('refresh failed')));
+
+    component.save();
+
+    expect(component.person).toBe(putResponse);
+    expect(component.mapPlaces).toEqual([(putResponse as any).places]);
   });
 
   it('options returns array of SelectItem', () => {
