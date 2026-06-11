@@ -86,40 +86,57 @@ describe('PersonComponent', () => {
     images: []
   } as ApiPerson;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [
-        PersonComponent,
-        MockMainLayoutComponent,
-        MockAttributeListComponent,
-        MockMultimediaGalleryComponent,
-        MockPersonFamilyListComponent,
-        MockPersonParentFamiliesComponent
-    ],
-    providers: [
+  const mockImports = [
+    PersonComponent,
+    MockMainLayoutComponent,
+    MockAttributeListComponent,
+    MockMultimediaGalleryComponent,
+    MockPersonFamilyListComponent,
+    MockPersonParentFamiliesComponent
+  ];
+
+  function buildProviders(mapKey: string, person: any) {
+    return [
       provideRouter([]),
       provideHttpClient(),
       provideHttpClientTesting(),
       PersonService,
       { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
-      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
-      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
+      { provide: SaveService, useValue: { getTextFile: (_dataset: string) => of('GEDCOM content') } },
+      { provide: UploadService, useValue: { uploadGedFile: (_file: File) => of({ success: true }) } },
       { provide: UserService, useValue: { currentUser: null } },
       { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
       { provide: AuthApiService, useValue: { request: () => {} } },
       { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
-      { provide: MapKeyService, useValue: { getMapKey: () => of('PLUGH') } },
+      { provide: MapKeyService, useValue: { getMapKey: () => of(mapKey) } },
       {
         provide: ActivatedRoute,
         useValue: {
           params: of({ dataset: 'testDataset' }),
-          data: of({ dataset: 'testDataset', person: mockPerson })
+          data: of({ dataset: 'testDataset', person })
         }
       }
-    ]
-})
-    .compileComponents();
+    ];
+  }
+
+  async function createFixture(mapKey: string, person: any): Promise<ComponentFixture<PersonComponent>> {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: mockImports,
+      providers: buildProviders(mapKey, person)
+    }).compileComponents();
+    const f = TestBed.createComponent(PersonComponent);
+    f.detectChanges();
+    return f;
+  }
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: mockImports,
+      providers: buildProviders('PLUGH', mockPerson)
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -177,53 +194,17 @@ describe('PersonComponent', () => {
   });
 
   it('ngOnInit falls back to empty attributes when none provided', async () => {
-    TestBed.resetTestingModule();
-    await TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [PersonComponent,
-      MockMainLayoutComponent,
-      MockAttributeListComponent,
-      MockMultimediaGalleryComponent,
-      MockPersonFamilyListComponent,
-      MockPersonParentFamiliesComponent],
-    providers: [
-      provideRouter([]),
-      provideHttpClient(),
-      provideHttpClientTesting(),
-      PersonService,
-      { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
-      { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
-      { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
-      { provide: UserService, useValue: { currentUser: null } },
-      { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
-      { provide: AuthApiService, useValue: { request: () => {} } },
-      { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
-      { provide: MapKeyService, useValue: { getMapKey: () => of('PLUGH') } },
-      {
-        provide: ActivatedRoute,
-        useValue: {
-          params: of({ dataset: 'testDataset' }),
-          data: of({
-            dataset: 'testDataset',
-            person: {
-              attributes: undefined,
-              lifespan: {},
-                        refns: [{ string: '', tail: '' }],
-                        changes: [{ string: '', attributes: [{ string: '' }] }],
-                        famss: [],
-                        famcs: [],
-                        images: []
-                    }
-                })
-            }
-        }
-    ]
-}).compileComponents();
-
-    const fixture2 = TestBed.createComponent(PersonComponent);
-    const component2 = fixture2.componentInstance;
-    fixture2.detectChanges();
-    expect(component2.attributes).toEqual([]);
+    const personWithNoAttributes = {
+      attributes: undefined,
+      lifespan: {},
+      refns: [{ string: '', tail: '' }],
+      changes: [{ string: '', attributes: [{ string: '' }] }],
+      famss: [],
+      famcs: [],
+      images: []
+    };
+    const fixture2 = await createFixture('PLUGH', personWithNoAttributes);
+    expect(fixture2.componentInstance.attributes).toEqual([]);
   });
 
   it('reads map key on init', () => {
@@ -231,45 +212,8 @@ describe('PersonComponent', () => {
   });
 
   it('initializes an empty map key when the service returns no key', async () => {
-    TestBed.resetTestingModule();
-    await TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-        PersonComponent,
-        MockMainLayoutComponent,
-        MockAttributeListComponent,
-        MockMultimediaGalleryComponent,
-        MockPersonFamilyListComponent,
-        MockPersonParentFamiliesComponent
-      ],
-      providers: [
-        provideRouter([]),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        PersonService,
-        { provide: DatasetsService, useValue: { get: () => of(['test-db']) } },
-        { provide: SaveService, useValue: { getTextFile: (dataset: string) => of('GEDCOM content') } },
-        { provide: UploadService, useValue: { uploadGedFile: (file: File) => of({ success: true }) } },
-        { provide: UserService, useValue: { currentUser: null } },
-        { provide: AuthService, useValue: { isLoggedIn: () => false, login: () => {}, logout: () => {} } },
-        { provide: AuthApiService, useValue: { request: () => {} } },
-        { provide: ConfigService, useValue: { apiUrl: 'http://localhost' } },
-        { provide: MapKeyService, useValue: { getMapKey: () => of('') } },
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: of({ dataset: 'testDataset' }),
-            data: of({ dataset: 'testDataset', person: mockPerson })
-          }
-        }
-      ]
-    }).compileComponents();
-
-    const fixture2 = TestBed.createComponent(PersonComponent);
-    const component2 = fixture2.componentInstance;
-    fixture2.detectChanges();
-
-    expect(component2.googleMapsApiKey).toBe('');
+    const fixture2 = await createFixture('', mockPerson);
+    expect(fixture2.componentInstance.googleMapsApiKey).toBe('');
   });
 
   it('normalizes a single place object into mapPlaces', () => {
