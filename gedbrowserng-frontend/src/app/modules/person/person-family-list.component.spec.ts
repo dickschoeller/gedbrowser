@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 
 import { PersonFamilyListComponent } from './person-family-list.component';
 import { ApiPerson } from '../../models';
@@ -20,6 +21,12 @@ class StubPersonService {
 }
 
 class StubParent { person: ApiPerson = new ApiPerson(); saveCalled = false; save() { this.saveCalled = true; } }
+class StubDialog {
+  _result: any;
+  open() {
+    return { afterClosed: () => of(this._result) };
+  }
+}
 
 const mockZone = { run: (fn: () => void) => fn() };
 const mockCdr = { markForCheck: vi.fn() };
@@ -36,7 +43,8 @@ describe('PersonFamilyListComponent', () => {
   it('init sets childSurname based on partnerSex', () => {
     const svc = new StubPersonService();
     const user = new StubUserService();
-    const comp = new PersonFamilyListComponent(svc as any, user as any, mockZone as any, mockCdr as any);
+    const dialog = new StubDialog();
+    const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
     // partner sex M -> childSurname '?'
     comp.person = makePerson('P1', 'F'); // opposite sex guessed 'M'
     comp.init();
@@ -51,7 +59,8 @@ describe('PersonFamilyListComponent', () => {
   it('hasSignedIn reflects user presence', () => {
     const svc = new StubPersonService();
     const user = new StubUserService();
-    const comp = new PersonFamilyListComponent(svc as any, user as any, mockZone as any, mockCdr as any);
+    const dialog = new StubDialog();
+    const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
     expect(comp.hasSignedIn()).toBe(false);
     user.currentUser = { id: 'u' };
     expect(comp.hasSignedIn()).toBe(true);
@@ -60,7 +69,8 @@ describe('PersonFamilyListComponent', () => {
   it('linkChildren links first via person UB then remaining via family UB', () => {
     const svc = new StubPersonService();
     const user = new StubUserService();
-    const comp = new PersonFamilyListComponent(svc as any, user as any, mockZone as any, mockCdr as any);
+    const dialog = new StubDialog();
+    const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
     comp.dataset = 'ds';
     comp.person = makePerson('P1');
     comp.parent = new StubParent() as any;
@@ -82,7 +92,8 @@ describe('PersonFamilyListComponent', () => {
   it('drop reorders and triggers save', () => {
     const svc = new StubPersonService();
     const user = new StubUserService();
-    const comp = new PersonFamilyListComponent(svc as any, user as any, mockZone as any, mockCdr as any);
+    const dialog = new StubDialog();
+    const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
     comp.parent = new StubParent() as any;
     comp.person = new ApiPerson();
     (comp.person as any).famss = ['A', 'B', 'C'] as any;
@@ -94,7 +105,8 @@ describe('PersonFamilyListComponent', () => {
   it('refreshPerson updates parent.person from service', () => {
     const svc = new StubPersonService();
     const user = new StubUserService();
-    const comp = new PersonFamilyListComponent(svc as any, user as any, mockZone as any, mockCdr as any);
+    const dialog = new StubDialog();
+    const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
     const updated = makePerson('P2');
     svc._mainPerson = updated;
     comp.dataset = 'ds';
@@ -108,7 +120,8 @@ describe('PersonFamilyListComponent', () => {
   it('spouseLinked and childLinked behave as intended', () => {
     const svc = new StubPersonService();
     const user = new StubUserService();
-    const comp = new PersonFamilyListComponent(svc as any, user as any, mockZone as any, mockCdr as any);
+    const dialog = new StubDialog();
+    const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
     comp.person = makePerson('P1');
     expect(comp.spouseLinked(makePerson('P1'))).toBe(true);
     expect(comp.childLinked(makePerson('C1'))).toBe(false);
@@ -117,7 +130,8 @@ describe('PersonFamilyListComponent', () => {
   it('linkSpouse sets UB to persons/spouses and delegates', () => {
     const svc = new StubPersonService();
     const user = new StubUserService();
-    const comp = new PersonFamilyListComponent(svc as any, user as any, mockZone as any, mockCdr as any);
+    const dialog = new StubDialog();
+    const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
     comp.dataset = 'ds';
     comp.person = makePerson('P1');
     const spy = vi.spyOn(comp as any, 'linkPerson').mockImplementation(() => {});
@@ -130,7 +144,8 @@ describe('PersonFamilyListComponent', () => {
   it('createSpouse and createChild set UB correctly before delegating', () => {
     const svc = new StubPersonService();
     const user = new StubUserService();
-    const comp = new PersonFamilyListComponent(svc as any, user as any, mockZone as any, mockCdr as any);
+    const dialog = new StubDialog();
+    const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
     comp.dataset = 'ds';
     comp.person = makePerson('P1');
     const createSpy = vi.spyOn(comp as any, 'createPerson').mockImplementation(() => {});
@@ -139,6 +154,33 @@ describe('PersonFamilyListComponent', () => {
     expect((comp as any)._ub.sub).toBe('spouses');
     comp.createChild({} as any);
     expect((comp as any)._ub.sub).toBe('children');
+  });
+
+  it('openSpouseDialog routes existing person id to linkSpouse', () => {
+    const svc = new StubPersonService();
+    const user = new StubUserService();
+    const dialog = new StubDialog();
+    dialog._result = { mode: 'existing', existingPersonId: 'I123' };
+    const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
+    const spy = vi.spyOn(comp as any, 'linkSpouse').mockImplementation(() => {});
+
+    comp.openSpouseDialog();
+
+    expect(spy).toHaveBeenCalled();
+    expect(spy.mock.calls[0][0].selectOne.person.string).toBe('I123');
+  });
+
+  it('openChildDialog routes new person data to createChild', () => {
+    const svc = new StubPersonService();
+    const user = new StubUserService();
+    const dialog = new StubDialog();
+    dialog._result = { mode: 'new', newPersonData: { name: 'Kid' } };
+    const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
+    const spy = vi.spyOn(comp as any, 'createChild').mockImplementation(() => {});
+
+    comp.openChildDialog();
+
+    expect(spy).toHaveBeenCalledWith({ name: 'Kid' });
   });
 });
 
@@ -151,7 +193,7 @@ describe('PersonFamilyListComponent', () => {
     TestBed.configureTestingModule({
     imports: [PersonFamilyListComponent],
     schemas: [NO_ERRORS_SCHEMA],
-    providers: [PersonService, UserService, AuthApiService, ConfigService]
+    providers: [PersonService, UserService, AuthApiService, ConfigService, { provide: MatDialog, useValue: { open: () => ({ afterClosed: () => of(undefined) }) } }]
 })
     .compileComponents();
   });

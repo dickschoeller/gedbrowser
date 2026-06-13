@@ -31,6 +31,8 @@ export class NewPersonComponent {
     const dialogRef = this.dialog.open(
       NewPersonDialogComponent,
       {
+        width: '72rem',
+        maxWidth: '95vw',
         data: NewPersonHelper.initNew(this.sex, this.surname)
       });
 
