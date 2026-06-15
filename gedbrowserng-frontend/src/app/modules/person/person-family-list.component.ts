@@ -53,10 +53,10 @@ import {
     </div>
     @if (hasSignedIn()) {
       <div class="family-action-buttons">
-                <button mat-icon-button color="primary" matTooltip="Add spouse" (click)="openSpouseDialog()">
+                <button mat-icon-button color="primary" aria-label="Add spouse" matTooltip="Add spouse" (click)="openSpouseDialog()">
                     <mat-icon>person_add</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" matTooltip="Add child" (click)="openChildDialog()">
+                <button mat-icon-button color="primary" aria-label="Add child" matTooltip="Add child" (click)="openChildDialog()">
                     <mat-icon>person_add</mat-icon>
                 </button>
       </div>
@@ -217,26 +217,12 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
 
             if (result.mode === 'existing' && result.existingPersonId) {
                 if (relationship === 'spouse') {
-                    this.linkSpouse(this.linkPersonDataById(result.existingPersonId));
+                    this.linkSpouse(LinkPersonDialogData.fromPersonId(result.existingPersonId));
                 } else {
-                    this.linkChildren(this.linkPersonDataById(result.existingPersonId));
+                    this.linkChildren(LinkPersonDialogData.fromPersonId(result.existingPersonId));
                 }
             }
         });
-    }
-
-    private linkPersonDataById(personId: string): LinkPersonDialogData {
-        const selectedPerson = new ApiPerson();
-        selectedPerson.string = personId;
-        const selected: LinkPersonItem = {
-            id: personId,
-            label: personId,
-            person: selectedPerson
-        };
-        const data = new LinkPersonDialogData();
-        data.selected = [selected];
-        data.selectOne = selected;
-        return data;
     }
 
     drop(event: CdkDragDrop<string[]>) {

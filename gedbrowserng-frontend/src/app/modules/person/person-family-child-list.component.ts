@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasFamily, HasPerson, RefreshPerson, Saveable, LinkCheck } from '../../interfaces';
-import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData, LinkPersonItem } from '../../models';
+import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
 import { PersonService, FamilyService, UserService } from '../../services';
 import { NewPersonHelper, UrlBuilder } from '../../utils';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
@@ -34,7 +34,7 @@ import { AddLinkPersonDialogComponent, AddLinkPersonDialogResult } from './add-l
           <span class="example-fill-remaining-space"></span>
           @if (hasSignedIn()) {
             <span>
-                            <button mat-icon-button color="primary" matTooltip="Add child" (click)="openChildDialog()">
+                            <button mat-icon-button color="primary" aria-label="Add child" matTooltip="Add child" (click)="openChildDialog()">
                                 <mat-icon>person_add</mat-icon>
                             </button>
             </span>
@@ -156,23 +156,9 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
             }
 
             if (result.mode === 'existing' && result.existingPersonId) {
-                this.linkChild(this.linkPersonDataById(result.existingPersonId));
+                this.linkChild(LinkPersonDialogData.fromPersonId(result.existingPersonId));
             }
         });
-    }
-
-    private linkPersonDataById(personId: string): LinkPersonDialogData {
-        const selectedPerson = new ApiPerson();
-        selectedPerson.string = personId;
-        const selected: LinkPersonItem = {
-            id: personId,
-            label: personId,
-            person: selectedPerson
-        };
-        const data = new LinkPersonDialogData();
-        data.selected = [selected];
-        data.selectOne = selected;
-        return data;
     }
 
     preferredSurname(): string {
