@@ -160,7 +160,7 @@ describe('PersonFamilyListComponent', () => {
     const svc = new StubPersonService();
     const user = new StubUserService();
     const dialog = new StubDialog();
-    dialog._result = { mode: 'existing', existingPersonId: 'I123' };
+    dialog._result = { mode: 'existing', existingPersonIds: ['I123'] };
     const comp = new PersonFamilyListComponent(svc as any, user as any, dialog as any, mockZone as any, mockCdr as any);
     const spy = vi.spyOn(comp as any, 'linkSpouse').mockImplementation(() => {});
 

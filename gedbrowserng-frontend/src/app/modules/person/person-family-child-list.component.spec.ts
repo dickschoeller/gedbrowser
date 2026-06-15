@@ -283,7 +283,7 @@ describe('PersonFamilyChildListComponent', () => {
     });
 
     it('should route existing mode result to linkChild with id', () => {
-      dialogMock.result = { mode: 'existing', existingPersonId: 'I999' };
+      dialogMock.result = { mode: 'existing', existingPersonIds: ['I999'] };
       const linkSpy = vi.spyOn(component, 'linkChild').mockImplementation(() => {});
 
       component.openChildDialog();

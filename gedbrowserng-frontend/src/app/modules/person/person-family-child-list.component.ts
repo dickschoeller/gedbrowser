@@ -155,8 +155,8 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
                 return;
             }
 
-            if (result.mode === 'existing' && result.existingPersonId) {
-                this.linkChild(LinkPersonDialogData.fromPersonId(result.existingPersonId));
+            if (result.mode === 'existing' && result.existingPersonIds && result.existingPersonIds.length > 0) {
+                this.linkChild(LinkPersonDialogData.fromPersonIds(result.existingPersonIds));
             }
         });
     }

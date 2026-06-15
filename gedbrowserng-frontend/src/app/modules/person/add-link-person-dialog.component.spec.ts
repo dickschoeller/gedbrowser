@@ -64,33 +64,33 @@ describe('AddLinkPersonDialogComponent', () => {
 
   it('closes with mode existing and trimmed id on submit from link tab', () => {
     component.selectedTabIndex = 1;
-    component.existingPersonId = '  I1234  ';
+    component.existingPersonIdsInput = '  I1234  ';
 
     component.submit();
 
     expect(mockDialogRef.close).toHaveBeenCalledWith({
       mode: 'existing',
-      existingPersonId: 'I1234'
+      existingPersonIds: ['I1234']
     } as AddLinkPersonDialogResult);
   });
 
   it('isSubmitDisabled is false on create tab', () => {
     component.selectedTabIndex = 0;
-    component.existingPersonId = '';
+    component.existingPersonIdsInput = '';
 
     expect(component.isSubmitDisabled()).toBe(false);
   });
 
   it('isSubmitDisabled is true on link tab without id', () => {
     component.selectedTabIndex = 1;
-    component.existingPersonId = '   ';
+    component.existingPersonIdsInput = '   ';
 
     expect(component.isSubmitDisabled()).toBe(true);
   });
 
   it('isSubmitDisabled is false on link tab with id', () => {
     component.selectedTabIndex = 1;
-    component.existingPersonId = 'I4567';
+    component.existingPersonIdsInput = 'I4567';
 
     expect(component.isSubmitDisabled()).toBe(false);
   });

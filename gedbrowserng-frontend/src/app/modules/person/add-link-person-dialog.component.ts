@@ -25,7 +25,7 @@ export interface AddLinkPersonDialogData {
 export interface AddLinkPersonDialogResult {
   mode: 'new' | 'existing';
   newPersonData?: NewPersonDialogData;
-  existingPersonId?: string;
+  existingPersonIds?: string[];
 }
 
 @Component({
@@ -76,8 +76,8 @@ export interface AddLinkPersonDialogResult {
     <mat-tab label="Link by ID">
       <div class="tab-content">
         <mat-form-field class="wide-field">
-          <mat-label>Person ID</mat-label>
-          <input matInput [(ngModel)]="existingPersonId" placeholder="Example: I1234">
+          <mat-label>Person ID(s)</mat-label>
+          <textarea matInput [(ngModel)]="existingPersonIdsInput" aria-label="Person IDs, one per line" placeholder="Example: I1234&#10;I5678" rows="4"></textarea>
         </mat-form-field>
       </div>
     </mat-tab>
@@ -122,7 +122,7 @@ export interface AddLinkPersonDialogResult {
 export class AddLinkPersonDialogComponent {
   selectedTabIndex = 0;
   newPersonData: NewPersonDialogData;
-  existingPersonId = '';
+  existingPersonIdsInput = '';
 
   constructor(
     @Inject(MatDialogRef) public readonly dialogRef: MatDialogRef<AddLinkPersonDialogComponent>,
@@ -144,9 +144,13 @@ export class AddLinkPersonDialogComponent {
       return;
     }
 
+    const ids = this.existingPersonIdsInput
+      .split(/[\s,]+/)
+      .map(id => id.trim())
+      .filter(id => id.length > 0);
     this.dialogRef.close({
       mode: 'existing',
-      existingPersonId: this.existingPersonId.trim()
+      existingPersonIds: ids
     } as AddLinkPersonDialogResult);
   }
 
@@ -154,6 +158,6 @@ export class AddLinkPersonDialogComponent {
     if (this.selectedTabIndex !== 1) {
       return false;
     }
-    return !this.existingPersonId.trim();
+    return !this.existingPersonIdsInput.split(/[\s,]+/).some(id => id.trim().length > 0);
   }
 }

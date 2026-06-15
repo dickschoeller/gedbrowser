@@ -12,16 +12,17 @@ export class LinkPersonDialogData {
   titleString: string;
 
   static fromPersonId(personId: string): LinkPersonDialogData {
-    const selectedPerson = new ApiPerson();
-    selectedPerson.string = personId;
-    const selected: LinkPersonItem = {
-      id: personId,
-      label: personId,
-      person: selectedPerson
-    };
+    return LinkPersonDialogData.fromPersonIds([personId]);
+  }
+
+  static fromPersonIds(personIds: string[]): LinkPersonDialogData {
     const data = new LinkPersonDialogData();
-    data.selected = [selected];
-    data.selectOne = selected;
+    data.selected = personIds.map(personId => {
+      const person = new ApiPerson();
+      person.string = personId;
+      return { id: personId, label: personId, person };
+    });
+    data.selectOne = data.selected[0];
     return data;
   }
 }

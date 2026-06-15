@@ -215,11 +215,11 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
                 return;
             }
 
-            if (result.mode === 'existing' && result.existingPersonId) {
+            if (result.mode === 'existing' && result.existingPersonIds && result.existingPersonIds.length > 0) {
                 if (relationship === 'spouse') {
-                    this.linkSpouse(LinkPersonDialogData.fromPersonId(result.existingPersonId));
+                    this.linkSpouse(LinkPersonDialogData.fromPersonId(result.existingPersonIds[0]));
                 } else {
-                    this.linkChildren(LinkPersonDialogData.fromPersonId(result.existingPersonId));
+                    this.linkChildren(LinkPersonDialogData.fromPersonIds(result.existingPersonIds));
                 }
             }
         });
