@@ -47,13 +47,9 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Build with Maven
-      run: mvn -B clean verify
-
-    - name: Analyze with SonarCloud
-      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dickschoeller_gedbrowser
+      run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dickschoeller_gedbrowser
 
     - name: Publish to coveralls.io
       uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2
