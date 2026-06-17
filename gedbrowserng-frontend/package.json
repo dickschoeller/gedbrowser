@@ -58,7 +58,7 @@
     "undici": "7.26.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "21.2.13",
+    "@angular/build": "21.2.13",
     "@angular-eslint/builder": "21.4.0",
     "@angular-eslint/eslint-plugin": "21.4.0",
     "@angular-eslint/eslint-plugin-template": "21.4.0",
