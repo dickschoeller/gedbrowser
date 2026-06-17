@@ -8,9 +8,11 @@
   "rebaseWhen": "behind-base-branch",
   "packageRules": [
     {
-      "matchPackagePatterns": ["^@angular/"],
       "groupName": "all angular dependencies",
-      "groupSlug": "angular-group"
+      "groupSlug": "angular-group",
+      "matchPackageNames": [
+        "/^@angular//"
+      ]
     },
     {
       "matchDepNames": [
