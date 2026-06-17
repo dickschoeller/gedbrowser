@@ -1,14 +1,11 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "$schema": "https://renovatebot.com",
   "extends": [
     "config:recommended"
   ],
   "automerge": true,
   "platformAutomerge": true,
   "rebaseWhen": "behind-base-branch",
-  "registryUrls": [
-    "https://repo.maven.apache.org/maven2"
-  ],
   "packageRules": [
     {
       "matchPackagePatterns": ["^@angular/"],
@@ -20,7 +17,10 @@
         "^org\\.springframework(\\.boot|\\.data)?:"
       ],
       "groupName": "all spring dependencies",
-      "groupSlug": "all-spring-dependencies"
+      "groupSlug": "all-spring-dependencies",
+      "registryUrls": [
+        "https://apache.org"
+      ]
     }
   ]
 }
