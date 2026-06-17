@@ -8,11 +8,8 @@ export default defineConfig({
     include: ['src/**/*.spec.ts'],
     exclude: ['node_modules', 'dist', '.idea', '.git', '.cache'],
     // Run tests serially to avoid zone.js conflicts
-    poolOptions: {
-      threads: {
-        singleThread: true,
-      },
-    },
+    pool: 'threads',
+    fileParallelism: false,
     environmentOptions: {
       jsdom: {
         resources: 'usable',
