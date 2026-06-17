@@ -152,18 +152,6 @@
     "@angular-devkit/core" "21.2.15"
     rxjs "7.8.2"
 
-"@angular-devkit/core@21.2.13":
-  version "21.2.13"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-21.2.13.tgz#8abaaa0612425042b4b3f6b8ea45347ad2c81393"
-  integrity sha512-9jLaHcUr6BumIY9nCsBib1q62p259nf++gd2igYJ7mLm1w/0wEacsZ1cC8wCGEe6vx8a+DrD+EVCQ6zivePG2A==
-  dependencies:
-    ajv "8.18.0"
-    ajv-formats "3.0.1"
-    jsonc-parser "3.3.1"
-    picomatch "4.0.4"
-    rxjs "7.8.2"
-    source-map "0.7.6"
-
 "@angular-devkit/core@21.2.15", "@angular-devkit/core@>= 21.0.0 < 22.0.0":
   version "21.2.15"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-21.2.15.tgz#5fdc5338cbc6c4fa8d742a47916651c59187c263"
@@ -5408,10 +5396,10 @@ primeicons@^7.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-7.0.0.tgz#6b25c3fdcb29bb745a3035bdc1ed5902f4a419cf"
   integrity sha512-jK3Et9UzwzTsd6tzl2RmwrVY/b8raJ3QZLzoDACj+oTJ0oX7L9Hy+XnVwgo4QVKlKpnP/Ur13SXV/pVh4LzaDw==
 
-primeng@21.1.8:
-  version "21.1.8"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-21.1.8.tgz#ecfaeb8aee220f0964bc697b7f868b0f8aeeca1c"
-  integrity sha512-LvbecXxfcjbHqINa9Z3GxGKwyeWAaBCKZIJHoxZsSSUVnaz+mzqVHhvz/GAT2CC5EQhKxqex+8tm/OubErDTRg==
+primeng@21.1.9:
+  version "21.1.9"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-21.1.9.tgz#0bc3bc2f0ad71faa244c858f0968515a117f7cf0"
+  integrity sha512-Z76PtF08X0PNSTCNMobao8Qm71vC56mtZSdUtX/gsn4+q4x0NbUUtkeK1pc33a+kxVm2zkmOwzUIEGmb9VdoIA==
   dependencies:
     "@primeuix/motion" "^0.0.10"
     "@primeuix/styled" "^0.7.4"
