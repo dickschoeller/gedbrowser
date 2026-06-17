@@ -72,7 +72,7 @@
     "@types/node": "24.12.4",
     "@typescript-eslint/types": "8.61.1",
     "@typescript-eslint/utils": "8.61.1",
-    "@vitest/coverage-v8": "4.1.7",
+    "@vitest/coverage-v8": "4.1.9",
     "eslint": "9.39.4",
     "express": "^5.0.0",
     "express-rate-limit": "8.5.2",
@@ -82,7 +82,7 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.53.1",
     "vite": "^6.0.0",
-    "vitest": "4.1.7"
+    "vitest": "4.1.9"
   },
   "snyk": true
 }
