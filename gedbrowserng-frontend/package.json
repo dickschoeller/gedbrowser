@@ -31,7 +31,7 @@
     "@fontsource/noto-sans-tc": "^5.2.9",
     "@iplab/ngx-file-upload": "^22.0.0",
     "@primeng/themes": "^21.0.4",
-    "@snyk/protect": "1.1305.0",
+    "@snyk/protect": "1.1305.1",
     "braces": "^3.0.3",
     "core-js": "3.49.0",
     "diff": "9.0.0",
