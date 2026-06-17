@@ -17,7 +17,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/core": "21.2.13",
+    "@angular-devkit/core": "21.2.16",
     "@angular/animations": "21.2.14",
     "@angular/cdk": "21.2.13",
     "@angular/common": "21.2.17",

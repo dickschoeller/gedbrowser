@@ -176,6 +176,18 @@
     rxjs "7.8.2"
     source-map "0.7.6"
 
+"@angular-devkit/core@21.2.16":
+  version "21.2.16"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-21.2.16.tgz#49d5ad6b43e0aed2323ac2aec918d7f0e6343707"
+  integrity sha512-bRot0dqonxdSuGzXyOYtVJis/u9CJycrfC/aaxLeMF37gKtWIyCR2KFkMRXAoiV/AKk5/NuuqDNqcQS9w5G3Fg==
+  dependencies:
+    ajv "8.18.0"
+    ajv-formats "3.0.1"
+    jsonc-parser "3.3.1"
+    picomatch "4.0.4"
+    rxjs "7.8.2"
+    source-map "0.7.6"
+
 "@angular-devkit/schematics@21.2.13":
   version "21.2.13"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-21.2.13.tgz#164de3770fa55ade4b8bc5dd1b5217bc1f4e5245"
