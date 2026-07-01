@@ -1,5 +1,5 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "$schema": "https://renovatebot.com",
   "extends": [
     "config:recommended"
   ],
@@ -8,16 +8,21 @@
   "rebaseWhen": "behind-base-branch",
   "packageRules": [
     {
-      "matchPackagePatterns": ["^@angular/"],
       "groupName": "all angular dependencies",
-      "groupSlug": "angular-group"
+      "groupSlug": "angular-group",
+      "matchPackageNames": [
+        "/^@angular//"
+      ]
     },
     {
       "matchDepNames": [
         "^org\\.springframework(\\.boot|\\.data)?:"
       ],
       "groupName": "all spring dependencies",
-      "groupSlug": "all-spring-dependencies"
+      "groupSlug": "all-spring-dependencies",
+      "registryUrls": [
+        "https://apache.org"
+      ]
     }
   ]
 }

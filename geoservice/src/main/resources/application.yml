@@ -21,6 +21,7 @@ spring:
 
 geoservice:
     keyfile: /var/lib/gedbrowser/google-geocoding-key
+    geocoder: google
     backupfile: /var/lib/gedbrowser/geoservice-backup.json
 
 server:

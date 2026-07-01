@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, Input, NgZone } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasPerson, LinkCheck, Saveable } from '../../interfaces';
@@ -11,8 +12,11 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { PersonFamilyComponent } from './person-family.component';
-import { NewPersonComponent } from './new-person.component';
-import { LinkPersonComponent } from './link-person.component';
+import { MatTooltip } from '@angular/material/tooltip';
+import {
+    AddLinkPersonDialogComponent,
+    AddLinkPersonDialogResult
+} from './add-link-person-dialog.component';
 
 /**
  * Implements a the list of families on a person page
@@ -49,22 +53,12 @@ import { LinkPersonComponent } from './link-person.component';
     </div>
     @if (hasSignedIn()) {
       <div class="family-action-buttons">
-        <app-new-person
-            [sex]="partnerSex" [surname]="partnerSurname" [label]="'Create spouse'"
-            color="primary"
-            (emitOK)="createSpouse($event)"></app-new-person>
-        <app-link-person
-            [parent]="this" [dataset]="dataset" [multi]="false" [label]="'Link spouse'"
-            color="primary"
-            (emitOK)="linkSpouse($event)"></app-link-person>
-        <app-new-person
-            [sex]="childSex" [surname]="childSurname" [label]="'Create child'"
-            color="primary"
-            (emitOK)="createChild($event)"></app-new-person>
-        <app-link-person
-            [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link children'"
-            color="primary"
-            (emitOK)="linkChildren($event)"></app-link-person>
+                <button mat-icon-button color="primary" aria-label="Add spouse" matTooltip="Add spouse" (click)="openSpouseDialog()">
+                    <mat-icon>person_add</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" aria-label="Add child" matTooltip="Add child" (click)="openChildDialog()">
+                    <mat-icon>person_add</mat-icon>
+                </button>
       </div>
     }
   </mat-card-content>
@@ -77,7 +71,7 @@ import { LinkPersonComponent } from './link-person.component';
   gap: 4px;
 }
 `],
-    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, MatCardContent, CdkDropList, CdkDrag, PersonFamilyComponent, NewPersonComponent, LinkPersonComponent]
+    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, MatCardContent, CdkDropList, CdkDrag, PersonFamilyComponent, MatTooltip]
 })
 export class PersonFamilyListComponent extends InitablePersonCreator implements LinkCheck {
     @Input() dataset: string;
@@ -92,6 +86,7 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
 
     constructor(@Inject(PersonService) public readonly personService: PersonService,
         @Inject(UserService) private readonly userService: UserService,
+        @Inject(MatDialog) private readonly dialog: MatDialog,
         @Inject(NgZone) private readonly zone: NgZone,
         @Inject(ChangeDetectorRef) private readonly cdr: ChangeDetectorRef) {
         super(personService);
@@ -182,6 +177,52 @@ export class PersonFamilyListComponent extends InitablePersonCreator implements 
     createChild(data: NewPersonDialogData): void {
         this._ub = new UrlBuilder(this.dataset, 'persons', 'children');
         this.createPerson(data);
+    }
+
+    openSpouseDialog(): void {
+        this.openAddOrLinkDialog('spouse');
+    }
+
+    openChildDialog(): void {
+        this.openAddOrLinkDialog('child');
+    }
+
+    private openAddOrLinkDialog(relationship: 'spouse' | 'child'): void {
+        const defaults = relationship === 'spouse'
+            ? NewPersonHelper.initNew(this.partnerSex, this.partnerSurname)
+            : NewPersonHelper.initNew(this.childSex, this.childSurname);
+        const title = relationship === 'spouse' ? 'Add spouse' : 'Add child';
+        const dialogRef = this.dialog.open(AddLinkPersonDialogComponent, {
+            width: '72rem',
+            maxWidth: '95vw',
+            data: {
+                title,
+                defaultNewPerson: defaults
+            }
+        });
+
+        dialogRef.afterClosed().subscribe((result: AddLinkPersonDialogResult | undefined) => {
+            if (!result) {
+                return;
+            }
+
+            if (result.mode === 'new' && result.newPersonData) {
+                if (relationship === 'spouse') {
+                    this.createSpouse(result.newPersonData);
+                } else {
+                    this.createChild(result.newPersonData);
+                }
+                return;
+            }
+
+            if (result.mode === 'existing' && result.existingPersonIds && result.existingPersonIds.length > 0) {
+                if (relationship === 'spouse') {
+                    this.linkSpouse(LinkPersonDialogData.fromPersonId(result.existingPersonIds[0]));
+                } else {
+                    this.linkChildren(LinkPersonDialogData.fromPersonIds(result.existingPersonIds));
+                }
+            }
+        });
     }
 
     drop(event: CdkDragDrop<string[]>) {
