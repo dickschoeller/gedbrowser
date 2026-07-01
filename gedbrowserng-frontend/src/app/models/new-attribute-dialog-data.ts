@@ -4,4 +4,5 @@ import { AttributeDialogData } from './attribute-dialog-data';
 export class NewAttributeDialogData {
     options: SelectItem[];
     default: AttributeDialogData;
+    canDelete?: boolean;
 }

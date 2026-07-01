@@ -3,7 +3,7 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-  <!-- servers>
+  <servers>
     <server>
       <id>ossrh</id>
       <username>${env.OSSRH_USER}</username>
@@ -17,9 +17,9 @@
         <email>schoeller@comcast.net</email>
       </configuration>
     </server>
-  </servers -->
+  </servers>
 
-  <!-- profiles>
+  <profiles>
     <profile>
       <id>install</id>
       <activation>
@@ -112,7 +112,7 @@
         <printNavigation>true</printNavigation>
       </properties>
     </profile>
-  </profiles -->
+  </profiles>
 
   <!-- proxies>
     <proxy>
@@ -123,11 +123,4 @@
       <nonProxyHosts>*.ariba.com|*.sap.corp|*.corp.sap</nonProxyHosts>
     </proxy>
   </proxies -->
-
-  <!-- repositories>
-    <repository>
-      <id>clojars</id>
-      <url>https://clojars.org/repo/</url>
-    </repository>
-  </repositories -->
 </settings>
