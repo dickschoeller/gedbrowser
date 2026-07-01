@@ -1,5 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 import { PersonFamilyChildListComponent } from './person-family-child-list.component';
@@ -23,6 +24,13 @@ describe('PersonFamilyChildListComponent', () => {
     currentUser: undefined as unknown,
   } as unknown as UserService;
 
+  const dialogMock = {
+    result: undefined as any,
+    open: vi.fn(() => ({
+      afterClosed: () => of(dialogMock.result)
+    }))
+  } as any;
+
   const parentMock = {
     person: { surname: 'ParentSurname', string: 'P1' },
     save: vi.fn(),
@@ -36,6 +44,7 @@ describe('PersonFamilyChildListComponent', () => {
     providers: [
         { provide: PersonService, useValue: personServiceMock },
         { provide: FamilyService, useValue: familyServiceMock },
+      { provide: MatDialog, useValue: dialogMock },
         { provide: UserService, useValue: userServiceMock },
     ],
 }).compileComponents();
@@ -53,6 +62,7 @@ describe('PersonFamilyChildListComponent', () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+    dialogMock.result = undefined;
     userServiceMock.currentUser = undefined;
   });
 
@@ -258,6 +268,39 @@ describe('PersonFamilyChildListComponent', () => {
         'F1',
         mockPerson2
       );
+    });
+  });
+
+  describe('openChildDialog()', () => {
+    it('should route new mode result to createPerson', () => {
+      dialogMock.result = { mode: 'new', newPersonData: { name: 'Kid' } };
+      const createSpy = vi.spyOn(component as any, 'createPerson').mockImplementation(() => {});
+
+      component.openChildDialog();
+
+      expect(dialogMock.open).toHaveBeenCalled();
+      expect(createSpy).toHaveBeenCalledWith({ name: 'Kid' });
+    });
+
+    it('should route existing mode result to linkChild with id', () => {
+      dialogMock.result = { mode: 'existing', existingPersonIds: ['I999'] };
+      const linkSpy = vi.spyOn(component, 'linkChild').mockImplementation(() => {});
+
+      component.openChildDialog();
+
+      expect(linkSpy).toHaveBeenCalled();
+      expect((linkSpy as any).mock.calls[0][0].selectOne.person.string).toBe('I999');
+    });
+
+    it('should ignore undefined result', () => {
+      dialogMock.result = undefined;
+      const createSpy = vi.spyOn(component as any, 'createPerson').mockImplementation(() => {});
+      const linkSpy = vi.spyOn(component, 'linkChild').mockImplementation(() => {});
+
+      component.openChildDialog();
+
+      expect(createSpy).not.toHaveBeenCalled();
+      expect(linkSpy).not.toHaveBeenCalled();
     });
   });
 
