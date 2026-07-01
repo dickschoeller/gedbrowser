@@ -19,7 +19,12 @@
       "esnext.disposable"
     ],
     "module": "preserve",
-    "baseUrl": "./"
+    "ignoreDeprecations": "6.0",
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "strictFunctionTypes": false
   },
   "angularCompilerOptions": {
     "preserveWhitespaces": true

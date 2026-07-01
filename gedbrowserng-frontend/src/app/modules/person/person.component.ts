@@ -264,7 +264,17 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
   save() {
     this.service.put(this.dataset, this.person).subscribe(
       (data: ApiPerson) => {
-        this.person = data;
+        this.applyPersonState(data);
+
+        const personId = data?.string || this.person?.string;
+        if (!personId) {
+          return;
+        }
+
+        this.service.getOne(this.dataset, personId).subscribe(
+          (fresh: ApiPerson) => this.applyPersonState(fresh),
+          () => this.applyPersonState(data)
+        );
       }
     );
   }
@@ -316,5 +326,21 @@ export class PersonComponent implements OnInit, HasAttributeList, HasPerson, Sav
       || Array.isArray(place.coordinates)
       || Array.isArray(place.southwest)
       || Array.isArray(place.northeast);
+  }
+
+  private applyPersonState(person: ApiPerson): void {
+    this.zone.run(() => {
+      if (!person) {
+        this.attributes = [];
+        this.mapPlaces = [];
+        this.cdr.markForCheck();
+        return;
+      }
+      this.person = person;
+      this.person.attributes = this.person?.attributes || [];
+      this.attributes = this.person.attributes;
+      this.mapPlaces = this.normalizePlaces((this.person as any)?.places);
+      this.cdr.markForCheck();
+    });
   }
 }

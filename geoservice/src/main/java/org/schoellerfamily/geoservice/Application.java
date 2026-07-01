@@ -37,6 +37,10 @@ public class Application {
     private final String keyfile;
 
     /** */
+    @Value("${geoservice.geocoder:google}")
+    private final String geocoder;
+
+    /** */
     private GeoCode gcc;
 
     /** */
