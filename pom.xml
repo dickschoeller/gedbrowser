@@ -60,7 +60,7 @@
     <spring-boot-maven.version>4.1.0</spring-boot-maven.version>
     <spring-data-mongodb.version>5.1.0</spring-data-mongodb.version>
     <spring-data-commons.version>4.1.0</spring-data-commons.version>
-    <tomcat-embed.version>11.0.22</tomcat-embed.version>
+    <tomcat-embed.version>11.0.23</tomcat-embed.version>
     <!-- -->
 
     <cglib.version>3.3.0</cglib.version>
@@ -75,8 +75,8 @@
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.14.2</joda-time.version>
 
-    <junit-jupiter.version>6.1.0</junit-jupiter.version>
-    <junit-platform.version>6.1.0</junit-platform.version>
+    <junit-jupiter.version>6.1.1</junit-jupiter.version>
+    <junit-platform.version>6.1.1</junit-platform.version>
     <saucebindings-junit5.version>1.5.0</saucebindings-junit5.version>
     <selenium.version>4.45.0</selenium.version>
     <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
@@ -98,9 +98,9 @@
     <jacoco-plugin.version>0.8.15</jacoco-plugin.version>
     <spotbugs-plugin.version>4.10.2.0</spotbugs-plugin.version>
     <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
-    <checkstyle-version>13.6.0</checkstyle-version>
+    <checkstyle-version>13.7.0</checkstyle-version>
     <pmd-plugin.version>3.28.0</pmd-plugin.version>
-    <pmd-version>7.25.0</pmd-version>
+    <pmd-version>7.26.0</pmd-version>
     <build-helper-plugin.version>3.6.1</build-helper-plugin.version>
     <jxr-plugin.version>3.6.0</jxr-plugin.version>
     <compiler-plugin.version>3.15.0</compiler-plugin.version>
