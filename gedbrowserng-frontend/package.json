@@ -58,14 +58,14 @@
     "undici": "7.28.0"
   },
   "devDependencies": {
-    "@angular/build": "22.0.5",
+    "@angular/build": "22.0.6",
     "@angular-eslint/builder": "22.0.0",
     "@angular-eslint/eslint-plugin": "22.0.0",
     "@angular-eslint/eslint-plugin-template": "22.0.0",
     "@angular-eslint/schematics": "22.0.0",
     "@angular-eslint/template-parser": "22.0.0",
     "@angular-eslint/utils": "22.0.0",
-    "@angular/cli": "22.0.5",
+    "@angular/cli": "22.0.6",
     "@angular/compiler-cli": "22.0.6",
     "@angular/language-service": "22.0.6",
     "@eslint/js": "10.0.1",
