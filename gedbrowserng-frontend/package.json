@@ -73,7 +73,7 @@
     "@typescript-eslint/types": "8.63.0",
     "@typescript-eslint/utils": "8.63.0",
     "@vitest/coverage-v8": "4.1.10",
-    "eslint": "10.6.0",
+    "eslint": "10.7.0",
     "express": "^5.0.0",
     "express-rate-limit": "8.5.2",
     "jsdom": "29.1.1",
