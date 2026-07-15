@@ -1422,6 +1422,16 @@
   dependencies:
     "@tybys/wasm-util" "^0.10.3"
 
+"@noble/ed25519@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@noble/ed25519/-/ed25519-2.3.0.tgz#df0dbe424cfd7da4968b956b819c15db5fbe7f21"
+  integrity sha512-M7dvXL2B92/M7dw9+gzuydL8qn/jiqNHaoR3Q+cb1q1GHV7uwE17WCyFMG+Y+TZb5izcaXk5TdJRrDUxHXL78A==
+
+"@noble/hashes@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-2.2.0.tgz#22da1d16a469954fce877055d559900a6c73b63b"
+  integrity sha512-IYqDGiTXab6FniAgnSdZwgWbomxpy9FtYvLKs7wCUs2a8RkITG+DFGO1DM9cr+E3/RgADRpFjrKVaJ1z6sjtEg==
+
 "@npmcli/agent@^4.0.0":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@npmcli/agent/-/agent-4.0.2.tgz#9e659c2474294cb88bd382fef5d3857dc14fcbf6"
@@ -1767,6 +1777,22 @@
     "@parcel/watcher-win32-ia32" "2.5.6"
     "@parcel/watcher-win32-x64" "2.5.6"
 
+"@primeicons/angular@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@primeicons/angular/-/angular-8.0.0.tgz#1e1934c26473d817d3a85c2130dc826d5e790cba"
+  integrity sha512-WFpJ8xeXxae2tg/CHxauUxbdSsuem2k8la0CxKqyf6nhDFSss8jFop+S0vmixJfOAVZK/S+6OPQ73XRvhhTAiQ==
+  dependencies:
+    "@primeicons/core" "8.0.0"
+    "@primeuix/utils" "^0.8.0"
+    tslib "^2"
+
+"@primeicons/core@8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@primeicons/core/-/core-8.0.0.tgz#23a6b1287d949db999c3c3e55281963526d89631"
+  integrity sha512-vPif+sXxajXCSL2bmNBP0QYliJONVRgFVpCg9e7hGn7IG18JkMAm4fF5HVld1N4sDATkZQM7jKVxdZ8EK09Giw==
+  dependencies:
+    "@primeuix/utils" "^0.8.0"
+
 "@primeng/themes@^21.0.4":
   version "21.0.4"
   resolved "https://registry.yarnpkg.com/@primeng/themes/-/themes-21.0.4.tgz#1802a67eb3cfce1c1cfaa41f787afda5e5d93bfd"
@@ -1775,12 +1801,20 @@
     "@primeuix/styled" "^0.7.4"
     "@primeuix/themes" "^2.0.2"
 
-"@primeuix/motion@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@primeuix/motion/-/motion-0.0.10.tgz#9af4238226042d80518dd343c6481d03582e374a"
-  integrity sha512-PsZwOPq79Scp7/ionshRcQ5xKVf9+zuLcyY5mf6onK8chHT5C9JGphmcIZ4CzcqxuGEpsm8AIbTGy+zS3RtzLA==
+"@primeui/license-manager@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@primeui/license-manager/-/license-manager-1.0.0.tgz#f57a8984f8999e6fb82168366fc6bcd9ed279953"
+  integrity sha512-89J7r8cclEqoHVwjOX1adPcB/blFSocpzuYlzmd+6r0gxzg2Vd4jM54TKXt9/qwAT/kOv4vYnHKZ6hcP2GFtfA==
   dependencies:
-    "@primeuix/utils" "^0.6.3"
+    "@noble/ed25519" "2.3.0"
+    "@noble/hashes" "2.2.0"
+
+"@primeuix/motion@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@primeuix/motion/-/motion-1.0.0.tgz#625c2423adee9fa22cfd298a595828a8c20bf028"
+  integrity sha512-rqpFRKmUVp9BI3YQKdok0rLUwzYShXzuuxy72Kq74xYRV14eR+4+XrIXOdyVs7j7CYV0ajYowiRpJCrVgdrq6A==
+  dependencies:
+    "@primeuix/utils" "^0.8.0"
 
 "@primeuix/styled@^0.7.4":
   version "0.7.4"
@@ -1789,12 +1823,20 @@
   dependencies:
     "@primeuix/utils" "^0.6.1"
 
-"@primeuix/styles@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@primeuix/styles/-/styles-2.0.3.tgz#e42d14c138fe092683228d65a3f6de17de70d6a0"
-  integrity sha512-2ykAB6BaHzR/6TwF8ShpJTsZrid6cVIEBVlookSdvOdmlWuevGu5vWOScgIwqWwlZcvkFYAGR/SUV3OHCTBMdw==
+"@primeuix/styled@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@primeuix/styled/-/styled-1.0.0.tgz#61ce5d9b8b0d3c96774cc7c5b59178cadaafa28b"
+  integrity sha512-6SXoeQWwKswSqTv1ygaXNfY7otHo6Rb9mxbKJK5WF8adWlZ6CtwmlNfIP+p8cH/zGccsei/5Bu7IetXlMoZGjQ==
   dependencies:
-    "@primeuix/styled" "^0.7.4"
+    "@primeui/license-manager" "^1.0.0"
+    "@primeuix/utils" "^0.8.0"
+
+"@primeuix/styles@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@primeuix/styles/-/styles-3.0.0.tgz#67bf7add634bd6b4e03185ed74c2b6f4170ed785"
+  integrity sha512-nFsG2V0kbn3Q/fr0EV0Lxy2cKeW1F+WFXyxWI1CxWAAXW34mTCLkDd6OFbN5dP9hrSJOVaeXWzTdoonh1sdklQ==
+  dependencies:
+    "@primeuix/styled" "^1.0.0"
 
 "@primeuix/themes@^2.0.2":
   version "2.0.3"
@@ -1803,15 +1845,15 @@
   dependencies:
     "@primeuix/styled" "^0.7.4"
 
-"@primeuix/utils@^0.6.1", "@primeuix/utils@^0.6.3":
+"@primeuix/utils@^0.6.1":
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.6.4.tgz#f436eae1be166662d424b8550a97ba0c150819e6"
   integrity sha512-pZ5f+vj7wSzRhC7KoEQRU5fvYAe+RP9+m39CTscZ3UywCD1Y2o6Fe1rRgklMPSkzUcty2jzkA0zMYkiJBD1hgg==
 
-"@primeuix/utils@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.7.2.tgz#0ded7f74bddf191f0e16aea34b593a7fcffa94b5"
-  integrity sha512-pmEbSfP0Phf9W9RweiM66zXnkn73ZeKyYINElbX3uZ2+stzzaba2svLAl3B1pHVcRw5t43O0VciaGe4ye2EXKw==
+"@primeuix/utils@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.8.0.tgz#8c8c961d78f590b9c48a979e47fc5562b00e6f0a"
+  integrity sha512-dZSMKU2XJ7W7VDLuFMS/o4k+QYw4SYIpqSNhR/jdasMaaXl8eq0Gt7fTzTwwq7hgfmfOsI6V5xtzUUIvybOJ/w==
 
 "@puppeteer/browsers@3.0.6":
   version "3.0.6"
@@ -5445,15 +5487,17 @@ primeicons@^8.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-8.0.0.tgz#413bbcef56480beb8f96a5628f1de695011375c8"
   integrity sha512-eZGk+Mgb4fE+LkJi9LvllbnB4RVUF9kzmnLVnT3ZMY6stqKVh7TUJ0mFoMNIEgTnJSvhaGcJotDiSvtVvkHd7g==
 
-primeng@21.1.9:
-  version "21.1.9"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-21.1.9.tgz#0bc3bc2f0ad71faa244c858f0968515a117f7cf0"
-  integrity sha512-Z76PtF08X0PNSTCNMobao8Qm71vC56mtZSdUtX/gsn4+q4x0NbUUtkeK1pc33a+kxVm2zkmOwzUIEGmb9VdoIA==
+primeng@22.0.0:
+  version "22.0.0"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-22.0.0.tgz#70c3d3eb7237bbb05f0b62cfd676f409d2f77a3f"
+  integrity sha512-6TJ3y1YoSNhp2Njp36lPkytgXHTNB4IoQslYMwn0iONK57nuHWXvRUATjYAAieGh+TNG0UMQxmSshnKpU7TlFA==
   dependencies:
-    "@primeuix/motion" "^0.0.10"
-    "@primeuix/styled" "^0.7.4"
-    "@primeuix/styles" "^2.0.3"
-    "@primeuix/utils" "^0.7.2"
+    "@primeicons/angular" "^8.0.0"
+    "@primeui/license-manager" "^1.0.0"
+    "@primeuix/motion" "^1.0.0"
+    "@primeuix/styled" "^1.0.0"
+    "@primeuix/styles" "^3.0.0"
+    "@primeuix/utils" "^0.8.0"
     tslib "^2.3.0"
 
 proc-log@^6.0.0, proc-log@^6.1.0:
@@ -6267,7 +6311,7 @@ ts-node@~10.9.0:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.6.2:
+tslib@^2, tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.6.2:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
