@@ -75,8 +75,8 @@
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.14.2</joda-time.version>
 
-    <junit-jupiter.version>6.1.1</junit-jupiter.version>
-    <junit-platform.version>6.1.1</junit-platform.version>
+    <junit-jupiter.version>6.1.2</junit-jupiter.version>
+    <junit-platform.version>6.1.2</junit-platform.version>
     <saucebindings-junit5.version>1.5.0</saucebindings-junit5.version>
     <selenium.version>4.46.0</selenium.version>
     <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
@@ -96,7 +96,7 @@
 
     <coveralls-plugin.version>4.3.0</coveralls-plugin.version>
     <jacoco-plugin.version>0.8.15</jacoco-plugin.version>
-    <spotbugs-plugin.version>4.10.2.0</spotbugs-plugin.version>
+    <spotbugs-plugin.version>4.10.3.0</spotbugs-plugin.version>
     <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
     <checkstyle-version>13.8.0</checkstyle-version>
     <pmd-plugin.version>3.28.0</pmd-plugin.version>
@@ -784,17 +784,17 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-stdlib</artifactId>
-        <version>2.4.0</version>
+        <version>2.4.10</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-stdlib-jdk7</artifactId>
-        <version>2.4.0</version>
+        <version>2.4.10</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-stdlib-jdk8</artifactId>
-        <version>2.4.0</version>
+        <version>2.4.10</version>
       </dependency>
       <!-- dependency>
         <groupId>org.jetbrains.kotlin</groupId>
