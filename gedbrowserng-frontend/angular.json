@@ -32,6 +32,10 @@
           },
           "configurations": {
             "production": {
+              "outputPath": {
+                "base": "ui-src/META-INF/resources",
+                "browser": ""
+              },
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,

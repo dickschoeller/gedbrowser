@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration=production --optimization=false --output-path=ui-src/META-INF/resources",
+    "build": "ng build --configuration=production --optimization=false",
     "test": "vitest --run",
     "test-watch": "vitest",
     "lint": "ng lint --format=json > lint-output.json",
