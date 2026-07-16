@@ -4912,10 +4912,10 @@ negotiator@^1.0.0:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-1.0.0.tgz#b6c91bb47172d69f93cfd7c357bbb529019b5f6a"
   integrity sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==
 
-ngx-page-scroll-core@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-page-scroll-core/-/ngx-page-scroll-core-16.0.0.tgz#59122cbeb2d0469dd016fc19de9f656ddb294199"
-  integrity sha512-9ep0Ql08yLAvREKznAsObhWeXDa58ZPB/ZgvVTgYcBLef48HxiuM4iKmRoxmJdiUrFWOt/wP0llSgz+DXYYkTA==
+ngx-page-scroll-core@^17.0.0:
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-page-scroll-core/-/ngx-page-scroll-core-17.0.0.tgz#858f8d15611d31e0111059de8da9c1ad6e0e3f00"
+  integrity sha512-lQEiK9w6XNMe9snW59mfVkub5h0Ko76UVVHJaUQgUlVtT7JUbsF9I6KhiuociVoGiESGPUPgSFe8cIFjA+uQEA==
   dependencies:
     tslib "^2.6.2"
 
