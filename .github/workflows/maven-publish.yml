@@ -52,7 +52,7 @@ jobs:
       run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dickschoeller_gedbrowser
 
     - name: Publish to coveralls.io
-      uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2
+      uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2
       with:
         files: "*/target/site/jacoco/jacoco.xml */coverage/lcov.info"
         github-token: ${{ github.token }}
