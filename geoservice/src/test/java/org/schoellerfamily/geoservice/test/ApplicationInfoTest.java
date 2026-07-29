@@ -3,13 +3,7 @@ package org.schoellerfamily.geoservice.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 
@@ -18,31 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  *
  * @author Richard Schoeller
  */
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration
 public final class ApplicationInfoTest {
-    /** */
-    @Autowired
-    private transient ApplicationInfo appInfo;
-
-    /**
-     * Setup the configurations for this test class.
-     *
-     * @author Richard Schoeller
-     */
-    @Configuration
-    static class ContextConfiguration {
-
-        /**
-         * Creates and configures the application info bean.
-         *
-         * @return the configured application info bean
-         */
-        @Bean
-        public ApplicationInfo appInfo() {
-            return new ApplicationInfo();
-        }
-    }
+    /** Test target. */
+    private final transient ApplicationInfo appInfo = new ApplicationInfo();
 
     @Test
     void testApplicationInfoURL() {

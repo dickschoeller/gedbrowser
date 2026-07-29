@@ -6,12 +6,11 @@ import java.util.List;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.springframework.stereotype.Component;
+import jakarta.inject.Singleton;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 
-import lombok.RequiredArgsConstructor;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.DeserializationFeature;
@@ -25,11 +24,19 @@ import tools.jackson.databind.json.JsonMapper;
  *
  * @author Richard Schoeller
  */
-@Component
-@RequiredArgsConstructor
+@Singleton
 public class GeoCodeBackup {
     /** */
     private final GeoCode gcd;
+
+    /**
+     * Create backup service.
+     *
+     * @param gcd geocode store
+     */
+    public GeoCodeBackup(final GeoCode gcd) {
+        this.gcd = gcd;
+    }
     /**
      * The object mapper used for JSON serialization and deserialization.
      */

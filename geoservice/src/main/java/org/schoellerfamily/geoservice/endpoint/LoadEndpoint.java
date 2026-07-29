@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.stereotype.Component;
+import io.micronaut.context.annotation.Value;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Richard Schoeller
  */
-@Component
-@Endpoint(id = "load")
+@Controller("/actuator")
 @Slf4j
 public class LoadEndpoint extends BaseGeoCodeEndpoint {
     /** */
@@ -58,7 +56,7 @@ public class LoadEndpoint extends BaseGeoCodeEndpoint {
      *
      * @return the resulting list
      */
-    @ReadOperation
+    @Get("/load")
     public List<String> invokeEndpoint() {
         return super.invoke();
     }
