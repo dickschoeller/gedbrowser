@@ -22,7 +22,7 @@ import jakarta.inject.Inject;
  *
  * @author Richard Schoeller
  */
-@MicronautTest
+@MicronautTest(environments = "test")
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class ApplicationIT {
     /** HTTP client bound to embedded test server. */

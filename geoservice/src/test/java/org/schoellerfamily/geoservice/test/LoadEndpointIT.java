@@ -25,7 +25,7 @@ import jakarta.inject.Inject;
  *
  * @author Richard Schoeller
  */
-@MicronautTest
+@MicronautTest(environments = "test")
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "java:S5976", "java:S4144" })
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class LoadEndpointIT {
