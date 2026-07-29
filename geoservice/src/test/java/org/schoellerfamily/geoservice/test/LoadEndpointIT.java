@@ -20,8 +20,6 @@ import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 
-
-
 /**
  * Contains integration tests for the load endpoint.
  *
@@ -31,70 +29,69 @@ import jakarta.inject.Inject;
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "java:S5976", "java:S4144" })
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class LoadEndpointIT {
-        /** Embedded test server used to create a tuned client. */
-        @Inject
-        private EmbeddedServer server;
+    /** Embedded test server used to create a tuned client. */
+    @Inject
+    private EmbeddedServer server;
 
-        /** HTTP client with a longer timeout for loadAndFind endpoint calls. */
-        private HttpClient client;
+    /** HTTP client with a longer timeout for loadAndFind endpoint calls. */
+    private HttpClient client;
 
-        @BeforeEach
-        void setUpClient() {
-                final DefaultHttpClientConfiguration configuration =
-                                new DefaultHttpClientConfiguration();
-                configuration.setReadTimeout(Duration.ofSeconds(300));
-                configuration.setRequestTimeout(Duration.ofSeconds(310));
-                client = HttpClient.create(server.getURL(), configuration);
+    @BeforeEach
+    void setUpClient() {
+        final DefaultHttpClientConfiguration configuration = new DefaultHttpClientConfiguration();
+        configuration.setReadTimeout(Duration.ofSeconds(300));
+        configuration.setRequestTimeout(Duration.ofSeconds(310));
+        client = HttpClient.create(server.getURL(), configuration);
+    }
+
+    @AfterEach
+    void closeClient() {
+        if (client != null) {
+            client.close();
         }
+    }
 
-        @AfterEach
-        void closeClient() {
-                if (client != null) {
-                        client.close();
-                }
+    private HttpResponse<?> response(final String uri) {
+        try {
+            return client.toBlocking().exchange(HttpRequest.GET(uri), String.class);
+        } catch (HttpClientResponseException ex) {
+            return ex.getResponse();
         }
-
-        private HttpResponse<?> response(final String uri) {
-                try {
-                        return client.toBlocking().exchange(HttpRequest.GET(uri), String.class);
-                } catch (HttpClientResponseException ex) {
-                        return ex.getResponse();
-                }
-        }
+    }
 
     @Test
     void testAReturn200WhenSendingRequestToClearEndpoint() {
-                final HttpResponse<?> response = response("/actuator/clear");
-                assertEquals(HttpStatus.OK, response.getStatus());
-                assertThat(response.getBody(String.class).orElse(""))
-                        .contains("Load complete")
+        final HttpResponse<?> response = response("/actuator/clear");
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertThat(response.getBody(String.class).orElse(""))
+                .contains("Load complete")
                 .contains("0 locations in the cache");
     }
 
     @Test
     void testBReturn200WhenSendingRequestToLoadEndpoint() {
-                final HttpResponse<?> response = response("/actuator/load");
-                assertEquals(HttpStatus.OK, response.getStatus());
-                assertThat(response.getBody(String.class).orElse(""))
-                        .contains("Load complete")
+        final HttpResponse<?> response = response("/actuator/load");
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertThat(response.getBody(String.class).orElse(""))
+                .contains("Load complete")
                 .contains("917 locations in the cache");
     }
 
     @Test
     void testCReturn200WhenSendingRequestToClearEndpoint() {
-                final HttpResponse<?> response = response("/actuator/clear");
-                assertEquals(HttpStatus.OK, response.getStatus());
-                assertThat(response.getBody(String.class).orElse(""))
-                        .contains("Load complete")
+        final HttpResponse<?> response = response("/actuator/clear");
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertThat(response.getBody(String.class).orElse(""))
+                .contains("Load complete")
                 .contains("0 locations in the cache");
     }
 
     @Test
     void testDReturn200WhenSendingRequestToLoadAndFindEndpoint() {
-                final HttpResponse<?> response = response("/actuator/loadAndFind");
-                assertEquals(HttpStatus.OK, response.getStatus());
-                assertThat(response.getBody(String.class).orElse(""))
-                        .contains("Load complete")
+        final HttpResponse<?> response = response("/actuator/loadAndFind");
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertThat(response.getBody(String.class).orElse(""))
+                .contains("Load complete")
                 .contains("917 locations in the cache");
     }
 }
