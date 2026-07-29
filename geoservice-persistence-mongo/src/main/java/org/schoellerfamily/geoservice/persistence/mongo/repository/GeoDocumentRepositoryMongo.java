@@ -129,9 +129,20 @@ public class GeoDocumentRepositoryMongo implements GeocodableDocument {
                 if (persisted == null) {
                         return null;
                 }
-                final String name = persisted.getString("name");
+                final Object id = persisted.get("_id");
+                final String name = persisted.getString("name") != null
+                        ? persisted.getString("name")
+                        : (id == null ? null : String.valueOf(id));
                 final String modernName = persisted.getString("modernName");
-                final String resultJson = persisted.getString("resultJson");
+                String resultJson = persisted.getString("resultJson");
+                if (resultJson == null && persisted.get("result") != null) {
+                        try {
+                                resultJson = OBJECT_MAPPER.writeValueAsString(persisted.get("result"));
+                        } catch (Exception ex) {
+                                throw new IllegalStateException(
+                                        "Unable to serialize legacy geocoding result", ex);
+                        }
+                }
                 final GeocodingResult geocodingResult = deserializeResult(resultJson);
                 final GeoDocumentMongo document = new GeoDocumentMongo();
                 document.loadPersistedValues(name, modernName, geocodingResult);
