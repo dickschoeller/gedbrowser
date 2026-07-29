@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
 
-
-
 /**
  * Contains tests for application info.
  *

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import io.micronaut.context.annotation.Property;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -39,8 +40,10 @@ class LoadEndpointIT {
     @BeforeEach
     void setUpClient() {
         final DefaultHttpClientConfiguration configuration = new DefaultHttpClientConfiguration();
-        configuration.setReadTimeout(Duration.ofSeconds(300));
-        configuration.setRequestTimeout(Duration.ofSeconds(310));
+        final int readTimeout = 300;
+        final int requestTimeout = 310;
+        configuration.setReadTimeout(Duration.ofSeconds(readTimeout));
+        configuration.setRequestTimeout(Duration.ofSeconds(requestTimeout));
         client = HttpClient.create(server.getURL(), configuration);
     }
 

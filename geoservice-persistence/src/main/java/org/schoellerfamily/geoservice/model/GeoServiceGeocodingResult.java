@@ -11,8 +11,6 @@ import org.geojson.FeatureCollection;
 import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressType;
 
-
-
 /**
  * Represents the result of geo service geocoding processing.
  *
