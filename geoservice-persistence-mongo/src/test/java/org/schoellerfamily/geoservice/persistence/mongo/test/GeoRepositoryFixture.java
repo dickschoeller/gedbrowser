@@ -2,7 +2,8 @@ package org.schoellerfamily.geoservice.persistence.mongo.test;
 
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
-import org.springframework.data.mongodb.core.MongoTemplate;
+
+import com.mongodb.client.MongoDatabase;
 
 /**
  * Provides fixture data for geo repository tests.
@@ -14,19 +15,19 @@ public final class GeoRepositoryFixture extends GeoCodeTestFixture {
     private final GeoDocumentRepositoryMongo geoDocumentRepository;
 
     /** */
-    private final MongoTemplate mongoTemplate;
+    private final MongoDatabase mongoDatabase;
 
     /**
      * Creates a new GeoRepositoryFixture.
      *
      * @param geoDocumentRepository the geo document repository
-     * @param mongoTemplate the mongo template
+      * @param mongoDatabase the mongo database
      */
     public GeoRepositoryFixture(final GeoDocumentRepositoryMongo geoDocumentRepository,
-        final MongoTemplate mongoTemplate) {
+          final MongoDatabase mongoDatabase) {
         super();
         this.geoDocumentRepository = geoDocumentRepository;
-        this.mongoTemplate = mongoTemplate;
+          this.mongoDatabase = mongoDatabase;
     }
 
     /**
@@ -42,6 +43,6 @@ public final class GeoRepositoryFixture extends GeoCodeTestFixture {
      */
     public void clearRepository() {
         geoDocumentRepository.deleteAll();
-        mongoTemplate.getDb().drop();
+        mongoDatabase.drop();
     }
 }

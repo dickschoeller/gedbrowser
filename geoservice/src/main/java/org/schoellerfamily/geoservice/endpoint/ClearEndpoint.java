@@ -3,9 +3,8 @@ package org.schoellerfamily.geoservice.endpoint;
 import java.util.List;
 
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.stereotype.Component;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,8 +15,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Richard Schoeller
  */
-@Component
-@Endpoint(id = "clear")
+@Controller("/actuator")
 @Slf4j
 public class ClearEndpoint extends BaseGeoCodeEndpoint {
     /**
@@ -44,7 +42,7 @@ public class ClearEndpoint extends BaseGeoCodeEndpoint {
      *
      * @return the resulting list
      */
-    @ReadOperation
+    @Get("/clear")
     public List<String> invokeEndpoint() {
         return super.invoke();
     }

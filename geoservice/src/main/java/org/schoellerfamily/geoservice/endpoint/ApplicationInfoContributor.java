@@ -1,11 +1,11 @@
 package org.schoellerfamily.geoservice.endpoint;
 
-import org.schoellerfamily.geoservice.controller.ApplicationInfo;
-import org.springframework.boot.actuate.info.Info.Builder;
-import org.springframework.boot.actuate.info.InfoContributor;
-import org.springframework.stereotype.Component;
+import java.util.Map;
 
-import lombok.RequiredArgsConstructor;
+import org.schoellerfamily.geoservice.controller.ApplicationInfo;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -15,21 +15,29 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Richard Schoeller
  */
-@Component
-@RequiredArgsConstructor
+@Controller("/actuator")
 @Slf4j
-public final class ApplicationInfoContributor implements InfoContributor {
+public final class ApplicationInfoContributor {
     /** */
     private final ApplicationInfo appInfo;
 
     /**
-     * Executes contribute.
+     * Create info endpoint.
      *
-     * @param builder the builder
+     * @param appInfo application info provider
      */
-    @Override
-    public void contribute(final Builder builder) {
+    public ApplicationInfoContributor(final ApplicationInfo appInfo) {
+        this.appInfo = appInfo;
+    }
+
+    /**
+        * Build the info payload.
+     *
+        * @return info endpoint payload
+     */
+    @Get("/info")
+    public Map<String, Object> info() {
         log.info("Contribute to info");
-        builder.withDetail("app", appInfo.getInfoMap());
+        return Map.of("app", appInfo.getInfoMap());
     }
 }

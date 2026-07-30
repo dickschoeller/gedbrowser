@@ -1,91 +1,99 @@
 package org.schoellerfamily.geoservice.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.schoellerfamily.geoservice.Application;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalManagementPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.web.servlet.client.EntityExchangeResult;
-import org.springframework.test.web.servlet.client.RestTestClient;
-
-
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.client.DefaultHttpClientConfiguration;
+import io.micronaut.http.client.HttpClient;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
+import io.micronaut.runtime.server.EmbeddedServer;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import jakarta.inject.Inject;
 
 /**
  * Contains integration tests for the load endpoint.
  *
  * @author Richard Schoeller
  */
-@SpringBootTest(classes = Application.class,
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@MicronautTest(environments = "test")
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert", "java:S5976", "java:S4144" })
 @TestMethodOrder(MethodOrderer.MethodName.class)
-@AutoConfigureRestTestClient
 class LoadEndpointIT {
-    /**
-     * Management port.
-     */
-    @LocalManagementPort
-    private int mgt;
+    /** Embedded test server used to create a tuned client. */
+    @Inject
+    private EmbeddedServer server;
 
-    /**
-     * Not sure what this is good for.
-     */
-    @Autowired
-    private RestTestClient restTestClient;
+    /** HTTP client with a longer timeout for loadAndFind endpoint calls. */
+    private HttpClient client;
+
+    @BeforeEach
+    void setUpClient() {
+        final DefaultHttpClientConfiguration configuration = new DefaultHttpClientConfiguration();
+        final int readTimeout = 300;
+        final int requestTimeout = 310;
+        configuration.setReadTimeout(Duration.ofSeconds(readTimeout));
+        configuration.setRequestTimeout(Duration.ofSeconds(requestTimeout));
+        client = HttpClient.create(server.getURL(), configuration);
+    }
+
+    @AfterEach
+    void closeClient() {
+        if (client != null) {
+            client.close();
+        }
+    }
+
+    private HttpResponse<?> response(final String uri) {
+        try {
+            return client.toBlocking().exchange(HttpRequest.GET(uri), String.class);
+        } catch (HttpClientResponseException ex) {
+            return ex.getResponse();
+        }
+    }
 
     @Test
     void testAReturn200WhenSendingRequestToClearEndpoint() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri("http://localhost:" + this.mgt + "/actuator/clear")
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getResponseBody()).contains("Load complete")
+        final HttpResponse<?> response = response("/actuator/clear");
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertThat(response.getBody(String.class).orElse(""))
+                .contains("Load complete")
                 .contains("0 locations in the cache");
     }
 
     @Test
     void testBReturn200WhenSendingRequestToLoadEndpoint() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri("http://localhost:" + this.mgt + "/actuator/load")
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getResponseBody()).contains("Load complete")
+        final HttpResponse<?> response = response("/actuator/load");
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertThat(response.getBody(String.class).orElse(""))
+                .contains("Load complete")
                 .contains("917 locations in the cache");
     }
 
     @Test
     void testCReturn200WhenSendingRequestToClearEndpoint() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri("http://localhost:" + this.mgt + "/actuator/clear")
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getResponseBody()).contains("Load complete")
+        final HttpResponse<?> response = response("/actuator/clear");
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertThat(response.getBody(String.class).orElse(""))
+                .contains("Load complete")
                 .contains("0 locations in the cache");
     }
 
     @Test
     void testDReturn200WhenSendingRequestToLoadAndFindEndpoint() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri("http://localhost:" + this.mgt + "/actuator/loadAndFind")
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getResponseBody()).contains("Load complete")
+        final HttpResponse<?> response = response("/actuator/loadAndFind");
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertThat(response.getBody(String.class).orElse(""))
+                .contains("Load complete")
                 .contains("917 locations in the cache");
     }
 }

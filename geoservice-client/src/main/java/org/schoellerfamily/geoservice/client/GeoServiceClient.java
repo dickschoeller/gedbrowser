@@ -73,6 +73,7 @@ public class GeoServiceClient {
         try {
             return resilientCaller.fetchPrimary(url);
         } catch (Exception t) {
+            log.error("Failed to fetch geocode from geoservice at {}", url, t);
             return handleFetchFailure(url, placeName, t);
         }
     }
