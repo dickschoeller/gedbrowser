@@ -1,11 +1,10 @@
 import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit } from '@angular/core';
 
 import { ApiAttribute } from '../../models';
-import { PersonService } from '../../services';
+import { PersonService, UserService } from '../../services';
 import { HasFamily } from '../../interfaces/has-family';
 import { PersonGetter } from './person-getter';
 import { RefreshPerson } from '../../interfaces';
-import { UserService } from '../../services';
 import { RouterLink } from '@angular/router';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -41,6 +40,10 @@ import { MatIcon } from '@angular/material/icon';
 }
 
 :host:hover .hidden {
+  visibility: visible;
+}
+
+:host:focus-within .hidden {
   visibility: visible;
 }
 `],

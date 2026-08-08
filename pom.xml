@@ -65,7 +65,6 @@
     <micronaut.version>5.1.10</micronaut.version>
     <micronaut.test.version>5.1.0</micronaut.test.version>
     <micronaut-maven-plugin.version>5.0.2</micronaut-maven-plugin.version>
-    <micronaut.test.resources.version>5.1.0</micronaut.test.resources.version>
 
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
