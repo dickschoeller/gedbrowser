@@ -1972,10 +1972,10 @@
     "@sigstore/core" "^4.0.1"
     "@sigstore/protobuf-specs" "^0.5.0"
 
-"@snyk/protect@1.1306.2":
-  version "1.1306.2"
-  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.1306.2.tgz#adb3f399b22db1102b74d28e6eec1ee144c5eb69"
-  integrity sha512-XhbU76Z/4TJ2Szv0wI8L5K061w9196xtND7MYr/CgNUI2aGqlPSvOwe4uXJ2oYYGYm5ZJ+IndKviRPMU5imPWw==
+"@snyk/protect@1.1306.3":
+  version "1.1306.3"
+  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.1306.3.tgz#b7a9f559fc0d4d3f0a0ce4ca2c11af3a973c86fc"
+  integrity sha512-u+VW1RgYm7Z4/NsgP4rU3frjy7nc1PUQWsEOVVZORCm1DdG/fzTRsf8loLhTVj7+1cuOzStI9cibzszgrECHmQ==
 
 "@standard-schema/spec@^1.0.0", "@standard-schema/spec@^1.1.0":
   version "1.1.0"
