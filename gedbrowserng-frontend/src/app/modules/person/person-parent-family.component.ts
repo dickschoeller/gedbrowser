@@ -18,7 +18,7 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
     selector: 'app-person-parent-family',
     template: `<mat-card class="custom-main-colors">
   <mat-card-title>
-    <mat-toolbar class="custom-toolbar-colors">
+    <mat-toolbar class="custom-toolbar-colors parent-toolbar">
       @for (spouse of family?.spouses; track $index) {<mat-toolbar-row>
           <app-person-parent [dataset]="dataset" [parent]="this"
               [attribute]="spouse"></app-person-parent>
@@ -72,7 +72,12 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
     </div>
   </mat-card-content>
 </mat-card>`,
-    styles: [],
+    styles: [`
+  :host .parent-toolbar {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  `],
     imports: [MatCard, MatCardTitle, MatToolbar, MatToolbarRow, PersonParentComponent, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, CdkDrag, PersonFamilyChildComponent]
 })
 export class PersonParentFamilyComponent extends InitablePersonCreator
