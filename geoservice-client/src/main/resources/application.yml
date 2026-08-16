@@ -3,6 +3,15 @@ spring:
         serialization:
             INDENT_OUTPUT: true
 
+logging:
+    level:
+        "[org.schoellerfamily.geoservice.client]": DEBUG
+        "[org.springframework.web.client]": DEBUG
+        "[org.apache.hc.client5.http]": DEBUG
+        "[reactor.netty.http.client]": DEBUG
+        "[reactor.netty.transport]": DEBUG
+        "[io.netty.handler.logging]": DEBUG
+
 geoservice:
     circuit-breaker:
         open-timeout-millis: 30000

@@ -133,6 +133,25 @@ describe('AttributeListItemComponent', () => {
     expect(mockMatDialog.open).toHaveBeenCalled();
   });
 
+  it('should delete attribute from list when edit dialog returns deleted flag', () => {
+    const attr1 = new ApiAttribute();
+    attr1.type = 'attr1';
+    const attr2 = new ApiAttribute();
+    attr2.type = 'attr2';
+
+    component.attributeList = [attr1, attr2];
+    component.attribute = attr1;
+
+    mockMatDialog.open.mockReturnValue({
+      afterClosed: () => of({ deleted: true, type: 'attr1', text: '', insert: false })
+    });
+    component.edit();
+
+    expect(component.attributeList.length).toBe(1);
+    expect(component.attributeList[0]).toBe(attr2);
+    expect(component.parent.save).toHaveBeenCalled();
+  });
+
   it('should delete attribute from list', () => {
     const attr1 = new ApiAttribute();
     attr1.type = 'attr1';

@@ -17,7 +17,7 @@ import { MatButton } from '@angular/material/button';
   <mat-toolbar color="primary"><mat-icon matListIcon>person</mat-icon> &nbsp; New person</mat-toolbar>
 </div>
 <div mat-dialog-content>
-  <mat-form-field>
+  <mat-form-field class="wide-field">
     <mat-label>Name</mat-label>
     <input matInput [(ngModel)]="data.name">
   </mat-form-field>
@@ -31,22 +31,22 @@ import { MatButton } from '@angular/material/button';
     </mat-select>
   </mat-form-field>
   <br/>
-  <mat-form-field>
+  <mat-form-field class="wide-field">
     <mat-label>Birth date</mat-label>
     <input matInput [(ngModel)]="data.birthDate">
   </mat-form-field>
   <br/>
-  <mat-form-field>
+  <mat-form-field class="wide-field">
     <mat-label>Birth place</mat-label>
     <input matInput [(ngModel)]="data.birthPlace">
   </mat-form-field>
   <br/>
-  <mat-form-field>
+  <mat-form-field class="wide-field">
     <mat-label>Death date</mat-label>
     <input matInput [(ngModel)]="data.deathDate">
   </mat-form-field>
   <br/>
-  <mat-form-field>
+  <mat-form-field class="wide-field">
     <mat-label>Death place</mat-label>
     <input matInput [(ngModel)]="data.deathPlace">
   </mat-form-field>
@@ -57,7 +57,11 @@ import { MatButton } from '@angular/material/button';
   <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
   <button mat-button (click)="onNoClick()" >Cancel</button>
 </div>`,
-    styles: [],
+    styles: [`
+.wide-field {
+  width: 100%;
+}
+`],
     imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatSelect, MatOption, MatDialogActions, MatButton, MatDialogClose]
 })
 export class NewPersonDialogComponent {

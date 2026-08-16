@@ -152,6 +152,10 @@ export class PersonFamilyComponent extends InitablePersonCreator
         return this.family.string;
     }
 
+    preferredSurname(): string {
+        return this.surname;
+    }
+
     spouse(): ApiAttribute {
         if (this.family === undefined) {
             return null;

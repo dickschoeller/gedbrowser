@@ -15,8 +15,8 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -27,18 +27,10 @@ import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeStub;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -48,97 +40,37 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Richard Schoeller
  */
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @SuppressWarnings({ "PMD.ExcessiveImports", "PMD.ExcessivePublicCount", "PMD.TooManyMethods" })
 @Slf4j
-final class GeoCodeTest {
+public final class GeoCodeTest {
 
     /** */
-    @Value("${geoservice.dummyfile:/foo}")
     private transient String dummyFileName;
 
     /** */
-    @Value("${gedbrowser.home:#{ systemProperties['user.dir'] }/src/test/resources}")
     private transient String gedbrowserHome;
 
     /** */
-    @Autowired
     private GeoCode gcc;
 
     /** */
-    @Autowired
     private GeoCodeTestFixture testFixture;
 
     /** */
-    @Autowired
     private GeoCodeLoader loader;
 
     /**
-     * Manage the configuration for testing the cache.
-     *
-     * @author Richard Schoeller
+     * Build test fixtures explicitly for Micronaut/JUnit execution without Spring wiring.
      */
-    @Configuration
-    @RequiredArgsConstructor
-    public static class ContextConfiguration {
-        /** */
-        private transient GeoCode gcc;
-
-        /** */
-        private transient GeoCoder geoCoder;
-
-        /** */
-        private transient GeoCodeTestFixture testFixture;
-
-        /**
-         * Get the fixture that helps setup tests.
-         *
-         * @return the fixture
-         */
-        @Bean
-        public GeoCodeTestFixture testFixture() {
-            if (testFixture == null) {
-                testFixture = new GeoCodeTestFixture();
-            }
-            return testFixture;
-        }
-
-        /**
-         * Creates and configures the geo code bean.
-         *
-         * @return the configured geo code bean
-         */
-        @Bean
-        public GeoCode geoCode() {
-            if (gcc == null) {
-                gcc = new GeoCodeStub(geoCoder());
-            }
-            return gcc;
-        }
-
-        /**
-         * Creates and configures the geo coder bean.
-         *
-         * @return the configured geo coder bean
-         */
-        @Bean
-        public GeoCoder geoCoder() {
-            if (geoCoder == null) {
-                geoCoder = new StubGeoCoder(testFixture().expectedNotFound());
-            }
-            return geoCoder;
-        }
-
-        /**
-         * Creates and configures the geo code loader bean.
-         *
-         * @return the configured geo code loader bean
-         */
-        @Bean
-        public GeoCodeLoader loader() {
-            return new GeoCodeLoader(geoCode());
-        }
+    @BeforeEach
+    void setUpFixture() {
+        dummyFileName = System.getProperty("geoservice.dummyfile", "/foo");
+        gedbrowserHome = System.getProperty("gedbrowser.home",
+            System.getProperty("user.dir") + "/src/test/resources");
+        testFixture = new GeoCodeTestFixture();
+        final GeoCoder geoCoder = new StubGeoCoder(testFixture.expectedNotFound());
+        gcc = new GeoCodeStub(geoCoder);
+        loader = new GeoCodeLoader(gcc);
     }
 
     /**

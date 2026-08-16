@@ -8,11 +8,10 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.QueryValue;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -22,8 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Richard Schoeller
  */
-@RestController
-@RequiredArgsConstructor
+@Controller
 @Slf4j
 public class GeoCodeEntryController {
     /**
@@ -32,17 +30,26 @@ public class GeoCodeEntryController {
     private final GeoCode gcc;
 
     /**
+     * Create controller.
+     *
+     * @param gcc geocode service
+     */
+    public GeoCodeEntryController(final GeoCode gcc) {
+        this.gcc = gcc;
+    }
+
+    /**
      * Finds a value.
      *
      * @param name the name to use
      * @param modernName the modern name to use
      * @return the resulting geo service item
      */
-    @GetMapping("/geocode")
+    @Get("/geocode")
     public final GeoServiceItem find(
-            @RequestParam(value = "name", required = true)
+            @QueryValue("name")
                 final String name,
-            @RequestParam(value = "modernName", required = false)
+            @QueryValue(value = "modernName", defaultValue = "")
                 final String modernName) {
         if (StringUtils.isEmpty(modernName)) {
             log.debug("Find location: \"{}\"", name);

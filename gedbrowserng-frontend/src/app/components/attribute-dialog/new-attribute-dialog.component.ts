@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 
 import { NewAttributeDialogData } from '../../models';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -10,6 +10,7 @@ import { MatSelect, MatOption } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-new-attribute-dialog',
@@ -48,6 +49,9 @@ import { MatButton } from '@angular/material/button';
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
+  @if (data.canDelete) {
+    <button mat-button color="warn" (click)="onDeleteClick()">Delete</button>
+  }
   <span class="example-fill-remaining-space"></span>
   <button mat-button [mat-dialog-close]="data.default" cdkFocusInitial>OK</button>
   <button mat-button (click)="onNoClick()" >Cancel</button>
@@ -57,10 +61,23 @@ import { MatButton } from '@angular/material/button';
 })
 export class NewAttributeDialogComponent {
   constructor(@Inject(MatDialogRef) public readonly dialogRef: MatDialogRef<NewAttributeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public readonly data: NewAttributeDialogData) {
+    @Inject(MAT_DIALOG_DATA) public readonly data: NewAttributeDialogData,
+    @Inject(MatDialog) private readonly dialog: MatDialog) {
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onDeleteClick(): void {
+    const confirmRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Are you sure you want to delete this attribute?' }
+    });
+    confirmRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.data.default.deleted = true;
+        this.dialogRef.close(this.data.default);
+      }
+    });
   }
 }

@@ -11,8 +11,6 @@ import org.geojson.FeatureCollection;
 import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressType;
 
-
-
 /**
  * Represents the result of geo service geocoding processing.
  *
@@ -198,7 +196,23 @@ public final class GeoServiceGeocodingResult {
             // mutability issues.
             return null;
         }
-        return location.getProperty(PROPERTY_NAME_POSTCODE_LOCALITIES);
+        final Object postcodeLocalities = location.getProperty(PROPERTY_NAME_POSTCODE_LOCALITIES);
+        if (postcodeLocalities == null) {
+            return null;
+        }
+        if (postcodeLocalities instanceof String[] values) {
+            return Arrays.copyOf(values, values.length);
+        }
+        // Mongo-backed reads can materialize this JSON array as a List when generic type
+        // information is erased during persistence round-trips.
+        if (postcodeLocalities instanceof List<?> values) {
+            return values.stream().map(String::valueOf).toArray(String[]::new);
+        }
+        // Some deserialization paths still produce Object[] for array-like fields.
+        if (postcodeLocalities instanceof Object[] values) {
+            return Arrays.stream(values).map(String::valueOf).toArray(String[]::new);
+        }
+        return new String[] {String.valueOf(postcodeLocalities)};
     }
 
     /**

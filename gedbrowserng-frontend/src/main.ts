@@ -25,32 +25,30 @@ if (environment.production) {
 //  Production mode is disabled for now
 }
 
-try {
-  await bootstrapApplication(AppComponent, {
-    providers: [
-      provideHttpClient(),
-      importProvidersFrom(rootRouting, BrowserModule, CdkTableModule, FormsModule, ReactiveFormsModule, HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule),
-      AuthApiService,
-      AuthService,
-      ConfigService,
-      MapKeyService,
-      DatasetsService,
-      HeadService,
-      NoteService,
-      FamilyService,
-      FooService,
-      PersonService,
-      SourceService,
-      SubmitterService,
-      SaveService,
-      UploadService,
-      UserService,
-      LoginGuard,
-      GuestGuard,
-      AdminGuard,
-      provideAppInitializer(() => inject(UserService).initUser())
-    ]
-  });
-} catch (err) {
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(),
+    importProvidersFrom(rootRouting, BrowserModule, CdkTableModule, FormsModule, ReactiveFormsModule, HeadModule, NoteModule, NoteListModule, PersonListModule, PersonModule, SourceListModule, SourceModule, SubmitterListModule, SubmitterModule),
+    AuthApiService,
+    AuthService,
+    ConfigService,
+    MapKeyService,
+    DatasetsService,
+    HeadService,
+    NoteService,
+    FamilyService,
+    FooService,
+    PersonService,
+    SourceService,
+    SubmitterService,
+    SaveService,
+    UploadService,
+    UserService,
+    LoginGuard,
+    GuestGuard,
+    AdminGuard,
+    provideAppInitializer(() => inject(UserService).initUser())
+  ]
+}).catch((err) => {
   console.log(err);
-}
+});

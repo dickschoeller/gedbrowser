@@ -8,10 +8,11 @@ export abstract class HasAttributeDialog implements HasAttributeList {
   constructor(public readonly dialog: MatDialog) { }
 
   openAttributeDialog(callback: (result: AttributeDialogData) => void): void {
+    const defaultData = this.defaultData();
     const dialogRef = this.dialog.open(
       NewAttributeDialogComponent,
       {
-        data: { options: this.options(), default: this.defaultData() }
+        data: { options: this.options(), default: defaultData, canDelete: !defaultData.insert }
       });
 
     dialogRef.afterClosed().subscribe(result => {

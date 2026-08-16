@@ -12,4 +12,6 @@ export interface AttributeDialogData {
   originalDate: string;
   originalPlace: string;
   originalNote: string;
+
+  deleted?: boolean;
 }

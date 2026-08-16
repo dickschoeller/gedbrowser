@@ -24,13 +24,15 @@ export class NewPersonComponent {
 
   nph = new NewPersonHelper();
 
-  constructor(@Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) @Inject(MatDialog) public readonly dialog: MatDialog) {
+  constructor(@Inject(MatDialog) public readonly dialog: MatDialog) {
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(
       NewPersonDialogComponent,
       {
+        width: '72rem',
+        maxWidth: '95vw',
         data: NewPersonHelper.initNew(this.sex, this.surname)
       });
 

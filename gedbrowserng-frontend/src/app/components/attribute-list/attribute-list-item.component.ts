@@ -41,8 +41,6 @@ import { SourceButtonComponent } from '../source-button/source-button.component'
                         [parent]="this" [dataset]="dataset" [attributes]="attributeList" [index]="index">
                 </app-multimedia-edit-button>
             }
-            <button mat-icon-button matTooltip="Delete" color="warn" (click)="delete()">
-                <mat-icon matListIcon>delete</mat-icon></button>
             @if (!href()) {
                 <app-source-button [parent]="this" [dataset]="dataset"></app-source-button>
             }
@@ -72,7 +70,13 @@ export class AttributeListItemComponent extends HasAttributeDialog {
     }
 
     edit() {
-        this.openAttributeDialog(result => { this.modifyAttribute(result); });
+        this.openAttributeDialog(result => {
+            if (result.deleted) {
+                this.deleteFromList();
+            } else {
+                this.modifyAttribute(result);
+            }
+        });
     }
 
     defaultData(): AttributeDialogData {
@@ -95,11 +99,19 @@ export class AttributeListItemComponent extends HasAttributeDialog {
         });
         dialogRef.afterClosed().subscribe((confirmed: boolean) => {
             if (confirmed) {
-                const index = this.attributeList.indexOf(this.attribute);
-                this.attributeList.splice(index, 1);
-                this.parent.save();
+                this.deleteFromList();
             }
         });
+    }
+
+    private deleteFromList(): void {
+        const index = (this.index >= 0 && this.index < this.attributeList.length && this.attributeList[this.index] === this.attribute)
+            ? this.index
+            : this.attributeList.indexOf(this.attribute);
+        if (index >= 0) {
+            this.attributeList.splice(index, 1);
+            this.parent.save();
+        }
     }
 
     href() {

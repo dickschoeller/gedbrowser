@@ -1,37 +1,26 @@
 gedbrowser:
-    home: /var/lib/gedbrowser
+  home: /var/lib/gedbrowser
 
 logging:
-    level:
-        org:
-            schoellerfamily: WARN
-            springframework:
-                test: WARN
-                core: WARN
-                beans: WARN
-                data:
-                    mongodb:
-                        core:
-                            index: OFF
-
-spring:
-    jackson:
-        serialization:
-            INDENT_OUTPUT: true
+  level:
+    io:
+      micronaut:
+        http:
+          server: INFO
+    org:
+      schoellerfamily: INFO
 
 geoservice:
-    keyfile: /var/lib/gedbrowser/google-geocoding-key
-    backupfile: /var/lib/gedbrowser/geoservice-backup.json
+  keyfile: /var/lib/gedbrowser/google-geocoding-key
+  geocoder: google
+  backupfile: /var/lib/gedbrowser/geoservice-backup.json
 
-server:
+micronaut:
+  server:
     port: 8082
+    netty:
+      access-logger:
+        enabled: true
 
-management:
-    server:
-        port: 8083
-    security:
-        enabled: false
-    endpoints:
-        web:
-            exposure:
-                include: health,info,load,clear,loadAndFind,mappings,backup,restore
+# All management-style endpoints are served as regular Micronaut HTTP controllers
+# under /actuator in this module.

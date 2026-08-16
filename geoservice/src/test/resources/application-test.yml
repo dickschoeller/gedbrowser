@@ -1,0 +1,20 @@
+gedbrowser:
+  home: src/test/resources
+
+logging:
+  level:
+    org:
+      schoellerfamily: INFO
+
+geoservice:
+  keyfile: stub
+  backupfile: src/test/resources/geoservice-test-backup.json
+  loadfile: src/test/resources/geoservice-loadfile.txt
+
+micronaut:
+  server:
+    port: 0
+  http:
+    client:
+      read-timeout: 60s
+      connect-timeout: 10s

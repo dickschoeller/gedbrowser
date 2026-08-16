@@ -175,7 +175,7 @@ export class SourceListComponent extends SourceCreator implements AfterViewInit,
     this.router.navigate(['/' + this.dataset + '/sources/' + id]);
   }
 
-  onSpaceKey(event: KeyboardEvent, id: string) {
+  onSpaceKey(event: Event, id: string) {
     event.preventDefault();
     this.navigate(id);
   }

@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.geocoder.GeoCoder;
 import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
@@ -15,65 +15,24 @@ import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeStub;
 import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-
-import lombok.RequiredArgsConstructor;
 
 /**
  * Contains tests for geo code backup.
  *
  * @author Richard Schoeller
  */
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class,
-    classes = { GeoCodeBackupTest.ContextConfiguration.class, GeoCodeBackup.class })
 final class GeoCodeBackupTest {
     /** */
-    @Autowired
     private transient GeoCode gcd;
 
     /** */
-    @Autowired
     private transient GeoCodeBackup backupManager;
 
-    /**
-     * Setup the configurations for this test class.
-     *
-     * @author Richard Schoeller
-     */
-    @Configuration
-    @RequiredArgsConstructor
-    public static class ContextConfiguration {
-        /** */
-        private GeoCoder geoCoder;
-
-        /**
-         * Creates and configures the geo code bean.
-         *
-         * @return the configured geo code bean
-         */
-        @Bean
-        public GeoCode persistenceManager() {
-            return new GeoCodeStub(geoCoder());
-        }
-
-        /**
-         * Creates and configures the geo coder bean.
-         *
-         * @return the configured geo coder bean
-         */
-        @Bean
-        public GeoCoder geoCoder() {
-            if (geoCoder == null) {
-                geoCoder = new StubGeoCoder(new GeoCodeTestFixture().expectedNotFound());
-            }
-            return geoCoder;
-        }
+    @BeforeEach
+    void setUp() {
+        final GeoCoder geoCoder = new StubGeoCoder(new GeoCodeTestFixture().expectedNotFound());
+        gcd = new GeoCodeStub(geoCoder);
+        backupManager = new GeoCodeBackup(gcd);
     }
 
     @Test

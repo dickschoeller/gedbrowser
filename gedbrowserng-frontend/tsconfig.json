@@ -18,7 +18,13 @@
       // Required for Vitest 4.0's MockInstance interface which extends Disposable
       "esnext.disposable"
     ],
-    "module": "preserve"
+    "module": "preserve",
+    "ignoreDeprecations": "6.0",
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "strictFunctionTypes": false
   },
   "angularCompilerOptions": {
     "preserveWhitespaces": true

@@ -1,16 +1,19 @@
 import { Component, Input , Inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { InitablePersonCreator } from '../../bases';
 import { HasFamily, HasPerson, RefreshPerson, Saveable, LinkCheck } from '../../interfaces';
 import { ApiAttribute, ApiFamily, ApiPerson, LinkPersonDialogData } from '../../models';
 import { PersonService, FamilyService, UserService } from '../../services';
-import { UrlBuilder } from '../../utils';
+import { NewPersonHelper, UrlBuilder } from '../../utils';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
-import { NewPersonComponent } from './new-person.component';
-import { LinkPersonComponent } from './link-person.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
 import { PersonFamilyChildComponent } from './person-family-child.component';
+import { AddLinkPersonDialogComponent, AddLinkPersonDialogResult } from './add-link-person-dialog.component';
 
 /**
  * Implements a child list within a family on a person page.
@@ -31,14 +34,9 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
           <span class="example-fill-remaining-space"></span>
           @if (hasSignedIn()) {
             <span>
-              <app-new-person
-                  [sex]="sex" [surname]="surname" [label]="'Create child'"
-                  color="primary"
-                  (emitOK)="createPerson($event)"></app-new-person>
-              <app-link-person
-                  [parent]="this" [dataset]="dataset" [multi]="true" [label]="'Link child'"
-                  color="primary"
-                  (emitOK)="linkChild($event)"></app-link-person>
+                            <button mat-icon-button color="primary" aria-label="Add child" matTooltip="Add child" (click)="openChildDialog()">
+                                <mat-icon>person_add</mat-icon>
+                            </button>
             </span>
           }
         </mat-toolbar>
@@ -59,7 +57,7 @@ import { PersonFamilyChildComponent } from './person-family-child.component';
   <div class="ui-g-1"></div>
 </div>`,
     styles: [],
-    imports: [MatCard, MatCardTitle, MatToolbar, NewPersonComponent, LinkPersonComponent, MatCardContent, CdkDropList, CdkDrag, PersonFamilyChildComponent]
+    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatTooltip, MatIcon, MatCardContent, CdkDropList, CdkDrag, PersonFamilyChildComponent]
 })
 export class PersonFamilyChildListComponent extends InitablePersonCreator
     implements HasFamily, Saveable, LinkCheck {
@@ -73,6 +71,7 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
 
     constructor(@Inject(PersonService) public readonly personService: PersonService,
         @Inject(FamilyService) public readonly familyService: FamilyService,
+        @Inject(MatDialog) private readonly dialog: MatDialog,
         @Inject(UserService) private readonly userService: UserService) {
         super(personService);
     }
@@ -134,6 +133,32 @@ export class PersonFamilyChildListComponent extends InitablePersonCreator
             this.personService.putLink(this.personUB(), this.personAnchor(), item.person)
                 .subscribe((person: ApiPerson) => { this.refreshPerson(); });
         }
+    }
+
+    openChildDialog(): void {
+        const dialogRef = this.dialog.open(AddLinkPersonDialogComponent, {
+            width: '72rem',
+            maxWidth: '95vw',
+            data: {
+                title: 'Add child',
+                defaultNewPerson: NewPersonHelper.initNew(this.sex, this.surname)
+            }
+        });
+
+        dialogRef.afterClosed().subscribe((result: AddLinkPersonDialogResult | undefined) => {
+            if (!result) {
+                return;
+            }
+
+            if (result.mode === 'new' && result.newPersonData) {
+                this.createPerson(result.newPersonData);
+                return;
+            }
+
+            if (result.mode === 'existing' && result.existingPersonIds && result.existingPersonIds.length > 0) {
+                this.linkChild(LinkPersonDialogData.fromPersonIds(result.existingPersonIds));
+            }
+        });
     }
 
     preferredSurname(): string {

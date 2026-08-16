@@ -177,7 +177,7 @@ export class NoteListComponent extends NoteCreator implements AfterViewInit, OnC
     this.router.navigate(['/' + this.dataset + '/notes/' + id]);
   }
 
-  onSpaceKey(event: KeyboardEvent, id: string) {
+  onSpaceKey(event: Event, id: string) {
     event.preventDefault();
     this.navigate(id);
   }

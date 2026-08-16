@@ -3,20 +3,13 @@ package org.schoellerfamily.geoservice;
 import java.net.UnknownHostException;
 
 import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.data.mongodb.MongoDatabaseFactory;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import io.micronaut.context.annotation.Factory;
+import io.micronaut.context.annotation.Value;
+import jakarta.inject.Singleton;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-
-import lombok.RequiredArgsConstructor;
+import com.mongodb.client.MongoDatabase;
 
 
 
@@ -25,45 +18,48 @@ import lombok.RequiredArgsConstructor;
  *
  * @author Richard Schoeller
  */
-@Configuration
-@EnableMongoRepositories(
-        basePackages =
-            "org.schoellerfamily.geoservice.persistence.mongo.repository",
-        includeFilters = @ComponentScan.Filter(value = {
-                GeoDocumentRepositoryMongo.class
-        },
-        type = FilterType.ASSIGNABLE_TYPE))
-@RequiredArgsConstructor
+@Factory
 public class MongoConfiguration {
     /** */
     @Value("${spring.data.mongodb.host:localhost}")
-    private final String host;
+    private String host;
 
     /** */
     @Value("${spring.data.mongodb.port:27017}")
-    private final int port;
+    private int port;
 
     /**
-     * Get a MongoDbFactory for accessing the gedbrowser database.
+     * Get a MongoDB client connected to the configured host and port.
      *
-     * @return the MongoDbFactory
+     * @return the MongoDB client
      * @throws UnknownHostException because it must
      */
-    @Bean
-    public MongoDatabaseFactory mongoDbFactory() throws UnknownHostException {
+    @Singleton
+    public MongoClient mongoClient() throws UnknownHostException {
         final String connectionString = "mongodb://" + host + ":" + port;
-        final MongoClient client = MongoClients.create(connectionString);
-        return new SimpleMongoClientDatabaseFactory(client, "geoservice");
+        return MongoClients.create(connectionString);
     }
 
     /**
-     * Make the DB access template for MongoDB.
+     * Get the geoservice MongoDB database.
      *
-     * @return the template
+     * @param client the mongo client
+     * @return the mongo database
      * @throws UnknownHostException because it must
      */
-    @Bean
-    public MongoTemplate mongoTemplate() throws UnknownHostException {
-        return new MongoTemplate(mongoDbFactory());
+    @Singleton
+    public MongoDatabase mongoDatabase(final MongoClient client) throws UnknownHostException {
+        return client.getDatabase("geoservice");
+    }
+
+    /**
+     * Create the mongo repository facade used by the cache implementation.
+     *
+     * @param database the mongo database
+     * @return repository facade
+     */
+    @Singleton
+    public GeoDocumentRepositoryMongo geoDocumentRepositoryMongo(final MongoDatabase database) {
+        return new GeoDocumentRepositoryMongo(database);
     }
 }

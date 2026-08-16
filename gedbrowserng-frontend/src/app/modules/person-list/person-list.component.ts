@@ -232,7 +232,7 @@ export class PersonListComponent extends PersonCreator implements AfterViewInit,
     this.router.navigate(['/' + this.dataset + '/persons/' + id]);
   }
 
-  onSpaceKey(event: KeyboardEvent, id: string) {
+  onSpaceKey(event: Event, id: string) {
     event.preventDefault();
     this.navigate(id);
   }

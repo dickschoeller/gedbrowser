@@ -13,26 +13,30 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.schoellerfamily.geoservice.geocoder.GeoCoder;
+import org.schoellerfamily.geoservice.geocoder.StubGeoCoder;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.GeoCodeLoader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.schoellerfamily.geoservice.persistence.fixture.GeoCodeTestFixture;
+import org.schoellerfamily.geoservice.persistence.mongo.GeoCodeMongo;
+import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRepositoryMongo;
 
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,27 +45,25 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Richard Schoeller
  */
-@SuppressWarnings({ "PMD.CommentSize", "PMD.GodClass", "PMD.TooManyStaticImports",
+@SuppressWarnings({ "PMD.CommentSize", "PMD.ExcessiveImports", "PMD.GodClass",
+    "PMD.TooManyStaticImports",
     "PMD.TooManyMethods" })
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = MongoTestConfiguration.class)
 @Slf4j
 final class GeoCodeMongoIT {
     /** */
-    @Value("${geoservice.dummyfile:/foo}")
     private transient String dummyFileName;
 
     /** */
-    @Autowired
     private GeoCode gcc;
 
     /** */
-    @Autowired
     private GeoRepositoryFixture testFixture;
 
     /** */
-    @Autowired
     private GeoCodeLoader loader;
+
+    /** */
+    private MongoClient mongoClient;
 
     /**
      * Force debug logging during tests.
@@ -73,12 +75,26 @@ final class GeoCodeMongoIT {
 
     @BeforeEach
     void setUp() {
+        dummyFileName = System.getProperty("geoservice.dummyfile", "/foo");
+        final String host = System.getProperty("spring.data.mongodb.host", "localhost");
+        final String port = System.getProperty("spring.data.mongodb.port", "27017");
+        final String databaseName = "geoserviceTest_" + UUID.randomUUID();
+        final String connectionString = "mongodb://" + host + ":" + port;
+        mongoClient = MongoClients.create(connectionString);
+        final MongoDatabase mongoDatabase = mongoClient.getDatabase(databaseName);
+
+        final GeoDocumentRepositoryMongo repository = new GeoDocumentRepositoryMongo(mongoDatabase);
+        final GeoCoder geoCoder = new StubGeoCoder(new GeoCodeTestFixture().expectedNotFound());
+        gcc = new GeoCodeMongo(geoCoder, repository);
+        testFixture = new GeoRepositoryFixture(repository, mongoDatabase);
+        loader = new GeoCodeLoader(gcc);
         testFixture.loadRepository();
     }
 
     @AfterEach
     void tearDown() {
         testFixture.clearRepository();
+        mongoClient.close();
     }
 
     @Test
