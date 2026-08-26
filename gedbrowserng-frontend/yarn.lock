@@ -5335,9 +5335,7 @@ snyk@1.1307.0:
   integrity sha512-ZBaACp6zVVOMVlYEPayoA3kSuD4i+kyuMTQ6gAdLeLuFIKLDZY2VipopCHRMDwLQ+wIuiO2L24nMAVFmR+MVIA==
   dependencies:
     "@sentry/node" "^7.36.0"
-    boolean "*"
     global-agent "^3.0.0"
-    roarr "*"
 
 socks-proxy-agent@^10.0.0:
   version "10.1.0"
