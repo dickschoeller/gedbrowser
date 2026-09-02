@@ -3,6 +3,7 @@ package org.schoellerfamily.geoservice.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,12 +14,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.geoservice.controller.GeoCodeEntryController;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
+import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
+import org.geojson.Feature;
+import org.geojson.FeatureCollection;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
+import io.micronaut.http.exceptions.HttpStatusException;
 
 /**
  * Unit tests for {@link GeoCodeEntryController}.
@@ -61,6 +66,14 @@ public final class GeoCodeEntryControllerTest {
     }
 
     @Test
+    void testCreateReturnsBadRequestWhenResultMalformed() {
+        final HttpResponse<GeoServiceItem> response = controller.create(
+            new GeoServiceItem("Create Broken", "Create Broken Modern", malformedItem().getResult()));
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
+    }
+
+    @Test
     void testCreateReturnsCreatedForNewPlace() {
         final HttpResponse<GeoServiceItem> response = controller.create(
             new GeoServiceItem("Create Success", "Create Modern", null));
@@ -93,6 +106,16 @@ public final class GeoCodeEntryControllerTest {
     }
 
     @Test
+    void testUpdateReturnsBadRequestWhenResultMalformed() {
+        geoCode.add(new GeoCodeItem("Update Broken", "Before"));
+
+        final HttpResponse<GeoServiceItem> response = controller.update(
+            new GeoServiceItem("Update Broken", "Update Broken Modern", malformedItem().getResult()));
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
+    }
+
+    @Test
     void testUpdateReturnsOkForExistingPlace() {
         geoCode.add(new GeoCodeItem("Update Success", "Before"));
 
@@ -105,6 +128,18 @@ public final class GeoCodeEntryControllerTest {
     @Test
     void testDeleteReturnsBadRequestWhenNameBlank() {
         final HttpResponse<GeoServiceItem> response = controller.delete("   ");
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
+    }
+
+    @Test
+    void testDeleteReturnsBadRequestWhenDecodedNameBlank() {
+        final HttpResponse<GeoServiceItem> response = controller.delete("%20");
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
+    }
+
+    @Test
+    void testDeleteReturnsBadRequestWhenNameMalformed() {
+        final HttpResponse<GeoServiceItem> response = controller.delete("Bad%2");
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
     }
 
@@ -140,6 +175,31 @@ public final class GeoCodeEntryControllerTest {
     void testFindWithModernUsesTwoArgFind() {
         controller.find("FindTwo", "ModernTwo");
         assertEquals("ModernTwo", geoCode.lastFindModernName);
+    }
+
+    @Test
+    void testFindReturnsBadRequestWhenNameMalformed() {
+        final HttpStatusException ex = assertThrows(HttpStatusException.class,
+            () -> controller.find("Bad%2", ""));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
+    }
+
+    @Test
+    void testFindReturnsBadRequestWhenNameBlank() {
+        final HttpStatusException ex = assertThrows(HttpStatusException.class,
+            () -> controller.find("   ", ""));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
+    }
+
+    private GeoServiceItem malformedItem() {
+        final FeatureCollection geometry = new FeatureCollection();
+        geometry.add(new Feature());
+        geometry.add(new Feature());
+        final GeoServiceGeocodingResult result = new GeoServiceGeocodingResult(
+            null, "Malformed", null, geometry, null, false, "placeId");
+        return new GeoServiceItem("Malformed", "Malformed Modern", result);
     }
 
     /**

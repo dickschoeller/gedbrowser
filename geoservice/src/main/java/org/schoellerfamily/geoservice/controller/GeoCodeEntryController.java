@@ -17,6 +17,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 import io.micronaut.http.annotation.QueryValue;
+import io.micronaut.http.exceptions.HttpStatusException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,6 +56,10 @@ public class GeoCodeEntryController {
         return item;
     }
 
+    private String decode(final String value) {
+        return URLDecoder.decode(value, StandardCharsets.UTF_8);
+    }
+
     /**
      * Finds a value.
      *
@@ -68,21 +73,28 @@ public class GeoCodeEntryController {
                 final String name,
             @QueryValue(value = "modernName", defaultValue = "")
                 final String modernName) {
+        if (StringUtils.isBlank(name)) {
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid encoded value");
+        }
         if (StringUtils.isEmpty(modernName)) {
             log.debug("Find location: \"{}\"", name);
         } else {
             log.debug("Find location: \"{}\", \"{}\"", name, modernName);
         }
-        final String findName = URLDecoder.decode(name, StandardCharsets.UTF_8);
-        if (StringUtils.isEmpty(modernName)) {
-            final GeoCodeItem find = gcc.find(findName);
+        try {
+            final String findName = decode(name);
+            if (StringUtils.isEmpty(modernName)) {
+                final GeoCodeItem find = gcc.find(findName);
+                final GeocodeResultBuilder builder = new GeocodeResultBuilder();
+                return builder.toGeoServiceItem(find);
+            }
+            final String findModernName = decode(modernName);
+            final GeoCodeItem find = gcc.find(findName, findModernName);
             final GeocodeResultBuilder builder = new GeocodeResultBuilder();
             return builder.toGeoServiceItem(find);
+        } catch (IllegalArgumentException ex) {
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid encoded value");
         }
-        final String findModernName = URLDecoder.decode(modernName, StandardCharsets.UTF_8);
-        final GeoCodeItem find = gcc.find(findName, findModernName);
-        final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-        return builder.toGeoServiceItem(find);
 
     }
 
@@ -102,7 +114,12 @@ public class GeoCodeEntryController {
             return HttpResponse.status(HttpStatus.CONFLICT);
         }
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-        final GeoCodeItem saved = gcc.add(builder.toGeoCodeItem(normalized));
+        final GeoCodeItem saved;
+        try {
+            saved = gcc.add(builder.toGeoCodeItem(normalized));
+        } catch (IllegalArgumentException ex) {
+            return HttpResponse.status(HttpStatus.BAD_REQUEST);
+        }
         return HttpResponse.created(builder.toGeoServiceItem(saved));
     }
 
@@ -122,7 +139,12 @@ public class GeoCodeEntryController {
             return HttpResponse.status(HttpStatus.NOT_FOUND);
         }
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-        final GeoCodeItem saved = gcc.add(builder.toGeoCodeItem(normalized));
+        final GeoCodeItem saved;
+        try {
+            saved = gcc.add(builder.toGeoCodeItem(normalized));
+        } catch (IllegalArgumentException ex) {
+            return HttpResponse.status(HttpStatus.BAD_REQUEST);
+        }
         return HttpResponse.ok(builder.toGeoServiceItem(saved));
     }
 
@@ -134,16 +156,23 @@ public class GeoCodeEntryController {
      */
     @Delete("/geocode")
     public HttpResponse<GeoServiceItem> delete(@QueryValue("name") final String name) {
-        final String deleteName = URLDecoder.decode(name, StandardCharsets.UTF_8);
-        if (StringUtils.isBlank(deleteName)) {
+        if (StringUtils.isBlank(name)) {
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
         }
-        final GeoCodeItem existing = gcc.get(deleteName);
-        if (existing == null) {
-            return HttpResponse.status(HttpStatus.NOT_FOUND);
+        try {
+            final String deleteName = decode(name);
+            if (StringUtils.isBlank(deleteName)) {
+                return HttpResponse.status(HttpStatus.BAD_REQUEST);
+            }
+            final GeoCodeItem existing = gcc.get(deleteName);
+            if (existing == null) {
+                return HttpResponse.status(HttpStatus.NOT_FOUND);
+            }
+            final GeoCodeItem deleted = gcc.delete(existing);
+            final GeocodeResultBuilder builder = new GeocodeResultBuilder();
+            return HttpResponse.ok(builder.toGeoServiceItem(deleted));
+        } catch (IllegalArgumentException ex) {
+            return HttpResponse.status(HttpStatus.BAD_REQUEST);
         }
-        final GeoCodeItem deleted = gcc.delete(existing);
-        final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-        return HttpResponse.ok(builder.toGeoServiceItem(deleted));
     }
 }
