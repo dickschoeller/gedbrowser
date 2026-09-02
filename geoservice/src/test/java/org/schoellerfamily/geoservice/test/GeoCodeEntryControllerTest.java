@@ -169,12 +169,14 @@ public final class GeoCodeEntryControllerTest {
     void testFindWithoutModernUsesSingleArgFind() {
         controller.find("FindOne", "");
         assertEquals("FindOne", geoCode.lastFindName);
+        assertEquals(Boolean.TRUE, geoCode.singleArgFindUsed);
     }
 
     @Test
     void testFindWithModernUsesTwoArgFind() {
         controller.find("FindTwo", "ModernTwo");
         assertEquals("ModernTwo", geoCode.lastFindModernName);
+        assertEquals(Boolean.TRUE, geoCode.twoArgFindUsed);
     }
 
     @Test
@@ -205,7 +207,7 @@ public final class GeoCodeEntryControllerTest {
     void testFindTreatsDecodedBlankModernNameAsAbsent() {
         controller.find("FindBlankModern", "%20");
         assertEquals("FindBlankModern", geoCode.lastFindName);
-        assertNull(geoCode.lastFindModernName);
+        assertEquals(Boolean.TRUE, geoCode.singleArgFindUsed);
     }
 
     private GeoServiceItem malformedItem() {
@@ -230,6 +232,12 @@ public final class GeoCodeEntryControllerTest {
         /** Last modern name passed to two-arg find. */
         private String lastFindModernName;
 
+        /** Whether the single-arg `find` overload was used. */
+        private Boolean singleArgFindUsed;
+
+        /** Whether the two-arg `find` overload was used. */
+        private Boolean twoArgFindUsed;
+
         @Override
         public void clear() {
             store.clear();
@@ -239,6 +247,8 @@ public final class GeoCodeEntryControllerTest {
         public GeoCodeItem find(final String placeName) {
             lastFindName = placeName;
             lastFindModernName = null;
+            singleArgFindUsed = Boolean.TRUE;
+            twoArgFindUsed = Boolean.FALSE;
             return store.computeIfAbsent(placeName, GeoCodeItem::new);
         }
 
@@ -246,6 +256,8 @@ public final class GeoCodeEntryControllerTest {
         public GeoCodeItem find(final String placeName, final String modernPlaceName) {
             lastFindName = placeName;
             lastFindModernName = modernPlaceName;
+            singleArgFindUsed = Boolean.FALSE;
+            twoArgFindUsed = Boolean.TRUE;
             return store.computeIfAbsent(placeName,
                 key -> new GeoCodeItem(placeName, modernPlaceName));
         }
