@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpStatus;
+import io.micronaut.http.MutableHttpRequest;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
@@ -39,6 +40,18 @@ public class ApplicationIT {
         } catch (HttpClientResponseException ex) {
             return ex.getStatus();
         }
+    }
+
+    private HttpStatus getStatus(final MutableHttpRequest<?> request) {
+        try {
+            return client.toBlocking().exchange(request, String.class).getStatus();
+        } catch (HttpClientResponseException ex) {
+            return ex.getStatus();
+        }
+    }
+
+    private static String uniquePlaceName(final String prefix) {
+        return prefix + '-' + System.nanoTime();
     }
 
     @Test
@@ -110,5 +123,89 @@ public class ApplicationIT {
     @Test
     void testReturn200WhenSendingRequestToHealthEndpoint() {
         assertEquals(HttpStatus.OK, getStatus("/actuator/health"));
+    }
+
+    @Test
+    void testCreateGeoCodeEntryReturnsCreated() {
+        final String placeName = uniquePlaceName("Test Place Create Status");
+        final Map<String, Object> create = Map.of(
+            "placeName", placeName,
+            "modernPlaceName", placeName + " Modern");
+        final HttpStatus status = getStatus(HttpRequest.POST("/geocode", create));
+        assertEquals(HttpStatus.CREATED, status);
+    }
+
+    @Test
+    void testCreateGeoCodeEntryPersistsData() {
+        final String placeName = uniquePlaceName("Test Place Create Persist");
+        final Map<String, Object> create = Map.of(
+            "placeName", placeName,
+            "modernPlaceName", "Modern Create Persist");
+        getStatus(HttpRequest.POST("/geocode", create));
+
+        final Map<String, Object> body = getMap("/geocode?name=" + placeName.replace(" ", "%20"));
+        assertThat(Optional.ofNullable(body)
+            .map(b -> b.get("modernPlaceName")).orElse(null))
+            .isEqualTo("Modern Create Persist");
+    }
+
+    @Test
+    void testUpdateGeoCodeEntryReturnsOk() {
+        final String placeName = uniquePlaceName("Test Place Update Status");
+        final Map<String, Object> create = Map.of(
+            "placeName", placeName,
+            "modernPlaceName", "Modern Before Update Status");
+        getStatus(HttpRequest.POST("/geocode", create));
+
+        final Map<String, Object> update = Map.of(
+            "placeName", placeName,
+            "modernPlaceName", "Modern After Update Status");
+        final HttpStatus status = getStatus(HttpRequest.PUT("/geocode", update));
+        assertEquals(HttpStatus.OK, status);
+    }
+
+    @Test
+    void testUpdateGeoCodeEntryPersistsData() {
+        final String placeName = uniquePlaceName("Test Place Update Persist");
+        final Map<String, Object> create = Map.of(
+            "placeName", placeName,
+            "modernPlaceName", "Modern Before Update Persist");
+        getStatus(HttpRequest.POST("/geocode", create));
+
+        final Map<String, Object> update = Map.of(
+            "placeName", placeName,
+            "modernPlaceName", "Modern After Update Persist");
+        getStatus(HttpRequest.PUT("/geocode", update));
+
+        final Map<String, Object> body = getMap("/geocode?name=" + placeName.replace(" ", "%20"));
+        assertThat(Optional.ofNullable(body)
+            .map(b -> b.get("modernPlaceName")).orElse(null))
+            .isEqualTo("Modern After Update Persist");
+    }
+
+    @Test
+    void testDeleteGeoCodeEntryReturnsOk() {
+        final String placeName = uniquePlaceName("Test Place Delete Status");
+        final Map<String, Object> create = Map.of(
+            "placeName", placeName,
+            "modernPlaceName", "Modern Delete Status");
+        getStatus(HttpRequest.POST("/geocode", create));
+
+        final HttpStatus status = getStatus(HttpRequest.DELETE(
+            "/geocode?name=" + placeName.replace(" ", "%20")));
+        assertEquals(HttpStatus.OK, status);
+    }
+
+    @Test
+    void testDeleteGeoCodeEntryRemovesData() {
+        final String placeName = uniquePlaceName("Test Place Delete Recreate");
+        final Map<String, Object> create = Map.of(
+            "placeName", placeName,
+            "modernPlaceName", "Modern Delete Recreate");
+        getStatus(HttpRequest.POST("/geocode", create));
+        getStatus(HttpRequest.DELETE("/geocode?name=" + placeName.replace(" ", "%20")));
+
+        final HttpStatus status = getStatus(HttpRequest.POST("/geocode", create));
+        assertEquals(HttpStatus.CREATED, status);
     }
 }

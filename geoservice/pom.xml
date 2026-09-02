@@ -64,6 +64,10 @@
       <artifactId>micronaut-runtime</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.micronaut.security</groupId>
+      <artifactId>micronaut-security</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.micronaut</groupId>
       <artifactId>micronaut-http-server-netty</artifactId>
     </dependency>

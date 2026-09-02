@@ -21,6 +21,25 @@ micronaut:
     netty:
       access-logger:
         enabled: true
+  security:
+    enabled: true
+    intercept-url-map:
+      - pattern: /geocode
+        http-method: GET
+        access:
+          - isAnonymous()
+      - pattern: /geocode
+        http-method: POST
+        access:
+          - isAuthenticated()
+      - pattern: /geocode
+        http-method: PUT
+        access:
+          - isAuthenticated()
+      - pattern: /geocode
+        http-method: DELETE
+        access:
+          - isAuthenticated()
 
 # All management-style endpoints are served as regular Micronaut HTTP controllers
 # under /actuator in this module.

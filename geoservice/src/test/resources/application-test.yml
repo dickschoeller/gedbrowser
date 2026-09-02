@@ -14,6 +14,8 @@ geoservice:
 micronaut:
   server:
     port: 0
+  security:
+    enabled: false
   http:
     client:
       read-timeout: 60s

@@ -25,35 +25,38 @@ public final class JacksonObjectMapperCustomizerTest {
     void shouldCustomizeObjectMapperOnInitialization() throws Exception {
         try (ApplicationContext context = ApplicationContext.run()) {
             final BeanDefinition<ObjectMapper> beanDefinition =
-                    context.getBeanDefinition(ObjectMapper.class);
+                context.getBeanDefinition(ObjectMapper.class);
             final ObjectMapper initialObjectMapper = new ObjectMapper();
             final BeanInitializingEvent<ObjectMapper> event =
-                    new BeanInitializingEvent<>(context, beanDefinition, initialObjectMapper);
+                new BeanInitializingEvent<>(context, beanDefinition, initialObjectMapper);
 
             final ObjectMapper customizedObjectMapper =
-                    new JacksonObjectMapperCustomizer().onInitialized(event);
+                new JacksonObjectMapperCustomizer().onInitialized(event);
 
             assertTrue(customizedObjectMapper.isEnabled(SerializationFeature.INDENT_OUTPUT),
-                    "Expected indented output to be enabled");
+                "Expected indented output to be enabled");
             assertTrue(customizedObjectMapper.isEnabled(EnumFeature.WRITE_ENUMS_USING_TO_STRING),
-                    "Expected enum serialization using toString to be enabled");
+                "Expected enum serialization using toString to be enabled");
             assertTrue(customizedObjectMapper.isEnabled(EnumFeature.READ_ENUMS_USING_TO_STRING),
-                    "Expected enum deserialization using toString to be enabled");
+                "Expected enum deserialization using toString to be enabled");
 
             final EnumHolder holder = new EnumHolder();
-            holder.sample = Sample.FIRST;
+            holder.setSample(Sample.FIRST);
             final String output = customizedObjectMapper.writeValueAsString(holder);
 
-            assertTrue(output.contains("\"as-string\""), "Expected enum to serialize using toString");
+            assertTrue(output.contains("\"as-string\""),
+                "Expected enum to serialize using toString");
 
-            final EnumHolder restored = customizedObjectMapper.readValue("{\"sample\":\"as-string\"}",
-                    EnumHolder.class);
-            assertEquals(Sample.FIRST, restored.sample, "Expected enum to deserialize using toString");
+            final String payload = "{\"sample\":\"as-string\"}";
+            final EnumHolder restored = customizedObjectMapper.readValue(payload, EnumHolder.class);
+            assertEquals(Sample.FIRST, restored.getSample(),
+                "Expected enum to deserialize using toString");
         }
     }
 
     /** Test enum with a custom string value. */
     private enum Sample {
+        /** Enum value used for toString-based serialization tests. */
         FIRST;
 
         @Override
@@ -64,6 +67,21 @@ public final class JacksonObjectMapperCustomizerTest {
 
     /** Simple holder for enum JSON round-trip checks. */
     private static final class EnumHolder {
-        public Sample sample;
+        /** Sample value used in JSON round-trip checks. */
+        private Sample sample;
+
+        /**
+         * @return the sample value
+         */
+        public Sample getSample() {
+            return sample;
+        }
+
+        /**
+         * @param sample the sample value
+         */
+        public void setSample(final Sample sample) {
+            this.sample = sample;
+        }
     }
 }
