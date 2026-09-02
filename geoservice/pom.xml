@@ -194,8 +194,8 @@
           </annotationProcessorPaths>
           <compilerArgs>
             <arg>-parameters</arg>
-            <arg>-Amicronaut.processing.group=org.schoellerfamily.gedbrowser</arg>
-            <arg>-Amicronaut.processing.module=geoservice</arg>
+            <arg>-Amicronaut.processing.group=${project.groupId}</arg>
+            <arg>-Amicronaut.processing.module=${project.artifactId}</arg>
             <arg>-Amicronaut.processing.annotations=org.schoellerfamily.geoservice.*</arg>
           </compilerArgs>
         </configuration>
