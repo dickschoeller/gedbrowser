@@ -76,26 +76,31 @@ public class GeoCodeEntryController {
         if (StringUtils.isBlank(name)) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid encoded value");
         }
-        if (StringUtils.isEmpty(modernName)) {
-            log.debug("Find location: \"{}\"", name);
-        } else {
-            log.debug("Find location: \"{}\", \"{}\"", name, modernName);
-        }
+        final String findName;
         try {
-            final String findName = decode(name);
-            if (StringUtils.isEmpty(modernName)) {
-                final GeoCodeItem find = gcc.find(findName);
-                final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-                return builder.toGeoServiceItem(find);
-            }
-            final String findModernName = decode(modernName);
-            final GeoCodeItem find = gcc.find(findName, findModernName);
-            final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-            return builder.toGeoServiceItem(find);
+            findName = decode(name);
         } catch (IllegalArgumentException ex) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid encoded value");
         }
-
+        if (StringUtils.isBlank(findName)) {
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid encoded value");
+        }
+        final String decodedModernName;
+        try {
+            decodedModernName = StringUtils.isBlank(modernName) ? "" : decode(modernName);
+        } catch (IllegalArgumentException ex) {
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid encoded value");
+        }
+        if (StringUtils.isBlank(decodedModernName)) {
+            log.debug("Find location: \"{}\"", findName);
+            final GeoCodeItem find = gcc.find(findName);
+            final GeocodeResultBuilder builder = new GeocodeResultBuilder();
+            return builder.toGeoServiceItem(find);
+        }
+        log.debug("Find location: \"{}\", \"{}\"", findName, decodedModernName);
+        final GeoCodeItem find = gcc.find(findName, decodedModernName);
+        final GeocodeResultBuilder builder = new GeocodeResultBuilder();
+        return builder.toGeoServiceItem(find);
     }
 
     /**

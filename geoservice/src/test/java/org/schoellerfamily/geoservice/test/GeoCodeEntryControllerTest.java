@@ -193,6 +193,21 @@ public final class GeoCodeEntryControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
     }
 
+    @Test
+    void testFindReturnsBadRequestWhenDecodedNameBlank() {
+        final HttpStatusException ex = assertThrows(HttpStatusException.class,
+            () -> controller.find("%20", ""));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
+    }
+
+    @Test
+    void testFindTreatsDecodedBlankModernNameAsAbsent() {
+        controller.find("FindBlankModern", "%20");
+        assertEquals("FindBlankModern", geoCode.lastFindName);
+        assertNull(geoCode.lastFindModernName);
+    }
+
     private GeoServiceItem malformedItem() {
         final FeatureCollection geometry = new FeatureCollection();
         geometry.add(new Feature());
