@@ -1,8 +1,5 @@
 package org.schoellerfamily.geoservice.controller;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-
 import org.apache.commons.lang3.StringUtils;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.builder.GeocodeResultBuilder;
@@ -56,10 +53,6 @@ public class GeoCodeEntryController {
         return item;
     }
 
-    private String decode(final String value) {
-        return URLDecoder.decode(value, StandardCharsets.UTF_8);
-    }
-
     /**
      * Finds a value.
      *
@@ -74,31 +67,17 @@ public class GeoCodeEntryController {
             @QueryValue(value = "modernName", defaultValue = "")
                 final String modernName) {
         if (StringUtils.isBlank(name)) {
-            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid encoded value");
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid query value");
         }
-        final String findName;
-        try {
-            findName = decode(name);
-        } catch (IllegalArgumentException ex) {
-            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid encoded value");
-        }
-        if (StringUtils.isBlank(findName)) {
-            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid encoded value");
-        }
-        final String decodedModernName;
-        try {
-            decodedModernName = StringUtils.isBlank(modernName) ? "" : decode(modernName);
-        } catch (IllegalArgumentException ex) {
-            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid encoded value");
-        }
-        if (StringUtils.isBlank(decodedModernName)) {
-            log.debug("Find location: \"{}\"", findName);
-            final GeoCodeItem find = gcc.find(findName);
+        final String modernLookupName = StringUtils.isBlank(modernName) ? "" : modernName;
+        if (StringUtils.isBlank(modernLookupName)) {
+            log.debug("Find location: \"{}\"", name);
+            final GeoCodeItem find = gcc.find(name);
             final GeocodeResultBuilder builder = new GeocodeResultBuilder();
             return builder.toGeoServiceItem(find);
         }
-        log.debug("Find location: \"{}\", \"{}\"", findName, decodedModernName);
-        final GeoCodeItem find = gcc.find(findName, decodedModernName);
+        log.debug("Find location: \"{}\", \"{}\"", name, modernLookupName);
+        final GeoCodeItem find = gcc.find(name, modernLookupName);
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
         return builder.toGeoServiceItem(find);
     }
@@ -164,20 +143,12 @@ public class GeoCodeEntryController {
         if (StringUtils.isBlank(name)) {
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
         }
-        try {
-            final String deleteName = decode(name);
-            if (StringUtils.isBlank(deleteName)) {
-                return HttpResponse.status(HttpStatus.BAD_REQUEST);
-            }
-            final GeoCodeItem existing = gcc.get(deleteName);
-            if (existing == null) {
-                return HttpResponse.status(HttpStatus.NOT_FOUND);
-            }
-            final GeoCodeItem deleted = gcc.delete(existing);
-            final GeocodeResultBuilder builder = new GeocodeResultBuilder();
-            return HttpResponse.ok(builder.toGeoServiceItem(deleted));
-        } catch (IllegalArgumentException ex) {
-            return HttpResponse.status(HttpStatus.BAD_REQUEST);
+        final GeoCodeItem existing = gcc.get(name);
+        if (existing == null) {
+            return HttpResponse.status(HttpStatus.NOT_FOUND);
         }
+        final GeoCodeItem deleted = gcc.delete(existing);
+        final GeocodeResultBuilder builder = new GeocodeResultBuilder();
+        return HttpResponse.ok(builder.toGeoServiceItem(deleted));
     }
 }

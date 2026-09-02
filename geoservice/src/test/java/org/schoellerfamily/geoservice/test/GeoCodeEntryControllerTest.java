@@ -132,15 +132,15 @@ public final class GeoCodeEntryControllerTest {
     }
 
     @Test
-    void testDeleteReturnsBadRequestWhenDecodedNameBlank() {
-        final HttpResponse<GeoServiceItem> response = controller.delete("%20");
+    void testDeleteReturnsBadRequestWhenNameIsWhitespace() {
+        final HttpResponse<GeoServiceItem> response = controller.delete(" ");
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
     }
 
     @Test
-    void testDeleteReturnsBadRequestWhenNameMalformed() {
+    void testDeleteReturnsNotFoundWhenNameMalformed() {
         final HttpResponse<GeoServiceItem> response = controller.delete("Bad%2");
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatus());
     }
 
     @Test
@@ -150,10 +150,10 @@ public final class GeoCodeEntryControllerTest {
     }
 
     @Test
-    void testDeleteDecodesNameAndRemovesEntry() {
+    void testDeleteUsesDecodedNameAndRemovesEntry() {
         geoCode.add(new GeoCodeItem("Alpha Beta", "Alpha Beta"));
 
-        controller.delete("Alpha%20Beta");
+        controller.delete("Alpha Beta");
         assertNull(geoCode.get("Alpha Beta"));
     }
 
@@ -161,7 +161,7 @@ public final class GeoCodeEntryControllerTest {
     void testDeleteReturnsDeletedBody() {
         geoCode.add(new GeoCodeItem("Delete Body", "Delete Modern"));
 
-        final HttpResponse<GeoServiceItem> response = controller.delete("Delete%20Body");
+        final HttpResponse<GeoServiceItem> response = controller.delete("Delete Body");
         assertNotNull(response.body());
     }
 
@@ -180,11 +180,10 @@ public final class GeoCodeEntryControllerTest {
     }
 
     @Test
-    void testFindReturnsBadRequestWhenNameMalformed() {
-        final HttpStatusException ex = assertThrows(HttpStatusException.class,
-            () -> controller.find("Bad%2", ""));
+    void testFindAcceptsMalformedNameLiteral() {
+        final GeoServiceItem item = controller.find("Bad%2", "");
 
-        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
+        assertEquals("Bad%2", item.getPlaceName());
     }
 
     @Test
@@ -196,16 +195,16 @@ public final class GeoCodeEntryControllerTest {
     }
 
     @Test
-    void testFindReturnsBadRequestWhenDecodedNameBlank() {
+    void testFindReturnsBadRequestWhenNameIsWhitespace() {
         final HttpStatusException ex = assertThrows(HttpStatusException.class,
-            () -> controller.find("%20", ""));
+            () -> controller.find(" ", ""));
 
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
     }
 
     @Test
     void testFindTreatsDecodedBlankModernNameAsAbsent() {
-        controller.find("FindBlankModern", "%20");
+        controller.find("FindBlankModern", " ");
         assertEquals("FindBlankModern", geoCode.lastFindName);
         assertEquals(Boolean.TRUE, geoCode.singleArgFindUsed);
     }
