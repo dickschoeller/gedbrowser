@@ -15,6 +15,8 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 import io.micronaut.http.annotation.QueryValue;
 import io.micronaut.http.exceptions.HttpStatusException;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,6 +63,7 @@ public class GeoCodeEntryController {
      * @return the resulting geo service item
      */
     @Get("/geocode")
+    @Secured(SecurityRule.IS_ANONYMOUS)
     public final GeoServiceItem find(
             @QueryValue("name")
                 final String name,
@@ -69,15 +72,14 @@ public class GeoCodeEntryController {
         if (StringUtils.isBlank(name)) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, "Invalid query value");
         }
-        final String modernLookupName = StringUtils.isBlank(modernName) ? "" : modernName;
-        if (StringUtils.isBlank(modernLookupName)) {
+        if (StringUtils.isBlank(modernName)) {
             log.debug("Find location: \"{}\"", name);
             final GeoCodeItem find = gcc.find(name);
             final GeocodeResultBuilder builder = new GeocodeResultBuilder();
             return builder.toGeoServiceItem(find);
         }
-        log.debug("Find location: \"{}\", \"{}\"", name, modernLookupName);
-        final GeoCodeItem find = gcc.find(name, modernLookupName);
+        log.debug("Find location: \"{}\", \"{}\"", name, modernName);
+        final GeoCodeItem find = gcc.find(name, modernName);
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
         return builder.toGeoServiceItem(find);
     }
@@ -89,6 +91,7 @@ public class GeoCodeEntryController {
      * @return the response containing the created item
      */
     @Post("/geocode")
+    @Secured(SecurityRule.IS_AUTHENTICATED)
     public HttpResponse<GeoServiceItem> create(@Body final GeoServiceItem item) {
         if (hasBlankName(item)) {
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
@@ -114,6 +117,7 @@ public class GeoCodeEntryController {
      * @return the response containing the updated item
      */
     @Put("/geocode")
+    @Secured(SecurityRule.IS_AUTHENTICATED)
     public HttpResponse<GeoServiceItem> update(@Body final GeoServiceItem item) {
         if (hasBlankName(item)) {
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
@@ -125,7 +129,7 @@ public class GeoCodeEntryController {
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
         final GeoCodeItem saved;
         try {
-            saved = gcc.add(builder.toGeoCodeItem(normalized));
+            saved = gcc.update(builder.toGeoCodeItem(normalized));
         } catch (IllegalArgumentException ex) {
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
         }
@@ -139,6 +143,7 @@ public class GeoCodeEntryController {
      * @return the response containing the deleted item
      */
     @Delete("/geocode")
+    @Secured(SecurityRule.IS_AUTHENTICATED)
     public HttpResponse<GeoServiceItem> delete(@QueryValue("name") final String name) {
         if (StringUtils.isBlank(name)) {
             return HttpResponse.status(HttpStatus.BAD_REQUEST);

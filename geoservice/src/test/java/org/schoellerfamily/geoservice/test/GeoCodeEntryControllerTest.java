@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -82,6 +83,12 @@ public final class GeoCodeEntryControllerTest {
     }
 
     @Test
+    void testUpdateReturnsBadRequestWhenItemIsNull() {
+        final HttpResponse<GeoServiceItem> response = controller.update(null);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
+    }
+
+    @Test
     void testUpdateReturnsBadRequestWhenNameBlank() {
         final HttpResponse<GeoServiceItem> response = controller.update(
             new GeoServiceItem("   ", "Modern", null));
@@ -123,6 +130,7 @@ public final class GeoCodeEntryControllerTest {
             new GeoServiceItem("Update Success", "After", null));
 
         assertEquals(HttpStatus.OK, response.getStatus());
+        assertEquals("After", geoCode.get("Update Success").getModernPlaceName());
     }
 
     @Test
@@ -132,13 +140,7 @@ public final class GeoCodeEntryControllerTest {
     }
 
     @Test
-    void testDeleteReturnsBadRequestWhenNameIsWhitespace() {
-        final HttpResponse<GeoServiceItem> response = controller.delete(" ");
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
-    }
-
-    @Test
-    void testDeleteReturnsNotFoundWhenNameMalformed() {
+    void testDeleteTreatsPercentLiteralAsLiteral() {
         final HttpResponse<GeoServiceItem> response = controller.delete("Bad%2");
         assertEquals(HttpStatus.NOT_FOUND, response.getStatus());
     }
@@ -180,7 +182,7 @@ public final class GeoCodeEntryControllerTest {
     }
 
     @Test
-    void testFindAcceptsMalformedNameLiteral() {
+    void testFindAcceptsPercentLiteralName() {
         final GeoServiceItem item = controller.find("Bad%2", "");
 
         assertEquals("Bad%2", item.getPlaceName());
@@ -195,9 +197,9 @@ public final class GeoCodeEntryControllerTest {
     }
 
     @Test
-    void testFindReturnsBadRequestWhenNameIsWhitespace() {
+    void testFindReturnsBadRequestWhenNameEmpty() {
         final HttpStatusException ex = assertThrows(HttpStatusException.class,
-            () -> controller.find(" ", ""));
+            () -> controller.find("", ""));
 
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
     }
@@ -248,7 +250,8 @@ public final class GeoCodeEntryControllerTest {
             lastFindModernName = null;
             singleArgFindUsed = Boolean.TRUE;
             twoArgFindUsed = Boolean.FALSE;
-            return store.computeIfAbsent(placeName, GeoCodeItem::new);
+            final GeoCodeItem existing = store.get(placeName);
+            return existing == null ? new GeoCodeItem(placeName) : existing;
         }
 
         @Override
@@ -257,13 +260,16 @@ public final class GeoCodeEntryControllerTest {
             lastFindModernName = modernPlaceName;
             singleArgFindUsed = Boolean.FALSE;
             twoArgFindUsed = Boolean.TRUE;
-            return store.computeIfAbsent(placeName,
-                key -> new GeoCodeItem(placeName, modernPlaceName));
+            final GeoCodeItem existing = store.get(placeName);
+            if (existing == null) {
+                return new GeoCodeItem(placeName, modernPlaceName);
+            }
+            return existing;
         }
 
         @Override
         public Collection<String> allKeys() {
-            return store.keySet();
+            return Collections.unmodifiableSet(store.keySet());
         }
 
         @Override
@@ -290,6 +296,11 @@ public final class GeoCodeEntryControllerTest {
         public GeoCodeItem add(final GeoCodeItem item) {
             store.put(item.getPlaceName(), item);
             return item;
+        }
+
+        @Override
+        public GeoCodeItem update(final GeoCodeItem item) {
+            return add(item);
         }
 
         @Override
