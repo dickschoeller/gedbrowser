@@ -104,7 +104,7 @@ public final class LoginTestHelper {
         // If accessToken is not present in the parsed body, try extracting it
         // from the Set-Cookie header (AUTH-TOKEN cookie).
         if (accessToken == null) {
-            accessToken = getSetCookie(loginResponse);
+            accessToken = getAuthTokenCookieValue(loginResponse);
         }
 
         final HttpHeaders headers = new HttpHeaders();
@@ -117,7 +117,8 @@ public final class LoginTestHelper {
         return headers;
     }
 
-    private String getSetCookie(final EntityExchangeResult<LoginResponse> loginResponse) {
+    private String getAuthTokenCookieValue(
+            final EntityExchangeResult<LoginResponse> loginResponse) {
         final String setCookie = loginResponse.getResponseHeaders()
             .getFirst(HttpHeaders.SET_COOKIE);
         if (setCookie == null) {
