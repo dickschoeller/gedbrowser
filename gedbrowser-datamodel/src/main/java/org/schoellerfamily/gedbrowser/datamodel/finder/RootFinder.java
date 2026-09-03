@@ -118,7 +118,7 @@ public final class RootFinder implements FinderStrategy {
         final RootVisitor visitor = new RootVisitor();
         root.accept(visitor);
         return visitor.getPersons().stream()
-            .map(Person::getSurname)
+            .map(person -> person.getSurname())
             .filter(personSurname -> personSurname.startsWith(beginsWith))
             .collect(java.util.stream.Collectors.toCollection(TreeSet::new));
     }

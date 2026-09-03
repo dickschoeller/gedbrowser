@@ -69,7 +69,7 @@ class FamilyControllerIT {
             .exchange()
             .returnResult(String.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"family\"",
                 "\"string\" : \"F1\"",
@@ -88,7 +88,7 @@ class FamilyControllerIT {
             .exchange()
             .returnResult(String.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"family\"",
                 "\"string\" : \"F1\"",
@@ -116,7 +116,7 @@ class FamilyControllerIT {
             .exchange()
             .returnResult(String.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"family\"",
                 "\"string\" : \"F1593\"",
@@ -136,7 +136,7 @@ class FamilyControllerIT {
             .exchange()
             .returnResult(String.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"family\"",
                 "\"string\" : \"F1\"",

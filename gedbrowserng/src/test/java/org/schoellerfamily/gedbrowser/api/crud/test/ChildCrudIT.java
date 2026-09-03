@@ -170,7 +170,7 @@ class ChildCrudIT {
                 crud.linkChildInFamily(helper.getDb(), "FXXXXX", child);
 
         assertThat(resPerson)
-            .returns(child.getString(), ApiPerson::getString)
+            .returns(child.getString(), person -> person.getString())
             .returns(0, p -> p.getFamcs().size());
     }
 

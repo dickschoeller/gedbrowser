@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.selenium.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.lang.reflect.Member;
 import java.net.MalformedURLException;
 
 import org.junit.jupiter.api.AfterEach;
@@ -100,7 +99,9 @@ final class GedBrowserBasicIT {
 
     @BeforeEach
     void setUp(final TestInfo testInfo) throws MalformedURLException {
-        final String methodName = testInfo.getTestMethod().map(Member::getName).orElse("unknown");
+        final String methodName = testInfo.getTestMethod()
+            .map(member -> member.getName())
+            .orElse("unknown");
         if (driver == null) {
             if (sauceExtension != null && sauceExtension.getDriver() != null) {
                 driver = (RemoteWebDriver) sauceExtension.getDriver();

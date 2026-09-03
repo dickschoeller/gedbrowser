@@ -188,7 +188,7 @@ public final class IndexByPlaceRenderer extends GedRenderer<Root>
         return getWholeIndex().entrySet().stream()
             .collect(Collectors.toMap(
                 entry -> client.get(entry.getKey()),
-                Map.Entry::getValue,
+                entry -> entry.getValue(),
                 (v1, v2) -> {
                     final Set<PersonRenderer> merged =
                         new TreeSet<>(new PersonRendererComparator());

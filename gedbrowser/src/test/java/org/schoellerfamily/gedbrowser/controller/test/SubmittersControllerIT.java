@@ -51,7 +51,7 @@ class SubmittersControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Submitters - gl120368</title>",
                     "Submitters for dataset: gl120368</h2>",
@@ -82,7 +82,7 @@ class SubmittersControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains("Data set not found");
     }
 }

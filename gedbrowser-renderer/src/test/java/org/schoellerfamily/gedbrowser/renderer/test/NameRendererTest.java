@@ -60,23 +60,23 @@ final class NameRendererTest {
         return Stream.of(
             Arguments.of(
                 (Function<NameRenderer, Object>)
-                    NameRenderer::getAttributeListOpenRenderer,
+                    renderer -> renderer.getAttributeListOpenRenderer(),
                 SimpleAttributeListOpenRenderer.class),
             Arguments.of(
                 (Function<NameRenderer, Object>)
-                    NameRenderer::getListItemRenderer,
+                    renderer -> renderer.getListItemRenderer(),
                 NameListItemRenderer.class),
             Arguments.of(
                 (Function<NameRenderer, Object>)
-                    NameRenderer::getNameHtmlRenderer,
+                    renderer -> renderer.getNameHtmlRenderer(),
                 NameNameHtmlRenderer.class),
             Arguments.of(
                 (Function<NameRenderer, Object>)
-                    NameRenderer::getNameIndexRenderer,
+                    renderer -> renderer.getNameIndexRenderer(),
                 NameNameIndexRenderer.class),
             Arguments.of(
                 (Function<NameRenderer, Object>)
-                    NameRenderer::getPhraseRenderer,
+                    renderer -> renderer.getPhraseRenderer(),
                 NamePhraseRenderer.class));
     }
 }

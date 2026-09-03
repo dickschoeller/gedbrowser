@@ -99,25 +99,12 @@ public final class LoginTestHelper {
     public HttpHeaders buildHeaders(
             final EntityExchangeResult<LoginResponse> loginResponse) {
         String accessToken = Optional.ofNullable(loginResponse.getResponseBody())
-            .map(LoginResponse::getAccessToken).orElse(null);
+            .map(response -> response.getAccessToken()).orElse(null);
 
         // If accessToken is not present in the parsed body, try extracting it
         // from the Set-Cookie header (AUTH-TOKEN cookie).
         if (accessToken == null) {
-            final String setCookie = loginResponse.getResponseHeaders()
-                    .getFirst(HttpHeaders.SET_COOKIE);
-            if (setCookie != null) {
-                final String cookieName = "AUTH-TOKEN";
-                final int idx = setCookie.indexOf(cookieName + "=");
-                if (idx >= 0) {
-                    final int start = idx + (cookieName + "=").length();
-                    int end = setCookie.indexOf(';', start);
-                    if (end < 0) {
-                        end = setCookie.length();
-                    }
-                    accessToken = setCookie.substring(start, end);
-                }
-            }
+            accessToken = getSetCookie(loginResponse);
         }
 
         final HttpHeaders headers = new HttpHeaders();
@@ -128,6 +115,25 @@ public final class LoginTestHelper {
         final List<MediaType> accepts = List.of(MediaType.APPLICATION_JSON);
         headers.setAccept(accepts);
         return headers;
+    }
+
+    private String getSetCookie(final EntityExchangeResult<LoginResponse> loginResponse) {
+        final String setCookie = loginResponse.getResponseHeaders()
+            .getFirst(HttpHeaders.SET_COOKIE);
+        if (setCookie == null) {
+            return null;
+        }
+        final String cookieName = "AUTH-TOKEN";
+        final int idx = setCookie.indexOf(cookieName + "=");
+        if (idx < 0) {
+            return null;
+        }
+        final int start = idx + (cookieName + "=").length();
+        int end = setCookie.indexOf(';', start);
+        if (end < 0) {
+            end = setCookie.length();
+        }
+        return setCookie.substring(start, end);
     }
 
     /**
