@@ -51,7 +51,7 @@ class HeadControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Header - gl120368</title>",
                     "File:</span> C:\\Users\\Phil\\Documents\\W0803.GED",
@@ -75,7 +75,7 @@ class HeadControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Header - mini-schoeller</title>",
                     "Submitter:</span> <a class=\"name\""
@@ -97,7 +97,7 @@ class HeadControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains("Data set not found");
     }
 }

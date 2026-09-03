@@ -84,7 +84,7 @@ class PersonControllerIT {
             .exchange()
             .returnResult(String.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"person\"",
                 "\"string\" : \"I1\"",
@@ -106,7 +106,7 @@ class PersonControllerIT {
             .exchange()
             .returnResult(String.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(
                 Optional.ofNullable(e.getResponseBody()).orElse(""),
                 "\"type\" : \"person\"",
@@ -128,7 +128,7 @@ class PersonControllerIT {
             .exchange()
             .returnResult(String.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"person\"",
                 "\"string\" : \"I7\"",
@@ -152,7 +152,7 @@ class PersonControllerIT {
             .exchange()
             .returnResult(String.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"person\"",
                 "\"string\" : \"I2\"",
@@ -171,6 +171,7 @@ class PersonControllerIT {
         final EntityExchangeResult<String> entity = restTestClient.get()
             .uri(URI.create(url))
             .accept(MediaType.APPLICATION_JSON)
+            .headers(h -> h.addAll(headers))
             .exchange()
             .returnResult(String.class);
         assertThat(entity.getStatus())
@@ -191,7 +192,7 @@ class PersonControllerIT {
             .exchange()
             .returnResult(ApiPerson.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .returns(reqBody.getType(), e -> e.getResponseBody().getType())
             .returns(reqBody.getSurname(), e -> e.getResponseBody().getSurname())
             .returns(reqBody.getIndexName(), e -> e.getResponseBody().getIndexName());
@@ -573,7 +574,7 @@ class PersonControllerIT {
             .returnResult(ApiPerson.class);
         final ApiPerson resBody = entity.getResponseBody();
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .returns(reqBody.getType(), e -> e.getResponseBody().getType());
 
         final ApiAttribute aNote = ApiAttribute.builder()
@@ -642,7 +643,7 @@ class PersonControllerIT {
             .returnResult(ApiPerson.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .returns(reqBody.getType(), e -> e.getResponseBody().getType())
             .returns(reqBody.getSurname(), e -> e.getResponseBody().getSurname())
             .returns(reqBody.getIndexName(), e -> e.getResponseBody().getIndexName());

@@ -215,9 +215,9 @@ final class SpouseCrudIT {
         final ApiPerson resSpouse = crud.createSpouseInFamily(helper.getDb(), "FXXXXX", reqSpouse);
 
         assertThat(resSpouse)
-            .returns(reqSpouse.getType(), ApiPerson::getType)
-            .returns(reqSpouse.getSurname(), ApiPerson::getSurname)
-            .returns(reqSpouse.getIndexName(), ApiPerson::getIndexName)
+            .returns(reqSpouse.getType(), spouse -> spouse.getType())
+            .returns(reqSpouse.getSurname(), spouse -> spouse.getSurname())
+            .returns(reqSpouse.getIndexName(), spouse -> spouse.getIndexName())
             .returns(0, o -> o.getFamss().size());
     }
 
@@ -228,7 +228,7 @@ final class SpouseCrudIT {
         final ApiPerson resSpouse = crud.linkSpouseInFamily(helper.getDb(), "FXXXXX", spouse);
 
         assertThat(resSpouse)
-            .returns(spouse.getString(), ApiPerson::getString)
+            .returns(spouse.getString(), person -> person.getString())
             .returns(0, o -> o.getFamss().size());
     }
 }

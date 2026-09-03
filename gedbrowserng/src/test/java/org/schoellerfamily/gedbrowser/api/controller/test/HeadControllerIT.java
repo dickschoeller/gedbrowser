@@ -49,7 +49,7 @@ class HeadControllerIT {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"head\"",
                 "\"string\" : \"Header\"",
@@ -65,7 +65,7 @@ class HeadControllerIT {
             .returnResult(String.class);
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"head\"",
                 "\"string\" : \"Header\"",
@@ -81,7 +81,7 @@ class HeadControllerIT {
 
         assertThat(entity)
             .returns(HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
-                EntityExchangeResult::getStatus)
+                response -> response.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "  \"cause\" : null",
                 "  \"stackTrace\" : [ ]",

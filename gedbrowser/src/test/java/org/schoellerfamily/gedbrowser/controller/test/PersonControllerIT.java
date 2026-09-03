@@ -51,7 +51,7 @@ class PersonControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Living  - I4 - gl120368</title>",
                     getMenu("?#?"));
@@ -67,7 +67,7 @@ class PersonControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Edwin Elijah A  Williams (13 DEC 1883-ABT AUG "
                         + "1951) - I9 - gl120368</title>",
@@ -83,7 +83,7 @@ class PersonControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains("Data set not found");
     }
 
@@ -96,7 +96,7 @@ class PersonControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "Person not found",
                     getMenu("A"));

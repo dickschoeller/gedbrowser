@@ -50,7 +50,7 @@ class SourceControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>File (merged):"
                     + " C:\\Users\\Phil\\Downloads\\butcher\\butcher.GED" + " - S33750 - gl120368",
@@ -66,7 +66,7 @@ class SourceControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains("Data set not found");
     }
 
@@ -79,7 +79,7 @@ class SourceControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "Source not found",
                     getMenu("A"));

@@ -75,7 +75,7 @@ class SubmissionCrudIT {
         final ApiSubmission firstSubmission = list.get(0);
 
         assertThat(firstSubmission)
-            .returns("B1", ApiSubmission::getString)
+            .returns("B1", submission -> submission.getString())
             .returns("attribute", o -> o.getAttributes().get(0).getType())
             .returns("Generations of descendants", o -> o.getAttributes().get(0).getString())
             .returns("2", o -> o.getAttributes().get(0).getTail());
@@ -94,9 +94,9 @@ class SubmissionCrudIT {
         final ApiSubmission submission = crud.readOne(helper.getDb(), "B1");
 
         assertThat(submission.getAttributes().get(0))
-            .returns("attribute", ApiAttribute::getType)
-            .returns("Generations of descendants", ApiAttribute::getString)
-            .returns("2", ApiAttribute::getTail);
+            .returns("attribute", attribute -> attribute.getType())
+            .returns("Generations of descendants", attribute -> attribute.getString())
+            .returns("2", attribute -> attribute.getTail());
     }
 
     @Test

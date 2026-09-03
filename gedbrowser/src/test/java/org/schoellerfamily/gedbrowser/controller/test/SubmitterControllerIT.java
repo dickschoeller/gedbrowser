@@ -50,7 +50,7 @@ class SubmitterControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Phil Williams - U1 - gl120368</title>",
                     "Name:</span> Phil Williams",
@@ -67,7 +67,7 @@ class SubmitterControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Arthur PUNCHARD - U2 - gl120368</title>",
                     "Name:</span> Arthur PUNCHARD",
@@ -85,7 +85,7 @@ class SubmitterControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Created by FamilySearch (TM) Internet"
                         + " Genealogy Service - U4 - gl120368</title>",
@@ -104,7 +104,7 @@ class SubmitterControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains("Data set not found");
     }
 
@@ -118,7 +118,7 @@ class SubmitterControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "Submitter not found",
                     getMenu("A"));

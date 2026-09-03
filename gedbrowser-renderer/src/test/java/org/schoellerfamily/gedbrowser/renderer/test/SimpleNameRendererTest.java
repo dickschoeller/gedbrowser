@@ -61,23 +61,23 @@ final class SimpleNameRendererTest {
         return Stream.of(
             Arguments.of(
                 (Function<SimpleNameRenderer, Object>)
-                    SimpleNameRenderer::getAttributeListOpenRenderer,
+                    renderer -> renderer.getAttributeListOpenRenderer(),
                 SimpleAttributeListOpenRenderer.class),
             Arguments.of(
                 (Function<SimpleNameRenderer, Object>)
-                    SimpleNameRenderer::getListItemRenderer,
+                    renderer -> renderer.getListItemRenderer(),
                 SimpleNameListItemRenderer.class),
             Arguments.of(
                 (Function<SimpleNameRenderer, Object>)
-                    SimpleNameRenderer::getNameHtmlRenderer,
+                    renderer -> renderer.getNameHtmlRenderer(),
                 SimpleNameNameHtmlRenderer.class),
             Arguments.of(
                 (Function<SimpleNameRenderer, Object>)
-                    SimpleNameRenderer::getNameIndexRenderer,
+                    renderer -> renderer.getNameIndexRenderer(),
                 SimpleNameNameIndexRenderer.class),
             Arguments.of(
                 (Function<SimpleNameRenderer, Object>)
-                    SimpleNameRenderer::getPhraseRenderer,
+                    renderer -> renderer.getPhraseRenderer(),
                 SimpleNamePhraseRenderer.class));
     }
 }

@@ -67,7 +67,7 @@ class SaveControllerIT {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "0 HEAD",
                     "1 SOUR FAMILY_HISTORIAN",
@@ -104,7 +104,7 @@ class SaveControllerIT {
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains("Data set not found");
 
         // Turn off anonymous admin.
@@ -122,7 +122,7 @@ class SaveControllerIT {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains("Sorry, you aren't authorized to do that!");
     }
 }

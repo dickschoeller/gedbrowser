@@ -1,7 +1,6 @@
 package org.schoellerfamily.gedbrowser.api.endpoint;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +85,7 @@ public class DuplicateCleanupService {
                 continue;
             }
             // Ensure deterministic behavior: sort IDs before deciding which one to keep
-            ids.sort(Comparator.comparing(Object::toString));
+            ids.sort((left, right) -> left.toString().compareTo(right.toString()));
             final List<Object> idsToDelete = ids.subList(1, ids.size());
             final Query deleteQuery = Query.query(Criteria.where("_id").in(idsToDelete));
             final DeleteResult deleteResult =

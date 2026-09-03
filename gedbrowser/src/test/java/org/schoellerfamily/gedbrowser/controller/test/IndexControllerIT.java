@@ -56,7 +56,7 @@ class IndexControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Index - C - gl120368</title>",
                     "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
@@ -74,7 +74,7 @@ class IndexControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Index - B - gl120368</title>",
                     "id=\"letter-?\" href=\"surnames?db=gl120368&amp;letter=?\"",
@@ -92,7 +92,7 @@ class IndexControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.NOT_FOUND.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains("Data set not found");
     }
 
@@ -106,7 +106,7 @@ class IndexControllerIT implements MenuTestHelper {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString()
                     .contains(
                         "<title>Index - q - gl120368</title>",

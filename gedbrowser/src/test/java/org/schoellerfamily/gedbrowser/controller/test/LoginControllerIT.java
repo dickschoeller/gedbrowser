@@ -56,8 +56,8 @@ class LoginControllerIT {
                 restTemplate.getForEntity(url, String.class);
 
         assertThat(entity)
-            .returns(HttpStatus.OK, ResponseEntity::getStatusCode)
-            .extracting(ResponseEntity::getBody)
+            .returns(HttpStatus.OK, response -> response.getStatusCode())
+            .extracting(response -> response.getBody())
                 .asString().contains(
                     "<title>Login to GedBrowser</title>",
                     "<input type=\"hidden\" name=\"targetUrl\" value=\""
@@ -75,8 +75,8 @@ class LoginControllerIT {
                 restTemplate.getForEntity(url, String.class);
 
         assertThat(entity)
-            .returns(HttpStatus.OK, ResponseEntity::getStatusCode)
-            .extracting(ResponseEntity::getBody)
+            .returns(HttpStatus.OK, response -> response.getStatusCode())
+            .extracting(response -> response.getBody())
                 .asString().contains(
                     "<title>Login to GedBrowser</title>",
                     "<input type=\"hidden\" name=\"targetUrl\" value=\""
@@ -94,7 +94,7 @@ class LoginControllerIT {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Login to GedBrowser</title>",
                     "<input type=\"hidden\" name=\"targetUrl\" value=\""
@@ -112,7 +112,7 @@ class LoginControllerIT {
 
         assertThat(entity)
             .returns(HttpStatus.OK.value(), result -> result.getStatus().value())
-            .extracting(EntityExchangeResult::getResponseBody)
+            .extracting(response -> response.getResponseBody())
                 .asString().contains(
                     "<title>Login to GedBrowser</title>",
                     "<input type=\"hidden\" name=\"targetUrl\" value=\""

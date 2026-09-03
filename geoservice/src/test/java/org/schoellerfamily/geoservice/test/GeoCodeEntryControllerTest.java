@@ -8,19 +8,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
+import org.geojson.Feature;
+import org.geojson.FeatureCollection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.schoellerfamily.geoservice.controller.GeoCodeEntryController;
-import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
+import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
-import org.geojson.Feature;
-import org.geojson.FeatureCollection;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -69,7 +68,9 @@ public final class GeoCodeEntryControllerTest {
     @Test
     void testCreateReturnsBadRequestWhenResultMalformed() {
         final HttpResponse<GeoServiceItem> response = controller.create(
-            new GeoServiceItem("Create Broken", "Create Broken Modern", malformedItem().getResult()));
+            new GeoServiceItem("Create Broken",
+                "Create Broken Modern",
+                malformedItem().getResult()));
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
     }
@@ -117,7 +118,9 @@ public final class GeoCodeEntryControllerTest {
         geoCode.add(new GeoCodeItem("Update Broken", "Before"));
 
         final HttpResponse<GeoServiceItem> response = controller.update(
-            new GeoServiceItem("Update Broken", "Update Broken Modern", malformedItem().getResult()));
+            new GeoServiceItem("Update Broken",
+                "Update Broken Modern",
+                malformedItem().getResult()));
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatus());
     }

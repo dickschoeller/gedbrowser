@@ -3,7 +3,6 @@ package org.schoellerfamily.gedbrowser.selenium.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.lang.reflect.Member;
 import java.net.MalformedURLException;
 
 import org.junit.jupiter.api.AfterEach;
@@ -67,7 +66,7 @@ class MenuNavigationIT {
     private RemoteWebDriver driver;
 
     /** */
-    private boolean driverManagedByExtension = false;
+    private boolean driverManagedByExtension;
 
     /** */
     private SessionId sessionId;
@@ -87,7 +86,8 @@ class MenuNavigationIT {
     @BeforeEach
     void setUp(final TestInfo testInfo) throws MalformedURLException {
         final String methodName = testInfo.getTestMethod()
-                .map(Member::getName).orElse("unknown");
+            .map(member -> member.getName())
+            .orElse("unknown");
         if (driver == null) {
             // Try to use SauceBindingsExtension-managed driver first
             if (sauceExtension != null && sauceExtension.getDriver() != null) {
