@@ -99,8 +99,29 @@ public class GeoServiceClient {
         }
     }
 
+    /**
+     * Update an existing geocode item, creating it when missing.
+     *
+     * @param placeName the historical place name
+     * @param modernPlaceName the canonical/modern place name
+     */
+    public void updateOrCreate(final String placeName, final String modernPlaceName) {
+        if (isBlank(placeName)) {
+            return;
+        }
+        final String normalizedModern = isBlank(modernPlaceName)
+            ? placeName
+            : modernPlaceName;
+        final GeoServiceItem item = new GeoServiceItem(placeName, normalizedModern, null);
+        if (!update(item)) {
+            create(item);
+        }
+    }
+
     private boolean create(final GeoServiceItem item) {
         final String url = buildCollectionUrl();
+        log.info("GeoService POST attempt: url={} placeName={} modernPlaceName={}",
+            url, item.getPlaceName(), item.getModernPlaceName());
         try {
             restClient.post()
                 .uri(URI.create(url))
@@ -109,8 +130,12 @@ public class GeoServiceClient {
                 .body(item)
                 .retrieve()
                 .toBodilessEntity();
+            log.info("GeoService POST success: url={} placeName={} modernPlaceName={}",
+                url, item.getPlaceName(), item.getModernPlaceName());
             return true;
         } catch (HttpClientErrorException.Conflict _) {
+            log.info("GeoService POST conflict (existing entry): url={} placeName={}",
+                url, item.getPlaceName());
             return false;
         } catch (ResourceAccessException e) {
             logGeoServiceFailure("POST", url, item, e);
@@ -122,8 +147,10 @@ public class GeoServiceClient {
         return false;
     }
 
-    private void update(final GeoServiceItem item) {
+    private boolean update(final GeoServiceItem item) {
         final String url = buildCollectionUrl();
+        log.info("GeoService PUT attempt: url={} placeName={} modernPlaceName={}",
+            url, item.getPlaceName(), item.getModernPlaceName());
         try {
             restClient.put()
                 .uri(URI.create(url))
@@ -132,6 +159,13 @@ public class GeoServiceClient {
                 .body(item)
                 .retrieve()
                 .toBodilessEntity();
+            log.info("GeoService PUT success: url={} placeName={} modernPlaceName={}",
+                url, item.getPlaceName(), item.getModernPlaceName());
+            return true;
+        } catch (HttpClientErrorException.NotFound _) {
+            log.info("GeoService PUT not found (will create): url={} placeName={}",
+                url, item.getPlaceName());
+            return false;
         } catch (ResourceAccessException e) {
             logGeoServiceFailure("PUT", url, item, e);
         } catch (RestClientResponseException e) {
@@ -139,6 +173,7 @@ public class GeoServiceClient {
         } catch (RuntimeException e) {
             logGeoServiceFailure("PUT", url, item, e);
         }
+        return false;
     }
 
     private String buildUrl(final String placeName) {

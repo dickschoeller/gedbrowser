@@ -91,13 +91,22 @@ public class PersonGeoService {
         * @param after updated object payload
      */
     public void syncPlacesOnUpdate(final ApiObject before, final ApiObject after) {
-        final Map<String, String> previousPlaces = extractPlaces(before);
         final Map<String, String> currentPlaces = extractPlaces(after);
+        final Map<String, String> previousPlaces = extractPlaces(before);
+        log.info("syncPlacesOnUpdate: previousCount={} currentCount={}",
+            previousPlaces.size(), currentPlaces.size());
         for (final Map.Entry<String, String> entry : currentPlaces.entrySet()) {
             final String previousModern = previousPlaces.get(entry.getKey());
-            if (previousModern == null || !previousModern.equals(entry.getValue())) {
-                syncOne(entry.getKey(), entry.getValue());
+            final String currentModern = entry.getValue();
+            if (previousModern == null || !previousModern.equals(currentModern)) {
+                log.info("syncPlacesOnUpdate changed mapping: placeName={} previousModern={}"
+                    + " currentModern={}",
+                    entry.getKey(), previousModern, currentModern);
+            } else {
+                log.debug("syncPlacesOnUpdate unchanged mapping: placeName={} modernPlaceName={}",
+                    entry.getKey(), currentModern);
             }
+            syncOneOnUpdate(entry.getKey(), currentModern);
         }
     }
 
@@ -285,6 +294,15 @@ public class PersonGeoService {
             geoServiceClient.upsert(placeName, modernPlaceName);
         } catch (RuntimeException e) {
             log.error("Failed geoservice sync for placeName={} modernPlaceName={}",
+                placeName, modernPlaceName, e);
+        }
+    }
+
+    private void syncOneOnUpdate(final String placeName, final String modernPlaceName) {
+        try {
+            geoServiceClient.updateOrCreate(placeName, modernPlaceName);
+        } catch (RuntimeException e) {
+            log.error("Failed geoservice update sync for placeName={} modernPlaceName={}",
                 placeName, modernPlaceName, e);
         }
     }
