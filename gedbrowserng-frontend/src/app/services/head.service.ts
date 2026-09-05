@@ -21,7 +21,7 @@ export class HeadService {
     return (error: any) => {
       const status = error?.status;
       const message = error?.message || error?.statusText || 'unknown error';
-      console.error(`[API ${operation}] ${url} failed`, {
+      console.error('[API %s] %s failed', operation, url, {
         status,
         message,
         error
@@ -31,7 +31,7 @@ export class HeadService {
   }
 
   private logAttempt(operation: string, url: string) {
-    console.info(`[API ${operation}] attempt`, { url });
+    console.info('[API %s] attempt', operation, { url });
   }
 
   getOne(db: string): Observable<ApiHead> {
