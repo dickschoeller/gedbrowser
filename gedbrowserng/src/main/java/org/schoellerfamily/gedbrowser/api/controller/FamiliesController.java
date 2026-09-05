@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
 import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
@@ -72,7 +73,9 @@ public final class FamiliesController {
     @GetMapping(value = "/v1/dbs/{db}/families")
     public List<ApiFamily> read(
             @PathVariable final String db) {
-        return crud().readAll(db);
+        return crud().readAll(db).stream()
+            .map(personGeoService::enrichModernPlaces)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -86,7 +89,7 @@ public final class FamiliesController {
     public ApiFamily read(
             @PathVariable final String db,
             @PathVariable final String id) {
-        return crud().readOne(db, id);
+        return personGeoService.enrichModernPlaces(crud().readOne(db, id));
     }
 
     /**

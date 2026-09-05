@@ -148,8 +148,8 @@ public final class PersonsController {
             return createDummyLivingPerson(id);
         }
         log.info("entering read person: {}", id);
-        final ApiPerson apiPerson = personGeoService
-            .enrichModernPlaces(personCrud.getD2dm().convert(personDoc));
+        final ApiPerson convertedPerson = personCrud.getD2dm().convert(personDoc);
+        final ApiPerson apiPerson = personGeoService.enrichModernPlaces(convertedPerson);
         final List<PlaceInfo> places = personGeoService.fetchPlaces(person, util);
         return apiPerson.toBuilder().places(places).build();
     }

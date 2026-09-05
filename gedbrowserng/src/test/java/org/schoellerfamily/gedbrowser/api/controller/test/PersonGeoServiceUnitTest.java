@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
 import org.schoellerfamily.gedbrowser.api.controller.PersonGeoService;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.renderer.application.ApplicationInfo;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
@@ -23,6 +24,46 @@ import org.schoellerfamily.geoservice.model.GeoServiceItem;
  * Unit tests for PersonGeoService modern-place enrichment behavior.
  */
 class PersonGeoServiceUnitTest {
+
+    @Test
+    void testEnrichModernPlacesAddsMissingModernPlaceForFamily() {
+        final GeoServiceClient geoServiceClient = mock(GeoServiceClient.class);
+        when(geoServiceClient.get("Family Place")).thenReturn(
+            new GeoServiceItem("Family Place", "Family Modern Place", null));
+
+        final PersonGeoService service = new PersonGeoService(
+            geoServiceClient,
+            mock(ApplicationInfo.class),
+            mock(CalendarProvider.class));
+
+        final ApiFamily family = ApiFamily.builder()
+            .string("F1")
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Marriage")
+                .attribute(ApiAttribute.builder()
+                    .type("place")
+                    .string("Family Place")
+                    .build())
+                .build())
+            .build();
+
+        final ApiFamily enriched = service.enrichModernPlaces(family);
+
+        final ApiAttribute marriage = enriched.getAttributes().get(0);
+        final ApiAttribute place = marriage.getAttributes().stream()
+            .filter(a -> "place".equals(a.getType()))
+            .findFirst()
+            .orElse(null);
+        assertNotNull(place);
+        final ApiAttribute modern = place.getAttributes().stream()
+            .filter(a -> "Modern place".equals(a.getString()))
+            .findFirst()
+            .orElse(null);
+
+        assertNotNull(modern);
+        assertEquals("Family Modern Place", modern.getTail());
+    }
 
     @Test
     void testSyncPlacesOnUpdateDirectPlaceAttribute() {

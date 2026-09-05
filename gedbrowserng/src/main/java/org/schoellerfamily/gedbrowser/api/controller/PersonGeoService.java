@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
+import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiObject;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.analytics.calendar.CalendarProvider;
@@ -73,6 +74,22 @@ public class PersonGeoService {
         final Map<String, String> modernByPlace = new TreeMap<>();
         final List<ApiAttribute> enriched = enrichAttributes(person.getAttributes(), modernByPlace);
         return person.toBuilder().clearAttributes().attributes(enriched).build();
+    }
+
+    /**
+     * Enrich a family payload with derived "Modern place" child attributes when a
+     * place exists but no modern place is present.
+     *
+     * @param family the family payload to enrich
+     * @return enriched family payload
+     */
+    public ApiFamily enrichModernPlaces(final ApiFamily family) {
+        if (family == null || family.getAttributes() == null) {
+            return family;
+        }
+        final Map<String, String> modernByPlace = new TreeMap<>();
+        final List<ApiAttribute> enriched = enrichAttributes(family.getAttributes(), modernByPlace);
+        return family.toBuilder().clearAttributes().attributes(enriched).build();
     }
 
     /**
