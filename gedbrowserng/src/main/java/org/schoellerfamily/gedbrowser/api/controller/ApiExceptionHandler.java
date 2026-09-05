@@ -3,6 +3,7 @@ package org.schoellerfamily.gedbrowser.api.controller;
 import org.schoellerfamily.gedbrowser.api.controller.exception.DataSetNotFoundException;
 import org.schoellerfamily.gedbrowser.api.controller.exception.ObjectNotFoundException;
 import org.schoellerfamily.gedbrowser.api.service.storage.StorageException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * @author Richard Schoeller
  */
 @ControllerAdvice
+@Slf4j
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Executes handle object not found.
@@ -72,5 +76,24 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         newex.setStackTrace(new StackTraceElement[0]);
         return handleExceptionInternal(ex, newex, new HttpHeaders(),
                 HttpStatus.BAD_REQUEST, request);
+    }
+
+    /**
+     * Executes handle access denied.
+     *
+     * @param ex the ex
+     * @param request the request
+     * @return the resulting response entity
+     */
+    @ExceptionHandler(value = { AccessDeniedException.class })
+    protected ResponseEntity<Object> handleAccessDenied(
+            final AccessDeniedException ex,
+            final WebRequest request) {
+        log.warn("Access denied handling request: {}", ex.getMessage());
+        final AccessDeniedException newex = new AccessDeniedException(
+                ex.getMessage());
+        newex.setStackTrace(new StackTraceElement[0]);
+        return handleExceptionInternal(ex, newex, new HttpHeaders(),
+                HttpStatus.FORBIDDEN, request);
     }
 }

@@ -37,12 +37,17 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
     <input matInput [(ngModel)]="data.default.date">
   </mat-form-field>
   <br/>
-  <mat-form-field>
+  <mat-form-field class="wide-field">
     <mat-label>Place</mat-label>
     <input matInput [(ngModel)]="data.default.place">
   </mat-form-field>
   <br/>
-  <mat-form-field>
+  <mat-form-field class="wide-field">
+    <mat-label>Modern place name</mat-label>
+    <input matInput [(ngModel)]="data.default.modernPlace">
+  </mat-form-field>
+  <br/>
+  <mat-form-field class="wide-field">
     <mat-label>Note</mat-label>
     <textarea matInput [rows]="8" [cols]="100" [(ngModel)]="data.default.note"
         autoResize="autoResize"></textarea>
@@ -56,7 +61,11 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   <button mat-button [mat-dialog-close]="data.default" cdkFocusInitial>OK</button>
   <button mat-button (click)="onNoClick()" >Cancel</button>
 </div>`,
-    styles: [],
+    styles: [`
+.wide-field {
+  width: 100%;
+}
+`],
     imports: [MatDialogTitle, MatToolbar, MatIcon, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatSelect, FormsModule, MatOption, MatInput, MatDialogActions, MatButton, MatDialogClose]
 })
 export class NewAttributeDialogComponent {

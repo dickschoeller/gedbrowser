@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import org.schoellerfamily.geoservice.client.GeoServiceCacheConfig;
 import org.schoellerfamily.geoservice.client.GeoServiceClient;
 import org.schoellerfamily.geoservice.client.GeoServiceResilientCaller;
+import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
@@ -106,6 +107,62 @@ class GeoServiceClientTest {
         assertEquals("Primary Place", item.getPlaceName());
         assertEquals("Primary Modern Place", item.getModernPlaceName());
         assertNull(item.getResult());
+    }
+
+    @Test
+    void testGetUsesFormattedAddressWhenPrimaryModernPlaceNameIsBlank() {
+        final String place = "Primary Place";
+        final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
+        final String url = "http://localhost:8080/geocode?name=" + encoded;
+
+        final FeatureCollection geometry = new FeatureCollection();
+        geometry.add(new Feature());
+        final GeoServiceGeocodingResult result = new GeoServiceGeocodingResult(
+            null,
+            "Formatted Address Value",
+            null,
+            geometry,
+            null,
+            false,
+            null);
+        final GeoServiceItem expected =
+            new GeoServiceItem("Primary Place", "   ", result);
+        when(resilientCaller.fetchPrimary(url)).thenReturn(expected);
+
+        final GeoServiceItem item = client.get(place);
+
+        assertNotNull(item);
+        assertEquals("Primary Place", item.getPlaceName());
+        assertEquals("Formatted Address Value", item.getModernPlaceName());
+        assertNotNull(item.getResult());
+    }
+
+    @Test
+    void testGetFallsBackToPlaceNameWhenModernAndFormattedAddressAreBlank() {
+        final String place = "Primary Place";
+        final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
+        final String url = "http://localhost:8080/geocode?name=" + encoded;
+
+        final FeatureCollection geometry = new FeatureCollection();
+        geometry.add(new Feature());
+        final GeoServiceGeocodingResult result = new GeoServiceGeocodingResult(
+            null,
+            "   ",
+            null,
+            geometry,
+            null,
+            false,
+            null);
+        final GeoServiceItem expected =
+            new GeoServiceItem("Primary Place", "   ", result);
+        when(resilientCaller.fetchPrimary(url)).thenReturn(expected);
+
+        final GeoServiceItem item = client.get(place);
+
+        assertNotNull(item);
+        assertEquals("Primary Place", item.getPlaceName());
+        assertEquals("Primary Place", item.getModernPlaceName());
+        assertNotNull(item.getResult());
     }
 
     @Test
@@ -224,6 +281,82 @@ class GeoServiceClientTest {
 
         server.verify();
     }
+
+        @Test
+        void testGetUsesFormattedAddressWhenFallbackModernPlaceNameIsBlank() {
+                final String place = "Fallback Place";
+                final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
+                final String url = "http://localhost:8080/geocode?name=" + encoded;
+
+                final String fallbackPayload = """
+                                {
+                                    "placeName":"Fallback Place",
+                                    "modernPlaceName":"   ",
+                                    "result": {
+                                        "formattedAddress":"Formatted From Result",
+                                        "partialMatch": true,
+                                        "placeId": "place-1",
+                                        "types": ["LOCALITY"],
+                                        "postcodeLocalities": ["Boston"],
+                                        "geometry": {
+                                            "features": [
+                                                {
+                                                    "id":"feature-1",
+                                                    "properties":{"locationType":"ROOFTOP"},
+                                                    "geometry": {"coordinates": [-71.0, 42.0]}
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                                """;
+
+                when(resilientCaller.fetchPrimary(url)).thenThrow(new RuntimeException("bad JSON"));
+
+                final RequestMatcher requestToUrl = request -> {
+                        assertEquals(url, request.getURI().toString());
+                        assertEquals("GET", request.getMethod().name());
+                };
+                server.expect(requestToUrl)
+                        .andRespond(withSuccess(fallbackPayload, MediaType.APPLICATION_JSON));
+
+                final GeoServiceItem item = client.get(place);
+
+                assertNotNull(item);
+                assertEquals("Fallback Place", item.getPlaceName());
+                assertEquals("Formatted From Result", item.getModernPlaceName());
+                assertNotNull(item.getResult());
+
+                server.verify();
+        }
+
+            @Test
+            void testGetKeepsModernPlaceNameWhenAlreadyPresent() {
+                final String place = "Primary Place";
+                final String encoded = URLEncoder.encode(place, StandardCharsets.UTF_8);
+                final String url = "http://localhost:8080/geocode?name=" + encoded;
+
+                final FeatureCollection geometry = new FeatureCollection();
+                geometry.add(new Feature());
+                final GeoServiceGeocodingResult result = new GeoServiceGeocodingResult(
+                    null,
+                    "Formatted Address Value",
+                    null,
+                    geometry,
+                    null,
+                    false,
+                    null);
+                final GeoServiceItem expected =
+                    new GeoServiceItem("Primary Place", "Primary Modern Place", result);
+                when(resilientCaller.fetchPrimary(url)).thenReturn(expected);
+
+                final GeoServiceItem item = client.get(place);
+
+                assertNotNull(item);
+                assertEquals("Primary Place", item.getPlaceName());
+                assertEquals("Primary Modern Place", item.getModernPlaceName());
+                assertNotNull(item.getResult());
+            }
 
     @Test
     void testGetReturnsDefaultItemWhenFallbackAlsoFails() {
@@ -578,6 +711,52 @@ class GeoServiceClientTest {
         assertNotNull(second);
         assertNull(first.getResult());
         assertNull(second.getResult());
+        assertNotNull(geocodeCache());
+        assertNull(geocodeCache().get(place, GeoServiceItem.class));
+        server.verify();
+    }
+
+    @Test
+    void testUpsertEvictsCachedPlaceOnSuccessfulWrite() {
+        final String place = "Cache Place";
+        final String url = "http://localhost:8080/geocode";
+        final FeatureCollection geometry = new FeatureCollection();
+        geometry.add(new Feature());
+        geocodeCache().put(place, new GeoServiceItem(
+            place,
+            "Old Modern",
+            new GeoServiceGeocodingResult(null, "Old Address", null, geometry, null, false, null)));
+
+        server.expect(request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("POST", request.getMethod().name());
+        }).andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        client.upsert(place, "New Modern");
+
+        assertNotNull(geocodeCache());
+        assertNull(geocodeCache().get(place, GeoServiceItem.class));
+        server.verify();
+    }
+
+    @Test
+    void testUpdateOrCreateEvictsCachedPlaceOnSuccessfulUpdate() {
+        final String place = "Cache Place";
+        final String url = "http://localhost:8080/geocode";
+        final FeatureCollection geometry = new FeatureCollection();
+        geometry.add(new Feature());
+        geocodeCache().put(place, new GeoServiceItem(
+            place,
+            "Old Modern",
+            new GeoServiceGeocodingResult(null, "Old Address", null, geometry, null, false, null)));
+
+        server.expect(request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("PUT", request.getMethod().name());
+        }).andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        client.updateOrCreate(place, "New Modern");
+
         assertNotNull(geocodeCache());
         assertNull(geocodeCache().get(place, GeoServiceItem.class));
         server.verify();

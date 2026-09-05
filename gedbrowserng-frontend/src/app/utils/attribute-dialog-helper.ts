@@ -7,8 +7,8 @@ export class AttributeDialogHelper {
   public static dialogData(typeString: string): AttributeDialogData {
     return {
       insert: true, index: 0, type: typeString, text: '', date: '',
-      place: '', note: '', originalType: '', originalText: '',
-      originalDate: '', originalPlace: '', originalNote: ''
+      place: '', modernPlace: '', note: '', originalType: '', originalText: '',
+      originalDate: '', originalPlace: '', originalModernPlace: '', originalNote: ''
     };
   }
 
@@ -24,12 +24,13 @@ export class AttributeDialogHelper {
     }
     const date = this.getByType('date');
     const place = this.getByType('place');
+    const modernPlace = this.getModernPlace();
     const note = this.getByString('Note');
     const data: AttributeDialogData = {
       insert: insert, index: this.parent.index, type: type, text: text,
-      date: date, place: place, note: note, originalType: type,
+      date: date, place: place, modernPlace: modernPlace, note: note, originalType: type,
       originalText: text, originalDate: date, originalPlace: place,
-      originalNote: note, };
+      originalModernPlace: modernPlace, originalNote: note, };
     return data;
   }
 
@@ -44,13 +45,15 @@ export class AttributeDialogHelper {
   }
 
   private populateAttribute(attribute: ApiAttribute, data: AttributeDialogData) {
-    if (data.type.toLowerCase() === 'name') {
+    const normalizedType = (data.type || '').toLowerCase();
+    if (normalizedType === 'name') {
       this.simpleInit(attribute, data.type.toLowerCase(), data.text);
     } else {
       this.simpleInit(attribute, 'attribute', data.type, data.text);
     }
     this.setByType(attribute, 'date', data.date);
     this.setByType(attribute, 'place', data.place);
+    this.setModernPlace(attribute, data.modernPlace || '');
     this.setByString(attribute, 'note', data.note);
   }
 
@@ -64,28 +67,97 @@ export class AttributeDialogHelper {
   }
 
   private getByType(typeInput: string) {
-    return this.getBy(this.parent.attribute.attributes, typeInput, (attr) => attr.type.toLowerCase(), (attr) => attr.string);
+    return this.getBy(
+      this.parent.attribute.attributes,
+      typeInput,
+      (attr) => (attr?.type || '').toLowerCase(),
+      (attr) => attr?.string
+    );
   }
 
   private getByString(stringInput: string) {
-    return this.getBy(this.parent.attribute.attributes, stringInput, (attr) => attr.string, (attr) => attr.tail);
+    return this.getBy(
+      this.parent.attribute.attributes,
+      stringInput,
+      (attr) => attr?.string,
+      (attr) => attr?.tail
+    );
+  }
+
+  private getModernPlace() {
+    const placeAttribute = this.findPlaceAttribute(this.parent.attribute);
+    if (placeAttribute) {
+      const nestedModern = this.getModernPlaceFromList(placeAttribute.attributes || []);
+      if (!StringUtil.isEmpty(nestedModern)) {
+        return nestedModern;
+      }
+    }
+
+    // Backward-compatible fallback for legacy standalone modern-place attributes.
+    const attributes = this.parent.attribute.attributes || [];
+    const legacyModern = this.getModernPlaceFromList(attributes);
+    if (!StringUtil.isEmpty(legacyModern)) {
+      return legacyModern;
+    }
+    return undefined;
+  }
+
+  private getModernPlaceFromList(attributes: Array<ApiAttribute>) {
+    for (const attr of attributes) {
+      if (!this.isModernPlaceKey(attr)) {
+        continue;
+      }
+      const tailValue = attr?.tail;
+      if (!StringUtil.isEmpty(tailValue)) {
+        return tailValue;
+      }
+      const stringValue = attr?.string;
+      if (!StringUtil.isEmpty(stringValue) && !this.isModernPlaceLabel(stringValue)) {
+        return stringValue;
+      }
+    }
+    return '';
+  }
+
+  private findPlaceAttribute(attribute: ApiAttribute): ApiAttribute | undefined {
+    return (attribute.attributes || []).find((attr) =>
+      !!attr && typeof attr.type === 'string' && attr.type.toLowerCase() === 'place');
+  }
+
+  private isModernPlaceKey(attr: ApiAttribute): boolean {
+    return this.isModernPlaceLabel(attr?.string) || this.isModernPlaceLabel(attr?.type);
+  }
+
+  private isModernPlaceLabel(value: string | undefined): boolean {
+    if (StringUtil.isEmpty(value)) {
+      return false;
+    }
+    return value.toLowerCase().replace(/[^a-z]/g, '') === 'modernplace';
   }
 
   private getBy(attributes: Array<ApiAttribute>, input: string, getField, getValue) {
+    if (!attributes) {
+      return undefined;
+    }
+    const normalizedInput = (input || '').toLowerCase();
     for (const attr of attributes) {
-      if (getField(attr) === input) {
+      const field = getField(attr);
+      if (field !== undefined && field !== null && field.toLowerCase() === normalizedInput) {
         return getValue(attr);
       }
     }
   }
 
   private setByType(attribute, typeInput, valueInput) {
+    if (!attribute.attributes) {
+      attribute.attributes = new Array<ApiAttribute>();
+    }
     if (StringUtil.isEmpty(valueInput)) {
       this.deleteBy(attribute, typeInput, (attr) => attr.type);
       return;
     }
     for (const attr of attribute.attributes) {
-      if (attr.type.toLowerCase() === typeInput) {
+      if ((attr?.type || '').toLowerCase() === typeInput) {
         attr.string = valueInput;
         return;
       }
@@ -97,12 +169,15 @@ export class AttributeDialogHelper {
   }
 
   private setByString(attribute: ApiAttribute, stringInput, tailInput: string) {
+    if (!attribute.attributes) {
+      attribute.attributes = new Array<ApiAttribute>();
+    }
     if (StringUtil.isEmpty(tailInput)) {
       this.deleteBy(attribute, stringInput, (attr) => attr.string);
       return;
     }
     for (const attr of attribute.attributes) {
-      if (attr.string.toLowerCase() === stringInput) {
+      if ((attr?.string || '').toLowerCase() === stringInput) {
         attr.tail = tailInput;
         return;
       }
@@ -113,9 +188,41 @@ export class AttributeDialogHelper {
     });
   }
 
+  private setModernPlace(attribute: ApiAttribute, modernPlaceValue: string) {
+    this.deleteBy(attribute, 'modern place', (attr) => attr.string);
+    this.deleteBy(attribute, 'modernplace', (attr) => attr.type);
+
+    const placeAttribute = this.findPlaceAttribute(attribute);
+    if (!placeAttribute || StringUtil.isEmpty(modernPlaceValue)) {
+      return;
+    }
+
+    if (placeAttribute.attributes === undefined) {
+      placeAttribute.attributes = new Array<ApiAttribute>();
+    }
+
+    for (const child of placeAttribute.attributes) {
+      if (this.isModernPlaceKey(child)) {
+        child.type = 'attribute';
+        child.string = 'Modern place';
+        child.tail = modernPlaceValue;
+        return;
+      }
+    }
+
+    placeAttribute.attributes.push({
+      type: 'attribute', string: 'Modern place',
+      tail: modernPlaceValue, attributes: new Array<ApiAttribute>()
+    });
+  }
+
   private deleteBy(attribute: ApiAttribute, input: string, getField) {
+    if (!attribute?.attributes) {
+      return;
+    }
     for (const attr of attribute.attributes) {
-      if (getField(attr).toLowerCase() === input) {
+      const field = getField(attr);
+      if (typeof field === 'string' && field.toLowerCase() === input) {
         const index = attribute.attributes.indexOf(attr);
         attribute.attributes.splice(index, 1);
         return;
@@ -126,9 +233,9 @@ export class AttributeDialogHelper {
   public simpleAttribute(type: string, text: string): ApiAttribute {
     return this.populateNewAttribute({
       insert: true, index: 0,
-      type: type, text: text, date: '', place: '', note: '',
+      type: type, text: text, date: '', place: '', modernPlace: '', note: '',
       originalType: type, originalText: text, originalDate: '',
-      originalPlace: '', originalNote: ''
+      originalPlace: '', originalModernPlace: '', originalNote: ''
     });
   }
 }

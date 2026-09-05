@@ -9,6 +9,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 
 /**
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
  * @author Richard Schoeller
  */
 @Component
+@Slf4j
 public final class RestAuthenticationEntryPoint
         implements AuthenticationEntryPoint {
     /**
@@ -30,6 +33,15 @@ public final class RestAuthenticationEntryPoint
             final AuthenticationException authException) throws IOException {
         final String message = authException.getMessage();
         final String header = request.getHeader("Authorization");
+        final Object errorUri = request.getAttribute("jakarta.servlet.error.request_uri");
+        log.warn("Authentication failed: method={} uri={} dispatcherType={} originalErrorUri={}"
+                + " hasAuthorizationHeader={} message={}",
+                request.getMethod(),
+                request.getRequestURI(),
+                request.getDispatcherType(),
+                errorUri,
+                header != null,
+                message);
         if (header != null) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, message);
         } else {
