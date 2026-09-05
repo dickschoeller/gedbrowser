@@ -129,12 +129,11 @@ public class PersonGeoService {
                 log.info("syncPlacesOnUpdate changed mapping: placeName={} previousModern={}"
                     + " currentModern={}",
                     placeName, previousModern, currentModern);
+                syncOneOnUpdate(placeName, currentModern);
             } else {
                 log.debug("syncPlacesOnUpdate unchanged mapping: placeName={} modernPlaceName={}",
                     placeName, currentModern);
             }
-            syncOneOnUpdate(placeName, currentModern);
-        }
     }
 
     private RenderingContext createRenderingContext(
