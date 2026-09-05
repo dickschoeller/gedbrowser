@@ -36,6 +36,9 @@ public class ParentsController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
+    /** */
+    private final PersonGeoService personGeoService;
+
     private ParentCrud parentCrud() {
         return new ParentCrud(loader, toDocConverter, repositoryManager);
     }
@@ -52,7 +55,9 @@ public class ParentsController {
     public ApiObject createParent(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
-        return parentCrud().createParent(db, id, person);
+        personGeoService.syncPlacesOnCreate(person);
+        final ApiObject created = parentCrud().createParent(db, id, person);
+        return created;
     }
 
     /**

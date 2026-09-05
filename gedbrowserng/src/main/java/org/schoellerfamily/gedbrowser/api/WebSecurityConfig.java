@@ -24,7 +24,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 
@@ -37,6 +39,7 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
+@Slf4j
 public class WebSecurityConfig {
     /** */
     private final CustomUserDetailsService jwtUserDetailsService;
@@ -122,12 +125,26 @@ public class WebSecurityConfig {
         configured
             .sessionManagement(
                 session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthenticationEntryPoint))
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    log.warn("Access denied: method={} uri={} message={}",
+                        request.getMethod(),
+                        request.getRequestURI(),
+                        accessDeniedException.getMessage());
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN,
+                        accessDeniedException.getMessage());
+                }))
             // Add the JWT filter before the basic authentication filter
             .addFilterBefore(jwtAuthenticationTokenFilter(), BasicAuthenticationFilter.class)
             // Use the newer authorizeHttpRequests API instead of deprecated
             // authorizeRequests
-            .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(
+                    PathPatternRequestMatcher.withDefaults().matcher("/error"),
+                    PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/error"))
+                .permitAll()
+                .anyRequest().authenticated())
             // Configure form login with handlers
             .formLogin(form -> form.loginProcessingUrl("/v1/login")
                 .successHandler(authenticationSuccessHandler)
@@ -156,8 +173,10 @@ public class WebSecurityConfig {
                 .ignoringRequestMatchers(
                     PathPatternRequestMatcher.withDefaults().matcher("/v1/login"),
                     PathPatternRequestMatcher.withDefaults().matcher("/v1/signup"),
+                    PathPatternRequestMatcher.withDefaults().matcher("/v1/dbs/**"),
                     PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/login"),
-                    PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/signup"))
+                    PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/signup"),
+                    PathPatternRequestMatcher.withDefaults().matcher("/gedbrowserng/v1/dbs/**"))
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             );
         }

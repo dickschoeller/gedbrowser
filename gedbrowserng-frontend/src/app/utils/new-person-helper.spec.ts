@@ -7,8 +7,10 @@ type PersonData = {
   sex: string;
   birthDate: string;
   birthPlace: string;
+  birthModernPlace?: string;
   deathDate: string;
   deathPlace: string;
+  deathModernPlace?: string;
 };
 
 const makePersonData = (overrides: Partial<PersonData> = {}): PersonData => ({
@@ -62,6 +64,9 @@ describe('NewPersonHelper', () => {
       expect(birthDateAttr?.string).toBe('1980-01-15');
       const birthPlaceAttr = findChildAttribute(birthAttr, 'place');
       expect(birthPlaceAttr?.string).toBe('New York');
+      const birthModernPlaceAttr = birthPlaceAttr?.attributes?.find((a) =>
+        a.string === 'Modern place');
+      expect(birthModernPlaceAttr).toBeUndefined();
       
       // Check death
       const deathAttr = findEventAttribute(person, 'Death');
@@ -70,6 +75,34 @@ describe('NewPersonHelper', () => {
       expect(deathDateAttr?.string).toBe('2050-05-20');
       const deathPlaceAttr = findChildAttribute(deathAttr, 'place');
       expect(deathPlaceAttr?.string).toBe('Boston');
+      const deathModernPlaceAttr = deathPlaceAttr?.attributes?.find((a) =>
+        a.string === 'Modern place');
+      expect(deathModernPlaceAttr).toBeUndefined();
+    });
+
+    it('includes modern place values when provided', () => {
+      const data = makePersonData({
+        name: 'John/Smith/',
+        sex: 'M',
+        birthPlace: 'Old Town',
+        birthModernPlace: 'New Town',
+        deathPlace: 'Old City',
+        deathModernPlace: 'New City'
+      });
+
+      const person = NewPersonHelper.buildPerson(data);
+
+      const birthAttr = findEventAttribute(person, 'Birth');
+      const birthPlaceAttr = findChildAttribute(birthAttr, 'place');
+      const birthModernPlaceAttr = birthPlaceAttr?.attributes?.find((a) =>
+        a.string === 'Modern place');
+      expect(birthModernPlaceAttr?.tail).toBe('New Town');
+
+      const deathAttr = findEventAttribute(person, 'Death');
+      const deathPlaceAttr = findChildAttribute(deathAttr, 'place');
+      const deathModernPlaceAttr = deathPlaceAttr?.attributes?.find((a) =>
+        a.string === 'Modern place');
+      expect(deathModernPlaceAttr?.tail).toBe('New City');
     });
 
     it.each([
@@ -145,8 +178,10 @@ describe('NewPersonHelper', () => {
         name: 'Anonymous/Johnson/',
         birthDate: '',
         birthPlace: '',
+        birthModernPlace: '',
         deathDate: '',
-        deathPlace: ''
+        deathPlace: '',
+        deathModernPlace: ''
       });
     });
 
@@ -157,8 +192,10 @@ describe('NewPersonHelper', () => {
         name: 'Anonyma/Williams/',
         birthDate: '',
         birthPlace: '',
+        birthModernPlace: '',
         deathDate: '',
-        deathPlace: ''
+        deathPlace: '',
+        deathModernPlace: ''
       });
     });
   });

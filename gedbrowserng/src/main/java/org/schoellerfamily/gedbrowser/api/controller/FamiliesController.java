@@ -40,6 +40,9 @@ public final class FamiliesController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
+    /** */
+    private final PersonGeoService personGeoService;
+
     private ObjectCrud<ApiFamily> crud() {
         return new FamilyCrud(loader, toDocConverter, repositoryManager);
     }
@@ -55,7 +58,9 @@ public final class FamiliesController {
     public ApiFamily create(
             @PathVariable final String db,
             @RequestBody final ApiFamily family) {
-        return crud().createOne(db, family);
+        personGeoService.syncPlacesOnCreate(family);
+        final ApiFamily created = crud().createOne(db, family);
+        return created;
     }
 
     /**
@@ -97,7 +102,10 @@ public final class FamiliesController {
             @PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiFamily family) {
-        return crud().updateOne(db, id, family);
+        final ApiFamily existing = crud().readOne(db, id);
+        personGeoService.syncPlacesOnUpdate(existing, family);
+        final ApiFamily updated = crud().updateOne(db, id, family);
+        return updated;
     }
 
     /**

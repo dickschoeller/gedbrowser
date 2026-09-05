@@ -7,11 +7,14 @@ import org.schoellerfamily.gedbrowser.datamodel.Family;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
 import org.schoellerfamily.gedbrowser.datamodel.navigator.PersonNavigator;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Represents birth date from spouses estimator.
  *
  * @author Richard Schoeller
  */
+@Slf4j
 public final class BirthDateFromSpousesEstimator extends Estimator {
     /** Hold the person we are estimating. */
     private final Person person;
@@ -39,12 +42,20 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
     public LocalDate estimate(final LocalDate localDate,
             final boolean shortEstimate) {
         if (localDate != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Spouse estimate skipped for {} because date already known: {}",
+                    person.getString(), localDate);
+            }
             return localDate;
         }
         LocalDate date = null;
         int delta = 0;
         final PersonNavigator navigator = new PersonNavigator(person);
         final List<Family> families = navigator.getFamilies();
+        if (log.isDebugEnabled()) {
+            log.debug("Spouse estimate start for {} across {} families (shortEstimate={})",
+                person.getString(), families.size(), shortEstimate);
+        }
         for (final Family family : families) {
             final Person mother = getMother(family);
             final Person father = getFather(family);
@@ -70,11 +81,18 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
                 date = estimateFromSpouse(bde, null, true);
             }
             if (date != null) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Spouse estimate candidate for {} from spouse {}: {}",
+                        person.getString(), spouse.getString(), date);
+                }
                 break;
             }
         }
         if (date != null) {
             date = firstDayOfMonth(plusYears(date, delta));
+        }
+        if (log.isDebugEnabled()) {
+            log.debug("Spouse estimate result for {}: {}", person.getString(), date);
         }
         return date;
     }
@@ -88,11 +106,19 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
     @SuppressWarnings("java:S3776")
     public LocalDate estimateFromAncestors(final LocalDate localDate) {
         if (localDate != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Spouse-ancestor estimate skipped for {} because date already known: {}",
+                    person.getString(), localDate);
+            }
             return localDate;
         }
         LocalDate date = null;
         final PersonNavigator navigator = new PersonNavigator(person);
         final List<Family> families = navigator.getFamilies();
+        if (log.isDebugEnabled()) {
+            log.debug("Spouse-ancestor estimate start for {} across {} families",
+                person.getString(), families.size());
+        }
         for (final Family family : families) {
             final Person mother = getMother(family);
             final Person father = getFather(family);
@@ -111,8 +137,15 @@ public final class BirthDateFromSpousesEstimator extends Estimator {
             final BirthDateEstimator bde = createEstimator(spouse);
             date = ancestorsEstimate(bde);
             if (date != null) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Spouse-ancestor estimate candidate for {} from spouse {}: {}",
+                        person.getString(), spouse.getString(), date);
+                }
                 break;
             }
+        }
+        if (log.isDebugEnabled()) {
+            log.debug("Spouse-ancestor estimate result for {}: {}", person.getString(), date);
         }
         return date;
     }

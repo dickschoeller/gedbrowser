@@ -1,5 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.transformers;
 
+import java.util.Locale;
+
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiFamily;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiHead;
@@ -74,9 +76,22 @@ public final class ApiModelToGedObjectVisitor implements ApiObjectVisitor {
      */
     @Override
     public void visit(final ApiAttribute attribute) {
+        if (isModernPlaceAttribute(attribute)) {
+            return;
+        }
         gedObject = builder.createEvent(parent, attribute.getType(),
                 attribute.getString(), attribute.getTail());
         new AttributeListHelper(this).addAttributes(attribute);
+    }
+
+    private boolean isModernPlaceAttribute(final ApiAttribute attribute) {
+        return isModernPlaceLabel(attribute.getType()) || isModernPlaceLabel(attribute.getString());
+    }
+
+    private boolean isModernPlaceLabel(final String value) {
+        return value != null
+                && "modernplace".equals(value.toLowerCase(Locale.ROOT)
+                .replaceAll("[^a-z]", ""));
     }
 
     /**

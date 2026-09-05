@@ -76,7 +76,7 @@ public class AuthenticationController {
         final boolean canTokenBeRefreshed =
                 tokenHelper.canTokenBeRefreshed(authToken);
         if (authToken != null && canTokenBeRefreshed) {
-            return doRefresh(response, authToken);
+            return doRefresh(response, request, authToken);
         } else {
             final UserTokenState userTokenState = new UserTokenStateImpl();
             return ResponseEntity.accepted().body(userTokenState);
@@ -84,6 +84,7 @@ public class AuthenticationController {
     }
 
     private ResponseEntity<UserTokenState> doRefresh(final HttpServletResponse response,
+            final HttpServletRequest request,
             final String authToken) {
         final String refreshedToken = tokenHelper.refreshToken(authToken);
 
@@ -91,13 +92,21 @@ public class AuthenticationController {
         authCookie.setPath("/");
         authCookie.setHttpOnly(true);
         authCookie.setMaxAge(expiresIn);
-        authCookie.setSecure(true);
+        authCookie.setSecure(isSecureRequest(request));
         // Add cookie to response
         response.addCookie(authCookie);
 
         final UserTokenState userTokenState = new UserTokenStateImpl(
                 refreshedToken, expiresIn);
         return ResponseEntity.ok(userTokenState);
+    }
+
+    private boolean isSecureRequest(final HttpServletRequest request) {
+        if (request.isSecure()) {
+            return true;
+        }
+        final String forwardedProto = request.getHeader("X-Forwarded-Proto");
+        return forwardedProto != null && "https".equalsIgnoreCase(forwardedProto);
     }
 
     /**

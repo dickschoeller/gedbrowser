@@ -91,7 +91,7 @@ public class GeoCodeEntryController {
      * @return the response containing the created item
      */
     @Post("/geocode")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
+    @Secured(SecurityRule.IS_ANONYMOUS)
     public HttpResponse<GeoServiceItem> create(@Body final GeoServiceItem item) {
         if (hasBlankName(item)) {
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
@@ -117,7 +117,7 @@ public class GeoCodeEntryController {
      * @return the response containing the updated item
      */
     @Put("/geocode")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
+    @Secured(SecurityRule.IS_ANONYMOUS)
     public HttpResponse<GeoServiceItem> update(@Body final GeoServiceItem item) {
         if (hasBlankName(item)) {
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
@@ -143,7 +143,7 @@ public class GeoCodeEntryController {
      * @return the response containing the deleted item
      */
     @Delete("/geocode")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
+    @Secured(SecurityRule.IS_ANONYMOUS)
     public HttpResponse<GeoServiceItem> delete(@QueryValue("name") final String name) {
         if (StringUtils.isBlank(name)) {
             return HttpResponse.status(HttpStatus.BAD_REQUEST);

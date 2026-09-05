@@ -27,6 +27,7 @@ describe('NewAttributeDialogData Model', () => {
       text: '',
       date: '',
       place: '',
+      modernPlace: '',
       note: ''
     };
     data.default = defaultData;

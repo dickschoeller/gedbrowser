@@ -15,8 +15,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientResponseException;
 
 import com.google.maps.model.AddressType;
 
@@ -71,16 +73,81 @@ public class GeoServiceClient {
         final String url = buildUrl(placeName);
 
         try {
-            return resilientCaller.fetchPrimary(url);
+            return normalizeModernPlaceName(resilientCaller.fetchPrimary(url));
         } catch (Exception t) {
             log.error("Failed to fetch geocode from geoservice at {}", url, t);
-            return handleFetchFailure(url, placeName, t);
+            return normalizeModernPlaceName(handleFetchFailure(url, placeName, t));
+        }
+    }
+
+    /**
+     * Upsert a geocode item for a historical place name and modern place name.
+     *
+     * @param placeName the historical place name
+     * @param modernPlaceName the canonical/modern place name
+     */
+    public void upsert(final String placeName, final String modernPlaceName) {
+        if (isBlank(placeName)) {
+            return;
+        }
+        final String normalizedModern = isBlank(modernPlaceName)
+            ? placeName
+            : modernPlaceName;
+        final GeoServiceItem item = new GeoServiceItem(placeName, normalizedModern, null);
+        if (!create(item)) {
+            update(item);
+        }
+    }
+
+    private boolean create(final GeoServiceItem item) {
+        final String url = buildCollectionUrl();
+        try {
+            restClient.post()
+                .uri(URI.create(url))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(item)
+                .retrieve()
+                .toBodilessEntity();
+            return true;
+        } catch (HttpClientErrorException.Conflict _) {
+            return false;
+        } catch (ResourceAccessException e) {
+            logGeoServiceFailure("POST", url, item, e);
+        } catch (RestClientResponseException e) {
+            logGeoServiceFailure("POST", url, item, e);
+        } catch (RuntimeException e) {
+            logGeoServiceFailure("POST", url, item, e);
+        }
+        return false;
+    }
+
+    private void update(final GeoServiceItem item) {
+        final String url = buildCollectionUrl();
+        try {
+            restClient.put()
+                .uri(URI.create(url))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(item)
+                .retrieve()
+                .toBodilessEntity();
+        } catch (ResourceAccessException e) {
+            logGeoServiceFailure("PUT", url, item, e);
+        } catch (RestClientResponseException e) {
+            logGeoServiceFailure("PUT", url, item, e);
+        } catch (RuntimeException e) {
+            logGeoServiceFailure("PUT", url, item, e);
         }
     }
 
     private String buildUrl(final String placeName) {
         return "%s://%s:%d/geocode?name=%s"
             .formatted(protocol, host, port, URLEncoder.encode(placeName, StandardCharsets.UTF_8));
+    }
+
+    private String buildCollectionUrl() {
+        return "%s://%s:%d/geocode".formatted(protocol, host, port);
     }
 
     private GeoServiceItem handleFetchFailure(final String url, final String placeName,
@@ -91,15 +158,78 @@ public class GeoServiceClient {
                 return recovered;
             }
         }
-        if (log.isDebugEnabled()) {
-            log.debug("Unable to get geocode from geoservice at {}", url, t);
-        } else {
-            log.error("Unable to get geocode from geoservice at {}", url);
-            log.error("host: {}", host);
-            log.error("port: {}", port);
-            log.error("protocol: {}", protocol);
-        }
+        logGeoServiceFailure("GET", url, new GeoServiceItem(placeName, placeName, null), t);
         return new GeoServiceItem(placeName, placeName, null);
+    }
+
+    private void logGeoServiceFailure(final String operation, final String url,
+            final GeoServiceItem item, final Throwable t) {
+        final Throwable root = rootCause(t);
+        if (t instanceof RestClientResponseException responseException) {
+            log.error("GeoService {} failed: url={} placeName={} modernPlaceName={}"
+                + " status={} statusText={} responseBody={} host={} port={} protocol={}"
+                + " cause={}",
+                operation,
+                url,
+                item.getPlaceName(),
+                item.getModernPlaceName(),
+                responseException.getStatusCode().value(),
+                responseException.getStatusText(),
+                abbreviate(responseException.getResponseBodyAsString()),
+                host,
+                port,
+                protocol,
+                root.toString(),
+                t);
+            return;
+        }
+        log.error("GeoService {} failed: url={} placeName={} modernPlaceName={} host={}"
+            + " port={} protocol={} cause={}",
+            operation,
+            url,
+            item.getPlaceName(),
+            item.getModernPlaceName(),
+            host,
+            port,
+            protocol,
+            root.toString(),
+            t);
+    }
+
+    private String abbreviate(final String responseBody) {
+        final int max = 512;
+        if (responseBody == null || responseBody.length() <= max) {
+            return responseBody;
+        }
+        return responseBody.substring(0, max) + "...";
+    }
+
+    private Throwable rootCause(final Throwable throwable) {
+        Throwable current = throwable;
+        while (current.getCause() != null) {
+            current = current.getCause();
+        }
+        return current;
+    }
+
+    private boolean isBlank(final String value) {
+        return value == null || value.isBlank();
+    }
+
+    private GeoServiceItem normalizeModernPlaceName(final GeoServiceItem item) {
+        if (item == null || !isBlank(item.getModernPlaceName())) {
+            return item;
+        }
+        final String formattedAddress = item.getResult() == null
+            ? null
+            : item.getResult().getFormattedAddress();
+        if (!isBlank(formattedAddress)) {
+            return new GeoServiceItem(item.getPlaceName(), formattedAddress, item.getResult());
+        }
+        if (!isBlank(item.getPlaceName())) {
+            return new GeoServiceItem(item.getPlaceName(), item.getPlaceName(), item.getResult());
+        }
+        return item;
     }
 
     /**
