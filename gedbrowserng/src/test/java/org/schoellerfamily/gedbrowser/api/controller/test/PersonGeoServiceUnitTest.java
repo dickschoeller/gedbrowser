@@ -129,6 +129,83 @@ class PersonGeoServiceUnitTest {
     }
 
     @Test
+    void testSyncPlacesOnUpdateDuplicatePlacePrefersNewValue() {
+        final GeoServiceClient geoServiceClient = mock(GeoServiceClient.class);
+        final PersonGeoService service = new PersonGeoService(
+            geoServiceClient,
+            mock(ApplicationInfo.class),
+            mock(CalendarProvider.class));
+
+        final ApiPerson before = ApiPerson.builder()
+            .string("I1")
+            .indexName("Doe, John")
+            .surname("Doe")
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Birth")
+                .attribute(ApiAttribute.builder()
+                    .type("place")
+                    .string("Old Place")
+                    .attribute(ApiAttribute.builder()
+                        .type("attribute")
+                        .string("Modern place")
+                        .tail("Old Modern")
+                        .build())
+                    .build())
+                .build())
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Residence")
+                .attribute(ApiAttribute.builder()
+                    .type("place")
+                    .string("Old Place")
+                    .attribute(ApiAttribute.builder()
+                        .type("attribute")
+                        .string("Modern place")
+                        .tail("Old Modern")
+                        .build())
+                    .build())
+                .build())
+            .build();
+
+        final ApiPerson after = ApiPerson.builder()
+            .string("I1")
+            .indexName("Doe, John")
+            .surname("Doe")
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Birth")
+                .attribute(ApiAttribute.builder()
+                    .type("place")
+                    .string("Old Place")
+                    .attribute(ApiAttribute.builder()
+                        .type("attribute")
+                        .string("Modern place")
+                        .tail("New Modern")
+                        .build())
+                    .build())
+                .build())
+            .attribute(ApiAttribute.builder()
+                .type("attribute")
+                .string("Residence")
+                .attribute(ApiAttribute.builder()
+                    .type("place")
+                    .string("Old Place")
+                    .attribute(ApiAttribute.builder()
+                        .type("attribute")
+                        .string("Modern place")
+                        .tail("Old Modern")
+                        .build())
+                    .build())
+                .build())
+            .build();
+
+        service.syncPlacesOnUpdate(before, after);
+
+        verify(geoServiceClient).updateOrCreate(eq("Old Place"), eq("New Modern"));
+    }
+
+    @Test
     void testEnrichModernPlacesAddsMissingModernPlace() {
         final GeoServiceClient geoServiceClient = mock(GeoServiceClient.class);
         when(geoServiceClient.get("Old Place")).thenReturn(

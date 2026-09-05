@@ -93,11 +93,16 @@ public class GeoCodeEntryController {
     @Post("/geocode")
     @Secured(SecurityRule.IS_ANONYMOUS)
     public HttpResponse<GeoServiceItem> create(@Body final GeoServiceItem item) {
+        log.info("GeoService create attempt: placeName={} modernPlaceName={}",
+            item == null ? null : item.getPlaceName(),
+            item == null ? null : item.getModernPlaceName());
         if (hasBlankName(item)) {
+            log.warn("GeoService create rejected: missing placeName");
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
         }
         final GeoServiceItem normalized = normalize(item);
         if (gcc.get(normalized.getPlaceName()) != null) {
+            log.info("GeoService create conflict: placeName={}", normalized.getPlaceName());
             return HttpResponse.status(HttpStatus.CONFLICT);
         }
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
@@ -105,8 +110,12 @@ public class GeoCodeEntryController {
         try {
             saved = gcc.add(builder.toGeoCodeItem(normalized));
         } catch (IllegalArgumentException ex) {
+            log.warn("GeoService create rejected: invalid payload placeName={} modernPlaceName={}",
+                normalized.getPlaceName(), normalized.getModernPlaceName(), ex);
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
         }
+        log.info("GeoService create success: placeName={} modernPlaceName={}",
+            saved.getPlaceName(), saved.getModernPlaceName());
         return HttpResponse.created(builder.toGeoServiceItem(saved));
     }
 
@@ -119,11 +128,16 @@ public class GeoCodeEntryController {
     @Put("/geocode")
     @Secured(SecurityRule.IS_ANONYMOUS)
     public HttpResponse<GeoServiceItem> update(@Body final GeoServiceItem item) {
+        log.info("GeoService update attempt: placeName={} modernPlaceName={}",
+            item == null ? null : item.getPlaceName(),
+            item == null ? null : item.getModernPlaceName());
         if (hasBlankName(item)) {
+            log.warn("GeoService update rejected: missing placeName");
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
         }
         final GeoServiceItem normalized = normalize(item);
         if (gcc.get(normalized.getPlaceName()) == null) {
+            log.info("GeoService update not found: placeName={}", normalized.getPlaceName());
             return HttpResponse.status(HttpStatus.NOT_FOUND);
         }
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
@@ -131,8 +145,12 @@ public class GeoCodeEntryController {
         try {
             saved = gcc.update(builder.toGeoCodeItem(normalized));
         } catch (IllegalArgumentException ex) {
+            log.warn("GeoService update rejected: invalid payload placeName={} modernPlaceName={}",
+                normalized.getPlaceName(), normalized.getModernPlaceName(), ex);
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
         }
+        log.info("GeoService update success: placeName={} modernPlaceName={}",
+            saved.getPlaceName(), saved.getModernPlaceName());
         return HttpResponse.ok(builder.toGeoServiceItem(saved));
     }
 
@@ -145,15 +163,19 @@ public class GeoCodeEntryController {
     @Delete("/geocode")
     @Secured(SecurityRule.IS_ANONYMOUS)
     public HttpResponse<GeoServiceItem> delete(@QueryValue("name") final String name) {
+        log.info("GeoService delete attempt: placeName={}", name);
         if (StringUtils.isBlank(name)) {
+            log.warn("GeoService delete rejected: missing placeName");
             return HttpResponse.status(HttpStatus.BAD_REQUEST);
         }
         final GeoCodeItem existing = gcc.get(name);
         if (existing == null) {
+            log.info("GeoService delete not found: placeName={}", name);
             return HttpResponse.status(HttpStatus.NOT_FOUND);
         }
         final GeoCodeItem deleted = gcc.delete(existing);
         final GeocodeResultBuilder builder = new GeocodeResultBuilder();
+        log.info("GeoService delete success: placeName={}", name);
         return HttpResponse.ok(builder.toGeoServiceItem(deleted));
     }
 }

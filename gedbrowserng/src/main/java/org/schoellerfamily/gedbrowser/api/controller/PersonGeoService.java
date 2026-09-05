@@ -1,8 +1,11 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
@@ -93,20 +96,27 @@ public class PersonGeoService {
     public void syncPlacesOnUpdate(final ApiObject before, final ApiObject after) {
         final Map<String, String> currentPlaces = extractPlaces(after);
         final Map<String, String> previousPlaces = extractPlaces(before);
+        final Map<String, Set<String>> currentCandidates = extractPlaceCandidates(after);
+        final Map<String, Set<String>> previousCandidates = extractPlaceCandidates(before);
         log.info("syncPlacesOnUpdate: previousCount={} currentCount={}",
             previousPlaces.size(), currentPlaces.size());
         for (final Map.Entry<String, String> entry : currentPlaces.entrySet()) {
-            final String previousModern = previousPlaces.get(entry.getKey());
-            final String currentModern = entry.getValue();
+            final String placeName = entry.getKey();
+            final String previousModern = previousPlaces.get(placeName);
+            final String currentModern = resolveModernForUpdate(
+                placeName,
+                previousCandidates.get(placeName),
+                currentCandidates.get(placeName),
+                entry.getValue());
             if (previousModern == null || !previousModern.equals(currentModern)) {
                 log.info("syncPlacesOnUpdate changed mapping: placeName={} previousModern={}"
                     + " currentModern={}",
-                    entry.getKey(), previousModern, currentModern);
+                    placeName, previousModern, currentModern);
             } else {
                 log.debug("syncPlacesOnUpdate unchanged mapping: placeName={} modernPlaceName={}",
-                    entry.getKey(), currentModern);
+                    placeName, currentModern);
             }
-            syncOneOnUpdate(entry.getKey(), currentModern);
+            syncOneOnUpdate(placeName, currentModern);
         }
     }
 
@@ -224,6 +234,35 @@ public class PersonGeoService {
         return placeToModern;
     }
 
+    private Map<String, Set<String>> extractPlaceCandidates(final ApiObject object) {
+        final Map<String, Set<String>> placeCandidates = new LinkedHashMap<>();
+        if (object == null || object.getAttributes() == null) {
+            return placeCandidates;
+        }
+        for (final ApiAttribute topLevelAttribute : object.getAttributes()) {
+            collectPlaceCandidates(topLevelAttribute, placeCandidates);
+        }
+        return placeCandidates;
+    }
+
+    private void collectPlaceCandidates(final ApiAttribute attribute,
+            final Map<String, Set<String>> placeCandidates) {
+        if (attribute == null) {
+            return;
+        }
+        final String placeName = readPlaceName(attribute);
+        if (!isBlank(placeName)) {
+            final String modernPlaceName = normalizeModern(placeName, readModernPlaceName(attribute));
+            placeCandidates.computeIfAbsent(placeName, _ -> new LinkedHashSet<>())
+                .add(modernPlaceName);
+        }
+        if (attribute.getAttributes() != null) {
+            for (final ApiAttribute child : attribute.getAttributes()) {
+                collectPlaceCandidates(child, placeCandidates);
+            }
+        }
+    }
+
     private void collectPlaces(final ApiAttribute attribute,
             final Map<String, String> placeToModern) {
         if (attribute == null) {
@@ -336,10 +375,49 @@ public class PersonGeoService {
         return value == null || value.isBlank();
     }
 
+    private String normalizeModern(final String placeName, final String modernPlaceName) {
+        return isBlank(modernPlaceName) ? placeName : modernPlaceName;
+    }
+
+    private String resolveModernForUpdate(final String placeName,
+            final Set<String> previousCandidates,
+            final Set<String> currentCandidates,
+            final String fallbackCurrent) {
+        if (currentCandidates == null || currentCandidates.isEmpty()) {
+            return fallbackCurrent;
+        }
+        final Set<String> previous = previousCandidates == null
+            ? java.util.Collections.emptySet()
+            : previousCandidates;
+
+        for (final String candidate : currentCandidates) {
+            if (!previous.contains(candidate) && !placeName.equals(candidate)) {
+                log.info("syncPlacesOnUpdate conflict resolution: placeName={} selectedNewModern={}"
+                    + " previousCandidates={} currentCandidates={}",
+                    placeName, candidate, previous, currentCandidates);
+                return candidate;
+            }
+        }
+
+        for (final String candidate : currentCandidates) {
+            if (!previous.contains(candidate)) {
+                return candidate;
+            }
+        }
+
+        for (final String candidate : currentCandidates) {
+            if (!placeName.equals(candidate)) {
+                return candidate;
+            }
+        }
+
+        return fallbackCurrent;
+    }
+
     private void putPlaceMapping(final Map<String, String> placeToModern,
             final String placeName,
             final String modernPlaceName) {
-        final String normalizedModern = isBlank(modernPlaceName) ? placeName : modernPlaceName;
+        final String normalizedModern = normalizeModern(placeName, modernPlaceName);
         final String existingModern = placeToModern.get(placeName);
         if (existingModern == null) {
             placeToModern.put(placeName, normalizedModern);
