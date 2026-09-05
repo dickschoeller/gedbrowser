@@ -40,6 +40,9 @@ public class SubmittersController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
+    /** */
+    private final PersonGeoService personGeoService;
+
     private ObjectCrud<ApiSubmitter> crud() {
         return new SubmitterCrud(loader, toDocConverter, repositoryManager);
     }
@@ -55,7 +58,9 @@ public class SubmittersController {
     public ApiSubmitter create(
             @PathVariable final String db,
             @RequestBody final ApiSubmitter submitter) {
-        return crud().createOne(db, submitter);
+        final ApiSubmitter created = crud().createOne(db, submitter);
+        personGeoService.syncPlacesOnCreate(created);
+        return created;
     }
 
     /**
@@ -97,7 +102,10 @@ public class SubmittersController {
             @PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiSubmitter submitter) {
-        return crud().updateOne(db, id, submitter);
+        final ApiSubmitter existing = crud().readOne(db, id);
+        personGeoService.syncPlacesOnUpdate(existing, submitter);
+        final ApiSubmitter updated = crud().updateOne(db, id, submitter);
+        return updated;
     }
 
     /**

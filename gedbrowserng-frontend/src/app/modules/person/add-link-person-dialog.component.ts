@@ -63,6 +63,11 @@ export interface AddLinkPersonDialogResult {
         </mat-form-field>
         <br/>
         <mat-form-field class="wide-field">
+          <mat-label>Birth modern place name</mat-label>
+          <input matInput [(ngModel)]="newPersonData.birthModernPlace">
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="wide-field">
           <mat-label>Death date</mat-label>
           <input matInput [(ngModel)]="newPersonData.deathDate">
         </mat-form-field>
@@ -70,6 +75,11 @@ export interface AddLinkPersonDialogResult {
         <mat-form-field class="wide-field">
           <mat-label>Death place</mat-label>
           <input matInput [(ngModel)]="newPersonData.deathPlace">
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="wide-field">
+          <mat-label>Death modern place name</mat-label>
+          <input matInput [(ngModel)]="newPersonData.deathModernPlace">
         </mat-form-field>
       </div>
     </mat-tab>

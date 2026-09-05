@@ -3,6 +3,8 @@ export class NewPersonDialogData {
   name: string;
   birthDate: string;
   birthPlace: string;
+  birthModernPlace?: string;
   deathDate: string;
   deathPlace: string;
+  deathModernPlace?: string;
 }

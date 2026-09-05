@@ -36,6 +36,9 @@ public class SpousesController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
+    /** */
+    private final PersonGeoService personGeoService;
+
     private SpouseCrud spouseCrud() {
         return new SpouseCrud(loader, toDocConverter, repositoryManager);
     }
@@ -52,7 +55,9 @@ public class SpousesController {
     public ApiPerson createSpouse(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
-        return spouseCrud().createSpouse(db, id, person);
+        personGeoService.syncPlacesOnCreate(person);
+        final ApiPerson created = spouseCrud().createSpouse(db, id, person);
+        return created;
     }
 
     /**
@@ -82,7 +87,9 @@ public class SpousesController {
     public ApiPerson createSpouseInFamily(@PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
-        return spouseCrud().createSpouseInFamily(db, id, person);
+        personGeoService.syncPlacesOnCreate(person);
+        final ApiPerson created = spouseCrud().createSpouseInFamily(db, id, person);
+        return created;
     }
 
     /**

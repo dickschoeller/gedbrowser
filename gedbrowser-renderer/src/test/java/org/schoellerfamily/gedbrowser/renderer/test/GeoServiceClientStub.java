@@ -22,7 +22,7 @@ public class GeoServiceClientStub extends GeoServiceClient {
      * Creates a new GeoServiceClientStub.
      */
     public GeoServiceClientStub() {
-        super(null, null, "localhost", PORT, "http");
+        super(null, null, null, "localhost", PORT, "http");
     }
 
     /**

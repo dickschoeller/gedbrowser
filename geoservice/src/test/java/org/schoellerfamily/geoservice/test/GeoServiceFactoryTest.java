@@ -80,4 +80,5 @@ public final class GeoServiceFactoryTest {
         field.setAccessible(true);
         field.set(factory, keyfile);
     }
+
 }

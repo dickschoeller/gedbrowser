@@ -11,8 +11,18 @@ export class NewPersonHelper {
     person.attributes = new Array<ApiAttribute>();
     NewPersonHelper.addName(data.name, person);
     NewPersonHelper.addSex(data.sex, person);
-    NewPersonHelper.addBirth(data.birthDate, data.birthPlace, person);
-    NewPersonHelper.addDeath(data.deathDate, data.deathPlace, person);
+    NewPersonHelper.addBirth(
+      data.birthDate,
+      data.birthPlace,
+      data.birthModernPlace || '',
+      person
+    );
+    NewPersonHelper.addDeath(
+      data.deathDate,
+      data.deathPlace,
+      data.deathModernPlace || '',
+      person
+    );
     return person;
   }
 
@@ -26,28 +36,28 @@ export class NewPersonHelper {
     person.attributes.push(adh.simpleAttribute('Sex', sex));
   }
 
-  private static addBirth(birthDate, birthPlace, person) {
+  private static addBirth(birthDate, birthPlace, birthModernPlace, person) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
-    if (birthDate !== '' || birthPlace !== '') {
+    if (birthDate !== '' || birthPlace !== '' || birthModernPlace !== '') {
       person.attributes.push(adh.populateNewAttribute({
         insert: true, index: 0,
         type: 'Birth', text: '', date: birthDate, place: birthPlace,
-        note: '',
+        modernPlace: birthModernPlace, note: '',
         originalType: '', originalText: '', originalDate: '', originalPlace: '',
-        originalNote: ''
+        originalModernPlace: '', originalNote: ''
       }));
     }
   }
 
-  private static addDeath(deathDate, deathPlace, person) {
+  private static addDeath(deathDate, deathPlace, deathModernPlace, person) {
     const adh: AttributeDialogHelper = new AttributeDialogHelper(person);
-    if (deathDate !== '' || deathPlace !== '') {
+    if (deathDate !== '' || deathPlace !== '' || deathModernPlace !== '') {
       person.attributes.push(adh.populateNewAttribute({
         insert: true, index: 0,
         type: 'Death', text: '', date: deathDate, place: deathPlace,
-        note: '',
+        modernPlace: deathModernPlace, note: '',
         originalType: '', originalText: '', originalDate: '', originalPlace: '',
-        originalNote: ''
+        originalModernPlace: '', originalNote: ''
       }));
     }
   }
@@ -59,7 +69,8 @@ export class NewPersonHelper {
   public static initNew(sex: string, surname: string): NewPersonDialogData {
     return {
       sex: sex, name: NewPersonHelper.defaultGiven(sex) + '/' + surname + '/',
-      birthDate: '', birthPlace: '', deathDate: '', deathPlace: ''
+      birthDate: '', birthPlace: '', birthModernPlace: '', deathDate: '',
+      deathPlace: '', deathModernPlace: ''
     };
   }
 

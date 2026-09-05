@@ -15,11 +15,13 @@ import org.schoellerfamily.geoservice.persistence.mongo.repository.GeoDocumentRe
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Value;
 import jakarta.inject.Singleton;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Factory for geoservice beans.
  */
 @Factory
+@Slf4j
 public class GeoServiceFactory {
     /** */
     @Value("${geoservice.keyfile:/var/lib/gedbrowser/google-geocoding-key}")
@@ -100,6 +102,7 @@ public class GeoServiceFactory {
             return geoCoder;
         }
         if ("stub".equals(keyfile)) {
+            log.warn("Using StubGeoCoder. Place lookups return fixed coordinates.");
             geoCoder = new StubGeoCoder(new String[0]);
             return geoCoder;
         }

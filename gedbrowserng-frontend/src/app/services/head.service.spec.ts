@@ -48,6 +48,7 @@ describe('HeadService', () => {
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb');
       expect(req.request.method).toBe('GET');
+      expect(req.request.withCredentials).toBe(true);
       req.flush(mockHead);
     });
 
@@ -64,6 +65,7 @@ describe('HeadService', () => {
       const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb');
+      expect(req.request.withCredentials).toBe(true);
       req.flush(mockHead);
 
       const result = await promise;
@@ -76,6 +78,7 @@ describe('HeadService', () => {
       const promise = firstValueFrom(service.getOne(db));
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb');
+      expect(req.request.withCredentials).toBe(true);
       req.flush('Not found', { status: 404, statusText: 'Not Found' });
 
       await expect(promise).rejects.toMatchObject({ status: 404 });
@@ -97,6 +100,7 @@ describe('HeadService', () => {
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb');
       expect(req.request.method).toBe('PUT');
       expect(req.request.body).toEqual(mockHead);
+      expect(req.request.withCredentials).toBe(true);
       req.flush(mockHead);
     });
 
@@ -113,6 +117,7 @@ describe('HeadService', () => {
       const promise = firstValueFrom(result$);
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb');
+      expect(req.request.withCredentials).toBe(true);
       req.flush(mockHead);
 
       const result = await promise;
@@ -129,6 +134,7 @@ describe('HeadService', () => {
       const promise = firstValueFrom(service.put(db, mockHead));
 
       const req = httpMock.expectOne('/gedbrowserng/v1/dbs/testdb');
+      expect(req.request.withCredentials).toBe(true);
       req.flush('Server error', { status: 500, statusText: 'Internal Server Error' });
 
       await expect(promise).rejects.toMatchObject({ status: 500 });

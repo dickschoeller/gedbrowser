@@ -40,6 +40,9 @@ public class NotesController {
         /** */
     private final RepositoryManagerMongo repositoryManager;
 
+    /** */
+    private final PersonGeoService personGeoService;
+
     private ObjectCrud<ApiNote> crud() {
         return new NoteCrud(loader, toDocConverter, repositoryManager);
     }
@@ -55,7 +58,9 @@ public class NotesController {
     public ApiNote create(
             @PathVariable final String db,
             @RequestBody final ApiNote note) {
-        return crud().createOne(db, note);
+        personGeoService.syncPlacesOnCreate(note);
+        final ApiNote created = crud().createOne(db, note);
+        return created;
     }
 
     /**
@@ -97,7 +102,10 @@ public class NotesController {
             @PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiNote note) {
-        return crud().updateOne(db, id, note);
+        final ApiNote existing = crud().readOne(db, id);
+        personGeoService.syncPlacesOnUpdate(existing, note);
+        final ApiNote updated = crud().updateOne(db, id, note);
+        return updated;
     }
 
     /**

@@ -1,6 +1,7 @@
 package org.schoellerfamily.gedbrowser.api.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.schoellerfamily.gedbrowser.api.crud.FamilyCrud;
 import org.schoellerfamily.gedbrowser.api.crud.ObjectCrud;
@@ -40,6 +41,9 @@ public final class FamiliesController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
+    /** */
+    private final PersonGeoService personGeoService;
+
     private ObjectCrud<ApiFamily> crud() {
         return new FamilyCrud(loader, toDocConverter, repositoryManager);
     }
@@ -55,7 +59,9 @@ public final class FamiliesController {
     public ApiFamily create(
             @PathVariable final String db,
             @RequestBody final ApiFamily family) {
-        return crud().createOne(db, family);
+        final ApiFamily created = crud().createOne(db, family);
+        personGeoService.syncPlacesOnCreate(created);
+        return created;
     }
 
     /**
@@ -67,7 +73,9 @@ public final class FamiliesController {
     @GetMapping(value = "/v1/dbs/{db}/families")
     public List<ApiFamily> read(
             @PathVariable final String db) {
-        return crud().readAll(db);
+        return crud().readAll(db).stream()
+            .map(personGeoService::enrichModernPlaces)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -81,7 +89,7 @@ public final class FamiliesController {
     public ApiFamily read(
             @PathVariable final String db,
             @PathVariable final String id) {
-        return crud().readOne(db, id);
+        return personGeoService.enrichModernPlaces(crud().readOne(db, id));
     }
 
     /**
@@ -97,7 +105,10 @@ public final class FamiliesController {
             @PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiFamily family) {
-        return crud().updateOne(db, id, family);
+        final ApiFamily existing = crud().readOne(db, id);
+        final ApiFamily updated = crud().updateOne(db, id, family);
+        personGeoService.syncPlacesOnUpdate(existing, updated);
+        return updated;
     }
 
     /**

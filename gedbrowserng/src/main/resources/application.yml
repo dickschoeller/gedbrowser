@@ -11,8 +11,6 @@ server:
         context-path: /gedbrowserng
 
 spring:
-    profiles:
-        active: test
     main:
         allow-bean-definition-overriding: true
     jackson:

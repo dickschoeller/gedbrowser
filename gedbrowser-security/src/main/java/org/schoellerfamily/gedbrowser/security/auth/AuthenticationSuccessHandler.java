@@ -71,7 +71,7 @@ public class AuthenticationSuccessHandler
         authCookie.setHttpOnly(true);
         authCookie.setMaxAge(expiresIn);
         authCookie.setPath("/");
-        authCookie.setSecure(true);
+        authCookie.setSecure(isSecureRequest(request));
 
         // Add cookie to response
         response.addCookie(authCookie);
@@ -83,4 +83,12 @@ public class AuthenticationSuccessHandler
         response.setContentType("application/json");
         response.getWriter().write(jwtResponse);
     }
+
+        private boolean isSecureRequest(final HttpServletRequest request) {
+                if (request.isSecure()) {
+                        return true;
+                }
+                final String forwardedProto = request.getHeader("X-Forwarded-Proto");
+                return forwardedProto != null && "https".equalsIgnoreCase(forwardedProto);
+        }
 }
