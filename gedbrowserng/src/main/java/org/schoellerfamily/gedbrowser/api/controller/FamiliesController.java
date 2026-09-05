@@ -106,8 +106,8 @@ public final class FamiliesController {
             @PathVariable final String id,
             @RequestBody final ApiFamily family) {
         final ApiFamily existing = crud().readOne(db, id);
-        personGeoService.syncPlacesOnUpdate(existing, family);
         final ApiFamily updated = crud().updateOne(db, id, family);
+        personGeoService.syncPlacesOnUpdate(existing, updated);
         return updated;
     }
 
