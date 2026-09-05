@@ -716,6 +716,52 @@ class GeoServiceClientTest {
         server.verify();
     }
 
+    @Test
+    void testUpsertEvictsCachedPlaceOnSuccessfulWrite() {
+        final String place = "Cache Place";
+        final String url = "http://localhost:8080/geocode";
+        final FeatureCollection geometry = new FeatureCollection();
+        geometry.add(new Feature());
+        geocodeCache().put(place, new GeoServiceItem(
+            place,
+            "Old Modern",
+            new GeoServiceGeocodingResult(null, "Old Address", null, geometry, null, false, null)));
+
+        server.expect(request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("POST", request.getMethod().name());
+        }).andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        client.upsert(place, "New Modern");
+
+        assertNotNull(geocodeCache());
+        assertNull(geocodeCache().get(place, GeoServiceItem.class));
+        server.verify();
+    }
+
+    @Test
+    void testUpdateOrCreateEvictsCachedPlaceOnSuccessfulUpdate() {
+        final String place = "Cache Place";
+        final String url = "http://localhost:8080/geocode";
+        final FeatureCollection geometry = new FeatureCollection();
+        geometry.add(new Feature());
+        geocodeCache().put(place, new GeoServiceItem(
+            place,
+            "Old Modern",
+            new GeoServiceGeocodingResult(null, "Old Address", null, geometry, null, false, null)));
+
+        server.expect(request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("PUT", request.getMethod().name());
+        }).andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        client.updateOrCreate(place, "New Modern");
+
+        assertNotNull(geocodeCache());
+        assertNull(geocodeCache().get(place, GeoServiceItem.class));
+        server.verify();
+    }
+
     private Cache geocodeCache() {
         return cacheManager.getCache(GeoServiceCacheConfig.GEOCODE_CACHE);
     }

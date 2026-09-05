@@ -12,6 +12,8 @@ import org.geojson.Point;
 import org.schoellerfamily.geoservice.model.GeoServiceGeocodingResult;
 import org.schoellerfamily.geoservice.model.GeoServiceItem;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -41,6 +43,9 @@ public class GeoServiceClient {
 
     /** */
     private final RestClient restClient;
+
+    /** */
+    private final CacheManager cacheManager;
 
     /** */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -94,8 +99,12 @@ public class GeoServiceClient {
             ? placeName
             : modernPlaceName;
         final GeoServiceItem item = new GeoServiceItem(placeName, normalizedModern, null);
-        if (!create(item)) {
-            update(item);
+        boolean writeSucceeded = create(item);
+        if (!writeSucceeded) {
+            writeSucceeded = update(item);
+        }
+        if (writeSucceeded) {
+            evictCachedPlace(placeName);
         }
     }
 
@@ -113,9 +122,22 @@ public class GeoServiceClient {
             ? placeName
             : modernPlaceName;
         final GeoServiceItem item = new GeoServiceItem(placeName, normalizedModern, null);
-        if (!update(item)) {
-            create(item);
+        boolean writeSucceeded = update(item);
+        if (!writeSucceeded) {
+            writeSucceeded = create(item);
         }
+        if (writeSucceeded) {
+            evictCachedPlace(placeName);
+        }
+    }
+
+    private void evictCachedPlace(final String placeName) {
+        final Cache cache = cacheManager.getCache(GeoServiceCacheConfig.GEOCODE_CACHE);
+        if (cache == null) {
+            return;
+        }
+        cache.evict(placeName);
+        log.info("GeoService cache evicted: placeName={}", placeName);
     }
 
     private boolean create(final GeoServiceItem item) {
