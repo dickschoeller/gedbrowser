@@ -85,8 +85,8 @@ public final class PersonsController {
         if (!requestUserUtil.hasAdmin()) {
             throw new AccessDeniedException("go away");
         }
-        personGeoService.syncPlacesOnCreate(person);
         final ApiPerson created = crud().createOne(db, person);
+        personGeoService.syncPlacesOnCreate(created);
         return created;
     }
 

@@ -132,8 +132,7 @@ public class WebSecurityConfig {
                         request.getMethod(),
                         request.getRequestURI(),
                         accessDeniedException.getMessage());
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN,
-                        accessDeniedException.getMessage());
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden");
                 }))
             // Add the JWT filter before the basic authentication filter
             .addFilterBefore(jwtAuthenticationTokenFilter(), BasicAuthenticationFilter.class)
