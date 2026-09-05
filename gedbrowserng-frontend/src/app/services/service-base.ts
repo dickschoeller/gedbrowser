@@ -20,7 +20,7 @@ export abstract class ServiceBase<T extends ApiObject> implements ApiService<T> 
     return (error: any) => {
       const status = error?.status;
       const message = error?.message || error?.statusText || 'unknown error';
-      console.error(`[API ${operation}] ${url} failed`, {
+      console.error('[API %s] %s failed', operation, url, {
         status,
         message,
         error
