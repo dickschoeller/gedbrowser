@@ -226,38 +226,57 @@ public class PersonGeoService {
 
     private void collectPlaces(final ApiAttribute attribute,
             final Map<String, String> placeToModern) {
-        if (attribute == null || attribute.getAttributes() == null) {
+        if (attribute == null) {
             return;
         }
         final String placeName = readPlaceName(attribute);
         if (placeName != null && !placeName.isBlank()) {
             final String modernPlaceName = readModernPlaceName(attribute);
-            if (modernPlaceName == null || modernPlaceName.isBlank()) {
-                placeToModern.put(placeName, placeName);
-            } else {
-                placeToModern.put(placeName, modernPlaceName);
-            }
+            putPlaceMapping(placeToModern, placeName, modernPlaceName);
         }
-        for (final ApiAttribute child : attribute.getAttributes()) {
-            collectPlaces(child, placeToModern);
+        if (attribute.getAttributes() != null) {
+            for (final ApiAttribute child : attribute.getAttributes()) {
+                collectPlaces(child, placeToModern);
+            }
         }
     }
 
     private String readPlaceName(final ApiAttribute attribute) {
+        if (attribute == null) {
+            return null;
+        }
+        if (isPlaceAttribute(attribute)) {
+            return placeValue(attribute);
+        }
+        if (attribute.getAttributes() == null) {
+            return null;
+        }
         for (final ApiAttribute child : attribute.getAttributes()) {
-            if (child != null && "place".equalsIgnoreCase(child.getType())) {
-                return child.getString();
+            if (isPlaceAttribute(child)) {
+                return placeValue(child);
             }
         }
         return null;
     }
 
     private String readModernPlaceName(final ApiAttribute attribute) {
+        if (attribute == null) {
+            return null;
+        }
+        if (isPlaceAttribute(attribute)) {
+            final String nested = readModernPlaceNameFromChildren(attribute.getAttributes());
+            if (!isBlank(nested)) {
+                return nested;
+            }
+        }
+        if (attribute.getAttributes() == null) {
+            return null;
+        }
         for (final ApiAttribute child : attribute.getAttributes()) {
             if (child == null) {
                 continue;
             }
-            if ("place".equalsIgnoreCase(child.getType()) && child.getAttributes() != null) {
+            if (isPlaceAttribute(child) && child.getAttributes() != null) {
                 final String nested = readModernPlaceNameFromChildren(child.getAttributes());
                 if (!isBlank(nested)) {
                     return nested;
@@ -268,6 +287,9 @@ public class PersonGeoService {
     }
 
     private String readModernPlaceNameFromChildren(final List<ApiAttribute> children) {
+        if (children == null) {
+            return null;
+        }
         for (final ApiAttribute child : children) {
             if (child == null) {
                 continue;
@@ -285,8 +307,49 @@ public class PersonGeoService {
         return null;
     }
 
+    private boolean isPlaceAttribute(final ApiAttribute attribute) {
+        if (attribute == null) {
+            return false;
+        }
+        if ("place".equalsIgnoreCase(attribute.getType())) {
+            return true;
+        }
+        return "attribute".equalsIgnoreCase(attribute.getType())
+            && "Place".equalsIgnoreCase(attribute.getString());
+    }
+
+    private String placeValue(final ApiAttribute attribute) {
+        if (attribute == null) {
+            return null;
+        }
+        if ("place".equalsIgnoreCase(attribute.getType())) {
+            return attribute.getString();
+        }
+        if ("attribute".equalsIgnoreCase(attribute.getType())
+                && "Place".equalsIgnoreCase(attribute.getString())) {
+            return isBlank(attribute.getTail()) ? attribute.getString() : attribute.getTail();
+        }
+        return null;
+    }
+
     private boolean isBlank(final String value) {
         return value == null || value.isBlank();
+    }
+
+    private void putPlaceMapping(final Map<String, String> placeToModern,
+            final String placeName,
+            final String modernPlaceName) {
+        final String normalizedModern = isBlank(modernPlaceName) ? placeName : modernPlaceName;
+        final String existingModern = placeToModern.get(placeName);
+        if (existingModern == null) {
+            placeToModern.put(placeName, normalizedModern);
+            return;
+        }
+        final boolean existingIsFallback = existingModern.equals(placeName);
+        final boolean newIsSpecific = !normalizedModern.equals(placeName);
+        if (existingIsFallback && newIsSpecific) {
+            placeToModern.put(placeName, normalizedModern);
+        }
     }
 
     private void syncOne(final String placeName, final String modernPlaceName) {
