@@ -132,6 +132,7 @@ public class PersonGeoService {
                 log.debug("syncPlacesOnUpdate unchanged mapping: placeName={} modernPlaceName={}",
                     placeName, currentModern);
             }
+        }
     }
 
     private RenderingContext createRenderingContext(
