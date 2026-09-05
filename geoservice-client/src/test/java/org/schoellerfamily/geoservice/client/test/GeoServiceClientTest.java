@@ -762,6 +762,81 @@ class GeoServiceClientTest {
         server.verify();
     }
 
+    @Test
+    void testUpsertIgnoresBlankPlaceName() {
+        client.upsert("   ", "New Modern");
+        server.verify();
+    }
+
+    @Test
+    void testUpdateOrCreateIgnoresBlankPlaceName() {
+        client.updateOrCreate("", "New Modern");
+        server.verify();
+    }
+
+    @Test
+    void testUpsertFallsBackToUpdateAfterConflictAndEvicts() {
+        final String place = "Cache Place";
+        final String url = "http://localhost:8080/geocode";
+        geocodeCache().put(place, new GeoServiceItem(place, "Old Modern", null));
+
+        server.expect(request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("POST", request.getMethod().name());
+        }).andRespond(withStatus(HttpStatus.CONFLICT));
+        server.expect(request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("PUT", request.getMethod().name());
+        }).andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        client.upsert(place, "New Modern");
+
+        assertNull(geocodeCache().get(place, GeoServiceItem.class));
+        server.verify();
+    }
+
+    @Test
+    void testUpdateOrCreateFallsBackToCreateAfterNotFoundAndEvicts() {
+        final String place = "Cache Place";
+        final String url = "http://localhost:8080/geocode";
+        geocodeCache().put(place, new GeoServiceItem(place, "Old Modern", null));
+
+        server.expect(request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("PUT", request.getMethod().name());
+        }).andRespond(withStatus(HttpStatus.NOT_FOUND));
+        server.expect(request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("POST", request.getMethod().name());
+        }).andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        client.updateOrCreate(place, "New Modern");
+
+        assertNull(geocodeCache().get(place, GeoServiceItem.class));
+        server.verify();
+    }
+
+    @Test
+    void testUpsertDoesNotEvictWhenBothWriteAttemptsFail() {
+        final String place = "Cache Place";
+        final String url = "http://localhost:8080/geocode";
+        geocodeCache().put(place, new GeoServiceItem(place, "Old Modern", null));
+
+        server.expect(request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("POST", request.getMethod().name());
+        }).andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR));
+        server.expect(request -> {
+            assertEquals(url, request.getURI().toString());
+            assertEquals("PUT", request.getMethod().name());
+        }).andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR));
+
+        client.upsert(place, "New Modern");
+
+        assertNotNull(geocodeCache().get(place, GeoServiceItem.class));
+        server.verify();
+    }
+
     private Cache geocodeCache() {
         return cacheManager.getCache(GeoServiceCacheConfig.GEOCODE_CACHE);
     }
