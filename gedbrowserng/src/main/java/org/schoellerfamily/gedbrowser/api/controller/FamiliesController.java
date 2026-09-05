@@ -59,8 +59,8 @@ public final class FamiliesController {
     public ApiFamily create(
             @PathVariable final String db,
             @RequestBody final ApiFamily family) {
-        personGeoService.syncPlacesOnCreate(family);
         final ApiFamily created = crud().createOne(db, family);
+        personGeoService.syncPlacesOnCreate(created);
         return created;
     }
 
