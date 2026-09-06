@@ -56,8 +56,7 @@ public class SpousesController {
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
         personGeoService.syncPlacesOnCreate(person);
-        final ApiPerson created = spouseCrud().createSpouse(db, id, person);
-        return created;
+        return spouseCrud().createSpouse(db, id, person);
     }
 
     /**
@@ -88,8 +87,7 @@ public class SpousesController {
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
         personGeoService.syncPlacesOnCreate(person);
-        final ApiPerson created = spouseCrud().createSpouseInFamily(db, id, person);
-        return created;
+        return spouseCrud().createSpouseInFamily(db, id, person);
     }
 
     /**

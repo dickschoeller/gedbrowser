@@ -60,8 +60,7 @@ public final class ChildrenController {
             @RequestBody final ApiPerson person) {
         log.info("Entering ceateChild");
         personGeoService.syncPlacesOnCreate(person);
-        final ApiPerson created = childCrud().createChild(db, id, person);
-        return created;
+        return childCrud().createChild(db, id, person);
     }
 
     /**
@@ -94,8 +93,7 @@ public final class ChildrenController {
             @RequestBody final ApiPerson person) {
         log.info("Entering ceateChildInFamily");
         personGeoService.syncPlacesOnCreate(person);
-        final ApiPerson created = childCrud().createChildInFamily(db, id, person);
-        return created;
+        return childCrud().createChildInFamily(db, id, person);
     }
 
     /**

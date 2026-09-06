@@ -58,9 +58,8 @@ public class SubmittersController {
     public ApiSubmitter create(
             @PathVariable final String db,
             @RequestBody final ApiSubmitter submitter) {
-        final ApiSubmitter created = crud().createOne(db, submitter);
-        personGeoService.syncPlacesOnCreate(created);
-        return created;
+        personGeoService.syncPlacesOnCreate(submitter);
+        return crud().createOne(db, submitter);
     }
 
     /**
@@ -104,8 +103,7 @@ public class SubmittersController {
             @RequestBody final ApiSubmitter submitter) {
         final ApiSubmitter existing = crud().readOne(db, id);
         personGeoService.syncPlacesOnUpdate(existing, submitter);
-        final ApiSubmitter updated = crud().updateOne(db, id, submitter);
-        return updated;
+        return crud().updateOne(db, id, submitter);
     }
 
     /**

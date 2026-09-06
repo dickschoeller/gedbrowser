@@ -59,8 +59,7 @@ public class NotesController {
             @PathVariable final String db,
             @RequestBody final ApiNote note) {
         personGeoService.syncPlacesOnCreate(note);
-        final ApiNote created = crud().createOne(db, note);
-        return created;
+        return crud().createOne(db, note);
     }
 
     /**
@@ -104,8 +103,7 @@ public class NotesController {
             @RequestBody final ApiNote note) {
         final ApiNote existing = crud().readOne(db, id);
         personGeoService.syncPlacesOnUpdate(existing, note);
-        final ApiNote updated = crud().updateOne(db, id, note);
-        return updated;
+        return crud().updateOne(db, id, note);
     }
 
     /**

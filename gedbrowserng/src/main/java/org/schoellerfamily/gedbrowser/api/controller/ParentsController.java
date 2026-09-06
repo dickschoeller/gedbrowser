@@ -56,8 +56,7 @@ public class ParentsController {
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
         personGeoService.syncPlacesOnCreate(person);
-        final ApiObject created = parentCrud().createParent(db, id, person);
-        return created;
+        return parentCrud().createParent(db, id, person);
     }
 
     /**
