@@ -483,6 +483,11 @@
         <version>${micronaut.security.version}</version>
       </dependency>
       <dependency>
+        <groupId>io.micronaut.reactor</groupId>
+        <artifactId>micronaut-reactor</artifactId>
+        <version>4.2.0</version>
+      </dependency>
+      <dependency>
         <groupId>io.projectreactor</groupId>
         <artifactId>reactor-core</artifactId>
         <version>3.8.7</version>
