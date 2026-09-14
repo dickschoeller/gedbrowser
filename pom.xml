@@ -62,7 +62,7 @@
     <spring-data-commons.version>4.1.1</spring-data-commons.version>
     <tomcat-embed.version>11.0.25</tomcat-embed.version>
     <!-- -->
-    <micronaut.version>5.2.1</micronaut.version>
+    <micronaut.version>5.2.2</micronaut.version>
     <micronaut.security.version>5.3.2</micronaut.security.version>
     <micronaut.test.version>5.1.1</micronaut.test.version>
     <micronaut-maven-plugin.version>5.0.2</micronaut-maven-plugin.version>
@@ -481,6 +481,16 @@
         <groupId>io.micronaut.security</groupId>
         <artifactId>micronaut-security</artifactId>
         <version>${micronaut.security.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.micronaut.reactor</groupId>
+        <artifactId>micronaut-reactor</artifactId>
+        <version>4.2.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.projectreactor</groupId>
+        <artifactId>reactor-core</artifactId>
+        <version>3.8.7</version>
       </dependency>
       <dependency>
         <groupId>org.schoellerfamily.gedbrowser</groupId>
