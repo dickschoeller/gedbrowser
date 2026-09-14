@@ -2392,9 +2392,9 @@ axobject-query@4.1.0:
   integrity sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==
 
 b4a@^1.6.4, b4a@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/b4a/-/b4a-1.8.1.tgz#7f16334ca80127aeb26064a28841acbf174840a4"
-  integrity sha512-aiqre1Nr0B/6DgE2N5vwTc+2/oQZ4Wh1t4NznYY4E00y8LCt6NqdRv81so00oo27D8MVKTpUa/MwUUtBLXCoDw==
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/b4a/-/b4a-1.9.0.tgz#6336313b6e76b299c397afa68676ec6ebc788845"
+  integrity sha512-dpfcF9fDNR6++cthXR67iyhgqWy9CBouAvIWhIntzBG6cvK/cnIPiZQjBwi/ZqjjBEDGfoNDtmB0kTjroOJ3pQ==
 
 balanced-match@^1.0.0:
   version "1.0.2"
@@ -4846,7 +4846,7 @@ postcss-selector-parser@^7.0.0:
     cssesc "^3.0.0"
     util-deprecate "^1.0.2"
 
-postcss@^8.4.49, postcss@^8.5.17, postcss@^8.5.26:
+postcss@^8.4.49, postcss@^8.5.17, postcss@^8.5.28:
   version "8.5.28"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.28.tgz#da4563a99a06e62d6c1cd1acae363224bcaed6e9"
   integrity sha512-RRuzqDtt5Y9h3quz5hWhK+TPnsmVs6WwSU6LkJMeY4HstUEDuYTG8UJSdawMRzmzAtV+KEoG8N3Qg2qLy5vM/A==
@@ -5101,7 +5101,7 @@ rolldown@~1.1.5:
     "@rolldown/binding-win32-arm64-msvc" "1.1.5"
     "@rolldown/binding-win32-x64-msvc" "1.1.5"
 
-rolldown@~1.2.4:
+rolldown@~1.2.6:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/rolldown/-/rolldown-1.2.8.tgz#3a18ad3c74809f05abe9130229b2b8b4249e9e21"
   integrity sha512-Z67nTmhZe7anqnM/EjI392w5i/ANUinjip7QYsOyN37oayduxt3ksdX0hf5OOamkAd53BiIHfbfSzfUmzKFQqQ==
@@ -5313,9 +5313,7 @@ snyk@1.1307.2:
   integrity sha512-YJ/sA1ocsQw8iI1j2E2BQyGVeJXLI6PUVTMiL2yp1uqyu3jX9yWaxunXBgYqCBGs+dfmA7J5Z17b044G7IZjmA==
   dependencies:
     "@sentry/node" "^7.36.0"
-    boolean "*"
     global-agent "^3.0.0"
-    roarr "*"
 
 socks-proxy-agent@^10.0.0:
   version "10.1.0"
@@ -5549,17 +5547,17 @@ tinyrainbow@^3.1.1:
   resolved "https://registry.yarnpkg.com/tinyrainbow/-/tinyrainbow-3.1.1.tgz#c0168387d3d8d70b6b3c2c0936de5fee738cea20"
   integrity sha512-yau8yJdTt989Mm0Bd/236QnzEiPf2xLLTqUZRUJOo/3CB078LSwzei343DgtJVmfJKJE3TMINY1u42SQsP6mXw==
 
-tldts-core@^7.4.12:
-  version "7.4.12"
-  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-7.4.12.tgz#db2ed323e525394f9b65380ef47a0076aa105d36"
-  integrity sha512-nYNzS2WRf4QJmjzFFgAxLOBjyBxAGRbCy9PVBPaglcYyYajh40VBn+v5Ngr96ZMc7oM0+aCJdtQnNejvdBnXMQ==
+tldts-core@^7.4.13:
+  version "7.4.13"
+  resolved "https://registry.yarnpkg.com/tldts-core/-/tldts-core-7.4.13.tgz#5dd4ed4730b34bb12cdc1f8a86c80f07c9780670"
+  integrity sha512-mbYsrih5FRtGxs3Usvl/PqwJsNpp+jsmrdFviiK02teHDG0/HebBG/pqCylje3kzgXYzuLoHJF/0mz9W53t8Xg==
 
 tldts@^7.0.5:
-  version "7.4.12"
-  resolved "https://registry.yarnpkg.com/tldts/-/tldts-7.4.12.tgz#b764e7e3d2cc0ad66ca1a75504a702f3e90a91e2"
-  integrity sha512-WylhSDKVeYnWXL3a+vKTaOxjnOeEGw938hImY8zoRWJjRRK/Jp1K+IihBzIONpUmW4e3WmXT6q5FW6vlESVZCA==
+  version "7.4.13"
+  resolved "https://registry.yarnpkg.com/tldts/-/tldts-7.4.13.tgz#50e9a884162e6091844dadf0696df9353eb8b2be"
+  integrity sha512-iHtaIWWIbMDkCeJdTBzZFGgbluE5J+oHlb2g7+oAz1S1gpuVpabRZdQyd471Vl8UUkcz2vXSL8xZH2kyCe8tfA==
   dependencies:
-    tldts-core "^7.4.12"
+    tldts-core "^7.4.13"
 
 to-regex-range@^5.0.1:
   version "5.0.1"
@@ -5744,15 +5742,15 @@ vite@8.1.5:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vite@8.2.2:
-  version "8.2.2"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-8.2.2.tgz#399aefad3656145145be110d137a07ea5bb55014"
-  integrity sha512-cFKLV/PRgAUlIRm5WjMjJ86jrftzpqcgH+Us+DS8mI3CDNiH30Whrz8uHL3+MOLPAgqbMBAqWdAHAphOAM+z/Q==
+vite@8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-8.3.0.tgz#f9565cfd4879d58d28fa64d3c7aff3b372d2ccc8"
+  integrity sha512-lhZBVvEHefgE+HQZC9O7EBJgCU/nVzFNl7vkS4RE0APtWLP02/8QVIkQtzBxPquh7lq5/78NHipTj7ODQ6XuyQ==
   dependencies:
     lightningcss "^1.33.0"
-    picomatch "^4.0.5"
-    postcss "^8.5.26"
-    rolldown "~1.2.4"
+    picomatch "^4.0.7"
+    postcss "^8.5.28"
+    rolldown "~1.2.6"
     tinyglobby "^0.2.17"
   optionalDependencies:
     fsevents "~2.3.3"
@@ -5972,9 +5970,9 @@ zod@^3.24.1:
   integrity sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==
 
 "zod@^3.25 || ^4.0", zod@^4.0.10:
-  version "4.6.4"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-4.6.4.tgz#1466178e4d8f9cedac31d093ccb7a1f0f97c99dc"
-  integrity sha512-AXSD6hvGdvRjajG/l1cC+d6IrhH+sjmPKtYeQdJIK8MFJl3LyClzS+o/YsVC+zQZPupAaeH5skwwm8YqYH7BqA==
+  version "4.6.5"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-4.6.5.tgz#e3af3edbdc260239c52f73caad05dbbffe6e82cd"
+  integrity sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==
 
 zone.js@0.16.3:
   version "0.16.3"
