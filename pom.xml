@@ -130,7 +130,6 @@
   <description>Gedrowser Top Level</description>
 
   <modules>
-    <module>gedbrowser</module>
     <module>gedbrowser-analytics</module>
     <module>gedbrowser-datamodel</module>
     <module>gedbrowser-dao</module>
