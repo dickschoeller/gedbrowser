@@ -1,3 +1,10 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { saveAs } from 'file-saver';
+
+vi.mock('file-saver', () => ({
+  saveAs: vi.fn(),
+}));
+
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -8,7 +15,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { provideRouter } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import { SideMenuComponent } from './side-menu.component';
 import { DatasetsService, SaveService, UploadService, UserService } from '../../services';
