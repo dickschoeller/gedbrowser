@@ -135,7 +135,6 @@
     <module>gedbrowser-dao</module>
     <module>gedbrowser-mongo-dao</module>
     <module>gedbrowser-reader</module>
-    <module>gedbrowser-renderer</module>
     <module>gedbrowser-security</module>
     <module>gedbrowser-writer</module>
     <module>gedbrowserng</module>
