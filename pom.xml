@@ -62,7 +62,7 @@
     <spring-data-commons.version>4.1.1</spring-data-commons.version>
     <tomcat-embed.version>11.0.26</tomcat-embed.version>
     <!-- -->
-    <micronaut.version>5.2.2</micronaut.version>
+    <micronaut.version>5.2.3</micronaut.version>
     <micronaut.security.version>5.3.2</micronaut.security.version>
     <micronaut.test.version>5.1.1</micronaut.test.version>
     <micronaut-maven-plugin.version>5.0.2</micronaut-maven-plugin.version>
@@ -70,12 +70,12 @@
     <cglib.version>3.3.0</cglib.version>
     <!-- might try 0.9.1 of google -->
     <google-maps-services.version>2.2.0</google-maps-services.version>
-    <jackson-core.version>3.2.2</jackson-core.version>
-    <jackson-databind.version>3.2.2</jackson-databind.version>
-    <jackson-jaxrs-json-provider.version>3.2.2</jackson-jaxrs-json-provider.version>
+    <jackson-core.version>3.2.3</jackson-core.version>
+    <jackson-databind.version>3.2.3</jackson-databind.version>
+    <jackson-jaxrs-json-provider.version>3.2.3</jackson-jaxrs-json-provider.version>
     <jackson-annotations.version>2.22</jackson-annotations.version>
-    <old-jackson-core.version>2.22.2</old-jackson-core.version>
-    <old-jackson-databind.version>2.22.2</old-jackson-databind.version>
+    <old-jackson-core.version>2.22.3</old-jackson-core.version>
+    <old-jackson-databind.version>2.22.3</old-jackson-databind.version>
     <gedcom4j.version>4.0.1</gedcom4j.version>
     <joda-time.version>2.14.4</joda-time.version>
 
@@ -86,7 +86,7 @@
     <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
 
     <geojson-jackson.version>3.0</geojson-jackson.version>
-    <slf4j.version>2.0.19</slf4j.version>
+    <slf4j.version>2.0.20</slf4j.version>
     <anselcharset.version>1.1</anselcharset.version>
     <commons-io.version>2.22.0</commons-io.version>
     <commons-lang3.version>3.20.0</commons-lang3.version>
