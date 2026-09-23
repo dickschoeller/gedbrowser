@@ -522,11 +522,6 @@
       </dependency>
       <dependency>
         <groupId>org.schoellerfamily.gedbrowser</groupId>
-        <artifactId>gedbrowser-renderer</artifactId>
-        <version>${gedbrowser.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.schoellerfamily.gedbrowser</groupId>
         <artifactId>gedbrowser-security</artifactId>
         <version>${gedbrowser.version}</version>
       </dependency>

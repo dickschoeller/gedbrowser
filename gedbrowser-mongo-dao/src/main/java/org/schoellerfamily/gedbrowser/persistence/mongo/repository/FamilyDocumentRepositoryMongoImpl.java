@@ -39,11 +39,11 @@ public class FamilyDocumentRepositoryMongoImpl implements
      * Finds the by file and string.
      *
      * @param filename the filename to use
+     * @param string the string to use
      * @return the resulting family document
      */
     @Override
-    public final FamilyDocument findByFileAndString(final String filename,
-            final String string) {
+    public final FamilyDocument findByFileAndString(final String filename, final String string) {
         final Query searchQuery = new Query(Criteria.where("string").is(string)
                 .and(FILENAME).is(filename));
         final FamilyDocumentMongo familyDocument =
