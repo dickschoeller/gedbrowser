@@ -4690,9 +4690,9 @@ prelude-ls@^1.2.1:
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
 primeicons@^8.0.0:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-8.0.1.tgz#312c1d614ad1d01e68db6ccd12b06ea88ad59896"
-  integrity sha512-5O1zIpEKUk0pKfEQSdNVJRxPivo0271zAe7vnZGl+fughxixv4PnVou2J6pPy2wy83nrDn58BqeBwWnpCZmjkw==
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-8.0.2.tgz#2bdcc8a9679791e7dd20b65c2c32121cd1aa5b38"
+  integrity sha512-o3UQey3nXMEQRAudVYZZWswz6mmnWpPnksYb7wIu4rEEVfdS3pLnxnmSJx5gKBRMer1MxnhJZG5QRDxVVJFNkA==
 
 primeng@22.1.1:
   version "22.1.1"
