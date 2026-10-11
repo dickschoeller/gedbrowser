@@ -48,6 +48,7 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Build with Maven
+      uses: actions/cache@v6
       with:
         java-version: '25.0.4+101.0.LTS'
         distribution: 'temurin'
