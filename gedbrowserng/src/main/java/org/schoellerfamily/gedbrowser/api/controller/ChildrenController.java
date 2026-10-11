@@ -39,6 +39,9 @@ public final class ChildrenController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
+    /** */
+    private final PersonGeoService personGeoService;
+
     private ChildCrud childCrud() {
         return new ChildCrud(loader, toDocConverter, repositoryManager);
     }
@@ -56,6 +59,7 @@ public final class ChildrenController {
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
         log.info("Entering ceateChild");
+        personGeoService.syncPlacesOnCreate(person);
         return childCrud().createChild(db, id, person);
     }
 
@@ -88,6 +92,7 @@ public final class ChildrenController {
             @PathVariable final String id,
             @RequestBody final ApiPerson person) {
         log.info("Entering ceateChildInFamily");
+        personGeoService.syncPlacesOnCreate(person);
         return childCrud().createChildInFamily(db, id, person);
     }
 

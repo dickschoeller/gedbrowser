@@ -14,10 +14,9 @@ spring:
     jackson:
         serialization:
             INDENT_OUTPUT: true
-    data:
-        mongodb:
-            host: localhost
-            port: 27017
+    mongodb:
+        host: localhost
+        port: 27017
 jwt:
     expires_in: 600
 

@@ -42,6 +42,11 @@ import { MatButton } from '@angular/material/button';
   </mat-form-field>
   <br/>
   <mat-form-field class="wide-field">
+    <mat-label>Birth modern place name</mat-label>
+    <input matInput [(ngModel)]="data.birthModernPlace">
+  </mat-form-field>
+  <br/>
+  <mat-form-field class="wide-field">
     <mat-label>Death date</mat-label>
     <input matInput [(ngModel)]="data.deathDate">
   </mat-form-field>
@@ -49,6 +54,11 @@ import { MatButton } from '@angular/material/button';
   <mat-form-field class="wide-field">
     <mat-label>Death place</mat-label>
     <input matInput [(ngModel)]="data.deathPlace">
+  </mat-form-field>
+  <br/>
+  <mat-form-field class="wide-field">
+    <mat-label>Death modern place name</mat-label>
+    <input matInput [(ngModel)]="data.deathModernPlace">
   </mat-form-field>
   <br/>
 </div>

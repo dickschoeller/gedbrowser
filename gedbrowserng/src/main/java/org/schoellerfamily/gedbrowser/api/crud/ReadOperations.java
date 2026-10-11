@@ -109,7 +109,7 @@ public interface ReadOperations<
         return java.util.stream.StreamSupport.stream(a.spliterator(), false)
             .filter(doc -> doc != null && doc.getString() != null)
             .collect(Collectors.toMap(
-                Y::getString,
+                y -> y.getString(),
                 Function.identity(),
                 (first, _) -> first,
                 java.util.LinkedHashMap::new))

@@ -2,7 +2,6 @@ package org.schoellerfamily.gedbrowser.api.crud;
 
 import java.util.List;
 
-import org.schoellerfamily.gedbrowser.api.datamodel.ApiAttribute;
 import org.schoellerfamily.gedbrowser.api.datamodel.ApiPerson;
 import org.schoellerfamily.gedbrowser.api.loader.GedObjectFileLoader;
 import org.schoellerfamily.gedbrowser.datamodel.Person;
@@ -149,7 +148,7 @@ public class PersonCrud
     private ApiPerson unlinkFamc(final String db, final ApiPerson person) {
         ApiPerson newPerson = person;
         final List<String> famcList = newPerson.getFamcs().stream()
-                .map(ApiAttribute::getString)
+                .map(attribute -> attribute.getString())
                 .toList();
         for (final String famc : famcList) {
             newPerson = childCrud().unlinkChild(
@@ -166,7 +165,7 @@ public class PersonCrud
     private ApiPerson unlinkFams(final String db, final ApiPerson person) {
         ApiPerson newPerson = person;
         final List<String> famsList = newPerson.getFamss().stream()
-                .map(ApiAttribute::getString)
+                .map(attribute -> attribute.getString())
                 .toList();
         for (final String fams : famsList) {
             newPerson = spouseCrud().unlinkSpouseInFamily(

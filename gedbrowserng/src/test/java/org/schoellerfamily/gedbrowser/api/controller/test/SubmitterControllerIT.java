@@ -59,7 +59,7 @@ class SubmitterControllerIT {
             .exchange()
             .returnResult(String.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .matches(e -> ControllerTestHelper.containsAll(e.getResponseBody(),
                 "\"type\" : \"submitter\"",
                 "\"string\" : \"U1\"",
@@ -83,8 +83,8 @@ class SubmitterControllerIT {
             + "    \"tail\" : \"\"\n" + "  } ],\n" + "  \"name\" : \"Phil Williams\"\n" + "}";
 
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
-            .returns(bodyFragment, EntityExchangeResult::getResponseBody);
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
+            .returns(bodyFragment, result -> result.getResponseBody());
     }
 
     @Test
@@ -99,7 +99,7 @@ class SubmitterControllerIT {
 
         assertThat(entity).returns(
             HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
-            EntityExchangeResult::getStatus);
+            result -> result.getStatus());
     }
 
     @Test
@@ -115,7 +115,7 @@ class SubmitterControllerIT {
             .exchange()
             .returnResult(ApiSubmitter.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .returns(reqBody.getType(), e -> e.getResponseBody().getType());
     }
 
@@ -138,7 +138,7 @@ class SubmitterControllerIT {
 
         assertThat(submitterEntity).returns(
             HttpStatusCode.valueOf(HttpStatus.OK.value()),
-            EntityExchangeResult::getStatus);
+            result -> result.getStatus());
         // Capture information about new submitter.
         final ApiSubmitter resBody = submitterEntity.getResponseBody();
         final String id = resBody.getString();
@@ -152,7 +152,7 @@ class SubmitterControllerIT {
 
         assertThat(preDeleteEntity).returns(
             HttpStatusCode.valueOf(HttpStatus.OK.value()),
-            EntityExchangeResult::getStatus);
+            result -> result.getStatus());
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(deleteUrl))
             .exchange()
@@ -160,7 +160,7 @@ class SubmitterControllerIT {
 
         assertThat(deleteEntity).returns(
             HttpStatusCode.valueOf(HttpStatus.OK.value()),
-            EntityExchangeResult::getStatus);
+            result -> result.getStatus());
         final EntityExchangeResult<ApiSubmitter> postDeleteEntity = restTestClient.get()
             .uri(URI.create(deleteUrl))
             .accept(MediaType.APPLICATION_JSON)
@@ -168,7 +168,7 @@ class SubmitterControllerIT {
             .returnResult(ApiSubmitter.class);
         assertThat(postDeleteEntity).returns(
             HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
-            EntityExchangeResult::getStatus);
+            result -> result.getStatus());
     }
 
     @Test
@@ -185,14 +185,14 @@ class SubmitterControllerIT {
             .returnResult(ApiSubmitter.class);
         assertThat(preDeleteEntity).returns(
             HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
-            EntityExchangeResult::getStatus);
+            result -> result.getStatus());
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .exchange()
             .returnResult(String.class);
         assertThat(deleteEntity).returns(
             HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
-            EntityExchangeResult::getStatus);
+            result -> result.getStatus());
     }
 
     @Test
@@ -209,14 +209,14 @@ class SubmitterControllerIT {
             .returnResult(ApiSubmitter.class);
         assertThat(preDeleteEntity).returns(
             HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
-            EntityExchangeResult::getStatus);
+            result -> result.getStatus());
         final EntityExchangeResult<String> deleteEntity = restTestClient.delete()
             .uri(URI.create(url))
             .exchange()
             .returnResult(String.class);
         assertThat(deleteEntity).returns(
             HttpStatusCode.valueOf(HttpStatus.NOT_FOUND.value()),
-            EntityExchangeResult::getStatus);
+            result -> result.getStatus());
     }
 
     @Test
@@ -238,7 +238,7 @@ class SubmitterControllerIT {
             .exchange()
             .returnResult(ApiSubmitter.class);
         assertThat(entity)
-            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), EntityExchangeResult::getStatus)
+            .returns(HttpStatusCode.valueOf(HttpStatus.OK.value()), result -> result.getStatus())
             .returns(reqBody.getType(), e -> e.getResponseBody().getType());
         final ApiSubmitter resBody = entity.getResponseBody();
 

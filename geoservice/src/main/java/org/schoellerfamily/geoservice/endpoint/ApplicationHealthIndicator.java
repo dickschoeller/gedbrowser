@@ -5,41 +5,46 @@ import java.util.Map;
 
 import org.schoellerfamily.geoservice.controller.ApplicationInfo;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.springframework.boot.health.contributor.Health;
-import org.springframework.boot.health.contributor.Health.Builder;
-import org.springframework.boot.health.contributor.HealthIndicator;
-import org.springframework.stereotype.Component;
-
-import lombok.RequiredArgsConstructor;
-
-
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
 
 /**
  * Reports status information for application health.
  *
  * @author Richard Schoeller
  */
-@Component
-@RequiredArgsConstructor
-public class ApplicationHealthIndicator implements HealthIndicator {
+@Controller("/actuator")
+public class ApplicationHealthIndicator {
     /** */
     private final GeoCode gcc;
 
     /** */
     private final ApplicationInfo appInfo;
+
+    /**
+     * Create health endpoint.
+     *
+     * @param gcc geocode service
+     * @param appInfo application info provider
+     */
+    public ApplicationHealthIndicator(final GeoCode gcc, final ApplicationInfo appInfo) {
+        this.gcc = gcc;
+        this.appInfo = appInfo;
+    }
     /**
      * Executes health.
      *
      * @return the resulting health
      */
-    @Override
-    public final Health health() {
-        final Builder upBuilder = Health.up();
+    @Get("/health")
+    public final Map<String, Object> health() {
+        final Map<String, Object> root = new HashMap<>();
         final Map<String, Object> cacheMap = new HashMap<>();
-        upBuilder.withDetail("version", appInfo.getVersion());
         cacheMap.put("size", gcc.size());
         cacheMap.put("geocoded", gcc.size() - gcc.countNotFound());
-        upBuilder.withDetail("cache", cacheMap);
-        return upBuilder.build();
+        root.put("status", "UP");
+        root.put("version", appInfo.getVersion());
+        root.put("cache", cacheMap);
+        return root;
     }
 }

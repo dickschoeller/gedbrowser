@@ -114,6 +114,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}`);
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(entity);
+      expect(req.request.withCredentials).toBe(true);
       req.flush(entity);
 
       const result = await promise;
@@ -130,6 +131,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
 
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}`);
       expect(req.request.method).toBe('GET');
+      expect(req.request.withCredentials).toBe(true);
       req.flush(entities);
 
       const result = await promise;
@@ -144,6 +146,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
 
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}`);
       expect(req.request.method).toBe('GET');
+      expect(req.request.withCredentials).toBe(true);
       req.flush(entities);
 
       const result = await promise;
@@ -156,6 +159,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
         const promise = firstValueFrom(result$);
 
         const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}`);
+        expect(req.request.withCredentials).toBe(true);
         req.flush([]);
 
         const result = await promise;
@@ -173,6 +177,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
 
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}/${id}`);
       expect(req.request.method).toBe('GET');
+      expect(req.request.withCredentials).toBe(true);
       req.flush(entity);
 
       const result = await promise;
@@ -186,6 +191,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
         const req = getHttpMock().expectOne(
           `/gedbrowserng/v1/dbs/${testDb}/${resource}/NOTFOUND`
         );
+        expect(req.request.withCredentials).toBe(true);
         req.flush('Not found', { status: 404, statusText: 'Not Found' });
 
         await expect(promise).rejects.toMatchObject({ status: 404 });
@@ -204,6 +210,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}/${entityId}`);
       expect(req.request.method).toBe('PUT');
       expect(req.request.body).toEqual(entity);
+      expect(req.request.withCredentials).toBe(true);
       req.flush(entity);
 
       const result = await promise;
@@ -221,6 +228,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
       const entityId = getEntityId(entity);
       const req = getHttpMock().expectOne(`/gedbrowserng/v1/dbs/${testDb}/${resource}/${entityId}`);
       expect(req.request.method).toBe('DELETE');
+      expect(req.request.withCredentials).toBe(true);
       req.flush(entity);
 
       const result = await promise;
@@ -245,6 +253,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
           );
           expect(req.request.method).toBe('POST');
           expect(req.request.body).toEqual(entity);
+          expect(req.request.withCredentials).toBe(true);
           req.flush(entity);
 
           const result = await promise;
@@ -267,6 +276,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
           );
           expect(req.request.method).toBe('PUT');
           expect(req.request.body).toEqual(entity);
+          expect(req.request.withCredentials).toBe(true);
           req.flush(entity);
 
           const result = await promise;
@@ -288,6 +298,7 @@ export const describeCrudResourceService = <T>(config: CrudSpecConfig<T>) => {
             r.url.includes(`/${resource}/${link.parentId}/${link.collection}/${link.childId}`)
           );
           expect(req.request.method).toBe('DELETE');
+          expect(req.request.withCredentials).toBe(true);
           req.flush(entity);
 
           const result = await promise;

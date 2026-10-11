@@ -40,6 +40,9 @@ public class SourcesController {
     /** */
     private final RepositoryManagerMongo repositoryManager;
 
+    /** */
+    private final PersonGeoService personGeoService;
+
     private ObjectCrud<ApiSource> crud() {
         return new SourceCrud(loader, toDocConverter, repositoryManager);
     }
@@ -55,7 +58,9 @@ public class SourcesController {
     public ApiSource create(
             @PathVariable final String db,
             @RequestBody final ApiSource source) {
-        return crud().createOne(db, source);
+        personGeoService.syncPlacesOnCreate(source);
+        final ApiSource created = crud().createOne(db, source);
+        return created;
     }
 
     /**
@@ -97,7 +102,10 @@ public class SourcesController {
             @PathVariable final String db,
             @PathVariable final String id,
             @RequestBody final ApiSource source) {
-        return crud().updateOne(db, id, source);
+        final ApiSource existing = crud().readOne(db, id);
+        personGeoService.syncPlacesOnUpdate(existing, source);
+        final ApiSource updated = crud().updateOne(db, id, source);
+        return updated;
     }
 
     /**

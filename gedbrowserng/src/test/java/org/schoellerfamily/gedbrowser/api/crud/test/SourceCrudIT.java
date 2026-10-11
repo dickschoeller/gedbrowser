@@ -71,22 +71,23 @@ class SourceCrudIT {
         final List<ApiSource> list = crud.readAll(helper.getDb());
         final ApiSource firstSource = list.get(0);
         assertThat(firstSource)
-            .returns("S1688", ApiSource::getString)
+            .returns("S1688", source -> source.getString())
             .returns(true, o -> o.getImages().isEmpty())
-            .returns("1841 England Census", ApiSource::getTitle);
+            .returns("1841 England Census", source -> source.getTitle());
         final List<ApiAttribute> attributes = firstSource.getAttributes();
         assertThat(attributes.get(0))
-            .returns("attribute", ApiAttribute::getType)
-            .returns("Author", ApiAttribute::getString)
-            .returns("Ancestry.com", ApiAttribute::getTail);
+            .returns("attribute", attribute -> attribute.getType())
+            .returns("Author", attribute -> attribute.getString())
+            .returns("Ancestry.com", attribute -> attribute.getTail());
         assertThat(attributes.get(1))
-            .returns("attribute", ApiAttribute::getType)
-            .returns("Title", ApiAttribute::getString)
-            .returns("1841 England Census", ApiAttribute::getTail);
+            .returns("attribute", attribute -> attribute.getType())
+            .returns("Title", attribute -> attribute.getString())
+            .returns("1841 England Census", attribute -> attribute.getTail());
         assertThat(attributes.get(2))
-            .returns("attribute", ApiAttribute::getType)
-            .returns("Published", ApiAttribute::getString)
-            .returns("Provo, UT, USA: The Generations Network, Inc., 2006", ApiAttribute::getTail);
+            .returns("attribute", attribute -> attribute.getType())
+            .returns("Published", attribute -> attribute.getString())
+            .returns("Provo, UT, USA: The Generations Network, Inc., 2006",
+                attribute -> attribute.getTail());
     }
 
     @Test
@@ -95,22 +96,23 @@ class SourceCrudIT {
         final List<ApiSource> list = crud.readAll("mini-schoeller");
         final ApiSource firstSource = list.get(0);
         assertThat(firstSource)
-            .returns("S2", ApiSource::getString)
+            .returns("S2", source -> source.getString())
             .returns(true, o -> o.getImages().isEmpty())
-            .returns("Schoeller, Melissa Robinson, birth certificate", ApiSource::getTitle);
+            .returns("Schoeller, Melissa Robinson, birth certificate", source -> source.getTitle());
         final List<ApiAttribute> attributes = firstSource.getAttributes();
         assertThat(attributes.get(0))
-            .returns("attribute", ApiAttribute::getType)
-            .returns("Title", ApiAttribute::getString)
-            .returns("Schoeller, Melissa Robinson, birth certificate", ApiAttribute::getTail);
+            .returns("attribute", attribute -> attribute.getType())
+            .returns("Title", attribute -> attribute.getString())
+            .returns("Schoeller, Melissa Robinson, birth certificate",
+                attribute -> attribute.getTail());
         assertThat(attributes.get(1))
-            .returns("attribute", ApiAttribute::getType)
-            .returns("Abbreviation", ApiAttribute::getString)
-            .returns("SchoellerMelissaBirthCert", ApiAttribute::getTail);
+            .returns("attribute", attribute -> attribute.getType())
+            .returns("Abbreviation", attribute -> attribute.getString())
+            .returns("SchoellerMelissaBirthCert", attribute -> attribute.getTail());
         assertThat(attributes.get(2))
-            .returns("attribute", ApiAttribute::getType)
-            .returns("Note", ApiAttribute::getString)
-            .returns("We have the original of this document", ApiAttribute::getTail);
+            .returns("attribute", attribute -> attribute.getType())
+            .returns("Note", attribute -> attribute.getString())
+            .returns("We have the original of this document", attribute -> attribute.getTail());
     }
 
     @Test
@@ -118,22 +120,23 @@ class SourceCrudIT {
         log.info("Beginning testReadSourcesMiniSchoellerS2");
         final ApiSource firstSource = crud.readOne("mini-schoeller", "S2");
         assertThat(firstSource)
-            .returns("S2", ApiSource::getString)
+            .returns("S2", source -> source.getString())
             .returns(true, o -> o.getImages().isEmpty())
-            .returns("Schoeller, Melissa Robinson, birth certificate", ApiSource::getTitle);
+            .returns("Schoeller, Melissa Robinson, birth certificate", source -> source.getTitle());
         final List<ApiAttribute> attributes = firstSource.getAttributes();
         assertThat(attributes.get(0))
-            .returns("attribute", ApiAttribute::getType)
-            .returns("Title", ApiAttribute::getString)
-            .returns("Schoeller, Melissa Robinson, birth certificate", ApiAttribute::getTail);
+            .returns("attribute", attribute -> attribute.getType())
+            .returns("Title", attribute -> attribute.getString())
+            .returns("Schoeller, Melissa Robinson, birth certificate",
+                attribute -> attribute.getTail());
         assertThat(attributes.get(1))
-            .returns("attribute", ApiAttribute::getType)
-            .returns("Abbreviation", ApiAttribute::getString)
-            .returns("SchoellerMelissaBirthCert", ApiAttribute::getTail);
+            .returns("attribute", attribute -> attribute.getType())
+            .returns("Abbreviation", attribute -> attribute.getString())
+            .returns("SchoellerMelissaBirthCert", attribute -> attribute.getTail());
         assertThat(attributes.get(2))
-            .returns("attribute", ApiAttribute::getType)
-            .returns("Note", ApiAttribute::getString)
-            .returns("We have the original of this document", ApiAttribute::getTail);
+            .returns("attribute", attribute -> attribute.getType())
+            .returns("Note", attribute -> attribute.getString())
+            .returns("We have the original of this document", attribute -> attribute.getTail());
     }
 
     @Test

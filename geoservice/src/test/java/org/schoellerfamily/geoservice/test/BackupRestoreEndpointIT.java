@@ -1,67 +1,57 @@
 package org.schoellerfamily.geoservice.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.schoellerfamily.geoservice.Application;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalManagementPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.web.servlet.client.EntityExchangeResult;
-import org.springframework.test.web.servlet.client.RestTestClient;
-
-
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.client.HttpClient;
+import io.micronaut.http.client.annotation.Client;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import jakarta.inject.Inject;
 
 /**
  * Contains integration tests for the backup restore endpoint.
  *
  * @author Richard Schoeller
  */
-@SpringBootTest(classes = Application.class,
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@MicronautTest(environments = "test")
 @SuppressWarnings({ "PMD.JUnitTestsShouldIncludeAssert" })
 @TestMethodOrder(MethodOrderer.MethodName.class)
-@AutoConfigureRestTestClient
 class BackupRestoreEndpointIT {
-    /**
-     * Management port.
-     */
-    @LocalManagementPort
-    private int mgt;
+    /** HTTP client bound to embedded test server. */
+    @Inject
+    @Client("/")
+    private HttpClient client;
 
-    /**
-     * Not sure what this is good for.
-     */
-    @Autowired
-    private RestTestClient restTestClient;
+    private HttpResponse<?> response(final String uri) {
+        try {
+            return client.toBlocking().exchange(HttpRequest.GET(uri), String.class);
+        } catch (HttpClientResponseException ex) {
+            return ex.getResponse();
+        }
+    }
 
     @Test
     void shouldReturn200WhenSendingRequestToBackupEndpoint() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri("http://localhost:" + mgt + "/actuator/backup")
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getResponseBody()).contains("backup succeeded to/from")
+        final HttpResponse<?> response = response("/actuator/backup");
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertThat(response.getBody(String.class).orElse(""))
+            .contains("backup succeeded to/from")
             .contains("locations in the cache");
     }
 
     @Test
     void shouldReturn200WhenSendingRequestToRestoreEndpoint() {
-        final EntityExchangeResult<String> entity = restTestClient.get()
-                .uri("http://localhost:" + this.mgt + "/actuator/restore")
-                .exchange()
-                .returnResult(String.class);
-
-        assertThat(entity.getStatus()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getResponseBody()).contains("restore succeeded to/from")
+        final HttpResponse<?> response = response("/actuator/restore");
+        assertEquals(HttpStatus.OK, response.getStatus());
+        assertThat(response.getBody(String.class).orElse(""))
+            .contains("restore succeeded to/from")
             .contains("locations in the cache");
     }
 }

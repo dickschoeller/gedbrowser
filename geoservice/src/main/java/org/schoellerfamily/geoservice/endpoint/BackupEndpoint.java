@@ -6,10 +6,9 @@ import java.util.List;
 
 import org.schoellerfamily.geoservice.backup.GeoCodeBackup;
 import org.schoellerfamily.geoservice.persistence.GeoCode;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.stereotype.Component;
+import io.micronaut.context.annotation.Value;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
 
 
 
@@ -18,8 +17,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Richard Schoeller
  */
-@Component
-@Endpoint(id = "backup")
+@Controller("/actuator")
 public class BackupEndpoint extends BaseBackupEndpoint {
     /** */
     private final GeoCodeBackup backupManager;
@@ -54,7 +52,7 @@ public class BackupEndpoint extends BaseBackupEndpoint {
      *
      * @return the resulting list
      */
-    @ReadOperation
+    @Get("/backup")
     public List<String> invokeEndpoint() {
         return super.invoke();
     }

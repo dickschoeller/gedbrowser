@@ -174,7 +174,7 @@ public final class RepositoryFinderMongo implements FinderStrategy {
             .getPersonDocumentRepository()
             .findByRootAndSurname(rootDocument, surname);
         final List<Person> persons = personDocuments.stream()
-            .map(PersonDocument::getGedObject)
+            .map(personDocument -> personDocument.getGedObject())
             .toList();
         log.info("Ending findBySurname");
         return persons;

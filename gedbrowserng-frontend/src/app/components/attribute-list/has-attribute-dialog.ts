@@ -16,7 +16,13 @@ export abstract class HasAttributeDialog implements HasAttributeList {
       });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.info('[AttributeDialog] closed', {
+        hasResult: result !== undefined,
+        deleted: !!result?.deleted,
+        type: result?.type
+      });
       if (result !== undefined) {
+        console.info('[AttributeDialog] invoking callback for save path');
         callback(result);
       }
     });

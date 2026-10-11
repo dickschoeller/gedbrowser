@@ -95,6 +95,71 @@ describe('AttributeDialogHelper', () => {
       expect(data.note).toBe('Some note text');
     });
 
+    it('extracts modern place from string/tail shape', () => {
+      mockParent.attribute.attributes = [
+        { type: 'attribute', string: 'Modern place', tail: 'Boston, Massachusetts, USA' }
+      ];
+
+      const data = helper.buildData(true);
+
+      expect(data.modernPlace).toBe('Boston, Massachusetts, USA');
+    });
+
+    it('extracts modern place nested under place', () => {
+      mockParent.attribute.attributes = [
+        {
+          type: 'place', string: 'Towamensing Township, PA, USA', tail: '',
+          attributes: [
+            { type: 'attribute', string: 'Modern place', tail: 'Towamensing Township, PA, USA' }
+          ]
+        }
+      ];
+
+      const data = helper.buildData(true);
+
+      expect(data.modernPlace).toBe('Towamensing Township, PA, USA');
+    });
+
+    it('extracts modern place from type-based modernplace shape', () => {
+      mockParent.attribute.attributes = [
+        { type: 'modernplace', string: 'Needham, Massachusetts, USA', tail: '' }
+      ];
+
+      const data = helper.buildData(true);
+
+      expect(data.modernPlace).toBe('Needham, Massachusetts, USA');
+    });
+
+    it('matches modern place key case-insensitively', () => {
+      mockParent.attribute.attributes = [
+        { type: 'attribute', string: 'MODERN PLACE', tail: 'Providence, Rhode Island, USA' }
+      ];
+
+      const data = helper.buildData(true);
+
+      expect(data.modernPlace).toBe('Providence, Rhode Island, USA');
+    });
+
+    it('extracts modern place from condensed modernplace string key', () => {
+      mockParent.attribute.attributes = [
+        { type: 'attribute', string: 'ModernPlace', tail: 'Quincy, Massachusetts, USA' }
+      ];
+
+      const data = helper.buildData(true);
+
+      expect(data.modernPlace).toBe('Quincy, Massachusetts, USA');
+    });
+
+    it('extracts modern place from type modernplace when value is in tail', () => {
+      mockParent.attribute.attributes = [
+        { type: 'modernplace', string: 'Modern place', tail: 'Lowell, Massachusetts, USA' }
+      ];
+
+      const data = helper.buildData(true);
+
+      expect(data.modernPlace).toBe('Lowell, Massachusetts, USA');
+    });
+
     it('handles missing attributes gracefully', () => {
       mockParent.attribute.attributes = [];
 
@@ -127,6 +192,32 @@ describe('AttributeDialogHelper', () => {
 
       expect(mockParent.attribute.type).toBe('name');
       expect(mockParent.attribute.string).toBe('Jane Doe');
+    });
+
+    it('does not throw when existing children contain sparse fields', () => {
+      mockParent.attribute.attributes = [
+        { type: undefined, string: undefined, tail: '' },
+        { type: 'date', string: '1 JAN 2000', tail: '' }
+      ];
+
+      const data: AttributeDialogData = {
+        insert: false,
+        index: 0,
+        type: 'Birth',
+        text: '',
+        date: '2 FEB 2001',
+        place: 'Springfield',
+        modernPlace: 'Springfield, Illinois, USA',
+        note: 'Updated note',
+        originalType: 'Birth',
+        originalText: '',
+        originalDate: '1 JAN 2000',
+        originalPlace: '',
+        originalModernPlace: '',
+        originalNote: ''
+      };
+
+      expect(() => helper.populateParentAttribute(data)).not.toThrow();
     });
   });
 
@@ -273,6 +364,34 @@ describe('AttributeDialogHelper', () => {
 
       expect(noteAttr).toBeDefined();
       expect(noteAttr?.tail).toBe('Some note');
+    });
+
+    it('stores modern place as a sub-attribute of place', () => {
+      const data: AttributeDialogData = {
+        insert: true,
+        index: 0,
+        type: 'Birth',
+        text: '',
+        date: '',
+        place: 'Old Town, PA, USA',
+        modernPlace: 'New Town, PA, USA',
+        note: '',
+        originalType: 'Birth',
+        originalText: '',
+        originalDate: '',
+        originalPlace: '',
+        originalModernPlace: '',
+        originalNote: ''
+      };
+
+      const attribute = helper.populateNewAttribute(data);
+      const placeAttr = attribute.attributes.find((a: any) => a.type === 'place');
+      const modernAttr = placeAttr?.attributes?.find((a: any) => a.string === 'Modern place');
+      const topLevelModern = attribute.attributes.find((a: any) => a.string === 'Modern place');
+
+      expect(placeAttr).toBeDefined();
+      expect(modernAttr?.tail).toBe('New Town, PA, USA');
+      expect(topLevelModern).toBeUndefined();
     });
 
     it('deletes empty date attributes', () => {

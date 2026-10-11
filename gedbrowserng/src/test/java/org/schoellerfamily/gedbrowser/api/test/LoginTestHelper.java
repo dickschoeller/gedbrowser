@@ -95,7 +95,7 @@ public final class LoginTestHelper {
     public HttpHeaders buildHeaders(final EntityExchangeResult<LoginResponse> loginResponse) {
         final LoginResponse lr = loginResponse.getResponseBody();
         final String accessToken = Optional.ofNullable(lr)
-            .map(LoginResponse::getAccessToken)
+            .map(responseBody -> responseBody.getAccessToken())
             .orElse(null);
 
         final HttpHeaders headers = new HttpHeaders();

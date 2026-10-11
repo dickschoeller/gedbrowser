@@ -2,9 +2,6 @@ package org.schoellerfamily.geoservice.persistence.mongo.domain;
 
 import org.schoellerfamily.geoservice.persistence.GeoCodeItem;
 import org.schoellerfamily.geoservice.persistence.domain.GeoDocument;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 import com.google.maps.model.GeocodingResult;
 
@@ -15,18 +12,15 @@ import com.google.maps.model.GeocodingResult;
  */
 public final class GeoDocumentMongo implements GeoDocument {
     /** */
-    @Id
     private String name;
 
     /** */
-    @Indexed
     private String modernName;
 
     /** */
     private GeocodingResult result;
 
     /** */
-    @Transient
     private GeoCodeItem geoItem;
 
     /**
@@ -90,5 +84,19 @@ public final class GeoDocumentMongo implements GeoDocument {
     @Override
     public void setGeoItem(final GeoCodeItem geoItem) {
         this.geoItem = geoItem;
+    }
+
+    /**
+     * Loads field values directly from persistence.
+     *
+     * @param nameValue place name
+     * @param modernNameValue modern place name
+     * @param resultValue geocoding result
+     */
+    public void loadPersistedValues(final String nameValue, final String modernNameValue,
+            final GeocodingResult resultValue) {
+        this.name = nameValue;
+        this.modernName = modernNameValue;
+        this.result = resultValue;
     }
 }

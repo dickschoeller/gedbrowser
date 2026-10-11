@@ -85,7 +85,9 @@ public final class PersonsController {
         if (!requestUserUtil.hasAdmin()) {
             throw new AccessDeniedException("go away");
         }
-        return crud().createOne(db, person);
+        final ApiPerson created = crud().createOne(db, person);
+        personGeoService.syncPlacesOnCreate(created);
+        return created;
     }
 
     /**
@@ -146,7 +148,8 @@ public final class PersonsController {
             return createDummyLivingPerson(id);
         }
         log.info("entering read person: {}", id);
-        final ApiPerson apiPerson = personCrud.getD2dm().convert(personDoc);
+        final ApiPerson convertedPerson = personCrud.getD2dm().convert(personDoc);
+        final ApiPerson apiPerson = personGeoService.enrichModernPlaces(convertedPerson);
         final List<PlaceInfo> places = personGeoService.fetchPlaces(person, util);
         return apiPerson.toBuilder().places(places).build();
     }
@@ -213,7 +216,11 @@ public final class PersonsController {
             throw new AccessDeniedException("go away");
         }
         log.info("entering update person: {}", id);
-        return crud().updateOne(db, id, person);
+        final PersonCrud personCrud = (PersonCrud) crud();
+        final ApiPerson existing = personCrud.readOne(db, id);
+        personGeoService.syncPlacesOnUpdate(existing, person);
+        final ApiPerson updated = personCrud.updateOne(db, id, person);
+        return updated;
     }
 
     /**

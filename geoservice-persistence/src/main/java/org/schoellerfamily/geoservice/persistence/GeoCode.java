@@ -69,12 +69,23 @@ public interface GeoCode {
     long size();
 
     /**
-     * Add this item to the data set.
+     * Add this item to the data set, replacing any existing entry for the same
+     * place name.
      *
      * @param item the item
      * @return the item
      */
     GeoCodeItem add(GeoCodeItem item);
+
+    /**
+     * Update the item in the data set for the same place name.
+     *
+     * @param item the item
+     * @return the item
+     */
+    default GeoCodeItem update(final GeoCodeItem item) {
+        return add(item);
+    }
 
     /**
      * Delete this item from the data set.
