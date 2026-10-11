@@ -49,7 +49,7 @@ jobs:
     - name: Build with Maven
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dickschoeller_gedbrowser
+      run: mvn --version && mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dickschoeller_gedbrowser
 
     - name: Publish to coveralls.io
       uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2
