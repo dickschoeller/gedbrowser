@@ -4669,10 +4669,10 @@ primeicons@^8.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-8.0.2.tgz#2bdcc8a9679791e7dd20b65c2c32121cd1aa5b38"
   integrity sha512-o3UQey3nXMEQRAudVYZZWswz6mmnWpPnksYb7wIu4rEEVfdS3pLnxnmSJx5gKBRMer1MxnhJZG5QRDxVVJFNkA==
 
-primeng@22.1.1:
-  version "22.1.1"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-22.1.1.tgz#9baf99babdc02763fbc7a2d279681b7282daacf2"
-  integrity sha512-8dHx4EfBmcw4alCH14JottEwwt5nQkT5/IZYW7zMWLECrVkE54ydEPwRCb7hXQ4rS/vbsLtSWFQxIlBP/Pbtkg==
+primeng@22.1.2:
+  version "22.1.2"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-22.1.2.tgz#c024c74e7cd40fadcb8b3cbd9c5d99b1a560c83a"
+  integrity sha512-GHF3t3K+qIoFlhHMPyj3yKXabEl0Or4UOLcHCVvKeJmlMy4g2i5Z9IWEejaQkaoij4pEMz4172rmnq9Mv2V05Q==
   dependencies:
     "@primeicons/angular" "^8.0.0"
     "@primeui/license-manager" "^1.0.0"
