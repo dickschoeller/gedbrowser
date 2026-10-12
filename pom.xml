@@ -63,7 +63,7 @@
     <tomcat-embed.version>11.0.27</tomcat-embed.version>
     <!-- -->
     <micronaut.version>5.2.15</micronaut.version>
-    <micronaut.security.version>5.4.0</micronaut.security.version>
+    <micronaut.security.version>5.5.0</micronaut.security.version>
     <micronaut.test.version>5.2.0</micronaut.test.version>
     <micronaut-maven-plugin.version>5.0.2</micronaut-maven-plugin.version>
 
