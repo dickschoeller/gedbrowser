@@ -39,7 +39,7 @@
     "font-awesome": "^4.7.0",
     "fstream": "^1.0.12",
     "hammerjs": "^2.0.8",
-    "lightgallery": "^2.8.3",
+    "lightgallery": "^3.0.0",
     "ngx-page-scroll": "^17.0.0",
     "ngx-page-scroll-core": "^17.0.0",
     "npm": "12.2.0",

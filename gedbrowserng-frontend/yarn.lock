@@ -3785,10 +3785,10 @@ lie@3.1.1:
   dependencies:
     immediate "~3.0.5"
 
-lightgallery@^2.8.3:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/lightgallery/-/lightgallery-2.9.0.tgz#b3b6e15169eb9b840f70e14d67b9ec0a213cc612"
-  integrity sha512-58Ud1DyhD2ao58t+kPEqSZrjFxg23tGd5ZKr75erm7q31g5xhUtWUJH3sTUkhHzlyJAKHj5eTrJ37HQRXG4Wbg==
+lightgallery@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/lightgallery/-/lightgallery-3.0.0.tgz#9c922020eea623a0080fabde7c78d5f8f6b92f05"
+  integrity sha512-UBzeo4rO1qeyG/hFRth5fzNebAnkpn5mfYzHUV3QAkOVh5mql6uK5QCq5M5wwmtdwuCeFDYsbctErxAKCkFUsQ==
 
 lightningcss-android-arm64@1.33.0:
   version "1.33.0"
