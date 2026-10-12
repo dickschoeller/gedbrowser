@@ -25,9 +25,13 @@ jobs:
       with:
         java-version: '25.0.4+101.0.LTS'
         distribution: 'temurin'
-        mvn-version: '3.9.12'
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }}/config # location for the settings.xml file
+
+    - name: Pin Maven Version
+      uses: s4u/setup-maven-action@v1.21.0
+      with:
+        maven-version: '3.9.12'
 
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@0db69880d3c2305e6297f8edbb8f0a82139f754c # v1.12.1
