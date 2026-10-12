@@ -28,6 +28,11 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }}/config # location for the settings.xml file
 
+    - name: Pin Maven Version
+      uses: s4u/setup-maven-action@v1.21.0
+      with:
+        maven-version: '3.9.12'
+
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@0db69880d3c2305e6297f8edbb8f0a82139f754c # v1.12.1
       with:
@@ -49,7 +54,7 @@ jobs:
     - name: Build with Maven
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dickschoeller_gedbrowser
+      run: mvn --version && mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dickschoeller_gedbrowser
 
     - name: Publish to coveralls.io
       uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2
