@@ -974,6 +974,19 @@
   resolved "https://registry.yarnpkg.com/@keyv/serialize/-/serialize-1.1.1.tgz#0c01dd3a3483882af7cf3878d4e71d505c81fc4a"
   integrity sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==
 
+"@lightgallery/angular@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@lightgallery/angular/-/angular-3.0.0.tgz#6d1be91d6807ef408f8c2ae74a468ba91eb73196"
+  integrity sha512-lYccYzcilo8jf7uic24aIhLD2ZKEnnqsocMFCscEC7T8hYVZKCfZw/Bs+erslipl+zQtJJsLxPVcNzxIg0GRVg==
+  dependencies:
+    "@lightgallery/headless" "^3.0.0"
+    tslib "^2.6.0"
+
+"@lightgallery/headless@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@lightgallery/headless/-/headless-3.0.0.tgz#f0c15a1efb1ad299daa63ec467eae0ad70ff06de"
+  integrity sha512-6lip9x+jmsC4ou52T99/qcXiTWVnrMYZIy8BmsEDJaauViPr2RENTChgxiYP6UXWOVebyxUjC4JyTmKMZX13+Q==
+
 "@listr2/prompt-adapter-inquirer@4.2.7":
   version "4.2.7"
   resolved "https://registry.yarnpkg.com/@listr2/prompt-adapter-inquirer/-/prompt-adapter-inquirer-4.2.7.tgz#d3181be7f06af459e89aeed4b57208e92e9368ff"
@@ -2770,9 +2783,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.5.439:
-  version "1.5.452"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.452.tgz#eb404201969cefcaaf8c5ee82b1a1bbb19cd7b8b"
-  integrity sha512-cVvk1YBSj6571VmV6hdJTqj94Y79xSu8cj6Y9t6ae4Y4431z8/7EJFvu3rVp90xhfuv9BpPKUmaLfTo4+FOGBg==
+  version "1.5.453"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.453.tgz#6b0c7e9e659a6f537c185973319859f6514d5e9b"
+  integrity sha512-9r/nz9akllr3SZsHUhfK10ktUH6j0Dbo3cKdh91khw0FvR6HhXGnATmOq5X8ena2aq4GXLQ1koh3nvKaQJaNmQ==
 
 emoji-regex@^10.3.0:
   version "10.6.0"
@@ -3780,10 +3793,10 @@ lie@3.1.1:
   dependencies:
     immediate "~3.0.5"
 
-lightgallery@^2.8.3:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/lightgallery/-/lightgallery-2.9.0.tgz#b3b6e15169eb9b840f70e14d67b9ec0a213cc612"
-  integrity sha512-58Ud1DyhD2ao58t+kPEqSZrjFxg23tGd5ZKr75erm7q31g5xhUtWUJH3sTUkhHzlyJAKHj5eTrJ37HQRXG4Wbg==
+lightgallery@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/lightgallery/-/lightgallery-3.0.0.tgz#9c922020eea623a0080fabde7c78d5f8f6b92f05"
+  integrity sha512-UBzeo4rO1qeyG/hFRth5fzNebAnkpn5mfYzHUV3QAkOVh5mql6uK5QCq5M5wwmtdwuCeFDYsbctErxAKCkFUsQ==
 
 lightningcss-android-arm64@1.33.0:
   version "1.33.0"
@@ -4157,7 +4170,7 @@ mute-stream@^4.0.0:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-4.0.0.tgz#3b04c237748aa7a2c93d8b5093cb001eaca1fbeb"
   integrity sha512-gSrprq0fJ3EiOErzjdIZrjysVVmJ4uu1QWfCDss5LypA5OXvrMje5Ym5z6V6RLyJ2eF87lasX7t6a0AnFvZblg==
 
-nanoid@^3.3.19:
+nanoid@^3.3.20:
   version "3.3.20"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.20.tgz#dfd4444d85aa10111ef66ba85ed72e08ba0855d8"
   integrity sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==
@@ -4636,11 +4649,11 @@ postcss-selector-parser@^7.0.0:
     util-deprecate "^1.0.2"
 
 postcss@^8.4.49, postcss@^8.5.28, postcss@^8.5.29:
-  version "8.5.29"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.29.tgz#086a0ded2c0257c71efb8c68776b477774714b4a"
-  integrity sha512-49cGhUbXj8Qenv0iTMxA1cFBzxXoctpC9Ujd77t1WcbJIr6nF/eI7g/8MgxrYldFRuAXvja7xQRwavoW7kgrxQ==
+  version "8.5.30"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.30.tgz#f76f192357d2b7026b651fd2c7baa60d05325a9e"
+  integrity sha512-zkd+e9S1AQHhmaBKye9zlFHWjOwVgqXl1q3ECYy8561K7qxR2cREf/STLskulBFd78k6AOFeA+ff1TtEzk9bAA==
   dependencies:
-    nanoid "^3.3.19"
+    nanoid "^3.3.20"
     picocolors "^1.1.1"
     source-map-js "^1.2.2"
 
@@ -5495,7 +5508,7 @@ ts-node@~10.9.0:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-tslib@^2, tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.6.2:
+tslib@^2, tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.6.0, tslib@^2.6.2:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==

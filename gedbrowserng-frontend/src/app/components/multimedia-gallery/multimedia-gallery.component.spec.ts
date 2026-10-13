@@ -54,11 +54,10 @@ describe('MultimediaGalleryComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize lightgallery settings', () => {
+  it('should initialize lightgallery features', () => {
     component.ngOnInit();
-    expect(component.lightGallerySettings).toBeDefined();
-    expect(component.lightGallerySettings.thumbnail).toBe(true);
-    expect(component.lightGallerySettings.download).toBe(false);
+    expect(component.galleryFeatures).toBeDefined();
+    expect(component.galleryFeatures.length).toBeGreaterThan(0);
   });
 
   it('should return empty array for undefined multimedia', () => {

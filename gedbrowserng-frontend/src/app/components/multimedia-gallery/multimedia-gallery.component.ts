@@ -1,11 +1,8 @@
 import { Component, OnInit, Input, Inject, ChangeDetectorRef, OnChanges, SimpleChanges, AfterViewChecked } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LightgalleryModule } from 'lightgallery/angular';
-import { LightGallerySettings } from 'lightgallery/lg-settings';
-import { BeforeSlideDetail, InitDetail } from 'lightgallery/lg-events';
-import lgThumbnail from 'lightgallery/plugins/thumbnail';
-import lgVideo from 'lightgallery/plugins/video';
-import type { LightGallery } from 'lightgallery/lightgallery';
+import { LgGalleryComponent, LgGalleryItemDirective, type InitDetail, type LgFeature, type LgGalleryHandle, type LgGalleryItem, type SlideEventDetail } from '@lightgallery/angular';
+import { withThumbnail } from '@lightgallery/angular/plugins/thumbnail';
+import { withVideo } from '@lightgallery/angular/plugins/video';
 
 import { HasMultimedia, Saveable } from '../../interfaces';
 import { ApiAttribute, MultimediaDialogData } from '../../models';
@@ -38,9 +35,9 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
     @if (showMultimedia) {
         @if (galleryImagesList.length) {
             <mat-card-content class="custom-section-colors">
-                <lightgallery [settings]="lightGallerySettings" [onInit]="onGalleryInit" [onBeforeSlide]="onBeforeSlide" class="custom-section-colors">
+                <lg-gallery [features]="galleryFeatures" [counter]="true" [download]="false" (init)="onGalleryInit($event)" (beforeSlide)="onBeforeSlide($event)" class="custom-section-colors">
                     @for (image of galleryImagesList; track image.url; let i = $index) {
-                        <a [href]="image.url" [attr.data-src]="image.mediaType === 'video' ? null : image.url" [attr.data-poster]="image.mediaType === 'video' ? image.small : null" [attr.data-sub-html]="escapeHtml(image.description) || 'Image'" [attr.data-gallery-index]="i" [attr.data-video]="image.mediaType === 'video' ? image.videoData : null" class="multimedia-thumb-wrapper">
+                        <a [href]="image.url" [lgGalleryItem]="lightGalleryItems[i]" class="multimedia-thumb-wrapper">
                             <img [src]="image.small" [alt]="image.description || 'Image'" class="multimedia-thumb multimedia-video-preview" />
                             @if (image.mediaType === 'video' || image.mediaType === 'youtube') {
                                 <div class="multimedia-video-play">
@@ -59,7 +56,7 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
                             }
                         </a>
                     }
-                </lightgallery>
+                </lg-gallery>
             </mat-card-content>
         }
         @if (!galleryImagesList.length) {
@@ -78,7 +75,7 @@ import { MultimediaAddButtonComponent } from '../multimedia-add-button/multimedi
         '.multimedia-thumb-action:hover { background: rgba(0, 0, 0, 0.9) !important; }',
         '.multimedia-thumb-action .fa { font-size: 16px; }'
     ],
-    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, MultimediaAddButtonComponent, MatCardContent, LightgalleryModule]
+    imports: [MatCard, MatCardTitle, MatToolbar, MatIconButton, MatIcon, MultimediaAddButtonComponent, MatCardContent, LgGalleryComponent, LgGalleryItemDirective]
 })
 export class MultimediaGalleryComponent implements OnInit, OnChanges, AfterViewChecked, HasMultimedia {
     @Input() dataset: string;
@@ -87,26 +84,21 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, AfterViewC
     @Input() styleClass: string;
 
     galleryImagesList: Array<GalleryImage> = [];
+    lightGalleryItems: Array<LgGalleryItem> = [];
     selectedImageIndex = 0;
     dialogIndex = -1;
     showMultimedia = true;
-    lightGallerySettings: LightGallerySettings = {
-        plugins: [lgThumbnail, lgVideo],
-        thumbnail: true,
-        download: false,
-        counter: true,
-        selector: 'a'
-    };
+    galleryFeatures: Array<LgFeature> = [withThumbnail(), withVideo()];
 
-    onBeforeSlide = (detail: BeforeSlideDetail): void => {
+    onBeforeSlide(detail: SlideEventDetail): void {
         this.selectedImageIndex = detail.index;
-    };
+    }
 
-    onGalleryInit = (detail: InitDetail): void => {
+    onGalleryInit(detail: InitDetail): void {
         this.lightGallery = detail.instance;
-    };
+    }
 
-    private lightGallery?: LightGallery;
+    private lightGallery?: LgGalleryHandle;
     private needGalleryRefresh = false;
 
     constructor(
@@ -197,6 +189,7 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, AfterViewC
     private refreshGalleryImages(): void {
         if (!this.multimedia || this.multimedia.length === 0) {
             this.galleryImagesList = [];
+            this.lightGalleryItems = [];
             this.selectedImageIndex = 0;
             this.needGalleryRefresh = true;
             return;
@@ -204,12 +197,48 @@ export class MultimediaGalleryComponent implements OnInit, OnChanges, AfterViewC
 
         try {
             this.galleryImagesList = ImageUtil.galleryImages(this.multimedia);
+            this.lightGalleryItems = this.galleryImagesList.map((image) => this.buildGalleryItem(image));
             this.selectedImageIndex = Math.min(this.selectedImageIndex, Math.max(0, this.galleryImagesList.length - 1));
         } catch {
             this.galleryImagesList = [];
+            this.lightGalleryItems = [];
             this.selectedImageIndex = 0;
         }
         this.needGalleryRefresh = true;
+    }
+
+    private buildGalleryItem(image: GalleryImage): LgGalleryItem {
+        const caption = image.description || 'Image';
+        if (image.mediaType === 'video') {
+            return {
+                src: image.url,
+                thumb: image.small,
+                poster: image.small,
+                alt: caption,
+                caption,
+                video: this.parseVideoData(image.videoData)
+            };
+        }
+
+        return {
+            src: image.url,
+            thumb: image.small,
+            poster: image.mediaType === 'youtube' ? image.small : undefined,
+            alt: caption,
+            caption
+        };
+    }
+
+    private parseVideoData(videoData?: string): unknown {
+        if (!videoData) {
+            return undefined;
+        }
+
+        try {
+            return JSON.parse(videoData);
+        } catch {
+            return undefined;
+        }
     }
 
     private forceViewRefresh(): void {
