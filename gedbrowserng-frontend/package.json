@@ -32,7 +32,7 @@
     "@iplab/ngx-file-upload": "^22.0.0",
     "@lightgallery/angular": "^3.0.0",
     "@primeng/themes": "^21.0.4",
-    "@snyk/protect": "1.1308.0",
+    "@snyk/protect": "1.1308.1",
     "braces": "^3.0.3",
     "core-js": "3.50.0",
     "diff": "9.0.0",
