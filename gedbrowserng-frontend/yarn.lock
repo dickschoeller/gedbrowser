@@ -1890,10 +1890,10 @@
     "@sigstore/core" "^4.0.1"
     "@sigstore/protobuf-specs" "^0.5.0"
 
-"@snyk/protect@1.1308.0":
-  version "1.1308.0"
-  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.1308.0.tgz#1e41816f4c3d3eb6bd3f7b687fd0a988f5b3f48a"
-  integrity sha512-P0KksVV0GEvK0LZ5dpYCczG7c0S9aarH7Ytil3/KW3CsPvBaS60jHnGNK9tS2cD0d2f6bLzv4Ef7wuFyY/vtFg==
+"@snyk/protect@1.1308.1":
+  version "1.1308.1"
+  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.1308.1.tgz#e6feadbba0f714cfb05843deec735c24aafb6736"
+  integrity sha512-S8wNa/Syp8dzZTh/bvBT40qRfycAmK9Rcp9Jz9XdysC44Jrd02muiCYUTiguv/cwcumLHuF7GA1ImgKP6OYcCQ==
 
 "@standard-schema/spec@^1.0.0":
   version "1.1.0"
