@@ -45,7 +45,7 @@
     "ngx-page-scroll-core": "^17.0.0",
     "npm": "12.2.0",
     "primeicons": "^8.0.0",
-    "primeng": "22.1.2",
+    "primeng": "22.1.3",
     "rxjs": "^7.8.2",
     "snyk": "1.1308.1",
     "sshpk": "^1.16.1",
