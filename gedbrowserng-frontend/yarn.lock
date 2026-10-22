@@ -1588,19 +1588,19 @@
   dependencies:
     "@primeuix/utils" "^0.6.1"
 
-"@primeuix/styled@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@primeuix/styled/-/styled-1.1.0.tgz#60bc1b5cb6f007993363d2c599a96243bea0ee18"
-  integrity sha512-Bkd8hRgui1quRPmi/FBRfTDS6/mwaUUiOFPSWZpUpqMqs3mz4ESrDG/oylh7knJsTxuLWa4YbwqPWy6c/Ray3w==
+"@primeuix/styled@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@primeuix/styled/-/styled-1.2.0.tgz#8ef8bcdefe8642db3ce605c0319b52cec22cf757"
+  integrity sha512-PaZ2CMkMGcW03XO3CawHbCCxB9rj0IFKj/7lOmNLYw9s4UqgeleJVii2BJ7P0Un3OxIG7oU9wnjsamrp1QFchQ==
   dependencies:
     "@primeuix/utils" "^0.8.3"
 
-"@primeuix/styles@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@primeuix/styles/-/styles-3.0.2.tgz#2951e2c1320967951a4f7dc26af8804c1193e143"
-  integrity sha512-Xt02aEFPIINCcd2M0vVz95u3fsJnZFP31jxjx7qFDVKhHrCI2g9pOkNQszdNoF1dmkvazxGjy0Ch2n8dSOHKbg==
+"@primeuix/styles@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@primeuix/styles/-/styles-3.1.0.tgz#c414cb885d5aeace9598bf97cad7d6246cb4747e"
+  integrity sha512-xl1e8gcUhsqu1YgGIUe3R/PSKJHk88NMVwnOTVZZfptx955Rw0GkwvhRaeBh9iPVz4p5b7t9OiGJDWOu2qpX0Q==
   dependencies:
-    "@primeuix/styled" "^1.1.0"
+    "@primeuix/styled" "^1.2.0"
 
 "@primeuix/themes@^2.0.2":
   version "2.0.3"
@@ -4676,16 +4676,16 @@ primeicons@^8.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-8.0.2.tgz#2bdcc8a9679791e7dd20b65c2c32121cd1aa5b38"
   integrity sha512-o3UQey3nXMEQRAudVYZZWswz6mmnWpPnksYb7wIu4rEEVfdS3pLnxnmSJx5gKBRMer1MxnhJZG5QRDxVVJFNkA==
 
-primeng@22.1.3:
-  version "22.1.3"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-22.1.3.tgz#4cfd9b81cb1efacf583f0f20c24d4e553851b4ce"
-  integrity sha512-MIVDpWgYmXJLtSxIEJTq5l3uung9scRkHbVUkKZ6KW4s9ODZWGb8IwZan88Rn6LxQKf5thzDla/h4wLbi1ImYA==
+primeng@22.1.4:
+  version "22.1.4"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-22.1.4.tgz#3fe18306c65b0298addbd91b2e7ef6d74247a0c9"
+  integrity sha512-sUCNTOvHpUeG/TjRYBdsViVuKOJjoDNA8MCPT1FxSoxLNzRFXF0cAAffZor3d2i4GD6CB32nxbVyQhGBQO24Sw==
   dependencies:
     "@primeicons/angular" "^8.0.0"
     "@primeui/license-manager" "^1.0.0"
     "@primeuix/motion" "^1.0.0"
-    "@primeuix/styled" "^1.1.0"
-    "@primeuix/styles" "^3.0.2"
+    "@primeuix/styled" "^1.2.0"
+    "@primeuix/styles" "^3.1.0"
     "@primeuix/utils" "^0.8.3"
     tslib "^2.3.0"
 
