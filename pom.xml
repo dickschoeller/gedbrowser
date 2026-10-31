@@ -103,7 +103,7 @@
     <jacoco-plugin.version>0.8.16</jacoco-plugin.version>
     <spotbugs-plugin.version>4.10.5.0</spotbugs-plugin.version>
     <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
-    <checkstyle-version>14.3.0</checkstyle-version>
+    <checkstyle-version>14.4.0</checkstyle-version>
     <pmd-plugin.version>3.28.0</pmd-plugin.version>
     <pmd-version>7.29.0</pmd-version>
     <build-helper-plugin.version>3.6.2</build-helper-plugin.version>
