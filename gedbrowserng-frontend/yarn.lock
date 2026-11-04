@@ -144,10 +144,10 @@
     "@oxc-parser/binding-wasm32-wasi" "0.150.0"
     lmdb "3.5.6"
 
-"@angular/cdk@22.2.5":
-  version "22.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-22.2.5.tgz#beecbbd20c479fdf205ce1e8f3dc34b85092e6a5"
-  integrity sha512-cqECOwdhi82r2cWFf9QWgtt2rX5dWWaMMxyiYChGS3NX3b7yqWXzWzA39i8igYGqI4PfarBUbVDYqGSmAd8wew==
+"@angular/cdk@22.2.6":
+  version "22.2.6"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-22.2.6.tgz#6c83ca882e8687e72d5e1ae805b00e168227ebba"
+  integrity sha512-BNAEN+NTWneKcWLi6ZSvbHA99O2AcSQjvnKG/Fa7V9eB+WgXhDRTrfa8qSx2zb57NjFnmABgPWIVkvF76VymEQ==
   dependencies:
     parse5 "^8.0.0"
     tslib "^2.3.0"
@@ -221,10 +221,10 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-22.2.4.tgz#f8d5f814253eeb72b3045288aea49bbf9f85d436"
   integrity sha512-68/nCIjlDzujoitDCM5n5zdd+Vi/TMTlVXO34XiqWgZjqhfO9410Cq9Y0m6o5LMGlPX6pQlpW/kPXb/oQMYNjg==
 
-"@angular/material@22.2.5":
-  version "22.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-22.2.5.tgz#f601b24a9f702218c9e9ed4dc78063834c9b755f"
-  integrity sha512-ewWa2VDaPdb5iQ5LZGrlvaTXPwAlPKmNL3UhOqzZ/sjrQqyfrNDPrE+Wc71GyNgm7xd+C3/VmZWcjvS4ptk5+A==
+"@angular/material@22.2.6":
+  version "22.2.6"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-22.2.6.tgz#996eec791b9552cb7325aa137fc6e109ebf5fc5b"
+  integrity sha512-0omVezTSYPTI3B0bYNqJucx4xBYZWVm/vmkSICqGhy+OTntANX2a4TIdfMYgGh4g4NQ+tbtXa5GJBdW/Qp+jFg==
   dependencies:
     tslib "^2.3.0"
 
