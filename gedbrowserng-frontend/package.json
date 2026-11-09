@@ -76,7 +76,7 @@
     "@vitest/coverage-v8": "5.1.0",
     "eslint": "10.14.0",
     "express": "^5.0.0",
-    "express-rate-limit": "8.7.3",
+    "express-rate-limit": "8.7.4",
     "jsdom": "31.0.0",
     "puppeteer": "25.16.0",
     "ts-node": "~10.9.0",
