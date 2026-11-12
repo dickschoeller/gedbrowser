@@ -1594,10 +1594,10 @@
   dependencies:
     "@primeuix/utils" "^0.8.3"
 
-"@primeuix/styles@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@primeuix/styles/-/styles-3.1.0.tgz#c414cb885d5aeace9598bf97cad7d6246cb4747e"
-  integrity sha512-xl1e8gcUhsqu1YgGIUe3R/PSKJHk88NMVwnOTVZZfptx955Rw0GkwvhRaeBh9iPVz4p5b7t9OiGJDWOu2qpX0Q==
+"@primeuix/styles@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@primeuix/styles/-/styles-3.1.1.tgz#c828520d4f7e0c8748c231b80573cebf15b0fdd3"
+  integrity sha512-7ujpnhU5cU/ZCE/RoQJoKBFJEV6OWZSILWipEk8yfXnaNnED3jmBsG/qATv8DhLEJeJPiCGE2t64iWyfwSDBjg==
   dependencies:
     "@primeuix/styled" "^1.2.0"
 
@@ -4710,16 +4710,16 @@ primeicons@^8.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-8.0.2.tgz#2bdcc8a9679791e7dd20b65c2c32121cd1aa5b38"
   integrity sha512-o3UQey3nXMEQRAudVYZZWswz6mmnWpPnksYb7wIu4rEEVfdS3pLnxnmSJx5gKBRMer1MxnhJZG5QRDxVVJFNkA==
 
-primeng@22.1.4:
-  version "22.1.4"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-22.1.4.tgz#3fe18306c65b0298addbd91b2e7ef6d74247a0c9"
-  integrity sha512-sUCNTOvHpUeG/TjRYBdsViVuKOJjoDNA8MCPT1FxSoxLNzRFXF0cAAffZor3d2i4GD6CB32nxbVyQhGBQO24Sw==
+primeng@22.1.5:
+  version "22.1.5"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-22.1.5.tgz#99e7622c922f8cc30ac9f46e4a843ae460ffa401"
+  integrity sha512-Ku4ErzAmSOep7QSLa3iByHJIisTMtLB+Ec25tp2hrJvj0FZjyg9gddLZ8hN5q9sOG3qw1U3ZqUehAdLlRC3PRg==
   dependencies:
     "@primeicons/angular" "^8.0.0"
     "@primeui/license-manager" "^1.0.0"
     "@primeuix/motion" "^1.0.0"
     "@primeuix/styled" "^1.2.0"
-    "@primeuix/styles" "^3.1.0"
+    "@primeuix/styles" "^3.1.1"
     "@primeuix/utils" "^0.8.3"
     tslib "^2.3.0"
 
