@@ -38,18 +38,6 @@
     rxjs "7.8.2"
     source-map "0.8.0"
 
-"@angular-devkit/core@22.2.7":
-  version "22.2.7"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-22.2.7.tgz#a3a0388b083a660ed0b2f46ced10f803fcc4c4e3"
-  integrity sha512-cchZAMsV4d76RDZBlWzPhYxM/Hb6bmq71oUngdrwehMbBbdQu3W9C2tGlvxuPxbRKru9ZlUa14YVXQ0+QnhFtw==
-  dependencies:
-    ajv "8.20.0"
-    ajv-formats "3.0.1"
-    jsonc-parser "3.3.1"
-    picomatch "4.0.7"
-    rxjs "7.8.2"
-    source-map "0.8.0"
-
 "@angular-devkit/core@22.3.0":
   version "22.3.0"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-22.3.0.tgz#15fb6c95cccf37e945829414b31418c4d980b34d"
