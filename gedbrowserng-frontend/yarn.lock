@@ -5586,21 +5586,21 @@ sync-message-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/sync-message-port/-/sync-message-port-1.2.0.tgz#4b0d622085f21496061037125dec61755d96e330"
   integrity sha512-gAQ9qrUN/UCypHtGFbbe7Rc/f9bzO88IwrG8TDo/aMKAApKyD6E3W4Cm0EfhfBb6Z6SKt59tTCTfD+n1xmAvMg==
 
-tar-fs@3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/tar-fs/-/tar-fs-3.1.3.tgz#05668cc68a30741c3813f9c16593b8dec7dcbcd1"
-  integrity sha512-/hU4AXnIdZu+Gvl1pk0oI5f5HxWsCJRtY2aFaJdk9VvyL48DWU6iU5WAIPG+wIi1YvWA6eTJvIviP/tMAZZNwQ==
+tar-fs@3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/tar-fs/-/tar-fs-3.1.4.tgz#87ad2bd08fd2a859c366bc622a601deeafe85706"
+  integrity sha512-S0lrlrJkynj6otwBGsd+1YHWvbgac42+LeHavSzgokehNdiRg1D4eGFDi1cceiG1fQlSTnnss+agdRQl5Bb1DA==
   dependencies:
     pump "^3.0.0"
-    tar-stream "^3.1.5"
+    tar-stream "^3.3.0"
   optionalDependencies:
     bare-fs "^4.0.1"
     bare-path "^3.0.0"
 
-tar-stream@^3.1.5:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/tar-stream/-/tar-stream-3.2.2.tgz#aec7f257e712192a177a93aa0450c2e76855c8be"
-  integrity sha512-+8NeqHRjQWH9nYlwo2gamAMImZCVzI4UoEgDpWorBt9OEfppiZn+uSkskzQKPWIZyji/C8fpWO7u69G0DX0tbg==
+tar-stream@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/tar-stream/-/tar-stream-3.3.0.tgz#93e508d9032c8524c79623b5c9aaf24611259a58"
+  integrity sha512-rQZZfW2Q4YDCFJyP8KFDG+gfMzcOHaMYq0gb9jzH2gsK0P5qXVpu+UoKE1qaZcs3/R6QVkJr2228nlZoM1V5PA==
   dependencies:
     b4a "^1.9.0"
     bare-fs "^4.8.2"
