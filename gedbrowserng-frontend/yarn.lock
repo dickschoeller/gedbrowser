@@ -3550,9 +3550,9 @@ graceful-fs@^4.1.2, graceful-fs@^4.2.11, graceful-fs@^4.2.6:
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
 
 hammerjs@^2.0.8:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.9.tgz#0f5f650ce143e0c5a99cbbaa28931786fdc101a4"
-  integrity sha512-lOkx/LMYDVffNFkBvLSehI5ubhffRVghREyoy59rXfuldBNw5IBLedmajRmVt/01c431BKz/L2WeVH8nsr+KBw==
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.10.tgz#8148f5204b89fada91d09fc960fe4d5ca96ea819"
+  integrity sha512-DiE7YOin4llGUKAENkcX6k3fPlTaTocH7kw3bclnavUxQ6z+wRsbf0Dl7EyPi/WluWqVkb6Wn6Lj02gwOJ/TJQ==
 
 has-flag@^4.0.0:
   version "4.0.0"
