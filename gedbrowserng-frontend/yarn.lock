@@ -5735,16 +5735,10 @@ tar-stream@^3.3.0:
     fast-fifo "^1.3.2"
     streamx "^2.28.1"
 
-tar@7.5.24:
-  version "7.5.24"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-7.5.24.tgz#fc6e4eba45b5ac893f63457f090484df3639b8dc"
-  integrity sha512-to/OxuCk5DeVONcjjODT7aeoRq5NIPPlfPc0tNML+wLlnf6u5BcJz97Uukv3pT3jzorkFhUevylkAiBr+ZmV2w==
-  dependencies:
-    "@isaacs/fs-minipass" "^4.0.0"
-    chownr "^3.0.0"
-    minipass "^7.1.2"
-    minizlib "^3.1.0"
-    yallist "^5.0.0"
+tar@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-8.0.2.tgz#75e8c5ba3ab8cc835e553a7fde7ab264a5571265"
+  integrity sha512-1keL/dBVXwzliTinVjILeV/qZ2K3NNVFpg4JM1h3REOUJFamSLZmzVbCJXS6mF91//NwSaCbQ0gqmNwzE+ExCA==
 
 tar@^7.4.3, tar@^7.5.1, tar@^7.5.22, tar@^7.5.7:
   version "7.5.22"
